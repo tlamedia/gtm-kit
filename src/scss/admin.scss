@@ -1,0 +1,762 @@
+.gtmkit-admin-page {
+	margin-top: 20px;
+}
+
+#gtmkit-title {
+	padding: 16px 0;
+}
+
+.gtmkit_content_wrapper {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+
+	label.select,
+	label.textinput {
+		float: left;
+		width: 200px;
+		margin: 5px 0;
+	}
+
+	input.textinput, select, textarea {
+		width: 400px;
+	}
+
+	.description {
+		margin: 5px;
+	}
+
+	.success {
+		color: #00a32a;
+	}
+
+	input[type="radio"] {
+		margin-bottom: -4px;
+	}
+}
+
+#gtmkit_content_top {
+	width: 100%;
+	padding-right: 5%;
+}
+
+.gtmkit_content_cell {
+	display: table-cell;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+.gtmkit-help-panel {
+	display: none;
+	clear: both;
+	max-width: 75em !important;
+	padding: 0 0 1em;
+	font-weight: 400;
+	white-space: normal;
+}
+
+.gtmkit-tab {
+	margin: 30px 10px;
+
+	*,
+	*::before,
+	*::after {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.form-table {
+		margin-top: 20px;
+
+		th,
+		td {
+			padding-top: 16px;
+			padding-bottom: 16px;
+		}
+	}
+}
+
+nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover {
+	border-bottom: 1px solid #f0f0f1;
+	background: #f0f0f1;
+	color: #000;
+}
+
+.gtmkit-tab.active {
+	display: block;
+}
+.gtmkit-tab {
+	display: none;
+}
+
+.gtmkit_help.yoast-help-button {
+	margin-right: 6px;
+}
+.help-button-inline .gtmkit_help.gtmkit-help-button {
+	margin-top: -4px;
+}
+.gtmkit_help.gtmkit-help-button, .gtmkit_help.gtmkit-help-link {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	margin-top: 0px;
+	margin-right: 0px;
+	padding: 0;
+	border: 0;
+	outline: none;
+	color: #72777c;
+	background: 0 0;
+	box-shadow: none;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+
+.gtmkit_help.gtmkit-help-button, .gtmkit_help.gtmkkit-help-link {
+	color: #72777c;
+	cursor: pointer;
+}
+
+
+.gtmkit_help .gtmkit-help-icon::before {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 4px;
+	content: "\f223";
+
+}
+
+.gtmkit-form-legend {
+	font-size: 14px;
+	font-weight: 600;
+}
+.form-table td fieldset label {
+
+	font-size: 13px;
+
+	&.radio {
+		line-height: 1;
+	}
+}
+
+#sidebar-container {
+	width: 300px;
+	padding-left: 20px;
+	padding-top: 10px;
+
+	h3 {
+		padding: 8px 12px;
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	ul {
+		margin: 1em;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.inside {
+		background: #fff;
+		border-left: 0;
+		border-right: 0;
+	}
+
+	#credit {
+		text-align: center;
+		font-size: 10px;
+		color: #888;
+		line-height: 3em;
+		margin: 3em 0;
+		min-width: 255px;
+	}
+
+}
+
+
+
+.gtmkit-clear {
+	&:before {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+		content: " ";
+		display: table;
+	}
+}
+
+// Setting rows, eg field row.
+.gtmkit-setting-row {
+	border-bottom: 1px solid #e4e4e4;
+	padding: 30px 0;
+	font-size: 14px;
+	line-height: 1.3;
+
+	&:first-of-type {
+		padding-top: 10px !important;
+	}
+
+	&.inactive {
+		display: none;
+	}
+
+	.gtmkit-setting-mid-row-sep {
+		background: #e4e4e4;
+		height: 1px;
+		border: 0;
+		margin: 15px 0;
+	}
+
+	// Section heading.
+	&.section-heading {
+		padding: 20px 0;
+
+		&.no-desc {
+			h2,
+			h4 {
+				margin: 0;
+			}
+		}
+
+		.gtmkit-setting-field {
+			margin: 0;
+			max-width: 1005px;
+		}
+	}
+
+	// Checkbox settings field.
+	&.gtmkit-setting-row-checkbox {
+
+		input[type=checkbox] {
+			float: left;
+			margin: 1px 0 0 0;
+		}
+
+		input[type=checkbox] + label {
+			margin: 0 0 0 8px;
+			vertical-align: baseline;
+		}
+
+		.desc {
+			margin: 0 0 0 30px;
+		}
+
+		input[type=checkbox] + label + .desc {
+			margin: 8px 0 0 0;
+		}
+	}
+
+	// Text based settings field.
+	&.gtmkit-setting-row-text,
+	&.gtmkit-setting-row-password,
+	&.gtmkit-setting-row-number,
+	&.gtmkit-setting-row-email {
+
+		.gtmkit-setting-label {
+			padding-top: 8px;
+		}
+	}
+
+	// Select settings field.
+	&.gtmkit-setting-row-select {
+
+		.gtmkit-setting-label {
+			padding-top: 8px;
+		}
+	}
+
+	// Radio settings field.
+	&.gtmkit-setting-row-radio {
+
+		.gtmkit-setting-field {
+
+			input[type=radio] {
+				margin: -3px 10px 0 0;
+			}
+
+			label {
+				margin-right: 30px;
+				display: inline-block;
+			}
+		}
+
+	}
+
+	// Radio settings field.
+	&.gtmkit-setting-row-checkbox-toggle {
+
+		.gtmkit-setting-field {
+
+			label {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+			input[type=checkbox] {
+				position: absolute;
+				top: auto;
+				overflow: hidden;
+				clip: rect(1px, 1px, 1px, 1px);
+				width: 1px;
+				height: 1px;
+				white-space: nowrap;
+
+				&:checked + .gtmkit-setting-toggle-switch {
+					background-color: #00a32a;
+
+					&:before {
+						-webkit-transform: translateX(16px);
+						-ms-transform: translateX(16px);
+						transform: translateX(16px);
+					}
+				}
+
+				&:disabled {
+					&:checked:hover + .gtmkit-setting-toggle-switch,
+					&:not(:checked):hover + .gtmkit-setting-toggle-switch {
+						box-shadow: none;
+					}
+
+					&:not(:checked):hover + .gtmkit-setting-toggle-switch {
+						background-color: #ddd;
+					}
+
+					& + .gtmkit-setting-toggle-switch {
+						background-color: #ddd;
+						cursor: default;
+					}
+
+					&:checked + .gtmkit-setting-toggle-switch {
+						background-color: lighten(#00a32a, 25);
+						cursor: default;
+					}
+				}
+
+				&:checked + .gtmkit-setting-toggle-switch + .gtmkit-setting-toggle-checked-label {
+					display: inline-block;
+				}
+
+				&:checked + .gtmkit-setting-toggle-switch + .gtmkit-setting-toggle-checked-label + .gtmkit-setting-toggle-unchecked-label {
+					display: none;
+				}
+
+				&:disabled + .gtmkit-setting-toggle-switch + .gtmkit-setting-toggle-checked-label,
+				&:disabled + .gtmkit-setting-toggle-switch + .gtmkit-setting-toggle-unchecked-label {
+					color: lighten(#444, 40);
+				}
+
+				&:checked:hover,
+				&:checked:focus {
+					& + .gtmkit-setting-toggle-switch {
+						box-shadow: 0 0 0 1px #fff, 0 0 0 3px #00a32a;
+					}
+				}
+
+				&:not(:checked):hover,
+				&:not(:checked):focus {
+					& + .gtmkit-setting-toggle-switch {
+						background-color: #999;
+						box-shadow: 0 0 0 1px #fff, 0 0 0 3px #999;
+					}
+				}
+			}
+
+			.gtmkit-setting-toggle-unchecked-label,
+			.gtmkit-setting-toggle-checked-label {
+				text-transform: uppercase;
+				font-weight: 400;
+				color: #777;
+				font-size: 13px;
+			}
+
+			.gtmkit-setting-toggle-checked-label {
+				display: none;
+			}
+
+			.gtmkit-setting-toggle-switch {
+				position: relative;
+				cursor: pointer;
+				background-color: #ccc;
+				border-radius: 15px;
+				-webkit-transition: all 0.2s ease-in-out;
+				-moz-transition:    all 0.2s ease-in-out;
+				-ms-transition:     all 0.2s ease-in-out;
+				transition:         all 0.2s ease-in-out;
+				vertical-align: middle;
+				display: inline-block;
+				margin: 0 5px 0 0;
+				width: 36px;
+				height: 20px;
+
+				&:before {
+					position: absolute;
+					content: "";
+					height: 16px;
+					width: 16px;
+					left: 2px;
+					top: 2px;
+					background-color: #fff;
+					border-radius: 50%;
+					-webkit-transition: all 0.2s ease-in-out;
+					-moz-transition:    all 0.2s ease-in-out;
+					-ms-transition:     all 0.2s ease-in-out;
+					transition:         all 0.2s ease-in-out;
+				}
+			}
+		}
+	}
+
+	// Mailer image radio settings field.
+	&.gtmkit-setting-row-mailer {
+		padding-bottom: 20px;
+
+		.gtmkit-mailers {
+
+			.gtmkit-mailer {
+				display: inline-block;
+				width: 140px;
+				margin-right: 12px;
+				margin-bottom: 12px;
+				position: relative;
+
+				.gtmkit-mailer-image {
+					background: #fff;
+					text-align: center;
+					border: 2px solid #E5E5E5;
+					border-radius: 4px;
+					cursor: pointer;
+					height: 76px;
+					position: relative;
+					margin-bottom: 10px;
+					-webkit-transition: all 0.2s ease-in-out;
+					-moz-transition: all 0.2s ease-in-out;
+					-ms-transition: all 0.2s ease-in-out;
+					transition: all 0.2s ease-in-out;
+
+					&.is-recommended {
+						background-image: url(../images/recommended.svg);
+						background-repeat: no-repeat;
+						background-size: 60%;
+						background-position: top right -2px;
+					}
+
+					img {
+						max-width: 80%;
+						max-height: 40px;
+						display: block;
+						position: relative;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						opacity: 0.6;
+						-webkit-transition: all 0.2s ease-in-out;
+						-moz-transition: all 0.2s ease-in-out;
+						-ms-transition: all 0.2s ease-in-out;
+						transition: all 0.2s ease-in-out;
+					}
+				}
+
+				&.gtmkit-mailer-smtp .gtmkit-mailer-image img {
+					max-height: 30px
+				}
+
+				&.active {
+					.gtmkit-mailer-image {
+						border-color: #FF982D;
+
+						img {
+							opacity: 1;
+						}
+					}
+				}
+
+				&:hover {
+					.gtmkit-mailer-image {
+						border-color: #ccc;
+
+						img {
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// General elements.
+	h2, h4 {
+		color: #444;
+		font-size: 20px;
+		font-weight: 700;
+		margin: 0 0 6px 0;
+	}
+
+	h2 {
+		margin-bottom: 15px;
+	}
+
+	h3 {
+		color: #444;
+		font-size: 24px;
+		font-weight: 600;
+		margin: 0 0 20px 0;
+	}
+
+	h5 {
+		color: #444;
+		font-size: 16px;
+		font-weight: 600;
+		margin: 0 0 20px 0;
+	}
+
+	p {
+		margin: 12px 0 0;
+		font-size: 14px;
+		line-height: 1.5em;
+
+		&:first-of-type {
+			margin: 8px 0 0;
+		}
+
+		&.desc {
+			font-style: italic;
+			color: #777;
+		}
+		&.buttonned {
+			margin-top: 30px;
+		}
+
+		&.inline-notice {
+			margin: 5px 0 15px;
+			box-sizing: border-box;
+			background: #fff;
+			border-left: 4px solid transparent;
+			box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+
+			&.inline-error {
+				border-color: #dc3232;
+				margin-bottom: 5px;
+				padding: 10px;
+			}
+			&.inline-edu-notice {
+				border-color: #809EB0;
+				line-height: 1.5em;
+				padding: 10px;
+			}
+
+			a.gtmkit-mailer-notice-dismiss {
+				float: right;
+				color: #999DA1;
+				margin: 0 0 10px 10px;
+				text-decoration: none;
+
+				&:hover {
+					color: darken(#999DA1, 20%);
+				}
+			}
+		}
+	}
+
+	ul {
+		margin: 8px 0 0;
+
+		&.list {
+			li {
+				margin-left: 20px;
+				list-style-type: disc;
+			}
+		}
+	}
+
+	table {
+		&.actions-list {
+			td, th {
+				padding: 5px 5px 5px 0;
+				text-align: left;
+			}
+
+			td {
+				&.email {
+					padding-right: 2em;
+				}
+				&.status {
+					width: 100px;
+				}
+				&.actions {
+					a {
+						border-bottom: 1px solid;
+						display: inline-block;
+						margin-right: 5px;
+						text-decoration: none;
+
+						&[class*=delete],
+						&[class*=error] {
+							color: #a00;
+
+							&:hover, &:active, &:focus {
+								color: darken( #a00, 20 );
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	// Form elements.
+	input[type=text],
+	input[type=email],
+	input[type=number],
+	input[type=password],
+	select {
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		box-shadow: none;
+		color: #333;
+		display: inline-block;
+		vertical-align: middle;
+		padding: 7px 12px;
+		margin: 0 10px 0 0;
+		width: 400px;
+		min-height: 35px;
+		line-height: 1.3;
+
+
+
+		&[readonly] {
+			background-color: #f9f9f9;
+		}
+
+		&.small-text {
+			width: 75px;
+		}
+
+		&:focus {
+			border: 1px solid #016AAB;
+			box-shadow: 0 0 0 1px #016AAB;
+			outline: none;
+		}
+
+		&:disabled {
+			opacity: 0.6;
+		}
+	}
+
+	input[type=checkbox],
+	input[type=radio] {
+		&:focus {
+			border: 1px solid #016AAB;
+			box-shadow: 0 0 0 1px #016AAB;
+			outline: none;
+		}
+	}
+
+	// Animate dashicon yes icon when clicking on copy button.
+	.gtmkit-dashicons-yes-alt-green {
+		&.gtmkit-animate {
+			-webkit-animation: gtmkit-fade-in-stop-out 1s linear;
+			animation: gtmkit-fade-in-stop-out 1s linear;
+		}
+
+		&.gtmkit-success {
+			color: #00a32a;
+		}
+	}
+}
+
+// Row label (left).
+.gtmkit-setting-label {
+	display: block;
+	float: left;
+	width: 225px;
+	padding: 0 20px 0 0;
+
+	label {
+		display: block;
+		font-weight: 600;
+	}
+}
+
+// Row field (right).
+.gtmkit-setting-field {
+	display: block;
+	margin: 0 0 0 225px;
+	max-width: 800px;
+
+	hr {
+		margin: 20px 0;
+	}
+
+	.gtmkit-setting-field-row {
+		display: flex;
+		flex-wrap: wrap;
+
+		& > .gtmkit-btn {
+			margin-right: 10px;
+		}
+	}
+}
+
+.gtmkit_radio_block {
+	line-height: 20px;
+}
+
+[class^="gtmkit-dashicons"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.gtmkit-dashicons-yes-alt-green {
+	background-image: url('../images/icons/dashicons/dashicons-yes-alt-green.svg');
+}
+
+.gtmkit-dashicons-pdf-gray {
+	background-image: url('../images/icons/dashicons/dashicons-pdf-grey.svg');
+}
+
+code {
+	font-style: normal;
+}
+
+.gtmkit_section_message {
+	&.space-top {
+		margin-top: 100px;
+	}
+
+	&.warning {
+		margin-top: 10px;
+		width: fit-content;
+	}
+
+	width: 75%;
+
+	h3 {
+		padding: 8px 12px;
+		margin: 0;
+		line-height: 1.4;
+
+		.version {
+			color: #777;
+			font-size: 12px;
+			margin-left: 8px;
+			font-weight: 400;
+		}
+	}
+
+	ul {
+		margin: 1em;
+	}
+}

@@ -1,0 +1,510 @@
+# Copyright (C) 2022 TLA Media
+# This file is distributed under the GPL v3.
+msgid ""
+msgstr ""
+"Project-Id-Version: GTM Kit 0.19\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
+"POT-Creation-Date: 2022-08-26 08:10:04+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.6\n"
+
+#: inc/main.php:44
+msgid "Go to GTK Kit Settings page"
+msgstr ""
+
+#: inc/main.php:45
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/AdminNotice.php:43
+msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:49 src/Admin/GeneralOptionsPage.php:127
+msgid "Dashboard"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:58 src/Admin/GeneralOptionsPage.php:128
+msgid "Container"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:67 src/Admin/GeneralOptionsPage.php:129
+#: src/views/tabs/general/post_data.php:18
+msgid "Post data"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:73 src/Admin/GeneralOptionsPage.php:130
+#: src/views/tabs/general/help.php:18
+msgid "Help"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:101
+msgid "General"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:110
+msgid "General Settings"
+msgstr ""
+
+#: src/Admin/IntegrationsOptionsPage.php:27
+#: src/Admin/IntegrationsOptionsPage.php:64
+#: src/Admin/IntegrationsOptionsPage.php:73
+#: src/views/tabs/integrations/integrations.php:18
+msgid "Integrations"
+msgstr ""
+
+#: src/Admin/IntegrationsOptionsPage.php:90
+#: src/views/tabs/general/dashboard.php:18
+msgid "Overview"
+msgstr ""
+
+#: src/Admin/OptionsForm.php:133 src/Admin/OptionsForm.php:137
+msgid "Save changes"
+msgstr ""
+
+#: src/Admin/OptionsForm.php:240
+msgid "On"
+msgstr ""
+
+#: src/Admin/OptionsForm.php:241
+msgid "Off"
+msgstr ""
+
+#: src/Admin/OptionsForm.php:384
+msgid "(not set)"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:160
+msgid "Handpicked Products"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:161
+msgid "Best Sellers"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:162 src/Integration/WooCommerce.php:651
+msgid "Product Category"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:163
+msgid "New Products"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:164
+msgid "Products On Sale"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:165
+msgid "Products By Attribute"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:166 src/Integration/WooCommerce.php:653
+msgid "Product Tag"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:167
+msgid "Top Rated Products"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:168
+msgid "shipping tier not found"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:544
+msgid "Grouped Product"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:578
+msgid "Search Results"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:578 src/Integration/WooCommerce.php:619
+#: src/Integration/WooCommerce.php:642
+msgid "General Product List"
+msgstr ""
+
+#: src/views/admin-sidebar.php:13
+msgid "Support"
+msgstr ""
+
+#: src/views/admin-sidebar.php:16
+msgid "If you are having problems with this plugin, please talk about them in the"
+msgstr ""
+
+#: src/views/admin-sidebar.php:17
+msgid "Support forum"
+msgstr ""
+
+#: src/views/admin-sidebar.php:19
+msgid "You can also find documentation and examples of implementations on the"
+msgstr ""
+
+#: src/views/admin-sidebar.php:20
+msgid "plugin homepage"
+msgstr ""
+
+#: src/views/admin-sidebar.php:26
+msgid "About this Plugin"
+msgstr ""
+
+#: src/views/admin-sidebar.php:29
+msgid "Plugin Homepage"
+msgstr ""
+
+#: src/views/admin-sidebar.php:30
+msgid "Plugin at Wordpress.org"
+msgstr ""
+
+#: src/views/tabs/general/container.php:18
+msgid "Google Tag Manager container"
+msgstr ""
+
+#: src/views/tabs/general/container.php:20
+msgid "Set Container ID and implementation method."
+msgstr ""
+
+#: src/views/tabs/general/container.php:26
+msgid "Find your GTM container ID on %1$sGoogle Tag Manager%2$s."
+msgstr ""
+
+#: src/views/tabs/general/container.php:31
+msgid "Container ID:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:36
+msgid "Container Active"
+msgstr ""
+
+#: src/views/tabs/general/container.php:37
+msgid "Removes the container code for use with custom implementations."
+msgstr ""
+
+#: src/views/tabs/general/container.php:41
+msgid "Google Tag Manager container code"
+msgstr ""
+
+#: src/views/tabs/general/container.php:45
+#: src/views/tabs/general/container.php:58
+msgid "Container code implementation:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:48
+msgid "Standard implementation as recommended by Google"
+msgstr ""
+
+#: src/views/tabs/general/container.php:51
+msgid "Load container when browser is idle (requestIdleCallback)"
+msgstr ""
+
+#: src/views/tabs/general/container.php:54
+msgid "Load container 2 seconds after browser is idle (requestIdleCallback + timer)"
+msgstr ""
+
+#: src/views/tabs/general/container.php:60
+msgid ""
+"Depending on how you use Google Tag Manager you can delay the loading of "
+"the container script until the browser is idle. You can furthermore extend "
+"te delay with a timer."
+msgstr ""
+
+#: src/views/tabs/general/container.php:66
+msgid "Container code <code>&lt;noscript&gt;</code> implementation:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:70
+msgid "Just after the opening &lt;body&gt; tag"
+msgstr ""
+
+#: src/views/tabs/general/container.php:73
+msgid "Footer of the page (not recommended by Google)"
+msgstr ""
+
+#: src/views/tabs/general/container.php:76
+msgid "Custom (insert function in your template)"
+msgstr ""
+
+#: src/views/tabs/general/container.php:79
+msgid "Disable &lt;noscript&gt; implementation"
+msgstr ""
+
+#: src/views/tabs/general/container.php:84
+msgid "Container code implementation"
+msgstr ""
+
+#: src/views/tabs/general/container.php:86
+msgid ""
+"The preferred method to implement the &lt;noscript&gt; container code is "
+"just after the opening &lt;body&gt; tag."
+msgstr ""
+
+#: src/views/tabs/general/container.php:87
+msgid "This requires that your theme uses the \"body_open\" hook."
+msgstr ""
+
+#: src/views/tabs/general/container.php:88
+msgid ""
+"If your theme does not support this the script can be injected in the "
+"footer or you can use the function below."
+msgstr ""
+
+#: src/views/tabs/general/container.php:96
+msgid ""
+"The default name of the data layer object is dataLayer. If you prefer to "
+"use a different name for your data layer, you may do."
+msgstr ""
+
+#: src/views/tabs/general/container.php:97
+msgid "dataLayer variable name:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:101
+msgid "GTM Server Side"
+msgstr ""
+
+#: src/views/tabs/general/container.php:104
+msgid "GTM Server Side Domain:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:104
+msgid ""
+"Enter your custom domain name if you are using a custom server side GTM "
+"container for tracking"
+msgstr ""
+
+#: src/views/tabs/general/container.php:106
+msgid "sGTM container identifier:"
+msgstr ""
+
+#: src/views/tabs/general/container.php:106
+msgid "Only use if you are using a custom loader"
+msgstr ""
+
+#: src/views/tabs/general/dashboard.php:30
+msgid "GTM container is active"
+msgstr ""
+
+#: src/views/tabs/general/dashboard.php:34
+msgid "GTM container is not active"
+msgstr ""
+
+#: src/views/tabs/general/dashboard.php:44
+msgid "About GTM Kit"
+msgstr ""
+
+#: src/views/tabs/general/dashboard.php:47
+msgid ""
+"The goal of GTM Kit is to provide a flexible tool for generating the data "
+"layer for Google Tag Manager."
+msgstr ""
+
+#: src/views/tabs/general/help.php:25
+msgid "Override settings in wp-config.php"
+msgstr ""
+
+#: src/views/tabs/general/help.php:28
+msgid "True activates constants support and false turns it off"
+msgstr ""
+
+#: src/views/tabs/general/help.php:29
+msgid "The GTM container ID"
+msgstr ""
+
+#: src/views/tabs/general/help.php:30
+msgid "Or true, in which case the constant is ignored"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:20
+msgid ""
+"Specify which post data elements you wish to include in the dataLayer for "
+"use in Google Tag Manager."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:26
+msgid "Post type"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:27
+msgid "include the type of the current post or archive page."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:32
+msgid "Categories"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:33
+msgid "include the categories of the current post or archive page."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:38
+msgid "Tags"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:39
+msgid "include the tags of the current post or archive page."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:44
+msgid "Post title"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:50
+msgid "Post ID"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:51
+msgid "include the Post ID of the current post."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:56
+msgid "Post date"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:57
+msgid "include the post date."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:62
+msgid "Post author name"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:63
+msgid "include the post author name."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:68
+msgid "Post author ID"
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:69
+msgid "include the post author ID."
+msgstr ""
+
+#: src/views/tabs/integrations/integrations.php:22
+msgid "Integrations summary."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:18
+msgid "WooCommerce Integration"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:20
+msgid "The #1 open source eCommerce platform built for WordPress"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:28
+msgid ""
+"Google Analytics 3 (Universal Analytics) properties will stop collecting "
+"data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce "
+"with Google Analytics 3 (Universal Analytics)."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:29
+msgid "It’s recommended that you create a Google Analytics 4 property instead."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:38
+msgid "Track WooCommerce"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:39
+msgid "Choose this option if you would like to track e-commerce data."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:58
+msgid "Brand"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:63
+msgid "Use SKU instead of ID"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:64
+msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:69
+msgid "Exclude tax"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:70
+msgid "Exclude tax from prices and revenue"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:75
+#: src/views/tabs/integrations/woocommerce.php:76
+msgid "Exclude shipping from revenue"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:80
+msgid "Event: add_shipping_info"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:83
+#: src/views/tabs/integrations/woocommerce.php:100
+msgid "When the 'Place order' button is clicked"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:86
+msgid ""
+"When a shipment method is selected with fallback to the 'Place order' "
+"button."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:89
+msgid "Disable the 'add_shipment_info' event."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:92
+msgid "When do you want to fire the \"add_shipment_info\" event?"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:97
+msgid "Event: add_payment_info"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:103
+msgid "When a payment method is selected with fallback to the 'Place order' button."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:106
+msgid "Disable the 'add_payment_info' event."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:109
+msgid "When do you want to fire the \"add_payment_info\" event?"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:115
+msgid "Dequeue Default JS"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:116
+msgid ""
+"Enable this option to dequeue the default JavaScript if you plan to create "
+"your own JavaScript."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "GTM Kit"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://gtmkit.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "TLA Media"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.tlamedia.dk/"
+msgstr ""

@@ -1,0 +1,35 @@
+{
+  "name": "tlamedia/gtm-kit",
+  "description": "Development files for the GTM Kit",
+  "keywords": [
+    "wordpress",
+    "gtm"
+  ],
+  "homepage": "https://gtmkit.com/",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "TLA Media",
+      "email": "kontakt@tlamedia.dk",
+      "homepage": "https://www.tlamedia.dk"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require": {
+    "php": "^7.2 || ^8.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "TLA\\GTM_Kit\\": "src/"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "7.2.0"
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
