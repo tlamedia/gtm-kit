@@ -33,10 +33,12 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 </div>
 
 <?php
-$form->checkbox_toggle(
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_integration',
-	__('Track WooCommerce', 'gtmkit'),
-	__('Choose this option if you would like to track e-commerce data.', 'gtmkit')
+	__( 'Track WooCommerce', 'gtmkit' ),
+	[],
+	__( 'Choose this option if you would like to track e-commerce data.', 'gtmkit' )
 );
 
 $taxonomies = get_taxonomies(
@@ -49,36 +51,47 @@ $taxonomies = get_taxonomies(
 	'and'
 );
 
-$select_options = [];
+$field_data = [];
+$field_data['options'] = [];
 
 foreach ( $taxonomies as $taxonomy ) {
-	$select_options[ $taxonomy->name ] = $taxonomy->label;
+	ray('test');
+	$field_data['options'][ $taxonomy->name ] = $taxonomy->label;
 }
 
-$form->select( 'woocommerce_brand', __( 'Brand', 'gtmkit' ), $select_options );
+$form->setting_row(
+	'select',
+	'woocommerce_brand',
+	__( 'Brand', 'gtmkit' ),
+	$field_data
+);
 
-
-$form->checkbox_toggle(
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_use_sku',
 	__('Use SKU instead of ID', 'gtmkit'),
+	[],
 	__('Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtmkit')
 );
 
-$form->checkbox_toggle(
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_exclude_tax',
 	__('Exclude tax', 'gtmkit'),
+	[],
 	__('Exclude tax from prices and revenue', 'gtmkit')
 );
 
-$form->checkbox_toggle(
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_exclude_shipping',
 	__('Exclude shipping from revenue', 'gtmkit'),
+	[],
 	__('Exclude shipping from revenue', 'gtmkit')
 );
 
-
-$label = __( 'Event: add_shipping_info', 'gtmkit' );
-$codeImplementationOptions = [
+$field_data = [];
+$field_data['options'] = [
 	1 => [
 		'label'      => __("When the 'Place order' button is clicked", 'gtmkit'),
 	],
@@ -89,13 +102,18 @@ $codeImplementationOptions = [
 		'label'      => __("Disable the 'add_shipment_info' event.", 'gtmkit'),
 	]
 ];
-$legend      = __( 'When do you want to fire the "add_shipment_info" event?', 'gtmkit' );
+$field_data['legend'] = __( 'When do you want to fire the "add_shipment_info" event?', 'gtmkit' );
+$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
-$form->radio( 'woocommerce_shipping_info', $label, $codeImplementationOptions, $legend );
+$form->setting_row(
+	'radio',
+	'woocommerce_shipping_info',
+	__( 'Event: add_shipping_info', 'gtmkit' ),
+	$field_data
+);
 
-
-$label = __( 'Event: add_payment_info', 'gtmkit' );
-$codeImplementationOptions = [
+$field_data = [];
+$field_data['options'] = [
 	1 => [
 		'label'      => __("When the 'Place order' button is clicked", 'gtmkit'),
 	],
@@ -106,12 +124,20 @@ $codeImplementationOptions = [
 		'label'      => __("Disable the 'add_payment_info' event.", 'gtmkit'),
 	]
 ];
-$legend      = __( 'When do you want to fire the "add_payment_info" event?', 'gtmkit' );
+$field_data['legend'] = __( 'When do you want to fire the "add_payment_info" event?', 'gtmkit' );
+$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
-$form->radio( 'woocommerce_payment_info', $label, $codeImplementationOptions, $legend );
+$form->setting_row(
+	'radio',
+	'woocommerce_payment_info',
+	__( 'Event: add_payment_info', 'gtmkit' ),
+	$field_data
+);
 
-$form->checkbox_toggle(
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_dequeue_script',
 	__('Dequeue Default JS', 'gtmkit'),
+	[],
 	__('Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtmkit')
 );

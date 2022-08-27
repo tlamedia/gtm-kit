@@ -619,10 +619,13 @@ class WooCommerce {
 			$list_name = __( 'General Product List', 'gtmkit' );
 		}
 
-		echo $this->get_item_data_tag(
-			$product,
-			$list_name,
-			$woocommerce_loop['loop']
+		echo wp_kses(
+			$this->get_item_data_tag(
+				$product,
+				$list_name,
+				$woocommerce_loop['loop']
+			),
+			['span' => []]
 		);
 	}
 

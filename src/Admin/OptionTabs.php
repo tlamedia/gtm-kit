@@ -119,7 +119,9 @@ class OptionTabs {
 	 */
 	public function display( OptionsForm $form ): void {
 
-		echo '<div class="nav-tab-wrapper" id="gtmkit-tabs">';
+		?>
+		<div class="nav-tab-wrapper" id="gtmkit-tabs">
+		<?php
 		foreach ( $this->get_tabs() as $tab ) {
 			printf(
 				'<a class="nav-tab" id="%1$s" href="%2$s">%3$s</a>',
@@ -128,7 +130,9 @@ class OptionTabs {
 				esc_html( $tab->get_label() )
 			);
 		}
-		echo '</div>';
+		?>
+		</div>
+		<?php
 
 		foreach ( $this->get_tabs() as $tab ) {
 			$identifier = $tab->get_name();

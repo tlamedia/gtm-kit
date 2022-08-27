@@ -33,5 +33,5 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 </div>
 <div id="credit">
 	Developed by<br/>
-	<a href="https://www.tlamedia.dk/"><img src="<?php echo GTMKIT_URL . 'assets/images/tla-media.svg'; ?>" width="170" height="70" alt="TLA Media"/></a>
+	<a href="https://www.tlamedia.dk/"><img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/tla-media.svg' ); ?>" width="170" height="70" alt="TLA Media"/></a>
 </div>

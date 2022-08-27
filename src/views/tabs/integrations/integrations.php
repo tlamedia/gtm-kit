@@ -15,7 +15,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2>
-		<?php echo esc_html__( 'Integrations', 'gtmkit' ); ?>
+		<?php esc_html_e( 'Integrations', 'gtmkit' ); ?>
 	</h2>
 </div>
 

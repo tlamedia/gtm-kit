@@ -155,19 +155,4 @@ abstract class AbstractOptionsPage {
 
 	}
 
-	/**
-	 * Create a postbox widget
-	 */
-	function dashboard_widget( string $id, string $title, string $content ): void {
-		?>
-		<div id="<?php echo $id; ?>" class="postbox">
-			<h3><span><?php echo $title; ?></span></h3>
-			<div class="inside">
-				<?php echo $content; ?>
-			</div><!-- .inside -->
-		</div><!-- #<?php echo $id; ?> .postbox -->
-		<?php
-	}
-
-
 }

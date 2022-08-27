@@ -58,18 +58,14 @@ class OptionsForm {
 	public function admin_header( bool $form = true, string $option_name = 'gtmkit', string $option_group = 'general', string $settings_group = '' ): void {
 		?>
 	<div class="wrap gtmkit-admin-page <?php echo esc_attr( 'page-' . $option_group ); ?>">
-		<img src="<?php echo GTMKIT_URL . 'assets/images/logo.svg'; ?>" width="140" height="54" alt="GTM Kit"/>
+		<img src="<?php echo esc_url(GTMKIT_URL . 'assets/images/logo.svg'); ?>" width="140" height="54" alt="GTM Kit"/>
 		<h1 id="gtmkit-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<div class="gtmkit_content_wrapper">
 			<div class="gtmkit_content_cell" id="gtmkit_content_top">
 		<?php
 		if ( $form === true ) {
 
-			printf(
-				'<form action="%s" method="post" id="gtmkit-conf" accept-charset="%s" novalidate="novalidate">',
-				esc_url( admin_url( 'options.php' ) ),
-				esc_attr( get_bloginfo( 'charset' ) )
-			);
+			echo '<form action="' . esc_url( admin_url( 'options.php' ) ) . '" method="post" id="gtmkit-conf" accept-charset="' . esc_attr( get_bloginfo( 'charset' ) ) . '" novalidate="novalidate">';
 
 			settings_fields( $settings_group );
 		}
@@ -90,33 +86,56 @@ class OptionsForm {
 	/**
 	 * Add setting row.
 	 *
+	 * @param string $type The option type
 	 * @param string $variable The option variable
 	 * @param string $label The option label
-	 * @param string $setting_field The setting field
+	 * @param array $field_data Optional setting field data
 	 * @param string $description Optional description
-	 *
-	 * @return string
 	 */
-	public function setting_row( string $variable, string $label, string $setting_field, string $description = '' ): string {
-		$content = '<div class="gtmkit-setting-row gtmkit-setting-row-checkbox-toggle gtmkit-clear">';
-		$content .= '<div class="gtmkit-setting-label">';
+	public function setting_row( string $type, string $variable, string $label, array $field_data = [], string $description = '' ): void {
+		?>
+		<div class="gtmkit-setting-row gtmkit-setting-row-<?php echo esc_html( $type); ?> gtmkit-clear">
+			<div class="gtmkit-setting-label">
+				<?php if ( $label ): ?>
+					<label for="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>">
+						<?php echo wp_kses( $label, 'code' ); ?>
+					</label>
+				<?php endif; ?>
+			</div>
+			<div class="gtmkit-setting-field">
+				<?php $this->setting_field( $type, $variable, $field_data ) ?>
+				<?php if ( ! empty( $description ) ): ?>
+					<p class="desc">
+						<?php echo wp_kses( $description, ['a' => [], 'br' => []] ); ?>
+					</p>
+				<?php endif; ?>
+			</div>
+		</div>
+		<?php
+	}
 
-		if ( $label ) {
-			$content .= '<label for="gtmkit-setting-' . esc_attr( $variable ) . '">' . $label . '</label>';
+	/**
+	 * Add setting row.
+	 *
+	 * @param array $data
+	 */
+	public function setting_field( string $type, string $variable, array $field_data = [] ): void {
+
+		switch ( $type ) {
+			case 'checkbox-toggle':
+				$this->checkbox_toggle_field( $variable, $field_data );
+				break;
+			case 'text-input':
+				$this->text_input_field( $variable, $field_data );
+				break;
+			case 'radio':
+				$this->radio_fieldset( $variable, $field_data );
+				break;
+			case 'select':
+				$this->select( $variable, $field_data );
+				break;
 		}
 
-		$content .= '</div>';
-		$content .= '<div class="gtmkit-setting-field">';
-		$content .= $setting_field;
-
-		if ( ! empty( $description ) ) {
-			$content .= '<p class="desc">' . $description . '</p>';
-		}
-
-		$content .= '</div>';
-		$content .= '</div>';
-
-		return $content;
 	}
 
 	/**
@@ -127,31 +146,34 @@ class OptionsForm {
 	 */
 	public function admin_footer( bool $save_button = true, bool $show_sidebar = true ) {
 		if ( $save_button ) {
-			echo '<div id="gtmkit-submit-container">';
+			?>
+			<div id="gtmkit-submit-container">
+				<div id="gtmkit-submit-container-float" class="gtmkit-admin-submit">
+					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
+				</div>
 
-			echo '<div id="gtmkit-submit-container-float" class="gtmkit-admin-submit">';
-			submit_button( __( 'Save changes', 'gtmkit' ) );
-			echo '</div>';
-
-			echo '<div id="gtmkit-submit-container-fixed" class="gtmkit-admin-submit gtmkit-admin-submit-fixed" style="display: none;">';
-			submit_button( __( 'Save changes', 'gtmkit' ) );
-			echo '</div>';
-
-			echo '</div>';
-
-			echo '</form>';
+				<div id="gtmkit-submit-container-fixed" class="gtmkit-admin-submit gtmkit-admin-submit-fixed" style="display: none;">
+					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
+				</div>
+			</div>
+			</form>
+			<?php
 		}
 
-		echo '</div><!-- end of div gtmkit_content_top -->';
+		?></div><!-- end of div gtmkit_content_top --><?php
 
 		if ( $show_sidebar ) {
-			echo '<div id="sidebar-container" class="gtmkit_content_cell">';
-			$this->admin_sidebar();
-			echo '</div>';
+			?>
+			<div id="sidebar-container" class="gtmkit_content_cell">
+				<?php $this->admin_sidebar(); ?>
+			</div>
+			<?php
 		}
 
-		echo '</div><!-- end of div gtmkit_content_wrapper -->';
-		echo '</div><!-- end of wrap -->';
+		?>
+			</div><!-- end of div gtmkit_content_wrapper -->
+		</div><!-- end of wrap -->'
+		<?php
 	}
 
 	/**
@@ -169,7 +191,7 @@ class OptionsForm {
 	 *
 	 * @return string The HTML label
 	 */
-	public function label( string $text, array $attribute ): string {
+	public function label( string $text, array $attribute ): void {
 		$defaults = [
 			'class'      => 'checkbox',
 			'close'      => true,
@@ -183,12 +205,11 @@ class OptionsForm {
 			$aria_label = ' aria-label="' . esc_attr( $attribute['aria_label'] ) . '"';
 		}
 
-		$output = "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'$aria_label>$text";
+		echo "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'$aria_label>$text";
 		if ( $attribute['close'] ) {
-			$output .= '</label>';
+			echo '</label>';
 		}
 
-		return $output;
 	}
 
 	/**
@@ -199,7 +220,7 @@ class OptionsForm {
 	 *
 	 * @return string The HTML legend
 	 */
-	public function legend( string $text, array $attribute ): string {
+	public function legend( string $text, array $attribute ): void {
 		$defaults = [
 			'id'    => '',
 			'class' => '',
@@ -208,41 +229,46 @@ class OptionsForm {
 
 		$id = ( $attribute['id'] === '' ) ? '' : ' id="' . esc_attr( $attribute['id'] ) . '"';
 
-		return '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '"' . $id . '>' . $text . '</legend>';
+		echo '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '"' . $id . '>' . $text . '</legend>';
 	}
 
 	/**
 	 * Create a Checkbox input toggle.
 	 *
 	 * @param string $variable The variable within the option to create the checkbox for.
-	 * @param string $label The label to show for the variable.
-	 * @param string $description The label description.
 	 * @param array $attribute Extra attributes to add to the checkbox.
 	 */
-	public function checkbox_toggle( string $variable, string $label, string $description = '', array $attribute = [] ): void {
+	public function checkbox_toggle_field( string $variable, array $field_data = [] ): void {
 
-		$val = $this->get_field_value( $variable );
+		$value = $this->get_field_value( $variable );
+
+		$attributes = $field_data['attributes'] ?? [];
 
 		$defaults = [
 			'disabled' => false,
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
+		$attribute = wp_parse_args( $attributes, $defaults );
 
-		if ( $val === true ) {
-			$val = 'on';
+		if ( $value === true ) {
+			$value = 'on';
 		}
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
-
-		$setting_field = '<label for="gtmkit-setting-' . esc_attr( $variable ) . '">';
-		$setting_field .= '<input type="checkbox" id="gtmkit-setting-' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']" value="on"' . checked( $val, 'on', false ) . $disabled_attribute . '/>';
-		$setting_field .= '<span class="gtmkit-setting-toggle-switch"></span>';
-		$setting_field .= '<span class="gtmkit-setting-toggle-checked-label">' . __( 'On', 'gtmkit' ) . '</span>';
-		$setting_field .= '<span class="gtmkit-setting-toggle-unchecked-label">' . __( 'Off', 'gtmkit' ) . '</span>';
-		$setting_field .= '</label>';
-
-		echo $this->setting_row( $variable, $label, $setting_field, $description );
-
+		?>
+		<label for="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>">
+			<input
+				type="checkbox"
+				id="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>"
+				name="<?php echo esc_attr( $this->option_name . '[' . $this->option_group . '][' . $variable . ']' ); ?>"
+				value="on"
+				<?php echo checked( $value, 'on', false ); ?>
+				<?php echo esc_html( $disabled_attribute ); ?>
+			/>
+			<span class="gtmkit-setting-toggle-switch"></span>
+			<span class="gtmkit-setting-toggle-checked-label"><?php esc_html_e( 'On', 'gtmkit' ); ?></span>
+			<span class="gtmkit-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'gtmkit' ); ?></span>
+		</label>
+		<?php
 	}
 
 	/**
@@ -252,32 +278,42 @@ class OptionsForm {
 	 * @param string $label The label to show for the variable.
 	 * @param array $attribute Extra attributes to add to the input field. Can be class, disabled, autocomplete.
 	 */
-	public function text_input( string $variable, string $label, array $attribute = [], string $description = '' ): void {
-		$type = 'text';
-		if ( ! is_array( $attribute ) ) {
-			$attribute = [
-				'class'    => $attribute,
-				'disabled' => false,
-			];
-		}
+	public function text_input_field( string $variable, array $field_data = [] ): void {
+
+		$attributes = $field_data['attributes'] ?? [];
 
 		$defaults = [
 			'placeholder' => '',
 			'class'       => '',
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
-		$val      = $this->get_field_value( $variable, '' );
+		$attribute = wp_parse_args( $attributes, $defaults );
+
+		$value = $this->get_field_value( $variable, '' );
+
+		$type = 'text';
 		if ( isset( $attribute['type'] ) && $attribute['type'] === 'url' ) {
-			$val  = urldecode( $val );
+			$val  = urldecode( $value );
 			$type = 'url';
 		}
 		$attributes = isset( $attribute['autocomplete'] ) ? ' autocomplete="' . esc_attr( $attribute['autocomplete'] ) . '"' : '';
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 
-		$setting_field = '<input' . $attributes . ' class="textinput ' . esc_attr( $attribute['class'] ) . '" placeholder="' . esc_attr( $attribute['placeholder'] ) . '" type="' . $type . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']" value="' . esc_attr( $val ) . '"' . $disabled_attribute . '/>' . '<br class="clear" />';
+		$attributes
+		?>
+		<input
+			<?php echo esc_attr( $attributes ); ?>
+			class="textinput <?php echo esc_attr( $attribute['class'] ); ?>"
+			placeholder="<?php echo esc_attr( $attribute['placeholder'] ); ?>"
+			type="<?php echo esc_attr( $type ); ?>"
+			id="<?php echo esc_attr( $variable ); ?>"
+			name="<?php echo esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']'; ?>"
+			value="<?php echo esc_attr( $value ); ?>"
+			<?php echo esc_html( $disabled_attribute ); ?>
+		/><br class="clear" />
+		<?php
 
-		echo $this->setting_row( $variable, $label, $setting_field, $description );
+
 	}
 
 	/**
@@ -349,48 +385,46 @@ class OptionsForm {
 	 * @param array $attribute Extra attributes to add to the select.
 	 * @param string $help Optional. Inline Help HTML that will be printed after the label. Default is empty.
 	 */
-	public function select( string $variable, string $label, array $select_options, bool $show_label = true, array $attribute = [], string $help = '' ): void {
+	public function select( string $variable, array $fieldset_data = [] ): void {
+
+		if ( ! is_array( $fieldset_data['options'] ) || $fieldset_data['options'] === [] ) {
+			return;
+		}
 
 		$defaults = [
 			'disabled' => false,
+			'attributes' => []
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
-
-		$select_attributes = 'class="select"';
+		$fieldset_data     = wp_parse_args( $fieldset_data, $defaults );
 
 		if ( $this->is_control_disabled( $variable )
-			 || ( isset( $attribute['disabled'] ) && $attribute['disabled'] ) ) {
-			$select_attributes = 'disabled=""';
-		}
-
-		if ( $show_label ) {
-			$label = $this->label(
-				$label,
-				[
-					'for'   => $variable,
-					'class' => 'select',
-				]
-			);
+			 || ( isset( $fieldset_data['disabled'] ) && $fieldset_data['disabled'] ) ) {
+			$disabled = true;
 		} else {
-			$select_attributes .= ' aria-label="' . $label . '"';
-			$label             = '';
+			$disabled = false;
 		}
-
-		$select_name = esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']';
 
 		$active_option = $this->get_field_value( $variable, '' );
 
-		$setting_field = sprintf( '<select %s name="%s" id="%s">', $select_attributes, $select_name, $variable );
-		$setting_field .= sprintf( '<option value="" %s>%s</option>', selected( $active_option, '', false ), __( '(not set)', 'gtmkit' ) );
+		printf(
+			'<select %s name="%s" id="%s">',
+			($disabled) ? 'disabled=""' : 'class="select"',
+			esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']',
+			esc_attr( $variable )
+		);
+		printf( '<option value="" %s>%s</option>', selected( $active_option, '', false ), esc_html__( '(not set)', 'gtmkit' ) );
 
-		foreach ( $select_options as $option_attribute_value => $option_html_value ) {
-			$setting_field .= sprintf( '<option value="%s" %s>%s</option>', $option_attribute_value, selected( $active_option, $option_attribute_value, false ), $option_html_value );
-
+		foreach ( $fieldset_data['options'] as $option_attribute_value => $option_html_value ) {
+			printf(
+				'<option value="%s" %s>%s</option>',
+				esc_attr( $option_attribute_value ),
+				selected( $active_option, $option_attribute_value, false ),
+				esc_html( $option_html_value )
+			);
 		}
 
-		$setting_field .= "</select>";
+		echo "</select>";
 
-		echo $this->setting_row( $variable, $label, $setting_field, $help );
 	}
 
 	/**
@@ -403,62 +437,68 @@ class OptionsForm {
 	 * @param array $legend_attr Optional. The attributes for the legend, if any.
 	 * @param array $attribute Extra attributes to add to the radio button.
 	 */
-	public function radio( string $variable, string $label, array $values, string $legend = '', array $legend_attr = [], string $description = '', array $attribute = [], bool $lineBreak = true ): void {
-		if ( ! is_array( $values ) || $values === [] ) {
+	public function radio_fieldset( string $variable, array $fieldset_data = [] ): void {
+
+		if ( ! is_array( $fieldset_data['options'] ) || $fieldset_data['options'] === [] ) {
 			return;
 		}
-		$val = $this->get_field_value( $variable, false );
 
-		$var_esc = esc_attr( $variable );
+		$field_value = $this->get_field_value( $variable );
 
 		$defaults = [
 			'disabled' => false,
+			'legend' => '',
+			'legend_attr' => [],
+			'line_break' => true,
+			'attributes' => []
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
+		$fieldset_data     = wp_parse_args( $fieldset_data, $defaults );
 
-		$setting_field = '<fieldset class="gtmkit-form-fieldset gtmkit_radio_block" id="' . $var_esc . '">';
+		$var_esc = esc_attr( $variable );
 
-		if ( is_string( $legend ) && $legend !== '' ) {
+		echo '<fieldset class="gtmkit-form-fieldset gtmkit_radio_block" id="' . $var_esc . '">';
+
+		if ( $fieldset_data['legend'] ) {
 
 			$legend_defaults = [
 				'id'    => '',
 				'class' => 'radiogroup',
 			];
 
-			$legend_attr = wp_parse_args( $legend_attr, $legend_defaults );
+			$legend_attr = wp_parse_args( $fieldset_data['legend_attr'], $legend_defaults );
 
-			$setting_field .= $this->legend( $legend, $legend_attr );
+			$this->legend( $fieldset_data['legend'], $legend_attr );
 		}
 
-		foreach ( $values as $key => $value ) {
-			$optionLabel = $value;
+		foreach ( $fieldset_data['options'] as $key => $value ) {
+			$option_label = $value;
 			$aria_label  = '';
 
 			if ( is_array( $value ) ) {
-				$optionLabel = isset( $value['label'] ) ? $value['label'] : '';
+				$option_label = isset( $value['label'] ) ? $value['label'] : '';
 				$aria_label  = isset( $value['aria_label'] ) ? $value['aria_label'] : '';
 			}
 
 			$key_esc = esc_attr( $key );
 
-			$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
+			$disabled_attribute = $this->get_disabled_attribute( $variable, $fieldset_data['attributes'] );
 
-			$setting_field .= '<input type="radio" class="radio" id="' . $var_esc . '-' . $key_esc . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . $var_esc . ']" value="' . $key_esc . '" ' . checked( $val, $key_esc, false ) . $disabled_attribute . ' />';
-			$setting_field .= $this->label(
-				$optionLabel,
+			echo '<input type="radio" class="radio" id="' . $var_esc . '-' . $key_esc . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . $var_esc . ']" value="' . $key_esc . '" ' . checked( $field_value, $key_esc, false ) . $disabled_attribute . ' />';
+
+			$this->label(
+				$option_label,
 				[
 					'for'        => $var_esc . '-' . $key_esc,
 					'class'      => 'radio',
 					'aria_label' => $aria_label,
 				]
 			);
-			if ( $lineBreak ) {
-				$setting_field .= '<br>';
+
+			if ( $fieldset_data['line_break'] ) {
+				echo '<br>';
 			}
 		}
-		$setting_field .= '</fieldset>';
-
-		echo $this->setting_row( $variable, $label, $setting_field, $description );
+		echo '</fieldset>';
 
 	}
 
