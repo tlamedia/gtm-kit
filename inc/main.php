@@ -1,15 +1,15 @@
 <?php
 
-namespace TLA\GTM_Kit;
+namespace TLA_Media\GTM_Kit;
 
-use TLA\GTM_Kit\Admin\AdminNotice;
-use TLA\GTM_Kit\Admin\IntegrationsOptionsPage;
-use TLA\GTM_Kit\Frontend\BasicDatalayerData;
-use TLA\GTM_Kit\Frontend\Frontend;
-use TLA\GTM_Kit\Admin\GeneralOptionsPage;
-use TLA\GTM_Kit\Installation\Installation;
-use TLA\GTM_Kit\Installation\Upgrade;
-use TLA\GTM_Kit\Integration\WooCommerce;
+use TLA_Media\GTM_Kit\Admin\AdminNotice;
+use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
+use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
+use TLA_Media\GTM_Kit\Frontend\Frontend;
+use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
+use TLA_Media\GTM_Kit\Installation\Installation;
+use TLA_Media\GTM_Kit\Installation\Upgrade;
+use TLA_Media\GTM_Kit\Integration\WooCommerce;
 
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
@@ -27,7 +27,7 @@ function plugin_activation(): void {
 	new Installation();
 	do_action( 'gtmkit_activate' );
 }
-register_activation_hook( GTMKIT_FILE, 'TLA\GTM_Kit\plugin_activation' );
+register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\plugin_activation' );
 
 /**
  * Add plugin action links on Plugins page.
@@ -93,11 +93,11 @@ function admin_init(): void {
 if ( ! wp_installing() ) {
 
 	if ( is_admin() ) {
-		add_action( 'plugins_loaded', 'TLA\GTM_Kit\load_text_domain' );
-		add_action( 'plugins_loaded', 'TLA\GTM_Kit\admin_init' );
-		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA\GTM_Kit\add_plugin_action_link', 10, 1 );
+		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\load_text_domain' );
+		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\admin_init' );
+		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\add_plugin_action_link', 10, 1 );
 	} elseif ( ! wp_doing_ajax() ) {
-		add_action( 'plugins_loaded', 'TLA\GTM_Kit\frontend_init' );
+		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\frontend_init' );
 
 	}
 }

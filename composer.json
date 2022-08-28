@@ -22,7 +22,7 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "TLA\\GTM_Kit\\": "src/"
+      "TLA_Media\\GTM_Kit\\": "src/"
     }
   },
   "config": {

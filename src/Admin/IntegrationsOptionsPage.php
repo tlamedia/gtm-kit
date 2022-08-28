@@ -1,6 +1,6 @@
 <?php
 
-namespace TLA\GTM_Kit\Admin;
+namespace TLA_Media\GTM_Kit\Admin;
 
 class IntegrationsOptionsPage extends AbstractOptionsPage {
 

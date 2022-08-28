@@ -1,8 +1,8 @@
 <?php
 
-namespace TLA\GTM_Kit\Installation;
+namespace TLA_Media\GTM_Kit\Installation;
 
-use TLA\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options;
 
 class Installation {
 

@@ -5,9 +5,9 @@
  * @see https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl=en&client_type=gtm
  */
 
-namespace TLA\GTM_Kit\Integration;
+namespace TLA_Media\GTM_Kit\Integration;
 
-use TLA\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options;
 use WC_Order;
 use WC_Product;
 

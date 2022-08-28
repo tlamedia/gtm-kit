@@ -1,8 +1,8 @@
 <?php
 
-namespace TLA\GTM_Kit\Frontend;
+namespace TLA_Media\GTM_Kit\Frontend;
 
-use TLA\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options;
 
 class Frontend {
 

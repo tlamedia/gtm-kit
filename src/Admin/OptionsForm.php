@@ -1,8 +1,8 @@
 <?php
 
-namespace TLA\GTM_Kit\Admin;
+namespace TLA_Media\GTM_Kit\Admin;
 
-use TLA\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options;
 
 class OptionsForm {
 

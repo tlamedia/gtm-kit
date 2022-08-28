@@ -1,6 +1,6 @@
 <?php
 
-namespace TLA\GTM_Kit;
+namespace TLA_Media\GTM_Kit;
 
 
 class Options {
