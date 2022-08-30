@@ -55,7 +55,6 @@ $field_data = [];
 $field_data['options'] = [];
 
 foreach ( $taxonomies as $taxonomy ) {
-	ray('test');
 	$field_data['options'][ $taxonomy->name ] = $taxonomy->label;
 }
 

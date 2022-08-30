@@ -205,7 +205,7 @@ class OptionsForm {
 			$aria_label = ' aria-label="' . esc_attr( $attribute['aria_label'] ) . '"';
 		}
 
-		echo "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'$aria_label>$text";
+		echo "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'>". esc_html($text);
 		if ( $attribute['close'] ) {
 			echo '</label>';
 		}
@@ -227,9 +227,9 @@ class OptionsForm {
 		];
 		$attribute     = wp_parse_args( $attribute, $defaults );
 
-		$id = ( $attribute['id'] === '' ) ? '' : ' id="' . esc_attr( $attribute['id'] ) . '"';
+		$id = ( $attribute['id'] === '' ) ? '' : $attribute['id'];
 
-		echo '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '"' . $id . '>' . $text . '</legend>';
+		echo '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $id ) . '">' . esc_html($text) . '</legend>';
 	}
 
 	/**
@@ -349,7 +349,7 @@ class OptionsForm {
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 
-		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']"', $disabled_attribute, '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
+		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']"'. ' ' .esc_attr( $disabled_attribute ). '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
 	}
 
 	/**
@@ -454,9 +454,7 @@ class OptionsForm {
 		];
 		$fieldset_data     = wp_parse_args( $fieldset_data, $defaults );
 
-		$var_esc = esc_attr( $variable );
-
-		echo '<fieldset class="gtmkit-form-fieldset gtmkit_radio_block" id="' . $var_esc . '">';
+		echo '<fieldset class="gtmkit-form-fieldset gtmkit_radio_block" id="' . esc_attr( $variable ) . '">';
 
 		if ( $fieldset_data['legend'] ) {
 
@@ -478,17 +476,22 @@ class OptionsForm {
 				$option_label = isset( $value['label'] ) ? $value['label'] : '';
 				$aria_label  = isset( $value['aria_label'] ) ? $value['aria_label'] : '';
 			}
-
-			$key_esc = esc_attr( $key );
-
-			$disabled_attribute = $this->get_disabled_attribute( $variable, $fieldset_data['attributes'] );
-
-			echo '<input type="radio" class="radio" id="' . $var_esc . '-' . $key_esc . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . $var_esc . ']" value="' . $key_esc . '" ' . checked( $field_value, $key_esc, false ) . $disabled_attribute . ' />';
+			?>
+			<input
+				type="radio"
+				class="radio"
+				id="<?php echo esc_attr( $variable ); ?>-<?php echo esc_attr( $key ); ?>"
+				name="<?php echo esc_attr( $this->option_name ); ?>[<?php echo esc_attr( $this->option_group ); ?>][<?php echo esc_attr( $variable ); ?>]"
+				value="<?php echo esc_attr( $key ); ?>"
+				<?php echo checked( $field_value, esc_attr( $key ), false ); ?>
+				<?php echo esc_attr( $this->get_disabled_attribute( $variable, $fieldset_data['attributes'] ) ); ?>
+			/>
+			<?php
 
 			$this->label(
 				$option_label,
 				[
-					'for'        => $var_esc . '-' . $key_esc,
+					'for'        => esc_attr( $variable ) . '-' . esc_attr( $key ),
 					'class'      => 'radio',
 					'aria_label' => $aria_label,
 				]

@@ -79,7 +79,7 @@ var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_scri
 		$attributes = apply_filters( 'gtmkit_header_script_attributes', [ 'data-cfasync' => 'false', 'data-nowprocket' => '' ] );
 
 		foreach ( $attributes as $attribute => $value ) {
-			echo ' ' . $attribute . '="'. esc_attr( $value ) . '"';
+			echo ' ' . esc_attr( $attribute ) . '="'. esc_attr( $value ) . '"';
 		}
 	}
 
