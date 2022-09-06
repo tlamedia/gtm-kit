@@ -1,4 +1,4 @@
-# Welcome to the GTM Repository
+# Welcome to the GTM Kit Repository
 
 The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager.
 
