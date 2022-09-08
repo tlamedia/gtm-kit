@@ -58,7 +58,7 @@ class OptionsForm {
 	public function admin_header( bool $form = true, string $option_name = 'gtmkit', string $option_group = 'general', string $settings_group = '' ): void {
 		?>
 	<div class="wrap gtmkit-admin-page <?php echo esc_attr( 'page-' . $option_group ); ?>">
-		<img src="<?php echo esc_url(GTMKIT_URL . 'assets/images/logo.svg'); ?>" width="140" height="54" alt="GTM Kit"/>
+		<img src="<?php echo esc_url(GTMKIT_URL . 'assets/images/logo.svg'); ?>" width="160" height="54" alt="GTM Kit"/>
 		<h1 id="gtmkit-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<div class="gtmkit_content_wrapper">
 			<div class="gtmkit_content_cell" id="gtmkit_content_top">
