@@ -50,7 +50,7 @@ $form->setting_row(
 	'datalayer_post_title',
 	__('Post title', 'gtmkit'),
 	[],
-	__('include the post title of the current post.')
+	__('include the post title of the current post.', 'gtmkit')
 );
 
 $form->setting_row(

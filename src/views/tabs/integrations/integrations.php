@@ -24,7 +24,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 <table class="form-table">
 <tbody>
 	<tr>
-		<th>Active Integrations:</th>
+		<th><?php esc_html_e( 'Active Integrations:', 'gtmkit' ); ?></th>
 		<td>
 			<?php if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && Options::init()->get( 'integrations', 'woocommerce_integration' ) ): ?>
 				<span class="success">

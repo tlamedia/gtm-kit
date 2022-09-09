@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTM Kit 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-09-09 06:46:59+00:00\n"
+"POT-Creation-Date: 2022-09-09 07:25:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -393,110 +393,114 @@ msgstr ""
 msgid "Integrations summary."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:18
-msgid "WooCommerce Integration"
+#: src/views/tabs/integrations/integrations.php:27
+msgid "Active Integrations:"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:20
+msgid "WooCommerce Integration"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:22
 msgid "The #1 open source eCommerce platform built for WordPress"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:23
+#: src/views/tabs/integrations/woocommerce.php:25
 msgid "WooCommerce is not installed"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:26
+#: src/views/tabs/integrations/woocommerce.php:28
 msgid "You can download %s here."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:39
+#: src/views/tabs/integrations/woocommerce.php:41
 msgid ""
 "Google Analytics 3 (Universal Analytics) properties will stop collecting "
 "data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce "
 "with Google Analytics 3 (Universal Analytics)."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:40
+#: src/views/tabs/integrations/woocommerce.php:42
 msgid "It’s recommended that you create a Google Analytics 4 property instead."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:50
+#: src/views/tabs/integrations/woocommerce.php:52
 msgid "Track WooCommerce"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:52
+#: src/views/tabs/integrations/woocommerce.php:58
 msgid "Choose this option if you would like to track e-commerce data."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:75
+#: src/views/tabs/integrations/woocommerce.php:86
 msgid "Brand"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:82
+#: src/views/tabs/integrations/woocommerce.php:93
 msgid "Use SKU instead of ID"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:84
+#: src/views/tabs/integrations/woocommerce.php:99
 msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:90
+#: src/views/tabs/integrations/woocommerce.php:105
 msgid "Exclude tax"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:92
+#: src/views/tabs/integrations/woocommerce.php:111
 msgid "Exclude tax from prices and revenue"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:98
-#: src/views/tabs/integrations/woocommerce.php:100
+#: src/views/tabs/integrations/woocommerce.php:117
+#: src/views/tabs/integrations/woocommerce.php:123
 msgid "Exclude shipping from revenue"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:106
-#: src/views/tabs/integrations/woocommerce.php:128
+#: src/views/tabs/integrations/woocommerce.php:133
+#: src/views/tabs/integrations/woocommerce.php:159
 msgid "When the 'Place order' button is clicked"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:109
+#: src/views/tabs/integrations/woocommerce.php:136
 msgid ""
 "When a shipment method is selected with fallback to the 'Place order' "
 "button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:112
+#: src/views/tabs/integrations/woocommerce.php:139
 msgid "Disable the 'add_shipment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:115
+#: src/views/tabs/integrations/woocommerce.php:142
 msgid "When do you want to fire the \"add_shipment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:121
+#: src/views/tabs/integrations/woocommerce.php:148
 msgid "Event: add_shipping_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:131
+#: src/views/tabs/integrations/woocommerce.php:162
 msgid "When a payment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:134
+#: src/views/tabs/integrations/woocommerce.php:165
 msgid "Disable the 'add_payment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:137
+#: src/views/tabs/integrations/woocommerce.php:168
 msgid "When do you want to fire the \"add_payment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:143
+#: src/views/tabs/integrations/woocommerce.php:174
 msgid "Event: add_payment_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:150
+#: src/views/tabs/integrations/woocommerce.php:181
 msgid "Dequeue Default JS"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:152
+#: src/views/tabs/integrations/woocommerce.php:187
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."
