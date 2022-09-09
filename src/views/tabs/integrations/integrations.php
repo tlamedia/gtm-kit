@@ -26,11 +26,11 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	<tr>
 		<th>Active Integrations:</th>
 		<td>
-			<?php if (Options::init()->get( 'integrations', 'woocommerce_integration' )): ?>
+			<?php if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && Options::init()->get( 'integrations', 'woocommerce_integration' ) ): ?>
 				<span class="success">
 				<span class="dashicons dashicons-yes"></span>
-				WooCommerce
-			</span>
+					WooCommerce
+				</span>
 			<?php endif; ?>
 		</td>
 	</tr>
