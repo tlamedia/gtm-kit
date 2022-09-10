@@ -197,6 +197,25 @@ class WooCommerce {
 			$data_layer = $this->get_datalayer_content_checkout( $data_layer );
 		}
 
+		if ( $this->options->get( 'integrations', 'woocommerce_include_permalink_structure' ) ) {
+			$wc_permalink_structure = wc_get_permalink_structure();
+			$data_layer['permalinkStructure'] = [
+				'productBase' => $wc_permalink_structure['product_base'],
+				'categoryBase' => $wc_permalink_structure['category_base'],
+				'tagBase' => $wc_permalink_structure['tag_base'],
+				'attributeBase' => $wc_permalink_structure['attribute_base'],
+			];
+		}
+
+		if ( $this->options->get( 'integrations', 'woocommerce_include_pages' ) ) {
+			$data_layer['pages'] = [
+				'cart'          => str_replace( home_url(), '', wc_get_cart_url() ),
+				'checkout'      => str_replace( home_url(), '', wc_get_checkout_url() ),
+				'orderReceived' => str_replace( home_url(), '', wc_get_endpoint_url( 'order-received', '', wc_get_checkout_url() ) ),
+				'myAccount'     => str_replace( home_url(), '', get_permalink( wc_get_page_id( 'myaccount' ) ) ),
+			];
+		}
+
 		return $data_layer;
 	}
 

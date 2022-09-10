@@ -177,6 +177,30 @@ $form->setting_row(
 
 $form->setting_row(
 	'checkbox-toggle',
+	'woocommerce_include_permalink_structure',
+	__('Include permalink structure', 'gtmkit'),
+	[
+		'attributes' => [
+			'disabled' => $woocommerce_is_inactive,
+		]
+	],
+	__('Enable this option include the permalink structure of the product base, category base, tag base and attribute base.', 'gtmkit')
+);
+
+$form->setting_row(
+	'checkbox-toggle',
+	'woocommerce_include_pages',
+	__('Include pages', 'gtmkit'),
+	[
+		'attributes' => [
+			'disabled' => $woocommerce_is_inactive,
+		]
+	],
+	__('Enable this option include the path of cart, checkout, order received adn my account page.', 'gtmkit')
+);
+
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_dequeue_script',
 	__('Dequeue Default JS', 'gtmkit'),
 	[
