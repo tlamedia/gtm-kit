@@ -106,7 +106,7 @@ class OptionsForm {
 				<?php $this->setting_field( $type, $variable, $field_data ) ?>
 				<?php if ( ! empty( $description ) ): ?>
 					<p class="desc">
-						<?php echo wp_kses( $description, ['a' => [], 'br' => []] ); ?>
+						<?php echo wp_kses( $description, ['a' => ['href' => []], 'br' => []] ); ?>
 					</p>
 				<?php endif; ?>
 			</div>

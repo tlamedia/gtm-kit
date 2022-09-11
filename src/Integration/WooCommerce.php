@@ -644,7 +644,14 @@ class WooCommerce {
 				$list_name,
 				$woocommerce_loop['loop']
 			),
-			['span' => []]
+			[
+				'span' => [
+					'class' => [],
+					'style' => [],
+					'data-gtmkit_product_id' => [],
+					'data-gtmkit_product_data' => [],
+				],
+			]
 		);
 	}
 
