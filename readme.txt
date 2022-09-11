@@ -82,6 +82,18 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.1 =
+
+Enhancements:
+
+* Option to include the permalink structure of the product base, category base, tag base and attribute base in the datalayer.
+* Option to include the path of cart, checkout, order received adn my account page in the datalayer.
+
+Other:
+
+* Disable WooCommerce settings if WooCommerce is not active
+* Update logo.
+
 = 1.0 =
 * First public release
 

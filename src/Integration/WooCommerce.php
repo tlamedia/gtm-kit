@@ -534,7 +534,7 @@ class WooCommerce {
 	}
 
 	/**
-	 * Add-to-cart tracing on single product.
+	 * Add-to-cart tracking on single product.
 	 *
 	 * @hook woocommerce_after_add_to_cart_button
 	 *
@@ -644,7 +644,14 @@ class WooCommerce {
 				$list_name,
 				$woocommerce_loop['loop']
 			),
-			['span' => []]
+			[
+				'span' => [
+					'class' => [],
+					'style' => [],
+					'data-gtmkit_product_id' => [],
+					'data-gtmkit_product_data' => [],
+				],
+			]
 		);
 	}
 
