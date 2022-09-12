@@ -61,7 +61,7 @@ export const watchForChanges = () => {
 }
 
 export const replace_version = () => {
-	return src( [ 'gtm-kit.php' ] )
+	return src( [ 'gtm-kit.php', 'readme.txt' ] )
 		.pipe(
 			// File header.
 			replace(
@@ -74,6 +74,13 @@ export const replace_version = () => {
 			replace(
 				/define\( 'GTMKIT_VERSION', '((\*)|([0-9]+(\.((\*)|([0-9]+(\.((\*)|([0-9]+)))?)))?))' \);/gm,
 				'define( \'GTMKIT_VERSION\', \'' + packageJSON.version + '\' );'
+			)
+		)
+		.pipe(
+			// stable tag.
+			replace(
+				/Stable tag: ((\*)|([0-9]+(\.((\*)|([0-9]+(\.((\*)|([0-9]+)))?)))?))/gm,
+				'Stable tag: ' + packageJSON.version
 			)
 		)
 		.pipe( dest( './' ) );
