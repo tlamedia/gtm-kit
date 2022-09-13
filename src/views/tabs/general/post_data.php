@@ -31,6 +31,14 @@ $form->setting_row(
 
 $form->setting_row(
 	'checkbox-toggle',
+	'datalayer_page_type',
+	__('Page type', 'gtmkit'),
+	[],
+	__('include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtmkit')
+);
+
+$form->setting_row(
+	'checkbox-toggle',
 	'datalayer_categories',
 	__('Categories', 'gtmkit'),
 	[],

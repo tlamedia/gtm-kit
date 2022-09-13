@@ -189,6 +189,10 @@ class WooCommerce {
 
 		if ( is_product() ) {
 			$data_layer = $this->get_datalayer_content_product_page( $data_layer );
+		} elseif ( is_product_category() ) {
+			$data_layer = $this->get_datalayer_content_product_category( $data_layer );
+		} elseif ( is_product_tag() ) {
+			$data_layer = $this->get_datalayer_content_product_tag( $data_layer );
 		} elseif ( is_cart() ) {
 			$data_layer = $this->get_datalayer_content_cart( $data_layer );
 		} elseif ( is_order_received_page() ) {
@@ -234,6 +238,10 @@ class WooCommerce {
 			return $data_layer;
 		}
 
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'product-page';
+		}
+
 		$item = $this->get_item_data( $product );
 
 		$data_layer['productType'] = $product->get_type();
@@ -241,6 +249,38 @@ class WooCommerce {
 		$data_layer['ecommerce']   = [
 			'items' => [ $item ]
 		];
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get the dataLayer data for category pages
+	 *
+	 * @param array $data_layer The datalayer content
+	 *
+	 * @return array The datalayer content
+	 */
+	public function get_datalayer_content_product_category( array $data_layer ): array {
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'product-category';
+		}
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get the dataLayer data for product tag pages
+	 *
+	 * @param array $data_layer The datalayer content
+	 *
+	 * @return array The datalayer content
+	 */
+	public function get_datalayer_content_product_tag( array $data_layer ): array {
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'product-tag';
+		}
 
 		return $data_layer;
 	}
@@ -258,6 +298,10 @@ class WooCommerce {
 			$cart_value = WC()->cart->get_cart_contents_total() + WC()->cart->get_cart_contents_tax();
 		} else {
 			$cart_value = WC()->cart->get_cart_contents_total();
+		}
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'cart';
 		}
 
 		$data_layer['event']     = 'view_cart';
@@ -278,6 +322,10 @@ class WooCommerce {
 	 * @return array The datalayer content
 	 */
 	public function get_datalayer_content_checkout( array $data_layer ): array {
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'checkout';
+		}
 
 		$data_layer['event']     = 'begin_checkout';
 		$data_layer['ecommerce'] = [
@@ -323,6 +371,10 @@ class WooCommerce {
 			}
 		} else {
 			return $data_layer;
+		}
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$data_layer['pageType'] = 'order-received';
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_exclude_tax' ) ) {
