@@ -30,7 +30,7 @@ class BasicDatalayerData {
 	public static function register( Options $options ): void {
 		$page = new static( $options );
 
-		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_datalayer_content' ] );
+		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_datalayer_content' ], 9 );
 	}
 
 	/**
@@ -38,8 +38,15 @@ class BasicDatalayerData {
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
-		if ( $this->options->get('general', 'datalayer_post_type') ) {
+		$set_datalayer_post_type = $this->options->get('general', 'datalayer_post_type');
+		$set_datalayer_page_type = $this->options->get('general', 'datalayer_page_type');
+
+		if ( $set_datalayer_post_type ) {
 			$datalayer['pagePostType']  = get_post_type();
+		}
+
+		if ( $this->options->get('general', 'datalayer_page_type') ) {
+			$datalayer['pageType']  = get_post_type();
 		}
 
 		if ( is_singular() ) {
@@ -85,7 +92,6 @@ class BasicDatalayerData {
 				$datalayer['authorId'] = (int) $post->post_author;
 			}
 
-
 		}
 
 		if ( is_archive() || is_post_type_archive() ) {
@@ -98,23 +104,44 @@ class BasicDatalayerData {
 		}
 
 		if ( is_search() ) {
+			if ( $set_datalayer_post_type ) {
+				$datalayer['pagePostType'] = 'search-results';
+			}
+			if ( $set_datalayer_page_type ) {
+				$datalayer['pageType'] = 'search-results';
+			}
+
 			global $wp_query;
 
-			$datalayer['pagePostType'] = 'search-results';
 			$datalayer['siteSearchQuery'] = get_search_query();
 			$datalayer['siteSearchResults'] = $wp_query->found_posts;
 		}
 
-		if ( is_front_page() && $this->options->get('general', 'datalayer_post_type') ) {
-			$datalayer['pagePostType'] = 'frontpage';
+		if ( is_front_page() && $set_datalayer_post_type ) {
+			if ( $set_datalayer_post_type ) {
+				$datalayer['pagePostType'] = 'frontpage';
+			}
+			if ( $set_datalayer_page_type ) {
+				$datalayer['pageType'] = 'frontpage';
+			}
 		}
 
-		if ( ! is_front_page() && is_home() && $this->options->get('general', 'datalayer_post_type') ) {
-			$datalayer['pagePostType'] = 'blog_home';
+		if ( ! is_front_page() && is_home() ) {
+			if ( $set_datalayer_post_type ) {
+				$datalayer['pagePostType'] = 'blog_home';
+			}
+			if ( $set_datalayer_page_type ) {
+				$datalayer['pageType'] = 'blog_home';
+			}
 		}
 
 		if ( is_404() ) {
-			$datalayer['pagePostType'] = '404-error';
+			if ( $set_datalayer_post_type ) {
+				$datalayer['pagePostType'] = '404-error';
+			}
+			if ( $set_datalayer_page_type ) {
+				$datalayer['pageType'] = '404-error';
+			}
 		}
 
 		return $datalayer;
