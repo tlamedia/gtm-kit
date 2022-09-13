@@ -117,7 +117,7 @@ class BasicDatalayerData {
 			$datalayer['siteSearchResults'] = $wp_query->found_posts;
 		}
 
-		if ( is_front_page() && $set_datalayer_post_type ) {
+		if ( is_front_page() ) {
 			if ( $set_datalayer_post_type ) {
 				$datalayer['pagePostType'] = 'frontpage';
 			}
