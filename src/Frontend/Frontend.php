@@ -18,7 +18,7 @@ class Frontend {
 	 *
 	 * @var string
 	 */
-	 protected $datalayer_name;
+	protected $datalayer_name;
 
 	/**
 	 * Constructor.
@@ -45,16 +45,16 @@ class Frontend {
 		if ( $container_active ) {
 			add_action( 'wp_head', [ $page, 'get_header_script' ], 10, 0 );
 		} else {
-			add_action( 'wp_head', [ $page, 'container_disabled' ]);
+			add_action( 'wp_head', [ $page, 'container_disabled' ] );
 		}
 
 		add_filter( 'rocket_excluded_inline_js_content', [ $page, 'wp_rocket_exclude_javascript' ] );
 
 		$noscript_implementation = Options::init()->get( 'general', 'noscript_implementation' );
 
-		if ($noscript_implementation == '0' && $container_active) {
+		if ( $noscript_implementation == '0' && $container_active ) {
 			add_action( 'wp_body_open', [ $page, 'get_body_script' ] );
-		} elseif ($noscript_implementation == '1' && $container_active) {
+		} elseif ( $noscript_implementation == '1' && $container_active ) {
 			add_action( 'body_footer', [ $page, 'get_body_script' ] );
 		}
 	}
@@ -64,11 +64,12 @@ class Frontend {
 	 */
 	public function get_header_datalayer(): void {
 		?>
-<!-- GTM Kit -->
-<script <?php $this->get_attributes(); ?>>
-var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> || [];
-var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_script_settings', [ 'datalayer_name' => $this->datalayer_name ] ), JSON_FORCE_OBJECT ); ?>;
-</script>
+		<!-- GTM Kit -->
+		<script <?php $this->get_attributes(); ?>>
+			var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> ||
+			[];
+			var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_script_settings', [ 'datalayer_name' => $this->datalayer_name ] ), JSON_FORCE_OBJECT ); ?>;
+		</script>
 		<?php
 	}
 
@@ -76,53 +77,57 @@ var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_scri
 	 * Get attributes
 	 */
 	public function get_attributes(): void {
-		$attributes = apply_filters( 'gtmkit_header_script_attributes', [ 'data-cfasync' => 'false', 'data-nowprocket' => '' ] );
+		$attributes = apply_filters( 'gtmkit_header_script_attributes', [ 'data-cfasync'    => 'false',
+																		  'data-nowprocket' => ''
+		] );
 
 		foreach ( $attributes as $attribute => $value ) {
-			echo ' ' . esc_attr( $attribute ) . '="'. esc_attr( $value ) . '"';
+			echo ' ' . esc_attr( $attribute ) . '="' . esc_attr( $value ) . '"';
 		}
 	}
 
 	/**
 	 * The dataLayer content included before the GTM container script
 	 */
-	public function get_datalayer_content(): void {
-		?>
-<!-- GTM Kit -->
-<script <?php $this->get_attributes(); ?>>
-<?php
+public function get_datalayer_content(): void {
+	?>
+	<!-- GTM Kit -->
+	<script <?php $this->get_attributes(); ?>>
+		<?php
 
-		if ( $this->options->get('general', 'gtm_id') ) {
+		if ( $this->options->get( 'general', 'gtm_id' ) ) {
 			$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
 
 			echo 'var dataLayer_content = ' . json_encode( $datalayer_data ) . ";\n";
 
-			echo esc_attr( $this->datalayer_name ) . '.push( dataLayer_content );'."\n";
+			echo esc_attr( $this->datalayer_name ) . '.push( dataLayer_content );' . "\n";
 		}
 
 		echo "</script>\n";
 
-	}
+		}
 
-	/**
-	 * The Google Tag Manager container script
-	 */
-	public function get_header_script(): void {
+		/**
+		 * The Google Tag Manager container script
+		 */
+		public function get_header_script(): void {
 
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
 
-		if (empty($gtm_id)) return;
+		if ( empty( $gtm_id ) ) {
+			return;
+		}
 
 		$script_implementation = (int) Options::init()->get( 'general', 'script_implementation' );
 
-		$delay = ($script_implementation == 2) ? 3 : 0;
+		$delay = ( $script_implementation == 2 ) ? 3 : 0;
 		?>
-<!-- Google Tag Manager -->
-<script <?php $this->get_attributes(); ?>>
-<?php
+		<!-- Google Tag Manager -->
+		<script <?php $this->get_attributes(); ?>>
+	<?php
 
-		if ( $script_implementation > 0 ) {
-			echo '
+	if ( $script_implementation > 0 ) {
+		echo '
 			window.requestIdleCallback =
 			    window.requestIdleCallback ||
 			    function (cb) {
@@ -139,28 +144,26 @@ var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_scri
 
 			requestIdleCallback(function () {setTimeout(function () {
 			    ' . $this->get_gtm_script( $gtm_id ) . '
-			}, ' . esc_js( $delay ) . ' * 1000)});'
-			;
-		} else {
-			$this->get_gtm_script( $gtm_id );
-		}
-
-		echo "</script>\n<!-- End Google Tag Manager -->\n";
+			}, ' . esc_js( $delay ) . ' * 1000)});';
+	} else {
+		$this->get_gtm_script( $gtm_id );
 	}
+
+	echo "</script>\n<!-- End Google Tag Manager -->\n";
+}
 
 	/**
 	 * Get GTM script
 	 */
 	public function get_gtm_script( string $gtm_id ): void {
-		$domain = (Options::init()->get( 'general', 'sgtm_domain' )) ?: 'www.googletagmanager.com';
-		$loader = (Options::init()->get( 'general', 'sgtm_container_identifier' )) ?: 'gtm';
+		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
+		$loader = ( Options::init()->get( 'general', 'sgtm_container_identifier' ) ) ?: 'gtm';
 
 		echo "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			'https://" . esc_attr( $domain ) . "/" . esc_attr( $loader ) . ".js?id='+i+dl;f.parentNode.insertBefore(j,f);
-			})(window,document,'script','dataLayer','" . esc_attr( $gtm_id ) . "');"
-		;
+			})(window,document,'script','dataLayer','" . esc_attr( $gtm_id ) . "');";
 	}
 
 	/**

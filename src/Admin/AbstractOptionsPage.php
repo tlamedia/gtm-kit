@@ -124,7 +124,7 @@ abstract class AbstractOptionsPage {
 			return;
 		}
 
-		if (wp_get_environment_type() == 'local') {
+		if ( wp_get_environment_type() == 'local' ) {
 			$version = time();
 		} else {
 			$version = GTMKIT_VERSION;
@@ -140,15 +140,15 @@ abstract class AbstractOptionsPage {
 		wp_enqueue_script(
 			'gtmkit-admin',
 			GTMKIT_URL . 'assets/js/admin.js',
-			['jquery'],
+			[ 'jquery' ],
 			$version,
 			true
 		);
 
 		$script_data = [
-			'plugin_url'              => GTMKIT_URL,
-			'nonce'                   => wp_create_nonce( 'gtmkit-admin' ),
-			'ajax_url'                => admin_url( 'admin-ajax.php' ),
+			'plugin_url' => GTMKIT_URL,
+			'nonce'      => wp_create_nonce( 'gtmkit-admin' ),
+			'ajax_url'   => admin_url( 'admin-ajax.php' ),
 		];
 
 		wp_localize_script( 'gtmkit-admin', 'gtmkit', $script_data );

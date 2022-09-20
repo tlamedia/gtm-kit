@@ -57,11 +57,12 @@ class OptionsForm {
 	 */
 	public function admin_header( bool $form = true, string $option_name = 'gtmkit', string $option_group = 'general', string $settings_group = '' ): void {
 		?>
-	<div class="wrap gtmkit-admin-page <?php echo esc_attr( 'page-' . $option_group ); ?>">
-		<img src="<?php echo esc_url(GTMKIT_URL . 'assets/images/logo.svg'); ?>" width="160" height="54" alt="GTM Kit"/>
+		<div class="wrap gtmkit-admin-page <?php echo esc_attr( 'page-' . $option_group ); ?>">
+		<img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/logo.svg' ); ?>" width="160" height="54"
+			 alt="GTM Kit"/>
 		<h1 id="gtmkit-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<div class="gtmkit_content_wrapper">
-			<div class="gtmkit_content_cell" id="gtmkit_content_top">
+		<div class="gtmkit_content_cell" id="gtmkit_content_top">
 		<?php
 		if ( $form === true ) {
 
@@ -94,10 +95,10 @@ class OptionsForm {
 	 */
 	public function setting_row( string $type, string $variable, string $label, array $field_data = [], string $description = '' ): void {
 		?>
-		<div class="gtmkit-setting-row gtmkit-setting-row-<?php echo esc_html( $type); ?> gtmkit-clear">
+		<div class="gtmkit-setting-row gtmkit-setting-row-<?php echo esc_html( $type ); ?> gtmkit-clear">
 			<div class="gtmkit-setting-label">
 				<?php if ( $label ): ?>
-					<label for="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>">
+					<label for="<?php echo esc_attr( 'gtmkit-setting-' . $variable ); ?>">
 						<?php echo wp_kses( $label, 'code' ); ?>
 					</label>
 				<?php endif; ?>
@@ -106,7 +107,7 @@ class OptionsForm {
 				<?php $this->setting_field( $type, $variable, $field_data ) ?>
 				<?php if ( ! empty( $description ) ): ?>
 					<p class="desc">
-						<?php echo wp_kses( $description, ['a' => ['href' => []], 'br' => []] ); ?>
+						<?php echo wp_kses( $description, [ 'a' => [ 'href' => [] ], 'br' => [] ] ); ?>
 					</p>
 				<?php endif; ?>
 			</div>
@@ -152,7 +153,8 @@ class OptionsForm {
 					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
 				</div>
 
-				<div id="gtmkit-submit-container-fixed" class="gtmkit-admin-submit gtmkit-admin-submit-fixed" style="display: none;">
+				<div id="gtmkit-submit-container-fixed" class="gtmkit-admin-submit gtmkit-admin-submit-fixed"
+					 style="display: none;">
 					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
 				</div>
 			</div>
@@ -171,7 +173,7 @@ class OptionsForm {
 		}
 
 		?>
-			</div><!-- end of div gtmkit_content_wrapper -->
+		</div><!-- end of div gtmkit_content_wrapper -->
 		</div><!-- end of wrap -->'
 		<?php
 	}
@@ -199,13 +201,13 @@ class OptionsForm {
 			'aria_label' => '',
 		];
 
-		$attribute       = wp_parse_args( $attribute, $defaults );
+		$attribute  = wp_parse_args( $attribute, $defaults );
 		$aria_label = '';
 		if ( $attribute['aria_label'] !== '' ) {
 			$aria_label = ' aria-label="' . esc_attr( $attribute['aria_label'] ) . '"';
 		}
 
-		echo "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'>". esc_html($text);
+		echo "<label class='" . esc_attr( $attribute['class'] ) . "' for='" . esc_attr( $attribute['for'] ) . "'>" . esc_html( $text );
 		if ( $attribute['close'] ) {
 			echo '</label>';
 		}
@@ -221,15 +223,15 @@ class OptionsForm {
 	 * @return string The HTML legend
 	 */
 	public function legend( string $text, array $attribute ): void {
-		$defaults = [
+		$defaults  = [
 			'id'    => '',
 			'class' => '',
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
+		$attribute = wp_parse_args( $attribute, $defaults );
 
 		$id = ( $attribute['id'] === '' ) ? '' : $attribute['id'];
 
-		echo '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $id ) . '">' . esc_html($text) . '</legend>';
+		echo '<legend class="gtmkit-form-legend ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $id ) . '">' . esc_html( $text ) . '</legend>';
 	}
 
 	/**
@@ -244,7 +246,7 @@ class OptionsForm {
 
 		$attributes = $field_data['attributes'] ?? [];
 
-		$defaults = [
+		$defaults  = [
 			'disabled' => false,
 		];
 		$attribute = wp_parse_args( $attributes, $defaults );
@@ -255,10 +257,10 @@ class OptionsForm {
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 		?>
-		<label for="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>">
+		<label for="<?php echo esc_attr( 'gtmkit-setting-' . $variable ); ?>">
 			<input
 				type="checkbox"
-				id="<?php echo esc_attr('gtmkit-setting-' . $variable ); ?>"
+				id="<?php echo esc_attr( 'gtmkit-setting-' . $variable ); ?>"
 				name="<?php echo esc_attr( $this->option_name . '[' . $this->option_group . '][' . $variable . ']' ); ?>"
 				value="on"
 				<?php echo checked( $value, 'on', false ); ?>
@@ -282,7 +284,7 @@ class OptionsForm {
 
 		$attributes = $field_data['attributes'] ?? [];
 
-		$defaults = [
+		$defaults  = [
 			'placeholder' => '',
 			'class'       => '',
 		];
@@ -310,7 +312,7 @@ class OptionsForm {
 			name="<?php echo esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']'; ?>"
 			value="<?php echo esc_attr( $value ); ?>"
 			<?php echo esc_html( $disabled_attribute ); ?>
-		/><br class="clear" />
+		/><br class="clear"/>
 		<?php
 
 
@@ -330,14 +332,14 @@ class OptionsForm {
 			];
 		}
 
-		$defaults = [
+		$defaults  = [
 			'cols'     => '',
 			'rows'     => '',
 			'class'    => '',
 			'disabled' => false,
 		];
-		$attribute     = wp_parse_args( $attribute, $defaults );
-		$val      = $this->get_field_value( $variable, '' );
+		$attribute = wp_parse_args( $attribute, $defaults );
+		$val       = $this->get_field_value( $variable, '' );
 
 		$this->label(
 			$label,
@@ -349,7 +351,7 @@ class OptionsForm {
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 
-		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']"'. ' ' .esc_attr( $disabled_attribute ). '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
+		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']"' . ' ' . esc_attr( $disabled_attribute ) . '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
 	}
 
 	/**
@@ -391,11 +393,11 @@ class OptionsForm {
 			return;
 		}
 
-		$defaults = [
-			'disabled' => false,
+		$defaults      = [
+			'disabled'   => false,
 			'attributes' => []
 		];
-		$fieldset_data     = wp_parse_args( $fieldset_data, $defaults );
+		$fieldset_data = wp_parse_args( $fieldset_data, $defaults );
 
 		if ( $this->is_control_disabled( $variable )
 			 || ( isset( $fieldset_data['disabled'] ) && $fieldset_data['disabled'] ) ) {
@@ -408,7 +410,7 @@ class OptionsForm {
 
 		printf(
 			'<select %s name="%s" id="%s">',
-			($disabled) ? 'disabled=""' : 'class="select"',
+			( $disabled ) ? 'disabled=""' : 'class="select"',
 			esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']',
 			esc_attr( $variable )
 		);
@@ -445,14 +447,14 @@ class OptionsForm {
 
 		$field_value = $this->get_field_value( $variable );
 
-		$defaults = [
-			'disabled' => false,
-			'legend' => '',
+		$defaults      = [
+			'disabled'    => false,
+			'legend'      => '',
 			'legend_attr' => [],
-			'line_break' => true,
-			'attributes' => []
+			'line_break'  => true,
+			'attributes'  => []
 		];
-		$fieldset_data     = wp_parse_args( $fieldset_data, $defaults );
+		$fieldset_data = wp_parse_args( $fieldset_data, $defaults );
 
 		echo '<fieldset class="gtmkit-form-fieldset gtmkit_radio_block" id="' . esc_attr( $variable ) . '">';
 
@@ -470,11 +472,11 @@ class OptionsForm {
 
 		foreach ( $fieldset_data['options'] as $key => $value ) {
 			$option_label = $value;
-			$aria_label  = '';
+			$aria_label   = '';
 
 			if ( is_array( $value ) ) {
 				$option_label = isset( $value['label'] ) ? $value['label'] : '';
-				$aria_label  = isset( $value['aria_label'] ) ? $value['aria_label'] : '';
+				$aria_label   = isset( $value['aria_label'] ) ? $value['aria_label'] : '';
 			}
 			?>
 			<input

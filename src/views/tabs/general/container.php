@@ -53,19 +53,19 @@ $form->setting_row(
 </div>
 
 <?php
-$field_data = [];
-$field_data['options'] = [
+$field_data                = [];
+$field_data['options']     = [
 	0 => [
-		'label'      => __('Standard implementation as recommended by Google', 'gtmkit'),
+		'label' => __( 'Standard implementation as recommended by Google', 'gtmkit' ),
 	],
 	1 => [
-		'label'      => __('Load container when browser is idle (requestIdleCallback)', 'gtmkit'),
+		'label' => __( 'Load container when browser is idle (requestIdleCallback)', 'gtmkit' ),
 	],
 	2 => [
-		'label'      => __('Load container 2 seconds after browser is idle (requestIdleCallback + timer)', 'gtmkit'),
+		'label' => __( 'Load container 2 seconds after browser is idle (requestIdleCallback + timer)', 'gtmkit' ),
 	]
 ];
-$field_data['legend'] = __( 'Container code implementation:', 'gtmkit' );
+$field_data['legend']      = __( 'Container code implementation:', 'gtmkit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup screen-reader-text' ];
 
 $form->setting_row(
@@ -80,27 +80,27 @@ $form->setting_row(
 <?php
 $label = __( 'Container code <code>&lt;noscript&gt;</code> implementation:', 'gtmkit' );
 
-$field_data = [];
+$field_data            = [];
 $field_data['options'] = [
 	0 => [
-		'label'      => __('Just after the opening &lt;body&gt; tag', 'gtmkit'),
+		'label' => __( 'Just after the opening &lt;body&gt; tag', 'gtmkit' ),
 	],
 	1 => [
-		'label'      => __('Footer of the page (not recommended by Google)', 'gtmkit'),
+		'label' => __( 'Footer of the page (not recommended by Google)', 'gtmkit' ),
 	],
 	2 => [
-		'label'      => __('Custom (insert function in your template)', 'gtmkit'),
+		'label' => __( 'Custom (insert function in your template)', 'gtmkit' ),
 	],
 	3 => [
-		'label'      => __('Disable &lt;noscript&gt; implementation', 'gtmkit'),
+		'label' => __( 'Disable &lt;noscript&gt; implementation', 'gtmkit' ),
 	]
 
 ];
 
 $legend      = __( 'Container code implementation', 'gtmkit' );
 $legend_attr = [ 'class' => 'radiogroup screen-reader-text' ];
-$description = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtmkit' ). ' ';
-$description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtmkit' ). ' ';
+$description = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtmkit' ) . ' ';
+$description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtmkit' ) . ' ';
 $description .= __( 'If your theme does not support this the script can be injected in the footer or you can use the function below.', 'gtmkit' );
 $description .= '<br><br>';
 $description .= '<code>&lt;?php if ( function_exists( \'gtmkit_the_noscript_tag\' ) ) { gtmkit_the_noscript_tag(); } ?&gt;</code>';
@@ -120,7 +120,7 @@ $form->setting_row(
 	'datalayer_name',
 	__( 'dataLayer variable name:', 'gtmkit' ),
 	[],
-	__( 'The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do.', 'gtmkit')
+	__( 'The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do.', 'gtmkit' )
 );
 ?>
 
@@ -135,7 +135,7 @@ $form->setting_row(
 	'sgtm_domain',
 	__( 'GTM Server Side Domain:', 'gtmkit' ),
 	[],
-	__( 'Enter your custom domain name if you are using a custom server side GTM container for tracking.', 'gtmkit')
+	__( 'Enter your custom domain name if you are using a custom server side GTM container for tracking.', 'gtmkit' )
 );
 ?>
 
@@ -145,6 +145,6 @@ $form->setting_row(
 	'sgtm_container_identifier',
 	__( 'sGTM container identifier:', 'gtmkit' ),
 	[],
-	__( 'Only use if you are using a custom loader', 'gtmkit')
+	__( 'Only use if you are using a custom loader', 'gtmkit' )
 );
 ?>

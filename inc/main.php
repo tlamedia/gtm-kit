@@ -27,6 +27,7 @@ function gtmkit_plugin_activation(): void {
 	new Installation();
 	do_action( 'gtmkit_activate' );
 }
+
 register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_activation' );
 
 /**
@@ -40,7 +41,7 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 
 	$custom['settings'] = sprintf(
 		'<a href="%s" aria-label="%s">%s</a>',
-		esc_url(  menu_page_url( 'gtmkit_general', false ) ),
+		esc_url( menu_page_url( 'gtmkit_general', false ) ),
 		esc_attr__( 'Go to GTK Kit Settings page', 'gtmkit' ),
 		esc_html__( 'Settings', 'gtmkit' )
 	);

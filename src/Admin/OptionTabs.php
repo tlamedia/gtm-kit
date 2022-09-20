@@ -121,16 +121,16 @@ class OptionTabs {
 
 		?>
 		<div class="nav-tab-wrapper" id="gtmkit-tabs">
-		<?php
-		foreach ( $this->get_tabs() as $tab ) {
-			printf(
-				'<a class="nav-tab" id="%1$s" href="%2$s">%3$s</a>',
-				esc_attr( $tab->get_name() . '-tab' ),
-				esc_url( '#top#' . $tab->get_name() ),
-				esc_html( $tab->get_label() )
-			);
-		}
-		?>
+			<?php
+			foreach ( $this->get_tabs() as $tab ) {
+				printf(
+					'<a class="nav-tab" id="%1$s" href="%2$s">%3$s</a>',
+					esc_attr( $tab->get_name() . '-tab' ),
+					esc_url( '#top#' . $tab->get_name() ),
+					esc_html( $tab->get_label() )
+				);
+			}
+			?>
 		</div>
 		<?php
 

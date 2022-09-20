@@ -25,7 +25,7 @@ class Options {
 	 * @var array
 	 */
 	private static $map = [
-		'general' => [
+		'general'      => [
 			'container_active',
 			'script_implementation',
 			'noscript_implementation',
@@ -43,7 +43,7 @@ class Options {
 	public function __construct() {
 		$this->options = get_option( self::OPTION_NAME, [] );
 
-		add_filter( 'pre_update_option_gtmkit', [$this,'pre_update_option'], 10, 2 );
+		add_filter( 'pre_update_option_gtmkit', [ $this, 'pre_update_option' ], 10, 2 );
 	}
 
 	function pre_update_option( $new_value, $old_value ): array {
@@ -63,9 +63,9 @@ class Options {
 	/**
 	 * Initialize options
 	 *
+	 * @return Options
 	 * @example Options::init()->get('general', 'gtm_id');
 	 *
-	 * @return Options
 	 */
 	public static function init(): Options {
 
@@ -87,9 +87,9 @@ class Options {
 
 		return [
 			'general' => [
-				'script_implementation' => '0',
+				'script_implementation'   => '0',
 				'noscript_implementation' => '0',
-				'container_active' => 'on',
+				'container_active'        => 'on',
 			]
 		];
 	}
@@ -97,13 +97,13 @@ class Options {
 	/**
 	 * Get options by a group and a key.
 	 *
-	 * @example Options::init()->get( 'general', 'gtm_id' ).
-	 *
 	 * @param string $group The option group.
 	 * @param string $key The option key.
 	 * @param bool $strip_slashes If the slashes should be stripped from string values.
 	 *
 	 * @return mixed|null Null if value doesn't exist anywhere: in constants, in DB, in a map. So it's completely custom or a typo.
+	 * @example Options::init()->get( 'general', 'gtm_id' ).
+	 *
 	 */
 	public function get( string $group, string $key, bool $strip_slashes = true ) {
 
