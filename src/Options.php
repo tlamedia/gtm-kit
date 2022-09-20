@@ -53,7 +53,6 @@ class Options {
 		}
 
 		foreach ( $new_value as $group => $settings ) {
-			$old_value[ $group ] = [];
 			$old_value[ $group ] = $settings;
 		}
 

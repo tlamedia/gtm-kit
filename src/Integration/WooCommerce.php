@@ -173,7 +173,7 @@ class WooCommerce {
 	/**
 	 * Set the global script settings
 	 *
-	 * @param array $settings Plugin settings
+	 * @param array $global_settings Plugin settings
 	 *
 	 * @return array
 	 */

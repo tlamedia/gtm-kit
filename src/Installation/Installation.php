@@ -16,7 +16,7 @@ class Installation {
 	}
 
 	/**
-	 * When the option doesn't exist, it should be a new install.
+	 * When the option doesn't exist, it should be a new installation.
 	 *
 	 * @return bool
 	 */
