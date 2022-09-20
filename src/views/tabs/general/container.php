@@ -2,7 +2,6 @@
 
 namespace TLA_Media\GTM_Kit;
 
-use TLA_Media\GTM_Kit\Admin\HelpPanel;
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
 /** @var OptionsForm $form */

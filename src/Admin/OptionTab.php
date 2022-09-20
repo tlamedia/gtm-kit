@@ -59,7 +59,7 @@ class OptionTab {
 	/**
 	 * Retrieves whether the tab needs a save button.
 	 *
-	 * @return bool True whether the tabs needs a save button.
+	 * @return bool Whether the tabs need a save button.
 	 */
 	public function has_save_button(): bool {
 		return (bool) $this->get_argument( 'save_button', true );
