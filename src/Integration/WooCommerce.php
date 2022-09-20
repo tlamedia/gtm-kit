@@ -57,15 +57,14 @@ class WooCommerce {
 	 * @param Options $options
 	 */
 	public function __construct( Options $options ) {
-		$this->options              = $options;
-		$this->woocommerce_currency = get_woocommerce_currency();
+		$this->options                  = $options;
+		$this->woocommerce_currency     = get_woocommerce_currency();
 		$this->grouped_product_position = 1;
 	}
 
-	public static function instance(): WooCommerce
-	{
-		if (is_null(self::$instance)) {
-			$options = new Options();
+	public static function instance(): WooCommerce {
+		if ( is_null( self::$instance ) ) {
+			$options        = new Options();
 			self::$instance = new self( $options );
 		}
 
@@ -79,16 +78,25 @@ class WooCommerce {
 	 */
 	public static function register( Options $options ): void {
 
-        self::$instance = new self( $options );
+		self::$instance = new self( $options );
 
 		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 
 		// Add-to-cart tracking
-		add_action( 'woocommerce_after_add_to_cart_button', [ self::$instance, 'single_product_add_to_cart_tracking' ] );
-		add_filter( 'woocommerce_grouped_product_list_column_label', [ self::$instance, 'grouped_product_add_to_cart_tracking' ], 10, 2 );
-		add_filter( 'woocommerce_blocks_product_grid_item_html', [ self::$instance, 'product_block_add_to_cart_tracking' ], 10, 3 );
+		add_action( 'woocommerce_after_add_to_cart_button', [
+			self::$instance,
+			'single_product_add_to_cart_tracking'
+		] );
+		add_filter( 'woocommerce_grouped_product_list_column_label', [
+			self::$instance,
+			'grouped_product_add_to_cart_tracking'
+		], 10, 2 );
+		add_filter( 'woocommerce_blocks_product_grid_item_html', [
+			self::$instance,
+			'product_block_add_to_cart_tracking'
+		], 10, 3 );
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
 
@@ -97,13 +105,34 @@ class WooCommerce {
 		add_filter( 'woocommerce_related_products_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
 		add_filter( 'woocommerce_cross_sells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
 		add_filter( 'woocommerce_upsells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_best_selling_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_featured_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_recent_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_related_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_sale_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_top_rated_products_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_action( 'woocommerce_shortcode_before_product_category_loop', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
+		add_action( 'woocommerce_shortcode_before_best_selling_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_featured_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_recent_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_related_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_sale_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_top_rated_products_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
+		add_action( 'woocommerce_shortcode_before_product_category_loop', [
+			self::$instance,
+			'set_list_name_in_woocommerce_loop'
+		] );
 	}
 
 	/**
@@ -111,9 +140,11 @@ class WooCommerce {
 	 */
 	public function enqueue_scripts(): void {
 
-		if ( $this->options->get( 'integrations', 'woocommerce_dequeue_script' ) ) return;
+		if ( $this->options->get( 'integrations', 'woocommerce_dequeue_script' ) ) {
+			return;
+		}
 
-		if (wp_get_environment_type() == 'local') {
+		if ( wp_get_environment_type() == 'local' ) {
 			$version = time();
 		} else {
 			$version = GTMKIT_VERSION;
@@ -132,7 +163,7 @@ class WooCommerce {
 			wp_enqueue_script(
 				'gtmkit-woocommerce-checkout',
 				GTMKIT_URL . 'assets/js/woocommerce-checkout.js',
-				['gtmkit-woocommerce'],
+				[ 'gtmkit-woocommerce' ],
 				$version,
 				true
 			);
@@ -148,24 +179,24 @@ class WooCommerce {
 	 */
 	public function set_global_settings( array $global_settings ): array {
 
-		$global_settings['wc']['currency'] = $this->woocommerce_currency;
-		$global_settings['wc']['is_cart'] = is_cart();
-		$global_settings['wc']['is_checkout'] = (is_checkout() && !is_order_received_page());
-		$global_settings['wc']['use_sku'] = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
+		$global_settings['wc']['currency']                    = $this->woocommerce_currency;
+		$global_settings['wc']['is_cart']                     = is_cart();
+		$global_settings['wc']['is_checkout']                 = ( is_checkout() && ! is_order_received_page() );
+		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
 		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
-		$global_settings['wc']['add_shipping_info']['fired'] = false;
-		$global_settings['wc']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
-		$global_settings['wc']['add_payment_info']['fired'] = false;
-		$global_settings['wc']['text'] = [
-			'wp-block-handpicked-products' =>  __( 'Handpicked Products', 'gtmkit' ),
-			'wp-block-product-best-sellers' =>  __( 'Best Sellers', 'gtmkit' ),
-			'wp-block-product-category' =>  __( 'Product Category', 'gtmkit' ),
-			'wp-block-product-new' =>  __( 'New Products', 'gtmkit' ),
-			'wp-block-product-on-sale' =>  __( 'Products On Sale', 'gtmkit' ),
-			'wp-block-products-by-attribute' =>  __( 'Products By Attribute', 'gtmkit' ),
-			'wp-block-product-tag' =>  __( 'Product Tag', 'gtmkit' ),
-			'wp-block-product-top-rated' =>  __( 'Top Rated Products', 'gtmkit' ),
-			'shipping tier not found' => __( 'shipping tier not found', 'gtmkit' ),
+		$global_settings['wc']['add_shipping_info']['fired']  = false;
+		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
+		$global_settings['wc']['add_payment_info']['fired']   = false;
+		$global_settings['wc']['text']                        = [
+			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtmkit' ),
+			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtmkit' ),
+			'wp-block-product-category'      => __( 'Product Category', 'gtmkit' ),
+			'wp-block-product-new'           => __( 'New Products', 'gtmkit' ),
+			'wp-block-product-on-sale'       => __( 'Products On Sale', 'gtmkit' ),
+			'wp-block-products-by-attribute' => __( 'Products By Attribute', 'gtmkit' ),
+			'wp-block-product-tag'           => __( 'Product Tag', 'gtmkit' ),
+			'wp-block-product-top-rated'     => __( 'Top Rated Products', 'gtmkit' ),
+			'shipping tier not found'        => __( 'shipping tier not found', 'gtmkit' ),
 		];
 
 		if ( is_checkout() && ! is_order_received_page() ) {
@@ -202,11 +233,11 @@ class WooCommerce {
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_permalink_structure' ) ) {
-			$wc_permalink_structure = wc_get_permalink_structure();
+			$wc_permalink_structure           = wc_get_permalink_structure();
 			$data_layer['permalinkStructure'] = [
-				'productBase' => $wc_permalink_structure['product_base'],
-				'categoryBase' => $wc_permalink_structure['category_base'],
-				'tagBase' => $wc_permalink_structure['tag_base'],
+				'productBase'   => $wc_permalink_structure['product_base'],
+				'categoryBase'  => $wc_permalink_structure['category_base'],
+				'tagBase'       => $wc_permalink_structure['tag_base'],
 				'attributeBase' => $wc_permalink_structure['attribute_base'],
 			];
 		}
@@ -238,7 +269,7 @@ class WooCommerce {
 			return $data_layer;
 		}
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'product-page';
 		}
 
@@ -262,7 +293,7 @@ class WooCommerce {
 	 */
 	public function get_datalayer_content_product_category( array $data_layer ): array {
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'product-category';
 		}
 
@@ -278,7 +309,7 @@ class WooCommerce {
 	 */
 	public function get_datalayer_content_product_tag( array $data_layer ): array {
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'product-tag';
 		}
 
@@ -300,7 +331,7 @@ class WooCommerce {
 			$cart_value = WC()->cart->get_cart_contents_total();
 		}
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'cart';
 		}
 
@@ -323,7 +354,7 @@ class WooCommerce {
 	 */
 	public function get_datalayer_content_checkout( array $data_layer ): array {
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'checkout';
 		}
 
@@ -373,7 +404,7 @@ class WooCommerce {
 			return $data_layer;
 		}
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'order-received';
 		}
 
@@ -509,7 +540,7 @@ class WooCommerce {
 			$primary_term_id = yoast_get_primary_term_id( 'product_cat', $product_id );
 		}
 
-		if ($primary_term_id === false) {
+		if ( $primary_term_id === false ) {
 			$product_categories = wp_get_post_terms(
 				$product_id,
 				'product_cat',
@@ -684,7 +715,7 @@ class WooCommerce {
 	function product_list_loop_add_to_cart_tracking(): void {
 		global $product, $woocommerce_loop;
 
-		if ( isset( $woocommerce_loop['gtmkit_list_name'] ) && !empty($woocommerce_loop['gtmkit_list_name']) ) {
+		if ( isset( $woocommerce_loop['gtmkit_list_name'] ) && ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
 			$list_name = $woocommerce_loop['gtmkit_list_name'];
 		} else {
 			$list_name = __( 'General Product List', 'gtmkit' );
@@ -698,9 +729,9 @@ class WooCommerce {
 			),
 			[
 				'span' => [
-					'class' => [],
-					'style' => [],
-					'data-gtmkit_product_id' => [],
+					'class'                    => [],
+					'style'                    => [],
+					'data-gtmkit_product_id'   => [],
 					'data-gtmkit_product_data' => [],
 				],
 			]
@@ -724,13 +755,13 @@ class WooCommerce {
 		}
 	}
 
-	public function set_list_name_on_category_and_tag($value) {
+	public function set_list_name_on_category_and_tag( $value ) {
 		global $woocommerce_loop;
 
 		if ( isset( $woocommerce_loop['name'] ) && empty( $woocommerce_loop['name'] ) ) {
-			if (is_product_category()) {
+			if ( is_product_category() ) {
 				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Category', 'gtmkit' );
-			} elseif (is_product_tag()) {
+			} elseif ( is_product_tag() ) {
 				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Tag', 'gtmkit' );
 			}
 		}
@@ -748,11 +779,13 @@ class WooCommerce {
 	 *
 	 * @return string The updated cart item remove link containing product data.
 	 */
-	function cart_item_remove_link( string $woocommerce_cart_item_remove_link, string $cart_item_key): string {
+	function cart_item_remove_link( string $woocommerce_cart_item_remove_link, string $cart_item_key ): string {
 
 		$cart_item = WC()->cart->get_cart_item( $cart_item_key );
 
-		if (!$cart_item || !$cart_item['quantity']) return $woocommerce_cart_item_remove_link;
+		if ( ! $cart_item || ! $cart_item['quantity'] ) {
+			return $woocommerce_cart_item_remove_link;
+		}
 
 		$item_data = $this->get_item_data(
 			$cart_item['data'],
@@ -762,8 +795,8 @@ class WooCommerce {
 			'remove_from_cart'
 		);
 
-		$findHref = ' href="';
-		$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( json_encode($item_data ) ) );
+		$findHref                   = ' href="';
+		$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( json_encode( $item_data ) ) );
 
 		$substring_pos = strpos( $woocommerce_cart_item_remove_link, $findHref );
 

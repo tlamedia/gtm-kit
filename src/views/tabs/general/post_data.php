@@ -24,73 +24,73 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_type',
-	__('Post type', 'gtmkit'),
+	__( 'Post type', 'gtmkit' ),
 	[],
-	__('include the type of the current post or archive page.', 'gtmkit')
+	__( 'include the type of the current post or archive page.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_page_type',
-	__('Page type', 'gtmkit'),
+	__( 'Page type', 'gtmkit' ),
 	[],
-	__('include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtmkit')
+	__( 'include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_categories',
-	__('Categories', 'gtmkit'),
+	__( 'Categories', 'gtmkit' ),
 	[],
-	__('include the categories of the current post or archive page.', 'gtmkit')
+	__( 'include the categories of the current post or archive page.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_tags',
-	__('Tags', 'gtmkit'),
+	__( 'Tags', 'gtmkit' ),
 	[],
-	__('include the tags of the current post or archive page.', 'gtmkit')
+	__( 'include the tags of the current post or archive page.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_title',
-	__('Post title', 'gtmkit'),
+	__( 'Post title', 'gtmkit' ),
 	[],
-	__('include the post title of the current post.', 'gtmkit')
+	__( 'include the post title of the current post.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_id',
-	__('Post ID', 'gtmkit'),
+	__( 'Post ID', 'gtmkit' ),
 	[],
-	__('include the Post ID of the current post.', 'gtmkit')
+	__( 'include the Post ID of the current post.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_date',
-	__('Post date', 'gtmkit'),
+	__( 'Post date', 'gtmkit' ),
 	[],
-	__('include the post date.', 'gtmkit')
+	__( 'include the post date.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_author_name',
-	__('Post author name', 'gtmkit'),
+	__( 'Post author name', 'gtmkit' ),
 	[],
-	__('include the post author name.', 'gtmkit')
+	__( 'include the post author name.', 'gtmkit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_author_id',
-	__('Post author ID', 'gtmkit'),
+	__( 'Post author ID', 'gtmkit' ),
 	[],
-	__('include the post author ID.', 'gtmkit')
+	__( 'include the post author ID.', 'gtmkit' )
 );
 
 ?>

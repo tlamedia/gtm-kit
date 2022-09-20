@@ -22,7 +22,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 <p><?php esc_html_e( 'Integrations summary.', 'gtmkit' ); ?></p>
 
 <table class="form-table">
-<tbody>
+	<tbody>
 	<tr>
 		<th><?php esc_html_e( 'Active Integrations:', 'gtmkit' ); ?></th>
 		<td>
@@ -34,5 +34,5 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 			<?php endif; ?>
 		</td>
 	</tr>
-</tbody>
+	</tbody>
 </table>

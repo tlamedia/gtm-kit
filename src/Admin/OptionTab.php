@@ -28,9 +28,9 @@ class OptionTab {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $name      Name of the tab.
-	 * @param string $label     Localized label of the tab.
-	 * @param array  $arguments Optional arguments.
+	 * @param string $name Name of the tab.
+	 * @param string $label Localized label of the tab.
+	 * @param array $arguments Optional arguments.
 	 */
 	public function __construct( string $name, string $label, array $arguments = [] ) {
 		$this->name      = sanitize_title( $name );
@@ -77,8 +77,8 @@ class OptionTab {
 	/**
 	 * Retrieves the variable from the supplied arguments.
 	 *
-	 * @param string       $variable       Variable to retrieve.
-	 * @param string|mixed $default_value  Default to use when variable not found.
+	 * @param string $variable Variable to retrieve.
+	 * @param string|mixed $default_value Default to use when variable not found.
 	 *
 	 * @return mixed|string The retrieved variable.
 	 */

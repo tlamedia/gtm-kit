@@ -27,11 +27,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	<div class="inside">
 		<ul>
 			<li><a href="https://gtmkit.com/"><?php _e( 'Plugin Homepage', 'gtmkit' ); ?></a></li>
-			<li><a href="https://wordpress.org/extend/plugins/gtm-kit/"><?php _e( 'Plugin at Wordpress.org', 'gtmkit' ); ?></a></li>
+			<li>
+				<a href="https://wordpress.org/extend/plugins/gtm-kit/"><?php _e( 'Plugin at Wordpress.org', 'gtmkit' ); ?></a>
+			</li>
 		</ul>
 	</div>
 </div>
 <div id="credit">
 	Developed by<br/>
-	<a href="https://www.tlamedia.dk/"><img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/tla-media.svg' ); ?>" width="170" height="70" alt="TLA Media"/></a>
+	<a href="https://www.tlamedia.dk/"><img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/tla-media.svg' ); ?>"
+											width="170" height="70" alt="TLA Media"/></a>
 </div>

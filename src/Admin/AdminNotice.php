@@ -35,7 +35,7 @@ class AdminNotice {
 
 	public function show_warnings(): void {
 
-		if (empty($this->options->get('general', 'gtm_id'))) { ?>
+		if ( empty( $this->options->get( 'general', 'gtm_id' ) ) ) { ?>
 			<div class="gtmkit-notice notice notice-error">
 				<p>
 					<strong>
@@ -46,7 +46,7 @@ class AdminNotice {
 					</strong>
 				</p>
 			</div>';
-		<?php
+			<?php
 		}
 	}
 

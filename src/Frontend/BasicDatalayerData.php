@@ -19,7 +19,7 @@ class BasicDatalayerData {
 	 * @param Options $options
 	 */
 	public function __construct( Options $options ) {
-		$this->options        = $options;
+		$this->options = $options;
 	}
 
 	/**
@@ -38,22 +38,22 @@ class BasicDatalayerData {
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
-		$set_datalayer_post_type = $this->options->get('general', 'datalayer_post_type');
-		$set_datalayer_page_type = $this->options->get('general', 'datalayer_page_type');
+		$set_datalayer_post_type = $this->options->get( 'general', 'datalayer_post_type' );
+		$set_datalayer_page_type = $this->options->get( 'general', 'datalayer_page_type' );
 
 		if ( $set_datalayer_post_type ) {
-			$datalayer['pagePostType']  = get_post_type();
+			$datalayer['pagePostType'] = get_post_type();
 		}
 
-		if ( $this->options->get('general', 'datalayer_page_type') ) {
-			$datalayer['pageType']  = get_post_type();
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
+			$datalayer['pageType'] = get_post_type();
 		}
 
 		if ( is_singular() ) {
 
 			global $post;
 
-			if ( $this->options->get('general', 'datalayer_categories') ) {
+			if ( $this->options->get( 'general', 'datalayer_categories' ) ) {
 				$post_categories = get_the_category();
 				if ( $post_categories ) {
 					foreach ( $post_categories as $category ) {
@@ -62,7 +62,7 @@ class BasicDatalayerData {
 				}
 			}
 
-			if ( $this->options->get('general', 'datalayer_tags') ) {
+			if ( $this->options->get( 'general', 'datalayer_tags' ) ) {
 				$post_tags = get_the_tags();
 				if ( $post_tags ) {
 					foreach ( $post_tags as $tag ) {
@@ -71,32 +71,32 @@ class BasicDatalayerData {
 				}
 			}
 
-			if ( $this->options->get('general', 'datalayer_post_title') ) {
+			if ( $this->options->get( 'general', 'datalayer_post_title' ) ) {
 				$datalayer['postTitle'] = $post->post_title;
 			}
 
-			if ( $this->options->get('general', 'datalayer_post_id') ) {
+			if ( $this->options->get( 'general', 'datalayer_post_id' ) ) {
 				$datalayer['postId'] = $post->ID;
 			}
 
-			if ( $this->options->get('general', 'datalayer_post_date') ) {
+			if ( $this->options->get( 'general', 'datalayer_post_date' ) ) {
 				$datalayer['postDate'] = get_the_date( 'Y-m-d' );
 			}
 
-			if ( $this->options->get('general', 'datalayer_post_author_id') ) {
-				$author = get_userdata( $post->post_author );
+			if ( $this->options->get( 'general', 'datalayer_post_author_id' ) ) {
+				$author                  = get_userdata( $post->post_author );
 				$datalayer['authorName'] = $author->display_name;
 			}
 
-			if ( $this->options->get('general', 'datalayer_post_author_name') ) {
+			if ( $this->options->get( 'general', 'datalayer_post_author_name' ) ) {
 				$datalayer['authorId'] = (int) $post->post_author;
 			}
 
 		}
 
 		if ( is_archive() || is_post_type_archive() ) {
-			if ( ( is_tax() || is_category() ) && $this->options->get('general', 'datalayer_categories') ) {
-				$categories                = get_the_category();
+			if ( ( is_tax() || is_category() ) && $this->options->get( 'general', 'datalayer_categories' ) ) {
+				$categories = get_the_category();
 				foreach ( $categories as $category ) {
 					$datalayer['pageCategory'][] = $category->slug;
 				}
@@ -113,7 +113,7 @@ class BasicDatalayerData {
 
 			global $wp_query;
 
-			$datalayer['siteSearchQuery'] = get_search_query();
+			$datalayer['siteSearchQuery']   = get_search_query();
 			$datalayer['siteSearchResults'] = $wp_query->found_posts;
 		}
 
