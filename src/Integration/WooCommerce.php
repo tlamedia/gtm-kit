@@ -397,7 +397,7 @@ class WooCommerce {
 				return $data_layer;
 			}
 
-			if ( ( 1 === (int) get_post_meta( $order_id, '_gtmkit_order_tracked', true ) ) ) {
+			if ( ( 1 === (int) $order->get_meta('_gtmkit_order_tracked') ) ) {
 				return $data_layer;
 			}
 		} else {
@@ -449,7 +449,8 @@ class WooCommerce {
 			'items'          => $order_items
 		];
 
-		update_post_meta( $order_id, '_gtmkit_order_tracked', 1 );
+		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
+		$order->save();
 
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
 	}
