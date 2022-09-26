@@ -48,6 +48,7 @@ class Frontend {
 			add_action( 'wp_head', [ $page, 'container_disabled' ] );
 		}
 
+		add_filter( 'wp_resource_hints', [ $page, 'dns_prefetch' ], 10, 2 );
 		add_filter( 'rocket_excluded_inline_js_content', [ $page, 'wp_rocket_exclude_javascript' ] );
 
 		$noscript_implementation = Options::init()->get( 'general', 'noscript_implementation' );
@@ -189,4 +190,22 @@ public function get_datalayer_content(): void {
 		return $pattern;
 	}
 
+	/**
+	 * Adds Google Tag Manager domain DNS Prefetch printed by wp_resource_hints
+	 *
+	 * @param array $hints URLs to print for resource hints.
+	 * @param string $relation_type The relation type the URL are printed for.
+	 *
+	 * @return array URL to print
+	 */
+	function dns_prefetch( array $hints, string $relation_type ): array {
+
+		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';;
+
+		if ( 'dns-prefetch' === $relation_type ) {
+			$hints[] = '//' . $domain;
+		}
+
+		return $hints;
+	}
 }
