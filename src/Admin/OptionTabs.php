@@ -120,17 +120,19 @@ class OptionTabs {
 	public function display( OptionsForm $form ): void {
 
 		?>
-		<div class="nav-tab-wrapper" id="gtmkit-tabs">
-			<?php
-			foreach ( $this->get_tabs() as $tab ) {
-				printf(
-					'<a class="nav-tab" id="%1$s" href="%2$s">%3$s</a>',
-					esc_attr( $tab->get_name() . '-tab' ),
-					esc_url( '#top#' . $tab->get_name() ),
-					esc_html( $tab->get_label() )
-				);
-			}
-			?>
+		<div class="gtmkit-header-navigation">
+			<ul class="gtmkit-nav-tab-wrapper" id="gtmkit-tabs">
+				<?php
+				foreach ( $this->get_tabs() as $tab ) {
+					printf(
+						'<li><a class="gtmkit-nav-tab" id="%1$s" href="%2$s">%3$s</a></li>',
+						esc_attr( $tab->get_name() . '-tab' ),
+						esc_url( '#top#' . $tab->get_name() ),
+						esc_html( $tab->get_label() )
+					);
+				}
+				?>
+			</ul>
 		</div>
 		<?php
 

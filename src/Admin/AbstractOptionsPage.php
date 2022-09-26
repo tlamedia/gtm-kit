@@ -40,6 +40,8 @@ abstract class AbstractOptionsPage {
 		add_action( 'admin_init', [ $page, 'configure' ] );
 		add_action( 'admin_menu', [ $page, 'add_admin_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $page, 'enqueue_assets' ] );
+
+		add_filter( 'admin_body_class', [ $page, 'admin_body_class' ] );
 	}
 
 	/**
@@ -52,7 +54,7 @@ abstract class AbstractOptionsPage {
 			$this->get_menu_title(),
 			$this->get_capability(),
 			$this->get_menu_slug(),
-			[ $this, 'render' ]
+			[ $this, 'render' ],
 		);
 	}
 
@@ -153,6 +155,24 @@ abstract class AbstractOptionsPage {
 
 		wp_localize_script( 'gtmkit-admin', 'gtmkit', $script_data );
 
+	}
+
+	/**
+	 * Add body class.
+	 *
+	 * @param string $classes The body classes.
+	 *
+	 * @return string
+	 */
+	function admin_body_class( string $classes ): string {
+
+		$page_parent = get_admin_page_parent();
+
+		if ( $this->get_parent_slug() === $page_parent ) {
+			$classes .= ' gtmkit-admin-page';
+		}
+
+		return $classes;
 	}
 
 }

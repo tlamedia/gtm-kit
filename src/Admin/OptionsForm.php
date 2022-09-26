@@ -57,12 +57,13 @@ class OptionsForm {
 	 */
 	public function admin_header( bool $form = true, string $option_name = 'gtmkit', string $option_group = 'general', string $settings_group = '' ): void {
 		?>
-		<div class="wrap gtmkit-admin-page <?php echo esc_attr( 'page-' . $option_group ); ?>">
-		<img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/logo.svg' ); ?>" width="160" height="54"
-			 alt="GTM Kit"/>
-		<h1 id="gtmkit-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
-		<div class="gtmkit_content_wrapper">
-		<div class="gtmkit_content_cell" id="gtmkit_content_top">
+		<div class="<?php echo esc_attr( 'page-' . $option_group ); ?>">
+		<div class="gtmkit_header">
+			<h1 id="gtmkit-title">
+				<img src="<?php echo esc_url( GTMKIT_URL . 'assets/images/logo.svg' ); ?>" width="128" height="44" alt="GTM Kit"/>
+				<?php echo esc_html( get_admin_page_title() ); ?>
+			</h1>
+		</div>
 		<?php
 		if ( $form === true ) {
 
@@ -149,32 +150,22 @@ class OptionsForm {
 		if ( $save_button ) {
 			?>
 			<div id="gtmkit-submit-container">
-				<div id="gtmkit-submit-container-float" class="gtmkit-admin-submit">
-					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
-				</div>
-
-				<div id="gtmkit-submit-container-fixed" class="gtmkit-admin-submit gtmkit-admin-submit-fixed"
-					 style="display: none;">
-					<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
-				</div>
+				<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
 			</div>
 			</form>
 			<?php
 		}
 
-		?></div><!-- end of div gtmkit_content_top --><?php
-
 		if ( $show_sidebar ) {
 			?>
-			<div id="sidebar-container" class="gtmkit_content_cell">
+			<div id="sidebar-container">
 				<?php $this->admin_sidebar(); ?>
 			</div>
 			<?php
 		}
 
 		?>
-		</div><!-- end of div gtmkit_content_wrapper -->
-		</div><!-- end of wrap -->'
+		</div><!-- end of page-group -->
 		<?php
 	}
 
