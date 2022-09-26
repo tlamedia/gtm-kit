@@ -80,7 +80,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 
 		$dashboard_tabs->display( $form );
 
-		$form->admin_footer();
+		$form->admin_footer( true, false);
 
 	}
 

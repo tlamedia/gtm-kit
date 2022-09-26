@@ -1,15 +1,99 @@
-.gtmkit-admin-page {
-	margin-top: 20px;
+@import "partials/base";
+
+.gtmkit-admin-page #wpcontent {
+	padding-left: 0 !important;
+
+	*,
+	*::before,
+	*::after {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
 }
 
-#gtmkit-title {
-	padding: 16px 0;
+.gtmkit_header {
+	padding: 24px var(--gtmkit-space-h);
+
+	h1#gtmkit-title {
+		margin: 0;
+		display: flex;
+		align-items: center;
+
+		font-size: 28px;
+		font-weight: 500;
+
+		img {
+			margin-right: 1em;
+		}
+	}
 }
 
-.gtmkit_content_wrapper {
-	display: table;
-	width: 100%;
-	table-layout: fixed;
+.gtmkit-header-navigation {
+	align-items: center;
+	background: var(--gtmkit-background-white);
+	border-color: var(--gtmkit-border-color);
+	border-style: solid;
+	border-width: 1px 0;
+	display: flex;
+	justify-content: space-between;
+	min-height: 60px;
+	padding: 0 var(--gtmkit-space-h);
+
+	.gtmkit-nav-tab-wrapper {
+		display: flex;
+		align-items: center;
+		margin: 0;
+
+		li {
+			margin-bottom: 0;
+			margin-right: 2rem;
+			outline: 0 !important;
+			border-top: none;
+
+			a {
+				border-bottom: 4px solid var(--gtmkit-background-white);
+				color: var(--gtmkit-text-color-grey);
+				display: block;
+				font-weight: 600;
+				padding: 20px 0 18px 0;
+				text-decoration: none;
+				transition: border 300ms ease;
+				box-shadow: none;
+
+				&.active,
+				&.active:focus,
+				&.active:focus:active {
+					border-color: var(--gtmkit-color-primary);
+					color: var(--gtmkit-text-color-heading);
+					border-top: none;
+				}
+
+				&.active:hover,
+				&:hover {
+					border-color: var(--gtmkit-text-color-grey);
+				}
+
+			}
+		}
+
+		.nav-tab-active,
+		.nav-tab-active:focus,
+		.nav-tab-active:focus:active,
+		.nav-tab-active:hover {
+			border-color: var(--gtmkit-color-primary);
+			color: var(--gtmkit-text-color-heading);
+		}
+	}
+}
+
+.gtmkit-tab {
+	padding: 24px var(--gtmkit-space-h);
+	display: none;
+
+	&.active {
+		display: block;
+	}
 
 	label.select,
 	label.textinput {
@@ -27,49 +111,15 @@
 	}
 
 	.success {
-		color: #00a32a;
+		color: var(--gtmkit-color-success);
 	}
 
 	.error {
-		color: red;
+		color: var(--gtmkit-color-error);
 	}
 
 	input[type="radio"] {
 		margin-bottom: -4px;
-	}
-}
-
-#gtmkit_content_top {
-	width: 100%;
-	padding-right: 5%;
-}
-
-.gtmkit_content_cell {
-	display: table-cell;
-	height: 500px;
-	margin: 0;
-	padding: 0;
-	vertical-align: top;
-}
-
-.gtmkit-help-panel {
-	display: none;
-	clear: both;
-	max-width: 75em !important;
-	padding: 0 0 1em;
-	font-weight: 400;
-	white-space: normal;
-}
-
-.gtmkit-tab {
-	margin: 30px 10px;
-
-	*,
-	*::before,
-	*::after {
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
 	}
 
 	.form-table {
@@ -80,77 +130,25 @@
 			padding-top: 16px;
 			padding-bottom: 16px;
 		}
+
+		td fieldset label {
+
+			font-size: 13px;
+
+			&.radio {
+				line-height: 1;
+			}
+		}
+	}
+
+	.gtmkit-form-legend {
+		font-size: 14px;
+		font-weight: 600;
 	}
 }
 
-nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-active:hover {
-	border-bottom: 1px solid #f0f0f1;
-	background: #f0f0f1;
-	color: #000;
-}
-
-.gtmkit-tab.active {
-	display: block;
-}
-
-.gtmkit-tab {
-	display: none;
-}
-
-.gtmkit_help.yoast-help-button {
-	margin-right: 6px;
-}
-
-.help-button-inline .gtmkit_help.gtmkit-help-button {
-	margin-top: -4px;
-}
-
-.gtmkit_help.gtmkit-help-button, .gtmkit_help.gtmkit-help-link {
-	position: relative;
-	width: 20px;
-	height: 20px;
-	margin: 0;
-	margin-top: 0px;
-	margin-right: 0px;
-	padding: 0;
-	border: 0;
-	outline: none;
-	color: #72777c;
-	background: 0 0;
-	box-shadow: none;
-	vertical-align: top;
-	cursor: pointer;
-}
-
-
-.gtmkit_help.gtmkit-help-button, .gtmkit_help.gtmkkit-help-link {
-	color: #72777c;
-	cursor: pointer;
-}
-
-
-.gtmkit_help .gtmkit-help-icon::before {
-
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 4px;
-	content: "\f223";
-
-}
-
-.gtmkit-form-legend {
-	font-size: 14px;
-	font-weight: 600;
-}
-
-.form-table td fieldset label {
-
-	font-size: 13px;
-
-	&.radio {
-		line-height: 1;
-	}
+#gtmkit-submit-container {
+	padding: 24px var(--gtmkit-space-h);
 }
 
 #sidebar-container {
@@ -173,7 +171,7 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 	}
 
 	.inside {
-		background: #fff;
+		background: var(--gtmkit-background-white);
 		border-left: 0;
 		border-right: 0;
 	}
@@ -189,7 +187,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 
 }
 
-
 .gtmkit-clear {
 	&:before {
 		content: " ";
@@ -203,7 +200,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 	}
 }
 
-// Setting rows, eg field row.
 .gtmkit-setting-row {
 	border-bottom: 1px solid #e4e4e4;
 	padding: 30px 0;
@@ -225,7 +221,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		margin: 15px 0;
 	}
 
-	// Section heading.
 	&.section-heading {
 		padding: 20px 0;
 
@@ -242,7 +237,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Checkbox settings field.
 	&.gtmkit-setting-row-checkbox {
 
 		input[type=checkbox] {
@@ -264,7 +258,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Text based settings field.
 	&.gtmkit-setting-row-text,
 	&.gtmkit-setting-row-password,
 	&.gtmkit-setting-row-number,
@@ -275,7 +268,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Select settings field.
 	&.gtmkit-setting-row-select {
 
 		.gtmkit-setting-label {
@@ -283,7 +275,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Radio settings field.
 	&.gtmkit-setting-row-radio {
 
 		.gtmkit-setting-field {
@@ -300,7 +291,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 
 	}
 
-	// Radio settings field.
 	&.gtmkit-setting-row-checkbox-toggle {
 
 		.gtmkit-setting-field {
@@ -424,84 +414,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Mailer image radio settings field.
-	&.gtmkit-setting-row-mailer {
-		padding-bottom: 20px;
-
-		.gtmkit-mailers {
-
-			.gtmkit-mailer {
-				display: inline-block;
-				width: 140px;
-				margin-right: 12px;
-				margin-bottom: 12px;
-				position: relative;
-
-				.gtmkit-mailer-image {
-					background: #fff;
-					text-align: center;
-					border: 2px solid #E5E5E5;
-					border-radius: 4px;
-					cursor: pointer;
-					height: 76px;
-					position: relative;
-					margin-bottom: 10px;
-					-webkit-transition: all 0.2s ease-in-out;
-					-moz-transition: all 0.2s ease-in-out;
-					-ms-transition: all 0.2s ease-in-out;
-					transition: all 0.2s ease-in-out;
-
-					&.is-recommended {
-						background-image: url(../images/recommended.svg);
-						background-repeat: no-repeat;
-						background-size: 60%;
-						background-position: top right -2px;
-					}
-
-					img {
-						max-width: 80%;
-						max-height: 40px;
-						display: block;
-						position: relative;
-						top: 50%;
-						left: 50%;
-						transform: translate(-50%, -50%);
-						opacity: 0.6;
-						-webkit-transition: all 0.2s ease-in-out;
-						-moz-transition: all 0.2s ease-in-out;
-						-ms-transition: all 0.2s ease-in-out;
-						transition: all 0.2s ease-in-out;
-					}
-				}
-
-				&.gtmkit-mailer-smtp .gtmkit-mailer-image img {
-					max-height: 30px
-				}
-
-				&.active {
-					.gtmkit-mailer-image {
-						border-color: #FF982D;
-
-						img {
-							opacity: 1;
-						}
-					}
-				}
-
-				&:hover {
-					.gtmkit-mailer-image {
-						border-color: #ccc;
-
-						img {
-							opacity: 1;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// General elements.
 	h2, h4 {
 		color: #444;
 		font-size: 20px;
@@ -545,36 +457,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 			margin-top: 30px;
 		}
 
-		&.inline-notice {
-			margin: 5px 0 15px;
-			box-sizing: border-box;
-			background: #fff;
-			border-left: 4px solid transparent;
-			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
-
-			&.inline-error {
-				border-color: #dc3232;
-				margin-bottom: 5px;
-				padding: 10px;
-			}
-
-			&.inline-edu-notice {
-				border-color: #809EB0;
-				line-height: 1.5em;
-				padding: 10px;
-			}
-
-			a.gtmkit-mailer-notice-dismiss {
-				float: right;
-				color: #999DA1;
-				margin: 0 0 10px 10px;
-				text-decoration: none;
-
-				&:hover {
-					color: darken(#999DA1, 20%);
-				}
-			}
-		}
 	}
 
 	ul {
@@ -626,7 +508,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Form elements.
 	input[type=text],
 	input[type=email],
 	input[type=number],
@@ -674,7 +555,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 		}
 	}
 
-	// Animate dashicon yes icon when clicking on copy button.
 	.gtmkit-dashicons-yes-alt-green {
 		&.gtmkit-animate {
 			-webkit-animation: gtmkit-fade-in-stop-out 1s linear;
@@ -687,7 +567,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 	}
 }
 
-// Row label (left).
 .gtmkit-setting-label {
 	display: block;
 	float: left;
@@ -700,7 +579,6 @@ nav-tab-active, .nav-tab-active:focus, .nav-tab-active:focus:active, .nav-tab-ac
 	}
 }
 
-// Row field (right).
 .gtmkit-setting-field {
 	display: block;
 	margin: 0 0 0 225px;

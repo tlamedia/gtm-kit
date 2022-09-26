@@ -27,7 +27,7 @@ jQuery(function ($) {
 		}
 
 		jQuery("#" + activeTabId).addClass("active");
-		jQuery("#" + activeTabId + "-tab").addClass("nav-tab-active").trigger("click");
+		jQuery("#" + activeTabId + "-tab").addClass("active").trigger("click");
 	}
 
 
@@ -35,13 +35,13 @@ jQuery(function ($) {
 
 		// Handle the settings pages tabs.
 		$("#gtmkit-tabs").find("a").on("click", function () {
-			$("#gtmkit-tabs").find("a").removeClass("nav-tab-active");
+			$("#gtmkit-tabs").find("a").removeClass("active");
 			$(".gtmkit-tab").removeClass("active");
 
 			let id = $(this).attr("id").replace("-tab", "");
 			let activeTab = $("#" + id);
 			activeTab.addClass("active");
-			$(this).addClass("nav-tab-active");
+			$(this).addClass("active");
 			if (activeTab.hasClass("nosave")) {
 				$("#gtmkit-submit-container").hide();
 			} else {
@@ -49,17 +49,6 @@ jQuery(function ($) {
 			}
 
 			//$( window ).trigger( "yoast-seo-tab-change" );
-		});
-
-
-		$(".gtmkit-help-button").on("click", function () {
-			let $button = $(this),
-				helpPanel = $("#" + $button.attr("aria-controls")),
-				isPanelVisible = helpPanel.is(":visible");
-
-			$(helpPanel).slideToggle(200, function () {
-				$button.attr("aria-expanded", !isPanelVisible);
-			});
 		});
 
 		setInitialActiveTab();
