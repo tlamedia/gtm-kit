@@ -47,10 +47,24 @@ jQuery(function ($) {
 			} else {
 				$("#gtmkit-submit-container").show();
 			}
-
-			//$( window ).trigger( "yoast-seo-tab-change" );
 		});
 
+		$(".gtmkit-items-list").find("a.gtmkit-open-tab").on("click", function () {
+			$("#gtmkit-tabs").find("a").removeClass("active");
+			$(".gtmkit-tab").removeClass("active");
+
+			let id = $(this).attr("id").replace("gtmkit-open-tab-", "");
+			let activeTab = $("#" + id);
+			let activeNavTab = $("#" + id + "-tab");
+			activeTab.addClass("active");
+			activeNavTab.addClass("active");
+			if (activeTab.hasClass("nosave")) {
+				$("#gtmkit-submit-container").hide();
+			} else {
+				$("#gtmkit-submit-container").show();
+			}
+
+		});
 		setInitialActiveTab();
 	});
 

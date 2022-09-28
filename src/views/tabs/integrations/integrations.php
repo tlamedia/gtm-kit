@@ -18,20 +18,6 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</h2>
 </div>
 
-<p><?php esc_html_e( 'Integrations summary.', 'gtmkit' ); ?></p>
-
-<table class="form-table">
-	<tbody>
-	<tr>
-		<th><?php esc_html_e( 'Active Integrations:', 'gtmkit' ); ?></th>
-		<td>
-			<?php if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && Options::init()->get( 'integrations', 'woocommerce_integration' ) ): ?>
-				<span class="success">
-				<span class="dashicons dashicons-yes"></span>
-					WooCommerce
-				</span>
-			<?php endif; ?>
-		</td>
-	</tr>
-	</tbody>
-</table>
+<div class="gtmkit-setting-row gtmkit-clear">
+	<?php require_once GTMKIT_PATH . 'src/views/integrations-metabox.php'; ?>
+</div>
