@@ -1,11 +1,34 @@
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop-large: 1440px;
+
 :root {
 	--gtmkit-background-white: #fff;
 	--gtmkit-border-color: #ddd;
 	--gtmkit-text-color-heading: #454545;
 	--gtmkit-text-color-grey: #777777;
 	--gtmkit-color-primary: #3969bb;
+	--gtmkit-color-secondary: #00a32a;
 	--gtmkit-color-success: #00a32a;
 	--gtmkit-color-error: red;
 	--gtmkit-space-h: 2rem;
-}
+	--gtmkit-space-v: 1.5rem;
+	--gtmkit-font-size-l: 18px;
+	--gtmkit-font-size-m: 16px;
+	--gtmkit-font-size-s: 14px;
+	--gtmkit-font-size-xl: 22px;
+	--gtmkit-font-size-xs: 12px;
+	--gtmkit-font-size-xxl: 24px;
+	--gtmkit-button-disabled-bg: #F5F5F5;
+	--gtmkit-button-disabled-border: 1px solid #DDDDDD;
+	--gtmkit-button-disabled-text: #bbb;
+	--gtmkit-button-primary-bg: var(--gtmkit-color-primary);
+	--gtmkit-button-primary-bg-hover: #397EEB;
+	--gtmkit-button-primary-text: #fff;
+	--gtmkit-button-primary-text-hover: #fff;
+	--gtmkit-button-secondary-bg: #F8F8F8;
+	--gtmkit-button-secondary-bg-hover: #fff;
+	--gtmkit-button-secondary-border: #DDDDDD;
+	--gtmkit-button-secondary-text: #777;
+	--gtmkit-button-secondary-text-hover: #454545;
 
+}
