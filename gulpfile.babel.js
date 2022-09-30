@@ -43,7 +43,7 @@ export const styles = () => {
 }
 
 export const scripts = () => {
-	return src(['src/js/admin.js', 'src/js/woocommerce.js', 'src/js/woocommerce-checkout.js'])
+	return src(['src/js/admin.js', 'src/js/woocommerce.js', 'src/js/woocommerce-checkout.js', 'src/js/contact-form-7.js'])
 		.pipe(gulpif(!PRODUCTION, sourcemaps.init()))
 		.pipe(gulpif(PRODUCTION, uglify()))
 		.pipe(gulpif(!PRODUCTION, sourcemaps.write()))
