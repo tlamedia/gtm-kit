@@ -13,31 +13,34 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 }
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
-	<h2>
-		<?php esc_html_e( 'Overview', 'gtmkit' ); ?>
-	</h2>
-</div>
-
-<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
-<table class="form-table">
-	<tbody>
-	<tr>
-		<th>Status:</th>
-		<td>
-			<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'container_active' ) ): ?>
-				<span class="success">
-				<span class="dashicons dashicons-yes"></span>
-				<?php esc_html_e( 'GTM container is active', 'gtmkit' ); ?>
-			</span>
-			<?php else: ?>
-				<span class="dashicons dashicons-no"></span>
-				<?php esc_html_e( 'GTM container is not active', 'gtmkit' ); ?>
-
-			<?php endif; ?>
-		</td>
-	</tr>
-	</tbody>
-</table>
+	<h2><?php esc_attr_e( 'Status', 'gtmkit' ); ?></h2>
+	<div class="gtmkit-items-list single-item">
+		<ul>
+			<li class="gtmkit-list-item gtmkit-list-item-has-pill">
+				<h3>Google Tag Manager Container</h3>
+				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'container_active' ) ): ?>
+				<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
+					<?php esc_attr_e( 'Active', 'gtmkit' ); ?>
+				</span>
+				<div class="gtmkit-list-item-actions">
+					<p>
+						<?php esc_html_e( 'Container ID:', 'gtmkit'); ?>
+						<?php echo esc_html( Options::init()->get( 'general', 'gtm_id' ) ); ?>
+					</p>
+				</div>
+				<?php else: ?>
+				<span class="gtmkit-list-item-pill gtmkit-list-item-pill-red">
+					<?php esc_attr_e( 'Inactive', 'gtmkit' ); ?>
+				</span>
+				<div class="gtmkit-list-item-actions">
+					<p>
+						<?php esc_html_e( 'The container is not active but the datalayer is generated.', 'gtmkit'); ?>
+					</p>
+				</div>
+				<?php endif; ?>
+			</li>
+		</ul>
+	</div>
 </div>
 
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
