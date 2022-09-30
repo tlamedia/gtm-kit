@@ -19,13 +19,15 @@ $integrations = [
 		'tab_id' => 'woocommerce',
 		'plugin_search' => 'woocommerce',
 	],
+	[
+		'name' => 'Contact Form 7',
+		'description' => __( 'Just another contact form plugin for WordPress. Simple but flexible', 'gtmkit' ),
+		'plugin_active' => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+		'integration_active' => Options::init()->get( 'integrations', 'cf7_integration' ),
+		'tab_id' => 'cf7',
+		'plugin_search' => 'Contact Form 7',
+	],
 ];
-
-$woocommerce_active = is_plugin_active( 'woocommerce/woocommerce.php' );
-$woocommerce_integration = ( $woocommerce_active && Options::init()->get( 'integrations', 'woocommerce_integration' ) );
-$cf7_active = is_plugin_active( 'contact-form-7/wp-contact-form-7.php' );
-$cf7_integration = ( $cf7_active && Options::init()->get( 'integrations', 'cf7_integration' ) );
-
 ?>
 <div class="gtmkit-items-metabox gtmkit-metabox">
 	<div class="gtmkit-items-list">

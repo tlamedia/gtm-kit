@@ -39,6 +39,15 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 				]
 			)
 		);
+		$dashboard_tabs->add_tab(
+			new OptionTab(
+				'cf7',
+				'Contact Form 7',
+				[
+					'save_button' => true,
+				]
+			)
+		);
 
 		$dashboard_tabs->display( $form );
 
@@ -89,6 +98,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 		$generalTabs = new OptionTabs( 'integrations' );
 		$generalTabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtmkit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
+		$generalTabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
 	}
 
 }

@@ -9,6 +9,7 @@ use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Installation\Installation;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
+use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
 
 
@@ -66,7 +67,11 @@ function gtmkit_frontend_init(): void {
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
 	if ( Options::init()->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
 		WooCommerce::register( $options );
+	}
+	if ( Options::init()->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
+		ContactForm7::register( $options );
 	};
+
 }
 
 /**
