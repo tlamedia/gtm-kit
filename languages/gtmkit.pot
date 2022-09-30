@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.2.1\n"
+"Project-Id-Version: GTM Kit 1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-09-14 21:30:02+00:00\n"
+"POT-Creation-Date: 2022-09-30 20:07:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
 
-#: inc/main.php:44
+#: inc/main.php:46
 msgid "Go to GTK Kit Settings page"
 msgstr ""
 
-#: inc/main.php:45
+#: inc/main.php:47
 msgid "Settings"
 msgstr ""
 
@@ -25,106 +25,106 @@ msgstr ""
 msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:49 src/Admin/GeneralOptionsPage.php:127
+#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:128
 msgid "Dashboard"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:58 src/Admin/GeneralOptionsPage.php:128
+#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:129
 msgid "Container"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:67 src/Admin/GeneralOptionsPage.php:129
-#: src/views/tabs/general/post_data.php:18
+#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:130
+#: src/views/tabs/general/post_data.php:17
 msgid "Post data"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:73 src/Admin/GeneralOptionsPage.php:130
-#: src/views/tabs/general/help.php:18
+#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:131
+#: src/views/tabs/general/help.php:17
 msgid "Help"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:101
+#: src/Admin/GeneralOptionsPage.php:102
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:110
+#: src/Admin/GeneralOptionsPage.php:111
 msgid "General Settings"
 msgstr ""
 
 #: src/Admin/IntegrationsOptionsPage.php:27
-#: src/Admin/IntegrationsOptionsPage.php:64
 #: src/Admin/IntegrationsOptionsPage.php:73
-#: src/views/tabs/integrations/integrations.php:18
+#: src/Admin/IntegrationsOptionsPage.php:82
+#: src/views/tabs/general/dashboard.php:47
+#: src/views/tabs/integrations/integrations.php:17
 msgid "Integrations"
 msgstr ""
 
-#: src/Admin/IntegrationsOptionsPage.php:90
-#: src/views/tabs/general/dashboard.php:18
+#: src/Admin/IntegrationsOptionsPage.php:99
 msgid "Overview"
 msgstr ""
 
-#: src/Admin/OptionsForm.php:152 src/Admin/OptionsForm.php:156
+#: src/Admin/OptionsForm.php:153
 msgid "Save changes"
 msgstr ""
 
-#: src/Admin/OptionsForm.php:268
+#: src/Admin/OptionsForm.php:261
 msgid "On"
 msgstr ""
 
-#: src/Admin/OptionsForm.php:269
+#: src/Admin/OptionsForm.php:262
 msgid "Off"
 msgstr ""
 
-#: src/Admin/OptionsForm.php:415
+#: src/Admin/OptionsForm.php:408
 msgid "(not set)"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:160
+#: src/Integration/WooCommerce.php:191
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:161
+#: src/Integration/WooCommerce.php:192
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:162 src/Integration/WooCommerce.php:732
+#: src/Integration/WooCommerce.php:193 src/Integration/WooCommerce.php:764
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:163
+#: src/Integration/WooCommerce.php:194
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:164
+#: src/Integration/WooCommerce.php:195
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:165
+#: src/Integration/WooCommerce.php:196
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:166 src/Integration/WooCommerce.php:734
+#: src/Integration/WooCommerce.php:197 src/Integration/WooCommerce.php:766
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:167
+#: src/Integration/WooCommerce.php:198
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:168
+#: src/Integration/WooCommerce.php:199
 msgid "shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:615
+#: src/Integration/WooCommerce.php:647
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:649
+#: src/Integration/WooCommerce.php:681
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:649 src/Integration/WooCommerce.php:690
-#: src/Integration/WooCommerce.php:723
+#: src/Integration/WooCommerce.php:681 src/Integration/WooCommerce.php:722
+#: src/Integration/WooCommerce.php:755
 msgid "General Product List"
 msgstr ""
 
@@ -156,154 +156,183 @@ msgstr ""
 msgid "Plugin Homepage"
 msgstr ""
 
-#: src/views/admin-sidebar.php:30
+#: src/views/admin-sidebar.php:31
 msgid "Plugin at Wordpress.org"
 msgstr ""
 
-#: src/views/tabs/general/container.php:18
+#: src/views/integrations-metabox.php:16 src/views/integrations-metabox.php:46
+#: src/views/tabs/integrations/woocommerce.php:21
+msgid "The #1 open source eCommerce platform built for WordPress"
+msgstr ""
+
+#: src/views/integrations-metabox.php:24 src/views/tabs/integrations/cf7.php:21
+msgid "Just another contact form plugin for WordPress. Simple but flexible"
+msgstr ""
+
+#: src/views/integrations-metabox.php:41
+#: src/views/tabs/general/dashboard.php:23
+msgid "Active"
+msgstr ""
+
+#: src/views/integrations-metabox.php:60
+msgid "Edit integration"
+msgstr ""
+
+#: src/views/integrations-metabox.php:62
+msgid "Setup integration"
+msgstr ""
+
+#: src/views/integrations-metabox.php:64
+msgid "Install plugin"
+msgstr ""
+
+#: src/views/integrations-metabox.php:72
+msgid "Coming soon..."
+msgstr ""
+
+#: src/views/integrations-metabox.php:73
+msgid "The next integration is under way."
+msgstr ""
+
+#: src/views/tabs/general/container.php:17
 msgid "Google Tag Manager container"
 msgstr ""
 
-#: src/views/tabs/general/container.php:20
+#: src/views/tabs/general/container.php:19
 msgid "Set Container ID and implementation method."
 msgstr ""
 
-#: src/views/tabs/general/container.php:26
+#: src/views/tabs/general/container.php:25
 msgid "Find your GTM container ID on %1$sGoogle Tag Manager%2$s."
 msgstr ""
 
-#: src/views/tabs/general/container.php:36
+#: src/views/tabs/general/container.php:35
+#: src/views/tabs/general/dashboard.php:27
 msgid "Container ID:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:46
+#: src/views/tabs/general/container.php:45
 msgid "Container Active"
 msgstr ""
 
-#: src/views/tabs/general/container.php:48
+#: src/views/tabs/general/container.php:47
 msgid "Removes the container code for use with custom implementations."
 msgstr ""
 
-#: src/views/tabs/general/container.php:52
+#: src/views/tabs/general/container.php:51
 msgid "Google Tag Manager container code"
 msgstr ""
 
-#: src/views/tabs/general/container.php:59
+#: src/views/tabs/general/container.php:58
 msgid "Standard implementation as recommended by Google"
 msgstr ""
 
-#: src/views/tabs/general/container.php:62
+#: src/views/tabs/general/container.php:61
 msgid "Load container when browser is idle (requestIdleCallback)"
 msgstr ""
 
-#: src/views/tabs/general/container.php:65
+#: src/views/tabs/general/container.php:64
 msgid "Load container 2 seconds after browser is idle (requestIdleCallback + timer)"
 msgstr ""
 
-#: src/views/tabs/general/container.php:68
-#: src/views/tabs/general/container.php:74
+#: src/views/tabs/general/container.php:67
+#: src/views/tabs/general/container.php:73
 msgid "Container code implementation:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:76
+#: src/views/tabs/general/container.php:75
 msgid ""
 "Depending on how you use Google Tag Manager you can delay the loading of "
 "the container script until the browser is idle. You can furthermore extend "
 "te delay with a timer."
 msgstr ""
 
-#: src/views/tabs/general/container.php:81
-#: src/views/tabs/general/container.php:111
+#: src/views/tabs/general/container.php:80
+#: src/views/tabs/general/container.php:110
 msgid "Container code <code>&lt;noscript&gt;</code> implementation:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:86
+#: src/views/tabs/general/container.php:85
 msgid "Just after the opening &lt;body&gt; tag"
 msgstr ""
 
-#: src/views/tabs/general/container.php:89
+#: src/views/tabs/general/container.php:88
 msgid "Footer of the page (not recommended by Google)"
 msgstr ""
 
-#: src/views/tabs/general/container.php:92
+#: src/views/tabs/general/container.php:91
 msgid "Custom (insert function in your template)"
 msgstr ""
 
-#: src/views/tabs/general/container.php:95
+#: src/views/tabs/general/container.php:94
 msgid "Disable &lt;noscript&gt; implementation"
 msgstr ""
 
-#: src/views/tabs/general/container.php:100
+#: src/views/tabs/general/container.php:99
 msgid "Container code implementation"
 msgstr ""
 
-#: src/views/tabs/general/container.php:102
+#: src/views/tabs/general/container.php:101
 msgid ""
 "The preferred method to implement the &lt;noscript&gt; container code is "
 "just after the opening &lt;body&gt; tag."
 msgstr ""
 
-#: src/views/tabs/general/container.php:103
+#: src/views/tabs/general/container.php:102
 msgid "This requires that your theme uses the \"body_open\" hook."
 msgstr ""
 
-#: src/views/tabs/general/container.php:104
+#: src/views/tabs/general/container.php:103
 msgid ""
 "If your theme does not support this the script can be injected in the "
 "footer or you can use the function below."
 msgstr ""
 
-#: src/views/tabs/general/container.php:121
+#: src/views/tabs/general/container.php:120
 msgid "dataLayer variable name:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:123
+#: src/views/tabs/general/container.php:122
 msgid ""
 "The default name of the data layer object is dataLayer. If you prefer to "
 "use a different name for your data layer, you may do."
 msgstr ""
 
-#: src/views/tabs/general/container.php:129
+#: src/views/tabs/general/container.php:128
 msgid "GTM Server Side"
 msgstr ""
 
-#: src/views/tabs/general/container.php:136
+#: src/views/tabs/general/container.php:135
 msgid "GTM Server Side Domain:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:138
+#: src/views/tabs/general/container.php:137
 msgid ""
 "Enter your custom domain name if you are using a custom server side GTM "
 "container for tracking."
 msgstr ""
 
-#: src/views/tabs/general/container.php:146
+#: src/views/tabs/general/container.php:145
 msgid "sGTM container identifier:"
 msgstr ""
 
-#: src/views/tabs/general/container.php:148
+#: src/views/tabs/general/container.php:147
 msgid "Only use if you are using a custom loader"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:30
-msgid "GTM container is active"
+#: src/views/tabs/general/dashboard.php:16
+msgid "Status"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:34
-msgid "GTM container is not active"
+#: src/views/tabs/general/dashboard.php:33
+msgid "Inactive"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:44
-msgid "About GTM Kit"
+#: src/views/tabs/general/dashboard.php:37
+msgid "The container is not active but the datalayer is generated."
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:47
-msgid ""
-"The goal of GTM Kit is to provide a flexible tool for generating the data "
-"layer for Google Tag Manager."
-msgstr ""
-
-#: src/views/tabs/general/help.php:25
+#: src/views/tabs/general/help.php:24
 msgid "Override settings in wp-config.php"
 msgstr ""
 
@@ -311,226 +340,257 @@ msgstr ""
 msgid "True activates constants support and false turns it off"
 msgstr ""
 
-#: src/views/tabs/general/help.php:29
+#: src/views/tabs/general/help.php:30
 msgid "The GTM container ID"
 msgstr ""
 
-#: src/views/tabs/general/help.php:30
+#: src/views/tabs/general/help.php:32
 msgid "Or true, in which case the constant is ignored"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:20
+#: src/views/tabs/general/help.php:40
+msgid "About GTM Kit"
+msgstr ""
+
+#: src/views/tabs/general/help.php:44
+msgid ""
+"The goal of GTM Kit is to provide a flexible tool for generating the data "
+"layer for Google Tag Manager."
+msgstr ""
+
+#: src/views/tabs/general/post_data.php:19
 msgid ""
 "Specify which post data elements you wish to include in the dataLayer for "
 "use in Google Tag Manager."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:27
+#: src/views/tabs/general/post_data.php:26
 msgid "Post type"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:29
+#: src/views/tabs/general/post_data.php:28
 msgid "include the type of the current post or archive page."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:35
+#: src/views/tabs/general/post_data.php:34
 msgid "Page type"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:37
+#: src/views/tabs/general/post_data.php:36
 msgid ""
 "include the defined page type. I.e. post, page, product, category, cart, "
 "checkout etc."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:43
+#: src/views/tabs/general/post_data.php:42
 msgid "Categories"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:45
+#: src/views/tabs/general/post_data.php:44
 msgid "include the categories of the current post or archive page."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:51
+#: src/views/tabs/general/post_data.php:50
 msgid "Tags"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:53
+#: src/views/tabs/general/post_data.php:52
 msgid "include the tags of the current post or archive page."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:59
+#: src/views/tabs/general/post_data.php:58
 msgid "Post title"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:61
+#: src/views/tabs/general/post_data.php:60
 msgid "include the post title of the current post."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:67
+#: src/views/tabs/general/post_data.php:66
 msgid "Post ID"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:69
+#: src/views/tabs/general/post_data.php:68
 msgid "include the Post ID of the current post."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:75
+#: src/views/tabs/general/post_data.php:74
 msgid "Post date"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:77
+#: src/views/tabs/general/post_data.php:76
 msgid "include the post date."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:83
+#: src/views/tabs/general/post_data.php:82
 msgid "Post author name"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:85
+#: src/views/tabs/general/post_data.php:84
 msgid "include the post author name."
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:91
+#: src/views/tabs/general/post_data.php:90
 msgid "Post author ID"
 msgstr ""
 
-#: src/views/tabs/general/post_data.php:93
+#: src/views/tabs/general/post_data.php:92
 msgid "include the post author ID."
 msgstr ""
 
-#: src/views/tabs/integrations/integrations.php:22
-msgid "Integrations summary."
+#: src/views/tabs/integrations/cf7.php:19
+msgid "Contact Form 7 Integration"
 msgstr ""
 
-#: src/views/tabs/integrations/integrations.php:27
-msgid "Active Integrations:"
+#: src/views/tabs/integrations/cf7.php:24
+msgid "Contact Form 7 is not installed"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:20
-msgid "WooCommerce Integration"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:22
-msgid "The #1 open source eCommerce platform built for WordPress"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:25
-msgid "WooCommerce is not installed"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:28
+#: src/views/tabs/integrations/cf7.php:27
+#: src/views/tabs/integrations/woocommerce.php:27
 msgid "You can download %s here."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:41
+#: src/views/tabs/integrations/cf7.php:38
+msgid "Track Contact Form 7"
+msgstr ""
+
+#: src/views/tabs/integrations/cf7.php:44
+msgid "Choose this option if you would like to track form submissions."
+msgstr ""
+
+#: src/views/tabs/integrations/cf7.php:54
+msgid "On all pages"
+msgstr ""
+
+#: src/views/tabs/integrations/cf7.php:57
+msgid "Only on pages where where the Contact Form 7 is loaded."
+msgstr ""
+
+#: src/views/tabs/integrations/cf7.php:60
+msgid "Where do you want load the integration JavaScript?"
+msgstr ""
+
+#: src/views/tabs/integrations/cf7.php:66
+msgid "Load JavaScript"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:19
+msgid "WooCommerce Integration"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:24
+msgid "WooCommerce is not installed"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:40
 msgid ""
 "Google Analytics 3 (Universal Analytics) properties will stop collecting "
 "data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce "
 "with Google Analytics 3 (Universal Analytics)."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:42
+#: src/views/tabs/integrations/woocommerce.php:41
 msgid "It’s recommended that you create a Google Analytics 4 property instead."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:52
+#: src/views/tabs/integrations/woocommerce.php:51
 msgid "Track WooCommerce"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:58
+#: src/views/tabs/integrations/woocommerce.php:57
 msgid "Choose this option if you would like to track e-commerce data."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:86
+#: src/views/tabs/integrations/woocommerce.php:84
 msgid "Brand"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:93
+#: src/views/tabs/integrations/woocommerce.php:91
 msgid "Use SKU instead of ID"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:99
+#: src/views/tabs/integrations/woocommerce.php:97
 msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:105
+#: src/views/tabs/integrations/woocommerce.php:103
 msgid "Exclude tax"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:111
+#: src/views/tabs/integrations/woocommerce.php:109
 msgid "Exclude tax from prices and revenue"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:117
-#: src/views/tabs/integrations/woocommerce.php:123
+#: src/views/tabs/integrations/woocommerce.php:115
+#: src/views/tabs/integrations/woocommerce.php:121
 msgid "Exclude shipping from revenue"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:133
-#: src/views/tabs/integrations/woocommerce.php:159
+#: src/views/tabs/integrations/woocommerce.php:131
+#: src/views/tabs/integrations/woocommerce.php:157
 msgid "When the 'Place order' button is clicked"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:136
+#: src/views/tabs/integrations/woocommerce.php:134
 msgid ""
 "When a shipment method is selected with fallback to the 'Place order' "
 "button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:139
+#: src/views/tabs/integrations/woocommerce.php:137
 msgid "Disable the 'add_shipment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:142
+#: src/views/tabs/integrations/woocommerce.php:140
 msgid "When do you want to fire the \"add_shipment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:148
+#: src/views/tabs/integrations/woocommerce.php:146
 msgid "Event: add_shipping_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:162
+#: src/views/tabs/integrations/woocommerce.php:160
 msgid "When a payment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:165
+#: src/views/tabs/integrations/woocommerce.php:163
 msgid "Disable the 'add_payment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:168
+#: src/views/tabs/integrations/woocommerce.php:166
 msgid "When do you want to fire the \"add_payment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:174
+#: src/views/tabs/integrations/woocommerce.php:172
 msgid "Event: add_payment_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:181
+#: src/views/tabs/integrations/woocommerce.php:179
 msgid "Include permalink structure"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:187
+#: src/views/tabs/integrations/woocommerce.php:185
 msgid ""
 "Enable this option include the permalink structure of the product base, "
 "category base, tag base and attribute base."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:193
+#: src/views/tabs/integrations/woocommerce.php:191
 msgid "Include pages"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:199
+#: src/views/tabs/integrations/woocommerce.php:197
 msgid ""
 "Enable this option include the path of cart, checkout, order received adn "
 "my account page."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:205
+#: src/views/tabs/integrations/woocommerce.php:203
 msgid "Dequeue Default JS"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:211
+#: src/views/tabs/integrations/woocommerce.php:209
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."

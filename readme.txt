@@ -5,7 +5,7 @@ Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, p
 Requires at least: 5.5
 Tested up to: 6.0
 Requires PHP: 7.2
-Stable tag: 1.2.1
+Stable tag: 1.3
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -81,6 +81,20 @@ It’s recommended that you create a Google Analytics 4 property instead.
 Yes! Pagespeed is one of our main focus points and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
+
+= 1.3 =
+
+Enhancements:
+
+* Added compatibility with WooCommerce High-Performance Order Storage.
+* Added DNS prefetch for the Google Tag Manager host.
+* Added Contact Form 7 Integration.
+* New admin dashboard.
+* New admin navigation.
+
+Other:
+
+* Cleaned up and formatted code.
 
 = 1.2.1 =
 
