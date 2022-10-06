@@ -171,9 +171,10 @@ public function get_datalayer_content(): void {
 	 * The Google Tag Manager noscript
 	 */
 	public static function get_body_script(): void {
+		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
 
-		echo '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
+		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
 	}
 
 	/**
