@@ -37,8 +37,8 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 			<h3 class="hndle">Google Analytics</h3>
 			<div class="inside">
 				<ul>
-					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce with Google Analytics 3 (Universal Analytics).', 'gtmkit' ); ?></li>
-					<li><?php esc_html_e( 'It’s recommended that you create a Google Analytics 4 property instead.', 'gtmkit' ); ?></li>
+					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce with Google Analytics 3 (Universal Analytics).', 'gtmkit' ); ?></li>
+					<li><?php esc_html_e( 'It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.', 'gtmkit' ); ?></li>
 				</ul>
 			</div>
 		</div>
