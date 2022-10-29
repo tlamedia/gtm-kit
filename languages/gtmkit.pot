@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.3\n"
+"Project-Id-Version: GTM Kit 1.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-09-30 20:07:10+00:00\n"
+"POT-Creation-Date: 2022-10-29 16:01:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -486,12 +486,14 @@ msgstr ""
 #: src/views/tabs/integrations/woocommerce.php:40
 msgid ""
 "Google Analytics 3 (Universal Analytics) properties will stop collecting "
-"data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce "
+"data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce "
 "with Google Analytics 3 (Universal Analytics)."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:41
-msgid "It’s recommended that you create a Google Analytics 4 property instead."
+msgid ""
+"It’s recommended that you create a Google Analytics 4 property instead. "
+"Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:51
