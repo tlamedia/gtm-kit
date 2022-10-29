@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://www.tlamedia.dk/
 Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
 Requires at least: 5.5
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.2
 Stable tag: 1.3.1
 License: GPL v3
