@@ -82,6 +82,17 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.3.2 =
+
+Bugfixes:
+
+* Fix custom datalayer name in CF7.
+
+Other:
+
+* WordPress tested up to 6.1
+* WooCommerce tested up to: 7.0.
+
 = 1.3.1 =
 
 Bugfixes:
