@@ -5,7 +5,7 @@ Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, p
 Requires at least: 5.5
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.3.1
+Stable tag: 1.3.3
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,7 +82,7 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
-= 1.3.2 =
+= 1.3.3 =
 
 Bugfixes:
 
