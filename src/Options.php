@@ -33,6 +33,7 @@ class Options {
 		'integrations' => [
 			'woocommerce_shipping_info',
 			'woocommerce_payment_info',
+			'cf7_load_js',
 		],
 
 	];
@@ -147,6 +148,7 @@ class Options {
 		switch ( $key ) {
 			case 'woocommerce_shipping_info':
 			case 'woocommerce_payment_info':
+			case 'cf7_load_js':
 				$value = '1';
 				break;
 		}
