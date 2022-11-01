@@ -1,6 +1,6 @@
 === GTM Kit ===
 Contributors: tlamedia, torbenlundsgaard
-Donate link: https://www.tlamedia.dk/
+Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
 Requires at least: 5.5
 Tested up to: 6.1
