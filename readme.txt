@@ -9,7 +9,7 @@ Stable tag: 1.3.3
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Flexible tool for generating the data layer for Google Tag Manager. Including WooCommerce data for Google Analytics 4.
+Flexible tool for generating the data layer for Google Tag Manager. Including WooCommerce data for Google Analytics 4 and support for server side GTM.
 
 == Description ==
 
