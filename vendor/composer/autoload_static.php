@@ -31,6 +31,7 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
         'TLA_Media\\GTM_Kit\\Admin\\OptionsForm' => __DIR__ . '/../..' . '/src/Admin/OptionsForm.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',
         'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => __DIR__ . '/../..' . '/src/Frontend/Frontend.php',
+        'TLA_Media\\GTM_Kit\\Frontend\\UserData' => __DIR__ . '/../..' . '/src/Frontend/UserData.php',
         'TLA_Media\\GTM_Kit\\Installation\\Installation' => __DIR__ . '/../..' . '/src/Installation/Installation.php',
         'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => __DIR__ . '/../..' . '/src/Installation/Upgrade.php',
         'TLA_Media\\GTM_Kit\\Integration\\ContactForm7' => __DIR__ . '/../..' . '/src/Integration/ContactForm7.php',

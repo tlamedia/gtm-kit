@@ -70,6 +70,12 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		);
 		$dashboard_tabs->add_tab(
 			new OptionTab(
+				'user_data',
+				__( 'User data', 'gtmkit' )
+			)
+		);
+		$dashboard_tabs->add_tab(
+			new OptionTab(
 				'help',
 				__( 'Help', 'gtmkit' ),
 				[
@@ -128,6 +134,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$generalTabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtmkit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtmkit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtmkit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtmkit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'help', __( 'Help', 'gtmkit' ) ) );
 	}
 
