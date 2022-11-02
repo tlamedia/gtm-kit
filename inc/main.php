@@ -6,6 +6,7 @@ use TLA_Media\GTM_Kit\Admin\AdminNotice;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
+use TLA_Media\GTM_Kit\Frontend\UserData;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Installation\Installation;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
@@ -63,6 +64,7 @@ function gtmkit_load_text_domain(): void {
 function gtmkit_frontend_init(): void {
 	$options = new Options();
 	BasicDatalayerData::register( $options );
+	UserData::register( $options );
 	Frontend::register( $options );
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
 	if ( Options::init()->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {

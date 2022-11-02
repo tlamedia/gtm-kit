@@ -82,6 +82,12 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.X =
+
+Enhancements:
+
+* Added options to add user data to the datalayer (logged in, user ID, user role).
+
 = 1.3.3 =
 
 Bugfixes:

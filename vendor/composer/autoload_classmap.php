@@ -16,6 +16,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\OptionsForm' => $baseDir . '/src/Admin/OptionsForm.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',
     'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => $baseDir . '/src/Frontend/Frontend.php',
+    'TLA_Media\\GTM_Kit\\Frontend\\UserData' => $baseDir . '/src/Frontend/UserData.php',
     'TLA_Media\\GTM_Kit\\Installation\\Installation' => $baseDir . '/src/Installation/Installation.php',
     'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => $baseDir . '/src/Installation/Upgrade.php',
     'TLA_Media\\GTM_Kit\\Integration\\ContactForm7' => $baseDir . '/src/Integration/ContactForm7.php',
