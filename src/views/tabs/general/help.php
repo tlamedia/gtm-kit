@@ -35,6 +35,19 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 </div>
 
+<div class="gtmkit_section_message">
+	<div class="stuffbox">
+		<h3 class="hndle"><?php esc_html_e( 'Support', 'gtmkit' ); ?></h3>
+		<div class="inside">
+			<ul>
+				<li><a hreflang="https://wordpress.org/support/plugin/gtm-kit/" target="_blank">Support forum</a></li>
+				<li><a hreflang="https://gtmkit.com/" target="_blank">Plugin Homepage</a> (gtmkit.com)</li>
+				<li><a hreflang="https://wordpress.org/plugins/gtm-kit/" target="_blank">WordPress.org Plugin Page</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
 <div class="gtmkit_section_message space-top">
 	<div class="stuffbox">
 		<h3 class="hndle"><?php esc_html_e( 'About GTM Kit', 'gtmkit' ); ?> <span

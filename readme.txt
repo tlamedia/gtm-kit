@@ -92,6 +92,9 @@ Enhancements:
 Bugfixes:
 *  Clear the previous ecommerce object before add_to_cart.
 
+Other:
+* Added support links in help section
+
 = 1.3.3 =
 
 Bugfixes:
