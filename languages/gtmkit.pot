@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.3.2\n"
+"Project-Id-Version: GTM Kit 1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-10-29 16:01:14+00:00\n"
+"POT-Creation-Date: 2022-11-03 13:49:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
 
-#: inc/main.php:46
+#: inc/main.php:47
 msgid "Go to GTK Kit Settings page"
 msgstr ""
 
-#: inc/main.php:47
+#: inc/main.php:48
 msgid "Settings"
 msgstr ""
 
@@ -25,36 +25,41 @@ msgstr ""
 msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:128
+#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:134
 msgid "Dashboard"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:129
+#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:135
 msgid "Container"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:130
+#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:136
 #: src/views/tabs/general/post_data.php:17
 msgid "Post data"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:131
+#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:137
+#: src/views/tabs/general/user_data.php:17
+msgid "User data"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:80 src/Admin/GeneralOptionsPage.php:138
 #: src/views/tabs/general/help.php:17
 msgid "Help"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:102
+#: src/Admin/GeneralOptionsPage.php:108
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:111
+#: src/Admin/GeneralOptionsPage.php:117
 msgid "General Settings"
 msgstr ""
 
 #: src/Admin/IntegrationsOptionsPage.php:27
 #: src/Admin/IntegrationsOptionsPage.php:73
 #: src/Admin/IntegrationsOptionsPage.php:82
-#: src/views/tabs/general/dashboard.php:47
+#: src/views/tabs/general/dashboard.php:61
 #: src/views/tabs/integrations/integrations.php:17
 msgid "Integrations"
 msgstr ""
@@ -79,56 +84,56 @@ msgstr ""
 msgid "(not set)"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:191
+#: src/Integration/WooCommerce.php:192
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:192
+#: src/Integration/WooCommerce.php:193
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:193 src/Integration/WooCommerce.php:764
+#: src/Integration/WooCommerce.php:194 src/Integration/WooCommerce.php:765
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:194
+#: src/Integration/WooCommerce.php:195
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:195
+#: src/Integration/WooCommerce.php:196
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:196
+#: src/Integration/WooCommerce.php:197
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:197 src/Integration/WooCommerce.php:766
+#: src/Integration/WooCommerce.php:198 src/Integration/WooCommerce.php:767
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:198
+#: src/Integration/WooCommerce.php:199
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:199
+#: src/Integration/WooCommerce.php:200
 msgid "shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:647
+#: src/Integration/WooCommerce.php:648
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:681
+#: src/Integration/WooCommerce.php:682
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:681 src/Integration/WooCommerce.php:722
-#: src/Integration/WooCommerce.php:755
+#: src/Integration/WooCommerce.php:682 src/Integration/WooCommerce.php:723
+#: src/Integration/WooCommerce.php:756
 msgid "General Product List"
 msgstr ""
 
-#: src/views/admin-sidebar.php:13
+#: src/views/admin-sidebar.php:13 src/views/tabs/general/help.php:40
 msgid "Support"
 msgstr ""
 
@@ -207,7 +212,7 @@ msgid "Find your GTM container ID on %1$sGoogle Tag Manager%2$s."
 msgstr ""
 
 #: src/views/tabs/general/container.php:35
-#: src/views/tabs/general/dashboard.php:27
+#: src/views/tabs/general/dashboard.php:28
 msgid "Container ID:"
 msgstr ""
 
@@ -324,11 +329,16 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:33
+#: src/views/tabs/general/dashboard.php:34
+#: src/views/tabs/general/dashboard.php:50
+msgid "Edit container"
+msgstr ""
+
+#: src/views/tabs/general/dashboard.php:40
 msgid "Inactive"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:37
+#: src/views/tabs/general/dashboard.php:45
 msgid "The container is not active but the datalayer is generated."
 msgstr ""
 
@@ -348,11 +358,11 @@ msgstr ""
 msgid "Or true, in which case the constant is ignored"
 msgstr ""
 
-#: src/views/tabs/general/help.php:40
+#: src/views/tabs/general/help.php:53
 msgid "About GTM Kit"
 msgstr ""
 
-#: src/views/tabs/general/help.php:44
+#: src/views/tabs/general/help.php:57
 msgid ""
 "The goal of GTM Kit is to provide a flexible tool for generating the data "
 "layer for Google Tag Manager."
@@ -436,6 +446,43 @@ msgstr ""
 
 #: src/views/tabs/general/post_data.php:92
 msgid "include the post author ID."
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:19
+msgid ""
+"Specify which user data you wish to include in the dataLayer for use in "
+"Google Tag Manager."
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:27
+msgid ""
+"Full page caching will cache user data making it the same for all users. "
+"There are ways around this, but it depends on the chosen cache solution and "
+"is only for advanced users."
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:37
+msgid "Logged in"
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:39
+msgid "include whether the user is logged in."
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:45
+msgid "User ID"
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:47
+msgid "include the user ID if the user is logged in."
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:53
+msgid "User role"
+msgstr ""
+
+#: src/views/tabs/general/user_data.php:55
+msgid "include the user role if the user is logged in."
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:19
@@ -569,30 +616,46 @@ msgid "Event: add_payment_info"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:179
-msgid "Include permalink structure"
+msgid "Only push view_item on the master product"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:182
+msgid "Push view_item on master and variation products (higher number of views)."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:185
+msgid "When do you want to fire the \"view_item\" event on variable products?"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:191
+msgid "Event: view_item"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:198
+msgid "Include permalink structure"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:204
 msgid ""
 "Enable this option include the permalink structure of the product base, "
 "category base, tag base and attribute base."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:191
+#: src/views/tabs/integrations/woocommerce.php:210
 msgid "Include pages"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:197
+#: src/views/tabs/integrations/woocommerce.php:216
 msgid ""
 "Enable this option include the path of cart, checkout, order received adn "
 "my account page."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:203
+#: src/views/tabs/integrations/woocommerce.php:222
 msgid "Dequeue Default JS"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:209
+#: src/views/tabs/integrations/woocommerce.php:228
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."

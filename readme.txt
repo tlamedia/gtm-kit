@@ -2,10 +2,8 @@
 Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
-Requires at least: 5.5
 Tested up to: 6.1
-Requires PHP: 7.2
-Stable tag: 1.3.3
+Stable tag: 1.4
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,15 +80,17 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
-= 1.X =
+= 1.4 =
 
 Enhancements:
 
 * Added options to add user data to the datalayer (logged in, user ID, user role).
 * Added option to limit view_item event on variable products to the master product instead of pushing the view_item event on both the master and selected variation.
+* Added edit button on container dashboard
 
 Bugfixes:
-*  Clear the previous ecommerce object before add_to_cart.
+* Clear the previous ecommerce object before add_to_cart.
+* Set default option for CF7 integration
 
 Other:
 * Added support links in help section
