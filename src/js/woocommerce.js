@@ -249,14 +249,18 @@ function gtmkit_load() {
 		product_variation_data.variant = product_attributes.join(',');
 		selected_product_variation_data = product_variation_data;
 
-		window[datalayer_name].push({
-			'event': 'view_item',
-			'ecommerce': {
-				'currency': wp.currency,
-				'value': product_variation_data.price,
-				'items': [product_variation_data]
-			}
-		});
+		if (wc['view_item']['config'] !== 0) {
+			window[datalayer_name].push({ 'ecommerce': null });
+			window[datalayer_name].push({
+				'event': 'view_item',
+				'ecommerce': {
+					'currency': wp.currency,
+					'value': product_variation_data.price,
+					'items': [product_variation_data]
+				}
+			});
+		}
+
 	});
 
 	if (wc['is_cart']) gtmkit_cart();
