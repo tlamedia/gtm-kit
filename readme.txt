@@ -87,6 +87,7 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 Enhancements:
 
 * Added options to add user data to the datalayer (logged in, user ID, user role).
+* Added option to limit view_item event on variable products to the master product instead of pushing the view_item event on both the master and selected variation.
 
 = 1.3.3 =
 

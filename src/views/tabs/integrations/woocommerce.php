@@ -173,6 +173,25 @@ $form->setting_row(
 	$field_data
 );
 
+
+$field_data['options']     = [
+	0 => [
+		'label' => __( "Only push view_item on the master product", 'gtmkit' ),
+	],
+	1 => [
+		'label' => __( "Push view_item on master and variation products (higher number of views).", 'gtmkit' ),
+	],
+];
+$field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtmkit' );
+$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
+
+$form->setting_row(
+	'radio',
+	'woocommerce_variable_product_tracking',
+	__( 'Event: view_item', 'gtmkit' ),
+	$field_data
+);
+
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_include_permalink_structure',

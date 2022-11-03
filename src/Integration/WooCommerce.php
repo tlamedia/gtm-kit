@@ -187,6 +187,7 @@ class WooCommerce {
 		$global_settings['wc']['add_shipping_info']['fired']  = false;
 		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
 		$global_settings['wc']['add_payment_info']['fired']   = false;
+		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
 		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtmkit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtmkit' ),

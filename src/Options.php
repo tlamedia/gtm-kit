@@ -33,6 +33,7 @@ class Options {
 		'integrations' => [
 			'woocommerce_shipping_info',
 			'woocommerce_payment_info',
+			'woocommerce_variable_product_tracking',
 			'cf7_load_js',
 		],
 
@@ -150,6 +151,10 @@ class Options {
 			case 'woocommerce_payment_info':
 			case 'cf7_load_js':
 				$value = '1';
+				break;
+
+			case 'woocommerce_variable_product_tracking':
+				$value = 0;
 				break;
 		}
 
