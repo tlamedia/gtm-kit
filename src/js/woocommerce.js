@@ -77,6 +77,7 @@ function gtmkit_load() {
 
 		const item_data = JSON.parse(product_data.getAttribute('data-gtmkit_product_data'));
 
+		window[datalayer_name].push({ 'ecommerce': null });
 		window[datalayer_name].push({
 			'event': 'add_to_cart',
 			'ecommerce': {
@@ -108,6 +109,7 @@ function gtmkit_load() {
 				const quantity_element = add_to_cart.querySelector('[name=quantity]');
 				selected_product_variation_data.quantity = (quantity_element && quantity_element.value) || 1;
 
+				window[datalayer_name].push({ 'ecommerce': null });
 				window[datalayer_name].push({
 					'event': 'add_to_cart',
 					'ecommerce': {
@@ -145,6 +147,7 @@ function gtmkit_load() {
 				return true;
 			}
 
+			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
 				'event': 'add_to_cart',
 				'ecommerce': {
@@ -161,6 +164,7 @@ function gtmkit_load() {
 
 			item_data.quantity = product_quantity;
 
+			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
 				'event': 'add_to_cart',
 				'ecommerce': {
