@@ -58,6 +58,11 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 </div>
 
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
+	<h2><?php esc_html_e( 'Tutorials', 'gtmkit' ); ?></h2>
+	<?php require_once GTMKIT_PATH . 'src/views/tutorials-metabox.php'; ?>
+</div>
+
+<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2><?php esc_html_e( 'Integrations', 'gtmkit' ); ?></h2>
 	<?php require_once GTMKIT_PATH . 'src/views/integrations-metabox.php'; ?>
 </div>
