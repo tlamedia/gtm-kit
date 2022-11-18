@@ -80,17 +80,21 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.X =
+
+Enhancements:
+
+* Added tutorials section to the dashboard.
+
+Bugfixes:
+
+* Fix the description og the CF7 integration.
+
 = 1.4.3 =
 
 Bugfixes:
 
 * The items object was limited to 1 on the checkout page.
-
-= 1.X =
-
-Bugfixes:
-
-* Fix the description og the CF7 integration.
 
 = 1.4 =
 
