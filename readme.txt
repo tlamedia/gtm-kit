@@ -86,6 +86,12 @@ Bugfixes:
 
 * The items object was limited to 1 on the checkout page.
 
+= 1.X =
+
+Bugfixes:
+
+* Fix the description og the CF7 integration.
+
 = 1.4 =
 
 Enhancements:

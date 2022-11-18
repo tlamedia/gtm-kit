@@ -43,7 +43,7 @@ $integrations = [
 				<?php endif; ?>
 				<div class="gtmkit-list-item-actions">
 					<div class="gtmkit-list-item-description">
-						<p><?php esc_html_e( 'The #1 open source eCommerce platform built for WordPress', 'gtmkit' ); ?></p>
+						<p><?php echo esc_html( $integration['description'] ); ?></p>
 					</div>
 					<div class="gtmkit-list-item-buttons">
 						<a
