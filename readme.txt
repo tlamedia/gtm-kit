@@ -86,6 +86,9 @@ Bugfixes:
 
 * Fix datalayer_name collision when both WooCommerce and CF7 integration are active.
 
+Other:
+* WooCommerce tested up to: 7.1
+
 = 1.4.4 =
 
 Enhancements:
