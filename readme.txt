@@ -80,6 +80,12 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.4.5 =
+
+Bugfixes:
+
+* Fix datalayer_name collision when both WooCommerce and CF7 integration are active.
+
 = 1.4.4 =
 
 Enhancements:
