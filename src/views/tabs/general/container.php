@@ -55,7 +55,7 @@ $form->setting_row(
 $field_data                = [];
 $field_data['options']     = [
 	0 => [
-		'label' => __( 'Standard implementation as recommended by Google', 'gtmkit' ),
+		'label' => __( 'Standard implementation as recommended by Google (no delay)', 'gtmkit' ),
 	],
 	1 => [
 		'label' => __( 'Load container when browser is idle (requestIdleCallback)', 'gtmkit' ),

@@ -14,6 +14,16 @@ $tutorials = [
 		'description' => __( 'How to get the most out of Google Tag Manager with GTM Kit', 'gtmkit' ),
 		'url' => 'https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=dashboard-tutorials',
 	],
+	[
+		'name' => __( 'WooCommerce integration', 'gtmkit' ),
+		'description' => __( 'Integrate WooCommerce with Google Tag Manager and Google Analytics', 'gtmkit' ),
+		'url' => 'https://gtmkit.com/documentation/woocommerce/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce&utm_content=dashboard-tutorials',
+	],
+	[
+		'name' => __( 'See all tutorials...', 'gtmkit' ),
+		'description' => __( 'See all our tutorial and get the most out of GTM Kit', 'gtmkit' ),
+		'url' => 'https://gtmkit.com/documentation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=documentation&utm_content=dashboard-tutorials',
+	],
 ];
 ?>
 <div class="gtmkit-items-metabox gtmkit-metabox">
@@ -34,10 +44,6 @@ $tutorials = [
 				</div>
 			</li>
 			<?php endforeach; ?>
-			<li class="gtmkit-list-item disabled">
-				<h3><?php esc_html_e( 'Coming soon...', 'gtmkit' ); ?></h3>
-				<p><?php esc_html_e( 'The next tutorial is under way.', 'gtmkit' ); ?></p>
-			</li>
 		</ul>
 	</div>
 </div>
