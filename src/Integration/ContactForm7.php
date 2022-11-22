@@ -61,7 +61,7 @@ class ContactForm7 {
 	 */
 	public function enqueue_scripts(): void {
 
-		if ( $this->options->get( 'integrations', 'cf7_load_js' ) == 2 && ! wp_script_is( 'contact-form-7' ) ) {
+		if ( $this->options->get( 'integrations', 'cf7_load_js' ) == 1 && ! wp_script_is( 'contact-form-7' ) ) {
 			return;
 		}
 

@@ -88,6 +88,7 @@ Bugfixes:
 
 Other:
 * WooCommerce tested up to: 7.1
+* By default the Contact Form 7 integration script will only load on pages where the Contact Form 7 script is registered.
 
 = 1.4.4 =
 

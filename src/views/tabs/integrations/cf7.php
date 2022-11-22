@@ -51,10 +51,10 @@ $field_data                = [
 ];
 $field_data['options']     = [
 	1 => [
-		'label' => __( 'On all pages', 'gtmkit' ),
+		'label' => __( 'Only on pages where where the Contact Form 7 script is registered (recommended).', 'gtmkit' ),
 	],
 	2 => [
-		'label' => __( 'Only on pages where where the Contact Form 7 is loaded.', 'gtmkit' ),
+		'label' => __( 'On all pages', 'gtmkit' ),
 	],
 ];
 $field_data['legend']      = __( 'Where do you want load the integration JavaScript?', 'gtmkit' );
