@@ -18,18 +18,16 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</h2>
 </div>
 
-
 <div class="gtmkit_section_message">
 	<div class="stuffbox">
-		<h3 class="hndle"><?php esc_html_e( 'Override settings in wp-config.php', 'gtmkit' ); ?></h3>
+		<h3 class="hndle"><?php esc_html_e( 'Tutorials', 'gtmkit' ); ?></h3>
 		<div class="inside">
 			<ul>
-				<li><code>define( 'GTMKIT_ON', true );</code>
-					// <?php esc_html_e( 'True activates constants support and false turns it off', 'gtmkit' ); ?></li>
-				<li><code>define( 'GTMKIT_CONTAINER_ID', 'GTM-XXXXXXX' );</code>
-					// <?php esc_html_e( 'The GTM container ID', 'gtmkit' ); ?></li>
-				<li><code>define( 'GTMKIT_CONTAINER_ACTIVE', false );</code>
-					// <?php esc_html_e( 'Or true, in which case the constant is ignored', 'gtmkit' ); ?></li>
+				<li><a href="https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=help-tutorials" target="_blank">Getting started with GTM Kit</a></li>
+				<li><a href="https://gtmkit.com/documentation/woocommerce/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce&utm_content=help-tutorials" target="_blank">WooCommerce Integration</a></li>
+				<li><a href="https://gtmkit.com/documentation/contact-form-7-integration/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=contactform7&utm_content=help-tutorials" target="_blank">Contact Form 7 Integration</a></li>
+				<li><a href="https://gtmkit.com/documentation/advanced-gtm-container-implementation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=advanced-container-implementation&utm_content=help-tutorials" target="_blank">Advanced GTM container implementation</a></li>
+				<li><a href="https://gtmkit.com/documentation/settings-actions-and-filters-for-developers/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=settings-actions-and-filters-for-developers&utm_content=help-tutorials" target="_blank">Settings, actions and filters for developers</a></li>
 			</ul>
 		</div>
 	</div>
@@ -50,11 +48,17 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 <div class="gtmkit_section_message space-top">
 	<div class="stuffbox">
-		<h3 class="hndle"><?php esc_html_e( 'About GTM Kit', 'gtmkit' ); ?> <span
-				class="version">(Version <?php echo esc_html( GTMKIT_VERSION ); ?>)</span></h3>
+		<h3 class="hndle">
+			<?php esc_html_e( 'About GTM Kit', 'gtmkit' ); ?>
+			<span class="version">(Version <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
+		</h3>
 		<div class="inside">
 			<ul>
 				<li><?php esc_html_e( 'The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager.', 'gtmkit' ); ?></li>
+				<li>
+					<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtmkit' ); ?>
+					<a href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtmkit' ); ?></a>
+				</li>
 			</ul>
 		</div>
 	</div>

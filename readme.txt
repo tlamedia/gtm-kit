@@ -82,13 +82,18 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 = 1.4.5 =
 
+Enhancements:
+
+* By default the Contact Form 7 integration script will only load on pages where the Contact Form 7 script is registered.
+* Tutorials and help text have been improved
+
 Bugfixes:
 
 * Fix datalayer_name collision when both WooCommerce and CF7 integration are active.
 
 Other:
+
 * WooCommerce tested up to: 7.1
-* By default the Contact Form 7 integration script will only load on pages where the Contact Form 7 script is registered.
 
 = 1.4.4 =
 
@@ -115,10 +120,12 @@ Enhancements:
 * Added edit button on container dashboard
 
 Bugfixes:
+
 * Clear the previous ecommerce object before add_to_cart.
 * Set default option for CF7 integration
 
 Other:
+
 * Added support links in help section
 
 = 1.3.3 =
