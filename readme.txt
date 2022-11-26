@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
 Tested up to: 6.1
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
