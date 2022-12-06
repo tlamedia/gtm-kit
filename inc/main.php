@@ -44,7 +44,7 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 	$custom['settings'] = sprintf(
 		'<a href="%s" aria-label="%s">%s</a>',
 		esc_url( menu_page_url( 'gtmkit_general', false ) ),
-		esc_attr__( 'Go to GTK Kit Settings page', 'gtmkit' ),
+		esc_attr__( 'Go to GTM Kit Settings page', 'gtmkit' ),
 		esc_html__( 'Settings', 'gtmkit' )
 	);
 
