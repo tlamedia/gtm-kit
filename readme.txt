@@ -80,6 +80,12 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.x =
+
+Enhancements:
+
+* Add option til select the Google business vertical value to include in all items. This is used for Google Ads remarketing.
+
 = 1.4.5 =
 
 Enhancements:
