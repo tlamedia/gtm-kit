@@ -494,7 +494,7 @@ class WooCommerce {
 		}
 
 		$item_data = [
-			'item_id'   => $item_id,
+			'item_id'   => $this->prefix_item_id( $item_id ),
 			'item_name' => $product->get_title(),
 			'currency'  => $this->woocommerce_currency,
 			'price'     => round( (float) wc_get_price_to_display( $product ), 2 ),
@@ -706,7 +706,7 @@ class WooCommerce {
 
 		return sprintf(
 			'<span class="gtmkit_product_data" style="display:none; visibility:hidden;" data-gtmkit_product_id="%s" data-gtmkit_product_data="%s"></span>',
-			esc_attr( $product->get_id() ),
+			esc_attr( $this->prefix_item_id( $product->get_id() ) ),
 			esc_attr( json_encode( $item_data ) )
 		);
 	}
@@ -816,5 +816,17 @@ class WooCommerce {
 		}
 
 		return $woocommerce_cart_item_remove_link;
+	}
+
+	/**
+	 * Prefix an item ID
+	 *
+	 * @param string $item_id
+	 *
+	 * @return string
+	 */
+	function prefix_item_id( string $item_id ): string {
+		$prefix = ( Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) ) ?: '';
+		return $prefix.$item_id;
 	}
 }
