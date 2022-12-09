@@ -507,6 +507,10 @@ class WooCommerce {
 			);
 		}
 
+		if ( $this->options->get( 'integrations', 'woocommerce_google_business_vertical' ) ) {
+			$item_data['google_business_vertical'] = $this->options->get( 'integrations', 'woocommerce_google_business_vertical' );
+		}
+
 		$item_category_elements = $this->get_primary_product_category( $product_id_to_query );
 
 		$number_of_elements = count( $item_category_elements );

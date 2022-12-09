@@ -98,6 +98,29 @@ $form->setting_row(
 );
 
 $form->setting_row(
+	'select',
+	'woocommerce_google_business_vertical',
+	__( 'Google Business Vertical', 'gtmkit' ),
+	[
+		'attributes' => [
+			'disabled' => $woocommerce_is_inactive,
+		],
+		'options'    => [
+			'retail'       => __( 'Retail' ) . ' - (retail)',
+			'education'    => __( 'Education' ) . ' - (education)',
+			'flights'      => __( 'Flights' ) . ' - (flights)',
+			'hotel_rental' => __( 'Hotel rental' ) . ' - (hotel_rental)',
+			'jobs'         => __( 'Jobs' ) . ' (jobs)',
+			'local'        => __( 'Local deals' ) . ' - (local)',
+			'real_estate'  => __( 'Real estate' ) . ' - (real_estate)',
+			'travel'       => __( 'Travel' ) . ' - (travel)',
+			'custom'       => __( 'Custom' ) . ' - (custom)',
+		]
+	],
+	__( 'In order to use Google Ads Remarketing you must select your business type (vertical).', 'gtmkit' )
+);
+
+$form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_exclude_tax',
 	__( 'Exclude tax', 'gtmkit' ),
