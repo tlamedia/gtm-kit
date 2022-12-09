@@ -85,6 +85,7 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 Enhancements:
 
 * Add option til select the Google business vertical value to include in all items. This is used for Google Ads remarketing.
+* Add option to add a prefix to the item IDs.
 
 = 1.4.5 =
 

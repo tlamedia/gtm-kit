@@ -121,6 +121,14 @@ $form->setting_row(
 );
 
 $form->setting_row(
+	'text-input',
+	'woocommerce_product_id_prefix',
+	__( 'Product ID prefix', 'gtmkit' ),
+	[],
+	__( 'If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer.', 'gtmkit' )
+);
+
+$form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_exclude_tax',
 	__( 'Exclude tax', 'gtmkit' ),
