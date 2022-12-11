@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.4.5\n"
+"Project-Id-Version: GTM Kit 1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-11-26 10:59:41+00:00\n"
+"POT-Creation-Date: 2022-12-11 20:50:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: node-wp-i18n 1.2.6\n"
 
 #: inc/main.php:47
-msgid "Go to GTK Kit Settings page"
+msgid "Go to GTM Kit Settings page"
 msgstr ""
 
 #: inc/main.php:48
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:194 src/Integration/WooCommerce.php:765
+#: src/Integration/WooCommerce.php:194 src/Integration/WooCommerce.php:769
 msgid "Product Category"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:198 src/Integration/WooCommerce.php:767
+#: src/Integration/WooCommerce.php:198 src/Integration/WooCommerce.php:771
 msgid "Product Tag"
 msgstr ""
 
@@ -120,16 +120,16 @@ msgstr ""
 msgid "shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:648
+#: src/Integration/WooCommerce.php:652
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:682
+#: src/Integration/WooCommerce.php:686
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:682 src/Integration/WooCommerce.php:723
-#: src/Integration/WooCommerce.php:756
+#: src/Integration/WooCommerce.php:686 src/Integration/WooCommerce.php:727
+#: src/Integration/WooCommerce.php:760
 msgid "General Product List"
 msgstr ""
 
@@ -562,98 +562,154 @@ msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:103
-msgid "Exclude tax"
+msgid "Google Business Vertical"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:109
-msgid "Exclude tax from prices and revenue"
+msgid "Retail"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:110
+msgid "Education"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:111
+msgid "Flights"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:112
+msgid "Hotel rental"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:113
+msgid "Jobs"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:114
+msgid "Local deals"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:115
-#: src/views/tabs/integrations/woocommerce.php:121
-msgid "Exclude shipping from revenue"
+msgid "Real estate"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:131
-#: src/views/tabs/integrations/woocommerce.php:157
-msgid "When the 'Place order' button is clicked"
+#: src/views/tabs/integrations/woocommerce.php:116
+msgid "Travel"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:117
+msgid "Custom"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:120
+msgid ""
+"In order to use Google Ads Remarketing you must select your business type "
+"(vertical)."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:126
+msgid "Product ID prefix"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:128
+msgid ""
+"If your product feed generator is adding a prefix to the product IDs, you "
+"can add the prefix here to include it in the Data Layer."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:134
+msgid "Exclude tax"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:140
+msgid "Exclude tax from prices and revenue"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:146
+#: src/views/tabs/integrations/woocommerce.php:152
+msgid "Exclude shipping from revenue"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:162
+#: src/views/tabs/integrations/woocommerce.php:188
+msgid "When the 'Place order' button is clicked"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:165
 msgid ""
 "When a shipment method is selected with fallback to the 'Place order' "
 "button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:137
+#: src/views/tabs/integrations/woocommerce.php:168
 msgid "Disable the 'add_shipment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:140
+#: src/views/tabs/integrations/woocommerce.php:171
 msgid "When do you want to fire the \"add_shipment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:146
+#: src/views/tabs/integrations/woocommerce.php:177
 msgid "Event: add_shipping_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:160
+#: src/views/tabs/integrations/woocommerce.php:191
 msgid "When a payment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:163
+#: src/views/tabs/integrations/woocommerce.php:194
 msgid "Disable the 'add_payment_info' event."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:166
+#: src/views/tabs/integrations/woocommerce.php:197
 msgid "When do you want to fire the \"add_payment_info\" event?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:172
+#: src/views/tabs/integrations/woocommerce.php:203
 msgid "Event: add_payment_info"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:179
+#: src/views/tabs/integrations/woocommerce.php:210
 msgid "Only push view_item on the master product"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:182
+#: src/views/tabs/integrations/woocommerce.php:213
 msgid "Push view_item on master and variation products (higher number of views)."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:185
+#: src/views/tabs/integrations/woocommerce.php:216
 msgid "When do you want to fire the \"view_item\" event on variable products?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:191
+#: src/views/tabs/integrations/woocommerce.php:222
 msgid "Event: view_item"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:198
+#: src/views/tabs/integrations/woocommerce.php:229
 msgid "Include permalink structure"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:204
+#: src/views/tabs/integrations/woocommerce.php:235
 msgid ""
 "Enable this option include the permalink structure of the product base, "
 "category base, tag base and attribute base."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:210
+#: src/views/tabs/integrations/woocommerce.php:241
 msgid "Include pages"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:216
+#: src/views/tabs/integrations/woocommerce.php:247
 msgid ""
 "Enable this option include the path of cart, checkout, order received adn "
 "my account page."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:222
+#: src/views/tabs/integrations/woocommerce.php:253
 msgid "Dequeue Default JS"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:228
+#: src/views/tabs/integrations/woocommerce.php:259
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."
