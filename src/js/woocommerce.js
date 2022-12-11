@@ -81,7 +81,7 @@ function gtmkit_load() {
 		window[datalayer_name].push({
 			'event': 'add_to_cart',
 			'ecommerce': {
-				'currency': wp.currency,
+				'currency': wc.currency,
 				'value': item_data.price,
 				'items': [item_data]
 			}
@@ -113,7 +113,7 @@ function gtmkit_load() {
 				window[datalayer_name].push({
 					'event': 'add_to_cart',
 					'ecommerce': {
-						'currency': wp.currency,
+						'currency': wc.currency,
 						'value': selected_product_variation_data.price * selected_product_variation_data.quantity,
 						'items': [selected_product_variation_data]
 					}
@@ -131,7 +131,7 @@ function gtmkit_load() {
 				console.log(product_quantity);
 				product_quantity = parseInt(product_quantity[0].value);
 
-				if (0 == product_quantity) {
+				if (0 === product_quantity) {
 					return true;
 				}
 
@@ -143,7 +143,7 @@ function gtmkit_load() {
 				value += item_data.price * item_data.quantity;
 			});
 
-			if (0 == products.length) {
+			if (0 === products.length) {
 				return true;
 			}
 
@@ -151,7 +151,7 @@ function gtmkit_load() {
 			window[datalayer_name].push({
 				'event': 'add_to_cart',
 				'ecommerce': {
-					'currency': wp.currency,
+					'currency': wc.currency,
 					'value': value,
 					'items': products
 				}
@@ -160,15 +160,13 @@ function gtmkit_load() {
 
 			let item_data = JSON.parse(add_to_cart.querySelector('[name=gtmkit_product_data]') && add_to_cart.querySelector('[name=gtmkit_product_data]').value);
 
-			const product_quantity = add_to_cart.querySelector('[name=quantity]') && add_to_cart.querySelector('[name=quantity]').value
-
-			item_data.quantity = product_quantity;
+			item_data.quantity = add_to_cart.querySelector('[name=quantity]') && add_to_cart.querySelector('[name=quantity]').value;
 
 			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
 				'event': 'add_to_cart',
 				'ecommerce': {
-					'currency': wp.currency,
+					'currency': wc.currency,
 					'value': item_data.price * item_data.quantity,
 					'items': [item_data]
 				}
@@ -258,7 +256,7 @@ function gtmkit_load() {
 			window[datalayer_name].push({
 				'event': 'view_item',
 				'ecommerce': {
-					'currency': wp.currency,
+					'currency': wc.currency,
 					'value': product_variation_data.price,
 					'items': [product_variation_data]
 				}

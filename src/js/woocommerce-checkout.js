@@ -32,7 +32,7 @@ function gtmkit_cart_quantity_change() {
 				window[datalayer_name].push({
 					'event': 'add_to_cart',
 					'ecommerce': {
-						'currency': wp['currency'],
+						'currency': wc['currency'],
 						'value': item_data.price * (current_value - default_value),
 						'items': [item_data]
 					}
@@ -43,7 +43,7 @@ function gtmkit_cart_quantity_change() {
 				window[datalayer_name].push({
 					'event': 'remove_from_cart',
 					'ecommerce': {
-						'currency': wp.currency,
+						'currency': wc.currency,
 						'value': item_data.price * (default_value - current_value),
 						'items': [item_data]
 					}
