@@ -279,7 +279,8 @@ class WooCommerce {
 		$data_layer['productType'] = $product->get_type();
 		$data_layer['event']       = 'view_item';
 		$data_layer['ecommerce']   = [
-			'items' => [ $item ]
+			'items' => [ $item ],
+			'value' => $item['price']
 		];
 
 		return $data_layer;
@@ -494,6 +495,7 @@ class WooCommerce {
 		}
 
 		$item_data = [
+			'id'   => $this->prefix_item_id( $item_id ),
 			'item_id'   => $this->prefix_item_id( $item_id ),
 			'item_name' => $product->get_title(),
 			'currency'  => $this->woocommerce_currency,

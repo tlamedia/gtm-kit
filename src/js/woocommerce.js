@@ -53,6 +53,7 @@ function gtmkit_load() {
 			items.push(item_data);
 		});
 
+		window[datalayer_name].push({ 'ecommerce': null });
 		window[datalayer_name].push({
 			'event': 'view_item_list',
 			'ecommerce': {
