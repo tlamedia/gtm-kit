@@ -44,8 +44,8 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 	$custom['settings'] = sprintf(
 		'<a href="%s" aria-label="%s">%s</a>',
 		esc_url( menu_page_url( 'gtmkit_general', false ) ),
-		esc_attr__( 'Go to GTM Kit Settings page', 'gtmkit' ),
-		esc_html__( 'Settings', 'gtmkit' )
+		esc_attr__( 'Go to GTM Kit Settings page', 'gtm-kit' ),
+		esc_html__( 'Settings', 'gtm-kit' )
 	);
 
 	return array_merge( $custom, (array) $links );
@@ -55,7 +55,7 @@ function gtmkit_add_plugin_action_link( array $links ): array {
  * Load text domain for translation.
  */
 function gtmkit_load_text_domain(): void {
-	load_plugin_textdomain( 'gtmkit', false, dirname( GTMKIT_BASENAME ) . '/languages/' );
+	load_plugin_textdomain( 'gtm-kit', false, dirname( GTMKIT_BASENAME ) . '/languages/' );
 }
 
 /**

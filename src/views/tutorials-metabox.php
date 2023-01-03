@@ -10,18 +10,18 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 $tutorials = [
 	[
-		'name' => __( 'Getting started', 'gtmkit' ),
-		'description' => __( 'How to get the most out of Google Tag Manager with GTM Kit', 'gtmkit' ),
+		'name' => __( 'Getting started', 'gtm-kit' ),
+		'description' => __( 'How to get the most out of Google Tag Manager with GTM Kit', 'gtm-kit' ),
 		'url' => 'https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=dashboard-tutorials',
 	],
 	[
-		'name' => __( 'WooCommerce integration', 'gtmkit' ),
-		'description' => __( 'Integrate WooCommerce with Google Tag Manager and Google Analytics', 'gtmkit' ),
+		'name' => __( 'WooCommerce integration', 'gtm-kit' ),
+		'description' => __( 'Integrate WooCommerce with Google Tag Manager and Google Analytics', 'gtm-kit' ),
 		'url' => 'https://gtmkit.com/documentation/woocommerce/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce&utm_content=dashboard-tutorials',
 	],
 	[
-		'name' => __( 'See all tutorials...', 'gtmkit' ),
-		'description' => __( 'See all our tutorial and get the most out of GTM Kit', 'gtmkit' ),
+		'name' => __( 'See all tutorials...', 'gtm-kit' ),
+		'description' => __( 'See all our tutorial and get the most out of GTM Kit', 'gtm-kit' ),
 		'url' => 'https://gtmkit.com/documentation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=documentation&utm_content=dashboard-tutorials',
 	],
 ];
@@ -38,7 +38,7 @@ $tutorials = [
 					</div>
 					<div class="gtmkit-list-item-buttons">
 						<a class="gtmkit-button" target="_blank" href="<?php echo esc_url( $tutorial['url'] ); ?>">
-							<?php esc_html_e( 'Read article', 'gtmkit' ); ?>
+							<?php esc_html_e( 'Read article', 'gtm-kit' ); ?>
 						</a>
 					</div>
 				</div>

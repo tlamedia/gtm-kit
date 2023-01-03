@@ -16,15 +16,15 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 ?>
 	<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 		<h2>
-			<?php esc_html_e( 'WooCommerce Integration', 'gtmkit' ); ?>
+			<?php esc_html_e( 'WooCommerce Integration', 'gtm-kit' ); ?>
 		</h2>
-		<p><?php esc_html_e( 'The #1 open source eCommerce platform built for WordPress', 'gtmkit' ) . ': <a href="https://woocommerce.com/" target="_blank">WooCommerce</a>'; ?></p>
+		<p><?php esc_html_e( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ) . ': <a href="https://woocommerce.com/" target="_blank">WooCommerce</a>'; ?></p>
 		<?php if ( $woocommerce_is_inactive ): ?>
 			<p>
-				<span class="error"><?php esc_html_e( 'WooCommerce is not installed', 'gtmkit' ); ?></span>.
+				<span class="error"><?php esc_html_e( 'WooCommerce is not installed', 'gtm-kit' ); ?></span>.
 				<?php
 				printf(
-					__( 'You can download %s here.', 'gtmkit' ),
+					__( 'You can download %s here.', 'gtm-kit' ),
 					'<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>'
 				);
 				?>
@@ -37,8 +37,8 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 			<h3 class="hndle">Google Analytics</h3>
 			<div class="inside">
 				<ul>
-					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce with Google Analytics 3 (Universal Analytics).', 'gtmkit' ); ?></li>
-					<li><?php esc_html_e( 'It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.', 'gtmkit' ); ?></li>
+					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce with Google Analytics 3 (Universal Analytics).', 'gtm-kit' ); ?></li>
+					<li><?php esc_html_e( 'It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.', 'gtm-kit' ); ?></li>
 				</ul>
 			</div>
 		</div>
@@ -48,13 +48,13 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_integration',
-	__( 'Track WooCommerce', 'gtmkit' ),
+	__( 'Track WooCommerce', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Choose this option if you would like to track e-commerce data.', 'gtmkit' )
+	__( 'Choose this option if you would like to track e-commerce data.', 'gtm-kit' )
 );
 
 $taxonomies = get_taxonomies(
@@ -81,75 +81,75 @@ foreach ( $taxonomies as $taxonomy ) {
 $form->setting_row(
 	'select',
 	'woocommerce_brand',
-	__( 'Brand', 'gtmkit' ),
+	__( 'Brand', 'gtm-kit' ),
 	$field_data
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_use_sku',
-	__( 'Use SKU instead of ID', 'gtmkit' ),
+	__( 'Use SKU instead of ID', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtmkit' )
+	__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'select',
 	'woocommerce_google_business_vertical',
-	__( 'Google Business Vertical', 'gtmkit' ),
+	__( 'Google Business Vertical', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		],
 		'options'    => [
-			'retail'       => __( 'Retail', 'gtmkit' ) . ' - (retail)',
-			'education'    => __( 'Education', 'gtmkit' ) . ' - (education)',
-			'flights'      => __( 'Flights', 'gtmkit' ) . ' - (flights)',
-			'hotel_rental' => __( 'Hotel rental', 'gtmkit' ) . ' - (hotel_rental)',
-			'jobs'         => __( 'Jobs', 'gtmkit' ) . ' (jobs)',
-			'local'        => __( 'Local deals', 'gtmkit' ) . ' - (local)',
-			'real_estate'  => __( 'Real estate', 'gtmkit' ) . ' - (real_estate)',
-			'travel'       => __( 'Travel', 'gtmkit' ) . ' - (travel)',
-			'custom'       => __( 'Custom', 'gtmkit' ) . ' - (custom)',
+			'retail'       => __( 'Retail', 'gtm-kit' ) . ' - (retail)',
+			'education'    => __( 'Education', 'gtm-kit' ) . ' - (education)',
+			'flights'      => __( 'Flights', 'gtm-kit' ) . ' - (flights)',
+			'hotel_rental' => __( 'Hotel rental', 'gtm-kit' ) . ' - (hotel_rental)',
+			'jobs'         => __( 'Jobs', 'gtm-kit' ) . ' (jobs)',
+			'local'        => __( 'Local deals', 'gtm-kit' ) . ' - (local)',
+			'real_estate'  => __( 'Real estate', 'gtm-kit' ) . ' - (real_estate)',
+			'travel'       => __( 'Travel', 'gtm-kit' ) . ' - (travel)',
+			'custom'       => __( 'Custom', 'gtm-kit' ) . ' - (custom)',
 		]
 	],
-	__( 'In order to use Google Ads Remarketing you must select your business type (vertical).', 'gtmkit' )
+	__( 'In order to use Google Ads Remarketing you must select your business type (vertical).', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'text-input',
 	'woocommerce_product_id_prefix',
-	__( 'Product ID prefix', 'gtmkit' ),
+	__( 'Product ID prefix', 'gtm-kit' ),
 	[],
-	__( 'If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer.', 'gtmkit' )
+	__( 'If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_exclude_tax',
-	__( 'Exclude tax', 'gtmkit' ),
+	__( 'Exclude tax', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Exclude tax from prices and revenue', 'gtmkit' )
+	__( 'Exclude tax from prices and revenue', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_exclude_shipping',
-	__( 'Exclude shipping from revenue', 'gtmkit' ),
+	__( 'Exclude shipping from revenue', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Exclude shipping from revenue', 'gtmkit' )
+	__( 'Exclude shipping from revenue', 'gtm-kit' )
 );
 
 $field_data                = [
@@ -159,22 +159,22 @@ $field_data                = [
 ];
 $field_data['options']     = [
 	1 => [
-		'label' => __( "When the 'Place order' button is clicked", 'gtmkit' ),
+		'label' => __( "When the 'Place order' button is clicked", 'gtm-kit' ),
 	],
 	2 => [
-		'label' => __( "When a shipment method is selected with fallback to the 'Place order' button.", 'gtmkit' ),
+		'label' => __( "When a shipment method is selected with fallback to the 'Place order' button.", 'gtm-kit' ),
 	],
 	0 => [
-		'label' => __( "Disable the 'add_shipment_info' event.", 'gtmkit' ),
+		'label' => __( "Disable the 'add_shipment_info' event.", 'gtm-kit' ),
 	]
 ];
-$field_data['legend']      = __( 'When do you want to fire the "add_shipment_info" event?', 'gtmkit' );
+$field_data['legend']      = __( 'When do you want to fire the "add_shipment_info" event?', 'gtm-kit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 $form->setting_row(
 	'radio',
 	'woocommerce_shipping_info',
-	__( 'Event: add_shipping_info', 'gtmkit' ),
+	__( 'Event: add_shipping_info', 'gtm-kit' ),
 	$field_data
 );
 
@@ -185,76 +185,76 @@ $field_data                = [
 ];
 $field_data['options']     = [
 	1 => [
-		'label' => __( "When the 'Place order' button is clicked", 'gtmkit' ),
+		'label' => __( "When the 'Place order' button is clicked", 'gtm-kit' ),
 	],
 	2 => [
-		'label' => __( "When a payment method is selected with fallback to the 'Place order' button.", 'gtmkit' ),
+		'label' => __( "When a payment method is selected with fallback to the 'Place order' button.", 'gtm-kit' ),
 	],
 	0 => [
-		'label' => __( "Disable the 'add_payment_info' event.", 'gtmkit' ),
+		'label' => __( "Disable the 'add_payment_info' event.", 'gtm-kit' ),
 	]
 ];
-$field_data['legend']      = __( 'When do you want to fire the "add_payment_info" event?', 'gtmkit' );
+$field_data['legend']      = __( 'When do you want to fire the "add_payment_info" event?', 'gtm-kit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 $form->setting_row(
 	'radio',
 	'woocommerce_payment_info',
-	__( 'Event: add_payment_info', 'gtmkit' ),
+	__( 'Event: add_payment_info', 'gtm-kit' ),
 	$field_data
 );
 
 
 $field_data['options']     = [
 	0 => [
-		'label' => __( "Only push view_item on the master product", 'gtmkit' ),
+		'label' => __( "Only push view_item on the master product", 'gtm-kit' ),
 	],
 	1 => [
-		'label' => __( "Push view_item on master and variation products (higher number of views).", 'gtmkit' ),
+		'label' => __( "Push view_item on master and variation products (higher number of views).", 'gtm-kit' ),
 	],
 ];
-$field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtmkit' );
+$field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtm-kit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 $form->setting_row(
 	'radio',
 	'woocommerce_variable_product_tracking',
-	__( 'Event: view_item', 'gtmkit' ),
+	__( 'Event: view_item', 'gtm-kit' ),
 	$field_data
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_include_permalink_structure',
-	__( 'Include permalink structure', 'gtmkit' ),
+	__( 'Include permalink structure', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Enable this option to include the permalink structure of the product base, category base, tag base and attribute base.', 'gtmkit' )
+	__( 'Enable this option to include the permalink structure of the product base, category base, tag base and attribute base.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_include_pages',
-	__( 'Include pages', 'gtmkit' ),
+	__( 'Include pages', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Enable this option to include the path of cart, checkout, order received adn my account page.', 'gtmkit' )
+	__( 'Enable this option to include the path of cart, checkout, order received adn my account page.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'woocommerce_dequeue_script',
-	__( 'Dequeue Default JS', 'gtmkit' ),
+	__( 'Dequeue Default JS', 'gtm-kit' ),
 	[
 		'attributes' => [
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtmkit' )
+	__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtm-kit' )
 );

@@ -47,7 +47,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'dashboard',
-				__( 'Dashboard', 'gtmkit' ),
+				__( 'Dashboard', 'gtm-kit' ),
 				[
 					'save_button' => false,
 				]
@@ -56,7 +56,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'container',
-				__( 'Container', 'gtmkit' ),
+				__( 'Container', 'gtm-kit' ),
 				[
 					'save_button' => true,
 				]
@@ -65,19 +65,19 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'post_data',
-				__( 'Post data', 'gtmkit' )
+				__( 'Post data', 'gtm-kit' )
 			)
 		);
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'user_data',
-				__( 'User data', 'gtmkit' )
+				__( 'User data', 'gtm-kit' )
 			)
 		);
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'help',
-				__( 'Help', 'gtmkit' ),
+				__( 'Help', 'gtm-kit' ),
 				[
 					'save_button' => false,
 				]
@@ -105,7 +105,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 	 * @return string
 	 */
 	protected function get_menu_title(): string {
-		return __( 'General', 'gtmkit' );
+		return __( 'General', 'gtm-kit' );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 	 * @return string
 	 */
 	protected function get_page_title(): string {
-		return __( 'General Settings', 'gtmkit' );
+		return __( 'General Settings', 'gtm-kit' );
 	}
 
 	/**
@@ -131,11 +131,11 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 	 */
 	protected function get_tabs(): void {
 		$generalTabs = new OptionTabs( 'general' );
-		$generalTabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtmkit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtmkit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtmkit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtmkit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'help', __( 'Help', 'gtmkit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtm-kit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtm-kit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'help', __( 'Help', 'gtm-kit' ) ) );
 	}
 
 }

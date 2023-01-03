@@ -13,7 +13,7 @@ $gtmkit_integrations = $_GET['page'] == 'gtmkit_integrations';
 $integrations = [
 	[
 		'name' => 'WooCommerce',
-		'description' => __( 'The #1 open source eCommerce platform built for WordPress', 'gtmkit' ),
+		'description' => __( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ),
 		'plugin_active' => is_plugin_active( 'woocommerce/woocommerce.php' ),
 		'integration_active' => Options::init()->get( 'integrations', 'woocommerce_integration' ),
 		'tab_id' => 'woocommerce',
@@ -21,7 +21,7 @@ $integrations = [
 	],
 	[
 		'name' => 'Contact Form 7',
-		'description' => __( 'Just another contact form plugin for WordPress. Simple but flexible', 'gtmkit' ),
+		'description' => __( 'Just another contact form plugin for WordPress. Simple but flexible', 'gtm-kit' ),
 		'plugin_active' => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
 		'integration_active' => Options::init()->get( 'integrations', 'cf7_integration' ),
 		'tab_id' => 'cf7',
@@ -38,7 +38,7 @@ $integrations = [
 				<h3><?php echo esc_html($integration['name']) ?></h3>
 				<?php if ( $integration_active ): ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
-						<?php esc_html_e( 'Active', 'gtmkit' ); ?>
+						<?php esc_html_e( 'Active', 'gtm-kit' ); ?>
 					</span>
 				<?php endif; ?>
 				<div class="gtmkit-list-item-actions">
@@ -57,11 +57,11 @@ $integrations = [
 							class="gtmkit-button <?php if ( $gtmkit_integrations && $integration['plugin_active'] ): ?>gtmkit-open-tab<?php endif; ?>"
 						>
 							<?php if ( $integration_active ): ?>
-								<?php esc_html_e( 'Edit integration', 'gtmkit' ); ?>
+								<?php esc_html_e( 'Edit integration', 'gtm-kit' ); ?>
 							<?php elseif ( $integration['plugin_active'] ): ?>
-								<?php esc_html_e( 'Setup integration', 'gtmkit' ); ?>
+								<?php esc_html_e( 'Setup integration', 'gtm-kit' ); ?>
 							<?php else: ?>
-								<?php esc_html_e( 'Install plugin', 'gtmkit' ); ?>
+								<?php esc_html_e( 'Install plugin', 'gtm-kit' ); ?>
 							<?php endif; ?>
 						</a>
 					</div>
@@ -69,8 +69,8 @@ $integrations = [
 			</li>
 			<?php endforeach; ?>
 			<li class="gtmkit-list-item disabled">
-				<h3><?php esc_html_e( 'Coming soon...', 'gtmkit' ); ?></h3>
-				<p><?php esc_html_e( 'The next integration is under way.', 'gtmkit' ); ?></p>
+				<h3><?php esc_html_e( 'Coming soon...', 'gtm-kit' ); ?></h3>
+				<p><?php esc_html_e( 'The next integration is under way.', 'gtm-kit' ); ?></p>
 			</li>
 
 		</ul>

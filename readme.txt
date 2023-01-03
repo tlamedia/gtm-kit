@@ -80,6 +80,12 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.5.3 =
+
+Enhancements:
+
+* Align text domain with GlotPress making the plugin compatible with translations from WordPress.org
+
 = 1.5.2 =
 
 Enhancements:
