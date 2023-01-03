@@ -232,7 +232,7 @@ $form->setting_row(
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Enable this option include the permalink structure of the product base, category base, tag base and attribute base.', 'gtmkit' )
+	__( 'Enable this option to include the permalink structure of the product base, category base, tag base and attribute base.', 'gtmkit' )
 );
 
 $form->setting_row(
@@ -244,7 +244,7 @@ $form->setting_row(
 			'disabled' => $woocommerce_is_inactive,
 		]
 	],
-	__( 'Enable this option include the path of cart, checkout, order received adn my account page.', 'gtmkit' )
+	__( 'Enable this option to include the path of cart, checkout, order received adn my account page.', 'gtmkit' )
 );
 
 $form->setting_row(
