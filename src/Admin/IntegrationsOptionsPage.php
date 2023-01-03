@@ -24,7 +24,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'integrations',
-				__( 'Integrations', 'gtmkit' ),
+				__( 'Integrations', 'gtm-kit' ),
 				[
 					'save_button' => false,
 				]
@@ -70,7 +70,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 * @return string
 	 */
 	protected function get_menu_title(): string {
-		return __( 'Integrations', 'gtmkit' );
+		return __( 'Integrations', 'gtm-kit' );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 * @return string
 	 */
 	protected function get_page_title(): string {
-		return __( 'Integrations', 'gtmkit' );
+		return __( 'Integrations', 'gtm-kit' );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 */
 	protected function get_tabs(): void {
 		$generalTabs = new OptionTabs( 'integrations' );
-		$generalTabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtmkit' ) ) );
+		$generalTabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtm-kit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
 		$generalTabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
 	}

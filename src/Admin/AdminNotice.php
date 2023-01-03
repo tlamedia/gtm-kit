@@ -40,7 +40,7 @@ class AdminNotice {
 				<p>
 					<strong>
 						<?php printf(
-							__( 'To start using GTM Kit, please <a href="%s">enter your GTM ID</a>', 'gtmkit' ),
+							__( 'To start using GTM Kit, please <a href="%s">enter your GTM ID</a>', 'gtm-kit' ),
 							esc_url( menu_page_url( 'gtmkit_general', false ) . '#top#container' )
 						); ?>
 					</strong>

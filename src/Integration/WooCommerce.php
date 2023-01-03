@@ -189,15 +189,15 @@ class WooCommerce {
 		$global_settings['wc']['add_payment_info']['fired']   = false;
 		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
 		$global_settings['wc']['text']                        = [
-			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtmkit' ),
-			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtmkit' ),
-			'wp-block-product-category'      => __( 'Product Category', 'gtmkit' ),
-			'wp-block-product-new'           => __( 'New Products', 'gtmkit' ),
-			'wp-block-product-on-sale'       => __( 'Products On Sale', 'gtmkit' ),
-			'wp-block-products-by-attribute' => __( 'Products By Attribute', 'gtmkit' ),
-			'wp-block-product-tag'           => __( 'Product Tag', 'gtmkit' ),
-			'wp-block-product-top-rated'     => __( 'Top Rated Products', 'gtmkit' ),
-			'shipping tier not found'        => __( 'shipping tier not found', 'gtmkit' ),
+			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
+			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
+			'wp-block-product-category'      => __( 'Product Category', 'gtm-kit' ),
+			'wp-block-product-new'           => __( 'New Products', 'gtm-kit' ),
+			'wp-block-product-on-sale'       => __( 'Products On Sale', 'gtm-kit' ),
+			'wp-block-products-by-attribute' => __( 'Products By Attribute', 'gtm-kit' ),
+			'wp-block-product-tag'           => __( 'Product Tag', 'gtm-kit' ),
+			'wp-block-product-top-rated'     => __( 'Top Rated Products', 'gtm-kit' ),
+			'shipping tier not found'        => __( 'shipping tier not found', 'gtm-kit' ),
 		];
 
 		if ( is_checkout() && ! is_order_received_page() ) {
@@ -651,7 +651,7 @@ class WooCommerce {
 	 */
 	function grouped_product_add_to_cart_tracking( string $label_value, WC_Product $product ): string {
 
-		$label_value .= $this->get_item_data_tag( $product, __( 'Grouped Product', 'gtmkit' ), $this->grouped_product_position ++ );
+		$label_value .= $this->get_item_data_tag( $product, __( 'Grouped Product', 'gtm-kit' ), $this->grouped_product_position ++ );
 
 		return $label_value;
 	}
@@ -685,7 +685,7 @@ class WooCommerce {
 	function get_item_data_tag( WC_Product $product, string $item_list_name, int $index ): string {
 
 		if ( empty( $item_list_name ) ) {
-			$item_list_name = ( is_search() ) ? __( 'Search Results', 'gtmkit' ) : __( 'General Product List', 'gtmkit' );
+			$item_list_name = ( is_search() ) ? __( 'Search Results', 'gtm-kit' ) : __( 'General Product List', 'gtm-kit' );
 		}
 
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -726,7 +726,7 @@ class WooCommerce {
 		if ( isset( $woocommerce_loop['gtmkit_list_name'] ) && ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
 			$list_name = $woocommerce_loop['gtmkit_list_name'];
 		} else {
-			$list_name = __( 'General Product List', 'gtmkit' );
+			$list_name = __( 'General Product List', 'gtm-kit' );
 		}
 
 		echo wp_kses(
@@ -759,7 +759,7 @@ class WooCommerce {
 		if ( isset( $woocommerce_loop['name'] ) && ! empty( $woocommerce_loop['name'] ) ) {
 			$woocommerce_loop['gtmkit_list_name'] = ucwords( str_replace( '_', ' ', $woocommerce_loop['name'] ) );
 		} else {
-			$woocommerce_loop['gtmkit_list_name'] = __( 'General Product List', 'gtmkit' );
+			$woocommerce_loop['gtmkit_list_name'] = __( 'General Product List', 'gtm-kit' );
 		}
 	}
 
@@ -768,9 +768,9 @@ class WooCommerce {
 
 		if ( isset( $woocommerce_loop['name'] ) && empty( $woocommerce_loop['name'] ) ) {
 			if ( is_product_category() ) {
-				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Category', 'gtmkit' );
+				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Category', 'gtm-kit' );
 			} elseif ( is_product_tag() ) {
-				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Tag', 'gtmkit' );
+				$woocommerce_loop['gtmkit_list_name'] = __( 'Product Tag', 'gtm-kit' );
 			}
 		}
 

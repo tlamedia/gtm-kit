@@ -8,7 +8,7 @@
  * Description: Google Tag Manager implementation focusing on flexibility and pagespeed.
  * Author:      TLA Media
  * Author URI:  https://www.tlamedia.dk/
- * Text Domain: gtmkit
+ * Text Domain: gtm-kit
  * Domain Path: /languages/
  * License:     GPL v3
  * Requires at least: 6.0

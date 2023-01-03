@@ -14,13 +14,13 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2>
-		<?php esc_html_e( 'Help', 'gtmkit' ); ?>
+		<?php esc_html_e( 'Help', 'gtm-kit' ); ?>
 	</h2>
 </div>
 
 <div class="gtmkit_section_message">
 	<div class="stuffbox">
-		<h3 class="hndle"><?php esc_html_e( 'Tutorials', 'gtmkit' ); ?></h3>
+		<h3 class="hndle"><?php esc_html_e( 'Tutorials', 'gtm-kit' ); ?></h3>
 		<div class="inside">
 			<ul>
 				<li><a href="https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=help-tutorials" target="_blank">Getting started with GTM Kit</a></li>
@@ -35,7 +35,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 <div class="gtmkit_section_message">
 	<div class="stuffbox">
-		<h3 class="hndle"><?php esc_html_e( 'Support', 'gtmkit' ); ?></h3>
+		<h3 class="hndle"><?php esc_html_e( 'Support', 'gtm-kit' ); ?></h3>
 		<div class="inside">
 			<ul>
 				<li><a href="https://wordpress.org/support/plugin/gtm-kit/" target="_blank">Support forum</a></li>
@@ -49,15 +49,15 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 <div class="gtmkit_section_message space-top">
 	<div class="stuffbox">
 		<h3 class="hndle">
-			<?php esc_html_e( 'About GTM Kit', 'gtmkit' ); ?>
+			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
 			<span class="version">(Version <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
 		</h3>
 		<div class="inside">
 			<ul>
-				<li><?php esc_html_e( 'The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager.', 'gtmkit' ); ?></li>
+				<li><?php esc_html_e( 'The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager.', 'gtm-kit' ); ?></li>
 				<li>
-					<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtmkit' ); ?>
-					<a href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtmkit' ); ?></a>
+					<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtm-kit' ); ?>
+					<a href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtm-kit' ); ?></a>
 				</li>
 			</ul>
 		</div>

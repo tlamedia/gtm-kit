@@ -150,7 +150,7 @@ class OptionsForm {
 		if ( $save_button ) {
 			?>
 			<div id="gtmkit-submit-container">
-				<?php submit_button( __( 'Save changes', 'gtmkit' ) ); ?>
+				<?php submit_button( __( 'Save changes', 'gtm-kit' ) ); ?>
 			</div>
 			</form>
 			<?php
@@ -258,8 +258,8 @@ class OptionsForm {
 				<?php echo esc_html( $disabled_attribute ); ?>
 			/>
 			<span class="gtmkit-setting-toggle-switch"></span>
-			<span class="gtmkit-setting-toggle-checked-label"><?php esc_html_e( 'On', 'gtmkit' ); ?></span>
-			<span class="gtmkit-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'gtmkit' ); ?></span>
+			<span class="gtmkit-setting-toggle-checked-label"><?php esc_html_e( 'On', 'gtm-kit' ); ?></span>
+			<span class="gtmkit-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'gtm-kit' ); ?></span>
 		</label>
 		<?php
 	}
@@ -405,7 +405,7 @@ class OptionsForm {
 			esc_attr( $this->option_name ) . '[' . esc_attr( $this->option_group ) . '][' . esc_attr( $variable ) . ']',
 			esc_attr( $variable )
 		);
-		printf( '<option value="" %s>%s</option>', selected( $active_option, '', false ), esc_html__( '(not set)', 'gtmkit' ) );
+		printf( '<option value="" %s>%s</option>', selected( $active_option, '', false ), esc_html__( '(not set)', 'gtm-kit' ) );
 
 		foreach ( $fieldset_data['options'] as $option_attribute_value => $option_html_value ) {
 			printf(

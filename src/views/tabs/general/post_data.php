@@ -14,82 +14,82 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2>
-		<?php esc_html_e( 'Post data', 'gtmkit' ); ?>
+		<?php esc_html_e( 'Post data', 'gtm-kit' ); ?>
 	</h2>
-	<?php esc_html_e( 'Specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager.', 'gtmkit' ); ?>
+	<?php esc_html_e( 'Specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager.', 'gtm-kit' ); ?>
 </div>
 
 <?php
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_type',
-	__( 'Post type', 'gtmkit' ),
+	__( 'Post type', 'gtm-kit' ),
 	[],
-	__( 'include the type of the current post or archive page.', 'gtmkit' )
+	__( 'include the type of the current post or archive page.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_page_type',
-	__( 'Page type', 'gtmkit' ),
+	__( 'Page type', 'gtm-kit' ),
 	[],
-	__( 'include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtmkit' )
+	__( 'include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_categories',
-	__( 'Categories', 'gtmkit' ),
+	__( 'Categories', 'gtm-kit' ),
 	[],
-	__( 'include the categories of the current post or archive page.', 'gtmkit' )
+	__( 'include the categories of the current post or archive page.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_tags',
-	__( 'Tags', 'gtmkit' ),
+	__( 'Tags', 'gtm-kit' ),
 	[],
-	__( 'include the tags of the current post or archive page.', 'gtmkit' )
+	__( 'include the tags of the current post or archive page.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_title',
-	__( 'Post title', 'gtmkit' ),
+	__( 'Post title', 'gtm-kit' ),
 	[],
-	__( 'include the post title of the current post.', 'gtmkit' )
+	__( 'include the post title of the current post.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_id',
-	__( 'Post ID', 'gtmkit' ),
+	__( 'Post ID', 'gtm-kit' ),
 	[],
-	__( 'include the Post ID of the current post.', 'gtmkit' )
+	__( 'include the Post ID of the current post.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_date',
-	__( 'Post date', 'gtmkit' ),
+	__( 'Post date', 'gtm-kit' ),
 	[],
-	__( 'include the post date.', 'gtmkit' )
+	__( 'include the post date.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_author_name',
-	__( 'Post author name', 'gtmkit' ),
+	__( 'Post author name', 'gtm-kit' ),
 	[],
-	__( 'include the post author name.', 'gtmkit' )
+	__( 'include the post author name.', 'gtm-kit' )
 );
 
 $form->setting_row(
 	'checkbox-toggle',
 	'datalayer_post_author_id',
-	__( 'Post author ID', 'gtmkit' ),
+	__( 'Post author ID', 'gtm-kit' ),
 	[],
-	__( 'include the post author ID.', 'gtmkit' )
+	__( 'include the post author ID.', 'gtm-kit' )
 );
 
 ?>
