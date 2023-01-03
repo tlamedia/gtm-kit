@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
 Tested up to: 6.1
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,13 @@ It’s recommended that you create a Google Analytics 4 property instead.
 Yes! Pagespeed is one of our main focus points and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
+
+= 1.5.2 =
+
+Enhancements:
+
+* Added better help texts.
+* Fixed typos.
 
 = 1.5.1 =
 

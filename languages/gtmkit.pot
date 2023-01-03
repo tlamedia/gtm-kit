@@ -1,14 +1,14 @@
-# Copyright (C) 2022 TLA Media
+# Copyright (C) 2023 TLA Media
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.5.1\n"
+"Project-Id-Version: GTM Kit 1.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2022-12-20 15:33:51+00:00\n"
+"POT-Creation-Date: 2023-01-03 11:57:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
@@ -133,38 +133,6 @@ msgstr ""
 msgid "General Product List"
 msgstr ""
 
-#: src/views/admin-sidebar.php:13 src/views/tabs/general/help.php:38
-msgid "Support"
-msgstr ""
-
-#: src/views/admin-sidebar.php:16
-msgid "If you are having problems with this plugin, please talk about them in the"
-msgstr ""
-
-#: src/views/admin-sidebar.php:17
-msgid "Support forum"
-msgstr ""
-
-#: src/views/admin-sidebar.php:19
-msgid "You can also find documentation and examples of implementations on the"
-msgstr ""
-
-#: src/views/admin-sidebar.php:20
-msgid "plugin homepage"
-msgstr ""
-
-#: src/views/admin-sidebar.php:26
-msgid "About this Plugin"
-msgstr ""
-
-#: src/views/admin-sidebar.php:29
-msgid "Plugin Homepage"
-msgstr ""
-
-#: src/views/admin-sidebar.php:31
-msgid "Plugin at Wordpress.org"
-msgstr ""
-
 #: src/views/integrations-metabox.php:16
 #: src/views/tabs/integrations/woocommerce.php:21
 msgid "The #1 open source eCommerce platform built for WordPress"
@@ -217,11 +185,13 @@ msgid "Container ID:"
 msgstr ""
 
 #: src/views/tabs/general/container.php:45
-msgid "Container Active"
+msgid "Container Code"
 msgstr ""
 
 #: src/views/tabs/general/container.php:47
-msgid "Removes the container code for use with custom implementations."
+msgid ""
+"Setting this to Off will remove the Google Tag Manager container code but "
+"the data layer will remain."
 msgstr ""
 
 #: src/views/tabs/general/container.php:51
@@ -344,6 +314,10 @@ msgstr ""
 
 #: src/views/tabs/general/dashboard.php:61 src/views/tabs/general/help.php:23
 msgid "Tutorials"
+msgstr ""
+
+#: src/views/tabs/general/help.php:38
+msgid "Support"
 msgstr ""
 
 #: src/views/tabs/general/help.php:52
@@ -513,7 +487,7 @@ msgid "On all pages"
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:60
-msgid "Where do you want load the integration JavaScript?"
+msgid "Where do you want load the JavaScript?"
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:66
@@ -691,7 +665,7 @@ msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:235
 msgid ""
-"Enable this option include the permalink structure of the product base, "
+"Enable this option to include the permalink structure of the product base, "
 "category base, tag base and attribute base."
 msgstr ""
 
@@ -701,8 +675,8 @@ msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:247
 msgid ""
-"Enable this option include the path of cart, checkout, order received adn "
-"my account page."
+"Enable this option to include the path of cart, checkout, order received "
+"adn my account page."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:253
