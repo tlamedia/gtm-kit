@@ -57,7 +57,7 @@ $field_data['options']     = [
 		'label' => __( 'On all pages', 'gtmkit' ),
 	],
 ];
-$field_data['legend']      = __( 'Where do you want load the integration JavaScript?', 'gtmkit' );
+$field_data['legend']      = __( 'Where do you want load the JavaScript?', 'gtmkit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 $form->setting_row(

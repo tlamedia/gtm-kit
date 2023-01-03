@@ -42,9 +42,9 @@ $form->setting_row(
 $form->setting_row(
 	'checkbox-toggle',
 	'container_active',
-	__( 'Container Active', 'gtmkit' ),
+	__( 'Container Code', 'gtmkit' ),
 	[],
-	__( 'Removes the container code for use with custom implementations.', 'gtmkit' )
+	__( 'Setting this to Off will remove the Google Tag Manager container code but the data layer will remain.', 'gtmkit' )
 );
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
