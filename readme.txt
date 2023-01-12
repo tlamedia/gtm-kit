@@ -80,6 +80,12 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 == Changelog ==
 
+= 1.x =
+
+Enhancements:
+
+* Added support for primary product category in Rank Math SEO
+
 = 1.5.3 =
 
 Enhancements:
