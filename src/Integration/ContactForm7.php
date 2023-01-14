@@ -10,21 +10,7 @@ use TLA_Media\GTM_Kit\Options;
 /**
  * Contact Form 7 integration
  */
-class ContactForm7 {
-
-	/**
-	 * Plugin options.
-	 *
-	 * @var Options
-	 */
-	protected static $instance = null;
-
-	/**
-	 * Plugin options.
-	 *
-	 * @var Options
-	 */
-	protected $options;
+class ContactForm7 extends AbstractIntegration {
 
 	/**
 	 * Constructor.
@@ -35,7 +21,10 @@ class ContactForm7 {
 		$this->options = $options;
 	}
 
-	public static function instance(): WooCommerce {
+	/**
+	 * Get instance
+	 */
+	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
 			self::$instance = new self( $options );

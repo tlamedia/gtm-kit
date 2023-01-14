@@ -14,42 +14,7 @@ use WC_Product;
 /**
  * WooCommerce integration
  */
-class WooCommerce {
-
-	/**
-	 * Plugin options.
-	 *
-	 * @var Options
-	 */
-	protected static $instance = null;
-
-	/**
-	 * Plugin options.
-	 *
-	 * @var Options
-	 */
-	protected $options;
-
-	/**
-	 * WooCommerce store currency.
-	 *
-	 * @var string
-	 */
-	protected $woocommerce_currency;
-
-	/**
-	 * Grouped product list position.
-	 *
-	 * @var int
-	 */
-	protected $grouped_product_position;
-
-	/**
-	 * Global Settings.
-	 *
-	 * @var array
-	 */
-	protected $global_settings;
+class WooCommerce  extends AbstractEcommerce {
 
 	/**
 	 * Constructor.
@@ -57,12 +22,16 @@ class WooCommerce {
 	 * @param Options $options
 	 */
 	public function __construct( Options $options ) {
-		$this->options                  = $options;
-		$this->woocommerce_currency     = get_woocommerce_currency();
-		$this->grouped_product_position = 1;
+		$this->store_currency = get_woocommerce_currency();
+
+		// Call parent constructor.
+		parent::__construct( $options );
 	}
 
-	public static function instance(): WooCommerce {
+	/**
+	 * Get instance
+	 */
+	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
 			self::$instance = new self( $options );
@@ -179,7 +148,7 @@ class WooCommerce {
 	 */
 	public function set_global_settings( array $global_settings ): array {
 
-		$global_settings['wc']['currency']                    = $this->woocommerce_currency;
+		$global_settings['wc']['currency']                    = $this->store_currency;
 		$global_settings['wc']['is_cart']                     = is_cart();
 		$global_settings['wc']['is_checkout']                 = ( is_checkout() && ! is_order_received_page() );
 		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
@@ -339,7 +308,7 @@ class WooCommerce {
 
 		$data_layer['event']     = 'view_cart';
 		$data_layer['ecommerce'] = [
-			'currency' => $this->woocommerce_currency,
+			'currency' => $this->store_currency,
 			'value'    => $cart_value,
 			'items'    => [ $this->get_cart_items( 'view_cart' ) ]
 		];
@@ -498,7 +467,7 @@ class WooCommerce {
 			'id'   => $this->prefix_item_id( $item_id ),
 			'item_id'   => $this->prefix_item_id( $item_id ),
 			'item_name' => $product->get_title(),
-			'currency'  => $this->woocommerce_currency,
+			'currency'  => $this->store_currency,
 			'price'     => round( (float) wc_get_price_to_display( $product ), 2 ),
 		];
 
@@ -513,7 +482,7 @@ class WooCommerce {
 			$item_data['google_business_vertical'] = $this->options->get( 'integrations', 'woocommerce_google_business_vertical' );
 		}
 
-		$item_category_elements = $this->get_primary_product_category( $product_id_to_query );
+		$item_category_elements = $this->get_primary_product_category( $product_id_to_query, 'product_cat' );
 
 		$number_of_elements = count( $item_category_elements );
 
@@ -531,103 +500,6 @@ class WooCommerce {
 		return apply_filters( 'gtmkit_datalayer_item_data', $item_data, $product, $event_context );
 	}
 
-	/**
-	 * Get the primary product category of a product. If the  primary category is not available the first assigned category will be returned.
-	 *
-	 * @param int $product_id WooCommerce product ID
-	 *
-	 * @return array The category breadcrumb for the given product ID.
-	 */
-	function get_primary_product_category( int $product_id ): array {
-
-		$primary_product_category = [];
-
-		$primary_term_id = false;
-
-		if ( function_exists( 'yoast_get_primary_term_id' ) ) {
-			$primary_term_id = yoast_get_primary_term_id( 'product_cat', $product_id );
-		} elseif ( function_exists( 'rank_math' ) ) {
-			$primary_cat_id = get_post_meta( $product_id, 'rank_math_primary_product_cat', true );
-			if(isset($primary_cat_id) && !empty($primary_cat_id) && intval($primary_cat_id)) {
-				$primary_term_id = $primary_cat_id;
-			}
-		}
-
-		if ( $primary_term_id === false ) {
-			$product_categories = wp_get_post_terms(
-				$product_id,
-				'product_cat',
-				array(
-					'orderby' => 'parent',
-					'order'   => 'ASC',
-				)
-			);
-
-			if ( count( $product_categories ) ) {
-				$first_product_category = array_pop( $product_categories );
-				$primary_term_id        = $first_product_category->term_id;
-			} else {
-				$primary_term_id = false;
-			}
-		}
-
-		if ( $primary_term_id ) {
-			$primary_product_category = $this->get_category_breadcrumb( $primary_term_id );
-		}
-
-		return $primary_product_category;
-	}
-
-	/**
-	 * Get the product category breadcrumb elements as an array.
-	 *
-	 * @param int $category_id The ID of the product category.
-	 *
-	 * @return array The category path elements as an array.
-	 */
-	function get_category_breadcrumb( int $category_id ): array {
-		$category_hierarchy = [];
-
-		$category = get_term( $category_id, 'product_cat' );
-
-		if ( ! $category ) {
-			return $category_hierarchy;
-		}
-
-		$parents = get_ancestors( $category_id, 'product_cat', 'taxonomy' );
-
-		array_unshift( $parents, $category_id );
-
-		foreach ( array_reverse( $parents ) as $category_id ) {
-			$parent               = get_term( $category_id, 'product_cat' );
-			$category_hierarchy[] = $parent->name;
-
-		}
-
-		return $category_hierarchy;
-	}
-
-	/**
-	 * Get product term value.
-	 *
-	 * @param int $product_id A WooCommerce product ID
-	 * @param string $taxonomy The taxonomy slug
-	 *
-	 * @return string Returns the first assigned taxonomy value.
-	 */
-	function get_product_term( int $product_id, string $taxonomy ): string {
-
-		$product_terms = wp_get_post_terms(
-			$product_id,
-			$taxonomy,
-			[
-				'orderby' => 'parent',
-				'order'   => 'ASC',
-			]
-		);
-
-		return ( is_array( $product_terms ) && count( $product_terms ) ) ? $product_terms[0]->name : '';
-	}
 
 	/**
 	 * Add-to-cart tracing on single product.
