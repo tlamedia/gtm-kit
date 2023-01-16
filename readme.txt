@@ -86,6 +86,10 @@ Enhancements:
 
 * Added support for primary product category in Rank Math SEO
 
+Other:
+
+* WooCommerce tested up to: 7.3
+
 = 1.5.3 =
 
 Enhancements:
