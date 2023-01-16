@@ -11,6 +11,7 @@ use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Installation\Installation;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
+use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
 
 
@@ -72,6 +73,9 @@ function gtmkit_frontend_init(): void {
 	}
 	if ( Options::init()->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
 		ContactForm7::register( $options );
+	};
+	if ( Options::init()->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
+		EasyDigitalDownloads::register( $options );
 	};
 
 }

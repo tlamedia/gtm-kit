@@ -27,6 +27,14 @@ $integrations = [
 		'tab_id' => 'cf7',
 		'plugin_search' => 'Contact Form 7',
 	],
+	[
+		'name' => 'Easy Digital Downloads',
+		'description' => __( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ),
+		'plugin_active' => is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ),
+		'integration_active' => Options::init()->get( 'integrations', 'edd_integration' ),
+		'tab_id' => 'edd',
+		'plugin_search' => 'Easy Digital Downloads',
+	],
 ];
 ?>
 <div class="gtmkit-items-metabox gtmkit-metabox">
@@ -68,11 +76,6 @@ $integrations = [
 				</div>
 			</li>
 			<?php endforeach; ?>
-			<li class="gtmkit-list-item disabled">
-				<h3><?php esc_html_e( 'Coming soon...', 'gtm-kit' ); ?></h3>
-				<p><?php esc_html_e( 'The next integration is under way.', 'gtm-kit' ); ?></p>
-			</li>
-
 		</ul>
 	</div>
 </div>

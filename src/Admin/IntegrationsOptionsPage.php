@@ -48,6 +48,15 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 				]
 			)
 		);
+		$dashboard_tabs->add_tab(
+			new OptionTab(
+				'edd',
+				'Easy Digital Downloads',
+				[
+					'save_button' => true,
+				]
+			)
+		);
 
 		$dashboard_tabs->display( $form );
 
@@ -99,6 +108,7 @@ class IntegrationsOptionsPage extends AbstractOptionsPage {
 		$generalTabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtm-kit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
 		$generalTabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
+		$generalTabs->add_tab( new OptionTab( 'edd', 'Easy Digital Downloads' ) );
 	}
 
 }
