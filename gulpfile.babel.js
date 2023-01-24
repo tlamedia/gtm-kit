@@ -43,7 +43,7 @@ export const styles = () => {
 }
 
 export const scripts = () => {
-	return src(['src/js/admin.js', 'src/js/woocommerce.js', 'src/js/woocommerce-checkout.js', 'src/js/contact-form-7.js'])
+	return src(['src/js/admin.js', 'src/js/woocommerce.js', 'src/js/woocommerce-checkout.js', 'src/js/contact-form-7.js', 'src/js/edd.js', 'src/js/edd-checkout.js'])
 		.pipe(gulpif(!PRODUCTION, sourcemaps.init()))
 		.pipe(gulpif(PRODUCTION, uglify()))
 		.pipe(gulpif(!PRODUCTION, sourcemaps.write()))
@@ -57,6 +57,7 @@ export const images = () => {
 
 export const watchForChanges = () => {
 	watch('src/scss/**/*.scss', styles);
+	watch('src/js/**/*.js', scripts);
 	watch('src/images/**/*.{jpg,jpeg,png,svg,gif}', images);
 }
 

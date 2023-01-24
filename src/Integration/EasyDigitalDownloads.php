@@ -50,7 +50,74 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 
 		self::$instance = new self( $options );
 
+		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
+		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
+		add_action( 'edd_purchase_link_end', [ self::$instance, 'add_to_cart_tracking' ], 10, 2 );
+	}
+
+	/**
+	 * Enqueue scripts
+	 */
+	public function enqueue_scripts(): void {
+
+		if ( $this->options->get( 'integrations', 'edd_dequeue_script' ) ) {
+			return;
+		}
+
+		if ( wp_get_environment_type() == 'local' ) {
+			$version = time();
+		} else {
+			$version = GTMKIT_VERSION;
+		}
+
+		if ( ! edd_is_checkout() ) {
+			wp_enqueue_script(
+				'gtmkit-edd',
+				GTMKIT_URL . 'assets/js/edd.js',
+				[ 'jquery' ],
+				$version,
+				true
+			);
+		}
+
+		if ( edd_is_checkout() ) {
+			wp_enqueue_script(
+				'gtmkit-edd-checkout',
+				GTMKIT_URL . 'assets/js/edd-checkout.js',
+				[ 'jquery' ],
+				$version,
+				true
+			);
+		}
+	}
+
+	/**
+	 * Set the global script settings
+	 *
+	 * @param array $global_settings Plugin settings
+	 *
+	 * @return array
+	 */
+	public function set_global_settings( array $global_settings ): array {
+
+		$global_settings['edd']['currency']                   = $this->store_currency;
+		$global_settings['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
+		$global_settings['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
+		$global_settings['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
+		$global_settings['edd']['add_payment_info']['fired']  = false;
+		$global_settings['edd']['text']                       = [
+			'payment method not found' => __( 'Payment method not found', 'gtm-kit' ),
+		];
+
+		if ( is_page( edd_get_option( 'purchase_page' ) ) ) {
+			$global_settings['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
+			$global_settings['edd']['cart_value'] = edd_cart_total( false );
+		}
+
+		$this->global_settings = $global_settings;
+
+		return $global_settings;
 	}
 
 	/**
@@ -64,6 +131,10 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 
 		if ( is_singular( array( 'download' ) ) ) {
 			$data_layer = $this->get_datalayer_content_product_page( $data_layer );
+		} elseif ( is_tax( 'download_category' ) ) {
+			$data_layer = $this->get_datalayer_content_product_category( $data_layer );
+		} elseif ( is_tax( 'download_tag' ) ) {
+			$data_layer = $this->get_datalayer_content_product_tag( $data_layer );
 		} elseif ( edd_get_option( 'confirmation_page', false ) == get_the_ID() ) {
 			$data_layer = $this->get_datalayer_content_order_received( $data_layer );
 		} elseif ( is_page( edd_get_option( 'purchase_page' ) ) ) {
@@ -99,6 +170,38 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 			'items' => [ $item ],
 			'value' => $item['price']
 		];
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get the dataLayer data for category pages
+	 *
+	 * @param array $data_layer The datalayer content
+	 *
+	 * @return array The datalayer content
+	 */
+	public function get_datalayer_content_product_category( array $data_layer ): array {
+
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
+			$data_layer['pageType'] = 'product-category';
+		}
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get the dataLayer data for product tag pages
+	 *
+	 * @param array $data_layer The datalayer content
+	 *
+	 * @return array The datalayer content
+	 */
+	public function get_datalayer_content_product_tag( array $data_layer ): array {
+
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
+			$data_layer['pageType'] = 'product-tag';
+		}
 
 		return $data_layer;
 	}
@@ -170,14 +273,15 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 				$product = edd_get_download( $item->product_id );
 
 				if ( 'no' === get_option( 'edd_settings' )['prices_include_tax'] ) {
-					$item_price = $item->total - $item->tax;
+					$item_price = ( $item->total - $item->tax ) / $item->quantity;
 				} else {
-					$item_price = $item->total;
+					$item_price = $item->total / $item->quantity;
 				}
 				$price = round( $item_price, 2 );
 
 				$order_items[] = $this->get_item_data(
 					$product,
+					[],
 					[
 						'quantity' => $item->quantity,
 						'price'    => $price
@@ -202,6 +306,38 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	}
 
 	/**
+	 * Get cart items.
+	 *
+	 * @param string $event_context The event context of the item data.
+	 *
+	 * @return array The cart items.
+	 */
+	function get_cart_items( string $event_context ): array {
+		$cart_items = [];
+
+		foreach ( EDD()->cart->get_contents() as $cart_item ) {
+			$product = edd_get_download( $cart_item['id'] );
+			$options = $cart_item['options'];
+
+			$prices = edd_get_variable_prices( $cart_item['id'] );
+
+			if ( isset( $options['price_id'] ) ) {
+
+			}
+			if ( $prices ) {
+				foreach ( $prices as $price_id => $price ) {
+					// $price['name'] is the name of the price
+					// $price['amount'] is the amount of the price
+				}
+			}
+
+			$cart_items[] = $this->get_item_data( $product, $options, [ 'quantity' => $cart_item['quantity'] ], $event_context );
+		}
+
+		return $cart_items;
+	}
+
+	/**
 	 * Get item data.
 	 *
 	 * @param EDD_Download $download
@@ -210,7 +346,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return array The item data.
 	 */
-	function get_item_data( EDD_Download $download, array $additional_item_attributes = [], string $event_context = '' ): array {
+	function get_item_data( EDD_Download $download, array $options = [], array $additional_item_attributes = [], string $event_context = '' ): array {
 
 		if ( $this->options->get( 'integrations', 'edd_use_sku' ) && edd_use_skus() ) {
 			$item_id = ( $download->get_sku() === '-' ) ? $download->get_ID() : $download->get_sku();
@@ -218,13 +354,27 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 			$item_id = $download->get_ID();
 		}
 
+		if ( isset( $options['price_id'] ) ) {
+			$prices      = edd_get_variable_prices( $download->get_ID() );
+			$name_suffix = ' - ' . $prices[ $options['price_id'] ]['name'];
+		} else {
+			$name_suffix = '';
+		}
+
 		$item_data = [
 			'id'        => $this->prefix_item_id( $item_id ),
 			'item_id'   => $this->prefix_item_id( $item_id ),
-			'item_name' => $download->post_title,
+			'item_name' => $download->post_title . $name_suffix,
 			'currency'  => $this->store_currency,
-			'price'     => round( (float) $this->get_price_to_display( $download->get_ID() ), 2 ),
+			'price'     => round( (float) $this->get_price_to_display( $download->get_ID(), $options['price_id'] ?? null ), 2 ),
+			'download'  => [
+				'download_id' => $download->get_ID(),
+			],
 		];
+
+		if ( isset( $options['price_id'] ) ) {
+			$item_data['download']['price_id'] = $options['price_id'];
+		}
 
 		if ( $this->options->get( 'integrations', 'edd_google_business_vertical' ) ) {
 			$item_data['google_business_vertical'] = $this->options->get( 'integrations', 'edd_google_business_vertical' );
@@ -246,6 +396,28 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 		$item_data = array_merge( $item_data, $additional_item_attributes );
 
 		return apply_filters( 'gtmkit_datalayer_item_data', $item_data, $download, $event_context );
+	}
+
+
+	/**
+	 * Add-to-cart tracing on single product.
+	 *
+	 * @hook woocommerce_after_add_to_cart_button
+	 *
+	 * @param int $download_id
+	 * @param array $args
+	 *
+	 * @return void
+	 */
+	function add_to_cart_tracking( int $download_id, array $args ): void {
+
+		$product = edd_get_download( $download_id );
+
+		if ( ( $product instanceof EDD_Download ) ) {
+			$item_data = $this->get_item_data( $product );
+			echo '<input type="hidden" class="gtmkit_product_data" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n";
+		}
+
 	}
 
 	/**
