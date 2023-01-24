@@ -2,7 +2,7 @@
   "name": "gtm-kit",
   "description": "Development files for the GTM Kit",
   "author": "TLA Media",
-  "version": "1.5.3",
+  "version": "1.6",
   "plugin": {
     "textdomain": "gtmkit"
   },

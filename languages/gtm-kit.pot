@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.5.3\n"
+"Project-Id-Version: GTM Kit 1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2023-01-03 14:34:06+00:00\n"
+"POT-Creation-Date: 2023-01-24 15:49:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
 
-#: inc/main.php:47
+#: inc/main.php:48
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:48
+#: inc/main.php:49
 msgid "Settings"
 msgstr ""
 
@@ -57,14 +57,14 @@ msgid "General Settings"
 msgstr ""
 
 #: src/Admin/IntegrationsOptionsPage.php:27
-#: src/Admin/IntegrationsOptionsPage.php:73
 #: src/Admin/IntegrationsOptionsPage.php:82
+#: src/Admin/IntegrationsOptionsPage.php:91
 #: src/views/tabs/general/dashboard.php:66
 #: src/views/tabs/integrations/integrations.php:17
 msgid "Integrations"
 msgstr ""
 
-#: src/Admin/IntegrationsOptionsPage.php:99
+#: src/Admin/IntegrationsOptionsPage.php:108
 msgid "Overview"
 msgstr ""
 
@@ -84,52 +84,57 @@ msgstr ""
 msgid "(not set)"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:192
+#: src/Integration/EasyDigitalDownloads.php:110
+#: src/Integration/WooCommerce.php:170
+msgid "Payment method not found"
+msgstr ""
+
+#: src/Integration/WooCommerce.php:161
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:193
+#: src/Integration/WooCommerce.php:162
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:194 src/Integration/WooCommerce.php:771
+#: src/Integration/WooCommerce.php:163 src/Integration/WooCommerce.php:649
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:195
+#: src/Integration/WooCommerce.php:164
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:196
+#: src/Integration/WooCommerce.php:165
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:197
+#: src/Integration/WooCommerce.php:166
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:198 src/Integration/WooCommerce.php:773
+#: src/Integration/WooCommerce.php:167 src/Integration/WooCommerce.php:651
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:199
+#: src/Integration/WooCommerce.php:168
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:200
-msgid "shipping tier not found"
+#: src/Integration/WooCommerce.php:169
+msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:654
+#: src/Integration/WooCommerce.php:532
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:688
+#: src/Integration/WooCommerce.php:566
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:688 src/Integration/WooCommerce.php:729
-#: src/Integration/WooCommerce.php:762
+#: src/Integration/WooCommerce.php:566 src/Integration/WooCommerce.php:607
+#: src/Integration/WooCommerce.php:640
 msgid "General Product List"
 msgstr ""
 
@@ -142,29 +147,25 @@ msgstr ""
 msgid "Just another contact form plugin for WordPress. Simple but flexible"
 msgstr ""
 
-#: src/views/integrations-metabox.php:41
+#: src/views/integrations-metabox.php:32 src/views/tabs/integrations/edd.php:21
+msgid "Easy way to sell Digital Products With WordPress"
+msgstr ""
+
+#: src/views/integrations-metabox.php:49
 #: src/views/tabs/general/dashboard.php:23
 msgid "Active"
 msgstr ""
 
-#: src/views/integrations-metabox.php:60
+#: src/views/integrations-metabox.php:68
 msgid "Edit integration"
 msgstr ""
 
-#: src/views/integrations-metabox.php:62
+#: src/views/integrations-metabox.php:70
 msgid "Setup integration"
 msgstr ""
 
-#: src/views/integrations-metabox.php:64
-msgid "Install plugin"
-msgstr ""
-
 #: src/views/integrations-metabox.php:72
-msgid "Coming soon..."
-msgstr ""
-
-#: src/views/integrations-metabox.php:73
-msgid "The next integration is under way."
+msgid "Install plugin"
 msgstr ""
 
 #: src/views/tabs/general/container.php:17
@@ -464,6 +465,7 @@ msgid "Contact Form 7 is not installed"
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:27
+#: src/views/tabs/integrations/edd.php:27
 #: src/views/tabs/integrations/woocommerce.php:27
 msgid "You can download %s here."
 msgstr ""
@@ -494,6 +496,143 @@ msgstr ""
 msgid "Load JavaScript"
 msgstr ""
 
+#: src/views/tabs/integrations/edd.php:19
+msgid "Easy Digital Downloads Integration"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:24
+msgid "Easy Digital Downloads is not installed"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:40
+#: src/views/tabs/integrations/woocommerce.php:40
+msgid ""
+"Google Analytics 3 (Universal Analytics) properties will stop collecting "
+"data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce "
+"with Google Analytics 3 (Universal Analytics)."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:41
+#: src/views/tabs/integrations/woocommerce.php:41
+msgid ""
+"It’s recommended that you create a Google Analytics 4 property instead. "
+"Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:45
+msgid "The following GA4 events are supporteret:"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:58
+msgid "Track Easy Digital Downloads"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:64
+#: src/views/tabs/integrations/woocommerce.php:57
+msgid "Choose this option if you would like to track e-commerce data."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:70
+#: src/views/tabs/integrations/woocommerce.php:91
+msgid "Use SKU instead of ID"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:76
+#: src/views/tabs/integrations/woocommerce.php:97
+msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:82
+#: src/views/tabs/integrations/woocommerce.php:103
+msgid "Google Business Vertical"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:88
+#: src/views/tabs/integrations/woocommerce.php:109
+msgid "Retail"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:89
+#: src/views/tabs/integrations/woocommerce.php:110
+msgid "Education"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:90
+#: src/views/tabs/integrations/woocommerce.php:111
+msgid "Flights"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:91
+#: src/views/tabs/integrations/woocommerce.php:112
+msgid "Hotel rental"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:92
+#: src/views/tabs/integrations/woocommerce.php:113
+msgid "Jobs"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:93
+#: src/views/tabs/integrations/woocommerce.php:114
+msgid "Local deals"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:94
+#: src/views/tabs/integrations/woocommerce.php:115
+msgid "Real estate"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:95
+#: src/views/tabs/integrations/woocommerce.php:116
+msgid "Travel"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:96
+#: src/views/tabs/integrations/woocommerce.php:117
+msgid "Custom"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:99
+#: src/views/tabs/integrations/woocommerce.php:120
+msgid ""
+"In order to use Google Ads Remarketing you must select your business type "
+"(vertical)."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:105
+#: src/views/tabs/integrations/woocommerce.php:126
+msgid "Product ID prefix"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:107
+#: src/views/tabs/integrations/woocommerce.php:128
+msgid ""
+"If your product feed generator is adding a prefix to the product IDs, you "
+"can add the prefix here to include it in the Data Layer."
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:113
+#: src/views/tabs/integrations/woocommerce.php:134
+msgid "Exclude tax"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:119
+#: src/views/tabs/integrations/woocommerce.php:140
+msgid "Exclude tax from prices and revenue"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:125
+#: src/views/tabs/integrations/woocommerce.php:253
+msgid "Dequeue Default JS"
+msgstr ""
+
+#: src/views/tabs/integrations/edd.php:131
+#: src/views/tabs/integrations/woocommerce.php:259
+msgid ""
+"Enable this option to dequeue the default JavaScript if you plan to create "
+"your own JavaScript."
+msgstr ""
+
 #: src/views/tabs/integrations/woocommerce.php:19
 msgid "WooCommerce Integration"
 msgstr ""
@@ -502,101 +641,12 @@ msgstr ""
 msgid "WooCommerce is not installed"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:40
-msgid ""
-"Google Analytics 3 (Universal Analytics) properties will stop collecting "
-"data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce "
-"with Google Analytics 3 (Universal Analytics)."
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:41
-msgid ""
-"It’s recommended that you create a Google Analytics 4 property instead. "
-"Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce."
-msgstr ""
-
 #: src/views/tabs/integrations/woocommerce.php:51
 msgid "Track WooCommerce"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:57
-msgid "Choose this option if you would like to track e-commerce data."
-msgstr ""
-
 #: src/views/tabs/integrations/woocommerce.php:84
 msgid "Brand"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:91
-msgid "Use SKU instead of ID"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:97
-msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:103
-msgid "Google Business Vertical"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:109
-msgid "Retail"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:110
-msgid "Education"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:111
-msgid "Flights"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:112
-msgid "Hotel rental"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:113
-msgid "Jobs"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:114
-msgid "Local deals"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:115
-msgid "Real estate"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:116
-msgid "Travel"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:117
-msgid "Custom"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:120
-msgid ""
-"In order to use Google Ads Remarketing you must select your business type "
-"(vertical)."
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:126
-msgid "Product ID prefix"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:128
-msgid ""
-"If your product feed generator is adding a prefix to the product IDs, you "
-"can add the prefix here to include it in the Data Layer."
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:134
-msgid "Exclude tax"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:140
-msgid "Exclude tax from prices and revenue"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:146
@@ -677,16 +727,6 @@ msgstr ""
 msgid ""
 "Enable this option to include the path of cart, checkout, order received "
 "adn my account page."
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:253
-msgid "Dequeue Default JS"
-msgstr ""
-
-#: src/views/tabs/integrations/woocommerce.php:259
-msgid ""
-"Enable this option to dequeue the default JavaScript if you plan to create "
-"your own JavaScript."
 msgstr ""
 
 #: src/views/tutorials-metabox.php:13
