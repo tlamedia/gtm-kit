@@ -166,7 +166,8 @@ class WooCommerce  extends AbstractEcommerce {
 			'wp-block-products-by-attribute' => __( 'Products By Attribute', 'gtm-kit' ),
 			'wp-block-product-tag'           => __( 'Product Tag', 'gtm-kit' ),
 			'wp-block-product-top-rated'     => __( 'Top Rated Products', 'gtm-kit' ),
-			'shipping tier not found'        => __( 'shipping tier not found', 'gtm-kit' ),
+			'shipping tier not found'        => __( 'Shipping tier not found', 'gtm-kit' ),
+			'payment method not found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
 
 		if ( is_checkout() && ! is_order_received_page() ) {

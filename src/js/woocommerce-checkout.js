@@ -121,7 +121,7 @@ function gtmkit_payment_event() {
 		payment_element = document.querySelector('input[name^=payment_method]'); // select the first payment method
 	}
 
-	let payment_type = (payment_element) ? payment_element.value : wc['text']['payment type not found'];
+	let payment_type = (payment_element) ? payment_element.value : wc['text']['payment method not found'];
 
 	window[datalayer_name].push({
 		'event': 'add_payment_info',
