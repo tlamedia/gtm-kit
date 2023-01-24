@@ -1,7 +1,7 @@
-=== GTM Kit ===
+=== GTM Kit - Google Tag Manager integration ===
 Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
-Tags: google tag manager, gtm, tag manager, woocommerce, analytics, ga4, gtag, pagespeed
+Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.1
 Stable tag: 1.5.3
 License: GPL v3
@@ -11,7 +11,31 @@ Flexible tool for generating the data layer for Google Tag Manager. Including Wo
 
 == Description ==
 
-The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager. Including WooCommerce data for Google Analytics 4.
+GTM Kit puts the Google Tag Manager container code on your website so that you don't need to touch any code. It also pushes data from WooCommerce, Easy Digital Downloads and Contact Form 7 to the data layer for use with for Google Analytics 4, Facebook and other GTM tags.
+
+The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager. It is easy to use and doesn't require any coding, but it allows developers to customize the plugin as needed.
+
+## eCommerce events tracked with Google Analytics 4
+The following GA4 events are automatically included in the dataLayer:
+
+### WooCommerce
+- view_item_list
+- select_item
+- view_item
+- add_to_cart
+- view_cart
+- remove_from_cart
+- begin_checkout
+- add_shipping_info
+- add_payment_info
+- purchase
+
+### Easy Digital Downloads
+- view_item
+- add_to_cart
+- begin_checkout
+- purchase
+
 
 ## Flexible container implementation
 
@@ -31,20 +55,6 @@ You may specify which post data elements you wish to include in the dataLayer fo
 - Post author name: include the post author name.
 - Post author ID: include the post author ID.
 
-## eCommerce events tracked with Google Analytics 4
-
-When the WooCommerce integration is activated the following GA4 events are automatically included in the dataLayer:
-
-- view_item_list
-- select_item
-- view_item
-- add_to_cart
-- view_cart
-- remove_from_cart
-- begin_checkout
-- add_shipping_info
-- add_payment_info
-- purchase
 
 == Screenshots ==
 
@@ -72,11 +82,11 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 = Is Google Universal Analytics supported? =
 
 Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce with Google Analytics 3 (Universal Analytics).
-It’s recommended that you create a Google Analytics 4 property instead.
+It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.
 
 = Is this plugin cache friendly? =
 
-Yes! Pagespeed is one of our main focus points and we strive to make the plugin compatible with full page caching.
+Yes! Pagespeed is one of our main focus points, and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
 
@@ -84,11 +94,14 @@ Yes! Pagespeed is one of our main focus points and we strive to make the plugin 
 
 Enhancements:
 
+* Added support Easy Digital Downloads for the events: view_item, add_to_cart, begin_checkout, purchase
 * Added support for primary product category in Rank Math SEO
 
 Other:
 
 * WooCommerce tested up to: 7.3
+* Refactored integrations
+* Added missing translation string
 
 = 1.5.3 =
 
