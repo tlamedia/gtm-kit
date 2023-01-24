@@ -34,7 +34,10 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
         'TLA_Media\\GTM_Kit\\Frontend\\UserData' => __DIR__ . '/../..' . '/src/Frontend/UserData.php',
         'TLA_Media\\GTM_Kit\\Installation\\Installation' => __DIR__ . '/../..' . '/src/Installation/Installation.php',
         'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => __DIR__ . '/../..' . '/src/Installation/Upgrade.php',
+        'TLA_Media\\GTM_Kit\\Integration\\AbstractEcommerce' => __DIR__ . '/../..' . '/src/Integration/AbstractEcommerce.php',
+        'TLA_Media\\GTM_Kit\\Integration\\AbstractIntegration' => __DIR__ . '/../..' . '/src/Integration/AbstractIntegration.php',
         'TLA_Media\\GTM_Kit\\Integration\\ContactForm7' => __DIR__ . '/../..' . '/src/Integration/ContactForm7.php',
+        'TLA_Media\\GTM_Kit\\Integration\\EasyDigitalDownloads' => __DIR__ . '/../..' . '/src/Integration/EasyDigitalDownloads.php',
         'TLA_Media\\GTM_Kit\\Integration\\WooCommerce' => __DIR__ . '/../..' . '/src/Integration/WooCommerce.php',
         'TLA_Media\\GTM_Kit\\Options' => __DIR__ . '/../..' . '/src/Options.php',
     );

@@ -19,7 +19,10 @@ return array(
     'TLA_Media\\GTM_Kit\\Frontend\\UserData' => $baseDir . '/src/Frontend/UserData.php',
     'TLA_Media\\GTM_Kit\\Installation\\Installation' => $baseDir . '/src/Installation/Installation.php',
     'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => $baseDir . '/src/Installation/Upgrade.php',
+    'TLA_Media\\GTM_Kit\\Integration\\AbstractEcommerce' => $baseDir . '/src/Integration/AbstractEcommerce.php',
+    'TLA_Media\\GTM_Kit\\Integration\\AbstractIntegration' => $baseDir . '/src/Integration/AbstractIntegration.php',
     'TLA_Media\\GTM_Kit\\Integration\\ContactForm7' => $baseDir . '/src/Integration/ContactForm7.php',
+    'TLA_Media\\GTM_Kit\\Integration\\EasyDigitalDownloads' => $baseDir . '/src/Integration/EasyDigitalDownloads.php',
     'TLA_Media\\GTM_Kit\\Integration\\WooCommerce' => $baseDir . '/src/Integration/WooCommerce.php',
     'TLA_Media\\GTM_Kit\\Options' => $baseDir . '/src/Options.php',
 );
