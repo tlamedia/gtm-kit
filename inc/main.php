@@ -93,6 +93,12 @@ function gtmkit_admin_init(): void {
 		new Upgrade();
 	}
 
+	add_action( 'before_woocommerce_init', function() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE, true );
+		}
+	} );
+
 	$options = new Options();
 	AdminNotice::register( $options );
 	GeneralOptionsPage::register( $options );

@@ -90,6 +90,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.6.1 =
+
+Enhancements:
+
+* Added declaration of plugin compatibility with WooCommerce High-Performance Order Storage.
+
 = 1.6 =
 
 Enhancements:
