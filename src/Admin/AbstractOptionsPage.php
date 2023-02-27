@@ -70,12 +70,12 @@ abstract class AbstractOptionsPage {
 	abstract public function configure();
 
 	/**
-	 * Get the capability required to view the admin page.
+	 * Get the capability required to view the admin pages.
 	 *
 	 * @return string
 	 */
 	protected function get_capability(): string {
-		return 'install_plugins';
+		return apply_filters( 'gtmkit_admin_capability', 'install_plugins' );
 	}
 
 	/**
