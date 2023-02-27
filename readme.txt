@@ -90,6 +90,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.x =
+
+Enhancements:
+
+* Added the filter gtmkit_admin_capability, which allows you to set the capability required to manage the plugin options.
+
 = 1.6.2 =
 
 Bugfixes:
