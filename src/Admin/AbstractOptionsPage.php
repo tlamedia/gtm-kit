@@ -54,7 +54,7 @@ abstract class AbstractOptionsPage {
 			$this->get_menu_title(),
 			$this->get_capability(),
 			$this->get_menu_slug(),
-			[ $this, 'render' ],
+			[ $this, 'render' ]
 		);
 	}
 

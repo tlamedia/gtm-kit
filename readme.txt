@@ -90,6 +90,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.6.2 =
+
+Bugfixes:
+
+* Backwards compatibility. Trailing comma in function calls is only available since PHP 7.3.
+
 = 1.6.1 =
 
 Enhancements:
