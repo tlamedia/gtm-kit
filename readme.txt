@@ -96,6 +96,10 @@ Enhancements:
 
 * Added the filter gtmkit_admin_capability, which allows you to set the capability required to manage the plugin options.
 
+Bugfixes:
+
+* Type cast the item value to prevent string values in the data layer
+
 = 1.6.2 =
 
 Bugfixes:
