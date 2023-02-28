@@ -250,7 +250,7 @@ class WooCommerce  extends AbstractEcommerce {
 		$data_layer['event']       = 'view_item';
 		$data_layer['ecommerce']   = [
 			'items' => [ $item ],
-			'value' => $item['price']
+			'value' => (float) $item['price']
 		];
 
 		return $data_layer;
@@ -310,7 +310,7 @@ class WooCommerce  extends AbstractEcommerce {
 		$data_layer['event']     = 'view_cart';
 		$data_layer['ecommerce'] = [
 			'currency' => $this->store_currency,
-			'value'    => $cart_value,
+			'value'    => (float) $cart_value,
 			'items'    => [ $this->get_cart_items( 'view_cart' ) ]
 		];
 
