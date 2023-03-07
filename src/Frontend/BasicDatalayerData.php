@@ -31,6 +31,7 @@ class BasicDatalayerData {
 		$page = new static( $options );
 
 		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_datalayer_content' ], 9 );
+		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_priority_datalayer_content' ], 99 );
 	}
 
 	/**
@@ -144,6 +145,23 @@ class BasicDatalayerData {
 			}
 		}
 
+		return $datalayer;
+	}
+
+	/**
+	 * Get priority dataLayer data
+	 *
+	 * @param array $datalayer
+	 *
+	 * @return array
+	 */
+	public function get_priority_datalayer_content( array $datalayer ): array {
+
+		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
+			$page_type = get_post_meta( get_the_ID(), 'gtmkit_page_type', true);
+			if ( $page_type ) $datalayer['pageType'] = $page_type;
+
+		}
 		return $datalayer;
 	}
 

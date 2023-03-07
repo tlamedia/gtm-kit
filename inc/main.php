@@ -4,6 +4,7 @@ namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\AdminNotice;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
+use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\UserData;
@@ -100,6 +101,7 @@ function gtmkit_admin_init(): void {
 	} );
 
 	$options = new Options();
+	MetaBox::register( $options );
 	AdminNotice::register( $options );
 	GeneralOptionsPage::register( $options );
 	IntegrationsOptionsPage::register( $options );
