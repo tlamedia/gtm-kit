@@ -94,6 +94,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added meta box on posts where you can enter the page type to be included in the data layer.
 * Added the filter gtmkit_admin_capability, which allows you to set the capability required to manage the plugin options.
 
 Bugfixes:
