@@ -105,6 +105,7 @@ Other:
 
 * Minor styling of the dashboard
 * Updated the tutorial section
+* Improved some help texts
 
 = 1.6.2 =
 
