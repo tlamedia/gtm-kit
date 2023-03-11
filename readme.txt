@@ -101,6 +101,10 @@ Bugfixes:
 
 * Type cast the item value to prevent string values in the data layer
 
+Other:
+
+* Minor styling og the dashboard
+
 = 1.6.2 =
 
 Bugfixes:
