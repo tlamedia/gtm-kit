@@ -36,7 +36,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 					</div>
 				</div>
 				<?php else: ?>
-				<span class="gtmkit-list-item-pill gtmkit-list-item-pill-red">
+				<span class="gtmkit-list-item-pill gtmkit-list-item-pill-<?php echo ( Options::init()->get( 'general', 'gtm_id' ) ? 'orange' : 'red'  ); ?>">
 					<?php esc_attr_e( 'Inactive', 'gtm-kit' ); ?>
 				</span>
 				<div class="gtmkit-list-item-actions">
