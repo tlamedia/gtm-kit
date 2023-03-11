@@ -103,7 +103,8 @@ Bugfixes:
 
 Other:
 
-* Minor styling og the dashboard
+* Minor styling of the dashboard
+* Updated the tutorial section
 
 = 1.6.2 =
 
