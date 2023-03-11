@@ -33,7 +33,7 @@ $form->setting_row(
 	'datalayer_page_type',
 	__( 'Page type', 'gtm-kit' ),
 	[],
-	__( 'include the defined page type. I.e. post, page, product, category, cart, checkout etc.', 'gtm-kit' )
+	__( 'include the defined page type. I.e. post, page, product, category, cart, checkout etc. You may override this on page-level and set you own page type i.e. "campaign".', 'gtm-kit' )
 );
 
 $form->setting_row(
