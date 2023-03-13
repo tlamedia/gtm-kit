@@ -15,7 +15,7 @@
  * Requires PHP: 7.2
  *
  * WC requires at least: 6.6
- * WC tested up to: 7.4
+ * WC tested up to: 7.5
  *
  * @copyright Copyright (C) 2023, TLA Media ApS
  */
