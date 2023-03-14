@@ -129,6 +129,7 @@ Other:
 
 Enhancements:
 
+* Added support for the new WooCommerce checkout block
 * Added support Easy Digital Downloads for the events: view_item, add_to_cart, begin_checkout, purchase
 * Added support for primary product category in Rank Math SEO
 
