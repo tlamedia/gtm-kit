@@ -94,6 +94,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added support for the new WooCommerce checkout block
 * Added meta box on posts where you can enter the page type to be included in the data layer.
 * Added the filter gtmkit_admin_capability, which allows you to set the capability required to manage the plugin options.
 
@@ -129,7 +130,6 @@ Other:
 
 Enhancements:
 
-* Added support for the new WooCommerce checkout block
 * Added support Easy Digital Downloads for the events: view_item, add_to_cart, begin_checkout, purchase
 * Added support for primary product category in Rank Math SEO
 
