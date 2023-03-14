@@ -60,7 +60,7 @@ function gtmkit_checkout() {
 	if (wc['add_shipping_info']['config'] === 2) {
 		document.addEventListener('change', function (e) {
 			let event_target_element = e.target;
-			if (!event_target_element || !event_target_element.closest('input[name^=shipping_method]')) return true;
+			if (!event_target_element || !event_target_element.closest('input[name^=shipping_method]') && !event_target_element.closest('.wc-block-components-shipping-rates-control')) return true;
 
 			gtmkit_shipping_event();
 		});
@@ -69,21 +69,25 @@ function gtmkit_checkout() {
 	if (wc['add_payment_info']['config'] === 2) {
 		document.addEventListener('change', function (e) {
 			let event_target_element = e.target;
-			if (!event_target_element || !event_target_element.closest('input[name=payment_method]')) return true;
+			if (!event_target_element || !event_target_element.closest('input[name=payment_method]') && !event_target_element.closest('.wc-block-checkout__payment-method')) return true;
 
 			gtmkit_payment_event();
 		});
 	}
 
-	document.addEventListener('submit', function (e) {
-		let event_target_element = e.target;
+	document.addEventListener('click', function (e) {
+		let event_target_element = e.target.closest('button');
 
-		if (!event_target_element || !event_target_element.closest('form[name=checkout]')) return true;
+		if (!event_target_element) {
+			return true;
+		}
 
-		gtmkit_shipping_event();
-
-		gtmkit_payment_event();
-
+		if (event_target_element.classList.contains('wc-block-components-checkout-place-order-button') || event_target_element.closest('button[name=woocommerce_checkout_place_order]')) {
+			gtmkit_shipping_event();
+			gtmkit_payment_event();
+		} else {
+			return true;
+		}
 	});
 }
 
@@ -92,9 +96,18 @@ function gtmkit_shipping_event() {
 
 	if (wc['add_shipping_info']['fired'] === true) return;
 
-	let shipping_element = document.querySelector('input[name^=shipping_method]:checked');
-	if (!shipping_element) {
-		shipping_element = document.querySelector('input[name^=shipping_method]'); // select the first shipping method
+	let shipping_element;
+
+	if (wc['block'] === true) {
+		shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]:checked');
+		if (!shipping_element) {
+			shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]'); // select the first shipping method
+		}
+	} else {
+		shipping_element = document.querySelector('input[name^=shipping_method]:checked');
+		if (!shipping_element) {
+			shipping_element = document.querySelector('input[name^=shipping_method]'); // select the first shipping method
+		}
 	}
 
 	let shipping_tier = (shipping_element) ? shipping_element.value : wc['text']['shipping tier not found'];
@@ -116,9 +129,18 @@ function gtmkit_payment_event() {
 
 	if (wc['add_payment_info']['fired'] === true) return;
 
-	let payment_element = document.querySelector('.payment_methods input:checked');
-	if (!payment_element) {
-		payment_element = document.querySelector('input[name^=payment_method]'); // select the first payment method
+	let payment_element;
+
+	if (wc['block'] === true) {
+		payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]:checked');
+		if (!payment_element) {
+			payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]'); // select the first shipping method
+		}
+	} else {
+		payment_element = document.querySelector('.payment_methods input:checked');
+		if (!payment_element) {
+			payment_element = document.querySelector('input[name^=payment_method]'); // select the first payment method
+		}
 	}
 
 	let payment_type = (payment_element) ? payment_element.value : wc['text']['payment method not found'];

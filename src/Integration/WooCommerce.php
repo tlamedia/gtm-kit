@@ -173,6 +173,7 @@ class WooCommerce  extends AbstractEcommerce {
 		if ( is_checkout() && ! is_order_received_page() ) {
 			$global_settings['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
 			$global_settings['wc']['cart_value'] = WC()->cart->cart_contents_total;
+			$global_settings['wc']['block'] = has_block('woocommerce/checkout');
 		}
 
 		$this->global_settings = $global_settings;
