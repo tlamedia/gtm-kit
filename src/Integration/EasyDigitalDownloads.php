@@ -135,7 +135,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 			$data_layer = $this->get_datalayer_content_product_category( $data_layer );
 		} elseif ( is_tax( 'download_tag' ) ) {
 			$data_layer = $this->get_datalayer_content_product_tag( $data_layer );
-		} elseif ( edd_get_option( 'confirmation_page', false ) == get_the_ID() ) {
+		} elseif ( is_page( edd_get_option( 'confirmation_page', edd_get_option( 'success_page', 0 ) ) ) ) {
 			$data_layer = $this->get_datalayer_content_order_received( $data_layer );
 		} elseif ( is_page( edd_get_option( 'purchase_page' ) ) ) {
 			$data_layer = $this->get_datalayer_content_checkout( $data_layer );
