@@ -47,6 +47,7 @@ You may enter a custom domain name if you are using a custom server side GTM (sG
 
 You may specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager.
 - Post type: include the type of the current post or archive page.
+- Page type: include a defined page type. I.e. post, page, product, category, cart, checkout etc.
 - Categories: include the categories of the current post or archive page.
 - Tags: include the tags of the current post or archive page.
 - Post title: include the post title of the current post.
@@ -81,8 +82,8 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 
 = Is Google Universal Analytics supported? =
 
-Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced ecommerce with Google Analytics 3 (Universal Analytics).
-It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.
+Yes. GTM Kit is only supporting GA4 events, but you can use these GA4 events in Universal Analytics Enhanced Ecommerce. <a href="https://gtmkit.com/guides/use-ga4-ecommerce-events-in-universal-analytics/">Read more</a>.
+Google Universal Analytics (GA3) properties will stop collecting data starting July 1, 2023 and therefor a Google Analytics 4 property is soon required.
 
 = Is this plugin cache friendly? =
 
