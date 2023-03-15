@@ -102,6 +102,7 @@ Enhancements:
 Bugfixes:
 
 * Type cast the item value to prevent string values in the data layer
+* On installations of Easy Digital Download where the Confirmation Page was not configured the Purchase event would not fire.
 
 Other:
 
