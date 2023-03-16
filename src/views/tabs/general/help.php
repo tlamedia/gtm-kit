@@ -47,7 +47,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 </div>
 
-<div class="gtmkit_section_message space-top">
+<div class="gtmkit_section_message">
 	<div class="stuffbox">
 		<h3 class="hndle">
 			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
@@ -55,7 +55,6 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		</h3>
 		<div class="inside">
 			<ul>
-				<li><?php esc_html_e( 'The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager.', 'gtm-kit' ); ?></li>
 				<li>
 					<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtm-kit' ); ?>
 					<a href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtm-kit' ); ?></a>
