@@ -169,8 +169,13 @@
 	&.single-item {
 		padding-left: 0;
 
+		ul {
+			justify-content: space-between;
+		}
+
 		.gtmkit-list-item {
 			margin-left: 0;
+			margin-right: 0;
 		}
 	}
 }
@@ -231,6 +236,10 @@
 			color: #fff
 		}
 
+		&.gtmkit-list-item-pill-grey {
+			background: var(--gtmkit-button-disabled);
+			color: #fff
+		}
 	}
 
 	&.gtmkit-list-item-has-pill h3 {
@@ -817,9 +826,11 @@ code {
 		}
 	}
 
-	ul {
+	.inside {
 		margin: 1em;
+	}
 
+	ul {
 		li {
 			margin-bottom: 12px;
 		}

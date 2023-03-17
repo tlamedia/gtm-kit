@@ -98,6 +98,7 @@ Enhancements:
 * Added support for the new WooCommerce checkout block
 * Added meta box on posts where you can enter the page type to be included in the data layer.
 * Added the filter gtmkit_admin_capability, which allows you to set the capability required to manage the plugin options.
+* Added option to share anonymous data with the development team to help improve GTM Kit.
 
 Bugfixes:
 
