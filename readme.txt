@@ -83,7 +83,7 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 = Is Google Universal Analytics supported? =
 
 Yes. GTM Kit is only supporting GA4 events, but you can use these GA4 events in Universal Analytics Enhanced Ecommerce. <a href="https://gtmkit.com/guides/use-ga4-ecommerce-events-in-universal-analytics/">Read more</a>.
-Google Universal Analytics (GA3) properties will stop collecting data starting July 1, 2023 and therefor a Google Analytics 4 property is soon required.
+Google Universal Analytics (GA3) properties will stop collecting data starting July 1, 2023, and therefor a Google Analytics 4 property is soon required.
 
 = Is this plugin cache friendly? =
 

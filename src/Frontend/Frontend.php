@@ -201,7 +201,7 @@ public function get_datalayer_content(): void {
 	 */
 	function dns_prefetch( array $hints, string $relation_type ): array {
 
-		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';;
+		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
 
 		if ( 'dns-prefetch' === $relation_type ) {
 			$hints[] = '//' . $domain;

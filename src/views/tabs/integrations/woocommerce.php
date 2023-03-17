@@ -68,8 +68,7 @@ $taxonomies = get_taxonomies(
 		'public'   => true,
 		'_builtin' => false,
 	],
-	'object',
-	'and'
+	'object'
 );
 
 $field_data            = [
