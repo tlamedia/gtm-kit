@@ -39,9 +39,9 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		<h3 class="hndle"><?php esc_html_e( 'Support', 'gtm-kit' ); ?></h3>
 		<div class="inside">
 			<ul>
-				<li><a href="https://wordpress.org/support/plugin/gtm-kit/" target="_blank">Support forum</a></li>
-				<li><a href="https://gtmkit.com/" target="_blank">Plugin Homepage</a> (gtmkit.com)</li>
-				<li><a href="https://wordpress.org/plugins/gtm-kit/" target="_blank">WordPress.org Plugin Page</a></li>
+				<li><a href="https://wordpress.org/support/plugin/gtm-kit/" target="_blank"><?php esc_html_e( 'Support forum', 'gtm-kit' ); ?></a></li>
+				<li><a href="https://gtmkit.com/" target="_blank"><?php esc_html_e( 'Plugin Homepage', 'gtm-kit' ); ?></a> (gtmkit.com)</li>
+				<li><a href="https://wordpress.org/plugins/gtm-kit/" target="_blank"><?php esc_html_e( 'WordPress.org Plugin Page', 'gtm-kit' ); ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -51,7 +51,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	<div class="stuffbox">
 		<h3 class="hndle">
 			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
-			<span class="version">(Version <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
+			<span class="version">(<?php esc_html_e( 'Version:', 'gtm-kit' ); ?> <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
 		</h3>
 		<div class="inside">
 			<ul>

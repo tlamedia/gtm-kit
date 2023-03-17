@@ -21,7 +21,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 <div class="gtmkit_section_message warning">
 	<div class="stuffbox">
-		<h3 class="hndle">Including user data is not compatible with full page caching</h3>
+		<h3 class="hndle"><?php esc_html_e( 'Including user data is not compatible with full page caching', 'gtm-kit' ); ?></h3>
 		<div class="inside">
 			<ul>
 				<li><?php esc_html_e( 'Full page caching will cache user data making it the same for all users. There are ways around this, but it depends on the chosen cache solution and is only for advanced users.', 'gtm-kit' ); ?></li>

@@ -54,7 +54,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 				<?php endif; ?>
 			</li>
 			<li class="gtmkit-list-item gtmkit-list-item-has-pill">
-				<h3>Help improve GTM Kit</h3>
+				<h3><?php esc_html_e( 'Help improve GTM Kit', 'gtm-kit' ); ?></h3>
 				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'analytics_active' ) ): ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
 						<?php esc_attr_e( 'Active', 'gtm-kit' ); ?>
