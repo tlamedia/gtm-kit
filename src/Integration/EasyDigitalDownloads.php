@@ -341,6 +341,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	 * Get item data.
 	 *
 	 * @param EDD_Download $download
+	 * @param array $options
 	 * @param array $additional_item_attributes Any key-value pair that needs to be added to the item data.
 	 * @param string $event_context The event context of the item data.
 	 *

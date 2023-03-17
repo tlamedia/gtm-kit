@@ -63,7 +63,7 @@ class MetaBox {
 	function display_meta_boxes() {
 		if ( current_user_can( 'manage_options' ) ) {
 			global $post, $pagenow;
-			wp_nonce_field( 'gtmkit_box_option', '_gtmkitnonce', false, true );
+			wp_nonce_field( 'gtmkit_box_option', '_gtmkitnonce', false );
 			$page_type = get_post_meta( get_the_ID(), 'gtmkit_page_type', true );
 			?>
 			<div class="gtmkit_options">

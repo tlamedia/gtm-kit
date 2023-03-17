@@ -119,7 +119,9 @@ class OptionsForm {
 	/**
 	 * Add setting row.
 	 *
-	 * @param array $data
+	 * @param string $type
+	 * @param string $variable
+	 * @param array $field_data
 	 */
 	public function setting_field( string $type, string $variable, array $field_data = [] ): void {
 
@@ -281,7 +283,7 @@ class OptionsForm {
 		];
 		$attribute = wp_parse_args( $attributes, $defaults );
 
-		$value = $this->get_field_value( $variable, '' );
+		$value = $this->get_field_value( $variable );
 
 		$type = 'text';
 		if ( isset( $attribute['type'] ) && $attribute['type'] === 'url' ) {
@@ -330,7 +332,7 @@ class OptionsForm {
 			'disabled' => false,
 		];
 		$attribute = wp_parse_args( $attribute, $defaults );
-		$val       = $this->get_field_value( $variable, '' );
+		$val       = $this->get_field_value( $variable );
 
 		$this->label(
 			$label,
@@ -354,7 +356,7 @@ class OptionsForm {
 	 */
 	public function hidden( string $variable, string $id = '', $val = null ): void {
 		if ( is_null( $val ) ) {
-			$val = $this->get_field_value( $variable, '' );
+			$val = $this->get_field_value( $variable );
 		}
 
 		if ( is_bool( $val ) ) {
@@ -397,7 +399,7 @@ class OptionsForm {
 			$disabled = false;
 		}
 
-		$active_option = $this->get_field_value( $variable, '' );
+		$active_option = $this->get_field_value( $variable );
 
 		printf(
 			'<select %s name="%s" id="%s">',

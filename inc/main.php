@@ -75,10 +75,10 @@ function gtmkit_frontend_init(): void {
 	}
 	if ( Options::init()->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
 		ContactForm7::register( $options );
-	};
+	}
 	if ( Options::init()->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
 		EasyDigitalDownloads::register( $options );
-	};
+	}
 
 }
 
@@ -104,7 +104,7 @@ function gtmkit_admin_init(): void {
 	$options = new Options();
 	MetaBox::register( $options );
 	AdminNotice::register( $options );
-	Analytics::register( $options );
+	Analytics::register();
 	GeneralOptionsPage::register( $options );
 	IntegrationsOptionsPage::register( $options );
 }
