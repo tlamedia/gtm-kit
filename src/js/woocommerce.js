@@ -128,8 +128,6 @@ function gtmkit_load() {
 			products_in_group.forEach(function (product_data) {
 
 				let product_quantity = document.querySelectorAll('input[name=quantity\\[' + product_data.getAttribute('data-gtmkit_product_id') + '\\]]');
-				console.log(product_data.getAttribute('data-gtmkit_product_id'));
-				console.log(product_quantity);
 				product_quantity = parseInt(product_quantity[0].value);
 
 				if (0 === product_quantity) {
