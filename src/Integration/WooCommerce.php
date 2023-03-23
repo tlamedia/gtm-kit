@@ -331,8 +331,16 @@ class WooCommerce  extends AbstractEcommerce {
 			$data_layer['pageType'] = 'checkout';
 		}
 
+		if ( wc_prices_include_tax() ) {
+			$cart_value = WC()->cart->get_cart_contents_total() + WC()->cart->get_cart_contents_tax();
+		} else {
+			$cart_value = WC()->cart->get_cart_contents_total();
+		}
+
 		$data_layer['event']     = 'begin_checkout';
 		$data_layer['ecommerce'] = [
+			'currency' => $this->store_currency,
+			'value'    => (float) $cart_value,
 			'items' => $this->global_settings['wc']['cart_items']
 		];
 

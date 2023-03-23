@@ -91,6 +91,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.7.1 =
+
+Bugfixes:
+
+* The begin_checkout event did not contain data layer values for ecommerce.currency and ecommerce.value
+
 = 1.7 =
 
 Enhancements:
