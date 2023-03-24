@@ -216,6 +216,9 @@ $field_data['options']     = [
 	1 => [
 		'label' => __( "Push view_item on master and variation products (higher number of views).", 'gtm-kit' ),
 	],
+	2 => [
+		'label' => __( "Only push view_item on variation products.", 'gtm-kit' ),
+	],
 ];
 $field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtm-kit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup' ];

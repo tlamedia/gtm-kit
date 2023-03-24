@@ -96,6 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 * Improve compatibility with other plugins and customisations.
+* Added item_variant to the items element in the datalayer
 
 Bugfixes:
 

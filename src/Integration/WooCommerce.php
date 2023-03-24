@@ -241,6 +241,10 @@ class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function get_datalayer_content_product_page( array $data_layer ): array {
 
+		if ( Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) == 2 ) {
+			return $data_layer;
+		}
+
 		$product = wc_get_product( get_the_ID() );
 
 		if ( ! ( $product instanceof WC_Product ) ) {
@@ -509,6 +513,10 @@ class WooCommerce  extends AbstractEcommerce {
 				$item_data[ 'item_category' . $designator ] = $item_category_elements[ $element ];
 			}
 
+		}
+
+		if ( $product->get_type() == 'variation' ) {
+			$item_data['item_variant'] = implode( ',', array_filter( $product->get_attributes() ) );
 		}
 
 		$item_data = array_merge( $item_data, $additional_item_attributes );
