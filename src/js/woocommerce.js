@@ -247,7 +247,7 @@ function gtmkit_load() {
 		for (let attrib_key in product_variation.attributes) {
 			product_attributes.push(product_variation.attributes[attrib_key]);
 		}
-		product_variation_data.variant = product_attributes.join(',');
+		product_variation_data.item_variant = product_attributes.filter(n => n).join('|');
 		selected_product_variation_data = product_variation_data;
 
 		if (wc['view_item']['config'] !== 0) {
