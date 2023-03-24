@@ -347,12 +347,16 @@ class WooCommerce  extends AbstractEcommerce {
 			$cart_value = WC()->cart->get_cart_contents_total();
 		}
 
-		$data_layer['event']     = 'begin_checkout';
-		$data_layer['ecommerce'] = [
-			'currency' => $this->store_currency,
-			'value'    => (float) $cart_value,
-			'items' => $this->global_settings['wc']['cart_items']
-		];
+		$data_layer['event']                 = 'begin_checkout';
+		$data_layer['ecommerce']['currency'] = $this->store_currency;
+		$data_layer['ecommerce']['value']    = (float) $cart_value;
+
+		$coupons = WC()->cart->get_applied_coupons();
+		if ( $coupons ) {
+			$data_layer['ecommerce']['coupon'] = implode( '|', array_filter( $coupons ) );
+		}
+
+		$data_layer['ecommerce']['items'] = $this->global_settings['wc']['cart_items'];
 
 		return $data_layer;
 	}
@@ -410,6 +414,7 @@ class WooCommerce  extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
+		$coupons = $order->get_coupon_codes();
 		$order_items = [];
 
 		if ( $items = $order->get_items() ) {
@@ -419,12 +424,23 @@ class WooCommerce  extends AbstractEcommerce {
 				$inc_tax       = ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) );
 				$product_price = round( $order->get_item_total( $item, $inc_tax ), 2 );
 
+				$additional_item_attributes = [
+					'quantity' => $item->get_quantity(),
+					'price'    => $product_price
+				];
+
+				$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
+
+				if ( $coupon_discount['coupon_codes'] ) {
+					$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
+				}
+				if ( $coupon_discount['discount'] ) {
+					$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
+				}
+
 				$order_items[] = $this->get_item_data(
 					$product,
-					[
-						'quantity' => $item->get_quantity(),
-						'price'    => $product_price
-					],
+					$additional_item_attributes,
 					'purchase'
 				);
 			}
@@ -437,8 +453,13 @@ class WooCommerce  extends AbstractEcommerce {
 			'tax'            => (float) $order->get_total_tax(),
 			'shipping'       => (float) $shipping_total,
 			'currency'       => $order->get_currency(),
-			'items'          => $order_items
 		];
+
+		if ( $coupons ) {
+			$data_layer['ecommerce']['coupon'] = implode( '|', array_filter( $coupons ) );
+		}
+
+		$data_layer['ecommerce']['items'] = $order_items;
 
 		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
 		$order->save();
@@ -455,10 +476,33 @@ class WooCommerce  extends AbstractEcommerce {
 	 */
 	function get_cart_items( string $event_context ): array {
 		$cart_items = [];
+		$coupons = WC()->cart->get_applied_coupons();
 
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+
+			$item_data = [
+				'product_id' => $cart_item['product_id'],
+				'quantity' => $cart_item['quantity'],
+				'total' => $cart_item['line_total'],
+				'total_tax' => $cart_item['line_tax'],
+				'subtotal' => $cart_item['line_subtotal'],
+				'subtotal_tax' => $cart_item['line_subtotal_tax'],
+			];
+			$coupon_discount = $this->get_coupon_discount( $coupons, $item_data );
+
+			$additional_item_attributes = [
+				'quantity' => $cart_item['quantity'],
+			];
+
+			if ( $coupon_discount['coupon_codes'] ) {
+				$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
+			}
+			if ( $coupon_discount['discount'] ) {
+				$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
+			}
+
 			$product      = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-			$cart_items[] = $this->get_item_data( $product, [ 'quantity' => $cart_item['quantity'] ], $event_context );
+			$cart_items[] = $this->get_item_data( $product, $additional_item_attributes, $event_context );
 		}
 
 		return $cart_items;
@@ -524,6 +568,64 @@ class WooCommerce  extends AbstractEcommerce {
 		return apply_filters( 'gtmkit_datalayer_item_data', $item_data, $product, $event_context );
 	}
 
+	/**
+	 * Get the coupons and discount for an item
+	 *
+	 * @param array $coupons
+	 * @param array $item
+	 *
+	 * @return array
+	 */
+	function get_coupon_discount( array $coupons, array $item ): array {
+
+		$discount     = 0;
+		$coupon_codes = [];
+
+		if ( $coupons ) {
+
+			foreach ( $coupons as $coupon ) {
+
+				$coupon = new \WC_Coupon( $coupon );
+
+				$included_products = true;
+				$included_cats     = true;
+
+				if ( count( $product_ids = $coupon->get_product_ids() ) > 0 ) {
+					if ( ! in_array( $item['product_id'], $product_ids, false ) ) {
+						$included_products = false;
+					}
+				}
+				if ( count( $excluded_product_ids = $coupon->get_excluded_product_ids() ) > 0 ) {
+					if ( in_array( $item['product_id'], $excluded_product_ids, false ) ) {
+						$included_products = false;
+					}
+				}
+				if ( count( $product_cats = $coupon->get_product_categories() ) > 0 ) {
+					if ( ! has_term( $product_cats, 'product_cat', $item['product_id'] ) ) {
+						$included_cats = false;
+					}
+				}
+				if ( count( $excluded_product_cats = $coupon->get_excluded_product_categories() ) > 0 ) {
+					if ( has_term( $excluded_product_cats, 'product_cat', $item['product_id'] ) ) {
+						$included_cats = false;
+					}
+				}
+
+				if ( $included_products && $included_cats ) {
+					$coupon_codes[] = $coupon->get_code();
+					$discount       = $item['subtotal'] - $item['total'];
+
+					if ( wc_prices_include_tax() ) {
+						$discount = $discount + $item['subtotal_tax'] - $item['total_tax'];
+					}
+
+					$discount = $discount / $item['quantity'];
+				}
+			}
+		}
+
+		return [ 'coupon_codes' => $coupon_codes, 'discount' => $discount ];
+	}
 
 	/**
 	 * Add-to-cart tracing on single product.
