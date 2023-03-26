@@ -98,6 +98,7 @@ Enhancements:
 * Improve compatibility with other plugins and customisations.
 * Added item_variant to the items element in the datalayer
 * Added 'coupon' to the datalayer.
+* Added option to log helpful messages and warnings to the browser log.
 
 Bugfixes:
 

@@ -44,7 +44,7 @@ class Frontend {
 		add_action( 'wp_head', [ $page, 'get_datalayer_content' ] );
 		if ( $container_active ) {
 			add_action( 'wp_head', [ $page, 'get_header_script' ], 10, 0 );
-		} else {
+		} elseif ( Options::init()->get( 'general', 'console_log' ) ) {
 			add_action( 'wp_head', [ $page, 'container_disabled' ] );
 		}
 

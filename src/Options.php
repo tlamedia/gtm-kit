@@ -187,6 +187,9 @@ class Options {
 					case 'container_active':
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ACTIVE : $value;
 						break;
+					case 'console_log':
+						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONSOLE_LOG : $value;
+						break;
 				}
 				break;
 			default:
@@ -231,6 +234,9 @@ class Options {
 						break;
 					case 'container_active':
 						$return = defined( 'GTMKIT_CONTAINER_ACTIVE' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONTAINER_ACTIVE === true );
+						break;
+					case 'console_log':
+						$return = defined( 'GTMKIT_CONSOLE_LOG' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONSOLE_LOG === true );
 						break;
 				}
 
