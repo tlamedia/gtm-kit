@@ -99,3 +99,13 @@ $form->setting_row(
 	__( 'I agree to share anonymous data with the development team to help improve GTM Kit.', 'gtm-kit' )
 );
 ?>
+
+<?php
+$form->setting_row(
+	'checkbox-toggle',
+	'console_log',
+	__( 'Console log', 'gtm-kit' ),
+	[],
+	__( 'Log helpful messages and warnings to the browser log.', 'gtm-kit' )
+);
+?>
