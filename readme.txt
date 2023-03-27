@@ -22,6 +22,7 @@ The following GA4 events are automatically included in the dataLayer:
 - view_item_list
 - select_item
 - view_item
+- add_to_wishlist
 - add_to_cart
 - view_cart
 - remove_from_cart
@@ -95,6 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added 'add_to_wishlist' event when used together with the most popular wishlist plugins 'YITH WooCommerce Wishlist' and 'TI WooCommerce Wishlist'.
 * Improve compatibility with other plugins and customisations.
 * Added item_variant to the items element in the datalayer
 * Added 'coupon' to the datalayer.
