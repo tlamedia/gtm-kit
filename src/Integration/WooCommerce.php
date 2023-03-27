@@ -241,10 +241,6 @@ class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function get_datalayer_content_product_page( array $data_layer ): array {
 
-		if ( Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) == 2 ) {
-			return $data_layer;
-		}
-
 		$product = wc_get_product( get_the_ID() );
 
 		if ( ! ( $product instanceof WC_Product ) ) {
@@ -253,6 +249,10 @@ class WooCommerce  extends AbstractEcommerce {
 
 		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
 			$data_layer['pageType'] = 'product-page';
+		}
+
+		if ( $product->get_type() == 'variable' && Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) == 2 ) {
+			return $data_layer;
 		}
 
 		$item = $this->get_item_data( $product );
