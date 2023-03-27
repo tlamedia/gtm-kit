@@ -100,6 +100,7 @@ Enhancements:
 Bugfixes:
 
 * Fixed a bug where inline styles would be stripped from the HTML.
+* Fixed af bug where items in the 'view_cart' event had double brackets
 
 = 1.7.1 =
 

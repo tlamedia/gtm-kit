@@ -318,7 +318,7 @@ class WooCommerce  extends AbstractEcommerce {
 		$data_layer['ecommerce'] = [
 			'currency' => $this->store_currency,
 			'value'    => (float) $cart_value,
-			'items'    => [ $this->get_cart_items( 'view_cart' ) ]
+			'items'    => $this->get_cart_items( 'view_cart' )
 		];
 
 		return $data_layer;
