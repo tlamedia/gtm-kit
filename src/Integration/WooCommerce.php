@@ -78,6 +78,12 @@ class WooCommerce  extends AbstractEcommerce {
 			self::$instance,
 			'set_list_name_in_woocommerce_loop'
 		] );
+		add_filter( 'safe_style_css', function( $styles ) {
+			$styles[] = 'display';
+			$styles[] = 'visibility';
+			return $styles;
+		} );
+
 		add_action( 'woocommerce_shortcode_before_featured_products_loop', [
 			self::$instance,
 			'set_list_name_in_woocommerce_loop'
