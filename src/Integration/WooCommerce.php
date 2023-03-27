@@ -66,6 +66,8 @@ class WooCommerce  extends AbstractEcommerce {
 			self::$instance,
 			'product_block_add_to_cart_tracking'
 		], 20, 3 );
+		add_filter( 'tinvwl_wishlist_item_meta_post', [ self::$instance, 'Compatibility_With_TI_Wishlist' ], 10, 3 );
+
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
 
@@ -833,5 +835,25 @@ class WooCommerce  extends AbstractEcommerce {
 	function prefix_item_id( string $item_id ): string {
 		$prefix = ( Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) ) ?: '';
 		return $prefix.$item_id;
+	}
+
+	/**
+	 * Compatibility with TI WooCommerce Wishlist
+	 *
+	 * @param array $item_data
+	 * @param $product_id
+	 * @param $variation_id
+	 *
+	 * @return array
+	 */
+	function Compatibility_With_TI_Wishlist( array $item_data, $product_id, $variation_id ): array {
+
+		foreach ( array_keys( $item_data ) as $key ) {
+			if ( strpos( $key, 'gtmkit_' ) === 0 ) {
+				unset( $item_data[ $key ] );
+			}
+		}
+
+		return $item_data;
 	}
 }

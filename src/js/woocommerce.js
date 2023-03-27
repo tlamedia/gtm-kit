@@ -65,8 +65,17 @@ function gtmkit_load() {
 	// add_to_cart event for simple products in product lists
 	document.addEventListener('click', function (e) {
 		let event_target_element = e.target;
+		let event;
 
-		if (!event_target_element || !event_target_element.closest('.add_to_cart_button:not(.single_add_to_cart_button)')) {
+		if (!event_target_element) {
+			return true;
+		}
+
+		if (event_target_element.closest('.add_to_cart_button:not(.single_add_to_cart_button)')) {
+			event = 'add_to_cart';
+		} else if ((event_target_element.closest('.products') || event_target_element.closest('.wc-block-grid__products')) && event_target_element.closest('.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list)')) {
+			event = 'add_to_wishlist';
+		} else {
 			return true;
 		}
 
@@ -80,7 +89,7 @@ function gtmkit_load() {
 
 		window[datalayer_name].push({ 'ecommerce': null });
 		window[datalayer_name].push({
-			'event': 'add_to_cart',
+			'event': event,
 			'ecommerce': {
 				'currency': wc.currency,
 				'value': item_data.price,
@@ -92,13 +101,33 @@ function gtmkit_load() {
 	// add_to_cart event on product page
 	document.addEventListener('click', function (e) {
 		let event_target_element = e.target;
+		let event;
 
-		if (!event_target_element || !event_target_element.closest('.single_add_to_cart_button:not(.disabled)')) {
+		if (!event_target_element) {
 			return true;
 		}
 
-		const add_to_cart = event_target_element.closest('form.cart');
-		if (!add_to_cart) {
+		let add_to_cart;
+		add_to_cart = event_target_element.closest('form.cart');
+
+		if (add_to_cart && event_target_element.closest('.single_add_to_cart_button:not(.disabled)')) {
+			event = 'add_to_cart';
+		} else {
+			if (add_to_cart && event_target_element.closest('.tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list,.disabled-add-wishlist)')) {
+				event = 'add_to_wishlist';
+			} else {
+				const add_to_wishlist = event_target_element.closest('.yith-wcwl-add-to-wishlist');
+
+				if (add_to_wishlist) {
+					add_to_cart = add_to_wishlist.parentNode.querySelector('form.cart');
+					if (add_to_cart) {
+						event = 'add_to_wishlist';
+					}
+				}
+			}
+		}
+
+		if (! event) {
 			return true;
 		}
 
@@ -106,16 +135,22 @@ function gtmkit_load() {
 		let product_is_grouped = add_to_cart.classList && add_to_cart.classList.contains('grouped_form');
 
 		if (product_variant_id.length) {
+			let quantity = 1;
+			let price;
 			if (selected_product_variation_data) {
 				const quantity_element = add_to_cart.querySelector('[name=quantity]');
 				selected_product_variation_data.quantity = (quantity_element && quantity_element.value) || 1;
+				quantity = selected_product_variation_data.quantity;
+				price = selected_product_variation_data.price;
+			}
 
-				window[datalayer_name].push({ 'ecommerce': null });
+			if ((selected_product_variation_data && event == 'add_to_cart') || event == 'add_to_wishlist') {
+				window[datalayer_name].push({'ecommerce': null});
 				window[datalayer_name].push({
-					'event': 'add_to_cart',
+					'event': event,
 					'ecommerce': {
 						'currency': wc.currency,
-						'value': selected_product_variation_data.price * selected_product_variation_data.quantity,
+						'value': price * quantity,
 						'items': [selected_product_variation_data]
 					}
 				});
@@ -148,7 +183,7 @@ function gtmkit_load() {
 
 			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
-				'event': 'add_to_cart',
+				'event': event,
 				'ecommerce': {
 					'currency': wc.currency,
 					'value': value,
@@ -163,7 +198,7 @@ function gtmkit_load() {
 
 			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
-				'event': 'add_to_cart',
+				'event': event,
 				'ecommerce': {
 					'currency': wc.currency,
 					'value': item_data.price * item_data.quantity,
@@ -194,9 +229,9 @@ function gtmkit_load() {
 	});
 
 	// select_item event on clicks in product lists
-	let product_list_item_selector = '.products li:not(.product-category) a:not(.add_to_cart_button),'
-		+ '.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button),'
-		+ '.woocommerce-grouped-product-list-item__label a'
+	let product_list_item_selector = '.products li:not(.product-category) a:not(.add_to_cart_button,.add_to_wishlist,.tinvwl_add_to_wishlist_button),'
+		+ '.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button,.add_to_wishlist,.tinvwl_add_to_wishlist_button),'
+		+ '.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist,.tinvwl_add_to_wishlist_button)'
 	document.addEventListener('click', function (e) {
 
 		const event_target_element = e.target;
