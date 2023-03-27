@@ -97,6 +97,10 @@ Enhancements:
 
 * Improve compatibility with other plugins and customisations.
 
+Bugfixes:
+
+* Fixed a bug where inline styles would be stripped from the HTML.
+
 = 1.7.1 =
 
 Bugfixes:
