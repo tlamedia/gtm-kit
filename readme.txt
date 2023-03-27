@@ -93,6 +93,10 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 = 1.X =
 
+Enhancements:
+
+* Improve compatibility with other plugins and customisations.
+
 = 1.7.1 =
 
 Bugfixes:

@@ -65,7 +65,7 @@ class WooCommerce  extends AbstractEcommerce {
 		add_filter( 'woocommerce_blocks_product_grid_item_html', [
 			self::$instance,
 			'product_block_add_to_cart_tracking'
-		], 10, 3 );
+		], 20, 3 );
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
 
@@ -557,7 +557,7 @@ class WooCommerce  extends AbstractEcommerce {
 	function product_block_add_to_cart_tracking( string $html, object $data, WC_Product $product ): string {
 		$item_data_tag = $this->get_item_data_tag( $product, '', 0 );
 
-		return preg_replace( '/<li.+class=("|"[^"]+)wc-block-grid__product("|[^"]+")[^<]*>/i', '$0' . $item_data_tag, $html );
+		return preg_replace( '/<li[^>]+class="[^"]*wc-block-grid__product[^">]*"[^>]*>/i', '$0' . $item_data_tag, $html );
 	}
 
 	/**
