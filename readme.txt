@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.2
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,20 +92,20 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.8 =
 
 Enhancements:
 
 * Added 'add_to_wishlist' event when used together with the most popular wishlist plugins 'YITH WooCommerce Wishlist' and 'TI WooCommerce Wishlist'.
 * Improve compatibility with other plugins and customisations.
-* Added item_variant to the items element in the datalayer
+* Added item_variant to the items element in the datalayer.
 * Added 'coupon' to the datalayer.
 * Added option to log helpful messages and warnings to the browser log.
 
 Bugfixes:
 
 * Fixed a bug where inline styles would be stripped from the HTML.
-* Fixed af bug where items in the 'view_cart' event had double brackets
+* Fixed af bug where items in the 'view_cart' event had double brackets.
 
 = 1.7.1 =
 
