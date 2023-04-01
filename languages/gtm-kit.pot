@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.7.1\n"
+"Project-Id-Version: GTM Kit 1.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2023-03-23 13:12:30+00:00\n"
+"POT-Creation-Date: 2023-04-01 09:47:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -112,56 +112,56 @@ msgid "(not set)"
 msgstr ""
 
 #: src/Integration/EasyDigitalDownloads.php:110
-#: src/Integration/WooCommerce.php:170
+#: src/Integration/WooCommerce.php:178
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:161
+#: src/Integration/WooCommerce.php:169
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:162
+#: src/Integration/WooCommerce.php:170
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:163 src/Integration/WooCommerce.php:658
+#: src/Integration/WooCommerce.php:171 src/Integration/WooCommerce.php:776
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:164
+#: src/Integration/WooCommerce.php:172
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:165
+#: src/Integration/WooCommerce.php:173
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:166
+#: src/Integration/WooCommerce.php:174
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:167 src/Integration/WooCommerce.php:660
+#: src/Integration/WooCommerce.php:175 src/Integration/WooCommerce.php:778
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:168
+#: src/Integration/WooCommerce.php:176
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:169
+#: src/Integration/WooCommerce.php:177
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:541
+#: src/Integration/WooCommerce.php:659
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:575
+#: src/Integration/WooCommerce.php:693
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:575 src/Integration/WooCommerce.php:616
-#: src/Integration/WooCommerce.php:649
+#: src/Integration/WooCommerce.php:693 src/Integration/WooCommerce.php:734
+#: src/Integration/WooCommerce.php:767
 msgid "General Product List"
 msgstr ""
 
@@ -473,6 +473,14 @@ msgid ""
 "GTM Kit."
 msgstr ""
 
+#: src/views/tabs/general/misc.php:107
+msgid "Console log"
+msgstr ""
+
+#: src/views/tabs/general/misc.php:109
+msgid "Log helpful messages and warnings to the browser log."
+msgstr ""
+
 #: src/views/tabs/general/post_data.php:19
 msgid ""
 "Specify which post data elements you wish to include in the dataLayer for "
@@ -755,12 +763,12 @@ msgid "Exclude tax from prices and revenue"
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:125
-#: src/views/tabs/integrations/woocommerce.php:257
+#: src/views/tabs/integrations/woocommerce.php:260
 msgid "Dequeue Default JS"
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:131
-#: src/views/tabs/integrations/woocommerce.php:263
+#: src/views/tabs/integrations/woocommerce.php:266
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."
@@ -852,28 +860,32 @@ msgid "Push view_item on master and variation products (higher number of views).
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:220
+msgid "Only push view_item on variation products."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:223
 msgid "When do you want to fire the \"view_item\" event on variable products?"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:226
+#: src/views/tabs/integrations/woocommerce.php:229
 msgid "Event: view_item"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:233
+#: src/views/tabs/integrations/woocommerce.php:236
 msgid "Include permalink structure"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:239
+#: src/views/tabs/integrations/woocommerce.php:242
 msgid ""
 "Enable this option to include the permalink structure of the product base, "
 "category base, tag base and attribute base."
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:245
+#: src/views/tabs/integrations/woocommerce.php:248
 msgid "Include pages"
 msgstr ""
 
-#: src/views/tabs/integrations/woocommerce.php:251
+#: src/views/tabs/integrations/woocommerce.php:254
 msgid ""
 "Enable this option to include the path of cart, checkout, order received "
 "adn my account page."
