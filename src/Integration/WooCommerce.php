@@ -8,6 +8,7 @@
 namespace TLA_Media\GTM_Kit\Integration;
 
 use TLA_Media\GTM_Kit\Options;
+use WC_Customer;
 use WC_Order;
 use WC_Product;
 
@@ -464,6 +465,54 @@ class WooCommerce  extends AbstractEcommerce {
 		}
 
 		$data_layer['ecommerce']['items'] = $order_items;
+
+		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
+
+			if (is_user_logged_in()) {
+				try {
+					$wc_customer = new WC_Customer( WC()->customer->get_id() );
+					$order_count = $wc_customer->get_order_count();
+					$total_spent = $wc_customer->get_total_spent();
+				} catch ( \Exception $e ) {
+					$wc_customer = WC()->customer;
+					$order_count = 1;
+					$total_spent = $order_value;
+				}
+			} else {
+				$wc_customer = WC()->customer;
+				$order_count = 1;
+				$total_spent = $order_value;
+			}
+
+			$data_layer['ecommerce']['customer']['id'] = $wc_customer->get_id();
+
+			$data_layer['ecommerce']['customer']['order_count'] = $order_count;
+			$data_layer['ecommerce']['customer']['total_spent'] = (float) $total_spent;
+
+			$data_layer['ecommerce']['customer']['first_name'] = $wc_customer->get_first_name();
+			$data_layer['ecommerce']['customer']['last_name']  = $wc_customer->get_last_name();
+
+			$data_layer['ecommerce']['customer']['billing_first_name'] = $wc_customer->get_billing_first_name();
+			$data_layer['ecommerce']['customer']['billing_last_name']  = $wc_customer->get_billing_last_name();
+			$data_layer['ecommerce']['customer']['billing_company']    = $wc_customer->get_billing_company();
+			$data_layer['ecommerce']['customer']['billing_address_1']  = $wc_customer->get_billing_address_1();
+			$data_layer['ecommerce']['customer']['billing_address_2']  = $wc_customer->get_billing_address_2();
+			$data_layer['ecommerce']['customer']['billing_city']       = $wc_customer->get_billing_city();
+			$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
+			$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
+			$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
+			$data_layer['ecommerce']['customer']['billing_email_hash'] = ($wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '' ;
+			$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
+
+			$data_layer['ecommerce']['customer']['shipping_firstName'] = $wc_customer->get_shipping_first_name();
+			$data_layer['ecommerce']['customer']['shipping_lastName']  = $wc_customer->get_shipping_last_name();
+			$data_layer['ecommerce']['customer']['shipping_company']   = $wc_customer->get_shipping_company();
+			$data_layer['ecommerce']['customer']['shipping_address_1'] = $wc_customer->get_shipping_address_1();
+			$data_layer['ecommerce']['customer']['shipping_address_2'] = $wc_customer->get_shipping_address_2();
+			$data_layer['ecommerce']['customer']['shipping_city']      = $wc_customer->get_shipping_city();
+			$data_layer['ecommerce']['customer']['shipping_postcode']  = $wc_customer->get_shipping_postcode();
+			$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
+		}
 
 		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
 		$order->save();

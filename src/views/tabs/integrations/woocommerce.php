@@ -256,6 +256,19 @@ $form->setting_row(
 
 $form->setting_row(
 	'checkbox-toggle',
+	'woocommerce_include_customer_data',
+	__( 'Include customer data', 'gtm-kit' ),
+	[
+		'attributes' => [
+			'disabled' => $woocommerce_is_inactive,
+		]
+	],
+	__( 'Enable this option to include customer data in the data layer on the "purchase" event.', 'gtm-kit' )
+);
+
+
+$form->setting_row(
+	'checkbox-toggle',
 	'woocommerce_dequeue_script',
 	__( 'Dequeue Default JS', 'gtm-kit' ),
 	[
