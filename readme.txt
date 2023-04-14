@@ -96,6 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added the constant 'GTMKIT_WC_DEBUG_TRACK_PURCHASE', which allows you to force tracking of purchase event on every page refresh for debugging.
 
 Bugfixes:
 

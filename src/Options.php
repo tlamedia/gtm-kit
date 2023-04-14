@@ -241,6 +241,14 @@ class Options {
 				}
 
 				break;
+			case 'integration':
+				switch ( $key ) {
+					case 'woocommerce_debug_track_purchase':
+						$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
+						break;
+				}
+
+				break;
 		}
 
 		return $return;
