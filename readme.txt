@@ -96,7 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
-
+* Added setup wizard for onboarding new users
 
 Bugfixes:
 
