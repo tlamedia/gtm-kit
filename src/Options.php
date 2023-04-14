@@ -26,6 +26,7 @@ class Options {
 	 */
 	private static $map = [
 		'general'      => [
+			'gtm_id',
 			'container_active',
 			'script_implementation',
 			'noscript_implementation',
@@ -88,6 +89,7 @@ class Options {
 
 		return [
 			'general' => [
+				'gtm_id'   => '',
 				'script_implementation'   => '0',
 				'noscript_implementation' => '0',
 				'container_active'        => 'on',

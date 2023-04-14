@@ -10,3 +10,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 delete_option( 'gtmkit' );
 delete_option( 'gtmkit_version' );
+delete_option( 'gtmkit_initial_version' );
+delete_option( 'gtmkit_activation_prevent_redirect' );

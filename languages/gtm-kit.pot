@@ -4,20 +4,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GTM Kit 1.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2023-04-19 11:17:37+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.6\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-06-09T21:07:09+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: gtm-kit\n"
 
-#: inc/main.php:50
+#. Plugin Name of the plugin
+#: src/Admin/MetaBox.php:52
+msgid "GTM Kit"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gtmkit.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
+msgstr ""
+
+#. Author of the plugin
+msgid "TLA Media"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.tlamedia.dk/"
+msgstr ""
+
+#: inc/main.php:53
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:51
+#: inc/main.php:54
 msgid "Settings"
 msgstr ""
 
@@ -25,29 +47,36 @@ msgstr ""
 msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:149
+#: src/Admin/GeneralOptionsPage.php:50
+#: src/Admin/GeneralOptionsPage.php:149
 msgid "Dashboard"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:150
+#: src/Admin/GeneralOptionsPage.php:59
+#: src/Admin/GeneralOptionsPage.php:150
+#: build/admin/wizard.js:1
 msgid "Container"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:151
+#: src/Admin/GeneralOptionsPage.php:68
+#: src/Admin/GeneralOptionsPage.php:151
 #: src/views/tabs/general/post_data.php:17
 msgid "Post data"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:152
+#: src/Admin/GeneralOptionsPage.php:74
+#: src/Admin/GeneralOptionsPage.php:152
 #: src/views/tabs/general/user_data.php:17
 msgid "User data"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:80 src/views/tabs/general/misc.php:20
+#: src/Admin/GeneralOptionsPage.php:80
+#: src/views/tabs/general/misc.php:20
 msgid "Misc"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:86 src/Admin/GeneralOptionsPage.php:154
+#: src/Admin/GeneralOptionsPage.php:86
+#: src/Admin/GeneralOptionsPage.php:154
 #: src/views/tabs/general/help.php:17
 msgid "Help"
 msgstr ""
@@ -68,7 +97,8 @@ msgstr ""
 msgid "Misc."
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:155 src/views/tabs/general/whats_new.php:17
+#: src/Admin/GeneralOptionsPage.php:155
+#: src/views/tabs/general/whats_new.php:17
 msgid "What's new"
 msgstr ""
 
@@ -77,6 +107,7 @@ msgstr ""
 #: src/Admin/IntegrationsOptionsPage.php:91
 #: src/views/tabs/general/dashboard.php:102
 #: src/views/tabs/integrations/integrations.php:17
+#: build/admin/wizard.js:1
 msgid "Integrations"
 msgstr ""
 
@@ -84,23 +115,18 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "GTM Kit"
-msgstr ""
-
 #: src/Admin/MetaBox.php:72
 msgid "Set page type in datalayer:"
 msgstr ""
 
-#: src/Admin/MetaBox.php:74 src/views/tabs/general/post_data.php:34
+#: src/Admin/MetaBox.php:74
+#: src/views/tabs/general/post_data.php:34
 msgid "Page type"
 msgstr ""
 
-#: src/Admin/MetaBox.php:79
 #. translators: %1$s = opening strong tag, %2$s = closing strong tag.
-msgid ""
-"%1$sNote:%2$s This will only be applied if page type has been activated in "
-"the global settings of GTM Kit."
+#: src/Admin/MetaBox.php:79
+msgid "%1$sNote:%2$s This will only be applied if page type has been activated in the global settings of GTM Kit."
 msgstr ""
 
 #: src/Admin/OptionsForm.php:155
@@ -119,6 +145,115 @@ msgstr ""
 msgid "(not set)"
 msgstr ""
 
+#: src/Admin/SetupWizard.php:246
+msgid "GTM Kit &rsaquo; Setup Wizard"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:261
+#: src/Admin/SetupWizard.php:325
+msgid "Go back to the Dashboard"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:310
+msgid "GTMc Kit logo"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:318
+msgid "Whoops, something's not working."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:321
+msgid "It looks like something is preventing JavaScript from loading on your website. GTM Kit requires JavaScript in order to give you the best possible experience."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:367
+#: src/Admin/SetupWizard.php:383
+#: src/Admin/SetupWizard.php:403
+#: src/Admin/SetupWizard.php:433
+#: src/Admin/SetupWizard.php:513
+#: src/Admin/SetupWizard.php:551
+#: src/Admin/SetupWizard.php:592
+msgid "You don't have permission to change options for this WP site!"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:628
+msgid "Could not install the plugin. You don't have permission to install plugins."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:632
+msgid "Could not install the plugin. You don't have permission to activate plugins."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:638
+msgid "Could not install the plugin. Plugin slug is missing."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:642
+msgid "Could not install the plugin. Plugin is not whitelisted."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:650
+#: src/Admin/SetupWizard.php:654
+msgid "Could not install the plugin. Don't have file permission."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:665
+msgid "Could not install the plugin. WP Plugin installer initialization failed."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:750
+msgid "Could not install the plugin. WP Plugin installer could not retrieve plugin information."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:811
+msgid "Contact Forms by WPForms"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:817
+msgid "Google Analytics by MonsterInsights"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:823
+msgid "All in One SEO"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:829
+msgid "Giveaways by RafflePress"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:835
+msgid "Smash Balloon Social Photo Feed"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:841
+msgid "SeedProd Landing Page Builder"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:847
+msgid "WP Call Button"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:901
+msgid "You are already using the WP Mail SMTP PRO version. Please refresh this page and verify your license key."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:905
+msgid "You don't have the permission to perform this action."
+msgstr ""
+
+#: src/Admin/SetupWizard.php:911
+msgid "Please enter a valid license key!"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:922
+msgid "Upgrade functionality not available!"
+msgstr ""
+
+#: src/Admin/SetupWizard.php:1201
+#: src/Common/RestAPIServer.php:20
+msgid "Only authenticated users can access endpoint."
+msgstr ""
+
 #: src/Integration/EasyDigitalDownloads.php:110
 #: src/Integration/WooCommerce.php:179
 msgid "Payment method not found"
@@ -132,7 +267,8 @@ msgstr ""
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:172 src/Integration/WooCommerce.php:827
+#: src/Integration/WooCommerce.php:172
+#: src/Integration/WooCommerce.php:827
 msgid "Product Category"
 msgstr ""
 
@@ -148,7 +284,8 @@ msgstr ""
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:176 src/Integration/WooCommerce.php:829
+#: src/Integration/WooCommerce.php:176
+#: src/Integration/WooCommerce.php:829
 msgid "Product Tag"
 msgstr ""
 
@@ -168,7 +305,8 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:744 src/Integration/WooCommerce.php:785
+#: src/Integration/WooCommerce.php:744
+#: src/Integration/WooCommerce.php:785
 #: src/Integration/WooCommerce.php:818
 msgid "General Product List"
 msgstr ""
@@ -178,11 +316,13 @@ msgstr ""
 msgid "The #1 open source eCommerce platform built for WordPress"
 msgstr ""
 
-#: src/views/integrations-metabox.php:24 src/views/tabs/integrations/cf7.php:21
+#: src/views/integrations-metabox.php:24
+#: src/views/tabs/integrations/cf7.php:21
 msgid "Just another contact form plugin for WordPress. Simple but flexible"
 msgstr ""
 
-#: src/views/integrations-metabox.php:32 src/views/tabs/integrations/edd.php:21
+#: src/views/integrations-metabox.php:32
+#: src/views/tabs/integrations/edd.php:21
 msgid "Easy way to sell Digital Products With WordPress"
 msgstr ""
 
@@ -226,9 +366,7 @@ msgid "Container Code"
 msgstr ""
 
 #: src/views/tabs/general/container.php:47
-msgid ""
-"Setting this to Off will remove the Google Tag Manager container code but "
-"the data layer will remain."
+msgid "Setting this to Off will remove the Google Tag Manager container code but the data layer will remain."
 msgstr ""
 
 #: src/views/tabs/general/container.php:51
@@ -253,10 +391,7 @@ msgid "Container code implementation:"
 msgstr ""
 
 #: src/views/tabs/general/container.php:75
-msgid ""
-"Depending on how you use Google Tag Manager you can delay the loading of "
-"the container script until the browser is idle. You can furthermore extend "
-"te delay with a timer."
+msgid "Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle. You can furthermore extend te delay with a timer."
 msgstr ""
 
 #: src/views/tabs/general/container.php:80
@@ -285,9 +420,7 @@ msgid "Container code implementation"
 msgstr ""
 
 #: src/views/tabs/general/container.php:101
-msgid ""
-"The preferred method to implement the &lt;noscript&gt; container code is "
-"just after the opening &lt;body&gt; tag."
+msgid "The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag."
 msgstr ""
 
 #: src/views/tabs/general/container.php:102
@@ -295,9 +428,7 @@ msgid "This requires that your theme uses the \"body_open\" hook."
 msgstr ""
 
 #: src/views/tabs/general/container.php:103
-msgid ""
-"If your theme does not support this the script can be injected in the "
-"footer or you can use the function below."
+msgid "If your theme does not support this the script can be injected in the footer or you can use the function below."
 msgstr ""
 
 #: src/views/tabs/general/container.php:120
@@ -305,9 +436,7 @@ msgid "dataLayer variable name:"
 msgstr ""
 
 #: src/views/tabs/general/container.php:122
-msgid ""
-"The default name of the data layer object is dataLayer. If you prefer to "
-"use a different name for your data layer, you may do."
+msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do."
 msgstr ""
 
 #: src/views/tabs/general/container.php:128
@@ -319,9 +448,7 @@ msgid "GTM Server Side Domain:"
 msgstr ""
 
 #: src/views/tabs/general/container.php:137
-msgid ""
-"Enter your custom domain name if you are using a custom server side GTM "
-"container for tracking."
+msgid "Enter your custom domain name if you are using a custom server side GTM container for tracking."
 msgstr ""
 
 #: src/views/tabs/general/container.php:145
@@ -350,7 +477,9 @@ msgstr ""
 msgid "The container is not active but the datalayer is generated."
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:57 src/views/tabs/general/misc.php:26
+#: src/views/tabs/general/dashboard.php:57
+#: src/views/tabs/general/misc.php:26
+#: build/admin/wizard.js:1
 msgid "Help improve GTM Kit"
 msgstr ""
 
@@ -366,11 +495,14 @@ msgstr ""
 msgid "Share anonymous data with the development team to help improve GTM Kit."
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:86 src/views/tabs/general/misc.php:97
+#: src/views/tabs/general/dashboard.php:86
+#: src/views/tabs/general/misc.php:97
+#: build/admin/wizard.js:1
 msgid "Share anonymous data"
 msgstr ""
 
-#: src/views/tabs/general/dashboard.php:97 src/views/tabs/general/help.php:23
+#: src/views/tabs/general/dashboard.php:97
+#: src/views/tabs/general/help.php:23
 msgid "Tutorials"
 msgstr ""
 
@@ -407,10 +539,8 @@ msgid "GTM Kit Repository"
 msgstr ""
 
 #: src/views/tabs/general/misc.php:29
-msgid ""
-"GTM Kit is used together with a wide variety of server configurations and "
-"plugins. It is very helpful for us to know what some of these "
-"configurations are so we can test the most common configurations."
+#: build/admin/wizard.js:1
+msgid "GTM Kit is used together with a wide variety of server configurations and plugins. It is very helpful for us to know what some of these configurations are so we can test the most common configurations."
 msgstr ""
 
 #: src/views/tabs/general/misc.php:32
@@ -418,9 +548,7 @@ msgid "You can help by sharing anonymous data with us."
 msgstr ""
 
 #: src/views/tabs/general/misc.php:33
-msgid ""
-"Below is a detailed view of all data GTM Kit will collect if granted "
-"permission:"
+msgid "Below is a detailed view of all data GTM Kit will collect if granted permission:"
 msgstr ""
 
 #: src/views/tabs/general/misc.php:40
@@ -476,9 +604,7 @@ msgid "GTM Kit will never transmit any domain names or container ID's."
 msgstr ""
 
 #: src/views/tabs/general/misc.php:99
-msgid ""
-"I agree to share anonymous data with the development team to help improve "
-"GTM Kit."
+msgid "I agree to share anonymous data with the development team to help improve GTM Kit."
 msgstr ""
 
 #: src/views/tabs/general/misc.php:107
@@ -490,9 +616,7 @@ msgid "Log helpful messages and warnings to the browser log."
 msgstr ""
 
 #: src/views/tabs/general/post_data.php:19
-msgid ""
-"Specify which post data elements you wish to include in the dataLayer for "
-"use in Google Tag Manager."
+msgid "Specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager."
 msgstr ""
 
 #: src/views/tabs/general/post_data.php:26
@@ -504,10 +628,7 @@ msgid "include the type of the current post or archive page."
 msgstr ""
 
 #: src/views/tabs/general/post_data.php:36
-msgid ""
-"include the defined page type. I.e. post, page, product, category, cart, "
-"checkout etc. You may override this on page-level and set you own page type "
-"i.e. \"campaign\"."
+msgid "include the defined page type. I.e. post, page, product, category, cart, checkout etc. You may override this on page-level and set you own page type i.e. \"campaign\"."
 msgstr ""
 
 #: src/views/tabs/general/post_data.php:42
@@ -567,9 +688,7 @@ msgid "include the post author ID."
 msgstr ""
 
 #: src/views/tabs/general/user_data.php:19
-msgid ""
-"Specify which user data you wish to include in the dataLayer for use in "
-"Google Tag Manager."
+msgid "Specify which user data you wish to include in the dataLayer for use in Google Tag Manager."
 msgstr ""
 
 #: src/views/tabs/general/user_data.php:24
@@ -577,10 +696,7 @@ msgid "Including user data is not compatible with full page caching"
 msgstr ""
 
 #: src/views/tabs/general/user_data.php:27
-msgid ""
-"Full page caching will cache user data making it the same for all users. "
-"There are ways around this, but it depends on the chosen cache solution and "
-"is only for advanced users."
+msgid "Full page caching will cache user data making it the same for all users. There are ways around this, but it depends on the chosen cache solution and is only for advanced users."
 msgstr ""
 
 #: src/views/tabs/general/user_data.php:37
@@ -612,9 +728,7 @@ msgid "Include the customer data in the data layer"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:25
-msgid ""
-"This release is the first of two steps to include customer data in the data "
-"layer for all events."
+msgid "This release is the first of two steps to include customer data in the data layer for all events."
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:26
@@ -632,16 +746,11 @@ msgid "Support for the add_to_wishlist event"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:40
-msgid ""
-"If you are using ‘YITH WooCommerce Wishlist’ or ‘TI WooCommerce Wishlist’ "
-"you can now track users who add a product to the wishlist. Between them "
-"theese two plugins have 1 million active installations."
+msgid "If you are using ‘YITH WooCommerce Wishlist’ or ‘TI WooCommerce Wishlist’ you can now track users who add a product to the wishlist. Between them theese two plugins have 1 million active installations."
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:41
-msgid ""
-"It requires no configuration and all you have to do is install and activate "
-"one of the two plugins."
+msgid "It requires no configuration and all you have to do is install and activate one of the two plugins."
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:53
@@ -649,10 +758,7 @@ msgid "Support for the new WooCommerce checkout block"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:56
-msgid ""
-"The Checkout block was introduced in WooCommerce 6.9 and until now there "
-"has been limited support for this new block type in GTM Kit, but this "
-"changes today. There is now full support for all the checkout events:"
+msgid "The Checkout block was introduced in WooCommerce 6.9 and until now there has been limited support for this new block type in GTM Kit, but this changes today. There is now full support for all the checkout events:"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:59
@@ -686,9 +792,7 @@ msgid "Choose this option if you would like to track form submissions."
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:54
-msgid ""
-"Only on pages where where the Contact Form 7 script is registered "
-"(recommended)."
+msgid "Only on pages where where the Contact Form 7 script is registered (recommended)."
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:57
@@ -712,16 +816,11 @@ msgid "Easy Digital Downloads is not installed"
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:40
-msgid ""
-"Google Analytics 3 (Universal Analytics) properties will stop collecting "
-"data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce "
-"with Google Analytics 3 (Universal Analytics)."
+msgid "Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce with Google Analytics 3 (Universal Analytics)."
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:41
-msgid ""
-"It’s recommended that you create a Google Analytics 4 property instead. "
-"Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce."
+msgid "It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce."
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:45
@@ -799,9 +898,7 @@ msgstr ""
 
 #: src/views/tabs/integrations/edd.php:99
 #: src/views/tabs/integrations/woocommerce.php:124
-msgid ""
-"In order to use Google Ads Remarketing you must select your business type "
-"(vertical)."
+msgid "In order to use Google Ads Remarketing you must select your business type (vertical)."
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:105
@@ -811,9 +908,7 @@ msgstr ""
 
 #: src/views/tabs/integrations/edd.php:107
 #: src/views/tabs/integrations/woocommerce.php:132
-msgid ""
-"If your product feed generator is adding a prefix to the product IDs, you "
-"can add the prefix here to include it in the Data Layer."
+msgid "If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer."
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:113
@@ -833,9 +928,7 @@ msgstr ""
 
 #: src/views/tabs/integrations/edd.php:131
 #: src/views/tabs/integrations/woocommerce.php:279
-msgid ""
-"Enable this option to dequeue the default JavaScript if you plan to create "
-"your own JavaScript."
+msgid "Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:19
@@ -847,16 +940,11 @@ msgid "WooCommerce is not installed"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:40
-msgid ""
-"Google Analytics 3 (Universal Analytics) properties will stop collecting "
-"data starting July 1, 2023 and therefor a Google Analytics 4 property is "
-"required."
+msgid "Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023 and therefor a Google Analytics 4 property is required."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:42
-msgid ""
-"GTM Kit is only supporting GA4 events but you can use GA4 events in "
-"Universal Analytics Enhanced Ecommerce."
+msgid "GTM Kit is only supporting GA4 events but you can use GA4 events in Universal Analytics Enhanced Ecommerce."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:44
@@ -882,9 +970,7 @@ msgid "When the 'Place order' button is clicked"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:169
-msgid ""
-"When a shipment method is selected with fallback to the 'Place order' "
-"button."
+msgid "When a shipment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:172
@@ -940,9 +1026,7 @@ msgid "Include permalink structure"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:242
-msgid ""
-"Enable this option to include the permalink structure of the product base, "
-"category base, tag base and attribute base."
+msgid "Enable this option to include the permalink structure of the product base, category base, tag base and attribute base."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:248
@@ -950,9 +1034,7 @@ msgid "Include pages"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:254
-msgid ""
-"Enable this option to include the path of cart, checkout, order received "
-"adn my account page."
+msgid "Enable this option to include the path of cart, checkout, order received adn my account page."
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:260
@@ -960,9 +1042,7 @@ msgid "Include customer data"
 msgstr ""
 
 #: src/views/tabs/integrations/woocommerce.php:266
-msgid ""
-"Enable this option to include customer data in the data layer on the "
-"\"purchase\" event."
+msgid "Enable this option to include customer data in the data layer on the \"purchase\" event."
 msgstr ""
 
 #: src/views/tutorials-metabox.php:13
@@ -993,18 +1073,78 @@ msgstr ""
 msgid "Read article"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://gtmkit.com/"
+#: build/admin/wizard.js:1
+msgid "An error occurred."
 msgstr ""
 
-#. Description of the plugin/theme
-msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
+#: build/admin/wizard.js:1
+msgid "Saved Successfully."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "TLA Media"
+#: build/admin/wizard.js:1
+msgid "You've successfully installed GTM Kit!"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://www.tlamedia.dk/"
+#: build/admin/wizard.js:1
+msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Container ID"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Enter Container ID"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Save and continue"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Find your GTM container ID on"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "It should look something like this:"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "No thanks. I know what I'm doing."
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Go to the dashboard."
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Welcome"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Google Tag Manager Container"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Yes"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "No"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "I agree to share anonymous data with the development team to help improve GTM Kit. "
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Your are ready to use GTM Kit!"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Go to the dashboard"
 msgstr ""

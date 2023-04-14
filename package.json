@@ -24,14 +24,17 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.5.0",
-    "gulp-zip": "^4.2.0",
+    "gulp-zip": "^5.1.0",
     "sass": "^1.60.0",
+    "tailwindcss": "^3.3.2",
     "yargs": "^17.7.1"
   },
   "scripts": {
     "start": "gulp",
     "build": "gulp build --prod",
-    "i18n": "wpi18n addtextdomain makepot"
+    "i18n:textdomain": "wpi18n addtextdomain",
+    "i18n:pot": "wp i18n make-pot ./ languages/gtm-kit.pot",
+    "tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/tailwind.css --watch"
   },
   "dependencies": {
     "node-wp-i18n": "^1.2.6"

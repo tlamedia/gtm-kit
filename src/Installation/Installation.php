@@ -28,9 +28,14 @@ class Installation {
 	 * Sets the options on first install for showing the installation notice and disabling of the settings pages.
 	 */
 	public function set_first_install_options(): void {
+		add_option( 'gtmkit_initial_version', GTMKIT_VERSION, '', false );
 		update_option( 'gtmkit_version', GTMKIT_VERSION );
 
 		Options::init()->set( Options::get_defaults(), true );
+
+		// Add transient to trigger redirect to the Setup Wizard.
+		set_transient( 'gtmkit_activation_redirect', true, 30 );
+
 	}
 
 }

@@ -2,10 +2,12 @@
 
 namespace TLA_Media\GTM_Kit;
 
-use TLA_Media\GTM_Kit\Admin\AdminNotice;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
+use TLA_Media\GTM_Kit\Admin\SetupWizard;
+use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\UserData;
@@ -66,6 +68,9 @@ function gtmkit_load_text_domain(): void {
  */
 function gtmkit_frontend_init(): void {
 	$options = new Options();
+	$rest_API_server = new RestAPIServer();
+	$util = new Util();
+	( new SetupWizard( $options, $rest_API_server, $util ) )->rest_init();
 	BasicDatalayerData::register( $options );
 	UserData::register( $options );
 	Frontend::register( $options );
@@ -102,8 +107,10 @@ function gtmkit_admin_init(): void {
 	} );
 
 	$options = new Options();
+	$rest_API_server = new RestAPIServer();
+	$util = new Util();
+	( new SetupWizard( $options, $rest_API_server, $util ) )->hooks();
 	MetaBox::register( $options );
-	AdminNotice::register( $options );
 	Analytics::register();
 	GeneralOptionsPage::register( $options );
 	IntegrationsOptionsPage::register( $options );
