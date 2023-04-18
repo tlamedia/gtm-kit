@@ -103,6 +103,7 @@ Bugfixes:
 
 Other:
 
+* Changed required capability from 'install_plugins' to 'manage_options'
 * WooCommerce tested up to: 7.6
 
 = 1.8 =
