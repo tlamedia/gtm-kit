@@ -12,7 +12,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$edd_is_inactive = ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' );
+$edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) && ! is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) );
 ?>
 	<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 		<h2>

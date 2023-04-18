@@ -30,7 +30,7 @@ $integrations = [
 	[
 		'name' => 'Easy Digital Downloads',
 		'description' => __( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ),
-		'plugin_active' => is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ),
+		'plugin_active' => ( is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' )),
 		'integration_active' => Options::init()->get( 'integrations', 'edd_integration' ),
 		'tab_id' => 'edd',
 		'plugin_search' => 'Easy Digital Downloads',

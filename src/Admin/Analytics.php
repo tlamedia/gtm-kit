@@ -131,6 +131,10 @@ class Analytics {
 			$edd_version         = get_plugin_data( GTMKIT_PATH . '../easy-digital-downloads/easy-digital-downloads.php' )['Version'];
 			$data['edd_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $edd_version );
 		}
+		if ( is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ) {
+			$edd_version         = get_plugin_data( GTMKIT_PATH . '../easy-digital-downloads-pro/easy-digital-downloads.php' )['Version'];
+			$data['edd-pro_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $edd_version );
+		}
 		$data['current_theme']  = $theme->get( 'Name' );
 		$data['active_plugins'] = $this->get_active_plugins();
 		$data['locale']         = $locale[0];
