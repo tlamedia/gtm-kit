@@ -75,7 +75,7 @@ abstract class AbstractOptionsPage {
 	 * @return string
 	 */
 	protected function get_capability(): string {
-		return apply_filters( 'gtmkit_admin_capability', 'install_plugins' );
+		return apply_filters( 'gtmkit_admin_capability', 'manage_options' );
 	}
 
 	/**
