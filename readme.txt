@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.2
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,19 +92,20 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.x =
+= 1.9 =
 
 Enhancements:
 
-* Added option to include include the customer data in the data layer on the "purchase" event.
+* Added option to include the customer data in the data layer on the "purchase" event.
 * Added the constant 'GTMKIT_WC_DEBUG_TRACK_PURCHASE', which allows you to force tracking of purchase event on every page refresh for debugging.
 
 Bugfixes:
 
+* Fixed a bug where Easy Digital Download Pro was not detected.
 
 Other:
 
-* Changed required capability from 'install_plugins' to 'manage_options'
+* Changed required capability from 'install_plugins' to 'manage_options'.
 * WooCommerce tested up to: 7.6
 
 = 1.8 =

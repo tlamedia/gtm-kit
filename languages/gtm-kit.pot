@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.8.0\n"
+"Project-Id-Version: GTM Kit 1.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
-"POT-Creation-Date: 2023-04-01 09:47:37+00:00\n"
+"POT-Creation-Date: 2023-04-19 11:17:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,20 +25,20 @@ msgstr ""
 msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:140
+#: src/Admin/GeneralOptionsPage.php:50 src/Admin/GeneralOptionsPage.php:149
 msgid "Dashboard"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:141
+#: src/Admin/GeneralOptionsPage.php:59 src/Admin/GeneralOptionsPage.php:150
 msgid "Container"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:142
+#: src/Admin/GeneralOptionsPage.php:68 src/Admin/GeneralOptionsPage.php:151
 #: src/views/tabs/general/post_data.php:17
 msgid "Post data"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:143
+#: src/Admin/GeneralOptionsPage.php:74 src/Admin/GeneralOptionsPage.php:152
 #: src/views/tabs/general/user_data.php:17
 msgid "User data"
 msgstr ""
@@ -47,21 +47,29 @@ msgstr ""
 msgid "Misc"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:86 src/Admin/GeneralOptionsPage.php:145
+#: src/Admin/GeneralOptionsPage.php:86 src/Admin/GeneralOptionsPage.php:154
 #: src/views/tabs/general/help.php:17
 msgid "Help"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:114
-msgid "General"
+#: src/Admin/GeneralOptionsPage.php:95
+msgid "What's New"
 msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:123
+msgid "General"
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:132
 msgid "General Settings"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:144
+#: src/Admin/GeneralOptionsPage.php:153
 msgid "Misc."
+msgstr ""
+
+#: src/Admin/GeneralOptionsPage.php:155 src/views/tabs/general/whats_new.php:17
+msgid "What's new"
 msgstr ""
 
 #: src/Admin/IntegrationsOptionsPage.php:27
@@ -112,56 +120,56 @@ msgid "(not set)"
 msgstr ""
 
 #: src/Integration/EasyDigitalDownloads.php:110
-#: src/Integration/WooCommerce.php:178
+#: src/Integration/WooCommerce.php:179
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:169
+#: src/Integration/WooCommerce.php:170
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:170
+#: src/Integration/WooCommerce.php:171
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:171 src/Integration/WooCommerce.php:776
+#: src/Integration/WooCommerce.php:172 src/Integration/WooCommerce.php:827
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:172
+#: src/Integration/WooCommerce.php:173
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:173
+#: src/Integration/WooCommerce.php:174
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:174
+#: src/Integration/WooCommerce.php:175
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:175 src/Integration/WooCommerce.php:778
+#: src/Integration/WooCommerce.php:176 src/Integration/WooCommerce.php:829
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:176
+#: src/Integration/WooCommerce.php:177
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:177
+#: src/Integration/WooCommerce.php:178
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:659
+#: src/Integration/WooCommerce.php:710
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:693
+#: src/Integration/WooCommerce.php:744
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:693 src/Integration/WooCommerce.php:734
-#: src/Integration/WooCommerce.php:767
+#: src/Integration/WooCommerce.php:744 src/Integration/WooCommerce.php:785
+#: src/Integration/WooCommerce.php:818
 msgid "General Product List"
 msgstr ""
 
@@ -599,6 +607,62 @@ msgstr ""
 msgid "include the user role if the user is logged in."
 msgstr ""
 
+#: src/views/tabs/general/whats_new.php:23
+msgid "Include the customer data in the data layer"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:25
+msgid ""
+"This release is the first of two steps to include customer data in the data "
+"layer for all events."
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:26
+msgid "You can now add the customer data to the \"purchase\" event."
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:29
+#: src/views/tabs/general/whats_new.php:44
+#: src/views/tabs/general/whats_new.php:62
+msgid "Read about all the other change in the release Notes"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:38
+msgid "Support for the add_to_wishlist event"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:40
+msgid ""
+"If you are using ‘YITH WooCommerce Wishlist’ or ‘TI WooCommerce Wishlist’ "
+"you can now track users who add a product to the wishlist. Between them "
+"theese two plugins have 1 million active installations."
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:41
+msgid ""
+"It requires no configuration and all you have to do is install and activate "
+"one of the two plugins."
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:53
+msgid "Support for the new WooCommerce checkout block"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:56
+msgid ""
+"The Checkout block was introduced in WooCommerce 6.9 and until now there "
+"has been limited support for this new block type in GTM Kit, but this "
+"changes today. There is now full support for all the checkout events:"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:59
+msgid "These events now work in same way as on the classic checkout page."
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:72
+msgid "Older releases"
+msgstr ""
+
 #: src/views/tabs/integrations/cf7.php:19
 msgid "Contact Form 7 Integration"
 msgstr ""
@@ -763,12 +827,12 @@ msgid "Exclude tax from prices and revenue"
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:125
-#: src/views/tabs/integrations/woocommerce.php:260
+#: src/views/tabs/integrations/woocommerce.php:273
 msgid "Dequeue Default JS"
 msgstr ""
 
 #: src/views/tabs/integrations/edd.php:131
-#: src/views/tabs/integrations/woocommerce.php:266
+#: src/views/tabs/integrations/woocommerce.php:279
 msgid ""
 "Enable this option to dequeue the default JavaScript if you plan to create "
 "your own JavaScript."
@@ -889,6 +953,16 @@ msgstr ""
 msgid ""
 "Enable this option to include the path of cart, checkout, order received "
 "adn my account page."
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:260
+msgid "Include customer data"
+msgstr ""
+
+#: src/views/tabs/integrations/woocommerce.php:266
+msgid ""
+"Enable this option to include customer data in the data layer on the "
+"\"purchase\" event."
 msgstr ""
 
 #: src/views/tutorials-metabox.php:13
