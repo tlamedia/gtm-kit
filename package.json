@@ -24,7 +24,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.5.0",
-    "gulp-zip": "^5.1.0",
+    "gulp-zip": "^4.2.0",
     "sass": "^1.60.0",
     "yargs": "^17.7.1"
   },
