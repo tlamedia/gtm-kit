@@ -92,6 +92,20 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.x =
+
+Enhancements:
+
+
+
+Bugfixes:
+
+
+
+Other:
+
+* PHP requirement raised to PHP 7.3
+
 = 1.9 =
 
 Enhancements:
