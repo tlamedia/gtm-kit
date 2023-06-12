@@ -46,7 +46,7 @@ final class SetupWizard {
 		add_action( 'admin_init', [ $this, 'maybe_redirect_after_activation' ], 9999 );
 		add_action( 'admin_menu', [ $this, 'add_dashboard_page' ], 20 );
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 	}
 
@@ -105,9 +105,13 @@ final class SetupWizard {
 	}
 
 	/**
-	 * Load the scripts needed for the Setup Wizard.
+	 * Load the assets needed for the Setup Wizard.
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_assets( string $hook ) {
+
+		if ( strpos( $hook, $this->SLUG ) === false ) {
+			return;
+		}
 
 		if ( wp_get_environment_type() == 'local' ) {
 			$version = time();
@@ -122,13 +126,6 @@ final class SetupWizard {
 			$dependency = $deps_file['dependencies'];
 			$version    = $deps_file['version'];
 		}
-
-		wp_enqueue_style(
-			'gtmkit-admin-css',
-			GTMKIT_URL . 'assets/css/admin.css',
-			false,
-			$version
-		);
 
 		wp_enqueue_style( 'gtmkit-wizard-style', GTMKIT_URL . 'build/admin/wizard.css', array( 'wp-components' ), $version );
 
