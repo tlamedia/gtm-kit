@@ -109,7 +109,7 @@ final class SetupWizard {
 	 */
 	public function enqueue_assets( string $hook ) {
 
-		if ( strpos( $hook, $this->SLUG ) === false ) {
+		if ( strpos( $hook, self::SLUG ) === false ) {
 			return;
 		}
 
