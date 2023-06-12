@@ -7,6 +7,20 @@ namespace TLA_Media\GTM_Kit\Common;
  */
 final class Util {
 
+	/**
+	 * @var RestAPIServer
+	 */
+	public $rest_API_server;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param RestAPIServer $rest_API_server
+	 */
+	public function __construct( RestAPIServer $rest_API_server) {
+		$this->rest_API_server = $rest_API_server;
+	}
+
 	public function get_site_data( array $options ): array {
 
 		global $wp_version;

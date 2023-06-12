@@ -24,18 +24,12 @@ final class SetupWizard {
 	private $options;
 
 	/**
-	 * @var RestAPIServer
-	 */
-	private $rest_API_server;
-
-	/**
 	 * @var Util
 	 */
 	private $util;
 
-	public function __construct( Options $options, RestAPIServer $rest_API_server, Util $util ) {
+	public function __construct( Options $options, Util $util ) {
 		$this->options         = $options;
-		$this->rest_API_server = $rest_API_server;
 		$this->util            = $util;
 	}
 
@@ -225,7 +219,7 @@ final class SetupWizard {
 	 * @return void
 	 */
 	public function register_rest_routes(): void {
-		$this->rest_API_server->register_rest_route(
+		$this->util->rest_API_server->register_rest_route(
 			'/get-options',
 			[
 				'methods'  => 'POST',
@@ -233,7 +227,7 @@ final class SetupWizard {
 			]
 		);
 
-		$this->rest_API_server->register_rest_route(
+		$this->util->rest_API_server->register_rest_route(
 			'/set-options',
 			[
 				'methods'  => 'POST',
@@ -241,7 +235,7 @@ final class SetupWizard {
 			]
 		);
 
-		$this->rest_API_server->register_rest_route(
+		$this->util->rest_API_server->register_rest_route(
 			'/get-site-data',
 			[
 				'methods'  => 'POST',
