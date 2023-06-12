@@ -43,6 +43,8 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$form = OptionsForm::get_instance();
 		$form->admin_header( true, $this->option_name, $this->option_group, $this->get_menu_slug() );
 
+		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
+
 		$dashboard_tabs = new OptionTabs( 'general' );
 		$dashboard_tabs->add_tab(
 			new OptionTab(
@@ -77,7 +79,10 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->add_tab(
 			new OptionTab(
 				'misc',
-				__( 'Misc', 'gtm-kit' )
+				__( 'Misc', 'gtm-kit' ),
+				[
+					'tab_data' => ['site_data' => $site_data]
+				]
 			)
 		);
 		$dashboard_tabs->add_tab(
