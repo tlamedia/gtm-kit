@@ -101,10 +101,8 @@ Enhancements:
 Bugfixes:
 
 
-
 Other:
 
-* PHP requirement raised to PHP 7.3
 
 = 1.9 =
 
