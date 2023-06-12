@@ -59,9 +59,6 @@ $field_data['options']     = [
 	],
 	1 => [
 		'label' => __( 'Load container when browser is idle (requestIdleCallback)', 'gtm-kit' ),
-	],
-	2 => [
-		'label' => __( 'Load container 2 seconds after browser is idle (requestIdleCallback + timer)', 'gtm-kit' ),
 	]
 ];
 $field_data['legend']      = __( 'Container code implementation:', 'gtm-kit' );
@@ -72,7 +69,7 @@ $form->setting_row(
 	'script_implementation',
 	__( 'Container code implementation:', 'gtm-kit' ),
 	$field_data,
-	__( 'Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle. You can furthermore extend te delay with a timer.', 'gtm-kit' )
+	__( 'Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle.', 'gtm-kit' )
 );
 ?>
 
