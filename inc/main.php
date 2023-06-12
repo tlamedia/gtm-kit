@@ -2,6 +2,7 @@
 
 namespace TLA_Media\GTM_Kit;
 
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
@@ -53,7 +54,7 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 		esc_html__( 'Settings', 'gtm-kit' )
 	);
 
-	return array_merge( $custom, (array) $links );
+	return array_merge( $custom, $links );
 }
 
 /**
@@ -69,8 +70,9 @@ function gtmkit_load_text_domain(): void {
 function gtmkit_frontend_init(): void {
 	$options = new Options();
 	$rest_API_server = new RestAPIServer();
-	$util = new Util();
-	( new SetupWizard( $options, $rest_API_server, $util ) )->rest_init();
+	$util = new Util( $rest_API_server );
+
+	( new SetupWizard( $options, $util ) )->rest_init();
 	BasicDatalayerData::register( $options );
 	UserData::register( $options );
 	Frontend::register( $options );
@@ -101,15 +103,16 @@ function gtmkit_admin_init(): void {
 	}
 
 	add_action( 'before_woocommerce_init', function() {
-		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE, true );
+		if ( class_exists( FeaturesUtil::class ) ) {
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
 		}
 	} );
 
 	$options = new Options();
 	$rest_API_server = new RestAPIServer();
-	$util = new Util();
-	( new SetupWizard( $options, $rest_API_server, $util ) )->hooks();
+	$util = new Util( $rest_API_server );
+
+	( new SetupWizard( $options, $util ) )->hooks();
 	MetaBox::register( $options );
 	Analytics::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
