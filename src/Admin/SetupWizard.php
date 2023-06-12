@@ -188,7 +188,7 @@ final class SetupWizard {
 				<header class="gtmkit-text-center gtmkit-border-t-4 gtmkit-border-color-primary gtmkit-px-3">
 					<h1 class="gtmkit-mt-3 md:gtmkit-mt-12 gtmkit-w-[250px] gtmkit-inline-block">
 						<img src="<?php echo esc_attr( $inline_logo_image ); ?>"
-							 alt="<?php esc_attr_e( 'GTMc Kit logo', 'gtm-kit' ); ?>"
+							 alt="GTM Kit"
 							 class="gtmkit-w-full"
 						>
 					</h1>
