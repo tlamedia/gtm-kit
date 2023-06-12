@@ -9,13 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-09T21:07:09+00:00\n"
+"POT-Creation-Date: 2023-06-12T07:49:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: gtm-kit\n"
 
 #. Plugin Name of the plugin
 #: src/Admin/MetaBox.php:52
+#: build/admin/wizard.js:1
 msgid "GTM Kit"
 msgstr ""
 
@@ -35,16 +36,12 @@ msgstr ""
 msgid "https://www.tlamedia.dk/"
 msgstr ""
 
-#: inc/main.php:53
+#: inc/main.php:52
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:54
+#: inc/main.php:53
 msgid "Settings"
-msgstr ""
-
-#: src/Admin/AdminNotice.php:43
-msgid "To start using GTM Kit, please <a href=\"%s\">enter your GTM ID</a>"
 msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:50
@@ -54,7 +51,6 @@ msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:59
 #: src/Admin/GeneralOptionsPage.php:150
-#: build/admin/wizard.js:1
 msgid "Container"
 msgstr ""
 
@@ -98,7 +94,7 @@ msgid "Misc."
 msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:155
-#: src/views/tabs/general/whats_new.php:17
+#: src/views/tabs/general/whats_new.php:16
 msgid "What's new"
 msgstr ""
 
@@ -107,7 +103,6 @@ msgstr ""
 #: src/Admin/IntegrationsOptionsPage.php:91
 #: src/views/tabs/general/dashboard.php:102
 #: src/views/tabs/integrations/integrations.php:17
-#: build/admin/wizard.js:1
 msgid "Integrations"
 msgstr ""
 
@@ -145,112 +140,25 @@ msgstr ""
 msgid "(not set)"
 msgstr ""
 
-#: src/Admin/SetupWizard.php:246
-msgid "GTM Kit &rsaquo; Setup Wizard"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:261
-#: src/Admin/SetupWizard.php:325
+#: src/Admin/SetupWizard.php:155
+#: src/Admin/SetupWizard.php:212
 msgid "Go back to the Dashboard"
 msgstr ""
 
-#: src/Admin/SetupWizard.php:310
+#: src/Admin/SetupWizard.php:194
 msgid "GTMc Kit logo"
 msgstr ""
 
-#: src/Admin/SetupWizard.php:318
+#: src/Admin/SetupWizard.php:204
 msgid "Whoops, something's not working."
 msgstr ""
 
-#: src/Admin/SetupWizard.php:321
+#: src/Admin/SetupWizard.php:207
 msgid "It looks like something is preventing JavaScript from loading on your website. GTM Kit requires JavaScript in order to give you the best possible experience."
 msgstr ""
 
-#: src/Admin/SetupWizard.php:367
-#: src/Admin/SetupWizard.php:383
-#: src/Admin/SetupWizard.php:403
-#: src/Admin/SetupWizard.php:433
-#: src/Admin/SetupWizard.php:513
-#: src/Admin/SetupWizard.php:551
-#: src/Admin/SetupWizard.php:592
-msgid "You don't have permission to change options for this WP site!"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:628
-msgid "Could not install the plugin. You don't have permission to install plugins."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:632
-msgid "Could not install the plugin. You don't have permission to activate plugins."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:638
-msgid "Could not install the plugin. Plugin slug is missing."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:642
-msgid "Could not install the plugin. Plugin is not whitelisted."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:650
-#: src/Admin/SetupWizard.php:654
-msgid "Could not install the plugin. Don't have file permission."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:665
-msgid "Could not install the plugin. WP Plugin installer initialization failed."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:750
-msgid "Could not install the plugin. WP Plugin installer could not retrieve plugin information."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:811
-msgid "Contact Forms by WPForms"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:817
-msgid "Google Analytics by MonsterInsights"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:823
-msgid "All in One SEO"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:829
-msgid "Giveaways by RafflePress"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:835
-msgid "Smash Balloon Social Photo Feed"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:841
-msgid "SeedProd Landing Page Builder"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:847
-msgid "WP Call Button"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:901
-msgid "You are already using the WP Mail SMTP PRO version. Please refresh this page and verify your license key."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:905
-msgid "You don't have the permission to perform this action."
-msgstr ""
-
-#: src/Admin/SetupWizard.php:911
-msgid "Please enter a valid license key!"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:922
-msgid "Upgrade functionality not available!"
-msgstr ""
-
-#: src/Admin/SetupWizard.php:1201
-#: src/Common/RestAPIServer.php:20
+#: src/Admin/SetupWizard.php:267
+#: src/Common/RestAPIServer.php:23
 msgid "Only authenticated users can access endpoint."
 msgstr ""
 
@@ -727,17 +635,17 @@ msgstr ""
 msgid "Include the customer data in the data layer"
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:25
+#: src/views/tabs/general/whats_new.php:26
 msgid "This release is the first of two steps to include customer data in the data layer for all events."
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:26
+#: src/views/tabs/general/whats_new.php:27
 msgid "You can now add the customer data to the \"purchase\" event."
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:29
-#: src/views/tabs/general/whats_new.php:44
-#: src/views/tabs/general/whats_new.php:62
+#: src/views/tabs/general/whats_new.php:30
+#: src/views/tabs/general/whats_new.php:45
+#: src/views/tabs/general/whats_new.php:63
 msgid "Read about all the other change in the release Notes"
 msgstr ""
 
@@ -745,11 +653,11 @@ msgstr ""
 msgid "Support for the add_to_wishlist event"
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:40
+#: src/views/tabs/general/whats_new.php:41
 msgid "If you are using ‘YITH WooCommerce Wishlist’ or ‘TI WooCommerce Wishlist’ you can now track users who add a product to the wishlist. Between them theese two plugins have 1 million active installations."
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:41
+#: src/views/tabs/general/whats_new.php:42
 msgid "It requires no configuration and all you have to do is install and activate one of the two plugins."
 msgstr ""
 
@@ -757,16 +665,20 @@ msgstr ""
 msgid "Support for the new WooCommerce checkout block"
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:56
+#: src/views/tabs/general/whats_new.php:57
 msgid "The Checkout block was introduced in WooCommerce 6.9 and until now there has been limited support for this new block type in GTM Kit, but this changes today. There is now full support for all the checkout events:"
 msgstr ""
 
-#: src/views/tabs/general/whats_new.php:59
+#: src/views/tabs/general/whats_new.php:60
 msgid "These events now work in same way as on the classic checkout page."
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:72
 msgid "Older releases"
+msgstr ""
+
+#: src/views/tabs/general/whats_new.php:77
+msgid "Changelog"
 msgstr ""
 
 #: src/views/tabs/integrations/cf7.php:19
@@ -1118,14 +1030,6 @@ msgid "Go to the dashboard."
 msgstr ""
 
 #: build/admin/wizard.js:1
-msgid "Welcome"
-msgstr ""
-
-#: build/admin/wizard.js:1
-msgid "Google Tag Manager Container"
-msgstr ""
-
-#: build/admin/wizard.js:1
 msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
 msgstr ""
 
@@ -1139,6 +1043,14 @@ msgstr ""
 
 #: build/admin/wizard.js:1
 msgid "I agree to share anonymous data with the development team to help improve GTM Kit. "
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Welcome"
+msgstr ""
+
+#: build/admin/wizard.js:1
+msgid "Getting Started"
 msgstr ""
 
 #: build/admin/wizard.js:1

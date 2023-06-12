@@ -16,7 +16,7 @@
   ],
   "type": "wordpress-plugin",
   "require": {
-    "php": "^7.3 || ^8.0"
+    "php": "^7.2 || ^8.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -27,7 +27,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.3.0"
+      "php": "7.2.0"
     },
     "optimize-autoloader": true,
     "sort-packages": true
