@@ -20,6 +20,20 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
 		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+			1.10: <?php esc_html_e( 'Setup wizard for new users', 'gtm-kit' ); ?>
+		</h3>
+		<div class="gtmkit-p-3 gtmkit-space-y-1">
+			<p><?php esc_html_e( 'we are introducing a setup-wizard for new users that will help set up GTM Kit.', 'gtm-kit' ); ?></p>
+			<p class="gtmkit-text-color-primary !gtmkit-mt-4">
+				<a href="https://gtmkit.com/gtm-kit-1-10-setup-wizard-for-new-users/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=changelog&utm_content=release-notes-1-10">
+					<?php esc_html_e( 'Read about all the other change in the release Notes', 'gtm-kit' ); ?>
+				</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			1.9: <?php esc_html_e( 'Include the customer data in the data layer', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
