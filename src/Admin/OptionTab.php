@@ -75,6 +75,15 @@ class OptionTab {
 	}
 
 	/**
+	 * Gets the option group.
+	 *
+	 * @return string The option group.
+	 */
+	public function get_tab_data(): array {
+		return $this->get_argument( 'tab_data', [] );
+	}
+
+	/**
 	 * Retrieves the variable from the supplied arguments.
 	 *
 	 * @param string $variable Variable to retrieve.

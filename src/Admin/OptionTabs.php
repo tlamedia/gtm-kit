@@ -148,6 +148,7 @@ class OptionTabs {
 			$tab_view = $this->get_tab_view( $tab );
 
 			if ( is_file( $tab_view ) ) {
+				$tab_data = $tab->get_tab_data();
 				require $tab_view;
 			}
 

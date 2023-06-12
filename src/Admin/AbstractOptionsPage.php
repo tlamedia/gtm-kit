@@ -2,6 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 abstract class AbstractOptionsPage {
@@ -14,6 +15,11 @@ abstract class AbstractOptionsPage {
 	protected $options;
 
 	/**
+	 * @var Util
+	 */
+	protected $util;
+
+	/**
 	 * That's where plugin options are saved in wp_options table.
 	 *
 	 * @var string
@@ -24,18 +30,21 @@ abstract class AbstractOptionsPage {
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
-	public function __construct( Options $options ) {
+	public function __construct( Options $options, Util $util) {
 		$this->options = $options;
+		$this->util = $util;
 	}
 
 	/**
 	 * Register the options page.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
-	public static function register( Options $options ): void {
-		$page = new static( $options );
+	public static function register( Options $options, Util $util): void {
+		$page = new static( $options, $util );
 
 		add_action( 'admin_init', [ $page, 'configure' ] );
 		add_action( 'admin_menu', [ $page, 'add_admin_page' ] );

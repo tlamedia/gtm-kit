@@ -2,18 +2,18 @@
 
 namespace TLA_Media\GTM_Kit;
 
-use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-$analytics = Analytics::get_instance();
-
 /** @var OptionsForm $form */
+/** @var array $tab_data */
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
+
+$site_data = $tab_data['site_data']
 ?>
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2>
@@ -32,45 +32,44 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 				<?php esc_html_e( 'You can help by sharing anonymous data with us.', 'gtm-kit' ); ?>
 				<?php esc_html_e( 'Below is a detailed view of all data GTM Kit will collect if granted permission:', 'gtm-kit' ); ?>
 			</p>
-			<?php $data = $analytics->get_analytics_data(); ?>
-			<?php if ( $data ): ?>
+			<?php if ( $site_data ): ?>
 				<table class="gtmkit-data-table widefat striped">
 					<tbody>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Server type:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['web_server'] ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['web_server'] ) ); ?></td>
 					</tr>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'PHP version number:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['php_version'] ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['php_version'] ) ); ?></td>
 					</tr>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WordPress version number:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['wordpress_version'] ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['wordpress_version'] ) ); ?></td>
 					</tr>
-					<?php if (isset($data['woocommerce_version'])): ?>
+					<?php if (isset($site_data['woocommerce_version'])): ?>
 						<tr>
 							<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WooCommerce version number:', 'gtm-kit' ) ); ?></td>
-							<td><?php printf( '<code>%s</code>', esc_html( $data['woocommerce_version'] ) ); ?></td>
+							<td><?php printf( '<code>%s</code>', esc_html( $site_data['woocommerce_version'] ) ); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php if (isset($data['edd_version'])): ?>
+					<?php if (isset($site_data['edd_version'])): ?>
 						<tr>
 							<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Easy Digital Downloads version number:', 'gtm-kit' ) ); ?></td>
-							<td><?php printf( '<code>%s</code>', esc_html( $data['edd_version'] ) ); ?></td>
+							<td><?php printf( '<code>%s</code>', esc_html( $site_data['edd_version'] ) ); ?></td>
 						</tr>
 					<?php endif; ?>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WordPress multisite:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['multisite'] ? 'true' : 'false' ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['multisite'] ? 'true' : 'false' ) ); ?></td>
 					</tr>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Current theme:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['current_theme'] ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['current_theme'] ) ); ?></td>
 					</tr>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Current site language:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<code>%s</code>', esc_html( $data['locale'] ) ); ?></td>
+						<td><?php printf( '<code>%s</code>', esc_html( $site_data['locale'] ) ); ?></td>
 					</tr>
 					<tr>
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Active plugins:', 'gtm-kit' ) ); ?></td>
