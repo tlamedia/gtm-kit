@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.2
-Stable tag: 1.9.0
+Stable tag: 1.10.0
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,17 +92,16 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.x =
+= 1.10 =
 
 Enhancements:
 
 * Added setup wizard for onboarding new users
 
-Bugfixes:
-
-
 Other:
 
+* Updated dependencies
+* Implemented Tailwind
 
 = 1.9 =
 

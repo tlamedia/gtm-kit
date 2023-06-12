@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => $baseDir . '/src/Admin/AbstractOptionsPage.php',
-    'TLA_Media\\GTM_Kit\\Admin\\AdminNotice' => $baseDir . '/src/Admin/AdminNotice.php',
     'TLA_Media\\GTM_Kit\\Admin\\Analytics' => $baseDir . '/src/Admin/Analytics.php',
     'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => $baseDir . '/src/Admin/GeneralOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\IntegrationsOptionsPage' => $baseDir . '/src/Admin/IntegrationsOptionsPage.php',
@@ -16,6 +15,9 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\OptionTab' => $baseDir . '/src/Admin/OptionTab.php',
     'TLA_Media\\GTM_Kit\\Admin\\OptionTabs' => $baseDir . '/src/Admin/OptionTabs.php',
     'TLA_Media\\GTM_Kit\\Admin\\OptionsForm' => $baseDir . '/src/Admin/OptionsForm.php',
+    'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
+    'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => $baseDir . '/src/Common/RestAPIServer.php',
+    'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',
     'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => $baseDir . '/src/Frontend/Frontend.php',
     'TLA_Media\\GTM_Kit\\Frontend\\UserData' => $baseDir . '/src/Frontend/UserData.php',

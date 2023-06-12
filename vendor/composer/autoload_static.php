@@ -23,7 +23,6 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => __DIR__ . '/../..' . '/src/Admin/AbstractOptionsPage.php',
-        'TLA_Media\\GTM_Kit\\Admin\\AdminNotice' => __DIR__ . '/../..' . '/src/Admin/AdminNotice.php',
         'TLA_Media\\GTM_Kit\\Admin\\Analytics' => __DIR__ . '/../..' . '/src/Admin/Analytics.php',
         'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => __DIR__ . '/../..' . '/src/Admin/GeneralOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\IntegrationsOptionsPage' => __DIR__ . '/../..' . '/src/Admin/IntegrationsOptionsPage.php',
@@ -31,6 +30,9 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
         'TLA_Media\\GTM_Kit\\Admin\\OptionTab' => __DIR__ . '/../..' . '/src/Admin/OptionTab.php',
         'TLA_Media\\GTM_Kit\\Admin\\OptionTabs' => __DIR__ . '/../..' . '/src/Admin/OptionTabs.php',
         'TLA_Media\\GTM_Kit\\Admin\\OptionsForm' => __DIR__ . '/../..' . '/src/Admin/OptionsForm.php',
+        'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => __DIR__ . '/../..' . '/src/Admin/SetupWizard.php',
+        'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => __DIR__ . '/../..' . '/src/Common/RestAPIServer.php',
+        'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',
         'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => __DIR__ . '/../..' . '/src/Frontend/Frontend.php',
         'TLA_Media\\GTM_Kit\\Frontend\\UserData' => __DIR__ . '/../..' . '/src/Frontend/UserData.php',
