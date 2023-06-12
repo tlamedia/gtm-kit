@@ -120,8 +120,6 @@ public function get_datalayer_content(): void {
 		}
 
 		$script_implementation = (int) Options::init()->get( 'general', 'script_implementation' );
-
-		$delay = ( $script_implementation == 2 ) ? 3 : 0;
 		?>
 		<!-- Google Tag Manager -->
 		<script <?php $this->get_attributes(); ?>>
@@ -143,9 +141,9 @@ public function get_datalayer_content(): void {
 			        }, 1);
 			    };
 
-			requestIdleCallback(function () {setTimeout(function () {
-			    ' . $this->get_gtm_script( $gtm_id ) . '
-			}, ' . esc_js( $delay ) . ' * 1000)});';
+			requestIdleCallback(function () {';
+		$this->get_gtm_script( $gtm_id );
+		echo  '});';
 	} else {
 		$this->get_gtm_script( $gtm_id );
 	}

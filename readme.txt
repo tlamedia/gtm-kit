@@ -100,6 +100,8 @@ Bugfixes:
 
 Other:
 
+* Removed option to delay the container script by 2 seconds.
+
 = 1.10 =
 
 Enhancements:
