@@ -2,6 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 class Analytics {
@@ -14,15 +15,37 @@ class Analytics {
 	public static $instance;
 
 	/**
+	 * Plugin options.
+	 *
+	 * @var Options
+	 */
+	protected $options;
+
+	/**
+	 * @var Util
+	 */
+	private $util;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Options $options
+	 */
+	public function __construct( Options $options, Util $util) {
+		$this->options = $options;
+		$this->util = $util;
+	}
+
+	/**
 	 * Register analytics
 	 */
-	public static function register(): void {
-		self::$instance = $page = new static();
+	public static function register( Options $options, Util $util): void {
+		self::$instance = $page = new static( $options, $util );
 
 		if ( $page->send_analytics_data() ) {
 			add_action( 'admin_print_scripts', [ $page, 'add_mixpanel_script' ] );
 		}
-
+		
 	}
 
 	/**
@@ -38,11 +61,11 @@ class Analytics {
 		return self::$instance;
 	}
 
-
 	/**
 	 * Add Mixpanel tracking script
 	 */
 	public function add_mixpanel_script(): void {
+		$options = $this->options->get_all_raw();
 		?>
 		<!-- start Mixpanel -->
 		<script type="text/javascript">
@@ -54,7 +77,7 @@ class Analytics {
 				'ip': false,
 				'property_blacklist': ['$initial_referrer', '$current_url', '$initial_referring_domain', '$referrer', '$referring_domain']
 			});
-			mixpanel.track('GTM Kit', <?php echo wp_json_encode( $this->get_analytics_data() ); ?> );
+			mixpanel.track('GTM Kit', <?php echo wp_json_encode( $this->util->get_site_data( $options ) ); ?> );
 		</script>
 		<!-- end Mixpanel -->
 		<?php
@@ -70,7 +93,7 @@ class Analytics {
 			return false;
 		}
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
@@ -81,82 +104,6 @@ class Analytics {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Gets all data to send to the analytics system
-	 *
-	 * @return array An array of data
-	 */
-	function get_analytics_data(): array {
-		global $wp_version, $is_nginx, $is_apache, $is_iis7, $is_IIS;
-
-		$options = Options::init()->get_all_raw();
-		if ( ! $options ) {
-			return [];
-		}
-
-		unset( $options['general']['gtm_id'] );
-
-		$anonymize_general_options = [ 'datalayer_name', 'sgtm_domain', 'sgtm_container_identifier' ];
-
-		foreach ( $anonymize_general_options as $option ) {
-			if ( ! empty( $options['general'][ $option ] ) ) {
-				$options['general'][ $option ] = $option;
-			}
-		}
-
-		$data['options']    = $options;
-		$theme              = wp_get_theme();
-		$locale             = explode( '_', get_locale() );
-		$data['web_server'] = 'Unknown';
-
-		if ( $is_nginx ) {
-			$data['web_server'] = 'NGINX';
-		} elseif ( $is_apache ) {
-			$data['web_server'] = 'Apache';
-		} elseif ( $is_iis7 ) {
-			$data['web_server'] = 'IIS 7';
-		} elseif ( $is_IIS ) {
-			$data['web_server'] = 'IIS';
-		}
-
-		$data['php_version']       = preg_replace( '@^(\d\.\d+).*@', '\1', phpversion() );
-		$data['wordpress_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $wp_version );
-		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-			$wc_version                  = get_plugin_data( GTMKIT_PATH . '../woocommerce/woocommerce.php' )['Version'];
-			$data['woocommerce_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $wc_version );
-		}
-		if ( is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
-			$edd_version         = get_plugin_data( GTMKIT_PATH . '../easy-digital-downloads/easy-digital-downloads.php' )['Version'];
-			$data['edd_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $edd_version );
-		}
-		if ( is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ) {
-			$edd_version         = get_plugin_data( GTMKIT_PATH . '../easy-digital-downloads-pro/easy-digital-downloads.php' )['Version'];
-			$data['edd-pro_version'] = preg_replace( '@^(\d\.\d+).*@', '\1', $edd_version );
-		}
-		$data['current_theme']  = $theme->get( 'Name' );
-		$data['active_plugins'] = $this->get_active_plugins();
-		$data['locale']         = $locale[0];
-		$data['multisite']      = is_multisite();
-
-		return $data;
-	}
-
-	/**
-	 * Gets names of all active plugins.
-	 *
-	 * @return array An array of active plugins names.
-	 */
-	function get_active_plugins(): array {
-		$plugins        = [];
-		$active_plugins = array_intersect_key( get_plugins(), array_flip( array_filter( array_keys( get_plugins() ), 'is_plugin_active' ) ) );
-
-		foreach ( $active_plugins as $plugin ) {
-			$plugins[] = $plugin['Name'];
-		}
-
-		return $plugins;
 	}
 
 }

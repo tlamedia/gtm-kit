@@ -18,6 +18,7 @@ final class Util {
 		$data['wordpress_version'] = $this->shorten_version( $wp_version );
 		$data['current_theme']     = wp_get_theme()->get( 'Name' );
 		$data['active_plugins']    = $this->get_active_plugins();
+		$data                      = $this->add_active_plugin_and_version( 'gtm-kit/gtm-kit.php', 'gtmkit_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'woocommerce/woocommerce.php', 'woocommerce_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads/easy-digital-downloads.php', 'edd_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads-pro/easy-digital-downloads.php', 'edd-pro_version', $data );
