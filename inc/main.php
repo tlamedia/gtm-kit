@@ -111,7 +111,7 @@ function gtmkit_admin_init(): void {
 	$util = new Util();
 	( new SetupWizard( $options, $rest_API_server, $util ) )->hooks();
 	MetaBox::register( $options );
-	Analytics::register();
+	Analytics::register( $options, $util );
 	GeneralOptionsPage::register( $options );
 	IntegrationsOptionsPage::register( $options );
 }
