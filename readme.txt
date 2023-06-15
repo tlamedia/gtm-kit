@@ -40,9 +40,9 @@ The following GA4 events are automatically included in the dataLayer:
 
 ## Flexible container implementation
 
-Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle. You can furthermore extend te delay with a timer. This may be relevant to you be if are focusing on pagespeed.
+Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle. This may be relevant to you be if are focusing on pagespeed.
 
-You may enter a custom domain name if you are using a custom server side GTM (sGTM) container for tracking. It's also possible to specify a custom loader.
+You may enter a custom domain name if you are using a custom server side GTM (sGTM) container for tracking. It's also possible to specify a custom loader. GTM Kit has full support for Stape server GTM hosting.
 
 ## Post data
 
