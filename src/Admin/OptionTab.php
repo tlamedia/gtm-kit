@@ -32,7 +32,7 @@ class OptionTab {
 	 * @param string $label Localized label of the tab.
 	 * @param array $arguments Optional arguments.
 	 */
-	public function __construct( string $name, string $label, array $arguments = [] ) {
+	final public function __construct( string $name, string $label, array $arguments = [] ) {
 		$this->name      = sanitize_title( $name );
 		$this->label     = $label;
 		$this->arguments = $arguments;

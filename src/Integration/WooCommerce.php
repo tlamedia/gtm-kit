@@ -74,9 +74,9 @@ class WooCommerce  extends AbstractEcommerce {
 
 		// Set list name in WooCommerce loop
 		add_filter( 'woocommerce_product_loop_start', [ self::$instance, 'set_list_name_on_category_and_tag' ] );
-		add_filter( 'woocommerce_related_products_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_filter( 'woocommerce_cross_sells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
-		add_filter( 'woocommerce_upsells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop' ] );
+		add_filter( 'woocommerce_related_products_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
+		add_filter( 'woocommerce_cross_sells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
+		add_filter( 'woocommerce_upsells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
 		add_action( 'woocommerce_shortcode_before_best_selling_products_loop', [
 			self::$instance,
 			'set_list_name_in_woocommerce_loop'
@@ -809,14 +809,31 @@ class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @return void
 	 */
-	public function set_list_name_in_woocommerce_loop() {
+	public function set_list_name_in_woocommerce_loop(): void {
 		global $woocommerce_loop;
 
-		if ( isset( $woocommerce_loop['name'] ) && ! empty( $woocommerce_loop['name'] ) ) {
+		if ( ! empty( $woocommerce_loop['name'] ) ) {
 			$woocommerce_loop['gtmkit_list_name'] = ucwords( str_replace( '_', ' ', $woocommerce_loop['name'] ) );
 		} else {
 			$woocommerce_loop['gtmkit_list_name'] = __( 'General Product List', 'gtm-kit' );
 		}
+	}
+
+	/**
+	 * Set list name in WooCommerce loop
+	 *
+	 * @hook woocommerce_after_shop_loop_item.
+	 *
+	 * @param mixed $columns
+	 *
+	 * @return mixed
+	 */
+	public function set_list_name_in_woocommerce_loop_filter( $columns ) {
+		global $woocommerce_loop;
+
+		$this->set_list_name_in_woocommerce_loop();
+
+		return $columns;
 	}
 
 	public function set_list_name_on_category_and_tag( $value ) {

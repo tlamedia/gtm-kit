@@ -30,8 +30,9 @@ class Analytics {
 	 * Constructor.
 	 *
 	 * @param Options $options
+ 	 * @param Util $util
 	 */
-	public function __construct( Options $options, Util $util) {
+	final public function __construct( Options $options, Util $util) {
 		$this->options = $options;
 		$this->util = $util;
 	}
@@ -45,7 +46,7 @@ class Analytics {
 		if ( $page->send_analytics_data() ) {
 			add_action( 'admin_print_scripts', [ $page, 'add_mixpanel_script' ] );
 		}
-		
+
 	}
 
 	/**
@@ -54,10 +55,6 @@ class Analytics {
 	 * @return Analytics
 	 */
 	public static function get_instance(): Analytics {
-		if ( ! ( self::$instance instanceof self ) ) {
-			self::$instance = new self();
-		}
-
 		return self::$instance;
 	}
 

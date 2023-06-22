@@ -18,7 +18,7 @@ class BasicDatalayerData {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	final public function __construct( Options $options ) {
 		$this->options = $options;
 	}
 

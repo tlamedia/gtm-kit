@@ -31,7 +31,7 @@ class OptionTabs {
 	 * @param string $base Base of the tabs.
 	 * @param string $active_tab Currently active tab.
 	 */
-	public function __construct( string $base, string $active_tab = '' ) {
+	final public function __construct( string $base, string $active_tab = '' ) {
 		$this->base = sanitize_title( $base );
 
 		$tab              = filter_input( INPUT_GET, 'tab' );

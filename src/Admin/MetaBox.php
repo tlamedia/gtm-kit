@@ -18,7 +18,7 @@ class MetaBox {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	final public function __construct( Options $options ) {
 		$this->options = $options;
 	}
 
@@ -45,7 +45,9 @@ class MetaBox {
 				],
 				'objects'
 			);
-			unset( $post_types['attachment'] );
+			if ( isset( $post_types['attachment'] ) ) {
+				unset( $post_types['attachment'] );
+			}
 
 			foreach ( $post_types as $post_type => $post_type_object ) {
 				$label = $post_type_object->labels->singular_name;
