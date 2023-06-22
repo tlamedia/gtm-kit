@@ -32,7 +32,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get instance
 	 */
-	public static function instance() {
+	public static function instance(): ?EasyDigitalDownloads {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
 			self::$instance = new self( $options );
@@ -53,7 +53,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
-		add_action( 'edd_purchase_link_end', [ self::$instance, 'add_to_cart_tracking' ], 10, 2 );
+		add_action( 'edd_purchase_link_end', [ self::$instance, 'add_to_cart_tracking' ] );
 	}
 
 	/**
@@ -406,11 +406,10 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	 * @hook woocommerce_after_add_to_cart_button
 	 *
 	 * @param int $download_id
-	 * @param array $args
 	 *
 	 * @return void
 	 */
-	function add_to_cart_tracking( int $download_id, array $args ): void {
+	function add_to_cart_tracking( int $download_id ): void {
 
 		$product = edd_get_download( $download_id );
 

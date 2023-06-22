@@ -23,7 +23,7 @@ class OptionTabs {
 	 *
 	 * @var string
 	 */
-	private $active_tab = '';
+	private $active_tab;
 
 	/**
 	 * OptionTabs constructor.
@@ -124,6 +124,7 @@ class OptionTabs {
 			<ul class="gtmkit-nav-tab-wrapper" id="gtmkit-tabs">
 				<?php
 				foreach ( $this->get_tabs() as $tab ) {
+					/** @noinspection HtmlUnknownTarget */
 					printf(
 						'<li><a class="gtmkit-nav-tab" id="%1$s" href="%2$s">%3$s</a></li>',
 						esc_attr( $tab->get_name() . '-tab' ),

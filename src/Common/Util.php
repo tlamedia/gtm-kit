@@ -2,6 +2,8 @@
 
 namespace TLA_Media\GTM_Kit\Common;
 
+use function get_plugins;
+
 /**
  * Class for common utilities.
  */
@@ -55,7 +57,7 @@ final class Util {
 		}
 
 		$plugins        = [];
-		$active_plugins = array_intersect_key( \get_plugins(), array_flip( array_filter( array_keys( get_plugins() ), 'is_plugin_active' ) ) );
+		$active_plugins = array_intersect_key( get_plugins(), array_flip( array_filter( array_keys( get_plugins() ), 'is_plugin_active' ) ) );
 
 		foreach ( $active_plugins as $plugin ) {
 			$plugins[] = $plugin['Name'];

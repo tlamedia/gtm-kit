@@ -7,7 +7,9 @@
 
 namespace TLA_Media\GTM_Kit\Integration;
 
+use Exception;
 use TLA_Media\GTM_Kit\Options;
+use WC_Coupon;
 use WC_Customer;
 use WC_Order;
 use WC_Product;
@@ -32,7 +34,7 @@ class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get instance
 	 */
-	public static function instance() {
+	public static function instance(): ?WooCommerce {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
 			self::$instance = new self( $options );
@@ -67,7 +69,7 @@ class WooCommerce  extends AbstractEcommerce {
 			self::$instance,
 			'product_block_add_to_cart_tracking'
 		], 20, 3 );
-		add_filter( 'tinvwl_wishlist_item_meta_post', [ self::$instance, 'Compatibility_With_TI_Wishlist' ], 10, 3 );
+		add_filter( 'tinvwl_wishlist_item_meta_post', [ self::$instance, 'Compatibility_With_TI_Wishlist' ] );
 
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
@@ -473,7 +475,7 @@ class WooCommerce  extends AbstractEcommerce {
 					$wc_customer = new WC_Customer( WC()->customer->get_id() );
 					$order_count = $wc_customer->get_order_count();
 					$total_spent = $wc_customer->get_total_spent();
-				} catch ( \Exception $e ) {
+				} catch ( Exception $e ) {
 					$wc_customer = WC()->customer;
 					$order_count = 1;
 					$total_spent = $order_value;
@@ -638,18 +640,18 @@ class WooCommerce  extends AbstractEcommerce {
 
 			foreach ( $coupons as $coupon ) {
 
-				$coupon = new \WC_Coupon( $coupon );
+				$coupon = new WC_Coupon( $coupon );
 
 				$included_products = true;
 				$included_cats     = true;
 
 				if ( count( $product_ids = $coupon->get_product_ids() ) > 0 ) {
-					if ( ! in_array( $item['product_id'], $product_ids, false ) ) {
+					if ( ! in_array( $item['product_id'], $product_ids ) ) {
 						$included_products = false;
 					}
 				}
 				if ( count( $excluded_product_ids = $coupon->get_excluded_product_ids() ) > 0 ) {
-					if ( in_array( $item['product_id'], $excluded_product_ids, false ) ) {
+					if ( in_array( $item['product_id'], $excluded_product_ids ) ) {
 						$included_products = false;
 					}
 				}
@@ -779,7 +781,7 @@ class WooCommerce  extends AbstractEcommerce {
 	function product_list_loop_add_to_cart_tracking(): void {
 		global $product, $woocommerce_loop;
 
-		if ( isset( $woocommerce_loop['gtmkit_list_name'] ) && ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
+		if ( ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
 			$list_name = $woocommerce_loop['gtmkit_list_name'];
 		} else {
 			$list_name = __( 'General Product List', 'gtm-kit' );
@@ -909,12 +911,10 @@ class WooCommerce  extends AbstractEcommerce {
 	 * Compatibility with TI WooCommerce Wishlist
 	 *
 	 * @param array $item_data
-	 * @param $product_id
-	 * @param $variation_id
 	 *
 	 * @return array
 	 */
-	function Compatibility_With_TI_Wishlist( array $item_data, $product_id, $variation_id ): array {
+	function Compatibility_With_TI_Wishlist( array $item_data ): array {
 
 		foreach ( array_keys( $item_data ) as $key ) {
 			if ( strpos( $key, 'gtmkit_' ) === 0 ) {
