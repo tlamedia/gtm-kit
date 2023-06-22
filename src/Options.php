@@ -117,13 +117,13 @@ class Options {
 		if ( $value === null ) {
 			// Ordinary database or default values.
 			if ( isset( $this->options[ $group ] ) ) {
-				$value = $this->options[ $group ][ $key ] ?? $this->postprocess_key_defaults( $group, $key );
+				$value = $this->options[ $group ][ $key ] ?? $this->postprocess_key_defaults( $key );
 			} else {
 				if (
 					isset( self::$map[ $group ] ) &&
 					in_array( $key, self::$map[ $group ], true )
 				) {
-					$value = $this->postprocess_key_defaults( $group, $key );
+					$value = $this->postprocess_key_defaults( $key );
 				}
 			}
 		}
@@ -139,12 +139,11 @@ class Options {
 	/**
 	 * Postprocess options.
 	 *
-	 * @param string $group
 	 * @param string $key
 	 *
-	 * @return mixed
+	 * @return int|string
 	 */
-	protected function postprocess_key_defaults( string $group, string $key ) {
+	protected function postprocess_key_defaults( string $key ) {
 
 		$value = '';
 
@@ -184,12 +183,15 @@ class Options {
 			case 'general':
 				switch ( $key ) {
 					case 'gtm_id':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ID : $value;
 						break;
 					case 'container_active':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ACTIVE : $value;
 						break;
 					case 'console_log':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONSOLE_LOG : $value;
 						break;
 				}
@@ -232,22 +234,23 @@ class Options {
 			case 'general':
 				switch ( $key ) {
 					case 'gtm_id':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = defined( 'GTMKIT_CONTAINER_ID' ) && GTMKIT_CONTAINER_ID;
 						break;
 					case 'container_active':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = defined( 'GTMKIT_CONTAINER_ACTIVE' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONTAINER_ACTIVE === true );
 						break;
 					case 'console_log':
+						/** @noinspection PhpUndefinedConstantInspection */
 						$return = defined( 'GTMKIT_CONSOLE_LOG' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONSOLE_LOG === true );
 						break;
 				}
 
 				break;
 			case 'integration':
-				switch ( $key ) {
-					case 'woocommerce_debug_track_purchase':
-						$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
-						break;
+				if ( $key == 'woocommerce_debug_track_purchase' ) {
+					$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
 				}
 
 				break;
@@ -296,22 +299,18 @@ class Options {
 	 */
 	private function process_genericoptions( array $options ): array {
 
-		foreach ( (array) $options as $group => $keys ) {
+		foreach ( $options as $group => $keys ) {
 			foreach ( $keys as $option_name => $option_value ) {
 				switch ( $group ) {
 					case 'general':
-						switch ( $option_name ) {
-							case 'gtm_id':
-								$options[ $group ][ $option_name ] = sanitize_text_field( $option_value );
-								break;
+						if ( $option_name == 'gtm_id' ) {
+							$options[ $group ][ $option_name ] = sanitize_text_field( $option_value );
 						}
 						break;
 
 					case 'debug_events':
-						switch ( $option_name ) {
-							case 'email_debug':
-								$options[ $group ][ $option_name ] = (bool) $option_value;
-								break;
+						if ( $option_name == 'email_debug' ) {
+							$options[ $group ][ $option_name ] = (bool) $option_value;
 						}
 				}
 			}

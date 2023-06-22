@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
-use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use WP_Error;
 
 /**
  * Class for the plugin's Setup Wizard.
@@ -248,14 +248,14 @@ final class SetupWizard {
 	/**
 	 * Permission callback
 	 *
-	 * @return true|\WP_Error
+	 * @return true|WP_Error
 	 */
 	public function permission_callback() {
 		$capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 		$capability = apply_filters( 'gtmkit_admin_capability', $capability );
 
 		if ( ! current_user_can( $capability ) ) {
-			return new \WP_Error( 'rest_forbidden', esc_html__( 'Only authenticated users can access endpoint.', 'gtm-kit' ), [ 'status' => 401 ] );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Only authenticated users can access endpoint.', 'gtm-kit' ), [ 'status' => 401 ] );
 		}
 
 		return true;

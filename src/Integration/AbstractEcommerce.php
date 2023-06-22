@@ -71,7 +71,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 			$primary_term_id = yoast_get_primary_term_id( $taxonomy, $product_id );
 		} elseif ( function_exists( 'rank_math' ) ) {
 			$primary_cat_id = get_post_meta( $product_id, 'rank_math_primary_' . $taxonomy, true );
-			if ( isset( $primary_cat_id ) && ! empty( $primary_cat_id ) && intval( $primary_cat_id ) ) {
+			if ( ! empty( $primary_cat_id ) && intval( $primary_cat_id ) ) {
 				$primary_term_id = $primary_cat_id;
 			}
 		}

@@ -75,9 +75,9 @@ class OptionTab {
 	}
 
 	/**
-	 * Gets the option group.
+	 * Get tab data.
 	 *
-	 * @return string The option group.
+	 * @return array The tab data.
 	 */
 	public function get_tab_data(): array {
 		return $this->get_argument( 'tab_data', [] );

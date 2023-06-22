@@ -18,13 +18,14 @@ class ContactForm7 extends AbstractIntegration {
 	 * @param Options $options
 	 */
 	public function __construct( Options $options ) {
-		$this->options = $options;
+		// Call parent constructor.
+		parent::__construct( $options );
 	}
 
 	/**
 	 * Get instance
 	 */
-	public static function instance() {
+	public static function instance(): ?ContactForm7 {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
 			self::$instance = new self( $options );

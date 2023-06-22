@@ -212,8 +212,6 @@ class OptionsForm {
 	 *
 	 * @param string $text Legend text string.
 	 * @param array $attribute HTML attributes set.
-	 *
-	 * @return string The HTML legend
 	 */
 	public function legend( string $text, array $attribute ): void {
 		$defaults  = [
@@ -231,7 +229,7 @@ class OptionsForm {
 	 * Create a Checkbox input toggle.
 	 *
 	 * @param string $variable The variable within the option to create the checkbox for.
-	 * @param array $attribute Extra attributes to add to the checkbox.
+	 * @param array $field_data
 	 */
 	public function checkbox_toggle_field( string $variable, array $field_data = [] ): void {
 
@@ -270,8 +268,7 @@ class OptionsForm {
 	 * Create a Text input field.
 	 *
 	 * @param string $variable The variable within the option to create the text input field for.
-	 * @param string $label The label to show for the variable.
-	 * @param array $attribute Extra attributes to add to the input field. Can be class, disabled, autocomplete.
+	 * @param array $field_data
 	 */
 	public function text_input_field( string $variable, array $field_data = [] ): void {
 
@@ -294,7 +291,6 @@ class OptionsForm {
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 
-		$attributes
 		?>
 		<input
 			<?php echo esc_attr( $attributes ); ?>
@@ -374,11 +370,7 @@ class OptionsForm {
 	 * Create a Select Box.
 	 *
 	 * @param string $variable The variable within the option to create the select for.
-	 * @param string $label The label to show for the variable.
-	 * @param array $select_options The select options to choose from.
-	 * @param bool $show_label Whether to show the label, if not, it will be applied as an aria-label.
-	 * @param array $attribute Extra attributes to add to the select.
-	 * @param string $help Optional. Inline Help HTML that will be printed after the label. Default is empty.
+	 * @param array $fieldset_data
 	 */
 	public function select( string $variable, array $fieldset_data = [] ): void {
 
@@ -426,11 +418,7 @@ class OptionsForm {
 	 * Create a Radio input field.
 	 *
 	 * @param string $variable The variable within the option to create the radio button for.
-	 * @param string $label The label to show for the field set.
-	 * @param array $values The radio options to choose from.
-	 * @param string $legend Optional. The legend to show for the field set, if any.
-	 * @param array $legend_attr Optional. The attributes for the legend, if any.
-	 * @param array $attribute Extra attributes to add to the radio button.
+	 * @param array $fieldset_data
 	 */
 	public function radio_fieldset( string $variable, array $fieldset_data = [] ): void {
 
@@ -468,8 +456,8 @@ class OptionsForm {
 			$aria_label   = '';
 
 			if ( is_array( $value ) ) {
-				$option_label = isset( $value['label'] ) ? $value['label'] : '';
-				$aria_label   = isset( $value['aria_label'] ) ? $value['aria_label'] : '';
+				$option_label = $value['label'] ?? '';
+				$aria_label   = $value['aria_label'] ?? '';
 			}
 			?>
 			<input

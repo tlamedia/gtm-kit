@@ -47,6 +47,7 @@ register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_activati
  */
 function gtmkit_add_plugin_action_link( array $links ): array {
 
+	/** @noinspection HtmlUnknownTarget */
 	$custom['settings'] = sprintf(
 		'<a href="%s" aria-label="%s">%s</a>',
 		esc_url( menu_page_url( 'gtmkit_general', false ) ),

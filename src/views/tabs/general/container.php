@@ -93,8 +93,6 @@ $field_data['options'] = [
 
 ];
 
-$legend      = __( 'Container code implementation', 'gtm-kit' );
-$legend_attr = [ 'class' => 'radiogroup screen-reader-text' ];
 $description = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtm-kit' ) . ' ';
 $description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtm-kit' ) . ' ';
 $description .= __( 'If your theme does not support this the script can be injected in the footer or you can use the function below.', 'gtm-kit' );
@@ -104,7 +102,7 @@ $description .= '<code>&lt;?php if ( function_exists( \'gtmkit_the_noscript_tag\
 $form->setting_row(
 	'radio',
 	'noscript_implementation',
-	__( 'Container code <code>&lt;noscript&gt;</code> implementation:', 'gtm-kit' ),
+	$label,
 	$field_data,
 	$description
 );
