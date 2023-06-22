@@ -101,7 +101,7 @@ Bugfixes:
 Other:
 
 * Removed option to delay the container script by 2 seconds.
-* WooCommerce tested up to: 7.8
+* WooCommerce tested up to: 7.9
 
 = 1.10 =
 
