@@ -22,7 +22,7 @@ class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	final public function __construct( Options $options ) {
 		$this->store_currency = edd_get_currency();
 
 		// Call parent constructor.

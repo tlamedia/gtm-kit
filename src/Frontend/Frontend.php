@@ -25,7 +25,7 @@ class Frontend {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	final public function __construct( Options $options ) {
 		$this->options        = $options;
 		$this->datalayer_name = ( $this->options->get( 'general', 'datalayer_name' ) ) ?: 'dataLayer';
 	}

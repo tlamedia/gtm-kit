@@ -275,7 +275,7 @@ class Options {
 		if ( $once ) {
 			add_option( self::OPTION_NAME, $options, '', 'no' ); // Do not autoload these options.
 		} else {
-			if ( is_multisite() && WP::use_global_plugin_settings() ) {
+			if ( is_multisite() ) {
 				update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
 			} else {
 				update_option( self::OPTION_NAME, $options, 'no' );

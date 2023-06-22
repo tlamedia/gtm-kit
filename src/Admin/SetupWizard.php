@@ -28,7 +28,7 @@ final class SetupWizard {
 	 */
 	private $util;
 
-	public function __construct( Options $options, Util $util ) {
+	final public function __construct( Options $options, Util $util ) {
 		$this->options         = $options;
 		$this->util            = $util;
 	}
