@@ -46,20 +46,3 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		</div>
 	</div>
 </div>
-
-<div class="gtmkit_section_message">
-	<div class="stuffbox">
-		<h3 class="hndle">
-			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
-			<span class="version">(<?php esc_html_e( 'Version:', 'gtm-kit' ); ?> <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
-		</h3>
-		<div class="inside">
-			<ul>
-				<li>
-					<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtm-kit' ); ?>
-					<a href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtm-kit' ); ?></a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
