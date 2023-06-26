@@ -19,7 +19,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 <div class="gtmkit-text-sm">
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			1.10: <?php esc_html_e( 'Setup wizard for new users', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
@@ -33,7 +33,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			1.9: <?php esc_html_e( 'Include the customer data in the data layer', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
@@ -48,7 +48,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			1.8: <?php esc_html_e( 'Support for the add_to_wishlist event', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
@@ -63,7 +63,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			1.7: <?php esc_html_e( 'Support for the new WooCommerce checkout block', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
@@ -82,7 +82,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			<?php esc_html_e( 'Older releases', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3">
@@ -95,7 +95,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	</div>
 
 	<div class="gtmkit-mt-16 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-base gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey gtmkit-flex gtmkit-items-center">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey gtmkit-flex gtmkit-items-center">
 			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
 			<span class="gtmkit-text-sm gtmkit-text-color-grey gtmkit-font-light gtmkit-ml-2">(<?php esc_html_e( 'Version:', 'gtm-kit' ); ?> <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
 		</h3>
