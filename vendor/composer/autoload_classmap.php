@@ -10,6 +10,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => $baseDir . '/src/Admin/AbstractOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\Analytics' => $baseDir . '/src/Admin/Analytics.php',
     'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => $baseDir . '/src/Admin/GeneralOptionsPage.php',
+    'TLA_Media\\GTM_Kit\\Admin\\HelpOptionsPage' => $baseDir . '/src/Admin/HelpOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\IntegrationsOptionsPage' => $baseDir . '/src/Admin/IntegrationsOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\MetaBox' => $baseDir . '/src/Admin/MetaBox.php',
     'TLA_Media\\GTM_Kit\\Admin\\OptionTab' => $baseDir . '/src/Admin/OptionTab.php',
