@@ -20,6 +20,27 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
 		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
+			<?php esc_html_e( 'Google Tag Manager templates', 'gtm-kit' ); ?>
+		</h3>
+		<div class="gtmkit-p-3 gtmkit-space-y-1">
+			<p class="gtmkit-mb-4">
+				<?php esc_html_e( 'Below you will find GTM container import files, with all the necessary tags, trigger, and variables to use Google Analytics 4.', 'gtm-kit' ); ?>
+				<?php esc_html_e( 'Please read the guide on how to use the import files and configure GTM.', 'gtm-kit' ); ?>
+				<a class="gtmkit-text-color-primary" href="https://gtmkit.com/guides/how-to-setup-google-analytics-ga4-in-google-tag-manager/">
+					<?php esc_html_e( 'Read guide', 'gtm-kit' ); ?>
+				</a>
+
+			</p>
+			<p class="gtmkit-font-bold"><?php esc_html_e( 'GTM container import files:', 'gtm-kit' ); ?></p>
+			<ul class="gtmkit-text-color-primary">
+				<li><a href="https://templates.gtmkit.com/gtm/GTM-Google-Analytics-4.json" target="_blank"><?php esc_html_e( 'Google Analytics 4 - Basic Configuration', 'gtm-kit' ); ?></a></li>
+				<li><a href="https://templates.gtmkit.com/gtm/GTM-GA4-eCommerce.json" target="_blank"><?php esc_html_e( 'Google Analytics 4 - eCommerce', 'gtm-kit' ); ?></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
+		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			<?php esc_html_e( 'Tutorials', 'gtm-kit' ); ?>
 		</h3>
 		<div class="gtmkit-p-3 gtmkit-space-y-1">
