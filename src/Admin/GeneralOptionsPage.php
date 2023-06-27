@@ -87,15 +87,6 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		);
 		$dashboard_tabs->add_tab(
 			new OptionTab(
-				'help',
-				__( 'Help', 'gtm-kit' ),
-				[
-					'save_button' => false,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
 				'whats_new',
 				__( "What's New", 'gtm-kit' ),
 				[
@@ -156,7 +147,6 @@ class GeneralOptionsPage extends AbstractOptionsPage {
 		$generalTabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'misc', __( 'Misc.', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'help', __( 'Help', 'gtm-kit' ) ) );
 		$generalTabs->add_tab( new OptionTab( 'whats_new', __( "What's new", 'gtm-kit' ) ) );
 	}
 

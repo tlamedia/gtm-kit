@@ -18,7 +18,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 <div class="gtmkit-text-sm">
 
-	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
+	<div class="gtmkit-my-8 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
 		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			<?php esc_html_e( 'Google Tag Manager templates', 'gtm-kit' ); ?>
 		</h3>
@@ -39,7 +39,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		</div>
 	</div>
 
-	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
+	<div class="gtmkit-my-8 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
 		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
 			<?php esc_html_e( 'Tutorials', 'gtm-kit' ); ?>
 		</h3>
@@ -51,19 +51,6 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 				<li><a href="https://gtmkit.com/documentation/set-up-easy-digital-downloads-for-google-tag-manager/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=set-up-easy-digital-downloads-for-google-tag-manager&utm_content=help-tutorials" target="_blank">Easy Digital Downloads integration</a></li>
 				<li><a href="https://gtmkit.com/documentation/advanced-gtm-container-implementation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=advanced-container-implementation&utm_content=help-tutorials" target="_blank">Advanced GTM container implementation</a></li>
 				<li><a href="https://gtmkit.com/documentation/settings-actions-and-filters-for-developers/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=settings-actions-and-filters-for-developers&utm_content=help-tutorials" target="_blank">Settings, actions and filters for developers</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="gtmkit-my-6 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey">
-			<?php esc_html_e( 'Support', 'gtm-kit' ); ?>
-		</h3>
-		<div class="gtmkit-p-3 gtmkit-space-y-1">
-			<ul class="gtmkit-text-color-primary">
-				<li><a href="https://wordpress.org/support/plugin/gtm-kit/" target="_blank"><?php esc_html_e( 'Support forum', 'gtm-kit' ); ?></a></li>
-				<li><a href="https://gtmkit.com/" target="_blank"><?php esc_html_e( 'Plugin Homepage', 'gtm-kit' ); ?></a> (gtmkit.com)</li>
-				<li><a href="https://wordpress.org/plugins/gtm-kit/" target="_blank"><?php esc_html_e( 'WordPress.org Plugin Page', 'gtm-kit' ); ?></a></li>
 			</ul>
 		</div>
 	</div>

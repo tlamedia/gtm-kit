@@ -4,6 +4,7 @@ namespace TLA_Media\GTM_Kit;
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Admin\Analytics;
+use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
@@ -118,6 +119,7 @@ function gtmkit_admin_init(): void {
 	Analytics::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util);
+	HelpOptionsPage::register( $options, $util);
 }
 
 /**
