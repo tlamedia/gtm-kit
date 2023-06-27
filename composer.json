@@ -40,7 +40,7 @@
     "sort-packages": true
   },
   "scripts": {
-    "phpstan": "phpstan analyze --ansi",
+    "phpstan": "phpstan analyze --ansi --memory-limit=2048M",
     "no-dev": "composer install --no-dev"
   }
 }
