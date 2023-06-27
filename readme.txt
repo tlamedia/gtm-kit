@@ -96,6 +96,8 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added help section with GTM container import files
+
 Bugfixes:
 
 Other:
