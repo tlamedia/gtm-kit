@@ -38,6 +38,16 @@ $form->setting_row(
 );
 ?>
 
+<?php
+$form->setting_row(
+	'checkbox-toggle',
+	'just_the_container',
+	__( 'Just the container', 'gtm-kit' ),
+	[],
+	__( 'Setting this to On will reduce the functionality to just the GTM container code. No additional data will be pushed to the datalayer regardless of any other settings.', 'gtm-kit' )
+);
+?>
+
 <div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 	<h2><?php esc_html_e( 'Google Tag Manager container code', 'gtm-kit' ); ?></h2>
 </div>

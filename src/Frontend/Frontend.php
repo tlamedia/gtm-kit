@@ -38,10 +38,13 @@ class Frontend {
 	public static function register( Options $options ): void {
 		$page = new static( $options );
 
+		if ( empty( $options->get( 'general', 'just_the_container' ) ) ) {
+			add_action( 'wp_head', [ $page, 'get_header_datalayer' ], 1, 0 );
+			add_action( 'wp_head', [ $page, 'get_datalayer_content' ] );
+		}
+
 		$container_active = Options::init()->get( 'general', 'container_active' );
 
-		add_action( 'wp_head', [ $page, 'get_header_datalayer' ], 1, 0 );
-		add_action( 'wp_head', [ $page, 'get_datalayer_content' ] );
 		if ( $container_active ) {
 			add_action( 'wp_head', [ $page, 'get_header_script' ], 10, 0 );
 		} elseif ( Options::init()->get( 'general', 'console_log' ) ) {

@@ -96,6 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 
+* Added Just-The-Container mode for those with simple needs. This option reduces the functionality to just the GTM container code.
 * Added help section with GTM container import files
 
 Bugfixes:

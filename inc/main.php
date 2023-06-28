@@ -75,19 +75,24 @@ function gtmkit_frontend_init(): void {
 	$util = new Util( $rest_API_server );
 
 	( new SetupWizard( $options, $util ) )->rest_init();
-	BasicDatalayerData::register( $options );
-	UserData::register( $options );
+
+	if ( ! $options->get( 'general', 'just_the_container' ) ) {
+		BasicDatalayerData::register( $options );
+		UserData::register( $options );
+
+		if ( $options->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
+			WooCommerce::register( $options );
+		}
+		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
+			ContactForm7::register( $options );
+		}
+		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
+			EasyDigitalDownloads::register( $options );
+		}
+	}
+
 	Frontend::register( $options );
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
-	if ( Options::init()->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
-		WooCommerce::register( $options );
-	}
-	if ( Options::init()->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
-		ContactForm7::register( $options );
-	}
-	if ( Options::init()->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
-		EasyDigitalDownloads::register( $options );
-	}
 
 }
 
