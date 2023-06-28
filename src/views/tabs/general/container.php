@@ -38,6 +38,10 @@ $form->setting_row(
 );
 ?>
 
+<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
+	<h2><?php esc_html_e( 'Google Tag Manager container code', 'gtm-kit' ); ?></h2>
+</div>
+
 <?php
 $form->setting_row(
 	'checkbox-toggle',
@@ -47,9 +51,6 @@ $form->setting_row(
 	__( 'Setting this to Off will remove the Google Tag Manager container code but the data layer will remain.', 'gtm-kit' )
 );
 ?>
-<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
-	<h2><?php esc_html_e( 'Google Tag Manager container code', 'gtm-kit' ); ?></h2>
-</div>
 
 <?php
 $field_data                = [];
