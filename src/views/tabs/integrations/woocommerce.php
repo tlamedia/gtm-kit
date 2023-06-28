@@ -32,23 +32,6 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		<?php endif; ?>
 	</div>
 
-	<div class="gtmkit_section_message warning">
-		<div class="stuffbox">
-			<h3 class="hndle">Google Analytics</h3>
-			<div class="inside">
-				<ul>
-					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023 and therefor a Google Analytics 4 property is required.', 'gtm-kit' ); ?></li>
-					<li>
-						<?php esc_html_e( 'GTM Kit is only supporting GA4 events but you can use GA4 events in Universal Analytics Enhanced Ecommerce.', 'gtm-kit' ); ?>
-						<a href="https://gtmkit.com/guides/use-ga4-ecommerce-events-in-universal-analytics/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce-integration&utm_content=help-tutorials" target="_blank">
-							<?php esc_html_e( 'Read more', 'gtm-kit' ); ?>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
 	<?php
 $form->setting_row(
 	'checkbox-toggle',
