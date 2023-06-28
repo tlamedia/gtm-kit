@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
 {
+    public static $files = array (
+        '1f155afceeab454b94183cdd8d5248a6' => __DIR__ . '/..' . '/mixpanel/mixpanel-php/lib/Mixpanel.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (

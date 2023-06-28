@@ -91,6 +91,10 @@ function gtmkit_frontend_init(): void {
 		}
 	}
 
+	if ( $options->get( 'general', 'analytics_active' ) ) {
+		Analytics::register( $options, $util );
+	}
+
 	Frontend::register( $options );
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
 
