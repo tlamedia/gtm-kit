@@ -15,21 +15,6 @@ import packageJSON from "./package.json";
 import replace from "gulp-replace";
 
 
-export const compress = () => {
-	return src([
-		"**/*",
-		"!node_modules{,/**}",
-		"!bundled{,/**}",
-		"!.babelrc",
-		"!.gitignore",
-		"!gulpfile.babel.js",
-		"!package.json",
-		"!package-lock.json",
-	])
-		.pipe(zip(`${packageJSON.name}.zip`))
-		.pipe(dest('bundled'));
-};
-
 const PRODUCTION = yargs.argv.prod;
 
 export const styles = () => {
@@ -91,6 +76,6 @@ export const replace_version = () => {
 export const clean = () => del(['assets']);
 
 export const dev = series(clean, parallel(styles, scripts, images), watchForChanges)
-export const build = series(clean, parallel(styles, images, scripts), compress);
+export const build = series(clean, parallel(styles, images, scripts));
 export default dev;
 
