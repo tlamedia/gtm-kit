@@ -34,7 +34,8 @@
     "build": "gulp build --prod",
     "i18n:textdomain": "wpi18n addtextdomain",
     "i18n:pot": "wp i18n make-pot ./ languages/gtm-kit.pot",
-    "tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/tailwind-compiled.scss --watch"
+    "tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/tailwind-compiled.scss --watch",
+    "change-version": "./bin/change-version.sh $npm_package_version"
   },
   "dependencies": {
     "node-wp-i18n": "^1.2.6"

@@ -91,6 +91,6 @@ export const replace_version = () => {
 export const clean = () => del(['assets']);
 
 export const dev = series(clean, parallel(styles, scripts, images), watchForChanges)
-export const build = series(clean, parallel(styles, images, scripts), replace_version, compress);
+export const build = series(clean, parallel(styles, images, scripts), compress);
 export default dev;
 
