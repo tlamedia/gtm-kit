@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Frontend;
 
 use TLA_Media\GTM_Kit\Options;
 
-class BasicDatalayerData {
+final class BasicDatalayerData {
 
 	/**
 	 * Plugin options.

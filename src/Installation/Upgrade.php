@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Options;
 
-class Upgrade {
+final class Upgrade {
 
 	public function __construct() {
 

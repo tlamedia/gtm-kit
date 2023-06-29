@@ -17,7 +17,7 @@ use WC_Product;
 /**
  * WooCommerce integration
  */
-class WooCommerce  extends AbstractEcommerce {
+final class WooCommerce  extends AbstractEcommerce {
 
 	/**
 	 * Constructor.

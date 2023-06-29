@@ -3,7 +3,7 @@
 namespace TLA_Media\GTM_Kit;
 
 
-class Options {
+final class Options {
 
 	/**
 	 * The option_name in wp_options table.

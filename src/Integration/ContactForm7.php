@@ -10,7 +10,7 @@ use TLA_Media\GTM_Kit\Options;
 /**
  * Contact Form 7 integration
  */
-class ContactForm7 extends AbstractIntegration {
+final class ContactForm7 extends AbstractIntegration {
 
 	/**
 	 * Constructor.
