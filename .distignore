@@ -10,3 +10,5 @@
 gulpfile.babel.js
 package.json
 package-lock.json
+README.md
+tailwind.config.js
