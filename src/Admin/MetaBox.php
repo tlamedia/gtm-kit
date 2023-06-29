@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Options;
 
-class MetaBox {
+final class MetaBox {
 
 	/**
 	 * Plugin options.

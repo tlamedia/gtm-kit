@@ -2,7 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-class IntegrationsOptionsPage extends AbstractOptionsPage {
+final class IntegrationsOptionsPage extends AbstractOptionsPage {
 
 	protected $option_group = 'integrations';
 

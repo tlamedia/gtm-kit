@@ -5,7 +5,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
-class Analytics {
+final class Analytics {
 
 	/**
 	 * Instance of this class

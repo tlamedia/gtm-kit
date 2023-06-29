@@ -2,7 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-class GeneralOptionsPage extends AbstractOptionsPage {
+final class GeneralOptionsPage extends AbstractOptionsPage {
 
 	protected $option_group = 'general';
 

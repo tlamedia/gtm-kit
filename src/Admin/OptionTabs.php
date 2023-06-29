@@ -2,7 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-class OptionTabs {
+final class OptionTabs {
 
 	/**
 	 * Tabs base.

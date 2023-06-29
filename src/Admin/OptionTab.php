@@ -2,7 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-class OptionTab {
+final class OptionTab {
 
 	/**
 	 * Name of the tab.

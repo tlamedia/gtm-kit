@@ -2,7 +2,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-class HelpOptionsPage extends AbstractOptionsPage {
+final class HelpOptionsPage extends AbstractOptionsPage {
 
 	protected $option_group = 'help';
 

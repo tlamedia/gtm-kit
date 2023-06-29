@@ -106,6 +106,7 @@ Other:
 * Removed option to delay the container script by 2 seconds.
 * WooCommerce tested up to: 7.9
 * Added PHPStan to ensure code quality
+* All PHP classes are marked 'final'
 
 = 1.10 =
 

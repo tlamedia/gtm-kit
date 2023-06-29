@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Frontend;
 
 use TLA_Media\GTM_Kit\Options;
 
-class UserData {
+final class UserData {
 
 	/**
 	 * Plugin options.

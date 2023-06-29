@@ -15,7 +15,7 @@ use TLA_Media\GTM_Kit\Options;
 /**
  * Easy Digital Downloads integration
  */
-class EasyDigitalDownloads extends AbstractEcommerce {
+final class EasyDigitalDownloads extends AbstractEcommerce {
 
 	/**
 	 * Constructor.

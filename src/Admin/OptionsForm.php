@@ -4,7 +4,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Options;
 
-class OptionsForm {
+final class OptionsForm {
 
 	/**
 	 * Instance of this class
