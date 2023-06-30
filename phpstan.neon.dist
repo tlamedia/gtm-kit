@@ -20,4 +20,4 @@ parameters:
 		- '#Class EDD[a-zA-Z0-9\\_]* not found.#'
 		- '#Parameter \$[a-zA-Z0-9\\_]+ of method .* has invalid type EDD_[a-zA-Z0-9\\_]+\.#'
 		- '#Function as_next_scheduled_action not found.#'
-		- '#Function as_schedule_recurring_action not found.#'
+		- '#Function as_schedule_single_action not found.#'
