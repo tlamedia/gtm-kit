@@ -68,15 +68,15 @@ final class Analytics {
 	function schedule_daily_event(): void {
 		$event = 'gtmkit_send_anonymous_data';
 
-		if (class_exists('ActionScheduler')) {
+		if ( class_exists( 'ActionScheduler' ) ) {
 			// Schedule event with ActionScheduler
-			if (!as_next_scheduled_action($event)) {
-				as_schedule_recurring_action(strtotime('midnight'), DAY_IN_SECONDS, $event);
+			if ( ! as_next_scheduled_action( $event ) ) {
+				as_schedule_single_action( strtotime( 'midnight +25 hours' ), $event, [], 'gtmkit' );
 			}
 		} else {
 			// Schedule event with WP-Cron
-			if (!wp_next_scheduled($event)) {
-				wp_schedule_event(strtotime('midnight'), 'daily', $event);
+			if ( ! wp_next_scheduled( $event ) ) {
+				wp_schedule_event( strtotime( 'midnight' ), 'daily', $event );
 			}
 		}
 	}
@@ -87,9 +87,9 @@ final class Analytics {
 	 * @return void
 	 */
 	function send_anonymous_data(): void {
-		$mp = Mixpanel::getInstance("a84d538948ddda17265f86785c80ca37");
+		$mp = Mixpanel::getInstance( "a84d538948ddda17265f86785c80ca37" );
 
-		$mp->track("GTM Kit", $this->util->get_site_data( $this->options->get_all_raw() ));
+		$mp->track( "GTM Kit", $this->util->get_site_data( $this->options->get_all_raw() ) );
 	}
 
 }

@@ -40,6 +40,14 @@ function gtmkit_plugin_activation(): void {
 register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_activation' );
 
 /**
+ * Plugin activation hook.
+ */
+function gtmkit_plugin_deactivation(): void {
+	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
+}
+register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deactivation' );
+
+/**
  * Add plugin action links on Plugins page.
  *
  * @param array $links Existing plugin action links.
