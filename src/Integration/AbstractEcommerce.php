@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Integration;
 
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 abstract class AbstractEcommerce extends AbstractIntegration {
@@ -36,10 +37,13 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
-	public function __construct( Options $options ) {
-		$this->options                  = $options;
+	public function __construct( Options $options, Util $util ) {
 		$this->grouped_product_position = 1;
+
+		// Call parent constructor.
+		parent::__construct( $options, $util );
 	}
 
 	/**
@@ -52,7 +56,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 *
 	 * @param Options $options
 	 */
-	abstract public static function register( Options $options ): void;
+	abstract public static function register( Options $options, Util $util): void;
 
 	/**
 	 * Get the primary product category of a product. If the  primary category is not available the first assigned category will be returned.

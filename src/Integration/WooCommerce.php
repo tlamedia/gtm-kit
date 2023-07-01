@@ -8,6 +8,8 @@
 namespace TLA_Media\GTM_Kit\Integration;
 
 use Exception;
+use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 use WC_Coupon;
 use WC_Customer;
@@ -24,11 +26,11 @@ final class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	public function __construct( Options $options, Util $util) {
 		$this->store_currency = get_woocommerce_currency();
 
 		// Call parent constructor.
-		parent::__construct( $options );
+		parent::__construct( $options, $util );
 	}
 
 	/**
@@ -37,7 +39,9 @@ final class WooCommerce  extends AbstractEcommerce {
 	public static function instance(): ?WooCommerce {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
-			self::$instance = new self( $options );
+			$rest_API_server = new RestAPIServer();
+			$util        = new Util( $rest_API_server );
+			self::$instance = new self( $options, $util );
 		}
 
 		return self::$instance;
@@ -48,9 +52,9 @@ final class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @param Options $options
 	 */
-	public static function register( Options $options ): void {
+	public static function register( Options $options, Util $util ): void {
 
-		self::$instance = new self( $options );
+		self::$instance = new self( $options, $util );
 
 		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
@@ -124,17 +128,11 @@ final class WooCommerce  extends AbstractEcommerce {
 			return;
 		}
 
-		if ( wp_get_environment_type() == 'local' ) {
-			$version = time();
-		} else {
-			$version = GTMKIT_VERSION;
-		}
-
 		wp_enqueue_script(
 			'gtmkit-woocommerce',
 			GTMKIT_URL . 'assets/js/woocommerce.js',
 			[],
-			$version,
+			$this->util->get_plugin_version(),
 			true
 		);
 
@@ -144,7 +142,7 @@ final class WooCommerce  extends AbstractEcommerce {
 				'gtmkit-woocommerce-checkout',
 				GTMKIT_URL . 'assets/js/woocommerce-checkout.js',
 				[ 'gtmkit-woocommerce' ],
-				$version,
+				$this->util->get_plugin_version(),
 				true
 			);
 		}

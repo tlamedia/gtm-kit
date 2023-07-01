@@ -107,12 +107,6 @@ final class SetupWizard {
 			return;
 		}
 
-		if ( wp_get_environment_type() == 'local' ) {
-			$version = time();
-		} else {
-			$version = GTMKIT_VERSION;
-		}
-
 		$deps_file = GTMKIT_PATH . 'build/admin/wizard.asset.php';
 		$dependency = [];
 		if ( file_exists( $deps_file ) ) {
