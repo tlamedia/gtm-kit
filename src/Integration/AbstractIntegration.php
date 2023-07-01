@@ -5,6 +5,7 @@
 
 namespace TLA_Media\GTM_Kit\Integration;
 
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 abstract class AbstractIntegration {
@@ -22,12 +23,19 @@ abstract class AbstractIntegration {
 	protected $options;
 
 	/**
+	 * @var Util
+	 */
+	protected $util;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
-	public function __construct( Options $options ) {
+	public function __construct( Options $options, Util $util ) {
 		$this->options = $options;
+		$this->util = $util;
 	}
 
 	/**
@@ -40,6 +48,6 @@ abstract class AbstractIntegration {
 	 *
 	 * @param Options $options
 	 */
-	abstract public static function register( Options $options ): void;
+	abstract public static function register( Options $options, Util $util): void;
 
 }

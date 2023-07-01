@@ -89,13 +89,13 @@ function gtmkit_frontend_init(): void {
 		UserData::register( $options );
 
 		if ( $options->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
-			WooCommerce::register( $options );
+			WooCommerce::register( $options, $util );
 		}
 		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
-			ContactForm7::register( $options );
+			ContactForm7::register( $options, $util );
 		}
 		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
-			EasyDigitalDownloads::register( $options );
+			EasyDigitalDownloads::register( $options, $util );
 		}
 	}
 

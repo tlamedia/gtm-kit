@@ -135,24 +135,18 @@ abstract class AbstractOptionsPage {
 			return;
 		}
 
-		if ( wp_get_environment_type() == 'local' ) {
-			$version = time();
-		} else {
-			$version = GTMKIT_VERSION;
-		}
-
 		// General styles and js.
 		wp_enqueue_style(
 			'gtmkit-admin-css',
 			GTMKIT_URL . 'assets/css/admin.css',
 			false,
-			$version
+			$this->util->get_plugin_version()
 		);
 		wp_enqueue_script(
 			'gtmkit-admin',
 			GTMKIT_URL . 'assets/js/admin.js',
 			[ 'jquery' ],
-			$version,
+			$this->util->get_plugin_version(),
 			true
 		);
 

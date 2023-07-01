@@ -5,6 +5,8 @@
 
 namespace TLA_Media\GTM_Kit\Integration;
 
+use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 /**
@@ -17,9 +19,9 @@ final class ContactForm7 extends AbstractIntegration {
 	 *
 	 * @param Options $options
 	 */
-	public function __construct( Options $options ) {
+	public function __construct( Options $options, Util $util) {
 		// Call parent constructor.
-		parent::__construct( $options );
+		parent::__construct( $options, $util );
 	}
 
 	/**
@@ -28,7 +30,9 @@ final class ContactForm7 extends AbstractIntegration {
 	public static function instance(): ?ContactForm7 {
 		if ( is_null( self::$instance ) ) {
 			$options        = new Options();
-			self::$instance = new self( $options );
+			$rest_API_server = new RestAPIServer();
+			$util        = new Util( $rest_API_server );
+			self::$instance = new self( $options, $util );
 		}
 
 		return self::$instance;
@@ -39,9 +43,9 @@ final class ContactForm7 extends AbstractIntegration {
 	 *
 	 * @param Options $options
 	 */
-	public static function register( Options $options ): void {
+	public static function register( Options $options, Util $util): void {
 
-		self::$instance = new self( $options );
+		self::$instance = new self( $options, $util );
 
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 	}
@@ -55,17 +59,11 @@ final class ContactForm7 extends AbstractIntegration {
 			return;
 		}
 
-		if ( wp_get_environment_type() == 'local' ) {
-			$version = time();
-		} else {
-			$version = GTMKIT_VERSION;
-		}
-
 		wp_enqueue_script(
 			'gtmkit-cf7',
 			GTMKIT_URL . 'assets/js/contact-form-7.js',
 			[],
-			$version,
+			$this->util->get_plugin_version(),
 			true
 		);
 

@@ -142,4 +142,13 @@ final class Util {
 		return $web_server;
 	}
 
+	/**
+	 * Get the plugin version
+	 *
+	 * @return string
+	 */
+	function get_plugin_version(): string {
+		return ( wp_get_environment_type() == 'local' ) ? time() : GTMKIT_VERSION;
+	}
+
 }
