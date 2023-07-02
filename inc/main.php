@@ -121,12 +121,6 @@ function gtmkit_admin_init(): void {
 		new Upgrade();
 	}
 
-	add_action( 'before_woocommerce_init', function() {
-		if ( class_exists( FeaturesUtil::class ) ) {
-			FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
-		}
-	} );
-
 	$options = new Options();
 	$rest_API_server = new RestAPIServer();
 	$util = new Util( $rest_API_server );
@@ -144,12 +138,17 @@ function gtmkit_admin_init(): void {
  */
 if ( ! wp_installing() ) {
 
+	add_action( 'before_woocommerce_init', function() {
+		if ( class_exists( FeaturesUtil::class ) ) {
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
+		}
+	} );
+
 	if ( is_admin() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain' );
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_admin_init' );
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );
 	} elseif ( ! wp_doing_ajax() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_frontend_init' );
-
 	}
 }
