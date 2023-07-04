@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.2
-Stable tag: 1.10.0
+Stable tag: 1.11.0
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,21 +92,21 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.x =
+= 1.11 =
 
 Enhancements:
 
 * Added Just-The-Container mode for those with simple needs. This option reduces the functionality to just the GTM container code.
 * Added help section with GTM container import files
 
-Bugfixes:
-
 Other:
 
 * Removed option to delay the container script by 2 seconds.
 * WooCommerce tested up to: 7.9
 * Added PHPStan to ensure code quality
+* Refactored code and improved code quality
 * All PHP classes are marked 'final'
+* The Gulp build tool has been removed and we are now using NPM as a build tool
 
 = 1.10 =
 
