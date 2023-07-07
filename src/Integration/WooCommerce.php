@@ -453,7 +453,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		$data_layer['event']     = 'purchase';
 		$data_layer['ecommerce'] = [
-			'transaction_id' => (int) $order->get_order_number(),
+			'transaction_id' => (string) $order->get_order_number(),
 			'value'          => (float) $order_value,
 			'tax'            => (float) $order->get_total_tax(),
 			'shipping'       => (float) $shipping_total,

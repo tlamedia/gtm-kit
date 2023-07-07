@@ -98,6 +98,8 @@ Enhancements:
 
 Bugfixes:
 
+* Cast transaction_id to string. According to the GA4 documentation transaction_id should be a string as it allows numbers, letters, and special characters like dashes or spaces.
+
 Other:
 
 = 1.11 =

@@ -291,7 +291,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$data_layer['event']     = 'purchase';
 		$data_layer['ecommerce'] = [
-			'transaction_id' => (int) $order->get_number(),
+			'transaction_id' => (string) $order->get_number(),
 			'value'          => (float) $order_value,
 			'tax'            => (float) $order->tax,
 			'currency'       => $order->currency,
