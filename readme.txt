@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.2
-Stable tag: 1.11.0
+Stable tag: 1.11.1
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,15 +92,11 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.x =
-
-Enhancements:
+= 1.11.1 =
 
 Bugfixes:
 
 * Cast transaction_id to string. According to the GA4 documentation transaction_id should be a string as it allows numbers, letters, and special characters like dashes or spaces.
-
-Other:
 
 = 1.11 =
 
