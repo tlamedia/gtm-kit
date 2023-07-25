@@ -24,6 +24,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 				<span class="error"><?php esc_html_e( 'WooCommerce is not installed', 'gtm-kit' ); ?></span>.
 				<?php
 				printf(
+					/* translators: %s: plugin name */
 					__( 'You can download %s here.', 'gtm-kit' ),
 					'<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>'
 				);

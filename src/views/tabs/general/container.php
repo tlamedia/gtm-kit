@@ -22,6 +22,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 <?php
 $input_help = sprintf(
+	/* translators: %1$s: opening <a> tag%1$s: opening <a> tag %2$s: closin </a> tag */
 	__( 'Find your GTM container ID on %1$sGoogle Tag Manager%2$s.', 'gtm-kit' ),
 	'<a target="_blank" href="' . esc_url( 'https://tagmanager.google.com/' ) . '" rel="noopener noreferrer">',
 	'</a>'
