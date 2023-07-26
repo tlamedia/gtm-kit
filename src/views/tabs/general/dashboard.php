@@ -30,7 +30,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
-							<a href="<?php echo admin_url( 'admin.php?page=gtmkit_general#top#container' ); ?>" id="gtmkit-open-tab-container" class="gtmkit-button gtmkit-open-tab">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_general#top#container' ) ); ?>" id="gtmkit-open-tab-container" class="gtmkit-button gtmkit-open-tab">
 								<?php esc_html_e( 'Edit container', 'gtm-kit' ); ?>
 							</a>
 						</div>
@@ -46,7 +46,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
-							<a href="<?php echo admin_url( 'admin.php?page=gtmkit_general#top#container' ); ?>" id="gtmkit-open-tab-container" class="gtmkit-button gtmkit-open-tab">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_general#top#container' ) ); ?>" id="gtmkit-open-tab-container" class="gtmkit-button gtmkit-open-tab">
 								<?php esc_html_e( 'Edit container', 'gtm-kit' ); ?>
 							</a>
 						</div>
@@ -66,7 +66,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
-							<a href="<?php echo admin_url( 'admin.php?page=gtmkit_general#top#misc' ); ?>" id="gtmkit-open-tab-misc" class="gtmkit-button gtmkit-open-tab">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_general#top#misc' ) ); ?>" id="gtmkit-open-tab-misc" class="gtmkit-button gtmkit-open-tab">
 								<?php esc_html_e( 'Edit setting', 'gtm-kit' ); ?>
 							</a>
 						</div>
@@ -82,7 +82,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
-							<a href="<?php echo admin_url( 'admin.php?page=gtmkit_general#top#misc' ); ?>" id="gtmkit-open-tab-misc" class="gtmkit-button gtmkit-open-tab">
+							<a href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_general#top#misc' ) ); ?>" id="gtmkit-open-tab-misc" class="gtmkit-button gtmkit-open-tab">
 								<?php esc_html_e( 'Share anonymous data', 'gtm-kit' ); ?>
 							</a>
 						</div>

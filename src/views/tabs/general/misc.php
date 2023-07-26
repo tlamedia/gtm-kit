@@ -36,48 +36,48 @@ $site_data = $tab_data['site_data']
 				<table class="gtmkit-data-table widefat striped">
 					<tbody>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Server type:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Server type:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['web_server'] ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'PHP version number:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'PHP version number:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['php_version'] ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WordPress version number:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'WordPress version number:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['wordpress_version'] ) ); ?></td>
 					</tr>
 					<?php if (isset($site_data['woocommerce_version'])): ?>
 						<tr>
-							<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WooCommerce version number:', 'gtm-kit' ) ); ?></td>
+							<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'WooCommerce version number:', 'gtm-kit' ) ); ?></td>
 							<td><?php printf( '<code>%s</code>', esc_html( $site_data['woocommerce_version'] ) ); ?></td>
 						</tr>
 					<?php endif; ?>
 					<?php if (isset($site_data['edd_version'])): ?>
 						<tr>
-							<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Easy Digital Downloads version number:', 'gtm-kit' ) ); ?></td>
+							<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Easy Digital Downloads version number:', 'gtm-kit' ) ); ?></td>
 							<td><?php printf( '<code>%s</code>', esc_html( $site_data['edd_version'] ) ); ?></td>
 						</tr>
 					<?php endif; ?>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'WordPress multisite:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'WordPress multisite:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['multisite'] ? 'true' : 'false' ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Current theme:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Current theme:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['current_theme'] ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Current site language:', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Current site language:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['locale'] ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Active plugins:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<em>%s</em>', __( 'Plugin names of all active plugins', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Active plugins:', 'gtm-kit' ) ); ?></td>
+						<td><?php printf( '<em>%s</em>', esc_html__( 'Plugin names of all active plugins', 'gtm-kit' ) ); ?></td>
 					</tr>
 					<tr>
-						<td class="column-primary"><?php printf( '<strong>%s</strong>', __( 'Anonymized GTM Kit settings:', 'gtm-kit' ) ); ?></td>
-						<td><?php printf( '<em>%s</em>', __( 'Which GTM Kit settings are active', 'gtm-kit' ) ); ?></td>
+						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Anonymized GTM Kit settings:', 'gtm-kit' ) ); ?></td>
+						<td><?php printf( '<em>%s</em>', esc_html__( 'Which GTM Kit settings are active', 'gtm-kit' ) ); ?></td>
 					</tr>
 					</tbody>
 				</table>

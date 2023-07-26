@@ -25,7 +25,7 @@ $cf7_is_inactive = ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' );
 				<?php
 				printf(
 					/* translators: %s: plugin name */
-					__( 'You can download %s here.', 'gtm-kit' ),
+					esc_html__( 'You can download %s here.', 'gtm-kit' ),
 					'<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a>'
 				);
 				?>

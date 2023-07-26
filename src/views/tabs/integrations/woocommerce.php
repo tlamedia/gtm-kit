@@ -25,7 +25,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 				<?php
 				printf(
 					/* translators: %s: plugin name */
-					__( 'You can download %s here.', 'gtm-kit' ),
+					esc_html__( 'You can download %s here.', 'gtm-kit' ),
 					'<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>'
 				);
 				?>
