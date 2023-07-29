@@ -55,6 +55,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 * Register frontend
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	abstract public static function register( Options $options, Util $util): void;
 

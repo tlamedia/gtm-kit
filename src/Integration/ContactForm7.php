@@ -18,6 +18,7 @@ final class ContactForm7 extends AbstractIntegration {
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	public function __construct( Options $options, Util $util) {
 		// Call parent constructor.
@@ -42,6 +43,7 @@ final class ContactForm7 extends AbstractIntegration {
 	 * Register frontend
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	public static function register( Options $options, Util $util): void {
 

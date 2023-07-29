@@ -25,6 +25,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	public function __construct( Options $options, Util $util) {
 		$this->store_currency = get_woocommerce_currency();
@@ -51,6 +52,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 * Register frontend
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	public static function register( Options $options, Util $util ): void {
 

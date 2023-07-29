@@ -23,6 +23,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 * Constructor.
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	final public function __construct( Options $options, Util $util) {
 		$this->store_currency = edd_get_currency();
@@ -49,6 +50,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 * Register frontend
 	 *
 	 * @param Options $options
+	 * @param Util $util
 	 */
 	public static function register( Options $options, Util $util): void {
 
