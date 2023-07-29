@@ -1,3 +1,14 @@
+if (document.readyState === 'loading') {
+	document.addEventListener("DOMContentLoaded", gtmkit_load_checkout);
+} else {
+	gtmkit_load_checkout();
+}
+
+function gtmkit_load_checkout() {
+	if (gtmkit.data.wc['is_cart']) gtmkit_cart();
+	if (gtmkit.data.wc['is_checkout']) gtmkit_checkout();
+}
+
 function gtmkit_cart() {
 	document.addEventListener('click', function (e) {
 		let event_target_element = e.target;
@@ -32,7 +43,7 @@ function gtmkit_cart_quantity_change() {
 				window[datalayer_name].push({
 					'event': 'add_to_cart',
 					'ecommerce': {
-						'currency': wc['currency'],
+						'currency': gtmkit.data.wc['currency'],
 						'value': item_data.price * (current_value - default_value),
 						'items': [item_data]
 					}
@@ -43,7 +54,7 @@ function gtmkit_cart_quantity_change() {
 				window[datalayer_name].push({
 					'event': 'remove_from_cart',
 					'ecommerce': {
-						'currency': wc.currency,
+						'currency': gtmkit.data.wc['currency'],
 						'value': item_data.price * (default_value - current_value),
 						'items': [item_data]
 					}
@@ -54,10 +65,10 @@ function gtmkit_cart_quantity_change() {
 }
 
 function gtmkit_checkout() {
+	console.log('checkout');
+	if (gtmkit.settings.wc['add_shipping_info']['config'] === 0 && gtmkit.settings.wc['add_payment_info']['config'] === 0) return;
 
-	if (wc['add_shipping_info']['config'] === 0 && wc['add_payment_info']['config'] === 0) return;
-
-	if (wc['add_shipping_info']['config'] === 2) {
+	if (gtmkit.settings.wc['add_shipping_info']['config'] === 2) {
 		document.addEventListener('change', function (e) {
 			let event_target_element = e.target;
 			if (!event_target_element || !event_target_element.closest('input[name^=shipping_method]') && !event_target_element.closest('.wc-block-components-shipping-rates-control')) return true;
@@ -66,7 +77,7 @@ function gtmkit_checkout() {
 		});
 	}
 
-	if (wc['add_payment_info']['config'] === 2) {
+	if (gtmkit.settings.wc['add_payment_info']['config'] === 2) {
 		document.addEventListener('change', function (e) {
 			let event_target_element = e.target;
 			if (!event_target_element || !event_target_element.closest('input[name=payment_method]') && !event_target_element.closest('.wc-block-checkout__payment-method')) return true;
@@ -94,11 +105,11 @@ function gtmkit_checkout() {
 
 function gtmkit_shipping_event() {
 
-	if (wc['add_shipping_info']['fired'] === true) return;
+	if (gtmkit.data.wc['add_shipping_info']['fired'] === true) return;
 
 	let shipping_element;
 
-	if (wc['block'] === true) {
+	if (gtmkit.data.wc['block'] === true) {
 		shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]:checked');
 		if (!shipping_element) {
 			shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]'); // select the first shipping method
@@ -110,28 +121,28 @@ function gtmkit_shipping_event() {
 		}
 	}
 
-	let shipping_tier = (shipping_element) ? shipping_element.value : wc['text']['shipping tier not found'];
+	let shipping_tier = (shipping_element) ? shipping_element.value : gtmkit.settings.wc['text']['shipping-tier-not-found'];
 
 	window[datalayer_name].push({
 		'event': 'add_shipping_info',
 		'ecommerce': {
-			'currency': wc['currency'],
-			'value': wc['cart_value'],
+			'currency': gtmkit.data.wc['currency'],
+			'value': gtmkit.data.wc['cart_value'],
 			'shipping_tier': shipping_tier,
-			'items': wc['cart_items']
+			'items': gtmkit.data.wc['cart_items']
 		}
 	});
 
-	wc['add_shipping_info']['fired'] = true;
+	gtmkit.data.wc['add_shipping_info']['fired'] = true;
 }
 
 function gtmkit_payment_event() {
 
-	if (wc['add_payment_info']['fired'] === true) return;
+	if (gtmkit.data.wc['add_payment_info']['fired'] === true) return;
 
 	let payment_element;
 
-	if (wc['block'] === true) {
+	if (gtmkit.data.wc['block'] === true) {
 		payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]:checked');
 		if (!payment_element) {
 			payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]'); // select the first shipping method
@@ -143,18 +154,18 @@ function gtmkit_payment_event() {
 		}
 	}
 
-	let payment_type = (payment_element) ? payment_element.value : wc['text']['payment method not found'];
+	let payment_type = (payment_element) ? payment_element.value : gtmkit.settings.wc['text']['payment-method-not-found'];
 
 	window[datalayer_name].push({
 		'event': 'add_payment_info',
 		'ecommerce': {
-			'currency': wc['currency'],
-			'value': wc['cart_value'],
+			'currency': gtmkit.data.wc['currency'],
+			'value': gtmkit.data.wc['cart_value'],
 			'payment_type': payment_type,
-			'items': wc['cart_items']
+			'items': gtmkit.data.wc['cart_items']
 		}
 	});
 
-	wc['add_payment_info']['fired'] = true;
+	gtmkit.data.wc['add_payment_info']['fired'] = true;
 }
 

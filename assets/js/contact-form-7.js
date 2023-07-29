@@ -1,1 +1,1 @@
-document.addEventListener("wpcf7mailsent",function(t){window[window.gtmkit_settings.datalayer_name].push({event:"gtmkit.CF7MailSent",formId:t.detail.contactFormId,response:t.detail.inputs})});
+document.addEventListener("wpcf7mailsent",function(t){window[gtmkit.settings.datalayer_name].push({event:"gtmkit.CF7MailSent",formId:t.detail.contactFormId,response:t.detail.inputs})});

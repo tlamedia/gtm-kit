@@ -54,7 +54,8 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		self::$instance = new self( $options, $util );
 
-		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
+		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_settings' ] );
+		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_data' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 		add_action( 'edd_purchase_link_end', [ self::$instance, 'add_to_cart_tracking' ] );
@@ -91,31 +92,44 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	}
 
 	/**
-	 * Set the global script settings
+	 * Get the global script settings
 	 *
-	 * @param array $global_settings Plugin settings
+	 * @param array $global_data Script data
 	 *
 	 * @return array
 	 */
-	public function set_global_settings( array $global_settings ): array {
+	public function get_global_settings( array $global_data ): array {
 
-		$global_settings['edd']['currency']                   = $this->store_currency;
-		$global_settings['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
-		$global_settings['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
-		$global_settings['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
-		$global_settings['edd']['add_payment_info']['fired']  = false;
-		$global_settings['edd']['text']                       = [
-			'payment method not found' => __( 'Payment method not found', 'gtm-kit' ),
+		$global_data['settings']['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
+		$global_data['settings']['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
+		$global_data['settings']['edd']['text']                       = [
+			'payment-method-not-found' => __( 'Payment method not found', 'gtm-kit' ),
 		];
 
+		return $global_data;
+	}
+
+	/**
+	 * Get the global script data
+	 *
+	 * @param array $global_data Script data
+	 *
+	 * @return array
+	 */
+	public function get_global_data( array $global_data ): array {
+
+		$global_data['data']['edd']['currency']                   = $this->store_currency;
+		$global_data['data']['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
+		$global_data['data']['edd']['add_payment_info']['fired']  = false;
+
 		if ( is_page( edd_get_option( 'purchase_page' ) ) ) {
-			$global_settings['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
-			$global_settings['edd']['cart_value'] = edd_cart_total( false );
+			$global_data['data']['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
+			$global_data['data']['edd']['cart_value'] = edd_cart_total( false );
 		}
 
-		$this->global_settings = $global_settings;
+		$this->global_data = $global_data;
 
-		return $global_settings;
+		return $global_data;
 	}
 
 	/**
@@ -218,7 +232,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$data_layer['event']     = 'begin_checkout';
 		$data_layer['ecommerce'] = [
-			'items' => $this->global_settings['edd']['cart_items']
+			'items' => $this->global_data['data']['edd']['cart_items']
 		];
 
 		return $data_layer;

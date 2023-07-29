@@ -1,5 +1,4 @@
-const wc = window["gtmkit_settings"].wc;
-const datalayer_name = window["gtmkit_settings"].datalayer_name;
+const datalayer_name = gtmkit.settings.datalayer_name;
 
 function gtmkit_load() {
 
@@ -31,7 +30,7 @@ function gtmkit_load() {
 				for (let i in product_block_index) {
 					if (product_grid_classes.contains(i)) {
 						let item_data = JSON.parse(product_data.getAttribute('data-gtmkit_product_data'));
-						item_data.item_list_name = wc.text[i];
+						item_data.item_list_name = gtmkit.settings.wc.text[i];
 						item_data.index = product_block_index[i];
 						product_data.setAttribute("data-gtmkit_product_data", JSON.stringify(item_data));
 						product_block_index[i]++;
@@ -91,7 +90,7 @@ function gtmkit_load() {
 		window[datalayer_name].push({
 			'event': event,
 			'ecommerce': {
-				'currency': wc.currency,
+				'currency': gtmkit.data.wc.currency,
 				'value': item_data.price,
 				'items': [item_data]
 			}
@@ -149,7 +148,7 @@ function gtmkit_load() {
 				window[datalayer_name].push({
 					'event': event,
 					'ecommerce': {
-						'currency': wc.currency,
+						'currency': gtmkit.data.wc.currency,
 						'value': price * quantity,
 						'items': [selected_product_variation_data]
 					}
@@ -185,7 +184,7 @@ function gtmkit_load() {
 			window[datalayer_name].push({
 				'event': event,
 				'ecommerce': {
-					'currency': wc.currency,
+					'currency': gtmkit.data.wc.currency,
 					'value': value,
 					'items': products
 				}
@@ -200,7 +199,7 @@ function gtmkit_load() {
 			window[datalayer_name].push({
 				'event': event,
 				'ecommerce': {
-					'currency': wc.currency,
+					'currency': gtmkit.data.wc.currency,
 					'value': item_data.price * item_data.quantity,
 					'items': [item_data]
 				}
@@ -272,7 +271,7 @@ function gtmkit_load() {
 		let product_variation_data = JSON.parse(variations_form.querySelector('[name=gtmkit_product_data]') && variations_form.querySelector('[name=gtmkit_product_data]').value);
 
 		product_variation_data.item_id = product_variation.variation_id;
-		if (wc['use_sku'] && product_variation.sku && ('' !== product_variation.sku)) {
+		if (gtmkit.settings.wc['use_sku'] && product_variation.sku && ('' !== product_variation.sku)) {
 			product_variation_data.item_id = product_variation.sku;
 		}
 
@@ -285,12 +284,12 @@ function gtmkit_load() {
 		product_variation_data.item_variant = product_attributes.filter(n => n).join('|');
 		selected_product_variation_data = product_variation_data;
 
-		if (wc['view_item']['config'] !== 0) {
+		if (gtmkit.settings.wc['view_item']['config'] !== 0) {
 			window[datalayer_name].push({ 'ecommerce': null });
 			window[datalayer_name].push({
 				'event': 'view_item',
 				'ecommerce': {
-					'currency': wc.currency,
+					'currency': gtmkit.data.wc.currency,
 					'value': product_variation_data.price,
 					'items': [product_variation_data]
 				}
@@ -298,14 +297,9 @@ function gtmkit_load() {
 		}
 
 	});
-
-	if (wc['is_cart']) gtmkit_cart();
-
-	if (wc['is_checkout']) gtmkit_checkout();
-
 }
 
-if (document.readyState == 'loading') {
+if (document.readyState === 'loading') {
 	document.addEventListener("DOMContentLoaded", gtmkit_load);
 } else {
 	gtmkit_load();

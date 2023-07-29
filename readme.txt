@@ -99,6 +99,7 @@ Enhancements:
 Bugfixes:
 
 Other:
+* Use global object for script data and settings
 
 = 1.11.1 =
 
