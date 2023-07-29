@@ -65,7 +65,6 @@ function gtmkit_cart_quantity_change() {
 }
 
 function gtmkit_checkout() {
-	console.log('checkout');
 	if (gtmkit.settings.wc['add_shipping_info']['config'] === 0 && gtmkit.settings.wc['add_payment_info']['config'] === 0) return;
 
 	if (gtmkit.settings.wc['add_shipping_info']['config'] === 2) {
