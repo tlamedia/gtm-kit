@@ -56,7 +56,8 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		self::$instance = new self( $options, $util );
 
-		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'set_global_settings' ] );
+		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_settings' ] );
+		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_data' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 
@@ -146,27 +147,22 @@ final class WooCommerce  extends AbstractEcommerce {
 				true
 			);
 		}
-	}
+		}
 
 	/**
-	 * Set the global script settings
+	 * get the global script settings
 	 *
-	 * @param array $global_settings Plugin settings
+	 * @param array $global_data Script data
 	 *
 	 * @return array
 	 */
-	public function set_global_settings( array $global_settings ): array {
+	public function get_global_settings( array $global_data ): array {
 
-		$global_settings['wc']['currency']                    = $this->store_currency;
-		$global_settings['wc']['is_cart']                     = is_cart();
-		$global_settings['wc']['is_checkout']                 = ( is_checkout() && ! is_order_received_page() );
-		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
-		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
-		$global_settings['wc']['add_shipping_info']['fired']  = false;
-		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
-		$global_settings['wc']['add_payment_info']['fired']   = false;
-		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
-		$global_settings['wc']['text']                        = [
+		$global_data['settings']['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
+		$global_data['settings']['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
+		$global_data['settings']['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
+		$global_data['settings']['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
+		$global_data['settings']['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
 			'wp-block-product-category'      => __( 'Product Category', 'gtm-kit' ),
@@ -175,19 +171,38 @@ final class WooCommerce  extends AbstractEcommerce {
 			'wp-block-products-by-attribute' => __( 'Products By Attribute', 'gtm-kit' ),
 			'wp-block-product-tag'           => __( 'Product Tag', 'gtm-kit' ),
 			'wp-block-product-top-rated'     => __( 'Top Rated Products', 'gtm-kit' ),
-			'shipping tier not found'        => __( 'Shipping tier not found', 'gtm-kit' ),
-			'payment method not found'       => __( 'Payment method not found', 'gtm-kit' ),
+			'shipping-tier-not-found'        => __( 'Shipping tier not found', 'gtm-kit' ),
+			'payment-method-not-found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
 
+		return $global_data;
+	}
+
+	/**
+	 * Get the global script data
+	 *
+	 * @param array $global_data Script data
+	 *
+	 * @return array
+	 */
+	public function get_global_data( array $global_data ): array {
+
+		$global_data['data']['wc']['currency']    = $this->store_currency;
+		$global_data['data']['wc']['is_cart']     = is_cart();
+		$global_data['data']['wc']['is_checkout'] = ( is_checkout() && ! is_order_received_page() );
+
 		if ( is_checkout() && ! is_order_received_page() ) {
-			$global_settings['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
-			$global_settings['wc']['cart_value'] = WC()->cart->cart_contents_total;
-			$global_settings['wc']['block'] = has_block('woocommerce/checkout');
+			$global_data['data']['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
+			$global_data['data']['wc']['cart_value'] = (float) WC()->cart->cart_contents_total;
+			$global_data['data']['wc']['chosen_shipping_method'] = WC()->session->get('chosen_shipping_methods')[0];
+			$global_data['data']['wc']['block'] = has_block('woocommerce/checkout');
+			$global_data['data']['wc']['add_payment_info']['fired']   = false;
+			$global_data['data']['wc']['add_shipping_info']['fired']  = false;
 		}
 
-		$this->global_settings = $global_settings;
+		$this->global_data = $global_data;
 
-		return $global_settings;
+		return $global_data;
 	}
 
 	/**
@@ -359,7 +374,7 @@ final class WooCommerce  extends AbstractEcommerce {
 			$data_layer['ecommerce']['coupon'] = implode( '|', array_filter( $coupons ) );
 		}
 
-		$data_layer['ecommerce']['items'] = $this->global_settings['wc']['cart_items'];
+		$data_layer['ecommerce']['items'] = $this->global_data['data']['wc']['cart_items'];
 
 		return $data_layer;
 	}

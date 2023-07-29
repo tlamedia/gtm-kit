@@ -1,7 +1,6 @@
 jQuery(document).ready(function ($) {
 
-	const edd = window["gtmkit_settings"].edd;
-	const datalayer_name = window["gtmkit_settings"].datalayer_name;
+	const datalayer_name = gtmkit.settings.datalayer_name;
 
 	$(document.body).on('click.eddAddToCart', '.edd-add-to-cart', function (e) {
 		e.preventDefault();
@@ -52,7 +51,7 @@ jQuery(document).ready(function ($) {
 		window[datalayer_name].push({
 			'event': 'add_to_cart',
 			'ecommerce': {
-				'currency': edd.currency,
+				'currency': gtmkit.data.edd.currency,
 				'value': item_data.price * item_data.quantity,
 				'items': [item_data]
 			}

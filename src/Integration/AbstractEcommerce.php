@@ -27,11 +27,11 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	protected $grouped_product_position;
 
 	/**
-	 * Global Settings.
+	 * Global data.
 	 *
 	 * @var array
 	 */
-	protected $global_settings;
+	protected $global_data;
 
 	/**
 	 * Constructor.
