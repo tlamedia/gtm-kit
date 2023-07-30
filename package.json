@@ -7,18 +7,21 @@
     "textdomain": "gtmkit"
   },
   "devDependencies": {
+    "@wordpress/scripts": "^26.9.0",
     "autoprefixer": "^10.4.14",
     "cssnano": "^6.0.1",
     "del-cli": "^5.0.0",
     "mkdirp": "^3.0.1",
     "ncp": "^2.0.0",
+    "node-wp-i18n": "^1.2.6",
     "postcss-cli": "^10.1.0",
     "sass": "^1.60.0",
     "tailwindcss": "^3.3.2",
     "uglify-js": "^3.17.4"
   },
   "scripts": {
-    "build": "npm run clean:assets && npm run build:css && npm run build:js && npm run copy:images",
+    "build": "wp-scripts build src/js/frontend/woocommerce-blocks.js --output-path=build/frontend",
+    "build:assets": "npm run clean:assets && npm run build:css && npm run build:js && npm run copy:images",
     "build:css": "npm run compile:sass && postcss assets/css/admin.css --output assets/css/admin.css",
     "build:js": "npm run uglify:woocommerce && npm run uglify:woocommerce-checkout && npm run uglify:edd && npm run uglify:edd-checkout && npm run uglify:cf7 && npm run uglify:admin",
     "clean:assets": "del assets",
@@ -34,9 +37,21 @@
     "uglify:edd-checkout": "mkdirp assets/js && uglifyjs src/js/edd-checkout.js --compress --mangle --output assets/js/edd-checkout.js",
     "uglify:cf7": "mkdirp assets/js && uglifyjs src/js/contact-form-7.js --compress --mangle --output assets/js/contact-form-7.js",
     "uglify:admin": "mkdirp assets/js && uglifyjs src/js/admin.js --compress --mangle --output assets/js/admin.js",
-    "copy:images": "node ./bin/copy-images.js"
+    "copy:images": "node ./bin/copy-images.js",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js --output-path=build/frontend",
+    "audit:prod": "npm audit --omit=dev",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "check-engines": "wp-scripts check-engines"
   },
   "dependencies": {
-    "node-wp-i18n": "^1.2.6"
+    "@wordpress/api-fetch": "^6.35.0",
+    "@wordpress/components": "^25.4.0",
+    "@wordpress/hooks": "^3.38.0",
+    "@wordpress/i18n": "^4.38.0",
+    "@wordpress/url": "^3.39.0"
   }
 }

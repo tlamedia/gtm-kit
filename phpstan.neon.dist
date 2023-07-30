@@ -15,6 +15,7 @@ parameters:
 		- '#Class WC[a-zA-Z0-9\\_]+ not found.#'
 		- '#Instantiated class WC_[a-zA-Z0-9\\_]+ not found.#'
 		- '#Parameter \$[a-zA-Z0-9\\_]+ of method .* has invalid type WC_[a-zA-Z0-9\\_]+\.#'
+		- '#.*Automattic\\WooCommerce.*#'
 		- '#Function edd[a-zA-Z0-9\\_]+ not found.#'
 		- '#Function EDD[a-zA-Z0-9\\_]* not found.#'
 		- '#Class EDD[a-zA-Z0-9\\_]* not found.#'

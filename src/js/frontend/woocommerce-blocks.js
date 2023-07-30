@@ -1,0 +1,1 @@
+import './woocommerce-blocks/index';
