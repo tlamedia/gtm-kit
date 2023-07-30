@@ -67,12 +67,16 @@ final class Frontend {
 	 * The dataLayer initialization and settings
 	 */
 	public function get_header_datalayer(): void {
+		$settings = [
+			'datalayer_name' => $this->datalayer_name,
+			'console_log' => Options::init()->get( 'general', 'console_log' )
+		];
 		?>
 		<!-- GTM Kit -->
 		<script <?php $this->get_attributes(); ?>>
-			var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> ||
-			[];
-			var gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_script_settings', [ 'datalayer_name' => $this->datalayer_name ] ), JSON_FORCE_OBJECT ); ?>;
+			var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> || [];
+			window.gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
+			window.gtmkit_data = <?php echo json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		</script>
 		<?php
 	}
