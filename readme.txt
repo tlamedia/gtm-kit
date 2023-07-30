@@ -101,6 +101,7 @@ Bugfixes:
 
 Other:
 * Use global object for script data and settings
+* Require WooCommerce 7.1
 
 = 1.11.1 =
 
