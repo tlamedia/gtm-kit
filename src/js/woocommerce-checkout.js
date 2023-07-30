@@ -40,6 +40,7 @@ function gtmkit_cart_quantity_change() {
 			if (default_value < current_value) { // quantity increase
 				item_data.quantity = current_value - default_value;
 
+				window[datalayer_name].push({ 'ecommerce': null });
 				window[datalayer_name].push({
 					'event': 'add_to_cart',
 					'ecommerce': {
@@ -51,6 +52,7 @@ function gtmkit_cart_quantity_change() {
 			} else { // quantity decrease
 				item_data.quantity = default_value - current_value;
 
+				window[datalayer_name].push({ 'ecommerce': null });
 				window[datalayer_name].push({
 					'event': 'remove_from_cart',
 					'ecommerce': {
@@ -122,6 +124,7 @@ function gtmkit_shipping_event() {
 
 	let shipping_tier = (shipping_element) ? shipping_element.value : gtmkit.settings.wc['text']['shipping-tier-not-found'];
 
+	window[datalayer_name].push({ 'ecommerce': null });
 	window[datalayer_name].push({
 		'event': 'add_shipping_info',
 		'ecommerce': {
@@ -155,6 +158,7 @@ function gtmkit_payment_event() {
 
 	let payment_type = (payment_element) ? payment_element.value : gtmkit.settings.wc['text']['payment-method-not-found'];
 
+	window[datalayer_name].push({ 'ecommerce': null });
 	window[datalayer_name].push({
 		'event': 'add_payment_info',
 		'ecommerce': {
