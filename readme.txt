@@ -95,6 +95,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.x =
 
 Enhancements:
+* Added the class input-needed to the block list of the add_to_cart event
 
 Bugfixes:
 

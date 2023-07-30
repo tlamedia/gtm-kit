@@ -109,7 +109,7 @@ function gtmkit_load() {
 		let add_to_cart;
 		add_to_cart = event_target_element.closest('form.cart');
 
-		if (add_to_cart && event_target_element.closest('.single_add_to_cart_button:not(.disabled)')) {
+		if (add_to_cart && event_target_element.closest('.single_add_to_cart_button:not(.disabled,.input-needed)')) {
 			event = 'add_to_cart';
 		} else {
 			if (add_to_cart && event_target_element.closest('.tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list,.disabled-add-wishlist)')) {
