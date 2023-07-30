@@ -100,15 +100,15 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return array
 	 */
-	public function get_global_settings( array $global_data ): array {
+	public function get_global_settings( array $global_settings ): array {
 
-		$global_data['settings']['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
-		$global_data['settings']['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
-		$global_data['settings']['edd']['text']                       = [
+		$global_settings['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
+		$global_settings['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
+		$global_settings['edd']['text']                       = [
 			'payment-method-not-found' => __( 'Payment method not found', 'gtm-kit' ),
 		];
 
-		return $global_data;
+		return $global_settings;
 	}
 
 	/**
@@ -120,13 +120,13 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 */
 	public function get_global_data( array $global_data ): array {
 
-		$global_data['data']['edd']['currency']                   = $this->store_currency;
-		$global_data['data']['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
-		$global_data['data']['edd']['add_payment_info']['fired']  = false;
+		$global_data['edd']['currency']                   = $this->store_currency;
+		$global_data['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
+		$global_data['edd']['add_payment_info']['fired']  = false;
 
 		if ( is_page( edd_get_option( 'purchase_page' ) ) ) {
-			$global_data['data']['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
-			$global_data['data']['edd']['cart_value'] = edd_cart_total( false );
+			$global_data['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
+			$global_data['edd']['cart_value'] = edd_cart_total( false );
 		}
 
 		$this->global_data = $global_data;

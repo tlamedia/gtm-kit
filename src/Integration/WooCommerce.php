@@ -58,7 +58,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		self::$instance = new self( $options, $util );
 
-		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_settings' ] );
+		add_filter( 'gtmkit_header_script_settings', [ self::$instance, 'get_global_settings' ] );
 		add_filter( 'gtmkit_header_script_data', [ self::$instance, 'get_global_data' ] );
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
@@ -147,24 +147,24 @@ final class WooCommerce  extends AbstractEcommerce {
 				[ 'gtmkit-woocommerce' ],
 				$this->util->get_plugin_version(),
 				true
-			);
-		}
+				);
+			}
 		}
 
 	/**
 	 * get the global script settings
 	 *
-	 * @param array $global_data Script data
+	 * @param array $global_settings Script settings
 	 *
 	 * @return array
 	 */
-	public function get_global_settings( array $global_data ): array {
+	public function get_global_settings( array $global_settings ): array {
 
-		$global_data['settings']['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
-		$global_data['settings']['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
-		$global_data['settings']['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
-		$global_data['settings']['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
-		$global_data['settings']['wc']['text']                        = [
+		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
+		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
+		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
+		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
+		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
 			'wp-block-product-category'      => __( 'Product Category', 'gtm-kit' ),
@@ -177,7 +177,7 @@ final class WooCommerce  extends AbstractEcommerce {
 			'payment-method-not-found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
 
-		return $global_data;
+		return $global_settings;
 	}
 
 	/**
@@ -189,17 +189,20 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function get_global_data( array $global_data ): array {
 
-		$global_data['data']['wc']['currency']    = $this->store_currency;
-		$global_data['data']['wc']['is_cart']     = is_cart();
-		$global_data['data']['wc']['is_checkout'] = ( is_checkout() && ! is_order_received_page() );
+		$global_data['wc']['currency']    = $this->store_currency;
+		$global_data['wc']['is_cart']     = is_cart();
+		$global_data['wc']['is_checkout'] = ( is_checkout() && ! is_order_received_page() );
+
+		if ( is_cart() ) {
+			$global_data['wc']['cart_items'] = $this->get_cart_items( 'view_cart' );
+		}
 
 		if ( is_checkout() && ! is_order_received_page() ) {
-			$global_data['data']['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
-			$global_data['data']['wc']['cart_value'] = (float) WC()->cart->cart_contents_total;
-			$global_data['data']['wc']['chosen_shipping_method'] = WC()->session->get('chosen_shipping_methods')[0];
-			$global_data['data']['wc']['block'] = has_block('woocommerce/checkout');
-			$global_data['data']['wc']['add_payment_info']['fired']   = false;
-			$global_data['data']['wc']['add_shipping_info']['fired']  = false;
+			$global_data['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
+			$global_data['wc']['cart_value'] = (float) WC()->cart->cart_contents_total;
+			$global_data['wc']['block'] = has_block('woocommerce/checkout');
+			$global_data['wc']['add_payment_info']['fired']   = false;
+			$global_data['wc']['add_shipping_info']['fired']  = false;
 		}
 
 		$this->global_data = $global_data;
