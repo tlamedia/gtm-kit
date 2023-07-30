@@ -96,6 +96,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 * Added the class input-needed to the block list of the add_to_cart event
+* Improve support for the WooCommerce cart and checkout blocks
 
 Bugfixes:
 

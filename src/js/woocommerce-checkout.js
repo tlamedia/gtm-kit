@@ -110,16 +110,9 @@ function gtmkit_shipping_event() {
 
 	let shipping_element;
 
-	if (gtmkit_data.wc['block'] === true) {
-		shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]:checked');
-		if (!shipping_element) {
-			shipping_element = document.querySelector('.wc-block-components-shipping-rates-control input[type^=radio]'); // select the first shipping method
-		}
-	} else {
-		shipping_element = document.querySelector('input[name^=shipping_method]:checked');
-		if (!shipping_element) {
-			shipping_element = document.querySelector('input[name^=shipping_method]'); // select the first shipping method
-		}
+	shipping_element = document.querySelector('input[name^=shipping_method]:checked');
+	if (!shipping_element) {
+		shipping_element = document.querySelector('input[name^=shipping_method]'); // select the first shipping method
 	}
 
 	let shipping_tier = (shipping_element) ? shipping_element.value : gtmkit_settings.wc['text']['shipping-tier-not-found'];
@@ -144,16 +137,9 @@ function gtmkit_payment_event() {
 
 	let payment_element;
 
-	if (gtmkit_data.wc['block'] === true) {
-		payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]:checked');
-		if (!payment_element) {
-			payment_element = document.querySelector('.wc-block-checkout__payment-method input[type^=radio]'); // select the first shipping method
-		}
-	} else {
-		payment_element = document.querySelector('.payment_methods input:checked');
-		if (!payment_element) {
-			payment_element = document.querySelector('input[name^=payment_method]'); // select the first payment method
-		}
+	payment_element = document.querySelector('.payment_methods input:checked');
+	if (!payment_element) {
+		payment_element = document.querySelector('input[name^=payment_method]'); // select the first payment method
 	}
 
 	let payment_type = (payment_element) ? payment_element.value : gtmkit_settings.wc['text']['payment-method-not-found'];
@@ -171,4 +157,3 @@ function gtmkit_payment_event() {
 
 	gtmkit_data.wc['add_payment_info']['fired'] = true;
 }
-

@@ -151,4 +151,28 @@ final class Util {
 		return ( wp_get_environment_type() == 'local' ) ? time() : GTMKIT_VERSION;
 	}
 
+	/**
+	 * Enqueue script in build
+	 *
+	 * @param string $handle
+	 * @param string $script
+	 *
+	 * @return void
+	 */
+	function enqueue_script( string $handle, string $script): void {
+
+		$deps_file = GTMKIT_PATH . 'build/' . $script . '.asset.php';
+
+		$dependency = [];
+		$version = false;
+
+		if ( file_exists( $deps_file ) ) {
+			$deps_file  = require( $deps_file );
+			$dependency = $deps_file['dependencies'];
+			$version    = $deps_file['version'];
+		}
+
+		wp_enqueue_script( $handle, GTMKIT_URL . 'build/' . $script . '.js', $dependency, $version, true );
+	}
+
 }
