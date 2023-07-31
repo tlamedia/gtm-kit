@@ -11,7 +11,7 @@ Flexible tool for generating the data layer for Google Tag Manager. Including Wo
 
 == Description ==
 
-GTM Kit puts the Google Tag Manager container code on your website so that you don't need to touch any code. It also pushes data from WooCommerce, Easy Digital Downloads and Contact Form 7 to the data layer for use with for Google Analytics 4, Facebook and other GTM tags.
+GTM Kit puts the Google Tag Manager container code on your website so that you don't need to touch any code. It also pushes data from WooCommerce, Easy Digital Downloads (EDD) and Contact Form 7 to the data layer for use with for Google Analytics 4, Facebook and other GTM tags.
 
 The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager. It is easy to use and doesn't require any coding, but it allows developers to customize the plugin as needed.
 
@@ -80,11 +80,6 @@ Create an account and container in <a href="https://tagmanager.google.com/">Goog
 = Is Google Analytics 4 (GA4) supported? =
 
 Yes! We strive to support the full feature set of Google Analytics 4 and will implement any future features of Analytics 4.
-
-= Is Google Universal Analytics supported? =
-
-Yes. GTM Kit is only supporting GA4 events, but you can use these GA4 events in Universal Analytics Enhanced Ecommerce. <a href="https://gtmkit.com/guides/use-ga4-ecommerce-events-in-universal-analytics/">Read more</a>.
-Google Universal Analytics (GA3) properties will stop collecting data starting July 1, 2023, and therefor a Google Analytics 4 property is soon required.
 
 = Is this plugin cache friendly? =
 
