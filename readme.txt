@@ -91,7 +91,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 * Added the class input-needed to the block list of the add_to_cart event
+* Added option to import plugin settings from GTM4WP in the setup wizard
 * Improve support for the WooCommerce cart and checkout blocks
+* Improved the setup wizard with option to enable essential settings
 
 Bugfixes:
 
@@ -104,6 +106,7 @@ Other:
 = 1.11.1 =
 
 Bugfixes:
+* The ecommerce object was not cleared on some events
 
 * Cast transaction_id to string. According to the GA4 documentation transaction_id should be a string as it allows numbers, letters, and special characters like dashes or spaces.
 
