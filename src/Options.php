@@ -93,7 +93,8 @@ final class Options {
 				'script_implementation'   => '0',
 				'noscript_implementation' => '0',
 				'container_active'        => 'on',
-			]
+			],
+			'integrations' => []
 		];
 	}
 
@@ -315,6 +316,8 @@ final class Options {
 				}
 			}
 		}
+
+		if (!isset($options['integrations'])) $options['integrations'] = [];
 
 		return $options;
 	}

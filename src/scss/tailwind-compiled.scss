@@ -560,6 +560,11 @@ video {
   margin-bottom: 4rem;
 }
 
+.gtmkit-my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .gtmkit-my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -612,6 +617,10 @@ video {
 
 .gtmkit-mt-16 {
   margin-top: 4rem;
+}
+
+.gtmkit-mt-2 {
+  margin-top: 0.5rem;
 }
 
 .gtmkit-mt-3 {
@@ -735,6 +744,10 @@ video {
   table-layout: fixed;
 }
 
+.gtmkit-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .gtmkit-grid-cols-5 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
@@ -745,6 +758,10 @@ video {
 
 .gtmkit-justify-center {
   justify-content: center;
+}
+
+.gtmkit-gap-16 {
+  gap: 4rem;
 }
 
 .gtmkit-gap-8 {
@@ -875,6 +892,11 @@ video {
 .gtmkit-py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.gtmkit-py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .gtmkit-text-left {

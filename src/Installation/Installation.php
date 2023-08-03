@@ -35,6 +35,7 @@ final class Installation {
 
 		// Add transient to trigger redirect to the Setup Wizard.
 		set_transient( 'gtmkit_activation_redirect', true, 30 );
+		set_transient( 'gtmkit_first_install', true, 30 );
 
 	}
 
