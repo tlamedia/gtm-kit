@@ -28,6 +28,7 @@ class PluginDataImport {
 		];
 
 		$plugins = [
+			'gtm4wp',
 		];
 
 		foreach ( $plugins as $plugin ) {
@@ -58,5 +59,49 @@ class PluginDataImport {
 
 		return [];
 	}
-	
+
+	/**
+	 * Check if GTM4WP plugin settings are present and extract them.
+	 *
+	 * @return array
+	 */
+	private function get_gtm4wp(): array {
+
+		$options = get_option( 'gtm4wp-options' );
+
+		if ( empty( $options ) ) {
+			return [];
+		}
+
+		return [
+			'general' => [
+				'gtm_id'         => $options['gtm-code'] ?? '',
+				'datalayer_name' => $options['gtm-datalayer-variable-name'] ?? '',
+				'sgtm_domain' => $options['gtm-domain-name'] ?? '',
+				'datalayer_post_type' => $options['include-posttype'] ?? '',
+				'datalayer_categories' => $options['include-categories'] ?? '',
+				'datalayer_tags' => $options['include-tags'] ?? '',
+				'datalayer_post_author_id' => $options['include-authorid'] ?? '',
+				'datalayer_post_author_name' => $options['include-author'] ?? '',
+				'datalayer_post_date' => $options['include-postdate'] ?? '',
+				'datalayer_post_id' => $options['include-postid'] ?? '',
+				'datalayer_logged_in' => $options['include-loggedin'] ?? '',
+				'datalayer_user_id' => $options['include-userid'] ?? '',
+				'datalayer_user_role' => $options['include-userrole'] ?? '',
+			],
+			'integrations' => [
+				'woocommerce_integration'         => $options['integrate-woocommerce-track-enhanced-ecommerce'] ?? '',
+				'woocommerce_brand' => $options['integrate-woocommerce-brand-taxonomy'] ?? '',
+				'woocommerce_use_sku' => $options['integrate-woocommerce-remarketing-usesku'] ?? '',
+				'woocommerce_google_business_vertical' => $options['integrate-woocommerce-business-vertical'] ?? '',
+				'woocommerce_product_id_prefix' => $options['integrate-woocommerce-remarketing-productidprefix'] ?? '',
+				'woocommerce_exclude_tax' => $options['integrate-woocommerce-exclude-tax'] ?? '',
+				'woocommerce_exclude_shipping' => $options['integrate-woocommerce-exclude-shipping'] ?? '',
+				'woocommerce_include_customer_data' => $options['integrate-woocommerce-order-data'] ?? '',
+				'cf7_integration' => $options['integrate-wpcf7'] ?? '',
+			],
+
+		];
+	}
+
 }
