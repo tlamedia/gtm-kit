@@ -3,6 +3,7 @@
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use TLA_Media\GTM_Kit\Options;
 use WP_Error;
 
@@ -214,6 +215,14 @@ final class SetupWizard {
 	 */
 	public function register_rest_routes(): void {
 		$this->util->rest_API_server->register_rest_route(
+			'/get-install-data',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'get_install_data' ],
+			]
+		);
+
+		$this->util->rest_API_server->register_rest_route(
 			'/get-options',
 			[
 				'methods'  => 'POST',
@@ -265,6 +274,16 @@ final class SetupWizard {
 	}
 
 	/**
+	 * Get install data
+	 *
+	 * @return void
+	 */
+	public function get_install_data(): void {
+		$other_plugin_settings = ( new PluginDataImport() )->get_all();
+		wp_send_json_success( $other_plugin_settings );
+	}
+
+	/**
 	 * Get options
 	 *
 	 * @return void
@@ -282,7 +301,7 @@ final class SetupWizard {
 		$newOptions = json_decode( file_get_contents( 'php://input' ), true );
 		$this->options->set( $newOptions );
 
-		wp_send_json_success( $newOptions );
+		wp_send_json_success( $this->options->get_all_raw() );
 	}
 
 	/**
