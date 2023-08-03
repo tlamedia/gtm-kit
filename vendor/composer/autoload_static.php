@@ -42,6 +42,7 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
         'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => __DIR__ . '/../..' . '/src/Frontend/Frontend.php',
         'TLA_Media\\GTM_Kit\\Frontend\\UserData' => __DIR__ . '/../..' . '/src/Frontend/UserData.php',
         'TLA_Media\\GTM_Kit\\Installation\\Installation' => __DIR__ . '/../..' . '/src/Installation/Installation.php',
+        'TLA_Media\\GTM_Kit\\Installation\\PluginDataImport' => __DIR__ . '/../..' . '/src/Installation/PluginDataImport.php',
         'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => __DIR__ . '/../..' . '/src/Installation/Upgrade.php',
         'TLA_Media\\GTM_Kit\\Integration\\AbstractEcommerce' => __DIR__ . '/../..' . '/src/Integration/AbstractEcommerce.php',
         'TLA_Media\\GTM_Kit\\Integration\\AbstractIntegration' => __DIR__ . '/../..' . '/src/Integration/AbstractIntegration.php',

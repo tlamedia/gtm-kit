@@ -23,6 +23,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => $baseDir . '/src/Frontend/Frontend.php',
     'TLA_Media\\GTM_Kit\\Frontend\\UserData' => $baseDir . '/src/Frontend/UserData.php',
     'TLA_Media\\GTM_Kit\\Installation\\Installation' => $baseDir . '/src/Installation/Installation.php',
+    'TLA_Media\\GTM_Kit\\Installation\\PluginDataImport' => $baseDir . '/src/Installation/PluginDataImport.php',
     'TLA_Media\\GTM_Kit\\Installation\\Upgrade' => $baseDir . '/src/Installation/Upgrade.php',
     'TLA_Media\\GTM_Kit\\Integration\\AbstractEcommerce' => $baseDir . '/src/Integration/AbstractEcommerce.php',
     'TLA_Media\\GTM_Kit\\Integration\\AbstractIntegration' => $baseDir . '/src/Integration/AbstractIntegration.php',
