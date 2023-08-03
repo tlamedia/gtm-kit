@@ -17,8 +17,6 @@ class PluginDataImport {
 		$firstInstall = (bool) get_transient( 'gtmkit_first_install' );
 		delete_transient( 'gtmkit_first_install' );
 
-		$firstInstall = true;
-
 		$pluginData = [
 			'first_install'           => $firstInstall,
 			'import_available'        => false,
