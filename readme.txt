@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.11.1
+Stable tag: 1.12.0
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,21 +87,20 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.x =
+= 1.12 =
 
 Enhancements:
+* Improved support for the WooCommerce cart and checkout blocks
 * Added the class input-needed to the block list of the add_to_cart event
 * Added option to import plugin settings from GTM4WP in the setup wizard
-* Improve support for the WooCommerce cart and checkout blocks
 * Improved the setup wizard with option to enable essential settings
-
-Bugfixes:
 
 Other:
 * Use global object for script data and settings
 * Require WooCommerce 7.1
 * Require WordPress 6.1
 * Tested up to WordPress 6.3
+* Tested up to WooCommerce 8.0
 
 = 1.11.1 =
 
