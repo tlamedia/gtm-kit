@@ -11,11 +11,6 @@ use TLA_Media\GTM_Kit\Options;
 abstract class AbstractIntegration {
 
 	/**
-	 * Plugin instance.
-	 */
-	protected static $instance = null;
-
-	/**
 	 * Plugin options.
 	 *
 	 * @var Options

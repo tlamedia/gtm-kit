@@ -26,6 +26,11 @@ use WC_Product;
 final class WooCommerce  extends AbstractEcommerce {
 
 	/**
+	 * Instance.
+	 */
+	protected static $instance = null;
+
+	/**
 	 * Stores Rest Extending instance.
 	 *
 	 * @var ExtendSchema

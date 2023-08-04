@@ -15,6 +15,11 @@ use TLA_Media\GTM_Kit\Options;
 final class ContactForm7 extends AbstractIntegration {
 
 	/**
+	 * Instance.
+	 */
+	protected static $instance = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options $options
