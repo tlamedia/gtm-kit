@@ -28,7 +28,7 @@
     "i18n:textdomain": "wpi18n addtextdomain",
     "i18n:pot": "wp i18n make-pot ./ languages/gtm-kit.pot",
     "change-version": "./bin/change-version.sh $npm_package_version",
-    "zip-package": "zip -rq ./bundled/gtm-kit.zip * -x \"node_modules/*\" -x \"bin/*\" -x \"bundled/*\" -x gulpfile.babel.js -x package.json -x package-lock.json -x tailwind.config.js -x phpstan.neon.dist -x postcss.config.js -x README.md",
+    "zip-package": "zip -rq ./bundled/gtm-kit.zip * -x \"node_modules/*\" -x \"bin/*\" -x \"bundled/*\" -x \"**/.*\" -x gulpfile.babel.js -x package.json -x package-lock.json -x tailwind.config.js -x phpstan.neon.dist -x postcss.config.js -x README.md",
     "compile:sass": "sass src/scss/admin.scss:assets/css/admin.css",
     "compile:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/tailwind-compiled.scss --watch",
     "uglify:woocommerce": "mkdirp assets/js && uglifyjs src/js/woocommerce.js --compress --mangle --output assets/js/woocommerce.js",
