@@ -24,6 +24,8 @@ output() {
 if [ ! $1 ]; then
 	output 3 "Please enter the version number, for example, 1.0.0:"
 	read -r VERSION
+else
+	VERSION=$1
 fi
 
 output 2 "Updating version numbers in files..."
