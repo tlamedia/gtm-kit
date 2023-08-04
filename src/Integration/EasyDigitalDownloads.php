@@ -20,6 +20,11 @@ use TLA_Media\GTM_Kit\Options;
 final class EasyDigitalDownloads extends AbstractEcommerce {
 
 	/**
+	 * Instance.
+	 */
+	protected static $instance = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options $options
