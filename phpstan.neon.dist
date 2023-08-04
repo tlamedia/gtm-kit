@@ -2,23 +2,16 @@ includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
 	level: 0
+	bootstrapFiles:
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
 	paths:
 		- inc/
 		- gtm-kit.php
 		- src/
 		- uninstall.php
 	ignoreErrors:
-		- '#Function get_woo[a-zA-Z0-9\\_]+ not found.#'
-		- '#Function wc[a-zA-Z0-9\\_]+ not found.#'
-		- '#Function WC[a-zA-Z0-9\\_]* not found.#'
-		- '#Function is_(cart|checkout|product|order)+.* not found.#'
-		- '#Class WC[a-zA-Z0-9\\_]+ not found.#'
-		- '#Instantiated class WC_[a-zA-Z0-9\\_]+ not found.#'
-		- '#Parameter \$[a-zA-Z0-9\\_]+ of method .* has invalid type WC_[a-zA-Z0-9\\_]+\.#'
-		- '#.*Automattic\\WooCommerce.*#'
 		- '#Function edd[a-zA-Z0-9\\_]+ not found.#'
 		- '#Function EDD[a-zA-Z0-9\\_]* not found.#'
 		- '#Class EDD[a-zA-Z0-9\\_]* not found.#'
 		- '#Parameter \$[a-zA-Z0-9\\_]+ of method .* has invalid type EDD_[a-zA-Z0-9\\_]+\.#'
-		- '#Function as_next_scheduled_action not found.#'
-		- '#Function as_schedule_single_action not found.#'
