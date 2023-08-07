@@ -169,7 +169,7 @@ public function get_datalayer_content(): void {
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			'https://" . esc_attr( $domain ) . "/" . esc_attr( $loader ) . ".js?id='+i+dl;f.parentNode.insertBefore(j,f);
-			})(window,document,'script','dataLayer','" . esc_attr( $gtm_id ) . "');";
+			})(window,document,'script','" . esc_js( $this->datalayer_name ) ."','" . esc_attr( $gtm_id ) . "');";
 	}
 
 	/**

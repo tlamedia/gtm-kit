@@ -87,6 +87,11 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.12.1 =
+
+Bugfixes:
+* A custom datalayer name was not registered correct.
+
 = 1.12 =
 
 Enhancements:
