@@ -28,7 +28,7 @@ final class BasicDatalayerData {
 	 * @param Options $options
 	 */
 	public static function register( Options $options ): void {
-		$page = new static( $options );
+		$page = new BasicDatalayerData( $options );
 
 		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_datalayer_content' ], 9 );
 		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_priority_datalayer_content' ], 99 );

@@ -42,7 +42,7 @@ final class Analytics {
 	 * Register analytics
 	 */
 	public static function register( Options $options, Util $util): void {
-		self::$instance = $page = new static( $options, $util );
+		self::$instance = $page = new Analytics( $options, $util );
 
 		if ( $options->get( 'general', 'analytics_active' ) ) {
 			add_action( 'init', [ $page, 'schedule_daily_event' ] );

@@ -36,7 +36,7 @@ final class Frontend {
 	 * @param Options $options
 	 */
 	public static function register( Options $options ): void {
-		$page = new static( $options );
+		$page = new Frontend( $options );
 
 		if ( empty( $options->get( 'general', 'just_the_container' ) ) ) {
 			add_action( 'wp_head', [ $page, 'get_header_datalayer' ], 1, 0 );
