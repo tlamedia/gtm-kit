@@ -28,7 +28,7 @@ final class MetaBox {
 	 * @param Options $options
 	 */
 	public static function register( Options $options ): void {
-		$page = new static( $options );
+		$page = new MetaBox( $options );
 
 		add_action( 'add_meta_boxes', [ $page, 'add_meta_boxes' ] );
 		add_action( 'save_post', [ $page, 'save_meta_box_options' ] );

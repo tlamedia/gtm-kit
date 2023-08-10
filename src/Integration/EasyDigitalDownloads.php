@@ -101,7 +101,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the global script settings
 	 *
-	 * @param array $global_data Script data
+	 * @param array $global_settings Script settings
 	 *
 	 * @return array
 	 */
