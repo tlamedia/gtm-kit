@@ -32,17 +32,4 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		</div>
 	</div>
 
-	<div class="gtmkit-mt-16 gtmkit-border gtmkit-bg-white gtmkit-w-3/4 gtmkit-border-color-grey">
-		<h3 class="gtmkit-font-bold gtmkit-text-lg gtmkit-px-3 gtmkit-py-2 gtmkit-border-b gtmkit-border-color-grey gtmkit-flex gtmkit-items-center">
-			<?php esc_html_e( 'About GTM Kit', 'gtm-kit' ); ?>
-			<span class="gtmkit-text-sm gtmkit-text-color-grey gtmkit-font-light gtmkit-ml-2">(<?php esc_html_e( 'Version:', 'gtm-kit' ); ?> <?php echo esc_html( GTMKIT_VERSION ); ?>)</span>
-		</h3>
-		<div class="gtmkit-p-3">
-			<p>
-				<?php esc_html_e( 'The plugin is open source (GPL v3 license) and contributions are welcome:', 'gtm-kit' ); ?>
-				<a class="gtmkit-text-color-primary" href="https://github.com/tlamedia/gtm-kit" target="_blank"><?php esc_attr_e( 'GTM Kit Repository', 'gtm-kit' ); ?></a>
-			</p>
-		</div>
-	</div>
-
 </div>
