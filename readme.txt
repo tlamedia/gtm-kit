@@ -93,6 +93,7 @@ Enhancements:
 
 Bugfixes:
 * Fixes an error when no payment gateways are defined.
+* Fixes empty items in begin_checkout event.
 
 Other:
 
