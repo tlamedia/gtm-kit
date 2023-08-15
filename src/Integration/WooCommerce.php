@@ -428,7 +428,7 @@ final class WooCommerce  extends AbstractEcommerce {
 			$data_layer['ecommerce']['coupon'] = implode( '|', array_filter( $coupons ) );
 		}
 
-		$data_layer['ecommerce']['items'] = $this->global_data['data']['wc']['cart_items'];
+		$data_layer['ecommerce']['items'] = $this->global_data['wc']['cart_items'];
 
 		return $data_layer;
 	}
