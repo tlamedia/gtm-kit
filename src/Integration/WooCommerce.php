@@ -237,7 +237,7 @@ final class WooCommerce  extends AbstractEcommerce {
 		if ( is_checkout() && ! is_order_received_page() ) {
 			$global_data['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
 			$global_data['wc']['cart_value'] = (float) WC()->cart->cart_contents_total;
-			$global_data['wc']['chosen_shipping_method'] = WC()->session->get('chosen_shipping_methods')[0];
+			$global_data['wc']['chosen_shipping_method'] = WC()->session->get('chosen_shipping_methods')[0] ?? '';
 			$global_data['wc']['chosen_payment_method'] = $this->get_payment_method();
 			$global_data['wc']['add_payment_info']['fired']   = false;
 			$global_data['wc']['add_shipping_info']['fired']  = false;
