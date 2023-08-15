@@ -248,7 +248,7 @@ final class WooCommerce  extends AbstractEcommerce {
 		return $global_data;
 	}
 
-	private function get_payment_method(): string {
+	private function get_payment_method(): ?string {
 
 		$payment_method = WC()->session->get( 'chosen_payment_method' );
 
