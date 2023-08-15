@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.12.1\n"
+"Project-Id-Version: GTM Kit 1.12.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-07T09:59:21+00:00\n"
+"POT-Creation-Date: 2023-08-15T09:45:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: gtm-kit\n"
@@ -694,22 +694,18 @@ msgid "Changelog"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:129
-#: src/views/tabs/help/support.php:37
 msgid "About GTM Kit"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:130
-#: src/views/tabs/help/support.php:38
 msgid "Version:"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:134
-#: src/views/tabs/help/support.php:42
 msgid "The plugin is open source (GPL v3 license) and contributions are welcome:"
 msgstr ""
 
 #: src/views/tabs/general/whats_new.php:135
-#: src/views/tabs/help/support.php:43
 msgid "GTM Kit Repository"
 msgstr ""
 

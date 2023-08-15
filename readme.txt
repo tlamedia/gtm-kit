@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.12.1
+Stable tag: 1.12.2
 License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,7 @@ Bugfixes:
 * Fixes empty items in begin_checkout event.
 
 Other:
+* Removes About GTM Kit section from help page
 
 = 1.12.1 =
 
