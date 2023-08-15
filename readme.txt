@@ -92,6 +92,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+* Fixes an error when no payment gateways are defined.
 
 Other:
 
