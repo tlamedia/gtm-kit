@@ -92,6 +92,15 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+
+Other:
+
+
+= 1.12.2 =
+
+Enhancements:
+
+Bugfixes:
 * Fixes an error when no payment gateways are defined.
 * Fixes empty items in begin_checkout event.
 
