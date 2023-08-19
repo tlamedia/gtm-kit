@@ -27,6 +27,7 @@ class PluginDataImport {
 
 		$plugins = [
 			'gtm4wp',
+			'gtm_for_woocommerce',
 		];
 
 		foreach ( $plugins as $plugin ) {
@@ -100,6 +101,48 @@ class PluginDataImport {
 			],
 
 		];
+	}
+
+	/**
+	 * Check if GTM for WooCommerce plugin settings are present and extract them.
+	 *
+	 * @return array
+	 */
+	private function get_gtm_for_woocommerce(): array {
+
+		$options = get_option( 'gtm_ecommerce_woo_earliest_active_at' );
+
+		if ( empty( $options ) ) {
+			return [];
+		}
+
+		return [
+			'general' => [
+				'gtm_id'         => $this->extract_container_id( get_option( 'gtm_ecommerce_woo_gtm_snippet_head', '' ) ),
+			],
+			'integrations' => [
+				'woocommerce_integration'         => 'On',
+			],
+
+		];
+	}
+
+	/**
+	 * Extract the container ID from the container script
+	 *
+	 * @param string $container_script
+	 *
+	 * @return string
+	 */
+	private function extract_container_id( string $container_script ): string {
+		$container_id = '';
+
+		if (preg_match("/'GTM-\w+'/i", $$container_script, $matches)) {
+			// Remove the single quotes around the ID
+			$container_id = trim($matches[0], "'");
+		}
+
+		return $container_id;
 	}
 
 }
