@@ -33,7 +33,7 @@ class PluginDataImport {
 		foreach ( $plugins as $plugin ) {
 			$settings = $this->get( $plugin );
 			if ( ! empty( $settings ) ) {
-				$pluginData[ $plugin ]          = $settings;
+				$pluginData['import_data'][ $plugin ] = $settings;
 				$pluginData['import_available'] = true;
 			}
 		}
@@ -73,6 +73,7 @@ class PluginDataImport {
 		}
 
 		return [
+			'name' => 'GTM4WP',
 			'general' => [
 				'gtm_id'         => $options['gtm-code'] ?? '',
 				'datalayer_name' => $options['gtm-datalayer-variable-name'] ?? '',
@@ -117,6 +118,7 @@ class PluginDataImport {
 		}
 
 		return [
+			'name' => 'GTM for WooCommerce',
 			'general' => [
 				'gtm_id'         => $this->extract_container_id( get_option( 'gtm_ecommerce_woo_gtm_snippet_head', '' ) ),
 			],
@@ -137,11 +139,9 @@ class PluginDataImport {
 	private function extract_container_id( string $container_script ): string {
 		$container_id = '';
 
-		if (preg_match("/'GTM-\w+'/i", $$container_script, $matches)) {
-			// Remove the single quotes around the ID
+		if (preg_match("/'GTM-\w+'/im", $container_script, $matches)) {
 			$container_id = trim($matches[0], "'");
 		}
-
 		return $container_id;
 	}
 

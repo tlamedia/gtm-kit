@@ -90,6 +90,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.X =
 
 Enhancements:
+* Added support for import of more plugin configurations
 
 Bugfixes:
 
