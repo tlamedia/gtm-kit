@@ -643,7 +643,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array The cart items.
 	 */
-	function get_cart_items( string $event_context ): array {
+	public function get_cart_items( string $event_context ): array {
 		$cart_items = [];
 		$coupons    = WC()->cart->get_applied_coupons();
 
@@ -686,7 +686,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array The item data.
 	 */
-	function get_item_data( WC_Product $product, array $additional_item_attributes = [], string $event_context = '' ): array {
+	public function get_item_data( WC_Product $product, array $additional_item_attributes = [], string $event_context = '' ): array {
 
 		$product_id_to_query = ( $product->get_type() === 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
@@ -744,7 +744,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array
 	 */
-	function get_coupon_discount( array $coupons, array $item ): array {
+	public function get_coupon_discount( array $coupons, array $item ): array {
 
 		$discount     = 0;
 		$coupon_codes = [];
@@ -812,7 +812,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return void
 	 */
-	function single_product_add_to_cart_tracking(): void {
+	public function single_product_add_to_cart_tracking(): void {
 		global $product;
 
 		$item_data = $this->get_item_data( $product );
@@ -830,7 +830,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string The product label string.
 	 */
-	function grouped_product_add_to_cart_tracking( string $label_value, WC_Product $product ): string {
+	public function grouped_product_add_to_cart_tracking( string $label_value, WC_Product $product ): string {
 
 		$label_value .= $this->get_item_data_tag( $product, __( 'Grouped Product', 'gtm-kit' ), $this->grouped_product_position ++ );
 
@@ -848,7 +848,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string Updated product grid item HTML.
 	 */
-	function product_block_add_to_cart_tracking( string $html, object $data, WC_Product $product ): string {
+	public function product_block_add_to_cart_tracking( string $html, object $data, WC_Product $product ): string {
 		$item_data_tag = $this->get_item_data_tag( $product, '', 0 );
 
 		return preg_replace( '/<li[^>]+class="[^"]*wc-block-grid__product[^">]*"[^>]*>/i', '$0' . $item_data_tag, $html );
@@ -863,7 +863,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string A hidden <span> element that contains the item data.
 	 */
-	function get_item_data_tag( WC_Product $product, string $item_list_name, int $index ): string {
+	public function get_item_data_tag( WC_Product $product, string $item_list_name, int $index ): string {
 
 		if ( empty( $item_list_name ) ) {
 			$item_list_name = ( is_search() ) ? __( 'Search Results', 'gtm-kit' ) : __( 'General Product List', 'gtm-kit' );
@@ -901,7 +901,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return void
 	 */
-	function product_list_loop_add_to_cart_tracking(): void {
+	public function product_list_loop_add_to_cart_tracking(): void {
 		global $product, $woocommerce_loop;
 
 		if ( ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
@@ -992,7 +992,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string The updated cart item remove link containing product data.
 	 */
-	function cart_item_remove_link( string $woocommerce_cart_item_remove_link, string $cart_item_key ): string {
+	public function cart_item_remove_link( string $woocommerce_cart_item_remove_link, string $cart_item_key ): string {
 
 		$cart_item = WC()->cart->get_cart_item( $cart_item_key );
 
@@ -1032,7 +1032,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string
 	 */
-	function prefix_item_id( string $item_id ): string {
+	public function prefix_item_id( string $item_id ): string {
 		$prefix = ( Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) ) ?: '';
 		return $prefix . $item_id;
 	}
@@ -1044,7 +1044,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array
 	 */
-	function Compatibility_With_TI_Wishlist( array $item_data ): array {
+	public function Compatibility_With_TI_Wishlist( array $item_data ): array {
 
 		foreach ( array_keys( $item_data ) as $key ) {
 			if ( strpos( $key, 'gtmkit_' ) === 0 ) {
@@ -1132,7 +1132,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array
 	 */
-	function has_woocommerce_blocks( int $post_id ): array {
+	public function has_woocommerce_blocks( int $post_id ): array {
 		$post_content = get_the_content( null, false, $post_id );
 
 		$woocommerce_blocks = array();
@@ -1155,7 +1155,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array
 	 */
-	function get_woocommerce_blocks(): array {
+	public function get_woocommerce_blocks(): array {
 		return $this->has_woocommerce_blocks( get_the_ID() );
 	}
 }

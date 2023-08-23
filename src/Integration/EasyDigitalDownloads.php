@@ -336,7 +336,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return array The cart items.
 	 */
-	function get_cart_items( string $event_context ): array {
+	public function get_cart_items( string $event_context ): array {
 		$cart_items = [];
 
 		foreach ( EDD()->cart->get_contents() as $cart_item ) {
@@ -359,7 +359,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return array The item data.
 	 */
-	function get_item_data( EDD_Download $download, array $options = [], array $additional_item_attributes = [], string $event_context = '' ): array {
+	public function get_item_data( EDD_Download $download, array $options = [], array $additional_item_attributes = [], string $event_context = '' ): array {
 
 		if ( $this->options->get( 'integrations', 'edd_use_sku' ) && edd_use_skus() ) {
 			$item_id = ( $download->get_sku() === '-' ) ? $download->get_ID() : $download->get_sku();
@@ -420,7 +420,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return void
 	 */
-	function add_to_cart_tracking( int $download_id ): void {
+	public function add_to_cart_tracking( int $download_id ): void {
 
 		$product = edd_get_download( $download_id );
 
@@ -437,7 +437,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return string
 	 */
-	function prefix_item_id( string $item_id ): string {
+	public function prefix_item_id( string $item_id ): string {
 		$prefix = ( Options::init()->get( 'integrations', 'edd_product_id_prefix' ) ) ?: '';
 
 		return $prefix . $item_id;
@@ -451,7 +451,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return float
 	 */
-	function get_price_to_display( int $download_id, string $price_index = null ): float {
+	public function get_price_to_display( int $download_id, string $price_index = null ): float {
 
 		if ( edd_has_variable_prices( $download_id ) ) {
 
@@ -481,7 +481,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return false|mixed|string
 	 */
-	function get_payment_key() {
+	public function get_payment_key() {
 		global $edd_receipt_args;
 
 		$session = edd_get_purchase_session();

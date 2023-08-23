@@ -53,7 +53,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Get instance
 	 */
-	abstract static function instance();
+	abstract public static function instance();
 
 	/**
 	 * Register frontend
@@ -71,7 +71,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 *
 	 * @return array The category breadcrumb for the given product ID.
 	 */
-	function get_primary_product_category( int $product_id, string $taxonomy ): array {
+	public function get_primary_product_category( int $product_id, string $taxonomy ): array {
 
 		$primary_product_category = [];
 
@@ -119,7 +119,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 *
 	 * @return array The category path elements as an array.
 	 */
-	function get_category_breadcrumb( int $category_id, string $taxonomy ): array {
+	public function get_category_breadcrumb( int $category_id, string $taxonomy ): array {
 		$category_hierarchy = [];
 
 		$category = get_term( $category_id, $taxonomy );
@@ -149,7 +149,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 *
 	 * @return string Returns the first assigned taxonomy value.
 	 */
-	function get_product_term( int $product_id, string $taxonomy ): string {
+	public function get_product_term( int $product_id, string $taxonomy ): string {
 
 		$product_terms = wp_get_post_terms(
 			$product_id,

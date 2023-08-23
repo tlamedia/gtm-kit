@@ -290,7 +290,7 @@ final class SetupWizard {
 	 *
 	 * @return void
 	 */
-	function render_page() {
+	public function render_page() {
 		$this->setup_wizard_content();
 	}
 

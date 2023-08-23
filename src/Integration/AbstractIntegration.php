@@ -43,13 +43,13 @@ abstract class AbstractIntegration {
 	/**
 	 * Get instance
 	 */
-	abstract static function instance();
+	abstract public static function instance();
 
 	/**
 	 * Register frontend
 	 *
 	 * @param Options $options An instance of Options.
-	 * @param Util $util An instance of Util.
+	 * @param Util    $util An instance of Util.
 	 */
 	abstract public static function register( Options $options, Util $util ): void;
 }

@@ -224,7 +224,7 @@ final class Frontend {
 	 *
 	 * @return array URL to print
 	 */
-	function dns_prefetch( array $hints, string $relation_type ): array {
+	public function dns_prefetch( array $hints, string $relation_type ): array {
 
 		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
 
