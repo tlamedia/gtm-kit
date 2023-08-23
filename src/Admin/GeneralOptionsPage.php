@@ -1,9 +1,22 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+/**
+ * GeneralOptionsPage
+ */
 final class GeneralOptionsPage extends AbstractOptionsPage {
 
+	/**
+	 * The option group.
+	 *
+	 * @var string
+	 */
 	protected $option_group = 'general';
 
 	/**
@@ -81,7 +94,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'misc',
 				__( 'Misc', 'gtm-kit' ),
 				[
-					'tab_data' => ['site_data' => $site_data]
+					'tab_data' => [ 'site_data' => $site_data ],
 				]
 			)
 		);
@@ -97,8 +110,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 
 		$dashboard_tabs->display( $form );
 
-		$form->admin_footer( true, false);
-
+		$form->admin_footer( true, false );
 	}
 
 	/**
@@ -141,13 +153,12 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 * Get the tabs of the admin page.
 	 */
 	protected function get_tabs(): void {
-		$generalTabs = new OptionTabs( 'general' );
-		$generalTabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'misc', __( 'Misc.', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'whats_new', __( "What's new", 'gtm-kit' ) ) );
+		$general_tabs = new OptionTabs( 'general' );
+		$general_tabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'misc', __( 'Misc.', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'whats_new', __( "What's new", 'gtm-kit' ) ) );
 	}
-
 }

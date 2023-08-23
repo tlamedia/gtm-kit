@@ -1,10 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-/** @var OptionsForm $form */
+/** @var OptionsForm $form */ // phpcs:ignore
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
@@ -71,7 +76,7 @@ $field_data['options']     = [
 	],
 	1 => [
 		'label' => __( 'Load container when browser is idle (requestIdleCallback)', 'gtm-kit' ),
-	]
+	],
 ];
 $field_data['legend']      = __( 'Container code implementation:', 'gtm-kit' );
 $field_data['legend_attr'] = [ 'class' => 'radiogroup screen-reader-text' ];
@@ -101,11 +106,11 @@ $field_data['options'] = [
 	],
 	3 => [
 		'label' => __( 'Disable &lt;noscript&gt; implementation', 'gtm-kit' ),
-	]
+	],
 
 ];
 
-$description = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtm-kit' ) . ' ';
+$description  = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtm-kit' ) . ' ';
 $description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtm-kit' ) . ' ';
 $description .= __( 'If your theme does not support this the script can be injected in the footer or you can use the function below.', 'gtm-kit' );
 $description .= '<br><br>';

@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
@@ -45,6 +50,7 @@ register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_activati
 function gtmkit_plugin_deactivation(): void {
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
 }
+
 register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deactivation' );
 
 /**
@@ -56,9 +62,9 @@ register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deacti
  */
 function gtmkit_add_plugin_action_link( array $links ): array {
 
-	/** @noinspection HtmlUnknownTarget */
 	$custom['settings'] = sprintf(
-		'<a href="%s" aria-label="%s">%s</a>',
+		'<!--suppress HtmlUnknownTarget -->
+		<a href="%s" aria-label="%s">%s</a>',
 		esc_url( menu_page_url( 'gtmkit_general', false ) ),
 		esc_attr__( 'Go to GTM Kit Settings page', 'gtm-kit' ),
 		esc_html__( 'Settings', 'gtm-kit' )
@@ -78,9 +84,9 @@ function gtmkit_load_text_domain(): void {
  * Load frontend.
  */
 function gtmkit_frontend_init(): void {
-	$options = new Options();
-	$rest_API_server = new RestAPIServer();
-	$util = new Util( $rest_API_server );
+	$options         = new Options();
+	$rest_api_server = new RestAPIServer();
+	$util            = new Util( $rest_api_server );
 
 	( new SetupWizard( $options, $util ) )->rest_init();
 
@@ -91,10 +97,10 @@ function gtmkit_frontend_init(): void {
 		if ( $options->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
 			WooCommerce::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists('WPCF7') ) {
+		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists( 'WPCF7' ) ) {
 			ContactForm7::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists('EDD_Requirements_Check') ) {
+		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists( 'EDD_Requirements_Check' ) ) {
 			EasyDigitalDownloads::register( $options, $util );
 		}
 	}
@@ -105,7 +111,6 @@ function gtmkit_frontend_init(): void {
 
 	Frontend::register( $options );
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
-
 }
 
 /**
@@ -115,22 +120,22 @@ function gtmkit_admin_init(): void {
 
 	if ( version_compare( get_option( 'gtmkit_version' ), GTMKIT_VERSION, '<' ) ) {
 		if ( function_exists( 'opcache_reset' ) ) {
-			@opcache_reset();
+			opcache_reset();
 		}
 
 		new Upgrade();
 	}
 
-	$options = new Options();
-	$rest_API_server = new RestAPIServer();
-	$util = new Util( $rest_API_server );
+	$options         = new Options();
+	$rest_api_server = new RestAPIServer();
+	$util            = new Util( $rest_api_server );
 
 	( new SetupWizard( $options, $util ) )->hooks();
 	MetaBox::register( $options );
 	Analytics::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
-	IntegrationsOptionsPage::register( $options, $util);
-	HelpOptionsPage::register( $options, $util);
+	IntegrationsOptionsPage::register( $options, $util );
+	HelpOptionsPage::register( $options, $util );
 }
 
 /**
@@ -138,11 +143,14 @@ function gtmkit_admin_init(): void {
  */
 if ( ! wp_installing() ) {
 
-	add_action( 'before_woocommerce_init', function() {
-		if ( class_exists( FeaturesUtil::class ) ) {
-			FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
+	add_action(
+		'before_woocommerce_init',
+		function () {
+			if ( class_exists( FeaturesUtil::class ) ) {
+				FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
+			}
 		}
-	} );
+	);
 
 	if ( is_admin() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain' );

@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * UserData
+ */
 final class UserData {
 
 	/**
@@ -16,16 +24,16 @@ final class UserData {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
-	final public function __construct( Options $options ) {
+	public function __construct( Options $options ) {
 		$this->options = $options;
 	}
 
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
 	public static function register( Options $options ): void {
 		$page = new static( $options );
@@ -35,6 +43,10 @@ final class UserData {
 
 	/**
 	 * Get the dataLayer content
+	 *
+	 * @param array $datalayer The datalayer.
+	 *
+	 * @return array
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
@@ -68,5 +80,4 @@ final class UserData {
 
 		return $datalayer;
 	}
-
 }

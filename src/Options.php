@@ -1,8 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
-
+/**
+ * Options
+ */
 final class Options {
 
 	/**
@@ -49,6 +56,12 @@ final class Options {
 		add_filter( 'pre_update_option_gtmkit', [ $this, 'pre_update_option' ], 10, 2 );
 	}
 
+	/**
+	 * Pre update option
+	 *
+	 * @param mixed $new_value The new value.
+	 * @param mixed $old_value The old value.
+	 */
 	function pre_update_option( $new_value, $old_value ): array {
 
 		if ( ! is_array( $new_value ) ) {
@@ -67,7 +80,6 @@ final class Options {
 	 *
 	 * @return Options
 	 * @example Options::init()->get('general', 'gtm_id');
-	 *
 	 */
 	public static function init(): Options {
 
@@ -88,13 +100,13 @@ final class Options {
 	public static function get_defaults(): array {
 
 		return [
-			'general' => [
-				'gtm_id'   => '',
+			'general'      => [
+				'gtm_id'                  => '',
 				'script_implementation'   => '0',
 				'noscript_implementation' => '0',
 				'container_active'        => 'on',
 			],
-			'integrations' => []
+			'integrations' => [],
 		];
 	}
 
@@ -103,11 +115,10 @@ final class Options {
 	 *
 	 * @param string $group The option group.
 	 * @param string $key The option key.
-	 * @param bool $strip_slashes If the slashes should be stripped from string values.
+	 * @param bool   $strip_slashes If the slashes should be stripped from string values.
 	 *
 	 * @return mixed|null Null if value doesn't exist anywhere: in constants, in DB, in a map. So it's completely custom or a typo.
 	 * @example Options::init()->get( 'general', 'gtm_id' ).
-	 *
 	 */
 	public function get( string $group, string $key, bool $strip_slashes = true ) {
 
@@ -119,13 +130,12 @@ final class Options {
 			// Ordinary database or default values.
 			if ( isset( $this->options[ $group ] ) ) {
 				$value = $this->options[ $group ][ $key ] ?? $this->postprocess_key_defaults( $key );
-			} else {
-				if (
+			} elseif (
 					isset( self::$map[ $group ] ) &&
 					in_array( $key, self::$map[ $group ], true )
 				) {
+
 					$value = $this->postprocess_key_defaults( $key );
-				}
 			}
 		}
 
@@ -140,7 +150,7 @@ final class Options {
 	/**
 	 * Postprocess options.
 	 *
-	 * @param string $key
+	 * @param string $key The key.
 	 *
 	 * @return int|string
 	 */
@@ -166,9 +176,9 @@ final class Options {
 	/**
 	 * Get constant value if defined.
 	 *
-	 * @param string $group
-	 * @param string $key
-	 * @param mixed $value
+	 * @param string $group The option group.
+	 * @param string $key The option key.
+	 * @param mixed  $value The option value.
 	 *
 	 * @return mixed
 	 */
@@ -184,15 +194,15 @@ final class Options {
 			case 'general':
 				switch ( $key ) {
 					case 'gtm_id':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ID : $value;
 						break;
 					case 'container_active':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ACTIVE : $value;
 						break;
 					case 'console_log':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONSOLE_LOG : $value;
 						break;
 				}
@@ -212,14 +222,13 @@ final class Options {
 	public function is_const_enabled(): bool {
 
 		return defined( 'GTMKIT_ON' ) && GTMKIT_ON === true;
-
 	}
 
 	/**
 	 * Is constant defined.
 	 *
-	 * @param string $group
-	 * @param string $key
+	 * @param string $group The option group.
+	 * @param string $key The option key.
 	 *
 	 * @return bool
 	 */
@@ -235,22 +244,22 @@ final class Options {
 			case 'general':
 				switch ( $key ) {
 					case 'gtm_id':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = defined( 'GTMKIT_CONTAINER_ID' ) && GTMKIT_CONTAINER_ID;
 						break;
 					case 'container_active':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = defined( 'GTMKIT_CONTAINER_ACTIVE' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONTAINER_ACTIVE === true );
 						break;
 					case 'console_log':
-						/** @noinspection PhpUndefinedConstantInspection */
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = defined( 'GTMKIT_CONSOLE_LOG' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONSOLE_LOG === true );
 						break;
 				}
 
 				break;
 			case 'integration':
-				if ( $key == 'woocommerce_debug_track_purchase' ) {
+				if ( $key === 'woocommerce_debug_track_purchase' ) {
 					$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
 				}
 
@@ -264,8 +273,8 @@ final class Options {
 	 * Set plugin options.
 	 *
 	 * @param array $options Plugin options.
-	 * @param bool $once Update existing options or only add once.
-	 * @param bool $overwrite_existing Overwrite existing settings or merge.
+	 * @param bool  $once Update existing options or only add once.
+	 * @param bool  $overwrite_existing Overwrite existing settings or merge.
 	 */
 	public function set( array $options, bool $once = false, bool $overwrite_existing = true ): void {
 
@@ -278,17 +287,14 @@ final class Options {
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $once ) {
 			add_option( self::OPTION_NAME, $options, '', 'no' ); // Do not autoload these options.
-		} else {
-			if ( is_multisite() ) {
+		} elseif ( is_multisite() ) {
 				update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
-			} else {
-				update_option( self::OPTION_NAME, $options, 'no' );
-			}
+		} else {
+			update_option( self::OPTION_NAME, $options, 'no' );
 		}
 
 		// Now we need to re-cache values.
 		$this->options = get_option( self::OPTION_NAME, [] );
-
 	}
 
 	/**
@@ -304,20 +310,22 @@ final class Options {
 			foreach ( $keys as $option_name => $option_value ) {
 				switch ( $group ) {
 					case 'general':
-						if ( $option_name == 'gtm_id' ) {
+						if ( $option_name === 'gtm_id' ) {
 							$options[ $group ][ $option_name ] = sanitize_text_field( $option_value );
 						}
 						break;
 
 					case 'debug_events':
-						if ( $option_name == 'email_debug' ) {
+						if ( $option_name === 'email_debug' ) {
 							$options[ $group ][ $option_name ] = (bool) $option_value;
 						}
 				}
 			}
 		}
 
-		if (!isset($options['integrations'])) $options['integrations'] = [];
+		if ( ! isset( $options['integrations'] ) ) {
+			$options['integrations'] = [];
+		}
 
 		return $options;
 	}
@@ -385,5 +393,4 @@ final class Options {
 
 		return $options;
 	}
-
 }

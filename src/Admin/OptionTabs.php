@@ -1,7 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+/**
+ * OptionTabs
+ */
 final class OptionTabs {
 
 	/**
@@ -31,7 +39,7 @@ final class OptionTabs {
 	 * @param string $base Base of the tabs.
 	 * @param string $active_tab Currently active tab.
 	 */
-	final public function __construct( string $base, string $active_tab = '' ) {
+	public function __construct( string $base, string $active_tab = '' ) {
 		$this->base = sanitize_title( $base );
 
 		$tab              = filter_input( INPUT_GET, 'tab' );
@@ -124,7 +132,7 @@ final class OptionTabs {
 			<ul class="gtmkit-nav-tab-wrapper" id="gtmkit-tabs">
 				<?php
 				foreach ( $this->get_tabs() as $tab ) {
-					/** @noinspection HtmlUnknownTarget */
+					/** @noinspection HtmlUnknownTarget */ // phpcs:ignore
 					printf(
 						'<li><a class="gtmkit-nav-tab" id="%1$s" href="%2$s">%3$s</a></li>',
 						esc_attr( $tab->get_name() . '-tab' ),

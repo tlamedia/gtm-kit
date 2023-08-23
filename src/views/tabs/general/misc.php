@@ -1,11 +1,16 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-/** @var OptionsForm $form */
-/** @var array $tab_data */
+/** @var OptionsForm $form */ // phpcs:ignore
+/** @var array $tab_data */ // phpcs:ignore
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
@@ -32,7 +37,7 @@ $site_data = $tab_data['site_data']
 				<?php esc_html_e( 'You can help by sharing anonymous data with us.', 'gtm-kit' ); ?>
 				<?php esc_html_e( 'Below is a detailed view of all data GTM Kit will collect if granted permission:', 'gtm-kit' ); ?>
 			</p>
-			<?php if ( $site_data ): ?>
+			<?php if ( $site_data ) : ?>
 				<table class="gtmkit-data-table widefat striped">
 					<tbody>
 					<tr>
@@ -47,13 +52,13 @@ $site_data = $tab_data['site_data']
 						<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'WordPress version number:', 'gtm-kit' ) ); ?></td>
 						<td><?php printf( '<code>%s</code>', esc_html( $site_data['wordpress_version'] ) ); ?></td>
 					</tr>
-					<?php if (isset($site_data['woocommerce_version'])): ?>
+					<?php if ( isset( $site_data['woocommerce_version'] ) ) : ?>
 						<tr>
 							<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'WooCommerce version number:', 'gtm-kit' ) ); ?></td>
 							<td><?php printf( '<code>%s</code>', esc_html( $site_data['woocommerce_version'] ) ); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php if (isset($site_data['edd_version'])): ?>
+					<?php if ( isset( $site_data['edd_version'] ) ) : ?>
 						<tr>
 							<td class="column-primary"><?php printf( '<strong>%s</strong>', esc_html__( 'Easy Digital Downloads version number:', 'gtm-kit' ) ); ?></td>
 							<td><?php printf( '<code>%s</code>', esc_html( $site_data['edd_version'] ) ); ?></td>

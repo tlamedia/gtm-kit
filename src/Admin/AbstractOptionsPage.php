@@ -1,10 +1,18 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * AbstractOptionsPage
+ */
 abstract class AbstractOptionsPage {
 
 	/**
@@ -15,6 +23,8 @@ abstract class AbstractOptionsPage {
 	protected $options;
 
 	/**
+	 * Utilities
+	 *
 	 * @var Util
 	 */
 	protected $util;
@@ -29,21 +39,21 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
 	 */
-	final public function __construct( Options $options, Util $util) {
+	final public function __construct( Options $options, Util $util ) {
 		$this->options = $options;
-		$this->util = $util;
+		$this->util    = $util;
 	}
 
 	/**
 	 * Register the options page.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
 	 */
-	public static function register( Options $options, Util $util): void {
+	public static function register( Options $options, Util $util ): void {
 		$page = new static( $options, $util );
 
 		add_action( 'admin_init', [ $page, 'configure' ] );
@@ -157,7 +167,6 @@ abstract class AbstractOptionsPage {
 		];
 
 		wp_localize_script( 'gtmkit-admin', 'gtmkit', $script_data );
-
 	}
 
 	/**
@@ -177,5 +186,4 @@ abstract class AbstractOptionsPage {
 
 		return $classes;
 	}
-
 }

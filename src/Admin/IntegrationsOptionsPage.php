@@ -1,9 +1,22 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+/**
+ * IntegrationsOptionsPage
+ */
 final class IntegrationsOptionsPage extends AbstractOptionsPage {
 
+	/**
+	 * The option group.
+	 *
+	 * @var string
+	 */
 	protected $option_group = 'integrations';
 
 	/**
@@ -61,7 +74,6 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->display( $form );
 
 		$form->admin_footer( true, false );
-
 	}
 
 	/**
@@ -104,11 +116,10 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 * Get the tabs of the admin page.
 	 */
 	protected function get_tabs(): void {
-		$generalTabs = new OptionTabs( 'integrations' );
-		$generalTabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
-		$generalTabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
-		$generalTabs->add_tab( new OptionTab( 'edd', 'Easy Digital Downloads' ) );
+		$general_tabs = new OptionTabs( 'integrations' );
+		$general_tabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
+		$general_tabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
+		$general_tabs->add_tab( new OptionTab( 'edd', 'Easy Digital Downloads' ) );
 	}
-
 }

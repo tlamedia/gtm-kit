@@ -1,10 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-/** @var OptionsForm $form */
+/** @var OptionsForm $form */ // phpcs:ignore
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );

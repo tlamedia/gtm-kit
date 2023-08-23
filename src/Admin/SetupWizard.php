@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
@@ -20,18 +25,28 @@ final class SetupWizard {
 	const SLUG = 'gtmkit_setup_wizard';
 
 	/**
+	 * An instance of Options.
+	 *
 	 * @var Options
 	 */
 	private $options;
 
 	/**
+	 * An instance of Util.
+	 *
 	 * @var Util
 	 */
 	private $util;
 
-	final public function __construct( Options $options, Util $util ) {
-		$this->options         = $options;
-		$this->util            = $util;
+	/**
+	 * Constructor
+	 *
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
+	 */
+	public function __construct( Options $options, Util $util ) {
+		$this->options = $options;
+		$this->util    = $util;
 	}
 
 	/**
@@ -45,6 +60,11 @@ final class SetupWizard {
 		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 	}
 
+	/**
+	 * Initialize REST
+	 *
+	 * @return void
+	 */
 	public function rest_init() {
 		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 	}
@@ -80,7 +100,7 @@ final class SetupWizard {
 		}
 
 		// Only do this for single site installs.
-		if ( isset( $_GET['activate-multi'] ) || is_network_admin() ) {
+		if ( isset( $_GET['activate-multi'] ) || is_network_admin() ) { // phpcs:ignore
 			return;
 		}
 
@@ -101,6 +121,8 @@ final class SetupWizard {
 
 	/**
 	 * Load the assets needed for the Setup Wizard.
+	 *
+	 * @param string $hook The asset hook.
 	 */
 	public function enqueue_assets( string $hook ) {
 
@@ -108,10 +130,10 @@ final class SetupWizard {
 			return;
 		}
 
-		$deps_file = GTMKIT_PATH . 'build/admin/wizard.asset.php';
+		$deps_file  = GTMKIT_PATH . 'build/admin/wizard.asset.php';
 		$dependency = [];
 		if ( file_exists( $deps_file ) ) {
-			$deps_file  = require( $deps_file );
+			$deps_file  = require $deps_file;
 			$dependency = $deps_file['dependencies'];
 			$version    = $deps_file['version'];
 		}
@@ -177,8 +199,8 @@ final class SetupWizard {
 				<header class="gtmkit-text-center gtmkit-border-t-4 gtmkit-border-color-primary gtmkit-px-3">
 					<h1 class="gtmkit-mt-3 md:gtmkit-mt-12 gtmkit-w-[250px] gtmkit-inline-block">
 						<img src="<?php echo esc_attr( $inline_logo_image ); ?>"
-							 alt="GTM Kit"
-							 class="gtmkit-w-full"
+							alt="GTM Kit"
+							class="gtmkit-w-full"
 						>
 					</h1>
 				</header>
@@ -194,7 +216,7 @@ final class SetupWizard {
 						</p>
 						<div class="gtmkit-mb-4">
 							<a href="<?php echo esc_url( $admin_url ); ?>"
-							   class="gtmkit-bg-color-primary gtmkit-text-white gtmkit-rounded-md gtmkit-py-4 gtmkit-px-8">
+								class="gtmkit-bg-color-primary gtmkit-text-white gtmkit-rounded-md gtmkit-py-4 gtmkit-px-8">
 								<?php esc_html_e( 'Go back to the Dashboard', 'gtm-kit' ); ?>
 							</a>
 						</div>
@@ -214,7 +236,7 @@ final class SetupWizard {
 	 * @return void
 	 */
 	public function register_rest_routes(): void {
-		$this->util->rest_API_server->register_rest_route(
+		$this->util->rest_api_server->register_rest_route(
 			'/get-install-data',
 			[
 				'methods'  => 'POST',
@@ -222,7 +244,7 @@ final class SetupWizard {
 			]
 		);
 
-		$this->util->rest_API_server->register_rest_route(
+		$this->util->rest_api_server->register_rest_route(
 			'/get-options',
 			[
 				'methods'  => 'POST',
@@ -230,7 +252,7 @@ final class SetupWizard {
 			]
 		);
 
-		$this->util->rest_API_server->register_rest_route(
+		$this->util->rest_api_server->register_rest_route(
 			'/set-options',
 			[
 				'methods'  => 'POST',
@@ -238,14 +260,13 @@ final class SetupWizard {
 			]
 		);
 
-		$this->util->rest_API_server->register_rest_route(
+		$this->util->rest_api_server->register_rest_route(
 			'/get-site-data',
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'get_site_data' ],
 			]
 		);
-
 	}
 
 	/**
@@ -298,8 +319,8 @@ final class SetupWizard {
 	 * @return void
 	 */
 	public function set_options(): void {
-		$newOptions = json_decode( file_get_contents( 'php://input' ), true );
-		$this->options->set( $newOptions );
+		$new_options = json_decode( file_get_contents( 'php://input' ), true );
+		$this->options->set( $new_options );
 
 		wp_send_json_success( $this->options->get_all_raw() );
 	}
@@ -313,5 +334,4 @@ final class SetupWizard {
 		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
 		wp_send_json_success( $site_data );
 	}
-
 }

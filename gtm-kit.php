@@ -1,6 +1,6 @@
 <?php
 /**
- * Google Tag Manager Kit.
+ * GTM Kit Plugin
  *
  * Plugin Name: GTM Kit
  * Version:     1.12.2
@@ -10,16 +10,16 @@
  * Author URI:  https://www.tlamedia.dk/
  * Text Domain: gtm-kit
  * Domain Path: /languages/
- * License:     GPL v3
+ * License:     GPLv3
  * Requires at least: 6.1
  * Requires PHP: 7.2
  *
  * WC requires at least: 7.1
  * WC tested up to: 8.0
  *
+ * @package GTM Kit
  * @copyright Copyright (C) 2023, TLA Media ApS
  */
-
 
 if ( ! function_exists( 'add_filter' ) ) {
 	header( 'Status: 403 Forbidden' );

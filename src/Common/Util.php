@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Common;
 
@@ -10,19 +15,28 @@ use function get_plugins;
 final class Util {
 
 	/**
+	 * Instance of RestAPIServer
+	 *
 	 * @var RestAPIServer
 	 */
-	public $rest_API_server;
+	public $rest_api_server;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param RestAPIServer $rest_API_server
+	 * @param RestAPIServer $rest_api_server Instance of RestAPIServer.
 	 */
-	public function __construct( RestAPIServer $rest_API_server) {
-		$this->rest_API_server = $rest_API_server;
+	public function __construct( RestAPIServer $rest_api_server ) {
+		$this->rest_api_server = $rest_api_server;
 	}
 
+	/**
+	 * Get the site data
+	 *
+	 * @param array $options The options.
+	 *
+	 * @return array
+	 */
 	public function get_site_data( array $options ): array {
 
 		global $wp_version;
@@ -42,7 +56,6 @@ final class Util {
 		$data['multisite']         = is_multisite();
 
 		return $data;
-
 	}
 
 	/**
@@ -69,9 +82,9 @@ final class Util {
 	/**
 	 * Add plugin to array if active.
 	 *
-	 * @param string $plugin
-	 * @param string $key
-	 * @param array $data
+	 * @param string $plugin The plugin slug.
+	 * @param string $key The key.
+	 * @param array  $data The data.
 	 *
 	 * @return array An array of active plugins names.
 	 */
@@ -88,7 +101,7 @@ final class Util {
 	/**
 	 * Anonymize options
 	 *
-	 * @param array $options
+	 * @param array $options The options.
 	 *
 	 * @return array
 	 */
@@ -110,7 +123,7 @@ final class Util {
 	/**
 	 * Shorten version number
 	 *
-	 * @param string $version
+	 * @param string $version The version number.
 	 *
 	 * @return string
 	 */
@@ -148,31 +161,30 @@ final class Util {
 	 * @return string
 	 */
 	function get_plugin_version(): string {
-		return ( wp_get_environment_type() == 'local' ) ? time() : GTMKIT_VERSION;
+		return ( wp_get_environment_type() === 'local' ) ? time() : GTMKIT_VERSION;
 	}
 
 	/**
 	 * Enqueue script in build
 	 *
-	 * @param string $handle
-	 * @param string $script
+	 * @param string $handle The script hande.
+	 * @param string $script The script name.
 	 *
 	 * @return void
 	 */
-	function enqueue_script( string $handle, string $script): void {
+	function enqueue_script( string $handle, string $script ): void {
 
 		$deps_file = GTMKIT_PATH . 'build/' . $script . '.asset.php';
 
 		$dependency = [];
-		$version = false;
+		$version    = false;
 
 		if ( file_exists( $deps_file ) ) {
-			$deps_file  = require( $deps_file );
+			$deps_file  = require $deps_file;
 			$dependency = $deps_file['dependencies'];
 			$version    = $deps_file['version'];
 		}
 
 		wp_enqueue_script( $handle, GTMKIT_URL . 'build/' . $script . '.js', $dependency, $version, true );
 	}
-
 }

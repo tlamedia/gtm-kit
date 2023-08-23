@@ -1,6 +1,8 @@
 <?php
 /**
  * Uninstall all GTM Kit data.
+ *
+ * @package GTM Kit
  */
 
 // Exit if accessed directly.

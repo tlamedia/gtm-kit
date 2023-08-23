@@ -3,6 +3,7 @@
  * Easy Digital Downloads.
  *
  * @see https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl=en&client_type=gtm
+ * @package GTM Kit
  */
 
 namespace TLA_Media\GTM_Kit\Integration;
@@ -21,16 +22,18 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 	/**
 	 * Instance.
+	 *
+	 * @var EasyDigitalDownloads
 	 */
 	protected static $instance = null;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util Instance.
 	 */
-	final public function __construct( Options $options, Util $util) {
+	public function __construct( Options $options, Util $util ) {
 		$this->store_currency = edd_get_currency();
 
 		// Call parent constructor.
@@ -42,10 +45,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 */
 	public static function instance(): ?EasyDigitalDownloads {
 		if ( is_null( self::$instance ) ) {
-			$options        = new Options();
-			$rest_API_server = new RestAPIServer();
-			$util        = new Util( $rest_API_server );
-			self::$instance = new self( $options, $util );
+			$options         = new Options();
+			$rest_api_server = new RestAPIServer();
+			$util            = new Util( $rest_api_server );
+			self::$instance  = new self( $options, $util );
 		}
 
 		return self::$instance;
@@ -54,10 +57,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util Instance.
 	 */
-	public static function register( Options $options, Util $util): void {
+	public static function register( Options $options, Util $util ): void {
 
 		self::$instance = new self( $options, $util );
 
@@ -101,7 +104,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the global script settings
 	 *
-	 * @param array $global_settings Script settings
+	 * @param array $global_settings Script settings.
 	 *
 	 * @return array
 	 */
@@ -119,15 +122,15 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the global script data
 	 *
-	 * @param array $global_data Script data
+	 * @param array $global_data Script data.
 	 *
 	 * @return array
 	 */
 	public function get_global_data( array $global_data ): array {
 
-		$global_data['edd']['currency']                   = $this->store_currency;
-		$global_data['edd']['is_checkout']                = ( is_page( edd_get_option( 'purchase_page' ) ) );
-		$global_data['edd']['add_payment_info']['fired']  = false;
+		$global_data['edd']['currency']                  = $this->store_currency;
+		$global_data['edd']['is_checkout']               = ( is_page( edd_get_option( 'purchase_page' ) ) );
+		$global_data['edd']['add_payment_info']['fired'] = false;
 
 		if ( is_page( edd_get_option( 'purchase_page' ) ) ) {
 			$global_data['edd']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
@@ -142,7 +145,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer content
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -166,7 +169,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -187,7 +190,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		$data_layer['event']     = 'view_item';
 		$data_layer['ecommerce'] = [
 			'items' => [ $item ],
-			'value' => $item['price']
+			'value' => $item['price'],
 		];
 
 		return $data_layer;
@@ -196,7 +199,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for category pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -212,7 +215,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product tag pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -228,7 +231,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for checkout page
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -239,7 +242,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$data_layer['event']     = 'begin_checkout';
 		$data_layer['ecommerce'] = [
-			'items' => $this->global_data['data']['edd']['cart_items']
+			'items' => $this->global_data['data']['edd']['cart_items'],
 		];
 
 		return $data_layer;
@@ -248,7 +251,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for order_received page
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -287,7 +290,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$order_items = [];
 
-		if ( $items = $order->get_items() ) {
+		$items = $order->get_items();
+
+		if ( $items ) {
 			foreach ( $items as $item ) {
 				$product = edd_get_download( $item->product_id );
 
@@ -303,7 +308,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 					[],
 					[
 						'quantity' => $item->quantity,
-						'price'    => $price
+						'price'    => $price,
 					],
 					'purchase'
 				);
@@ -316,7 +321,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 			'value'          => (float) $order_value,
 			'tax'            => (float) $order->tax,
 			'currency'       => $order->currency,
-			'items'          => $order_items
+			'items'          => $order_items,
 		];
 
 		edd_add_order_meta( $order_id, 'gtmkit_order_tracked', 1 );
@@ -338,18 +343,6 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 			$product = edd_get_download( $cart_item['id'] );
 			$options = $cart_item['options'];
 
-			$prices = edd_get_variable_prices( $cart_item['id'] );
-
-			if ( isset( $options['price_id'] ) ) {
-
-			}
-			if ( $prices ) {
-				foreach ( $prices as $price_id => $price ) {
-					// $price['name'] is the name of the price
-					// $price['amount'] is the amount of the price
-				}
-			}
-
 			$cart_items[] = $this->get_item_data( $product, $options, [ 'quantity' => $cart_item['quantity'] ], $event_context );
 		}
 
@@ -359,10 +352,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get item data.
 	 *
-	 * @param EDD_Download $download
-	 * @param array $options
-	 * @param array $additional_item_attributes Any key-value pair that needs to be added to the item data.
-	 * @param string $event_context The event context of the item data.
+	 * @param EDD_Download $download An instance of EDD_Download.
+	 * @param array        $options Optional options.
+	 * @param array        $additional_item_attributes Any key-value pair that needs to be added to the item data.
+	 * @param string       $event_context The event context of the item data.
 	 *
 	 * @return array The item data.
 	 */
@@ -406,11 +399,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		if ( $number_of_elements ) {
 
-			for ( $element = 0; $element < $number_of_elements; $element ++ ) {
-				$designator                                 = ( $element == 0 ) ? '' : $element + 1;
+			for ( $element = 0; $element < $number_of_elements; $element++ ) {
+				$designator                                 = ( $element === 0 ) ? '' : $element + 1;
 				$item_data[ 'item_category' . $designator ] = $item_category_elements[ $element ];
 			}
-
 		}
 
 		$item_data = array_merge( $item_data, $additional_item_attributes );
@@ -424,7 +416,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @hook woocommerce_after_add_to_cart_button
 	 *
-	 * @param int $download_id
+	 * @param int $download_id The download ID.
 	 *
 	 * @return void
 	 */
@@ -434,15 +426,14 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		if ( ( $product instanceof EDD_Download ) ) {
 			$item_data = $this->get_item_data( $product );
-			echo '<input type="hidden" class="gtmkit_product_data" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n";
+			echo '<input type="hidden" class="gtmkit_product_data" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n"; // phpcs:ignore
 		}
-
 	}
 
 	/**
 	 * Prefix an item ID
 	 *
-	 * @param string $item_id
+	 * @param string $item_id The item ID.
 	 *
 	 * @return string
 	 */
@@ -455,12 +446,12 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get price to display
 	 *
-	 * @param int $download_id
-	 * @param $price_index
+	 * @param int         $download_id The download ID.
+	 * @param string|null $price_index The price index.
 	 *
 	 * @return float
 	 */
-	function get_price_to_display( int $download_id, $price_index = null ): float {
+	function get_price_to_display( int $download_id, string $price_index = null ): float {
 
 		if ( edd_has_variable_prices( $download_id ) ) {
 
@@ -476,7 +467,6 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 				$price          = $prices[ $default_option ]['amount'];
 
 			}
-
 		} else {
 
 			$price = edd_get_download_price( $download_id );
@@ -484,7 +474,6 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		}
 
 		return (float) $price;
-
 	}
 
 	/**
@@ -497,15 +486,14 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$session = edd_get_purchase_session();
 
-		if ( isset( $_GET['payment_key'] ) ) {
-			return urldecode( $_GET['payment_key'] );
-		} else if ( $session && isset( $session['purchase_key'] ) ) {
+		if ( isset( $_GET['payment_key'] ) ) { // phpcs:ignore
+			return urldecode( $_GET['payment_key'] ); // phpcs:ignore
+		} elseif ( $session && isset( $session['purchase_key'] ) ) {
 			return $session['purchase_key'];
 		} elseif ( $edd_receipt_args && isset( $edd_receipt_args['payment_key'] ) && $edd_receipt_args['payment_key'] ) {
 			return $edd_receipt_args['payment_key'];
 		} else {
 			return false;
 		}
-
 	}
 }

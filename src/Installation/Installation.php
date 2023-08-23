@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * Installation
+ */
 final class Installation {
 
 	/**
@@ -36,7 +44,5 @@ final class Installation {
 		// Add transient to trigger redirect to the Setup Wizard.
 		set_transient( 'gtmkit_activation_redirect', true, 30 );
 		set_transient( 'gtmkit_first_install', true, 30 );
-
 	}
-
 }

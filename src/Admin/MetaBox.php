@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * MetaBox
+ */
 final class MetaBox {
 
 	/**
@@ -16,16 +24,16 @@ final class MetaBox {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
+	 * @param Options $options The Options instance.
 	 */
-	final public function __construct( Options $options ) {
+	public function __construct( Options $options ) {
 		$this->options = $options;
 	}
 
 	/**
 	 * Register meta box
 	 *
-	 * @param Options $options
+	 * @param Options $options The Options instance.
 	 */
 	public static function register( Options $options ): void {
 		$page = new MetaBox( $options );
@@ -51,10 +59,17 @@ final class MetaBox {
 
 			foreach ( $post_types as $post_type => $post_type_object ) {
 				$label = $post_type_object->labels->singular_name;
-				add_meta_box( 'gtmkit_options', sprintf( __( 'GTM Kit', 'gtm-kit' ), $label ), [
-					$this,
-					'display_meta_boxes'
-				], $post_type, 'side', 'core' );
+				add_meta_box(
+					'gtmkit_options',
+					sprintf( __( 'GTM Kit', 'gtm-kit' ), $label ),
+					[
+						$this,
+						'display_meta_boxes',
+					],
+					$post_type,
+					'side',
+					'core'
+				);
 			}
 		}
 	}
@@ -70,9 +85,9 @@ final class MetaBox {
 			<div class="gtmkit_options">
 
 				<label for="gtmkit_option_page_type"
-					   style="font-weight: bold;"><?php esc_html_e( 'Set page type in datalayer:', 'gtm-kit' ); ?></label>
+						style="font-weight: bold;"><?php esc_html_e( 'Set page type in datalayer:', 'gtm-kit' ); ?></label>
 				<input name="gtmkit_option[page_type]" id="gtmkit_option_page_type" type="text"
-					   title="<?php esc_html_e( 'Page type', 'gtm-kit' ); ?>" value="<?php echo esc_attr( $page_type ); ?>">
+						title="<?php esc_html_e( 'Page type', 'gtm-kit' ); ?>" value="<?php echo esc_attr( $page_type ); ?>">
 
 				<p class="gtmkit-note" style="margin-top: 16px;">
 					<?php
@@ -102,6 +117,5 @@ final class MetaBox {
 			}
 		}
 	}
-
 }
 

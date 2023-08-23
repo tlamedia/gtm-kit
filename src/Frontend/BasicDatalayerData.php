@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * BasicDatalayerData
+ */
 final class BasicDatalayerData {
 
 	/**
@@ -16,16 +24,16 @@ final class BasicDatalayerData {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
-	final public function __construct( Options $options ) {
+	public function __construct( Options $options ) {
 		$this->options = $options;
 	}
 
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
 	public static function register( Options $options ): void {
 		$page = new BasicDatalayerData( $options );
@@ -36,6 +44,10 @@ final class BasicDatalayerData {
 
 	/**
 	 * Get the basic dataLayer data
+	 *
+	 * @param array $datalayer The datalayer.
+	 *
+	 * @return array
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
@@ -92,7 +104,6 @@ final class BasicDatalayerData {
 			if ( $this->options->get( 'general', 'datalayer_post_author_name' ) ) {
 				$datalayer['authorId'] = (int) $post->post_author;
 			}
-
 		}
 
 		if ( is_archive() || is_post_type_archive() ) {
@@ -151,18 +162,18 @@ final class BasicDatalayerData {
 	/**
 	 * Get priority dataLayer data
 	 *
-	 * @param array $datalayer
+	 * @param array $datalayer The datalayer.
 	 *
 	 * @return array
 	 */
 	public function get_priority_datalayer_content( array $datalayer ): array {
 
 		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
-			$page_type = get_post_meta( get_the_ID(), 'gtmkit_page_type', true);
-			if ( $page_type ) $datalayer['pageType'] = $page_type;
-
+			$page_type = get_post_meta( get_the_ID(), 'gtmkit_page_type', true );
+			if ( $page_type ) {
+				$datalayer['pageType'] = $page_type;
+			}
 		}
 		return $datalayer;
 	}
-
 }
