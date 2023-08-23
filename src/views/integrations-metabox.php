@@ -65,7 +65,7 @@ $integrations = [
 					<div class="gtmkit-list-item-buttons">
 						<a
 							<?php if ( ! $integration['plugin_active'] && ! $integration_active ) : ?>
-								href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=' . urlencode( $integration['plugin_search'] ) ) ); ?>"
+								href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=' . rawurlencode( $integration['plugin_search'] ) ) ); ?>"
 							<?php else : ?>
 								href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_integrations#top#' . $integration['tab_id'] ) ); ?>"
 							<?php endif; ?>

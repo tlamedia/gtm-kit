@@ -36,7 +36,7 @@ final class UserData {
 	 * @param Options $options An instance of Options.
 	 */
 	public static function register( Options $options ): void {
-		$page = new static( $options );
+		$page = new self( $options );
 
 		add_filter( 'gtmkit_datalayer_content', [ $page, 'get_datalayer_content' ], 9 );
 	}

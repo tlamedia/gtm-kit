@@ -125,7 +125,7 @@ final class OptionTabs {
 	 *
 	 * @param OptionsForm $form Option Tabs to get tabs from.
 	 */
-	public function display( OptionsForm $form ): void {
+	public function display( OptionsForm $form ): void { // phpcs:ignore
 
 		?>
 		<div class="gtmkit-header-navigation">

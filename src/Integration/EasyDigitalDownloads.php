@@ -438,9 +438,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 * @return string
 	 */
 	public function prefix_item_id( string $item_id ): string {
-		$prefix = ( Options::init()->get( 'integrations', 'edd_product_id_prefix' ) ) ?: '';
-
-		return $prefix . $item_id;
+		return Options::init()->get( 'integrations', 'edd_product_id_prefix' ) . $item_id;
 	}
 
 	/**

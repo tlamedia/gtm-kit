@@ -35,7 +35,7 @@ final class Frontend {
 	 */
 	public function __construct( Options $options ) {
 		$this->options        = $options;
-		$this->datalayer_name = ( $this->options->get( 'general', 'datalayer_name' ) ) ?: 'dataLayer';
+		$this->datalayer_name = ( $this->options->get( 'general', 'datalayer_name' ) ) ? $this->options->get( 'general', 'datalayer_name' ) : 'dataLayer';
 	}
 
 	/**
@@ -83,8 +83,8 @@ final class Frontend {
 		<!-- GTM Kit -->
 		<script <?php $this->get_attributes(); ?>>
 			var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> || [];
-			window.gtmkit_settings = <?php echo json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
-			window.gtmkit_data = <?php echo json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
+			window.gtmkit_settings = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
+			window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		</script>
 		<?php
 	}
@@ -118,7 +118,7 @@ final class Frontend {
 		if ( $this->options->get( 'general', 'gtm_id' ) ) {
 			$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
 
-			echo 'var dataLayer_content = ' . json_encode( $datalayer_data ) . ";\n";
+			echo 'var dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 
 			echo esc_attr( $this->datalayer_name ) . '.push( dataLayer_content );' . "\n";
 		}
@@ -175,8 +175,8 @@ final class Frontend {
 	 * @param string $gtm_id The GTM container ID.
 	 */
 	public function get_gtm_script( string $gtm_id ): void {
-		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
-		$loader = ( Options::init()->get( 'general', 'sgtm_container_identifier' ) ) ?: 'gtm';
+		$domain = Options::init()->get( 'general', 'sgtm_domain' ) ? Options::init()->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
+		$loader = Options::init()->get( 'general', 'sgtm_container_identifier' ) ? Options::init()->get( 'general', 'sgtm_container_identifier' ) : 'gtm';
 
 		echo "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -189,7 +189,7 @@ final class Frontend {
 	 * The Google Tag Manager noscript
 	 */
 	public static function get_body_script(): void {
-		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
+		$domain = Options::init()->get( 'general', 'sgtm_domain' ) ? Options::init()->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
 
 		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
@@ -226,7 +226,7 @@ final class Frontend {
 	 */
 	public function dns_prefetch( array $hints, string $relation_type ): array {
 
-		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
+		$domain = Options::init()->get( 'general', 'sgtm_domain' ) ? Options::init()->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 
 		if ( 'dns-prefetch' === $relation_type ) {
 			$hints[] = '//' . $domain;
