@@ -1,11 +1,22 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * Upgrade
+ */
 final class Upgrade {
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 
 		$upgrades = $this->get_upgrades();
@@ -50,15 +61,14 @@ final class Upgrade {
 
 		$script_implementation = Options::init()->get( 'general', 'script_implementation' );
 
-		if ( $script_implementation == 2 ) {
+		if ( $script_implementation === 2 ) {
 			$values = [
 				'general' => [
-					'script_implementation' => '1'
+					'script_implementation' => '1',
 				],
 			];
 
 			Options::init()->set( $values, false, false );
 		}
 	}
-
 }

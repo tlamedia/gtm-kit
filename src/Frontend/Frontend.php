@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * Frontend
+ */
 final class Frontend {
 
 	/**
@@ -23,9 +31,9 @@ final class Frontend {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
-	final public function __construct( Options $options ) {
+	public function __construct( Options $options ) {
 		$this->options        = $options;
 		$this->datalayer_name = ( $this->options->get( 'general', 'datalayer_name' ) ) ?: 'dataLayer';
 	}
@@ -33,7 +41,7 @@ final class Frontend {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
+	 * @param Options $options An instance of Options.
 	 */
 	public static function register( Options $options ): void {
 		$page = new Frontend( $options );
@@ -56,9 +64,9 @@ final class Frontend {
 
 		$noscript_implementation = Options::init()->get( 'general', 'noscript_implementation' );
 
-		if ( $noscript_implementation == '0' && $container_active ) {
+		if ( $noscript_implementation === '0' && $container_active ) {
 			add_action( 'wp_body_open', [ $page, 'get_body_script' ] );
-		} elseif ( $noscript_implementation == '1' && $container_active ) {
+		} elseif ( $noscript_implementation === '1' && $container_active ) {
 			add_action( 'body_footer', [ $page, 'get_body_script' ] );
 		}
 	}
@@ -69,7 +77,7 @@ final class Frontend {
 	public function get_header_datalayer(): void {
 		$settings = [
 			'datalayer_name' => $this->datalayer_name,
-			'console_log' => Options::init()->get( 'general', 'console_log' )
+			'console_log'    => Options::init()->get( 'general', 'console_log' ),
 		];
 		?>
 		<!-- GTM Kit -->
@@ -85,9 +93,13 @@ final class Frontend {
 	 * Get attributes
 	 */
 	public function get_attributes(): void {
-		$attributes = apply_filters( 'gtmkit_header_script_attributes', [ 'data-cfasync'    => 'false',
-																		  'data-nowprocket' => ''
-		] );
+		$attributes = apply_filters(
+			'gtmkit_header_script_attributes',
+			[
+				'data-cfasync'    => 'false',
+				'data-nowprocket' => '',
+			]
+		);
 
 		foreach ( $attributes as $attribute => $value ) {
 			echo ' ' . esc_attr( $attribute ) . '="' . esc_attr( $value ) . '"';
@@ -97,8 +109,8 @@ final class Frontend {
 	/**
 	 * The dataLayer content included before the GTM container script
 	 */
-public function get_datalayer_content(): void {
-	?>
+	public function get_datalayer_content(): void {
+		?>
 	<!-- GTM Kit -->
 	<script <?php $this->get_attributes(); ?>>
 		<?php
@@ -112,13 +124,12 @@ public function get_datalayer_content(): void {
 		}
 
 		echo "</script>\n";
-
-		}
+	}
 
 		/**
 		 * The Google Tag Manager container script
 		 */
-		public function get_header_script(): void {
+	public function get_header_script(): void {
 
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
 
@@ -130,10 +141,10 @@ public function get_datalayer_content(): void {
 		?>
 		<!-- Google Tag Manager -->
 		<script <?php $this->get_attributes(); ?>>
-	<?php
+		<?php
 
-	if ( $script_implementation > 0 ) {
-		echo '
+		if ( $script_implementation > 0 ) {
+			echo '
 			window.requestIdleCallback =
 			    window.requestIdleCallback ||
 			    function (cb) {
@@ -149,17 +160,19 @@ public function get_datalayer_content(): void {
 			    };
 
 			requestIdleCallback(function () {';
-		$this->get_gtm_script( $gtm_id );
-		echo  '});';
-	} else {
-		$this->get_gtm_script( $gtm_id );
-	}
+			$this->get_gtm_script( $gtm_id );
+			echo '});';
+		} else {
+			$this->get_gtm_script( $gtm_id );
+		}
 
-	echo "</script>\n<!-- End Google Tag Manager -->\n";
-}
+		echo "</script>\n<!-- End Google Tag Manager -->\n";
+	}
 
 	/**
 	 * Get GTM script
+	 *
+	 * @param string $gtm_id The GTM container ID.
 	 */
 	public function get_gtm_script( string $gtm_id ): void {
 		$domain = ( Options::init()->get( 'general', 'sgtm_domain' ) ) ?: 'www.googletagmanager.com';
@@ -168,8 +181,8 @@ public function get_datalayer_content(): void {
 		echo "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-			'https://" . esc_attr( $domain ) . "/" . esc_attr( $loader ) . ".js?id='+i+dl;f.parentNode.insertBefore(j,f);
-			})(window,document,'script','" . esc_js( $this->datalayer_name ) ."','" . esc_attr( $gtm_id ) . "');";
+			'https://" . esc_attr( $domain ) . '/' . esc_attr( $loader ) . ".js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_attr( $gtm_id ) . "');";
 	}
 
 	/**
@@ -189,7 +202,14 @@ public function get_datalayer_content(): void {
 		echo '<script>console.warn("[GTM Kit] Google Tag Manager container is disabled.");</script>';
 	}
 
-	public function wp_rocket_exclude_javascript( $pattern ) {
+	/**
+	 * Exclude GTM Kit in WP Rocket
+	 *
+	 * @param array $pattern The exclude list.
+	 *
+	 * @return array
+	 */
+	public function wp_rocket_exclude_javascript( array $pattern ): array {
 		$pattern[] = 'dataLayer';
 		$pattern[] = 'gtmkit';
 
@@ -199,7 +219,7 @@ public function get_datalayer_content(): void {
 	/**
 	 * Adds Google Tag Manager domain DNS Prefetch printed by wp_resource_hints
 	 *
-	 * @param array $hints URLs to print for resource hints.
+	 * @param array  $hints URLs to print for resource hints.
 	 * @param string $relation_type The relation type the URL are printed for.
 	 *
 	 * @return array URL to print

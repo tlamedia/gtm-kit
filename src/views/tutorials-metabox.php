@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
@@ -10,28 +15,28 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 
 $tutorials = [
 	[
-		'name' => __( 'Getting started', 'gtm-kit' ),
+		'name'        => __( 'Getting started', 'gtm-kit' ),
 		'description' => __( 'How to get the most out of Google Tag Manager with GTM Kit', 'gtm-kit' ),
-		'url' => 'https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=dashboard-tutorials',
+		'url'         => 'https://gtmkit.com/documentation/getting-started-with-gtm-kit/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=getting-started&utm_content=dashboard-tutorials',
 	],
 	[
-		'name' => __( 'WooCommerce integration', 'gtm-kit' ),
+		'name'        => __( 'WooCommerce integration', 'gtm-kit' ),
 		'description' => __( 'Integrate WooCommerce with Google Tag Manager and Google Analytics', 'gtm-kit' ),
-		'url' => 'https://gtmkit.com/documentation/woocommerce/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce&utm_content=dashboard-tutorials',
+		'url'         => 'https://gtmkit.com/documentation/woocommerce/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=woocommerce&utm_content=dashboard-tutorials',
 	],
 	[
-		'name' => __( 'See all tutorials...', 'gtm-kit' ),
+		'name'        => __( 'See all tutorials...', 'gtm-kit' ),
 		'description' => __( 'See all our tutorial and get the most out of GTM Kit', 'gtm-kit' ),
-		'url' => 'https://gtmkit.com/documentation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=documentation&utm_content=dashboard-tutorials',
+		'url'         => 'https://gtmkit.com/documentation/#utm_source=gtmkit-plugin&utm_medium=software&utm_term=documentation&utm_content=dashboard-tutorials',
 	],
 ];
 ?>
 <div class="gtmkit-items-metabox gtmkit-metabox">
 	<div class="gtmkit-items-list">
 		<ul>
-			<?php foreach ($tutorials as $tutorial): ?>
+			<?php foreach ( $tutorials as $tutorial ) : ?>
 			<li class="gtmkit-list-item">
-				<h3><?php echo esc_html($tutorial['name']) ?></h3>
+				<h3><?php echo esc_html( $tutorial['name'] ); ?></h3>
 				<div class="gtmkit-list-item-actions">
 					<div class="gtmkit-list-item-description">
 						<p><?php echo esc_html( $tutorial['description'] ); ?></p>

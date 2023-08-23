@@ -1,9 +1,17 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * OptionsForm
+ */
 final class OptionsForm {
 
 	/**
@@ -50,10 +58,10 @@ final class OptionsForm {
 	/**
 	 * Generates the header for admin pages.
 	 *
-	 * @param bool $form Whether the form start tag should be included.
-	 * @param string $option_name
-	 * @param string $option_group
-	 * @param string $settings_group
+	 * @param bool   $form Whether the form start tag should be included.
+	 * @param string $option_name The option name.
+	 * @param string $option_group The option group.
+	 * @param string $settings_group The settings group.
 	 */
 	public function admin_header( bool $form = true, string $option_name = 'gtmkit', string $option_group = 'general', string $settings_group = '' ): void {
 		?>
@@ -88,27 +96,35 @@ final class OptionsForm {
 	/**
 	 * Add setting row.
 	 *
-	 * @param string $type The option type
-	 * @param string $variable The option variable
-	 * @param string $label The option label
-	 * @param array $field_data Optional setting field data
-	 * @param string $description Optional description
+	 * @param string $type The option type.
+	 * @param string $variable The option variable.
+	 * @param string $label The option label.
+	 * @param array  $field_data Optional setting field data.
+	 * @param string $description Optional description.
 	 */
 	public function setting_row( string $type, string $variable, string $label, array $field_data = [], string $description = '' ): void {
 		?>
 		<div class="gtmkit-setting-row gtmkit-setting-row-<?php echo esc_html( $type ); ?> gtmkit-clear">
 			<div class="gtmkit-setting-label">
-				<?php if ( $label ): ?>
+				<?php if ( $label ) : ?>
 					<label for="<?php echo esc_attr( 'gtmkit-setting-' . $variable ); ?>">
 						<?php echo wp_kses( $label, 'code' ); ?>
 					</label>
 				<?php endif; ?>
 			</div>
 			<div class="gtmkit-setting-field">
-				<?php $this->setting_field( $type, $variable, $field_data ) ?>
-				<?php if ( ! empty( $description ) ): ?>
+				<?php $this->setting_field( $type, $variable, $field_data ); ?>
+				<?php if ( ! empty( $description ) ) : ?>
 					<p class="desc">
-						<?php echo wp_kses( $description, [ 'a' => [ 'href' => [] ], 'br' => [] ] ); ?>
+						<?php
+						echo wp_kses(
+							$description,
+							[
+								'a'  => [ 'href' => [] ],
+								'br' => [],
+							]
+						);
+						?>
 					</p>
 				<?php endif; ?>
 			</div>
@@ -119,9 +135,9 @@ final class OptionsForm {
 	/**
 	 * Add setting row.
 	 *
-	 * @param string $type
-	 * @param string $variable
-	 * @param array $field_data
+	 * @param string $type The setting type.
+	 * @param string $variable The variable.
+	 * @param array  $field_data Optional field data.
 	 */
 	public function setting_field( string $type, string $variable, array $field_data = [] ): void {
 
@@ -139,7 +155,6 @@ final class OptionsForm {
 				$this->select( $variable, $field_data );
 				break;
 		}
-
 	}
 
 	/**
@@ -182,9 +197,7 @@ final class OptionsForm {
 	 * Output a label element.
 	 *
 	 * @param string $text Label text string.
-	 * @param array $attribute HTML attributes set.
-	 *
-	 * @return string The HTML label
+	 * @param array  $attribute HTML attributes set.
 	 */
 	public function label( string $text, array $attribute ): void {
 		$defaults = [
@@ -204,14 +217,13 @@ final class OptionsForm {
 		if ( $attribute['close'] ) {
 			echo '</label>';
 		}
-
 	}
 
 	/**
 	 * Output a legend element.
 	 *
 	 * @param string $text Legend text string.
-	 * @param array $attribute HTML attributes set.
+	 * @param array  $attribute HTML attributes set.
 	 */
 	public function legend( string $text, array $attribute ): void {
 		$defaults  = [
@@ -229,7 +241,7 @@ final class OptionsForm {
 	 * Create a Checkbox input toggle.
 	 *
 	 * @param string $variable The variable within the option to create the checkbox for.
-	 * @param array $field_data
+	 * @param array  $field_data Optional field data.
 	 */
 	public function checkbox_toggle_field( string $variable, array $field_data = [] ): void {
 
@@ -268,7 +280,7 @@ final class OptionsForm {
 	 * Create a Text input field.
 	 *
 	 * @param string $variable The variable within the option to create the text input field for.
-	 * @param array $field_data
+	 * @param array  $field_data Optional field data.
 	 */
 	public function text_input_field( string $variable, array $field_data = [] ): void {
 
@@ -303,15 +315,13 @@ final class OptionsForm {
 			<?php echo esc_html( $disabled_attribute ); ?>
 		/><br class="clear"/>
 		<?php
-
-
 	}
 
 	/**
 	 * Create a textarea.
 	 *
-	 * @param string $variable The variable within the option to create the textarea for.
-	 * @param string $label The label to show for the variable.
+	 * @param string       $variable The variable within the option to create the textarea for.
+	 * @param string       $label The label to show for the variable.
 	 * @param string|array $attribute The CSS class or an array of attributes to assign to the textarea.
 	 */
 	public function textarea( string $variable, string $label, $attribute = [] ): void {
@@ -340,7 +350,7 @@ final class OptionsForm {
 
 		$disabled_attribute = $this->get_disabled_attribute( $variable, $attribute );
 
-		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']"' . ' ' . esc_attr( $disabled_attribute ) . '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
+		echo '<textarea cols="' . esc_attr( $attribute['cols'] ) . '" rows="' . esc_attr( $attribute['rows'] ) . '" class="textinput ' . esc_attr( $attribute['class'] ) . '" id="' . esc_attr( $variable ) . '" name="' . esc_attr( $this->option_name ) . '[' . esc_attr( $variable ) . ']" ' . esc_attr( $disabled_attribute ) . '>' . esc_textarea( $val ) . '</textarea><br class="clear" />';
 	}
 
 	/**
@@ -348,7 +358,7 @@ final class OptionsForm {
 	 *
 	 * @param string $variable The variable within the option to create the hidden input for.
 	 * @param string $id The ID of the element.
-	 * @param mixed $val Optional. The value to set in the input field. Otherwise, the value from the options will be used.
+	 * @param mixed  $val Optional. The value to set in the input field. Otherwise, the value from the options will be used.
 	 */
 	public function hidden( string $variable, string $id = '', $val = null ): void {
 		if ( is_null( $val ) ) {
@@ -370,7 +380,7 @@ final class OptionsForm {
 	 * Create a Select Box.
 	 *
 	 * @param string $variable The variable within the option to create the select for.
-	 * @param array $fieldset_data
+	 * @param array  $fieldset_data Options fieldset data.
 	 */
 	public function select( string $variable, array $fieldset_data = [] ): void {
 
@@ -380,12 +390,12 @@ final class OptionsForm {
 
 		$defaults      = [
 			'disabled'   => false,
-			'attributes' => []
+			'attributes' => [],
 		];
 		$fieldset_data = wp_parse_args( $fieldset_data, $defaults );
 
 		if ( $this->is_control_disabled( $variable )
-			 || ( isset( $fieldset_data['disabled'] ) && $fieldset_data['disabled'] ) ) {
+			|| ( isset( $fieldset_data['disabled'] ) && $fieldset_data['disabled'] ) ) {
 			$disabled = true;
 		} else {
 			$disabled = false;
@@ -410,15 +420,14 @@ final class OptionsForm {
 			);
 		}
 
-		echo "</select>";
-
+		echo '</select>';
 	}
 
 	/**
 	 * Create a Radio input field.
 	 *
 	 * @param string $variable The variable within the option to create the radio button for.
-	 * @param array $fieldset_data
+	 * @param array  $fieldset_data Options fieldset data.
 	 */
 	public function radio_fieldset( string $variable, array $fieldset_data = [] ): void {
 
@@ -433,7 +442,7 @@ final class OptionsForm {
 			'legend'      => '',
 			'legend_attr' => [],
 			'line_break'  => true,
-			'attributes'  => []
+			'attributes'  => [],
 		];
 		$fieldset_data = wp_parse_args( $fieldset_data, $defaults );
 
@@ -485,7 +494,6 @@ final class OptionsForm {
 			}
 		}
 		echo '</fieldset>';
-
 	}
 
 	/**
@@ -519,7 +527,7 @@ final class OptionsForm {
 	 * Returns the disabled attribute HTML.
 	 *
 	 * @param string $variable The variable within the option of the related form element.
-	 * @param array $attribute Extra attributes added to the form element.
+	 * @param array  $attribute Extra attributes added to the form element.
 	 *
 	 * @return string The disabled attribute HTML.
 	 */

@@ -1,6 +1,8 @@
 <?php
 /**
  * Admin sidebar
+ *
+ * @package GTM Kit
  */
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {

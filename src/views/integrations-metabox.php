@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
@@ -8,43 +13,47 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$gtmkit_integrations = $_GET['page'] == 'gtmkit_integrations';
+$gtmkit_integrations = $_GET['page'] === 'gtmkit_integrations'; // phpcs:ignore
 
 $integrations = [
 	[
-		'name' => 'WooCommerce',
-		'description' => __( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ),
-		'plugin_active' => is_plugin_active( 'woocommerce/woocommerce.php' ),
+		'name'               => 'WooCommerce',
+		'description'        => __( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ),
+		'plugin_active'      => is_plugin_active( 'woocommerce/woocommerce.php' ),
 		'integration_active' => Options::init()->get( 'integrations', 'woocommerce_integration' ),
-		'tab_id' => 'woocommerce',
-		'plugin_search' => 'woocommerce',
+		'tab_id'             => 'woocommerce',
+		'plugin_search'      => 'woocommerce',
 	],
 	[
-		'name' => 'Contact Form 7',
-		'description' => __( 'Just another contact form plugin for WordPress. Simple but flexible', 'gtm-kit' ),
-		'plugin_active' => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+		'name'               => 'Contact Form 7',
+		'description'        => __( 'Just another contact form plugin for WordPress. Simple but flexible', 'gtm-kit' ),
+		'plugin_active'      => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
 		'integration_active' => Options::init()->get( 'integrations', 'cf7_integration' ),
-		'tab_id' => 'cf7',
-		'plugin_search' => 'Contact Form 7',
+		'tab_id'             => 'cf7',
+		'plugin_search'      => 'Contact Form 7',
 	],
 	[
-		'name' => 'Easy Digital Downloads',
-		'description' => __( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ),
-		'plugin_active' => ( is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' )),
+		'name'               => 'Easy Digital Downloads',
+		'description'        => __( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ),
+		'plugin_active'      => ( is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
 		'integration_active' => Options::init()->get( 'integrations', 'edd_integration' ),
-		'tab_id' => 'edd',
-		'plugin_search' => 'Easy Digital Downloads',
+		'tab_id'             => 'edd',
+		'plugin_search'      => 'Easy Digital Downloads',
 	],
 ];
 ?>
 <div class="gtmkit-items-metabox gtmkit-metabox">
 	<div class="gtmkit-items-list">
 		<ul>
-			<?php foreach ($integrations as $integration): ?>
-			<?php $integration_active = ( $integration['plugin_active'] && $integration['integration_active'] ); ?>
-			<li class="gtmkit-list-item <?php if ( $integration_active ): ?>gtmkit-list-item-has-pill<?php endif; ?>">
-				<h3><?php echo esc_html($integration['name']) ?></h3>
-				<?php if ( $integration_active ): ?>
+			<?php foreach ( $integrations as $integration ) : ?>
+				<?php $integration_active = ( $integration['plugin_active'] && $integration['integration_active'] ); ?>
+			<li class="gtmkit-list-item
+				<?php
+				if ( $integration_active ) :
+					?>
+				gtmkit-list-item-has-pill<?php endif; ?>">
+				<h3><?php echo esc_html( $integration['name'] ); ?></h3>
+				<?php if ( $integration_active ) : ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
 						<?php esc_html_e( 'Active', 'gtm-kit' ); ?>
 					</span>
@@ -55,20 +64,27 @@ $integrations = [
 					</div>
 					<div class="gtmkit-list-item-buttons">
 						<a
-							<?php if ( ! $integration['plugin_active'] && ! $integration_active ): ?>
+							<?php if ( ! $integration['plugin_active'] && ! $integration_active ) : ?>
 								href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=' . urlencode( $integration['plugin_search'] ) ) ); ?>"
-							<?php else: ?>
+							<?php else : ?>
 								href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_integrations#top#' . $integration['tab_id'] ) ); ?>"
 							<?php endif; ?>
 
-							<?php if ( $gtmkit_integrations ) echo 'id="gtmkit-open-tab-' . esc_attr($integration['tab_id']) . '"'; ?>
-							class="gtmkit-button <?php if ( $gtmkit_integrations && $integration['plugin_active'] ): ?>gtmkit-open-tab<?php endif; ?>"
+							<?php
+							if ( $gtmkit_integrations ) {
+								echo 'id="gtmkit-open-tab-' . esc_attr( $integration['tab_id'] ) . '"';}
+							?>
+							class="gtmkit-button
+							<?php
+							if ( $gtmkit_integrations && $integration['plugin_active'] ) :
+								?>
+								gtmkit-open-tab<?php endif; ?>"
 						>
-							<?php if ( $integration_active ): ?>
+							<?php if ( $integration_active ) : ?>
 								<?php esc_html_e( 'Edit integration', 'gtm-kit' ); ?>
-							<?php elseif ( $integration['plugin_active'] ): ?>
+							<?php elseif ( $integration['plugin_active'] ) : ?>
 								<?php esc_html_e( 'Setup integration', 'gtm-kit' ); ?>
-							<?php else: ?>
+							<?php else : ?>
 								<?php esc_html_e( 'Install plugin', 'gtm-kit' ); ?>
 							<?php endif; ?>
 						</a>

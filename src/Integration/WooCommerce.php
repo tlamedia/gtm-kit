@@ -3,6 +3,7 @@
  * WooCommerce.
  *
  * @see https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl=en&client_type=gtm
+ * @package GTM Kit
  */
 
 namespace TLA_Media\GTM_Kit\Integration;
@@ -23,10 +24,12 @@ use WC_Product;
 /**
  * WooCommerce integration
  */
-final class WooCommerce  extends AbstractEcommerce {
+final class WooCommerce extends AbstractEcommerce {
 
 	/**
 	 * Instance.
+	 *
+	 * @var WooCommerce
 	 */
 	protected static $instance = null;
 
@@ -40,10 +43,10 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
 	 */
-	public function __construct( Options $options, Util $util) {
+	public function __construct( Options $options, Util $util ) {
 		$this->store_currency = get_woocommerce_currency();
 
 		$this->extend = StoreApi::container()->get( ExtendSchema::class );
@@ -57,10 +60,10 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public static function instance(): ?WooCommerce {
 		if ( is_null( self::$instance ) ) {
-			$options        = new Options();
-			$rest_API_server = new RestAPIServer();
-			$util        = new Util( $rest_API_server );
-			self::$instance = new self( $options, $util );
+			$options         = new Options();
+			$rest_api_server = new RestAPIServer();
+			$util            = new Util( $rest_api_server );
+			self::$instance  = new self( $options, $util );
 		}
 
 		return self::$instance;
@@ -69,8 +72,8 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
 	 */
 	public static function register( Options $options, Util $util ): void {
 
@@ -81,63 +84,100 @@ final class WooCommerce  extends AbstractEcommerce {
 		add_filter( 'gtmkit_datalayer_content', [ self::$instance, 'get_datalayer_content' ] );
 		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 
-		// Add-to-cart tracking
-		add_action( 'woocommerce_after_add_to_cart_button', [
-			self::$instance,
-			'single_product_add_to_cart_tracking'
-		] );
-		add_filter( 'woocommerce_grouped_product_list_column_label', [
-			self::$instance,
-			'grouped_product_add_to_cart_tracking'
-		], 10, 2 );
-		add_filter( 'woocommerce_blocks_product_grid_item_html', [
-			self::$instance,
-			'product_block_add_to_cart_tracking'
-		], 20, 3 );
+		// Add-to-cart tracking.
+		add_action(
+			'woocommerce_after_add_to_cart_button',
+			[
+				self::$instance,
+				'single_product_add_to_cart_tracking',
+			]
+		);
+		add_filter(
+			'woocommerce_grouped_product_list_column_label',
+			[
+				self::$instance,
+				'grouped_product_add_to_cart_tracking',
+			],
+			10,
+			2
+		);
+		add_filter(
+			'woocommerce_blocks_product_grid_item_html',
+			[
+				self::$instance,
+				'product_block_add_to_cart_tracking',
+			],
+			20,
+			3
+		);
 		add_filter( 'tinvwl_wishlist_item_meta_post', [ self::$instance, 'Compatibility_With_TI_Wishlist' ] );
 
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
 
-		// Set list name in WooCommerce loop
+		// Set list name in WooCommerce loop.
 		add_filter( 'woocommerce_product_loop_start', [ self::$instance, 'set_list_name_on_category_and_tag' ] );
 		add_filter( 'woocommerce_related_products_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
 		add_filter( 'woocommerce_cross_sells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
 		add_filter( 'woocommerce_upsells_columns', [ self::$instance, 'set_list_name_in_woocommerce_loop_filter' ] );
-		add_action( 'woocommerce_shortcode_before_best_selling_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_filter( 'safe_style_css', function( $styles ) {
-			$styles[] = 'display';
-			$styles[] = 'visibility';
-			return $styles;
-		} );
+		add_action(
+			'woocommerce_shortcode_before_best_selling_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_filter(
+			'safe_style_css',
+			function ( $styles ) {
+				$styles[] = 'display';
+				$styles[] = 'visibility';
+				return $styles;
+			}
+		);
 
-		add_action( 'woocommerce_shortcode_before_featured_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_action( 'woocommerce_shortcode_before_recent_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_action( 'woocommerce_shortcode_before_related_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_action( 'woocommerce_shortcode_before_sale_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_action( 'woocommerce_shortcode_before_top_rated_products_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
-		add_action( 'woocommerce_shortcode_before_product_category_loop', [
-			self::$instance,
-			'set_list_name_in_woocommerce_loop'
-		] );
+		add_action(
+			'woocommerce_shortcode_before_featured_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_action(
+			'woocommerce_shortcode_before_recent_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_action(
+			'woocommerce_shortcode_before_related_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_action(
+			'woocommerce_shortcode_before_sale_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_action(
+			'woocommerce_shortcode_before_top_rated_products_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
+		add_action(
+			'woocommerce_shortcode_before_product_category_loop',
+			[
+				self::$instance,
+				'set_list_name_in_woocommerce_loop',
+			]
+		);
 
 		add_action( 'woocommerce_blocks_loaded', [ self::$instance, 'extend_store' ] );
 	}
@@ -188,9 +228,9 @@ final class WooCommerce  extends AbstractEcommerce {
 	}
 
 	/**
-	 * get the global script settings
+	 * Get the global script settings
 	 *
-	 * @param array $global_settings Script settings
+	 * @param array $global_settings Script settings.
 	 *
 	 * @return array
 	 */
@@ -219,7 +259,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the global script data
 	 *
-	 * @param array $global_data Script data
+	 * @param array $global_data Script data.
 	 *
 	 * @return array
 	 */
@@ -228,19 +268,19 @@ final class WooCommerce  extends AbstractEcommerce {
 		$global_data['wc']['currency']    = $this->store_currency;
 		$global_data['wc']['is_cart']     = is_cart();
 		$global_data['wc']['is_checkout'] = ( is_checkout() && ! is_order_received_page() );
-		$global_data['wc']['blocks'] = $this->get_woocommerce_blocks();
+		$global_data['wc']['blocks']      = $this->get_woocommerce_blocks();
 
 		if ( is_cart() ) {
 			$global_data['wc']['cart_items'] = $this->get_cart_items( 'view_cart' );
 		}
 
 		if ( is_checkout() && ! is_order_received_page() ) {
-			$global_data['wc']['cart_items'] = $this->get_cart_items( 'begin_checkout' );
-			$global_data['wc']['cart_value'] = (float) WC()->cart->cart_contents_total;
-			$global_data['wc']['chosen_shipping_method'] = WC()->session->get('chosen_shipping_methods')[0] ?? '';
-			$global_data['wc']['chosen_payment_method'] = $this->get_payment_method();
-			$global_data['wc']['add_payment_info']['fired']   = false;
-			$global_data['wc']['add_shipping_info']['fired']  = false;
+			$global_data['wc']['cart_items']                 = $this->get_cart_items( 'begin_checkout' );
+			$global_data['wc']['cart_value']                 = (float) WC()->cart->cart_contents_total;
+			$global_data['wc']['chosen_shipping_method']     = WC()->session->get( 'chosen_shipping_methods' )[0] ?? '';
+			$global_data['wc']['chosen_payment_method']      = $this->get_payment_method();
+			$global_data['wc']['add_payment_info']['fired']  = false;
+			$global_data['wc']['add_shipping_info']['fired'] = false;
 		}
 
 		$this->global_data = $global_data;
@@ -248,11 +288,16 @@ final class WooCommerce  extends AbstractEcommerce {
 		return $global_data;
 	}
 
+	/**
+	 * Get the  payment method
+	 *
+	 * @return string|null
+	 */
 	private function get_payment_method(): ?string {
 
 		$payment_method = WC()->session->get( 'chosen_payment_method' );
 
-		if (! $payment_method ) {
+		if ( ! $payment_method ) {
 			$payment_method = array_key_first( WC()->payment_gateways()->get_available_payment_gateways() );
 		}
 
@@ -262,7 +307,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the WooCommerce dataLayer content
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -307,7 +352,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -323,7 +368,7 @@ final class WooCommerce  extends AbstractEcommerce {
 			$data_layer['pageType'] = 'product-page';
 		}
 
-		if ( $product->get_type() == 'variable' && Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) == 2 ) {
+		if ( $product->get_type() === 'variable' && Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) === 2 ) {
 			return $data_layer;
 		}
 
@@ -333,7 +378,7 @@ final class WooCommerce  extends AbstractEcommerce {
 		$data_layer['event']       = 'view_item';
 		$data_layer['ecommerce']   = [
 			'items' => [ $item ],
-			'value' => (float) $item['price']
+			'value' => (float) $item['price'],
 		];
 
 		return $data_layer;
@@ -342,7 +387,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for category pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -358,7 +403,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product tag pages
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -374,7 +419,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for cart page
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -394,7 +439,7 @@ final class WooCommerce  extends AbstractEcommerce {
 		$data_layer['ecommerce'] = [
 			'currency' => $this->store_currency,
 			'value'    => (float) $cart_value,
-			'items'    => $this->get_cart_items( 'view_cart' )
+			'items'    => $this->get_cart_items( 'view_cart' ),
 		];
 
 		return $data_layer;
@@ -403,7 +448,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for checkout page
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -436,7 +481,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for order_received page
 	 *
-	 * @param array $data_layer The datalayer content
+	 * @param array $data_layer The datalayer content.
 	 *
 	 * @return array The datalayer content
 	 */
@@ -454,7 +499,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		if ( $order instanceof WC_Order ) {
 
-			$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) );
+			$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // phpcs:ignore
 
 			if ( $order->get_order_key() !== $order_key ) {
 				return $data_layer;
@@ -488,10 +533,12 @@ final class WooCommerce  extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
-		$coupons = $order->get_coupon_codes();
+		$coupons     = $order->get_coupon_codes();
 		$order_items = [];
 
-		if ( $items = $order->get_items() ) {
+		$items = $order->get_items();
+
+		if ( $items ) {
 			foreach ( $items as $item ) {
 
 				$product       = $item->get_product();
@@ -500,7 +547,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 				$additional_item_attributes = [
 					'quantity' => $item->get_quantity(),
-					'price'    => $product_price
+					'price'    => $product_price,
 				];
 
 				$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
@@ -537,7 +584,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
 
-			if (is_user_logged_in()) {
+			if ( is_user_logged_in() ) {
 				try {
 					$wc_customer = new WC_Customer( WC()->customer->get_id() );
 					$order_count = $wc_customer->get_order_count();
@@ -570,7 +617,7 @@ final class WooCommerce  extends AbstractEcommerce {
 			$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
 			$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
 			$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
-			$data_layer['ecommerce']['customer']['billing_email_hash'] = ($wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '' ;
+			$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '';
 			$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
 
 			$data_layer['ecommerce']['customer']['shipping_firstName'] = $wc_customer->get_shipping_first_name();
@@ -598,16 +645,16 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	function get_cart_items( string $event_context ): array {
 		$cart_items = [];
-		$coupons = WC()->cart->get_applied_coupons();
+		$coupons    = WC()->cart->get_applied_coupons();
 
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 
-			$item_data = [
-				'product_id' => $cart_item['product_id'],
-				'quantity' => $cart_item['quantity'],
-				'total' => $cart_item['line_total'],
-				'total_tax' => $cart_item['line_tax'],
-				'subtotal' => $cart_item['line_subtotal'],
+			$item_data       = [
+				'product_id'   => $cart_item['product_id'],
+				'quantity'     => $cart_item['quantity'],
+				'total'        => $cart_item['line_total'],
+				'total_tax'    => $cart_item['line_tax'],
+				'subtotal'     => $cart_item['line_subtotal'],
 				'subtotal_tax' => $cart_item['line_subtotal_tax'],
 			];
 			$coupon_discount = $this->get_coupon_discount( $coupons, $item_data );
@@ -633,9 +680,9 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get item data.
 	 *
-	 * @param WC_Product $product An instance of WP_Product
-	 * @param array $additional_item_attributes Any key-value pair that needs to be added to the item data.
-	 * @param string $event_context The event context of the item data.
+	 * @param WC_Product $product An instance of WP_Product.
+	 * @param array      $additional_item_attributes Any key-value pair that needs to be added to the item data.
+	 * @param string     $event_context The event context of the item data.
 	 *
 	 * @return array The item data.
 	 */
@@ -650,7 +697,7 @@ final class WooCommerce  extends AbstractEcommerce {
 		}
 
 		$item_data = [
-			'id'   => $this->prefix_item_id( $item_id ),
+			'id'        => $this->prefix_item_id( $item_id ),
 			'item_id'   => $this->prefix_item_id( $item_id ),
 			'item_name' => $product->get_title(),
 			'currency'  => $this->store_currency,
@@ -674,14 +721,13 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		if ( $number_of_elements ) {
 
-			for ( $element = 0; $element < $number_of_elements; $element ++ ) {
-				$designator                                 = ( $element == 0 ) ? '' : $element + 1;
+			for ( $element = 0; $element < $number_of_elements; $element++ ) {
+				$designator                                 = ( $element === 0 ) ? '' : $element + 1;
 				$item_data[ 'item_category' . $designator ] = $item_category_elements[ $element ];
 			}
-
 		}
 
-		if ( $product->get_type() == 'variation' ) {
+		if ( $product->get_type() === 'variation' ) {
 			$item_data['item_variant'] = implode( ',', array_filter( $product->get_attributes() ) );
 		}
 
@@ -693,8 +739,8 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Get the coupons and discount for an item
 	 *
-	 * @param array $coupons
-	 * @param array $item
+	 * @param array $coupons The coupons.
+	 * @param array $item The item.
 	 *
 	 * @return array
 	 */
@@ -712,22 +758,29 @@ final class WooCommerce  extends AbstractEcommerce {
 				$included_products = true;
 				$included_cats     = true;
 
-				if ( count( $product_ids = $coupon->get_product_ids() ) > 0 ) {
+				$product_ids = $coupon->get_product_ids();
+				if ( count( $product_ids ) > 0 ) {
 					if ( ! in_array( $item['product_id'], $product_ids ) ) {
 						$included_products = false;
 					}
 				}
-				if ( count( $excluded_product_ids = $coupon->get_excluded_product_ids() ) > 0 ) {
+
+				$excluded_product_ids = $coupon->get_excluded_product_ids();
+				if ( count( $excluded_product_ids ) > 0 ) {
 					if ( in_array( $item['product_id'], $excluded_product_ids ) ) {
 						$included_products = false;
 					}
 				}
-				if ( count( $product_cats = $coupon->get_product_categories() ) > 0 ) {
+
+				$product_cats = $coupon->get_product_categories();
+				if ( count( $product_cats ) > 0 ) {
 					if ( ! has_term( $product_cats, 'product_cat', $item['product_id'] ) ) {
 						$included_cats = false;
 					}
 				}
-				if ( count( $excluded_product_cats = $coupon->get_excluded_product_categories() ) > 0 ) {
+
+				$excluded_product_cats = $coupon->get_excluded_product_categories();
+				if ( count( $excluded_product_cats ) > 0 ) {
 					if ( has_term( $excluded_product_cats, 'product_cat', $item['product_id'] ) ) {
 						$included_cats = false;
 					}
@@ -746,7 +799,10 @@ final class WooCommerce  extends AbstractEcommerce {
 			}
 		}
 
-		return [ 'coupon_codes' => $coupon_codes, 'discount' => $discount ];
+		return [
+			'coupon_codes' => $coupon_codes,
+			'discount'     => $discount,
+		];
 	}
 
 	/**
@@ -761,7 +817,7 @@ final class WooCommerce  extends AbstractEcommerce {
 
 		$item_data = $this->get_item_data( $product );
 
-		echo '<input type="hidden" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n";
+		echo '<input type="hidden" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n"; // phpcs:ignore
 	}
 
 	/**
@@ -769,7 +825,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @hook woocommerce_grouped_product_list_column_label
 	 *
-	 * @param string $label_value Product label.
+	 * @param string     $label_value Product label.
 	 * @param WC_Product $product The product.
 	 *
 	 * @return string The product label string.
@@ -786,8 +842,8 @@ final class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @hook woocommerce_blocks_product_grid_item_html.
 	 *
-	 * @param string $html Product grid item HTML.
-	 * @param object $data Product data passed to the template.
+	 * @param string     $html Product grid item HTML.
+	 * @param object     $data Product data passed to the template.
 	 * @param WC_Product $product Product object.
 	 *
 	 * @return string Updated product grid item HTML.
@@ -802,8 +858,8 @@ final class WooCommerce  extends AbstractEcommerce {
 	 * Generates a hidden <span> element that contains the item data.
 	 *
 	 * @param WC_Product $product Product object.
-	 * @param string $item_list_name Name of the list associated with the event.
-	 * @param int $index The index of the product in the product list. The first product should have the index no. 1.
+	 * @param string     $item_list_name Name of the list associated with the event.
+	 * @param int        $index The index of the product in the product list. The first product should have the index no. 1.
 	 *
 	 * @return string A hidden <span> element that contains the item data.
 	 */
@@ -893,7 +949,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 *
 	 * @hook woocommerce_after_shop_loop_item.
 	 *
-	 * @param mixed $columns
+	 * @param mixed $columns The columns.
 	 *
 	 * @return mixed
 	 */
@@ -905,6 +961,13 @@ final class WooCommerce  extends AbstractEcommerce {
 		return $columns;
 	}
 
+	/**
+	 * Set the list name on categories and tags
+	 *
+	 * @param mixed $value The product loop start.
+	 *
+	 * @return mixed
+	 */
 	public function set_list_name_on_category_and_tag( $value ) {
 		global $woocommerce_loop;
 
@@ -925,7 +988,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 * @hook woocommerce_cart_item_remove_link.
 	 *
 	 * @param string $woocommerce_cart_item_remove_link The cart item remove link.
-	 * @param string $cart_item_key The cart item key
+	 * @param string $cart_item_key The cart item key.
 	 *
 	 * @return string The updated cart item remove link containing product data.
 	 */
@@ -940,22 +1003,22 @@ final class WooCommerce  extends AbstractEcommerce {
 		$item_data = $this->get_item_data(
 			$cart_item['data'],
 			[
-				'quantity' => $cart_item['quantity']
+				'quantity' => $cart_item['quantity'],
 			],
 			'remove_from_cart'
 		);
 
-		$findHref                   = ' href="';
+		$find_href                  = ' href="';
 		$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( json_encode( $item_data ) ) );
 
-		$substring_pos = strpos( $woocommerce_cart_item_remove_link, $findHref );
+		$substring_pos = strpos( $woocommerce_cart_item_remove_link, $find_href );
 
 		if ( $substring_pos !== false ) {
 			$woocommerce_cart_item_remove_link = substr_replace(
 				$woocommerce_cart_item_remove_link,
 				$replace_width_product_data,
 				$substring_pos,
-				strlen( $findHref )
+				strlen( $find_href )
 			);
 		}
 
@@ -965,19 +1028,19 @@ final class WooCommerce  extends AbstractEcommerce {
 	/**
 	 * Prefix an item ID
 	 *
-	 * @param string $item_id
+	 * @param string $item_id The item ID.
 	 *
 	 * @return string
 	 */
 	function prefix_item_id( string $item_id ): string {
 		$prefix = ( Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) ) ?: '';
-		return $prefix.$item_id;
+		return $prefix . $item_id;
 	}
 
 	/**
 	 * Compatibility with TI WooCommerce Wishlist
 	 *
-	 * @param array $item_data
+	 * @param array $item_data Item data.
 	 *
 	 * @return array
 	 */
@@ -997,24 +1060,24 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function extend_store() {
 
-		// Register into `cart/items`
+		// Register into `cart/items`.
 		$this->extend->register_endpoint_data(
 			array(
 				'endpoint'        => ProductSchema::IDENTIFIER,
 				'namespace'       => 'gtmkit',
 				'data_callback'   => array( self::$instance, 'extend_product_data' ),
 				'schema_callback' => array( self::$instance, 'extend_product_schema' ),
-				'schema_type'       => ARRAY_A,
+				'schema_type'     => ARRAY_A,
 			)
 		);
 
 		$this->extend->register_endpoint_data(
 			array(
-				'endpoint' => CartItemSchema::IDENTIFIER,
+				'endpoint'        => CartItemSchema::IDENTIFIER,
 				'namespace'       => 'gtmkit',
 				'data_callback'   => array( self::$instance, 'extend_cart_data' ),
 				'schema_callback' => array( self::$instance, 'extend_product_schema' ),
-				'schema_type'       => ARRAY_A,
+				'schema_type'     => ARRAY_A,
 			)
 		);
 	}
@@ -1028,7 +1091,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function extend_product_data( $product ): array {
 		return array(
-			'item'      => json_encode( $this->get_item_data( $product ) ),
+			'item' => json_encode( $this->get_item_data( $product ) ),
 		);
 	}
 
@@ -1041,7 +1104,7 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function extend_cart_data( array $cart_item ): array {
 		return array(
-			'item'      => json_encode( $this->get_item_data( $cart_item['data'] ) ),
+			'item' => json_encode( $this->get_item_data( $cart_item['data'] ) ),
 		);
 	}
 
@@ -1053,35 +1116,34 @@ final class WooCommerce  extends AbstractEcommerce {
 	 */
 	public function extend_product_schema(): array {
 
-		return	array(
-			'gtmkit_data'      => array(
+		return array(
+			'gtmkit_data' => array(
 				'description' => __( 'GTM Kit data.', 'gtm-kit' ),
 				'type'        => array( 'string', 'null' ),
 				'readonly'    => true,
 			),
 		);
-
 	}
 
 	/**
 	 * Has WooCommerce blocks
 	 *
-	 * @param int $post_id
+	 * @param int $post_id Tne post ID.
 	 *
 	 * @return array
 	 */
 	function has_woocommerce_blocks( int $post_id ): array {
-		$post_content = get_the_content(null, false, $post_id);
+		$post_content = get_the_content( null, false, $post_id );
 
 		$woocommerce_blocks = array();
 
-		// This will return an array of blocks
-		$blocks = parse_blocks($post_content);
+		// This will return an array of blocks.
+		$blocks = parse_blocks( $post_content );
 
-		// Then you can loop over the array and check if any of the blocks are WooCommerce blocks
-		foreach($blocks as $block) {
-			if(!empty($block['blockName']) && strpos($block['blockName'], 'woocommerce/') !== false) {
-				$woocommerce_blocks[] = str_replace('woocommerce/', '', $block['blockName']);
+		// Then you can loop over the array and check if any of the blocks are WooCommerce blocks.
+		foreach ( $blocks as $block ) {
+			if ( ! empty( $block['blockName'] ) && strpos( $block['blockName'], 'woocommerce/' ) !== false ) {
+				$woocommerce_blocks[] = str_replace( 'woocommerce/', '', $block['blockName'] );
 			}
 		}
 
@@ -1096,5 +1158,4 @@ final class WooCommerce  extends AbstractEcommerce {
 	function get_woocommerce_blocks(): array {
 		return $this->has_woocommerce_blocks( get_the_ID() );
 	}
-
 }

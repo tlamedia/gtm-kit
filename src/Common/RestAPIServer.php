@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Common;
 
@@ -9,6 +14,11 @@ use WP_Error;
  */
 final class RestAPIServer {
 
+	/**
+	 * Route namespace.
+	 *
+	 * @var string
+	 */
 	private $route_namespace = 'gtmkit/v1';
 
 	/**
@@ -29,8 +39,8 @@ final class RestAPIServer {
 	/**
 	 * Register REST route
 	 *
-	 * @param string $route
-	 * @param array $args
+	 * @param string $route The route.
+	 * @param array  $args The arguments.
 	 *
 	 * @return void
 	 */

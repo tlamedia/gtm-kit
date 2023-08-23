@@ -1,10 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-/** @var OptionsForm $form */
+/** @var OptionsForm $form */ // phpcs:ignore
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
@@ -19,7 +24,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 			<?php esc_html_e( 'Easy Digital Downloads Integration', 'gtm-kit' ); ?>
 		</h2>
 		<p><?php esc_html_e( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ) . ': <a href="https://easydigitaldownloads.com/" target="_blank">Easy Digital Downloads</a>'; ?></p>
-		<?php if ( $edd_is_inactive ): ?>
+		<?php if ( $edd_is_inactive ) : ?>
 			<p>
 				<span class="error"><?php esc_html_e( 'Easy Digital Downloads is not installed', 'gtm-kit' ); ?></span>.
 				<?php
@@ -53,82 +58,82 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 	</div>
 
 	<?php
-$form->setting_row(
-	'checkbox-toggle',
-	'edd_integration',
-	__( 'Track Easy Digital Downloads', 'gtm-kit' ),
-	[
-		'attributes' => [
-			'disabled' => $edd_is_inactive,
-		]
-	],
-	__( 'Choose this option if you would like to track e-commerce data.', 'gtm-kit' )
-);
-
-$form->setting_row(
-	'checkbox-toggle',
-	'edd_use_sku',
-	__( 'Use SKU instead of ID', 'gtm-kit' ),
-	[
-		'attributes' => [
-			'disabled' => $edd_is_inactive,
-		]
-	],
-	__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtm-kit' )
-);
-
-$form->setting_row(
-	'select',
-	'edd_google_business_vertical',
-	__( 'Google Business Vertical', 'gtm-kit' ),
-	[
-		'attributes' => [
-			'disabled' => $edd_is_inactive,
+	$form->setting_row(
+		'checkbox-toggle',
+		'edd_integration',
+		__( 'Track Easy Digital Downloads', 'gtm-kit' ),
+		[
+			'attributes' => [
+				'disabled' => $edd_is_inactive,
+			],
 		],
-		'options'    => [
-			'retail'       => __( 'Retail', 'gtm-kit' ) . ' - (retail)',
-			'education'    => __( 'Education', 'gtm-kit' ) . ' - (education)',
-			'flights'      => __( 'Flights', 'gtm-kit' ) . ' - (flights)',
-			'hotel_rental' => __( 'Hotel rental', 'gtm-kit' ) . ' - (hotel_rental)',
-			'jobs'         => __( 'Jobs', 'gtm-kit' ) . ' (jobs)',
-			'local'        => __( 'Local deals', 'gtm-kit' ) . ' - (local)',
-			'real_estate'  => __( 'Real estate', 'gtm-kit' ) . ' - (real_estate)',
-			'travel'       => __( 'Travel', 'gtm-kit' ) . ' - (travel)',
-			'custom'       => __( 'Custom', 'gtm-kit' ) . ' - (custom)',
-		]
-	],
-	__( 'In order to use Google Ads Remarketing you must select your business type (vertical).', 'gtm-kit' )
-);
+		__( 'Choose this option if you would like to track e-commerce data.', 'gtm-kit' )
+	);
 
-$form->setting_row(
-	'text-input',
-	'edd_product_id_prefix',
-	__( 'Product ID prefix', 'gtm-kit' ),
-	[],
-	__( 'If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer.', 'gtm-kit' )
-);
+	$form->setting_row(
+		'checkbox-toggle',
+		'edd_use_sku',
+		__( 'Use SKU instead of ID', 'gtm-kit' ),
+		[
+			'attributes' => [
+				'disabled' => $edd_is_inactive,
+			],
+		],
+		__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtm-kit' )
+	);
 
-$form->setting_row(
-	'checkbox-toggle',
-	'edd_exclude_tax',
-	__( 'Exclude tax', 'gtm-kit' ),
-	[
-		'attributes' => [
-			'disabled' => $edd_is_inactive,
-		]
-	],
-	__( 'Exclude tax from prices and revenue', 'gtm-kit' )
-);
+	$form->setting_row(
+		'select',
+		'edd_google_business_vertical',
+		__( 'Google Business Vertical', 'gtm-kit' ),
+		[
+			'attributes' => [
+				'disabled' => $edd_is_inactive,
+			],
+			'options'    => [
+				'retail'       => __( 'Retail', 'gtm-kit' ) . ' - (retail)',
+				'education'    => __( 'Education', 'gtm-kit' ) . ' - (education)',
+				'flights'      => __( 'Flights', 'gtm-kit' ) . ' - (flights)',
+				'hotel_rental' => __( 'Hotel rental', 'gtm-kit' ) . ' - (hotel_rental)',
+				'jobs'         => __( 'Jobs', 'gtm-kit' ) . ' (jobs)',
+				'local'        => __( 'Local deals', 'gtm-kit' ) . ' - (local)',
+				'real_estate'  => __( 'Real estate', 'gtm-kit' ) . ' - (real_estate)',
+				'travel'       => __( 'Travel', 'gtm-kit' ) . ' - (travel)',
+				'custom'       => __( 'Custom', 'gtm-kit' ) . ' - (custom)',
+			],
+		],
+		__( 'In order to use Google Ads Remarketing you must select your business type (vertical).', 'gtm-kit' )
+	);
 
-$form->setting_row(
-	'checkbox-toggle',
-	'edd_dequeue_script',
-	__( 'Dequeue Default JS', 'gtm-kit' ),
-	[
-		'attributes' => [
-			'disabled' => $edd_is_inactive,
-		]
-	],
-	__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtm-kit' )
-);
+	$form->setting_row(
+		'text-input',
+		'edd_product_id_prefix',
+		__( 'Product ID prefix', 'gtm-kit' ),
+		[],
+		__( 'If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer.', 'gtm-kit' )
+	);
+
+	$form->setting_row(
+		'checkbox-toggle',
+		'edd_exclude_tax',
+		__( 'Exclude tax', 'gtm-kit' ),
+		[
+			'attributes' => [
+				'disabled' => $edd_is_inactive,
+			],
+		],
+		__( 'Exclude tax from prices and revenue', 'gtm-kit' )
+	);
+
+	$form->setting_row(
+		'checkbox-toggle',
+		'edd_dequeue_script',
+		__( 'Dequeue Default JS', 'gtm-kit' ),
+		[
+			'attributes' => [
+				'disabled' => $edd_is_inactive,
+			],
+		],
+		__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtm-kit' )
+	);
 

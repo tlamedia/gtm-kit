@@ -1,6 +1,8 @@
 <?php
 /**
  * Integration
+ *
+ * @package GTM Kit
  */
 
 namespace TLA_Media\GTM_Kit\Integration;
@@ -8,6 +10,9 @@ namespace TLA_Media\GTM_Kit\Integration;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * AbstractIntegration
+ */
 abstract class AbstractIntegration {
 
 	/**
@@ -18,6 +23,8 @@ abstract class AbstractIntegration {
 	protected $options;
 
 	/**
+	 * Utilities
+	 *
 	 * @var Util
 	 */
 	protected $util;
@@ -25,12 +32,12 @@ abstract class AbstractIntegration {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
 	 */
 	public function __construct( Options $options, Util $util ) {
 		$this->options = $options;
-		$this->util = $util;
+		$this->util    = $util;
 	}
 
 	/**
@@ -41,9 +48,8 @@ abstract class AbstractIntegration {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options An instance of Options.
+	 * @param Util $util An instance of Util.
 	 */
-	abstract public static function register( Options $options, Util $util): void;
-
+	abstract public static function register( Options $options, Util $util ): void;
 }

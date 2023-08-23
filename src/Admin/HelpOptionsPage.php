@@ -1,9 +1,22 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+/**
+ * HelpOptionsPage
+ */
 final class HelpOptionsPage extends AbstractOptionsPage {
 
+	/**
+	 * The option group.
+	 *
+	 * @var string
+	 */
 	protected $option_group = 'help';
 
 	/**
@@ -42,7 +55,6 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 		$dashboard_tabs->display( $form );
 
 		$form->admin_footer( true, false );
-
 	}
 
 	/**
@@ -85,9 +97,8 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 	 * Get the tabs of the admin page.
 	 */
 	protected function get_tabs(): void {
-		$generalTabs = new OptionTabs( 'help' );
-		$generalTabs->add_tab( new OptionTab( 'help', __( 'Overview', 'gtm-kit' ) ) );
-		$generalTabs->add_tab( new OptionTab( 'support', __( 'Support', 'gtm-kit' ) ) );
+		$general_tabs = new OptionTabs( 'help' );
+		$general_tabs->add_tab( new OptionTab( 'help', __( 'Overview', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'support', __( 'Support', 'gtm-kit' ) ) );
 	}
-
 }

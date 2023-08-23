@@ -1,10 +1,15 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit;
 
 use TLA_Media\GTM_Kit\Admin\OptionsForm;
 
-/** @var OptionsForm $form */
+/** @var OptionsForm $form */ // phpcs:ignore
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
@@ -18,14 +23,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 		<ul>
 			<li class="gtmkit-list-item gtmkit-list-item-has-pill">
 				<h3>Google Tag Manager Container</h3>
-				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'container_active' ) ): ?>
+				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'container_active' ) ) : ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
 					<?php esc_attr_e( 'Active', 'gtm-kit' ); ?>
 				</span>
 					<div class="gtmkit-list-item-actions">
 						<div class="gtmkit-list-item-description">
 							<p>
-								<?php esc_html_e( 'Container ID:', 'gtm-kit'); ?>
+								<?php esc_html_e( 'Container ID:', 'gtm-kit' ); ?>
 								<?php echo esc_html( Options::init()->get( 'general', 'gtm_id' ) ); ?>
 							</p>
 						</div>
@@ -35,14 +40,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</a>
 						</div>
 					</div>
-				<?php else: ?>
-					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-<?php echo ( Options::init()->get( 'general', 'gtm_id' ) ? 'orange' : 'red'  ); ?>">
+				<?php else : ?>
+					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-<?php echo ( Options::init()->get( 'general', 'gtm_id' ) ? 'orange' : 'red' ); ?>">
 					<?php esc_attr_e( 'Inactive', 'gtm-kit' ); ?>
 				</span>
 					<div class="gtmkit-list-item-actions">
 						<div class="gtmkit-list-item-description">
 							<p>
-								<?php esc_html_e( 'The container is not active but the datalayer is generated.', 'gtm-kit'); ?>
+								<?php esc_html_e( 'The container is not active but the datalayer is generated.', 'gtm-kit' ); ?>
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
@@ -55,14 +60,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 			</li>
 			<li class="gtmkit-list-item gtmkit-list-item-has-pill">
 				<h3><?php esc_html_e( 'Help improve GTM Kit', 'gtm-kit' ); ?></h3>
-				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'analytics_active' ) ): ?>
+				<?php if ( Options::init()->get( 'general', 'gtm_id' ) && Options::init()->get( 'general', 'analytics_active' ) ) : ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
 						<?php esc_attr_e( 'Active', 'gtm-kit' ); ?>
 					</span>
 					<div class="gtmkit-list-item-actions">
 						<div class="gtmkit-list-item-description">
 							<p>
-								<?php esc_html_e( 'You are sharing anonymous data with us to help improve GTM Kit.', 'gtm-kit'); ?>
+								<?php esc_html_e( 'You are sharing anonymous data with us to help improve GTM Kit.', 'gtm-kit' ); ?>
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">
@@ -71,14 +76,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 							</a>
 						</div>
 					</div>
-				<?php else: ?>
+				<?php else : ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-grey">
 					<?php esc_attr_e( 'Inactive', 'gtm-kit' ); ?>
 				</span>
 					<div class="gtmkit-list-item-actions">
 						<div class="gtmkit-list-item-description">
 							<p>
-								<?php esc_html_e( 'Share anonymous data with the development team to help improve GTM Kit.', 'gtm-kit'); ?>
+								<?php esc_html_e( 'Share anonymous data with the development team to help improve GTM Kit.', 'gtm-kit' ); ?>
 							</p>
 						</div>
 						<div class="gtmkit-list-item-buttons">

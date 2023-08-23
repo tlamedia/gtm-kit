@@ -1,8 +1,9 @@
 <?php
 /**
- * e-commerce integration
+ * E-commerce integration
  *
  * @see https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?hl=en&client_type=gtm
+ * @package GTM Kit
  */
 
 namespace TLA_Media\GTM_Kit\Integration;
@@ -10,6 +11,9 @@ namespace TLA_Media\GTM_Kit\Integration;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
+/**
+ * AbstractEcommerce
+ */
 abstract class AbstractEcommerce extends AbstractIntegration {
 
 	/**
@@ -36,8 +40,8 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Constructor.
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
 	 */
 	public function __construct( Options $options, Util $util ) {
 		$this->grouped_product_position = 1;
@@ -54,15 +58,16 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options $options
-	 * @param Util $util
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
 	 */
-	abstract public static function register( Options $options, Util $util): void;
+	abstract public static function register( Options $options, Util $util ): void;
 
 	/**
 	 * Get the primary product category of a product. If the  primary category is not available the first assigned category will be returned.
 	 *
-	 * @param int $product_id The product ID
+	 * @param int    $product_id The product ID.
+	 * @param string $taxonomy The taxonomy slug.
 	 *
 	 * @return array The category breadcrumb for the given product ID.
 	 */
@@ -109,7 +114,8 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Get the product category breadcrumb elements as an array.
 	 *
-	 * @param int $category_id The ID of the product category.
+	 * @param int    $category_id The ID of the product category.
+	 * @param string $taxonomy The taxonomy slug.
 	 *
 	 * @return array The category path elements as an array.
 	 */
@@ -138,8 +144,8 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Get product term value.
 	 *
-	 * @param int $product_id A product ID
-	 * @param string $taxonomy The taxonomy slug
+	 * @param int    $product_id A product ID.
+	 * @param string $taxonomy The taxonomy slug.
 	 *
 	 * @return string Returns the first assigned taxonomy value.
 	 */
@@ -160,10 +166,9 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Prefix an item ID
 	 *
-	 * @param string $item_id
+	 * @param string $item_id Tje item ID.
 	 *
 	 * @return string
 	 */
 	abstract public function prefix_item_id( string $item_id ): string;
-
 }

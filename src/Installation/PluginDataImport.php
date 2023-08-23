@@ -1,4 +1,9 @@
 <?php
+/**
+ * GTM Kit plugin file.
+ *
+ * @package GTM Kit
+ */
 
 namespace TLA_Media\GTM_Kit\Installation;
 
@@ -14,11 +19,11 @@ class PluginDataImport {
 	 */
 	public function get_all(): array {
 
-		$firstInstall = (bool) get_transient( 'gtmkit_first_install' );
+		$first_install = (bool) get_transient( 'gtmkit_first_install' );
 		delete_transient( 'gtmkit_first_install' );
 
-		$pluginData = [
-			'first_install'           => $firstInstall,
+		$plugin_data = [
+			'first_install'           => $first_install,
 			'import_available'        => false,
 			'woocommerce_integration' => is_plugin_active( 'woocommerce/woocommerce.php' ),
 			'cf7_integration'         => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
@@ -36,12 +41,12 @@ class PluginDataImport {
 		foreach ( $plugins as $plugin ) {
 			$settings = $this->get( $plugin );
 			if ( ! empty( $settings ) ) {
-				$pluginData['import_data'][ $plugin ] = $settings;
-				$pluginData['import_available']       = true;
+				$plugin_data['import_data'][ $plugin ] = $settings;
+				$plugin_data['import_available']       = true;
 			}
 		}
 
-		return $pluginData;
+		return $plugin_data;
 	}
 
 	/**
@@ -65,7 +70,7 @@ class PluginDataImport {
 	/**
 	 * Extract the container ID from the container script
 	 *
-	 * @param string $container_script
+	 * @param string $container_script The GTM container script.
 	 *
 	 * @return string
 	 */
@@ -172,7 +177,7 @@ class PluginDataImport {
 			'name'    => 'Metronet Tag Manager',
 			'general' => [
 				'gtm_id' => $gtm_id,
-			]
+			],
 		];
 	}
 
@@ -194,7 +199,7 @@ class PluginDataImport {
 			'name'    => 'Google Analytics and Google Tag Manager',
 			'general' => [
 				'gtm_id' => $gtm_id,
-			]
+			],
 		];
 	}
 
@@ -215,8 +220,7 @@ class PluginDataImport {
 			'name'    => 'Google Tag Manager',
 			'general' => [
 				'gtm_id' => $gtm_id,
-			]
+			],
 		];
 	}
-
 }
