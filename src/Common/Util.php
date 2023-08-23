@@ -63,7 +63,7 @@ final class Util {
 	 *
 	 * @return array An array of active plugins names.
 	 */
-	function get_active_plugins(): array {
+	public function get_active_plugins(): array {
 
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -88,7 +88,7 @@ final class Util {
 	 *
 	 * @return array An array of active plugins names.
 	 */
-	function add_active_plugin_and_version( string $plugin, string $key, array $data ): array {
+	public function add_active_plugin_and_version( string $plugin, string $key, array $data ): array {
 
 		if ( is_plugin_active( $plugin ) ) {
 			$version      = get_plugin_data( GTMKIT_PATH . '../' . $plugin )['Version'];
@@ -105,7 +105,7 @@ final class Util {
 	 *
 	 * @return array
 	 */
-	function anonymize_options( array $options ): array {
+	public function anonymize_options( array $options ): array {
 
 		unset( $options['general']['gtm_id'] );
 
@@ -127,7 +127,7 @@ final class Util {
 	 *
 	 * @return string
 	 */
-	function shorten_version( string $version ): string {
+	public function shorten_version( string $version ): string {
 		return preg_replace( '@^(\d\.\d+).*@', '\1', $version );
 	}
 
@@ -136,7 +136,7 @@ final class Util {
 	 *
 	 * @return string
 	 */
-	function get_web_server(): string {
+	public function get_web_server(): string {
 
 		global $is_nginx, $is_apache, $is_iis7, $is_IIS;
 
@@ -160,7 +160,7 @@ final class Util {
 	 *
 	 * @return string
 	 */
-	function get_plugin_version(): string {
+	public function get_plugin_version(): string {
 		return ( wp_get_environment_type() === 'local' ) ? time() : GTMKIT_VERSION;
 	}
 
@@ -172,7 +172,7 @@ final class Util {
 	 *
 	 * @return void
 	 */
-	function enqueue_script( string $handle, string $script ): void {
+	public function enqueue_script( string $handle, string $script ): void {
 
 		$deps_file = GTMKIT_PATH . 'build/' . $script . '.asset.php';
 

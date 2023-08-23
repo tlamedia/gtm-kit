@@ -77,7 +77,7 @@ final class Analytics {
 	 *
 	 * @return void
 	 */
-	function schedule_daily_event(): void {
+	public function schedule_daily_event(): void {
 		$event = 'gtmkit_send_anonymous_data';
 
 		if ( class_exists( 'ActionScheduler' ) ) {
@@ -96,7 +96,7 @@ final class Analytics {
 	 *
 	 * @return void
 	 */
-	function send_anonymous_data(): void {
+	public function send_anonymous_data(): void {
 		$mp = Mixpanel::getInstance( 'a84d538948ddda17265f86785c80ca37' );
 
 		$mp->track( 'GTM Kit', $this->util->get_site_data( $this->options->get_all_raw() ) );

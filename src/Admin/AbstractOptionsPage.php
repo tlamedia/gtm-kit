@@ -176,7 +176,7 @@ abstract class AbstractOptionsPage {
 	 *
 	 * @return string
 	 */
-	function admin_body_class( string $classes ): string {
+	public function admin_body_class( string $classes ): string {
 
 		$page_parent = get_admin_page_parent();
 
