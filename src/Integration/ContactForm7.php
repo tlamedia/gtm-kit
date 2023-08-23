@@ -24,17 +24,6 @@ final class ContactForm7 extends AbstractIntegration {
 	protected static $instance = null;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param Options $options An instance of Options.
-	 * @param Util    $util An instance of Util.
-	 */
-	public function __construct( Options $options, Util $util ) {
-		// Call parent constructor.
-		parent::__construct( $options, $util );
-	}
-
-	/**
 	 * Get instance
 	 */
 	public static function instance(): ?ContactForm7 {

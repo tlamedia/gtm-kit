@@ -691,7 +691,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$product_id_to_query = ( $product->get_type() === 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
 		if ( $this->options->get( 'integrations', 'woocommerce_use_sku' ) ) {
-			$item_id = $product->get_sku() ?: $product->get_id();
+			$item_id = $product->get_sku() ? $product->get_sku() : $product->get_id();
 		} else {
 			$item_id = $product->get_id();
 		}
@@ -760,14 +760,14 @@ final class WooCommerce extends AbstractEcommerce {
 
 				$product_ids = $coupon->get_product_ids();
 				if ( count( $product_ids ) > 0 ) {
-					if ( ! in_array( $item['product_id'], $product_ids ) ) {
+					if ( ! in_array( $item['product_id'], $product_ids, true ) ) {
 						$included_products = false;
 					}
 				}
 
 				$excluded_product_ids = $coupon->get_excluded_product_ids();
 				if ( count( $excluded_product_ids ) > 0 ) {
-					if ( in_array( $item['product_id'], $excluded_product_ids ) ) {
+					if ( in_array( $item['product_id'], $excluded_product_ids, true ) ) {
 						$included_products = false;
 					}
 				}
@@ -890,7 +890,7 @@ final class WooCommerce extends AbstractEcommerce {
 		return sprintf(
 			'<span class="gtmkit_product_data" style="display:none; visibility:hidden;" data-gtmkit_product_id="%s" data-gtmkit_product_data="%s"></span>',
 			esc_attr( $this->prefix_item_id( $product->get_id() ) ),
-			esc_attr( json_encode( $item_data ) )
+			esc_attr( wp_json_encode( $item_data ) )
 		);
 	}
 
@@ -1009,7 +1009,7 @@ final class WooCommerce extends AbstractEcommerce {
 		);
 
 		$find_href                  = ' href="';
-		$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( json_encode( $item_data ) ) );
+		$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( wp_json_encode( $item_data ) ) );
 
 		$substring_pos = strpos( $woocommerce_cart_item_remove_link, $find_href );
 
@@ -1033,8 +1033,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 * @return string
 	 */
 	public function prefix_item_id( string $item_id ): string {
-		$prefix = ( Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) ) ?: '';
-		return $prefix . $item_id;
+		return Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
 	}
 
 	/**
@@ -1091,7 +1090,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function extend_product_data( $product ): array {
 		return array(
-			'item' => json_encode( $this->get_item_data( $product ) ),
+			'item' => wp_json_encode( $this->get_item_data( $product ) ),
 		);
 	}
 
@@ -1104,7 +1103,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function extend_cart_data( array $cart_item ): array {
 		return array(
-			'item' => json_encode( $this->get_item_data( $cart_item['data'] ) ),
+			'item' => wp_json_encode( $this->get_item_data( $cart_item['data'] ) ),
 		);
 	}
 

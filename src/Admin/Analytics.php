@@ -55,11 +55,11 @@ final class Analytics {
 	 * @param Util    $util An instance of Util.
 	 */
 	public static function register( Options $options, Util $util ): void {
-		self::$instance = $page = new Analytics( $options, $util );
+		self::$instance = new Analytics( $options, $util );
 
 		if ( $options->get( 'general', 'analytics_active' ) ) {
-			add_action( 'init', [ $page, 'schedule_daily_event' ] );
-			add_action( 'gtmkit_send_anonymous_data', [ $page, 'send_anonymous_data' ] );
+			add_action( 'init', [ self::$instance, 'schedule_daily_event' ] );
+			add_action( 'gtmkit_send_anonymous_data', [ self::$instance, 'send_anonymous_data' ] );
 		}
 	}
 
