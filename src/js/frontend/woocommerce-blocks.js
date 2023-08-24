@@ -1,7 +1,5 @@
 /**
- * GTM Kit plugin file.
- *
- * @package GTM Kit
+ * GTM Kit
  */
 
 import './woocommerce-blocks/index';

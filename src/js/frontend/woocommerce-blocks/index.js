@@ -1,17 +1,13 @@
 /**
  * External dependencies
  */
-import {addAction} from '@wordpress/hooks';
+import { addAction } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
  */
-import {actionPrefix, namespace} from './constants';
-import {
-	shippingInfo,
-	paymentInfo,
-	pushEvent,
-} from './utils';
+import { actionPrefix, namespace } from './constants';
+import { shippingInfo, paymentInfo, pushEvent } from './utils';
 
 /**
  * Track the shipping rate being set
@@ -22,9 +18,9 @@ addAction(
 	( { shippingRateId } ) => {
 		gtmkit_data.wc.chosen_shipping_method = shippingRateId;
 
-		if (gtmkit_settings.wc['add_shipping_info']['config'] === 0) return;
+		if ( gtmkit_settings.wc.add_shipping_info.config === 0 ) return;
 
-		if (gtmkit_settings.wc['add_shipping_info']['config'] === 2) {
+		if ( gtmkit_settings.wc.add_shipping_info.config === 2 ) {
 			shippingInfo();
 		}
 	}
@@ -39,9 +35,9 @@ addAction(
 	( { value } ) => {
 		gtmkit_data.wc.chosen_payment_method = value;
 
-		if (gtmkit_settings.wc['add_payment_info']['config'] === 0) return;
+		if ( gtmkit_settings.wc.add_payment_info.config === 0 ) return;
 
-		if (gtmkit_settings.wc['add_payment_info']['config'] === 2) {
+		if ( gtmkit_settings.wc.add_payment_info.config === 2 ) {
 			paymentInfo();
 		}
 	}
@@ -53,8 +49,8 @@ addAction(
  * Note, this is used to indicate checkout submission, not `purchase` which is triggered on the thanks page.
  */
 addAction( `${ actionPrefix }-checkout-submit`, namespace, () => {
-	if (gtmkit_settings.wc['add_shipping_info']['config'] !== 0) shippingInfo();
-	if (gtmkit_settings.wc['add_payment_info']['config'] !== 0) paymentInfo();
+	if ( gtmkit_settings.wc.add_shipping_info.config !== 0 ) shippingInfo();
+	if ( gtmkit_settings.wc.add_payment_info.config !== 0 ) paymentInfo();
 } );
 
 /**
@@ -65,38 +61,37 @@ addAction( `${ actionPrefix }-checkout-submit`, namespace, () => {
 addAction(
 	`${ actionPrefix }-cart-set-item-quantity`,
 	namespace,
-	( {
-		  product,
-		  quantity = 1,
-	  } ) => {
-		if (product.quantity < quantity) { // quantity increase
+	( { product, quantity = 1 } ) => {
+		if ( product.quantity < quantity ) {
+			// quantity increase
 
-			let quantityAdded = quantity - product.quantity;
-			let item = JSON.parse( product.extensions.gtmkit.item );
+			const quantityAdded = quantity - product.quantity;
+			const item = JSON.parse( product.extensions.gtmkit.item );
 			item.quantity = quantityAdded;
 
-			let eventParams = {
-				'ecommerce': {
-					'currency': gtmkit_data.wc['currency'],
-					'value': product.prices['sale_price'] / 100  * quantityAdded,
-					'items': [ item ]
-				}
+			const eventParams = {
+				ecommerce: {
+					currency: gtmkit_data.wc.currency,
+					value: ( product.prices.sale_price / 100 ) * quantityAdded,
+					items: [ item ],
+				},
 			};
 
 			pushEvent( 'add_to_cart', eventParams );
+		} else {
+			// quantity decrease
 
-		} else { // quantity decrease
-
-			let quantityRemoved = product.quantity - quantity;
-			let item = JSON.parse( product.extensions.gtmkit.item );
+			const quantityRemoved = product.quantity - quantity;
+			const item = JSON.parse( product.extensions.gtmkit.item );
 			item.quantity = quantityRemoved;
 
-			let eventParams = {
-				'ecommerce': {
-					'currency': gtmkit_data.wc['currency'],
-					'value': product.prices['sale_price'] / 100 * quantityRemoved,
-					'items': [ item ]
-				}
+			const eventParams = {
+				ecommerce: {
+					currency: gtmkit_data.wc.currency,
+					value:
+						( product.prices.sale_price / 100 ) * quantityRemoved,
+					items: [ item ],
+				},
 			};
 
 			pushEvent( 'remove_from_cart', eventParams );
@@ -107,19 +102,15 @@ addAction(
 addAction(
 	`${ actionPrefix }-cart-remove-item`,
 	namespace,
-	( {
-		  product,
-		  quantity,
-	  } ) => {
+	( { product, quantity } ) => {
+		const item = JSON.parse( product.extensions.gtmkit.item );
 
-		let item = JSON.parse( product.extensions.gtmkit.item );
-
-		let eventParams = {
-			'ecommerce': {
-				'currency': gtmkit_data.wc['currency'],
-				'value': product.prices['sale_price'] / 100  * quantity,
-				'items': [ item ]
-			}
+		const eventParams = {
+			ecommerce: {
+				currency: gtmkit_data.wc.currency,
+				value: ( product.prices.sale_price / 100 ) * quantity,
+				items: [ item ],
+			},
 		};
 
 		pushEvent( 'remove_from_cart', eventParams );
@@ -129,19 +120,15 @@ addAction(
 addAction(
 	`${ actionPrefix }-cart-add-item`,
 	namespace,
-	( {
-		  product,
-		  quantity = 1,
-	  } ) => {
+	( { product, quantity = 1 } ) => {
+		const item = JSON.parse( product.extensions.gtmkit.item );
 
-		let item = JSON.parse( product.extensions.gtmkit.item );
-
-		let eventParams = {
-			'ecommerce': {
-				'currency': gtmkit_data.wc['currency'],
-				'value': product.prices['sale_price'] / 100  * quantity,
-				'items': [ item ]
-			}
+		const eventParams = {
+			ecommerce: {
+				currency: gtmkit_data.wc.currency,
+				value: ( product.prices.sale_price / 100 ) * quantity,
+				items: [ item ],
+			},
 		};
 
 		pushEvent( 'add_to_cart', eventParams );
