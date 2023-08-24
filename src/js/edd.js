@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-undef
 jQuery( document ).ready( function ( $ ) {
-	const datalayer_name = gtmkit_settings.datalayer_name;
+	const datalayerName = window.gtmkit_settings.datalayer_name;
 
 	$( document.body ).on(
 		'click.eddAddToCart',
@@ -11,16 +12,18 @@ jQuery( document ).ready( function ( $ ) {
 
 			const form = $this.parents( 'form' ).last();
 			const download = $this.data( 'download-id' );
-			const variable_price = $this.data( 'variable-price' );
-			const price_mode = $this.data( 'price-mode' );
-			const item_price_ids = [];
-			const item_data = JSON.parse(
+			const variablePrice = $this.data( 'variable-price' );
+			const itemPriceIds = [];
+
+			// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+			const itemData = JSON.parse(
 				form.find( '.gtmkit_product_data' ).val()
 			);
 
+			// eslint-disable-next-line @wordpress/no-unused-vars-before-return
 			let quantity = parseInt( form.find( '.edd-item-quantity' ).val() );
 
-			if ( variable_price === 'yes' ) {
+			if ( variablePrice === 'yes' ) {
 				if (
 					! form.find(
 						'.edd_price_option_' + download + ':checked',
@@ -30,18 +33,20 @@ jQuery( document ).ready( function ( $ ) {
 					return false;
 				}
 
+				const priceMode = $this.data( 'price-mode' );
+
 				form.find(
 					'.edd_price_option_' + download + ':checked',
 					form
 				).each( function ( index ) {
-					item_price_ids[ index ] = $( this ).val();
+					itemPriceIds[ index ] = $( this ).val();
 
-					const item_price = $( this ).data( 'price' );
-					if ( item_price && item_price > 0 ) {
-						item_data.price = parseFloat( item_price );
+					const itemPrice = $( this ).data( 'price' );
+					if ( itemPrice && itemPrice > 0 ) {
+						itemData.price = parseFloat( itemPrice );
 					}
 
-					if ( price_mode === 'multi' ) {
+					if ( priceMode === 'multi' ) {
 						quantity = parseInt(
 							form
 								.find(
@@ -52,28 +57,28 @@ jQuery( document ).ready( function ( $ ) {
 								)
 								.val()
 						);
-						item_data.quantity = quantity;
+						itemData.quantity = quantity;
 					} else {
-						item_data.quantity = quantity;
+						itemData.quantity = quantity;
 					}
 
-					push_datalayer( item_data );
+					pushDatalayer( itemData );
 				} );
 			} else {
-				item_data.quantity = quantity;
-				push_datalayer( item_data );
+				itemData.quantity = quantity;
+				pushDatalayer( itemData );
 			}
 		}
 	);
 
-	function push_datalayer( item_data ) {
-		window[ datalayer_name ].push( { ecommerce: null } );
-		window[ datalayer_name ].push( {
+	function pushDatalayer( itemData ) {
+		window[ datalayerName ].push( { ecommerce: null } );
+		window[ datalayerName ].push( {
 			event: 'add_to_cart',
 			ecommerce: {
-				currency: gtmkit_data.edd.currency,
-				value: item_data.price * item_data.quantity,
-				items: [ item_data ],
+				currency: window.gtmkit_data.edd.currency,
+				value: itemData.price * itemData.quantity,
+				items: [ itemData ],
 			},
 		} );
 	}

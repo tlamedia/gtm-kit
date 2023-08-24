@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 jQuery( function ( $ ) {
 	/**
 	 * Set the initial active tab in the settings pages.
@@ -22,10 +23,13 @@ jQuery( function ( $ ) {
 			 * Reminder: jQuery attr() gets the attribute value for only the first
 			 * element in the matched set so this will always be the first tab id.
 			 */
+			// eslint-disable-next-line no-undef
 			activeTabId = jQuery( '.gtmkit-tab' ).attr( 'id' );
 		}
 
+		// eslint-disable-next-line no-undef
 		jQuery( '#' + activeTabId ).addClass( 'active' );
+		// eslint-disable-next-line no-undef
 		jQuery( '#' + activeTabId + '-tab' )
 			.addClass( 'active' )
 			.trigger( 'click' );

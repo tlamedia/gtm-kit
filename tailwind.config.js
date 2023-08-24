@@ -4,6 +4,7 @@
  * @package
  */
 
+// eslint-disable-next-line
 /** @type {import('tailwindcss').Config} */ // phpcs:ignore
 
 module.exports = {
