@@ -1,20 +1,14 @@
 /**
- * GTM Kit plugin file.
- *
- * @package GTM Kit
+ * GTM Kit - Copy images
  */
 
-var ncp = require( 'ncp' ).ncp;
+const ncp = require( 'ncp' ).ncp;
 
 ncp.limit = 16;
 
-ncp(
-	'src/images',
-	'assets/images',
-	function (err) {
-		if (err) {
-			return console.error( err );
-		}
-		console.log( 'Images copied!' );
+ncp( 'src/images', 'assets/images', function ( err ) {
+	if ( err ) {
+		return console.error( err );
 	}
-);
+	console.log( 'Images copied!' );
+} );

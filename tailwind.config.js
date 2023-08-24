@@ -1,16 +1,16 @@
 /**
- * GTM Kit plugin file.
+ * GTM Kit
  *
- * @package GTM Kit
+ * @package
  */
 
 /** @type {import('tailwindcss').Config} */ // phpcs:ignore
 
 module.exports = {
 	content: [
-		"./src/**/*.js",
-		"../gtm-kit-settings/src/**/*.js",
-		'./src/**/*.php'
+		'./src/**/*.js',
+		'../gtm-kit-settings/src/**/*.js',
+		'./src/**/*.php',
 	],
 	theme: {
 		extend: {
@@ -27,4 +27,4 @@ module.exports = {
 	},
 	plugins: [],
 	prefix: 'gtmkit-',
-}
+};
