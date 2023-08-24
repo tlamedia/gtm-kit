@@ -95,6 +95,7 @@ Enhancements:
 Bugfixes:
 
 Other:
+* Declare compatibility with the WooCommerce Cart and Checkout blocks.
 
 
 = 1.12.2 =
