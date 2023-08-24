@@ -90,13 +90,13 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.X =
 
 Enhancements:
-* Added support for import of more plugin configurations
+* Added support for import of more plugin configurations.
 
 Bugfixes:
 
 Other:
 * Declare compatibility with the WooCommerce Cart and Checkout blocks.
-
+* Comply with WordPress Coding Standards.
 
 = 1.12.2 =
 
