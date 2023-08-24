@@ -16,11 +16,11 @@ addAction(
 	`${ actionPrefix }-checkout-set-selected-shipping-rate`,
 	namespace,
 	( { shippingRateId } ) => {
-		gtmkit_data.wc.chosen_shipping_method = shippingRateId;
+		window.gtmkit_data.wc.chosen_shipping_method = shippingRateId;
 
-		if ( gtmkit_settings.wc.add_shipping_info.config === 0 ) return;
+		if ( window.gtmkit_settings.wc.add_shipping_info.config === 0 ) return;
 
-		if ( gtmkit_settings.wc.add_shipping_info.config === 2 ) {
+		if ( window.gtmkit_settings.wc.add_shipping_info.config === 2 ) {
 			shippingInfo();
 		}
 	}
@@ -33,11 +33,11 @@ addAction(
 	`${ actionPrefix }-checkout-set-active-payment-method`,
 	namespace,
 	( { value } ) => {
-		gtmkit_data.wc.chosen_payment_method = value;
+		window.gtmkit_data.wc.chosen_payment_method = value;
 
-		if ( gtmkit_settings.wc.add_payment_info.config === 0 ) return;
+		if ( window.gtmkit_settings.wc.add_payment_info.config === 0 ) return;
 
-		if ( gtmkit_settings.wc.add_payment_info.config === 2 ) {
+		if ( window.gtmkit_settings.wc.add_payment_info.config === 2 ) {
 			paymentInfo();
 		}
 	}
@@ -49,8 +49,10 @@ addAction(
  * Note, this is used to indicate checkout submission, not `purchase` which is triggered on the thanks page.
  */
 addAction( `${ actionPrefix }-checkout-submit`, namespace, () => {
-	if ( gtmkit_settings.wc.add_shipping_info.config !== 0 ) shippingInfo();
-	if ( gtmkit_settings.wc.add_payment_info.config !== 0 ) paymentInfo();
+	if ( window.gtmkit_settings.wc.add_shipping_info.config !== 0 )
+		shippingInfo();
+	if ( window.gtmkit_settings.wc.add_payment_info.config !== 0 )
+		paymentInfo();
 } );
 
 /**
@@ -71,7 +73,7 @@ addAction(
 
 			const eventParams = {
 				ecommerce: {
-					currency: gtmkit_data.wc.currency,
+					currency: window.gtmkit_data.wc.currency,
 					value: ( product.prices.sale_price / 100 ) * quantityAdded,
 					items: [ item ],
 				},
@@ -87,7 +89,7 @@ addAction(
 
 			const eventParams = {
 				ecommerce: {
-					currency: gtmkit_data.wc.currency,
+					currency: window.gtmkit_data.wc.currency,
 					value:
 						( product.prices.sale_price / 100 ) * quantityRemoved,
 					items: [ item ],
@@ -107,7 +109,7 @@ addAction(
 
 		const eventParams = {
 			ecommerce: {
-				currency: gtmkit_data.wc.currency,
+				currency: window.gtmkit_data.wc.currency,
 				value: ( product.prices.sale_price / 100 ) * quantity,
 				items: [ item ],
 			},
@@ -125,7 +127,7 @@ addAction(
 
 		const eventParams = {
 			ecommerce: {
-				currency: gtmkit_data.wc.currency,
+				currency: window.gtmkit_data.wc.currency,
 				value: ( product.prices.sale_price / 100 ) * quantity,
 				items: [ item ],
 			},

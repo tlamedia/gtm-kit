@@ -41,6 +41,8 @@
     "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
+    "lint:js:src": "wp-scripts lint-js ./src/js",
+    "lint:js-fix": "wp-scripts lint-js --fix",
     "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js --output-path=build/frontend",
     "audit:prod": "npm audit --omit=dev",
     "lint:pkg-json": "wp-scripts lint-pkg-json",

@@ -1,17 +1,16 @@
+// eslint-disable-next-line no-undef
 jQuery( document ).ready( function ( $ ) {
-	const datalayer_name = gtmkit_settings.datalayer_name;
-
 	$( document.body ).on(
 		'change',
 		'.edd-item-quantity',
-		gtmkit_edd_update_item_quantity
+		gtmkitEddUpdateItemQuantity
 	);
 
-	function gtmkit_edd_update_item_quantity( event ) {
+	function gtmkitEddUpdateItemQuantity() {
 		const $this = $( this ),
 			quantity = parseInt( $this.val() ),
 			key = $this.data( 'key' ),
-			download_id = $this
+			downloadId = $this
 				.closest( '.edd_cart_item' )
 				.data( 'download-id' ),
 			options = JSON.parse(
@@ -23,20 +22,23 @@ jQuery( document ).ready( function ( $ ) {
 					.val()
 			);
 
-		const cart_items = Object.entries( gtmkit_data.edd.cart_items );
-		cart_items.forEach( ( item ) => {
-			if ( item[ 1 ].download.download_id == download_id ) {
+		const cartItems = Object.entries( window.gtmkit_data.edd.cart_items );
+		cartItems.forEach( ( item ) => {
+			if ( item[ 1 ].download.download_id === downloadId ) {
 				if ( typeof item[ 1 ].download.price_id !== 'undefined' ) {
-					if ( item[ 1 ].download.price_id == options.price_id ) {
+					if ( item[ 1 ].download.price_id === options.price_id ) {
 						Object.assign(
-							gtmkit_data.edd.cart_items[ item[ 0 ] ],
+							window.gtmkit_data.edd.cart_items[ item[ 0 ] ],
 							{ quantity }
 						);
 					}
 				} else {
-					Object.assign( gtmkit_data.edd.cart_items[ item[ 0 ] ], {
-						quantity,
-					} );
+					Object.assign(
+						window.gtmkit_data.edd.cart_items[ item[ 0 ] ],
+						{
+							quantity,
+						}
+					);
 				}
 			}
 		} );
