@@ -89,7 +89,7 @@ final class Frontend {
 			<?php if ( $this->options->get( 'general', 'gcm_default_settings' ) ) : ?>
 
 			if (typeof gtag === "undefined") {
-				function gtag(){dataLayer.push(arguments);}
+				function gtag(){<?php echo esc_attr( $this->datalayer_name ); ?>.push(arguments);}
 				gtag('consent', 'default', {
 					'ad_storage': '<?php echo ( $this->options->get( 'general', 'gcm_ad_storage' ) ) ? 'granted' : 'denied'; ?>',
 					'analytics_storage': '<?php echo ( $this->options->get( 'general', 'gcm_analytics_storage' ) ) ? 'granted' : 'denied'; ?>',
