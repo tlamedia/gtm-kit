@@ -91,6 +91,12 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 		);
 		$dashboard_tabs->add_tab(
 			new OptionTab(
+				'google_consent_mode',
+				__( 'Google Consent Mode', 'gtm-kit' )
+			)
+		);
+		$dashboard_tabs->add_tab(
+			new OptionTab(
 				'misc',
 				__( 'Misc', 'gtm-kit' ),
 				[
@@ -158,6 +164,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 		$general_tabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtm-kit' ) ) );
 		$general_tabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
 		$general_tabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
+		$general_tabs->add_tab( new OptionTab( 'google_consent_mode', __( 'Google Consent Mode', 'gtm-kit' ) ) );
 		$general_tabs->add_tab( new OptionTab( 'misc', __( 'Misc.', 'gtm-kit' ) ) );
 		$general_tabs->add_tab( new OptionTab( 'whats_new', __( "What's new", 'gtm-kit' ) ) );
 	}

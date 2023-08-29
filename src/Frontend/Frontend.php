@@ -80,11 +80,27 @@ final class Frontend {
 			'console_log'    => Options::init()->get( 'general', 'console_log' ),
 		];
 		?>
+
 		<!-- GTM Kit -->
 		<script <?php $this->get_attributes(); ?>>
 			window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
 			window.gtmkit_settings = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
 			window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
+			<?php if ( $this->options->get( 'general', 'gcm_default_settings' ) ) : ?>
+
+			if (typeof gtag === "undefined") {
+				function gtag(){dataLayer.push(arguments);}
+				gtag('consent', 'default', {
+					'ad_storage': '<?php echo ( $this->options->get( 'general', 'gcm_ad_storage' ) ) ? 'granted' : 'denied'; ?>',
+					'analytics_storage': '<?php echo ( $this->options->get( 'general', 'gcm_analytics_storage' ) ) ? 'granted' : 'denied'; ?>',
+					'personalization_storage': '<?php echo ( $this->options->get( 'general', 'gcm_personalization_storage' ) ) ? 'granted' : 'denied'; ?>',
+					'functionality_storage': '<?php echo ( $this->options->get( 'general', 'gcm_functionality_storage' ) ) ? 'granted' : 'denied'; ?>',
+					'security_storage': '<?php echo ( $this->options->get( 'general', 'gcm_security_storage' ) ) ? 'granted' : 'denied'; ?>',
+				});
+			} else if ( window.gtmkit_settings.console_log === 'on' ) {
+				console.warn('GTM Kit: gtag is already defined')
+			}
+			<?php endif; ?>
 		</script>
 		<?php
 	}
