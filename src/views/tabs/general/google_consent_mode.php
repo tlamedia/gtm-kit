@@ -47,9 +47,9 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	$form->setting_row(
 		'checkbox-toggle',
 		'gcm_default_settings',
-		__( 'Set default GCM settings', 'gtm-kit' ),
+		__( 'Activate GCM settings', 'gtm-kit' ),
 		[],
-		__( 'Choose this option if you would like to activate the default settings.', 'gtm-kit' )
+		__( 'Choose this option if you would like to activate the default settings below.', 'gtm-kit' )
 	);
 
 	$form->setting_row(
