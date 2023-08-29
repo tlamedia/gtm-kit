@@ -46,6 +46,7 @@
   "scripts": {
     "phpstan": "phpstan analyze --ansi --memory-limit=2048M",
     "phpcs": "vendor/bin/phpcs",
+    "phpcbf": "vendor/bin/phpcbf",
     "no-dev:install": "composer install --no-dev",
     "no-dev:update": "composer update --no-dev"
   }
