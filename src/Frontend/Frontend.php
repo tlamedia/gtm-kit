@@ -82,7 +82,7 @@ final class Frontend {
 		?>
 		<!-- GTM Kit -->
 		<script <?php $this->get_attributes(); ?>>
-			var <?php echo esc_js( $this->datalayer_name ); ?> = <?php echo esc_js( $this->datalayer_name ); ?> || [];
+			window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
 			window.gtmkit_settings = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
 			window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		</script>
@@ -119,7 +119,7 @@ final class Frontend {
 		if ( $this->options->get( 'general', 'gtm_id' ) ) {
 			$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
 
-			echo 'var dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
+			echo 'const dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 
 			echo esc_attr( $this->datalayer_name ) . '.push( dataLayer_content );' . "\n";
 		}
@@ -149,7 +149,7 @@ final class Frontend {
 			window.requestIdleCallback =
 			    window.requestIdleCallback ||
 			    function (cb) {
-			        var start = Date.now();
+			        const start = Date.now();
 			        return setTimeout(function () {
 			            cb({
 			                didTimeout: false,
