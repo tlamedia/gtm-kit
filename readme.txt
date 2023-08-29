@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.12.2
+Stable tag: 1.13.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,7 +87,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.13 =
 
 Enhancements:
 * Add option to set Google Consent Mode default settings if a Consent Management Platform is not used.
@@ -95,6 +95,7 @@ Enhancements:
 * Prevent Consent Management Platforms from blocking GTM Kit and the Google Tag Manager container. This can be overridden with the filter hook 'gtmkit_header_script_attributes'.
 
 Bugfixes:
+* Fix a bug that in some cases would cause a namespace problem.
 
 Other:
 * Declare compatibility with the WooCommerce Cart and Checkout blocks.
