@@ -538,14 +538,6 @@ video {
   z-index: 10;
 }
 
-.gtmkit-col-span-2 {
-  grid-column: span 2 / span 2;
-}
-
-.gtmkit-col-span-3 {
-  grid-column: span 3 / span 3;
-}
-
 .gtmkit-m-4 {
   margin: 1rem;
 }
@@ -617,10 +609,6 @@ video {
 
 .gtmkit-mt-16 {
   margin-top: 4rem;
-}
-
-.gtmkit-mt-2 {
-  margin-top: 0.5rem;
 }
 
 .gtmkit-mt-3 {
@@ -748,10 +736,6 @@ video {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.gtmkit-grid-cols-5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
 .gtmkit-items-center {
   align-items: center;
 }
@@ -762,10 +746,6 @@ video {
 
 .gtmkit-gap-16 {
   gap: 4rem;
-}
-
-.gtmkit-gap-8 {
-  gap: 2rem;
 }
 
 .gtmkit-space-y-1 > :not([hidden]) ~ :not([hidden]) {
