@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Installation;
 
+use function is_plugin_active;
+
 /**
  * Class for preparing import data from other GTM plugins.
  */
