@@ -91,6 +91,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 * Added support for import of more plugin configurations.
+* Prevent Consent Management Platforms from blocking GTM Kit and the Google Tag Manager container. This can be overridden with the filter hook 'gtmkit_header_script_attributes'.
 
 Bugfixes:
 
