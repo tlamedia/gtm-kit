@@ -96,8 +96,9 @@ final class Frontend {
 		$attributes = apply_filters(
 			'gtmkit_header_script_attributes',
 			[
-				'data-cfasync'    => 'false',
-				'data-nowprocket' => '',
+				'data-cfasync'       => 'false',
+				'data-nowprocket'    => '',
+				'data-cookieconsent' => 'ignore',
 			]
 		);
 
