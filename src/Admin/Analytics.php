@@ -7,7 +7,6 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-use Mixpanel;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
@@ -97,8 +96,27 @@ final class Analytics {
 	 * @return void
 	 */
 	public function send_anonymous_data(): void {
-		$mp = Mixpanel::getInstance( 'a84d538948ddda17265f86785c80ca37' );
 
-		$mp->track( 'GTM Kit', $this->util->get_site_data( $this->options->get_all_raw() ) );
+		$data          = $this->util->get_site_data( $this->options->get_all_raw() );
+		$data['token'] = 'a84d538948ddda17265f86785c80ca37';
+
+		$events = [
+			[
+				'event'      => 'GTM Kit',
+				'properties' => $data,
+			],
+		];
+
+		\wp_remote_post(
+			'https://api.mixpanel.com/track',
+			[
+				'headers'     => [
+					'Content-Type' => 'application/json',
+				],
+				'body'        => \wp_json_encode( $events ),
+				'method'      => 'POST',
+				'data_format' => 'body',
+			]
+		);
 	}
 }
