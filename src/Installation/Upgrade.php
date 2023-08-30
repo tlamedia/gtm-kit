@@ -26,9 +26,9 @@ final class Upgrade {
 			$this->{$upgrade}();
 		}
 
-		wp_cache_delete( 'gtmkit', 'options' );
+		\wp_cache_delete( 'gtmkit', 'options' );
 
-		update_option( 'gtmkit_version', GTMKIT_VERSION );
+		\update_option( 'gtmkit_version', GTMKIT_VERSION );
 	}
 
 	/**
@@ -42,7 +42,7 @@ final class Upgrade {
 			'1.11' => 'v111_upgrade',
 		];
 
-		$current_version = get_option( 'gtmkit_version' );
+		$current_version = \get_option( 'gtmkit_version' );
 		$upgrades        = [];
 
 		foreach ( $available_upgrades as $version => $upgrade ) {

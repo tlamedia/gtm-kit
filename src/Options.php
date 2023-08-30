@@ -51,9 +51,9 @@ final class Options {
 	 * Construct
 	 */
 	public function __construct() {
-		$this->options = get_option( self::OPTION_NAME, [] );
+		$this->options = \get_option( self::OPTION_NAME, [] );
 
-		add_filter( 'pre_update_option_gtmkit', [ $this, 'pre_update_option' ], 10, 2 );
+		\add_filter( 'pre_update_option_gtmkit', [ $this, 'pre_update_option' ], 10, 2 );
 	}
 
 	/**
@@ -282,15 +282,15 @@ final class Options {
 			$options = self::array_merge_recursive( $this->get_all_raw(), $options );
 		}
 
-		$options = $this->process_genericoptions( $options );
+		$options = $this->process_generic_options( $options );
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $once ) {
-			add_option( self::OPTION_NAME, $options, '', 'no' ); // Do not autoload these options.
+			\add_option( self::OPTION_NAME, $options, '', 'no' ); // Do not autoload these options.
 		} elseif ( is_multisite() ) {
-				update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
+				\update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
 		} else {
-			update_option( self::OPTION_NAME, $options, 'no' );
+			\update_option( self::OPTION_NAME, $options, 'no' );
 		}
 
 		// Now we need to re-cache values.
@@ -304,14 +304,14 @@ final class Options {
 	 *
 	 * @return array
 	 */
-	private function process_genericoptions( array $options ): array {
+	private function process_generic_options( array $options ): array {
 
 		foreach ( $options as $group => $keys ) {
 			foreach ( $keys as $option_name => $option_value ) {
 				switch ( $group ) {
 					case 'general':
 						if ( $option_name === 'gtm_id' ) {
-							$options[ $group ][ $option_name ] = sanitize_text_field( $option_value );
+							$options[ $group ][ $option_name ] = \sanitize_text_field( $option_value );
 						}
 						break;
 

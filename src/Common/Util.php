@@ -7,8 +7,6 @@
 
 namespace TLA_Media\GTM_Kit\Common;
 
-use function get_plugins;
-
 /**
  * Class for common utilities.
  */
@@ -46,14 +44,14 @@ final class Util {
 		$data['web_server']        = $this->get_web_server();
 		$data['php_version']       = $this->shorten_version( phpversion() );
 		$data['wordpress_version'] = $this->shorten_version( $wp_version );
-		$data['current_theme']     = wp_get_theme()->get( 'Name' );
+		$data['current_theme']     = \wp_get_theme()->get( 'Name' );
 		$data['active_plugins']    = $this->get_active_plugins();
 		$data                      = $this->add_active_plugin_and_version( 'gtm-kit/gtm-kit.php', 'gtmkit_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'woocommerce/woocommerce.php', 'woocommerce_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads/easy-digital-downloads.php', 'edd_version', $data );
 		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads-pro/easy-digital-downloads.php', 'edd-pro_version', $data );
 		$data['locale']            = explode( '_', get_locale() )[0];
-		$data['multisite']         = is_multisite();
+		$data['multisite']         = \is_multisite();
 
 		return $data;
 	}
@@ -70,7 +68,7 @@ final class Util {
 		}
 
 		$plugins        = [];
-		$active_plugins = array_intersect_key( get_plugins(), array_flip( array_filter( array_keys( get_plugins() ), 'is_plugin_active' ) ) );
+		$active_plugins = array_intersect_key( \get_plugins(), array_flip( array_filter( array_keys( \get_plugins() ), 'is_plugin_active' ) ) );
 
 		foreach ( $active_plugins as $plugin ) {
 			$plugins[] = $plugin['Name'];
@@ -90,8 +88,8 @@ final class Util {
 	 */
 	public function add_active_plugin_and_version( string $plugin, string $key, array $data ): array {
 
-		if ( is_plugin_active( $plugin ) ) {
-			$version      = get_plugin_data( GTMKIT_PATH . '../' . $plugin )['Version'];
+		if ( \is_plugin_active( $plugin ) ) {
+			$version      = \get_plugin_data( GTMKIT_PATH . '../' . $plugin )['Version'];
 			$data[ $key ] = $this->shorten_version( $version );
 		}
 
@@ -161,7 +159,7 @@ final class Util {
 	 * @return string
 	 */
 	public function get_plugin_version(): string {
-		return ( wp_get_environment_type() === 'local' ) ? time() : GTMKIT_VERSION;
+		return ( \wp_get_environment_type() === 'local' ) ? time() : GTMKIT_VERSION;
 	}
 
 	/**
@@ -185,6 +183,6 @@ final class Util {
 			$version    = $deps_file['version'];
 		}
 
-		wp_enqueue_script( $handle, GTMKIT_URL . 'build/' . $script . '.js', $dependency, $version, true );
+		\wp_enqueue_script( $handle, GTMKIT_URL . 'build/' . $script . '.js', $dependency, $version, true );
 	}
 }
