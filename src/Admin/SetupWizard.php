@@ -116,7 +116,7 @@ final class SetupWizard {
 	 * Add Dashboard Page
 	 */
 	public function add_dashboard_page(): void {
-		add_submenu_page( '', '', '', 'manage_options', self::SLUG, [ $this, 'render_page' ] );
+		add_submenu_page( 'options.php', '', '', 'manage_options', self::SLUG, [ $this, 'render_page' ] );
 	}
 
 	/**
