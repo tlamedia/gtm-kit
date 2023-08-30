@@ -328,22 +328,11 @@ final class WooCommerce extends AbstractEcommerce {
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_permalink_structure' ) ) {
-			$wc_permalink_structure           = wc_get_permalink_structure();
-			$data_layer['permalinkStructure'] = [
-				'productBase'   => $wc_permalink_structure['product_base'],
-				'categoryBase'  => $wc_permalink_structure['category_base'],
-				'tagBase'       => $wc_permalink_structure['tag_base'],
-				'attributeBase' => $wc_permalink_structure['attribute_base'],
-			];
+			$data_layer = $this->get_permalink_structure_property( $data_layer );
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_pages' ) ) {
-			$data_layer['pages'] = [
-				'cart'          => str_replace( home_url(), '', wc_get_cart_url() ),
-				'checkout'      => str_replace( home_url(), '', wc_get_checkout_url() ),
-				'orderReceived' => str_replace( home_url(), '', wc_get_endpoint_url( 'order-received', '', wc_get_checkout_url() ) ),
-				'myAccount'     => str_replace( home_url(), '', get_permalink( wc_get_page_id( 'myaccount' ) ) ),
-			];
+			$data_layer = $this->get_pages_property( $data_layer );
 		}
 
 		return $data_layer;
@@ -634,6 +623,43 @@ final class WooCommerce extends AbstractEcommerce {
 		$order->save();
 
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
+	}
+
+	/**
+	 * Get the permalinkStructure property for the dataLayer
+	 *
+	 * @param array $data_layer The datalayer content.
+	 *
+	 * @return array The datalayer content
+	 */
+	private function get_permalink_structure_property( array $data_layer ): array {
+		$wc_permalink_structure           = \wc_get_permalink_structure();
+		$data_layer['permalinkStructure'] = [
+			'productBase'   => $wc_permalink_structure['product_base'],
+			'categoryBase'  => $wc_permalink_structure['category_base'],
+			'tagBase'       => $wc_permalink_structure['tag_base'],
+			'attributeBase' => $wc_permalink_structure['attribute_base'],
+		];
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get the pages property for the dataLayer
+	 *
+	 * @param array $data_layer The datalayer content.
+	 *
+	 * @return array The datalayer content
+	 */
+	private function get_pages_property( array $data_layer ): array {
+		$data_layer['pages'] = [
+			'cart'          => str_replace( \home_url(), '', \wc_get_cart_url() ),
+			'checkout'      => str_replace( \home_url(), '', \wc_get_checkout_url() ),
+			'orderReceived' => str_replace( \home_url(), '', \wc_get_endpoint_url( 'order-received', '', \wc_get_checkout_url() ) ),
+			'myAccount'     => str_replace( \home_url(), '', \get_permalink( \wc_get_page_id( 'myaccount' ) ) ),
+		];
+
+		return $data_layer;
 	}
 
 	/**
