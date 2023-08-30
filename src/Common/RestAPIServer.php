@@ -27,10 +27,10 @@ final class RestAPIServer {
 	 * @return true|WP_Error
 	 */
 	public function permission_callback() {
-		$capability = apply_filters( 'gtmkit_admin_capability', is_multisite() ? 'manage_network_options' : 'manage_options' );
+		$capability = \apply_filters( 'gtmkit_admin_capability', \is_multisite() ? 'manage_network_options' : 'manage_options' );
 
-		if ( ! current_user_can( $capability ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Only authenticated users can access endpoint.', 'gtm-kit' ), [ 'status' => 401 ] );
+		if ( ! \current_user_can( $capability ) ) {
+			return new WP_Error( 'rest_forbidden', \esc_html__( 'Only authenticated users can access endpoint.', 'gtm-kit' ), [ 'status' => 401 ] );
 		}
 
 		return true;
@@ -49,6 +49,6 @@ final class RestAPIServer {
 			$args['permission_callback'] = [ $this, 'permission_callback' ];
 		}
 
-		register_rest_route( $this->route_namespace, $route, $args );
+		\register_rest_route( $this->route_namespace, $route, $args );
 	}
 }

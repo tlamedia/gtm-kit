@@ -7,8 +7,6 @@
 
 namespace TLA_Media\GTM_Kit\Installation;
 
-use function is_plugin_active;
-
 /**
  * Class for preparing import data from other GTM plugins.
  */
@@ -21,15 +19,15 @@ class PluginDataImport {
 	 */
 	public function get_all(): array {
 
-		$first_install = (bool) get_transient( 'gtmkit_first_install' );
-		delete_transient( 'gtmkit_first_install' );
+		$first_install = (bool) \get_transient( 'gtmkit_first_install' );
+		\delete_transient( 'gtmkit_first_install' );
 
 		$plugin_data = [
 			'first_install'           => $first_install,
 			'import_available'        => false,
-			'woocommerce_integration' => is_plugin_active( 'woocommerce/woocommerce.php' ),
-			'cf7_integration'         => is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
-			'edd_integration'         => ( is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+			'woocommerce_integration' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'cf7_integration'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+			'edd_integration'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
 		];
 
 		$plugins = [
@@ -60,7 +58,7 @@ class PluginDataImport {
 	 */
 	public function get( string $slug ): array {
 
-		$method_name = preg_replace( '/-/', '_', sanitize_key( "get_$slug" ) );
+		$method_name = preg_replace( '/-/', '_', \sanitize_key( "get_$slug" ) );
 
 		if ( method_exists( $this, $method_name ) ) {
 			return $this->$method_name();
@@ -93,7 +91,7 @@ class PluginDataImport {
 	 */
 	private function get_gtm4wp(): array {
 
-		$options = get_option( 'gtm4wp-options' );
+		$options = \get_option( 'gtm4wp-options' );
 
 		if ( empty( $options ) ) {
 			return [];
@@ -163,7 +161,7 @@ class PluginDataImport {
 	 */
 	private function get_metronet_tag_manager(): array {
 
-		$options = get_option( 'metronet_tag_manager' );
+		$options = \get_option( 'metronet_tag_manager' );
 
 		if ( empty( $options ) ) {
 			return [];
@@ -190,8 +188,8 @@ class PluginDataImport {
 	 */
 	private function get_google_analytics_and_google_tag_manager(): array {
 
-		$gtm_id          = get_option( 'ga_tag_manager_id' );
-		$use_tag_manager = get_option( 'ga_use_tag_manager' );
+		$gtm_id          = \get_option( 'ga_tag_manager_id' );
+		$use_tag_manager = \get_option( 'ga_use_tag_manager' );
 
 		if ( empty( $gtm_id ) || empty( $use_tag_manager ) ) {
 			return [];
@@ -212,7 +210,7 @@ class PluginDataImport {
 	 */
 	private function get_google_tag_manager(): array {
 
-		$gtm_id = get_option( 'google_tag_manager_id' );
+		$gtm_id = \get_option( 'google_tag_manager_id' );
 
 		if ( empty( $gtm_id ) ) {
 			return [];
