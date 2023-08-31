@@ -52,37 +52,37 @@ $gtmkit_integrations = [
 				if ( $gtmkit_integration_active ) :
 					?>
 				gtmkit-list-item-has-pill<?php endif; ?>">
-				<h3><?php echo esc_html( $integration['name'] ); ?></h3>
-				<?php if ( $integration_active ) : ?>
+				<h3><?php echo esc_html( $gtmkit_integration['name'] ); ?></h3>
+				<?php if ( $gtmkit_integration_active ) : ?>
 					<span class="gtmkit-list-item-pill gtmkit-list-item-pill-green">
 						<?php esc_html_e( 'Active', 'gtm-kit' ); ?>
 					</span>
 				<?php endif; ?>
 				<div class="gtmkit-list-item-actions">
 					<div class="gtmkit-list-item-description">
-						<p><?php echo esc_html( $integration['description'] ); ?></p>
+						<p><?php echo esc_html( $gtmkit_integration['description'] ); ?></p>
 					</div>
 					<div class="gtmkit-list-item-buttons">
 						<a
-							<?php if ( ! $integration['plugin_active'] && ! $integration_active ) : ?>
-								href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=' . rawurlencode( $integration['plugin_search'] ) ) ); ?>"
+							<?php if ( ! $gtmkit_integration['plugin_active'] && ! $gtmkit_integration_active ) : ?>
+								href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=' . rawurlencode( $gtmkit_integration['plugin_search'] ) ) ); ?>"
 							<?php else : ?>
-								href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_integrations#top#' . $integration['tab_id'] ) ); ?>"
+								href="<?php echo esc_url( admin_url( 'admin.php?page=gtmkit_integrations#top#' . $gtmkit_integration['tab_id'] ) ); ?>"
 							<?php endif; ?>
 
 							<?php
 							if ( $gtmkit_integrations_page ) {
-								echo 'id="gtmkit-open-tab-' . esc_attr( $integration['tab_id'] ) . '"';}
+								echo 'id="gtmkit-open-tab-' . esc_attr( $gtmkit_integration['tab_id'] ) . '"';}
 							?>
 							class="gtmkit-button
 							<?php
-							if ( $gtmkit_integrations_page && $integration['plugin_active'] ) :
+							if ( $gtmkit_integrations_page && $gtmkit_integration['plugin_active'] ) :
 								?>
 								gtmkit-open-tab<?php endif; ?>"
 						>
-							<?php if ( $integration_active ) : ?>
+							<?php if ( $gtmkit_integration_active ) : ?>
 								<?php esc_html_e( 'Edit integration', 'gtm-kit' ); ?>
-							<?php elseif ( $integration['plugin_active'] ) : ?>
+							<?php elseif ( $gtmkit_integration['plugin_active'] ) : ?>
 								<?php esc_html_e( 'Setup integration', 'gtm-kit' ); ?>
 							<?php else : ?>
 								<?php esc_html_e( 'Install plugin', 'gtm-kit' ); ?>
