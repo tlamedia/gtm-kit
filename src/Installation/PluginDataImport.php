@@ -25,9 +25,9 @@ class PluginDataImport {
 		$plugin_data = [
 			'first_install'           => $first_install,
 			'import_available'        => false,
-			'woocommerce_integration' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
-			'cf7_integration'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
-			'edd_integration'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+			'woocommerce_integration' => $this->is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'cf7_integration'         => $this->is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+			'edd_integration'         => ( $this->is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || $this->is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
 		];
 
 		$plugins = [
@@ -222,5 +222,22 @@ class PluginDataImport {
 				'gtm_id' => $gtm_id,
 			],
 		];
+	}
+
+	/**
+	 * Is plugin active
+	 *
+	 * @param string $plugin Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return bool
+	 */
+	private function is_plugin_active( string $plugin ): bool {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		}
+
+		return \is_plugin_active( $plugin );
 	}
 }

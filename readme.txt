@@ -92,6 +92,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+* Fixes a bug where a REST request could fail because the function is_plugin_active() is not ready.
 
 Other:
 
