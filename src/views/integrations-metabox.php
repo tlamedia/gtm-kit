@@ -13,9 +13,9 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$gtmkit_integrations = $_GET['page'] === 'gtmkit_integrations'; // phpcs:ignore
+$gtmkit_integrations_page = $_GET['page'] === 'gtmkit_integrations'; // phpcs:ignore
 
-$integrations = [
+$gtmkit_integrations = [
 	[
 		'name'               => 'WooCommerce',
 		'description'        => __( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ),
@@ -45,11 +45,11 @@ $integrations = [
 <div class="gtmkit-items-metabox gtmkit-metabox">
 	<div class="gtmkit-items-list">
 		<ul>
-			<?php foreach ( $integrations as $integration ) : ?>
-				<?php $integration_active = ( $integration['plugin_active'] && $integration['integration_active'] ); ?>
+			<?php foreach ( $gtmkit_integrations as $gtmkit_integration ) : ?>
+				<?php $gtmkit_integration_active = ( $gtmkit_integration['plugin_active'] && $gtmkit_integration['integration_active'] ); ?>
 			<li class="gtmkit-list-item
 				<?php
-				if ( $integration_active ) :
+				if ( $gtmkit_integration_active ) :
 					?>
 				gtmkit-list-item-has-pill<?php endif; ?>">
 				<h3><?php echo esc_html( $integration['name'] ); ?></h3>
@@ -71,12 +71,12 @@ $integrations = [
 							<?php endif; ?>
 
 							<?php
-							if ( $gtmkit_integrations ) {
+							if ( $gtmkit_integrations_page ) {
 								echo 'id="gtmkit-open-tab-' . esc_attr( $integration['tab_id'] ) . '"';}
 							?>
 							class="gtmkit-button
 							<?php
-							if ( $gtmkit_integrations && $integration['plugin_active'] ) :
+							if ( $gtmkit_integrations_page && $integration['plugin_active'] ) :
 								?>
 								gtmkit-open-tab<?php endif; ?>"
 						>

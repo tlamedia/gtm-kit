@@ -13,7 +13,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$tutorials = [
+$gtmkit_tutorials = [
 	[
 		'name'        => __( 'Getting started', 'gtm-kit' ),
 		'description' => __( 'How to get the most out of Google Tag Manager with GTM Kit', 'gtm-kit' ),
@@ -34,15 +34,15 @@ $tutorials = [
 <div class="gtmkit-items-metabox gtmkit-metabox">
 	<div class="gtmkit-items-list">
 		<ul>
-			<?php foreach ( $tutorials as $tutorial ) : ?>
+			<?php foreach ( $gtmkit_tutorials as $gtmkit_tutorial ) : ?>
 			<li class="gtmkit-list-item">
-				<h3><?php echo esc_html( $tutorial['name'] ); ?></h3>
+				<h3><?php echo esc_html( $gtmkit_tutorial['name'] ); ?></h3>
 				<div class="gtmkit-list-item-actions">
 					<div class="gtmkit-list-item-description">
-						<p><?php echo esc_html( $tutorial['description'] ); ?></p>
+						<p><?php echo esc_html( $gtmkit_tutorial['description'] ); ?></p>
 					</div>
 					<div class="gtmkit-list-item-buttons">
-						<a class="gtmkit-button" target="_blank" href="<?php echo esc_url( $tutorial['url'] ); ?>">
+						<a class="gtmkit-button" target="_blank" href="<?php echo esc_url( $gtmkit_tutorial['url'] ); ?>">
 							<?php esc_html_e( 'Read article', 'gtm-kit' ); ?>
 						</a>
 					</div>

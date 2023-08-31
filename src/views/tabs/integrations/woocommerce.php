@@ -17,14 +17,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
+$gtmkit_woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 ?>
 	<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 		<h2>
 			<?php esc_html_e( 'WooCommerce Integration', 'gtm-kit' ); ?>
 		</h2>
 		<p><?php esc_html_e( 'The #1 open source eCommerce platform built for WordPress', 'gtm-kit' ) . ': <a href="https://woocommerce.com/" target="_blank">WooCommerce</a>'; ?></p>
-		<?php if ( $woocommerce_is_inactive ) : ?>
+		<?php if ( $gtmkit_woocommerce_is_inactive ) : ?>
 			<p>
 				<span class="error"><?php esc_html_e( 'WooCommerce is not installed', 'gtm-kit' ); ?></span>.
 				<?php
@@ -45,13 +45,13 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Track WooCommerce', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Choose this option if you would like to track e-commerce data.', 'gtm-kit' )
 	);
 
-	$taxonomies = get_taxonomies(
+	$gtmkit_taxonomies = get_taxonomies(
 		[
 			'show_ui'  => true,
 			'public'   => true,
@@ -60,22 +60,22 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		'object'
 	);
 
-	$field_data            = [
+	$gtmkit_field_data            = [
 		'attributes' => [
-			'disabled' => $woocommerce_is_inactive,
+			'disabled' => $gtmkit_woocommerce_is_inactive,
 		],
 	];
-	$field_data['options'] = [];
+	$gtmkit_field_data['options'] = [];
 
-	foreach ( $taxonomies as $taxonomy ) { // phpcs:ignore
-		$field_data['options'][ $taxonomy->name ] = $taxonomy->label;
+	foreach ( $gtmkit_taxonomies as $taxonomy ) { // phpcs:ignore
+		$gtmkit_field_data['options'][ $taxonomy->name ] = $taxonomy->label;
 	}
 
 	$form->setting_row(
 		'select',
 		'woocommerce_brand',
 		__( 'Brand', 'gtm-kit' ),
-		$field_data
+		$gtmkit_field_data
 	);
 
 	$form->setting_row(
@@ -84,7 +84,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Use SKU instead of ID', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtm-kit' )
@@ -96,7 +96,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Google Business Vertical', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 			'options'    => [
 				'retail'       => __( 'Retail', 'gtm-kit' ) . ' - (retail)',
@@ -127,7 +127,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Exclude tax', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Exclude tax from prices and revenue', 'gtm-kit' )
@@ -139,18 +139,18 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Exclude shipping from revenue', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Exclude shipping from revenue', 'gtm-kit' )
 	);
 
-	$field_data                = [
+	$gtmkit_field_data                = [
 		'attributes' => [
-			'disabled' => $woocommerce_is_inactive,
+			'disabled' => $gtmkit_woocommerce_is_inactive,
 		],
 	];
-	$field_data['options']     = [
+	$gtmkit_field_data['options']     = [
 		1 => [
 			'label' => __( "When the 'Place order' button is clicked", 'gtm-kit' ),
 		],
@@ -161,22 +161,22 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 			'label' => __( "Disable the 'add_shipment_info' event.", 'gtm-kit' ),
 		],
 	];
-	$field_data['legend']      = __( 'When do you want to fire the "add_shipment_info" event?', 'gtm-kit' );
-	$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
+	$gtmkit_field_data['legend']      = __( 'When do you want to fire the "add_shipment_info" event?', 'gtm-kit' );
+	$gtmkit_field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 	$form->setting_row(
 		'radio',
 		'woocommerce_shipping_info',
 		__( 'Event: add_shipping_info', 'gtm-kit' ),
-		$field_data
+		$gtmkit_field_data
 	);
 
-	$field_data                = [
+	$gtmkit_field_data                = [
 		'attributes' => [
-			'disabled' => $woocommerce_is_inactive,
+			'disabled' => $gtmkit_woocommerce_is_inactive,
 		],
 	];
-	$field_data['options']     = [
+	$gtmkit_field_data['options']     = [
 		1 => [
 			'label' => __( "When the 'Place order' button is clicked", 'gtm-kit' ),
 		],
@@ -187,18 +187,18 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 			'label' => __( "Disable the 'add_payment_info' event.", 'gtm-kit' ),
 		],
 	];
-	$field_data['legend']      = __( 'When do you want to fire the "add_payment_info" event?', 'gtm-kit' );
-	$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
+	$gtmkit_field_data['legend']      = __( 'When do you want to fire the "add_payment_info" event?', 'gtm-kit' );
+	$gtmkit_field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 	$form->setting_row(
 		'radio',
 		'woocommerce_payment_info',
 		__( 'Event: add_payment_info', 'gtm-kit' ),
-		$field_data
+		$gtmkit_field_data
 	);
 
 
-	$field_data['options']     = [
+	$gtmkit_field_data['options']     = [
 		0 => [
 			'label' => __( 'Only push view_item on the master product', 'gtm-kit' ),
 		],
@@ -209,14 +209,14 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 			'label' => __( 'Only push view_item on variation products.', 'gtm-kit' ),
 		],
 	];
-	$field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtm-kit' );
-	$field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
+	$gtmkit_field_data['legend']      = __( 'When do you want to fire the "view_item" event on variable products?', 'gtm-kit' );
+	$gtmkit_field_data['legend_attr'] = [ 'class' => 'radiogroup' ];
 
 	$form->setting_row(
 		'radio',
 		'woocommerce_variable_product_tracking',
 		__( 'Event: view_item', 'gtm-kit' ),
-		$field_data
+		$gtmkit_field_data
 	);
 
 	$form->setting_row(
@@ -225,7 +225,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Include permalink structure', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Enable this option to include the permalink structure of the product base, category base, tag base and attribute base.', 'gtm-kit' )
@@ -237,7 +237,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Include pages', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Enable this option to include the path of cart, checkout, order received adn my account page.', 'gtm-kit' )
@@ -249,7 +249,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Include customer data', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Enable this option to include customer data in the data layer on the "purchase" event.', 'gtm-kit' )
@@ -262,7 +262,7 @@ $woocommerce_is_inactive = ! is_plugin_active( 'woocommerce/woocommerce.php' );
 		__( 'Dequeue Default JS', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $woocommerce_is_inactive,
+				'disabled' => $gtmkit_woocommerce_is_inactive,
 			],
 		],
 		__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtm-kit' )

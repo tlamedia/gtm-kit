@@ -26,7 +26,7 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 </div>
 
 <?php
-$input_help = sprintf(
+$gtmkit_input_help = sprintf(
 	/* translators: %1$s: opening <a> tag%1$s: opening <a> tag %2$s: closin </a> tag */
 	__( 'Find your GTM container ID on %1$sGoogle Tag Manager%2$s.', 'gtm-kit' ),
 	'<a target="_blank" href="' . esc_url( 'https://tagmanager.google.com/' ) . '" rel="noopener noreferrer">',
@@ -40,7 +40,7 @@ $form->setting_row(
 	'gtm_id',
 	__( 'Container ID:', 'gtm-kit' ),
 	[],
-	$input_help
+	$gtmkit_input_help
 );
 ?>
 
@@ -69,8 +69,8 @@ $form->setting_row(
 ?>
 
 <?php
-$field_data                = [];
-$field_data['options']     = [
+$gtmkit_field_data                = [];
+$gtmkit_field_data['options']     = [
 	0 => [
 		'label' => __( 'Standard implementation as recommended by Google (no delay)', 'gtm-kit' ),
 	],
@@ -78,23 +78,23 @@ $field_data['options']     = [
 		'label' => __( 'Load container when browser is idle (requestIdleCallback)', 'gtm-kit' ),
 	],
 ];
-$field_data['legend']      = __( 'Container code implementation:', 'gtm-kit' );
-$field_data['legend_attr'] = [ 'class' => 'radiogroup screen-reader-text' ];
+$gtmkit_field_data['legend']      = __( 'Container code implementation:', 'gtm-kit' );
+$gtmkit_field_data['legend_attr'] = [ 'class' => 'radiogroup screen-reader-text' ];
 
 $form->setting_row(
 	'radio',
 	'script_implementation',
 	__( 'Container code implementation:', 'gtm-kit' ),
-	$field_data,
+	$gtmkit_field_data,
 	__( 'Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle.', 'gtm-kit' )
 );
 ?>
 
 <?php
-$label = __( 'Container code <code>&lt;noscript&gt;</code> implementation:', 'gtm-kit' );
+$gtmkit_label = __( 'Container code <code>&lt;noscript&gt;</code> implementation:', 'gtm-kit' );
 
-$field_data            = [];
-$field_data['options'] = [
+$gtmkit_field_data            = [];
+$gtmkit_field_data['options'] = [
 	0 => [
 		'label' => __( 'Just after the opening &lt;body&gt; tag', 'gtm-kit' ),
 	],
@@ -110,18 +110,18 @@ $field_data['options'] = [
 
 ];
 
-$description  = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtm-kit' ) . ' ';
-$description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtm-kit' ) . ' ';
-$description .= __( 'If your theme does not support this the script can be injected in the footer or you can use the function below.', 'gtm-kit' );
-$description .= '<br><br>';
-$description .= '<code>&lt;?php if ( function_exists( \'gtmkit_the_noscript_tag\' ) ) { gtmkit_the_noscript_tag(); } ?&gt;</code>';
+$gtmkit_description  = __( 'The preferred method to implement the &lt;noscript&gt; container code is just after the opening &lt;body&gt; tag.', 'gtm-kit' ) . ' ';
+$gtmkit_description .= __( 'This requires that your theme uses the "body_open" hook.', 'gtm-kit' ) . ' ';
+$gtmkit_description .= __( 'If your theme does not support this the script can be injected in the footer or you can use the function below.', 'gtm-kit' );
+$gtmkit_description .= '<br><br>';
+$gtmkit_description .= '<code>&lt;?php if ( function_exists( \'gtmkit_the_noscript_tag\' ) ) { gtmkit_the_noscript_tag(); } ?&gt;</code>';
 
 $form->setting_row(
 	'radio',
 	'noscript_implementation',
-	$label,
-	$field_data,
-	$description
+	$gtmkit_label,
+	$gtmkit_field_data,
+	$gtmkit_description
 );
 ?>
 
