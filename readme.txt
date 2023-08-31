@@ -95,6 +95,7 @@ Bugfixes:
 * Fixes a bug where a REST request could fail because the function is_plugin_active() is not ready.
 
 Other:
+* Tested up to WooCommerce 8.1
 
 = 1.13 =
 
