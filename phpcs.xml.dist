@@ -99,15 +99,15 @@
 		</properties>
 	</rule>
 
-	<!---
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="my_prefix"/>
+				<element value="TLA_Media"/>
+				<element value="gtmkit"/>
+				<element value="woocommerce"/>
 			</property>
 		</properties>
 	</rule>
-	-->
 
 
 	<!--
