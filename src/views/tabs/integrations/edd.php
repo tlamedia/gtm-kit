@@ -17,14 +17,14 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 	exit();
 }
 
-$edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) && ! is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) );
+$gtmkit_edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) && ! is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) );
 ?>
 	<div class="gtmkit-setting-row gtmkit-setting-row-heading gtmkit-clear">
 		<h2>
 			<?php esc_html_e( 'Easy Digital Downloads Integration', 'gtm-kit' ); ?>
 		</h2>
 		<p><?php esc_html_e( 'Easy way to sell Digital Products With WordPress', 'gtm-kit' ) . ': <a href="https://easydigitaldownloads.com/" target="_blank">Easy Digital Downloads</a>'; ?></p>
-		<?php if ( $edd_is_inactive ) : ?>
+		<?php if ( $gtmkit_edd_is_inactive ) : ?>
 			<p>
 				<span class="error"><?php esc_html_e( 'Easy Digital Downloads is not installed', 'gtm-kit' ); ?></span>.
 				<?php
@@ -64,7 +64,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 		__( 'Track Easy Digital Downloads', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $edd_is_inactive,
+				'disabled' => $gtmkit_edd_is_inactive,
 			],
 		],
 		__( 'Choose this option if you would like to track e-commerce data.', 'gtm-kit' )
@@ -76,7 +76,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 		__( 'Use SKU instead of ID', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $edd_is_inactive,
+				'disabled' => $gtmkit_edd_is_inactive,
 			],
 		],
 		__( 'Use SKU instead of the product ID with fallback to ID if no SKU is set.', 'gtm-kit' )
@@ -88,7 +88,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 		__( 'Google Business Vertical', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $edd_is_inactive,
+				'disabled' => $gtmkit_edd_is_inactive,
 			],
 			'options'    => [
 				'retail'       => __( 'Retail', 'gtm-kit' ) . ' - (retail)',
@@ -119,7 +119,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 		__( 'Exclude tax', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $edd_is_inactive,
+				'disabled' => $gtmkit_edd_is_inactive,
 			],
 		],
 		__( 'Exclude tax from prices and revenue', 'gtm-kit' )
@@ -131,7 +131,7 @@ $edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-do
 		__( 'Dequeue Default JS', 'gtm-kit' ),
 		[
 			'attributes' => [
-				'disabled' => $edd_is_inactive,
+				'disabled' => $gtmkit_edd_is_inactive,
 			],
 		],
 		__( 'Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript.', 'gtm-kit' )
