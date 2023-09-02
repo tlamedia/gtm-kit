@@ -486,25 +486,24 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$order = wc_get_order( $order_id );
 
-		if ( $order instanceof WC_Order ) {
-
-			$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // phpcs:ignore
-
-			if ( $order->get_order_key() !== $order_key ) {
-				return $data_layer;
-			}
-
-			if ( ( 'failed' === $order->get_status() ) ) {
-				return $data_layer;
-			}
-
-			if ( ( 1 === (int) $order->get_meta( '_gtmkit_order_tracked' ) ) ) {
-				if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'woocommerce_debug_track_purchase' ) ) ) {
-					return $data_layer;
-				}
-			}
-		} else {
+		if ( ! ( $order instanceof WC_Order ) ) {
 			return $data_layer;
+		}
+
+		$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // phpcs:ignore
+
+		if ( $order->get_order_key() !== $order_key ) {
+			return $data_layer;
+		}
+
+		if ( ( 'failed' === $order->get_status() ) ) {
+			return $data_layer;
+		}
+
+		if ( ( 1 === (int) $order->get_meta( '_gtmkit_order_tracked' ) ) ) {
+			if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'woocommerce_debug_track_purchase' ) ) ) {
+				return $data_layer;
+			}
 		}
 
 		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
@@ -522,40 +521,6 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
-		$coupons     = $order->get_coupon_codes();
-		$order_items = [];
-
-		$items = $order->get_items();
-
-		if ( $items ) {
-			foreach ( $items as $item ) {
-
-				$product       = $item->get_product();
-				$inc_tax       = ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) );
-				$product_price = round( $order->get_item_total( $item, $inc_tax ), 2 );
-
-				$additional_item_attributes = [
-					'quantity' => $item->get_quantity(),
-					'price'    => $product_price,
-				];
-
-				$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
-
-				if ( $coupon_discount['coupon_codes'] ) {
-					$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
-				}
-				if ( $coupon_discount['discount'] ) {
-					$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
-				}
-
-				$order_items[] = $this->get_item_data(
-					$product,
-					$additional_item_attributes,
-					'purchase'
-				);
-			}
-		}
-
 		$data_layer['event']     = 'purchase';
 		$data_layer['ecommerce'] = [
 			'transaction_id' => (string) $order->get_order_number(),
@@ -565,58 +530,16 @@ final class WooCommerce extends AbstractEcommerce {
 			'currency'       => $order->get_currency(),
 		];
 
+		$coupons = $order->get_coupon_codes();
+
 		if ( $coupons ) {
 			$data_layer['ecommerce']['coupon'] = implode( '|', array_filter( $coupons ) );
 		}
 
-		$data_layer['ecommerce']['items'] = $order_items;
+		$data_layer['ecommerce']['items'] = $this->get_order_items( $order );
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
-
-			if ( is_user_logged_in() ) {
-				try {
-					$wc_customer = new WC_Customer( WC()->customer->get_id() );
-					$order_count = $wc_customer->get_order_count();
-					$total_spent = $wc_customer->get_total_spent();
-				} catch ( Exception $e ) {
-					$wc_customer = WC()->customer;
-					$order_count = 1;
-					$total_spent = $order_value;
-				}
-			} else {
-				$wc_customer = WC()->customer;
-				$order_count = 1;
-				$total_spent = $order_value;
-			}
-
-			$data_layer['ecommerce']['customer']['id'] = $wc_customer->get_id();
-
-			$data_layer['ecommerce']['customer']['order_count'] = $order_count;
-			$data_layer['ecommerce']['customer']['total_spent'] = (float) $total_spent;
-
-			$data_layer['ecommerce']['customer']['first_name'] = $wc_customer->get_first_name();
-			$data_layer['ecommerce']['customer']['last_name']  = $wc_customer->get_last_name();
-
-			$data_layer['ecommerce']['customer']['billing_first_name'] = $wc_customer->get_billing_first_name();
-			$data_layer['ecommerce']['customer']['billing_last_name']  = $wc_customer->get_billing_last_name();
-			$data_layer['ecommerce']['customer']['billing_company']    = $wc_customer->get_billing_company();
-			$data_layer['ecommerce']['customer']['billing_address_1']  = $wc_customer->get_billing_address_1();
-			$data_layer['ecommerce']['customer']['billing_address_2']  = $wc_customer->get_billing_address_2();
-			$data_layer['ecommerce']['customer']['billing_city']       = $wc_customer->get_billing_city();
-			$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
-			$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
-			$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
-			$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '';
-			$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
-
-			$data_layer['ecommerce']['customer']['shipping_firstName'] = $wc_customer->get_shipping_first_name();
-			$data_layer['ecommerce']['customer']['shipping_lastName']  = $wc_customer->get_shipping_last_name();
-			$data_layer['ecommerce']['customer']['shipping_company']   = $wc_customer->get_shipping_company();
-			$data_layer['ecommerce']['customer']['shipping_address_1'] = $wc_customer->get_shipping_address_1();
-			$data_layer['ecommerce']['customer']['shipping_address_2'] = $wc_customer->get_shipping_address_2();
-			$data_layer['ecommerce']['customer']['shipping_city']      = $wc_customer->get_shipping_city();
-			$data_layer['ecommerce']['customer']['shipping_postcode']  = $wc_customer->get_shipping_postcode();
-			$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
+			$data_layer = $this->include_customer_data( $data_layer, $order_value );
 		}
 
 		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
@@ -1182,5 +1105,107 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function get_woocommerce_blocks(): array {
 		return $this->has_woocommerce_blocks( get_the_ID() );
+	}
+
+	/**
+	 * Include customer data
+	 *
+	 * @param array $data_layer The datalayer content.
+	 * @param mixed $order_value Order value.
+	 *
+	 * @return array
+	 */
+	public function include_customer_data( array $data_layer, $order_value ): array {
+
+		if ( is_user_logged_in() ) {
+			try {
+				$wc_customer = new WC_Customer( WC()->customer->get_id() );
+				$order_count = $wc_customer->get_order_count();
+				$total_spent = $wc_customer->get_total_spent();
+			} catch ( Exception $e ) {
+				$wc_customer = WC()->customer;
+				$order_count = 1;
+				$total_spent = $order_value;
+			}
+		} else {
+			$wc_customer = WC()->customer;
+			$order_count = 1;
+			$total_spent = $order_value;
+		}
+
+		$data_layer['ecommerce']['customer']['id'] = $wc_customer->get_id();
+
+		$data_layer['ecommerce']['customer']['order_count'] = $order_count;
+		$data_layer['ecommerce']['customer']['total_spent'] = (float) $total_spent;
+
+		$data_layer['ecommerce']['customer']['first_name'] = $wc_customer->get_first_name();
+		$data_layer['ecommerce']['customer']['last_name']  = $wc_customer->get_last_name();
+
+		$data_layer['ecommerce']['customer']['billing_first_name'] = $wc_customer->get_billing_first_name();
+		$data_layer['ecommerce']['customer']['billing_last_name']  = $wc_customer->get_billing_last_name();
+		$data_layer['ecommerce']['customer']['billing_company']    = $wc_customer->get_billing_company();
+		$data_layer['ecommerce']['customer']['billing_address_1']  = $wc_customer->get_billing_address_1();
+		$data_layer['ecommerce']['customer']['billing_address_2']  = $wc_customer->get_billing_address_2();
+		$data_layer['ecommerce']['customer']['billing_city']       = $wc_customer->get_billing_city();
+		$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
+		$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
+		$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
+		$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '';
+		$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
+
+		$data_layer['ecommerce']['customer']['shipping_firstName'] = $wc_customer->get_shipping_first_name();
+		$data_layer['ecommerce']['customer']['shipping_lastName']  = $wc_customer->get_shipping_last_name();
+		$data_layer['ecommerce']['customer']['shipping_company']   = $wc_customer->get_shipping_company();
+		$data_layer['ecommerce']['customer']['shipping_address_1'] = $wc_customer->get_shipping_address_1();
+		$data_layer['ecommerce']['customer']['shipping_address_2'] = $wc_customer->get_shipping_address_2();
+		$data_layer['ecommerce']['customer']['shipping_city']      = $wc_customer->get_shipping_city();
+		$data_layer['ecommerce']['customer']['shipping_postcode']  = $wc_customer->get_shipping_postcode();
+		$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
+
+		return $data_layer;
+	}
+
+	/**
+	 * Get order items
+	 *
+	 * @param WC_Order $order The order.
+	 *
+	 * @return array
+	 */
+	private function get_order_items( WC_Order $order ): array {
+		$order_items = [];
+		$coupons     = $order->get_coupon_codes();
+		$items       = $order->get_items();
+
+		if ( $items ) {
+			foreach ( $items as $item ) {
+
+				$product       = $item->get_product();
+				$inc_tax       = ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) );
+				$product_price = round( $order->get_item_total( $item, $inc_tax ), 2 );
+
+				$additional_item_attributes = [
+					'quantity' => $item->get_quantity(),
+					'price'    => $product_price,
+				];
+
+				$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
+
+				if ( $coupon_discount['coupon_codes'] ) {
+					$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
+				}
+				if ( $coupon_discount['discount'] ) {
+					$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
+				}
+
+				$order_items[] = $this->get_item_data(
+					$product,
+					$additional_item_attributes,
+					'purchase'
+				);
+			}
+		}
+
+		return $order_items;
 	}
 }
