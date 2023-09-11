@@ -94,6 +94,7 @@ Enhancements:
 Bugfixes:
 
 Other:
+* Require WooCommerce 7.6
 
 = 1.13.1 =
 
