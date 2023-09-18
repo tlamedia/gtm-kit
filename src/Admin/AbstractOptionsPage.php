@@ -73,7 +73,8 @@ abstract class AbstractOptionsPage {
 			$this->get_menu_title(),
 			$this->get_capability(),
 			$this->get_menu_slug(),
-			[ $this, 'render' ]
+			[ $this, 'render' ],
+			$this->get_position()
 		);
 	}
 
@@ -133,6 +134,15 @@ abstract class AbstractOptionsPage {
 	 * Get the tabs of the admin page.
 	 */
 	abstract protected function get_tabs(): void;
+
+	/**
+	 * The position in the menu order this item should appear.
+	 *
+	 * @return int|null
+	 */
+	protected function get_position(): ?int {
+		return null;
+	}
 
 	/**
 	 * Enqueue admin area scripts and styles.
