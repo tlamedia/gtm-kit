@@ -89,7 +89,7 @@ final class Util {
 	public function add_active_plugin_and_version( string $plugin, string $key, array $data ): array {
 
 		if ( \is_plugin_active( $plugin ) ) {
-			$version      = \get_plugin_data( GTMKIT_PATH . '../' . $plugin )['Version'];
+			$version      = \get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin )['Version'];
 			$data[ $key ] = $this->shorten_version( $version );
 		}
 
