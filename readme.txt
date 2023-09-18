@@ -95,6 +95,7 @@ Bugfixes:
 
 Other:
 * Require WooCommerce 7.6
+* The admin is now more extendable
 
 = 1.13.1 =
 
