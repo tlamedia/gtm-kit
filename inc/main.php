@@ -136,6 +136,8 @@ function gtmkit_admin_init(): void {
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util );
 	HelpOptionsPage::register( $options, $util );
+
+	do_action( 'gtmkit_admin_init', $options, $util );
 }
 
 /**

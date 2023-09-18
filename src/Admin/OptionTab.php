@@ -65,6 +65,15 @@ final class OptionTab {
 	}
 
 	/**
+	 * Gets the path of the view files.
+	 *
+	 * @return string The path.
+	 */
+	public function get_view_path(): string {
+		return (string) $this->get_argument( 'view_path', GTMKIT_PATH . 'src/views/tabs/' );
+	}
+
+	/**
 	 * Retrieves whether the tab needs a save button.
 	 *
 	 * @return bool Whether the tabs need a save button.

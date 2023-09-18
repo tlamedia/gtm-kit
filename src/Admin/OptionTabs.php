@@ -117,7 +117,7 @@ final class OptionTabs {
 	 * @return string
 	 */
 	public function get_tab_view( OptionTab $tab ): string {
-		return GTMKIT_PATH . 'src/views/tabs/' . $this->get_base() . '/' . $tab->get_name() . '.php';
+		return $tab->get_view_path() . $this->get_base() . '/' . $tab->get_name() . '.php';
 	}
 
 	/**
