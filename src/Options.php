@@ -61,8 +61,10 @@ final class Options {
 	 *
 	 * @param mixed $new_value The new value.
 	 * @param mixed $old_value The old value.
+	 *
+	 * @return array|null
 	 */
-	public function pre_update_option( $new_value, $old_value ): array {
+	public function pre_update_option( $new_value, $old_value ): ?array {
 
 		if ( ! is_array( $new_value ) ) {
 			return $new_value;
