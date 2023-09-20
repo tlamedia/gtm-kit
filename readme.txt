@@ -94,6 +94,7 @@ Enhancements:
 Bugfixes:
 
 Other:
+* Require WordPress 6.2
 * Require WooCommerce 7.6
 * The admin is now more extendable
 
