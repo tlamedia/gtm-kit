@@ -10,9 +10,9 @@ namespace TLA_Media\GTM_Kit\Installation;
 use TLA_Media\GTM_Kit\Options;
 
 /**
- * Installation
+ * Activation
  */
-final class Installation {
+final class Activation {
 
 	/**
 	 * Checks if GTM Kit is installed for the first time.
