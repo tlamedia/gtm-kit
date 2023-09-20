@@ -28,7 +28,7 @@ final class Upgrade {
 
 		\wp_cache_delete( 'gtmkit', 'options' );
 
-		\update_option( 'gtmkit_version', GTMKIT_VERSION );
+		\update_option( 'gtmkit_version', GTMKIT_VERSION, false );
 	}
 
 	/**
@@ -40,6 +40,7 @@ final class Upgrade {
 
 		$available_upgrades = [
 			'1.11' => 'v111_upgrade',
+			'1.14' => 'v114_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -70,5 +71,18 @@ final class Upgrade {
 
 			Options::init()->set( $values, false, false );
 		}
+	}
+
+	/**
+	 * Upgrade routine for v1.14
+	 */
+	protected function v114_upgrade(): void {
+		global $wpdb;
+
+		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'yes' WHERE option_name = 'gtmkit'" );
+
+		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit_version'" );
+
+		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit_activation_prevent_redirect'" );
 	}
 }

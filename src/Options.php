@@ -288,11 +288,11 @@ final class Options {
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $once ) {
-			\add_option( self::OPTION_NAME, $options, '', 'no' ); // Do not autoload these options.
+			\add_option( self::OPTION_NAME, $options, '', true );
 		} elseif ( is_multisite() ) {
 				\update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
 		} else {
-			\update_option( self::OPTION_NAME, $options, 'no' );
+			\update_option( self::OPTION_NAME, $options, true );
 		}
 
 		// Now we need to re-cache values.
