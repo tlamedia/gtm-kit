@@ -19,7 +19,7 @@ use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\UserData;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
-use TLA_Media\GTM_Kit\Installation\Installation;
+use TLA_Media\GTM_Kit\Installation\Activation;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
@@ -38,7 +38,7 @@ require GTMKIT_PATH . 'vendor/autoload.php';
  * Plugin activation hook.
  */
 function gtmkit_plugin_activation(): void {
-	new Installation();
+	new Activation();
 	do_action( 'gtmkit_activate' );
 }
 
