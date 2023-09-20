@@ -91,6 +91,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 Enhancements:
 * Added a more robust method of adding data attributes to the HTML.
+* Optimize autoload of options for better performance.
 
 Bugfixes:
 

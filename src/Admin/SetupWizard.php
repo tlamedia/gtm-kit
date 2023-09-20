@@ -106,7 +106,7 @@ final class SetupWizard {
 
 		// Initial install.
 		if ( get_option( 'gtmkit_initial_version' ) === GTMKIT_VERSION ) {
-			update_option( 'gtmkit_activation_prevent_redirect', true );
+			update_option( 'gtmkit_activation_prevent_redirect', false );
 			wp_safe_redirect( self::get_site_url() );
 			exit;
 		}
