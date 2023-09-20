@@ -7,7 +7,7 @@
     "textdomain": "gtmkit"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^26.12.0",
+    "@wordpress/scripts": "^26.13.0",
     "autoprefixer": "^10.4.14",
     "cssnano": "^6.0.1",
     "del-cli": "^5.0.0",
@@ -50,10 +50,10 @@
     "check-engines": "wp-scripts check-engines"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^6.38.0",
-    "@wordpress/components": "^25.7.0",
-    "@wordpress/hooks": "^3.41.0",
-    "@wordpress/i18n": "^4.41.0",
-    "@wordpress/url": "^3.42.0"
+    "@wordpress/api-fetch": "^6.39.0",
+    "@wordpress/components": "^25.8.0",
+    "@wordpress/hooks": "^3.42.0",
+    "@wordpress/i18n": "^4.42.0",
+    "@wordpress/url": "^3.43.0"
   }
 }
