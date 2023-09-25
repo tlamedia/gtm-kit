@@ -23,8 +23,8 @@ class PluginDataImport {
 		\delete_transient( 'gtmkit_first_install' );
 
 		$plugin_data = [
-			'firstInstall'           => $first_install,
-			'importAvailable'        => false,
+			'firstInstall'            => $first_install,
+			'importAvailable'         => false,
 			'woocommerce_integration' => $this->is_plugin_active( 'woocommerce/woocommerce.php' ),
 			'cf7_integration'         => $this->is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
 			'edd_integration'         => ( $this->is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || $this->is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
@@ -42,7 +42,7 @@ class PluginDataImport {
 			$settings = $this->get( $plugin );
 			if ( ! empty( $settings ) ) {
 				$plugin_data['import_data'][ $plugin ] = $settings;
-				$plugin_data['importAvailable']       = true;
+				$plugin_data['importAvailable']        = true;
 			}
 		}
 
