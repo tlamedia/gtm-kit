@@ -38,25 +38,6 @@ $gtmkit_edd_is_inactive = ( ! is_plugin_active( 'easy-digital-downloads/easy-dig
 		<?php endif; ?>
 	</div>
 
-	<div class="gtmkit_section_message warning">
-		<div class="stuffbox">
-			<h3 class="hndle">Google Analytics</h3>
-			<div class="inside">
-				<ul>
-					<li><?php esc_html_e( 'Google Analytics 3 (Universal Analytics) properties will stop collecting data starting July 1, 2023. GTM Kit does not support Enhanced Ecommerce with Google Analytics 3 (Universal Analytics).', 'gtm-kit' ); ?></li>
-					<li><?php esc_html_e( 'It’s recommended that you create a Google Analytics 4 property instead. Note that it is possible to use GA4 events for GA3 Enhanced Ecommerce.', 'gtm-kit' ); ?></li>
-				</ul>
-				<br>
-				<ul>
-					<li><b><?php esc_html_e( 'The following GA4 events are supporteret:', 'gtm-kit' ); ?></b></li>
-					<li>view_item</li>
-					<li>add_to_cart</li>
-					<li>purchase</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
 	<?php
 	$form->setting_row(
 		'checkbox-toggle',
