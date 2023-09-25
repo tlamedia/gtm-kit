@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.13.1
+Stable tag: 1.13.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,11 @@ Other:
 * Require WordPress 6.2
 * Require WooCommerce 7.6
 * The admin is now more extendable
+
+= 1.13.2 =
+
+Bugfixes:
+* Fixes a bug that prevented the option to import settings from other plugins on first install.
 
 = 1.13.1 =
 
