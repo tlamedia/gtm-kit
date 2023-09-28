@@ -27,56 +27,6 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Renders the admin page.
-	 */
-	public function render(): void {
-		$form = OptionsForm::get_instance();
-		$form->admin_header( true, $this->option_name, $this->option_group, $this->get_menu_slug() );
-
-		$dashboard_tabs = new OptionTabs( 'integrations' );
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'integrations',
-				__( 'Integrations', 'gtm-kit' ),
-				[
-					'save_button' => false,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'woocommerce',
-				'WooCommerce',
-				[
-					'save_button' => true,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'cf7',
-				'Contact Form 7',
-				[
-					'save_button' => true,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'edd',
-				'Easy Digital Downloads',
-				[
-					'save_button' => true,
-				]
-			)
-		);
-
-		$dashboard_tabs->display( $form );
-
-		$form->admin_footer( true, false );
-	}
-
-	/**
 	 * Get the options page menu slug.
 	 *
 	 * @return string
@@ -113,13 +63,61 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Get the tabs of the admin page.
+	 * Enqueue admin page scripts and styles.
+	 *
+	 * @param string $hook Current hook.
 	 */
-	protected function get_tabs(): void {
-		$general_tabs = new OptionTabs( 'integrations' );
-		$general_tabs->add_tab( new OptionTab( 'integrations', __( 'Overview', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'woocommerce', 'WooCommerce' ) );
-		$general_tabs->add_tab( new OptionTab( 'cf7', 'Contact Form 7' ) );
-		$general_tabs->add_tab( new OptionTab( 'edd', 'Easy Digital Downloads' ) );
+	public function enqueue_page_assets( string $hook ): void {
+		if ( \strpos( $hook, $this->get_menu_slug() ) !== false ) {
+			$this->enqueue_assets( 'integrations', 'settings' );
+		}
+	}
+
+	/**
+	 * Localize script.
+	 *
+	 * @param string $page_slug The page slug.
+	 * @param string $script_handle The script handle.
+	 */
+	public function localize_script( string $page_slug, string $script_handle ): void {
+		$taxonomies = get_taxonomies(
+			[
+				'show_ui'  => true,
+				'public'   => true,
+				'_builtin' => false,
+			],
+			'object'
+		);
+
+		$taxonomy_options = [];
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$taxonomy_options[] = [
+				'label' => $taxonomy->label,
+				'value' => $taxonomy->name,
+			];
+		}
+
+		$admin_url = is_network_admin() ? network_admin_url() : admin_url();
+
+		\wp_localize_script(
+			'gtmkit-' . $script_handle . '-script',
+			'gtmkitSettings',
+			[
+				'rootId'           => 'gtmkit-settings',
+				'currentPage'      => $page_slug,
+				'root'             => \esc_url_raw( rest_url() ),
+				'nonce'            => \wp_create_nonce( 'wp_rest' ),
+				'dashboardUrl'     => \menu_page_url( 'gtmkit_general', false ),
+				'integrationsUrl'  => \menu_page_url( 'gtmkit_integrations', false ),
+				'pluginInstallUrl' => $admin_url . 'plugin-install.php?tab=search&type=term&s=',
+				'plugins'          => [
+					'woocommerce' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
+					'cf7'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+					'edd'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+				],
+				'taxonomyOptions'  => $taxonomy_options,
+			]
+		);
 	}
 }

@@ -50,76 +50,6 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Renders the admin page.
-	 */
-	public function render(): void {
-		$form = OptionsForm::get_instance();
-		$form->admin_header( true, $this->option_name, $this->option_group, $this->get_menu_slug() );
-
-		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
-
-		$dashboard_tabs = new OptionTabs( 'general' );
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'dashboard',
-				__( 'Dashboard', 'gtm-kit' ),
-				[
-					'save_button' => false,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'container',
-				__( 'Container', 'gtm-kit' ),
-				[
-					'save_button' => true,
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'post_data',
-				__( 'Post data', 'gtm-kit' )
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'user_data',
-				__( 'User data', 'gtm-kit' )
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'google_consent_mode',
-				__( 'Google Consent Mode', 'gtm-kit' )
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'misc',
-				__( 'Misc', 'gtm-kit' ),
-				[
-					'tab_data' => [ 'site_data' => $site_data ],
-				]
-			)
-		);
-		$dashboard_tabs->add_tab(
-			new OptionTab(
-				'whats_new',
-				__( "What's New", 'gtm-kit' ),
-				[
-					'save_button' => false,
-				]
-			)
-		);
-
-		$dashboard_tabs->display( $form );
-
-		$form->admin_footer( true, false );
-	}
-
-	/**
 	 * Get the options page menu slug.
 	 *
 	 * @return string
@@ -156,16 +86,34 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Get the tabs of the admin page.
+	 * Enqueue admin page scripts and styles.
+	 *
+	 * @param string $hook Current hook.
 	 */
-	protected function get_tabs(): void {
-		$general_tabs = new OptionTabs( 'general' );
-		$general_tabs->add_tab( new OptionTab( 'dashboard', __( 'Dashboard', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'container', __( 'Container', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'post_data', __( 'Post data', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'user_data', __( 'User data', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'google_consent_mode', __( 'Google Consent Mode', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'misc', __( 'Misc.', 'gtm-kit' ) ) );
-		$general_tabs->add_tab( new OptionTab( 'whats_new', __( "What's new", 'gtm-kit' ) ) );
+	public function enqueue_page_assets( string $hook ): void {
+		if ( \strpos( $hook, $this->get_menu_slug() ) !== false ) {
+			$this->enqueue_assets( 'general', 'settings' );
+		}
+	}
+
+	/**
+	 * Localize script.
+	 *
+	 * @param string $page_slug The page slug.
+	 * @param string $script_handle The script handle.
+	 */
+	public function localize_script( string $page_slug, string $script_handle ): void {
+		\wp_localize_script(
+			'gtmkit-' . $script_handle . '-script',
+			'gtmkitSettings',
+			[
+				'rootId'          => 'gtmkit-settings',
+				'currentPage'     => $page_slug,
+				'root'            => \esc_url_raw( rest_url() ),
+				'nonce'           => \wp_create_nonce( 'wp_rest' ),
+				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
+				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
+			]
+		);
 	}
 }

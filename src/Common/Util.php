@@ -52,6 +52,48 @@ final class Util {
 		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads-pro/easy-digital-downloads.php', 'edd-pro_version', $data );
 		$data['locale']            = explode( '_', get_locale() )[0];
 		$data['multisite']         = \is_multisite();
+		$data['shared_data']       = [
+			1 => [
+				'label' => __( 'Server type:', 'gtm-kit' ),
+				'value' => $this->get_web_server(),
+				'tag'   => 'code',
+			],
+			2 => [
+				'label' => __( 'PHP version number:', 'gtm-kit' ),
+				'value' => $this->shorten_version( phpversion() ),
+				'tag'   => 'code',
+			],
+			3 => [
+				'label' => __( 'WordPress version number:', 'gtm-kit' ),
+				'value' => $this->shorten_version( $wp_version ),
+				'tag'   => 'code',
+			],
+			4 => [
+				'label' => __( 'WordPress multisite:', 'gtm-kit' ),
+				'value' => ( \is_multisite() ) ? __( 'Yes', 'gtm-kit' ) : __( 'No', 'gtm-kit' ),
+				'tag'   => 'code',
+			],
+			5 => [
+				'label' => __( 'Current theme:', 'gtm-kit' ),
+				'value' => \wp_get_theme()->get( 'Name' ),
+				'tag'   => 'code',
+			],
+			6 => [
+				'label' => __( 'Current site language:', 'gtm-kit' ),
+				'value' => explode( '_', get_locale() )[0],
+				'tag'   => 'code',
+			],
+			7 => [
+				'label' => __( 'Active plugins:', 'gtm-kit' ),
+				'value' => __( 'Plugin name and version of all active plugins', 'gtm-kit' ),
+				'tag'   => 'em',
+			],
+			8 => [
+				'label' => __( 'Anonymized GTM Kit settings:', 'gtm-kit' ),
+				'value' => __( 'Which GTM Kit settings are active', 'gtm-kit' ),
+				'tag'   => 'em',
+			],
+		];
 
 		return $data;
 	}

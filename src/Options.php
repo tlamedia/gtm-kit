@@ -104,11 +104,17 @@ final class Options {
 		return [
 			'general'      => [
 				'gtm_id'                  => '',
-				'script_implementation'   => '0',
-				'noscript_implementation' => '0',
-				'container_active'        => 'on',
+				'script_implementation'   => 0,
+				'noscript_implementation' => 0,
+				'container_active'        => true,
 			],
-			'integrations' => [],
+			'integrations' => [
+				'gui-upgrade'                           => '',
+				'woocommerce_shipping_info'             => 1,
+				'woocommerce_payment_info'              => 1,
+				'cf7_load_js'                           => 1,
+				'woocommerce_variable_product_tracking' => 0,
+			],
 		];
 	}
 
@@ -164,7 +170,7 @@ final class Options {
 			case 'woocommerce_shipping_info':
 			case 'woocommerce_payment_info':
 			case 'cf7_load_js':
-				$value = '1';
+				$value = 1;
 				break;
 
 			case 'woocommerce_variable_product_tracking':

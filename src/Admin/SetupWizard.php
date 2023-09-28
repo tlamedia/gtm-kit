@@ -144,12 +144,13 @@ final class SetupWizard {
 
 		wp_localize_script(
 			'gtmkit-wizard-script',
-			'gtmkitWizardBuild',
+			'gtmkitSettings',
 			[
-				'root_id'       => 'gtmkit-setup-wizard',
-				'root'          => esc_url_raw( rest_url() ),
-				'nonce'         => wp_create_nonce( 'wp_rest' ),
-				'dashboard_url' => menu_page_url( 'gtmkit_general', false ),
+				'rootId'       => 'gtmkit-settings',
+				'currentPage'  => 'wizard',
+				'root'         => esc_url_raw( rest_url() ),
+				'nonce'        => wp_create_nonce( 'wp_rest' ),
+				'dashboardUrl' => menu_page_url( 'gtmkit_general', false ),
 			]
 		);
 	}
@@ -160,7 +161,7 @@ final class SetupWizard {
 	public function setup_wizard_content() {
 		$admin_url = is_network_admin() ? network_admin_url() : admin_url();
 
-		$this->settings_error_page( 'gtmkit-setup-wizard', '<a class="gtmkit-text-color-grey gtmkit-text-sm" href="' . $admin_url . '">' . esc_html__( 'Go back to the Dashboard', 'gtm-kit' ) . '</a>' );
+		$this->settings_error_page( 'gtmkit-settings', '<a class="gtmkit-text-color-grey gtmkit-text-sm" href="' . $admin_url . '">' . esc_html__( 'Go back to the Dashboard', 'gtm-kit' ) . '</a>' );
 	}
 
 	/**

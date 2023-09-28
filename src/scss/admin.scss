@@ -1,4 +1,4 @@
-@import "partials/base";
+@import "base";
 @import "tailwind-compiled";
 
 .gtmkit-admin-page #wpcontent {
@@ -834,6 +834,23 @@ code {
 	ul {
 		li {
 			margin-bottom: 12px;
+		}
+	}
+}
+
+.gtm-kit-settings-field-wrap {
+	//background: $white;
+	//border:1px solid  $borderColor;
+	//padding: 20px;
+	//margin-block-start: 30px;
+
+	.components{
+		&-base{
+			&-control{
+				&__label{
+					//font-weight: 600;
+				}
+			}
 		}
 	}
 }
