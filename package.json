@@ -30,7 +30,7 @@
     "change-version": "./bin/change-version.sh $npm_package_version",
     "zip-package": "./bin/zip-package.sh",
     "compile:sass": "sass src/scss/admin.scss:assets/css/admin.css",
-    "compile:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/tailwind-compiled.scss --watch",
+    "compile:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/_tailwind-compiled.scss --watch",
     "uglify:woocommerce": "mkdirp assets/js && uglifyjs src/js/woocommerce.js --compress --mangle --output assets/js/woocommerce.js",
     "uglify:woocommerce-checkout": "mkdirp assets/js && uglifyjs src/js/woocommerce-checkout.js --compress --mangle --output assets/js/woocommerce-checkout.js",
     "uglify:edd": "mkdirp assets/js && uglifyjs src/js/edd.js --compress --mangle --output assets/js/edd.js",

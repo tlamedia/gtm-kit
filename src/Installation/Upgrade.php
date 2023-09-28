@@ -65,7 +65,7 @@ final class Upgrade {
 		if ( $script_implementation === 2 ) {
 			$values = [
 				'general' => [
-					'script_implementation' => '1',
+					'script_implementation' => 1,
 				],
 			];
 
@@ -84,5 +84,28 @@ final class Upgrade {
 		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit_version'" );
 
 		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit_activation_prevent_redirect'" );
+
+		$values = [
+			'integrations' => [
+				'gui-upgrade' => '',
+			],
+		];
+
+		$options = Options::init()->get_all_raw();
+
+		if ( ! isset( $options['integrations']['cf7_load_js'] ) ) {
+			$values['integrations']['cf7_load_js'] = 1;
+		}
+		if ( ! isset( $options['integrations']['woocommerce_shipping_info'] ) ) {
+			$values['integrations']['woocommerce_shipping_info'] = 1;
+		}
+		if ( ! isset( $options['integrations']['woocommerce_payment_info'] ) ) {
+			$values['integrations']['woocommerce_payment_info'] = 1;
+		}
+		if ( ! isset( $options['integrations']['woocommerce_variable_product_tracking'] ) ) {
+			$values['integrations']['woocommerce_variable_product_tracking'] = 0;
+		}
+
+		Options::init()->set( $values, false, false );
 	}
 }
