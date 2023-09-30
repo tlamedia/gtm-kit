@@ -94,6 +94,7 @@ Enhancements:
 * Optimize autoload of options for better performance.
 
 Bugfixes:
+* Flush cache after setting or updating an option.
 
 Other:
 * Require WordPress 6.2

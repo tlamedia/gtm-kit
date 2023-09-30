@@ -296,6 +296,7 @@ final class Options {
 		}
 
 		// Now we need to re-cache values.
+		wp_cache_delete( self::OPTION_NAME, 'options' );
 		$this->options = get_option( self::OPTION_NAME, [] );
 	}
 
