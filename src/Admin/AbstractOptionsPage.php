@@ -142,40 +142,6 @@ abstract class AbstractOptionsPage {
 	}
 
 	/**
-	 * Enqueue admin area scripts and styles.
-	 *
-	 * @param string $hook Current hook.
-	 */
-	public function admin_enqueue_scripts( string $hook ) {
-
-		if ( \strpos( $hook, GTMKIT_ADMIN_SLUG ) === true ) {
-			// General styles and js.
-			wp_enqueue_style(
-				'gtmkit-admin-css',
-				GTMKIT_URL . 'assets/css/admin.css',
-				false,
-				$this->util->get_plugin_version()
-			);
-			wp_enqueue_script(
-				'gtmkit-admin',
-				GTMKIT_URL . 'assets/js/admin.js',
-				[ 'jquery' ],
-				$this->util->get_plugin_version(),
-				true
-			);
-
-			$script_data = [
-				'plugin_url' => GTMKIT_URL,
-				'nonce'      => wp_create_nonce( 'gtmkit-admin' ),
-				'ajax_url'   => admin_url( 'admin-ajax.php' ),
-			];
-
-			wp_localize_script( 'gtmkit-admin', 'gtmkit', $script_data );
-
-		}
-	}
-
-	/**
 	 * Enqueue admin page scripts and styles.
 	 *
 	 * @param string $hook Current hook.
