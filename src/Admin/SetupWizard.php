@@ -130,7 +130,7 @@ final class SetupWizard {
 			return;
 		}
 
-		$deps_file  = GTMKIT_PATH . 'build/admin/wizard.asset.php';
+		$deps_file  = GTMKIT_PATH . 'assets/admin/wizard.asset.php';
 		$dependency = [];
 		if ( file_exists( $deps_file ) ) {
 			$deps_file  = require $deps_file;
@@ -138,9 +138,9 @@ final class SetupWizard {
 			$version    = $deps_file['version'];
 		}
 
-		wp_enqueue_style( 'gtmkit-wizard-style', GTMKIT_URL . 'build/admin/wizard.css', array( 'wp-components' ), $version );
+		wp_enqueue_style( 'gtmkit-wizard-style', GTMKIT_URL . 'assets/admin/wizard.css', array( 'wp-components' ), $version );
 
-		wp_enqueue_script( 'gtmkit-wizard-script', GTMKIT_URL . 'build/admin/wizard.js', $dependency, $version, true );
+		wp_enqueue_script( 'gtmkit-wizard-script', GTMKIT_URL . 'assets/admin/wizard.js', $dependency, $version, true );
 
 		wp_localize_script(
 			'gtmkit-wizard-script',

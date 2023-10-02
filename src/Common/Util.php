@@ -214,7 +214,7 @@ final class Util {
 	 */
 	public function enqueue_script( string $handle, string $script ): void {
 
-		$deps_file = GTMKIT_PATH . 'build/' . $script . '.asset.php';
+		$deps_file = GTMKIT_PATH . 'assets/' . $script . '.asset.php';
 
 		$dependency = [];
 		$version    = false;
@@ -225,6 +225,6 @@ final class Util {
 			$version    = $deps_file['version'];
 		}
 
-		\wp_enqueue_script( $handle, GTMKIT_URL . 'build/' . $script . '.js', $dependency, $version, true );
+		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script . '.js', $dependency, $version, true );
 	}
 }
