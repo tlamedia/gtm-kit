@@ -83,7 +83,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		if ( ! edd_is_checkout() ) {
 			wp_enqueue_script(
 				'gtmkit-edd',
-				GTMKIT_URL . 'assets/js/edd.js',
+				GTMKIT_URL . 'assets/integration/edd.js',
 				[ 'jquery' ],
 				$this->util->get_plugin_version(),
 				true
@@ -93,7 +93,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		if ( edd_is_checkout() ) {
 			wp_enqueue_script(
 				'gtmkit-edd-checkout',
-				GTMKIT_URL . 'assets/js/edd-checkout.js',
+				GTMKIT_URL . 'assets/integration/edd-checkout.js',
 				[ 'jquery' ],
 				$this->util->get_plugin_version(),
 				true

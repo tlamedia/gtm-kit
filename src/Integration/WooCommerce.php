@@ -193,7 +193,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		wp_enqueue_script(
 			'gtmkit-woocommerce',
-			GTMKIT_URL . 'assets/js/woocommerce.js',
+			GTMKIT_URL . 'assets/integration/woocommerce.js',
 			[],
 			$this->util->get_plugin_version(),
 			true
@@ -218,7 +218,7 @@ final class WooCommerce extends AbstractEcommerce {
 			} else {
 				wp_enqueue_script(
 					'gtmkit-woocommerce-checkout',
-					GTMKIT_URL . 'assets/js/woocommerce-checkout.js',
+					GTMKIT_URL . 'assets/integration/woocommerce-checkout.js',
 					[ 'gtmkit-woocommerce' ],
 					$this->util->get_plugin_version(),
 					true

@@ -158,7 +158,7 @@ abstract class AbstractOptionsPage {
 	 */
 	protected function enqueue_assets( string $page_slug, string $script_handle, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
 
-		$deps_file  = $path . 'build/admin/' . $script_handle . '.asset.php';
+		$deps_file  = $path . 'assets/admin/' . $script_handle . '.asset.php';
 		$dependency = [];
 		$version    = false;
 
@@ -168,9 +168,9 @@ abstract class AbstractOptionsPage {
 			$version    = $deps_file['version'];
 		}
 
-		\wp_enqueue_style( 'gtmkit-' . $script_handle . '-style', $url . 'build/admin/' . $script_handle . '.css', array( 'wp-components' ), $version );
+		\wp_enqueue_style( 'gtmkit-' . $script_handle . '-style', $url . 'assets/admin/' . $script_handle . '.css', array( 'wp-components' ), $version );
 
-		\wp_enqueue_script( 'gtmkit-' . $script_handle . '-script', $url . 'build/admin/' . $script_handle . '.js', $dependency, $version, true );
+		\wp_enqueue_script( 'gtmkit-' . $script_handle . '-script', $url . 'assets/admin/' . $script_handle . '.js', $dependency, $version, true );
 
 		$this->localize_script( $page_slug, $script_handle );
 	}
