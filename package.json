@@ -1,10 +1,23 @@
 {
   "name": "gtm-kit",
+  "version": "1.13.2",
   "description": "Development files for the GTM Kit",
   "author": "TLA Media",
-  "version": "1.13.2",
+  "keywords": [
+    "woocommerce",
+    "wordpress",
+    "google tag manager"
+  ],
+  "homepage": "https://github.com/tlamedia/gtm-kit",
   "plugin": {
-    "textdomain": "gtmkit"
+    "textdomain": "gtm-kit"
+  },
+  "dependencies": {
+    "@wordpress/api-fetch": "^6.39.0",
+    "@wordpress/components": "^25.8.0",
+    "@wordpress/hooks": "^3.42.0",
+    "@wordpress/i18n": "^4.42.0",
+    "@wordpress/url": "^3.43.0"
   },
   "devDependencies": {
     "@wordpress/scripts": "^26.13.0",
@@ -45,12 +58,5 @@
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
     "check-engines": "wp-scripts check-engines"
-  },
-  "dependencies": {
-    "@wordpress/api-fetch": "^6.39.0",
-    "@wordpress/components": "^25.8.0",
-    "@wordpress/hooks": "^3.42.0",
-    "@wordpress/i18n": "^4.42.0",
-    "@wordpress/url": "^3.43.0"
   }
 }
