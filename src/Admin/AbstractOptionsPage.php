@@ -16,20 +16,6 @@ use TLA_Media\GTM_Kit\Options;
 abstract class AbstractOptionsPage {
 
 	/**
-	 * Plugin options.
-	 *
-	 * @var Options
-	 */
-	protected $options;
-
-	/**
-	 * Utilities
-	 *
-	 * @var Util
-	 */
-	protected $util;
-
-	/**
 	 * That's where plugin options are saved in wp_options table.
 	 *
 	 * @var string
@@ -38,23 +24,15 @@ abstract class AbstractOptionsPage {
 
 	/**
 	 * Constructor.
-	 *
-	 * @param Options $options An instance of Options.
-	 * @param Util    $util An instance of Util.
 	 */
-	final public function __construct( Options $options, Util $util ) {
-		$this->options = $options;
-		$this->util    = $util;
+	final public function __construct() {
 	}
 
 	/**
 	 * Register the options page.
-	 *
-	 * @param Options $options An instance of Options.
-	 * @param Util    $util An instance of Util.
 	 */
-	public static function register( Options $options, Util $util ): void {
-		$page = new static( $options, $util );
+	public static function register(): void {
+		$page = new static();
 
 		add_action( 'admin_init', [ $page, 'configure' ] );
 		add_action( 'admin_menu', [ $page, 'add_admin_page' ] );

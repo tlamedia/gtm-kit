@@ -134,11 +134,11 @@ function gtmkit_admin_init(): void {
 	$rest_api_server = new RestAPIServer();
 	$util            = new Util( $rest_api_server );
 
-	SetupWizard::register();
 	Analytics::register( $options, $util );
-	GeneralOptionsPage::register( $options, $util );
-	IntegrationsOptionsPage::register( $options, $util );
-	HelpOptionsPage::register( $options, $util );
+	SetupWizard::register();
+	GeneralOptionsPage::register();
+	IntegrationsOptionsPage::register();
+	HelpOptionsPage::register();
 
 	do_action( 'gtmkit_admin_init', $options, $util );
 }
