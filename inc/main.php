@@ -8,6 +8,7 @@
 namespace TLA_Media\GTM_Kit;
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
@@ -91,7 +92,7 @@ function gtmkit_frontend_init(): void {
 	$rest_api_server = new RestAPIServer();
 	$util            = new Util( $rest_api_server );
 
-	( new SetupWizard( $options, $util ) )->rest_init();
+	( new AdminAPI( $options, $util ) )->rest_init();
 
 	if ( ! $options->get( 'general', 'just_the_container' ) ) {
 		BasicDatalayerData::register( $options );
@@ -133,7 +134,7 @@ function gtmkit_admin_init(): void {
 	$rest_api_server = new RestAPIServer();
 	$util            = new Util( $rest_api_server );
 
-	( new SetupWizard( $options, $util ) )->hooks();
+	SetupWizard::register();
 	Analytics::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util );
