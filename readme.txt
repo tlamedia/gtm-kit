@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.13.2
+Stable tag: 1.14
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,12 +87,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.14 =
 
 Enhancements:
-* New admin GUI based on WordPress components.
-* Added a more robust method of adding data attributes to the HTML.
-* Optimize autoload of options for better performance.
+* There is a new admin GUI based on WordPress components and the admin is now more extendable.
+* We have added a more robust method of adding data attributes to the HTML.
+* The autoload of options has been optimized for better performance.
 
 Bugfixes:
 * Flush cache after setting or updating an option.
@@ -100,7 +100,7 @@ Bugfixes:
 Other:
 * Require WordPress 6.2
 * Require WooCommerce 7.6
-* The admin is now more extendable
+* Tested up to WooCommerce 8.2
 
 = 1.13.2 =
 
