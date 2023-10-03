@@ -135,9 +135,9 @@ final class Frontend {
 		if ( $this->options->get( 'general', 'gtm_id' ) ) {
 			$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
 
-			echo 'const dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
+			echo 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 
-			echo esc_attr( $this->datalayer_name ) . '.push( dataLayer_content );' . "\n";
+			echo esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
 		}
 
 		echo "</script>\n";
