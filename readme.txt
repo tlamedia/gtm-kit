@@ -60,10 +60,11 @@ You may specify which post data elements you wish to include in the dataLayer fo
 
 == Screenshots ==
 
-1. Google Tag Manager container
-2. Google Tag Manager container code
-3. GTM Server Side
-4. WooCommerce Integration
+1. GTM Kit Dashboard
+2. Google Tag Manager container code and server side GTM
+3. Post data settings
+4. Google Consent Mode
+5. WooCommerce Integration
 
 == Installation ==
 
@@ -94,7 +95,7 @@ Enhancements:
 Bugfixes:
 
 Other:
- 
+
 = 1.14 =
 
 Enhancements:
