@@ -61,7 +61,7 @@ final class AdminAPI {
 		$this->util->rest_api_server->register_rest_route(
 			'/get-install-data',
 			[
-				'methods'  => 'POST',
+				'methods'  => 'GET',
 				'callback' => [ $this, 'get_install_data' ],
 			]
 		);
@@ -69,7 +69,7 @@ final class AdminAPI {
 		$this->util->rest_api_server->register_rest_route(
 			'/get-options',
 			[
-				'methods'  => 'POST',
+				'methods'  => 'GET',
 				'callback' => [ $this, 'get_options' ],
 			]
 		);
@@ -85,7 +85,7 @@ final class AdminAPI {
 		$this->util->rest_api_server->register_rest_route(
 			'/get-site-data',
 			[
-				'methods'  => 'POST',
+				'methods'  => 'GET',
 				'callback' => [ $this, 'get_site_data' ],
 			]
 		);
