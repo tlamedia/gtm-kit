@@ -93,6 +93,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+* Set custom page type in post sidebar was removed by mistake in 1.14
 
 Other:
 
