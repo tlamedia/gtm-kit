@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.14
+Stable tag: 1.14.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,14 +88,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
-
-Enhancements:
+= 1.14.1 =
 
 Bugfixes:
 * Set custom page type in post sidebar was removed by mistake in 1.14
+* Fix possible naming collision with other GTM plugins
 
-Other:
 
 = 1.14 =
 

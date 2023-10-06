@@ -13,6 +13,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => $baseDir . '/src/Admin/GeneralOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\HelpOptionsPage' => $baseDir . '/src/Admin/HelpOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\IntegrationsOptionsPage' => $baseDir . '/src/Admin/IntegrationsOptionsPage.php',
+    'TLA_Media\\GTM_Kit\\Admin\\MetaBox' => $baseDir . '/src/Admin/MetaBox.php',
     'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
     'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => $baseDir . '/src/Common/RestAPIServer.php',
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
