@@ -12,6 +12,7 @@ use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
+use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
@@ -135,6 +136,7 @@ function gtmkit_admin_init(): void {
 	$util            = new Util( $rest_api_server );
 
 	Analytics::register( $options, $util );
+	MetaBox::register( $options );
 	SetupWizard::register();
 	GeneralOptionsPage::register();
 	IntegrationsOptionsPage::register();
