@@ -338,6 +338,11 @@ function gtmkitLoad() {
 		if ('undefined' === typeof productVariation) return;
 
 		const variationsForm = event.target;
+		const gtmkitElement = variationsForm.querySelector('[name=gtmkit_product_data]');
+
+		// Check if the gtmkit_product_data exists and bail early if it doesn't
+		if (!gtmkitElement) return;
+
 		const productVariationData = JSON.parse(
 			variationsForm.querySelector('[name=gtmkit_product_data]') &&
 				variationsForm.querySelector('[name=gtmkit_product_data]').value
