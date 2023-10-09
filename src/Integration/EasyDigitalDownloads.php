@@ -242,7 +242,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		$data_layer['event']     = 'begin_checkout';
 		$data_layer['ecommerce'] = [
-			'items' => $this->global_data['data']['edd']['cart_items'],
+			'items' => $this->global_data['edd']['cart_items'],
 		];
 
 		return $data_layer;

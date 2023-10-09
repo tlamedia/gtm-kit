@@ -93,6 +93,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+* Items was not loaded correct in the Ease Digital Downloads begin_checkout event.
 
 Other:
 
