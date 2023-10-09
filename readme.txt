@@ -88,12 +88,19 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.X =
+
+Enhancements:
+
+Bugfixes:
+
+Other:
+
 = 1.14.1 =
 
 Bugfixes:
 * Set custom page type in post sidebar was removed by mistake in 1.14
 * Fix possible naming collision with other GTM plugins
-
 
 = 1.14 =
 
