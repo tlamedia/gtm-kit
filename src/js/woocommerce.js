@@ -348,13 +348,13 @@ function gtmkitLoad() {
 				variationsForm.querySelector('[name=gtmkit_product_data]').value
 		);
 
-		productVariationData.item_id = productVariation.variation_id;
+		productVariationData.id = productVariationData.item_id = productVariation.variation_id;
 		if (
 			window.gtmkit_settings.wc.use_sku &&
 			productVariation.sku &&
 			'' !== productVariation.sku
 		) {
-			productVariationData.item_id = productVariation.sku;
+			productVariationData.id = productVariationData.item_id = productVariation.sku;
 		}
 
 		productVariationData.price = productVariation.display_price;

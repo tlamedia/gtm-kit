@@ -357,7 +357,7 @@ final class WooCommerce extends AbstractEcommerce {
 			$data_layer['pageType'] = 'product-page';
 		}
 
-		if ( $product->get_type() === 'variable' && Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) === 2 ) {
+		if ( $product->get_type() === 'variable' && (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) === 2 ) {
 			return $data_layer;
 		}
 

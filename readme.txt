@@ -95,6 +95,7 @@ Enhancements:
 Bugfixes:
 * Items was not loaded correct in the Ease Digital Downloads begin_checkout event.
 * Using variation product selection without including gtmkit_product_data would result in a JavaScript error.
+* Fixes a problem where variation products would use the master product id.
 
 Other:
 
