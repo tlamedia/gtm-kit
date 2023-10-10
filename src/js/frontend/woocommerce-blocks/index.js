@@ -18,7 +18,7 @@ addAction(
 	({ shippingRateId }) => {
 		window.gtmkit_data.wc.chosen_shipping_method = shippingRateId;
 
-		if (window.gtmkit_settings.wc.add_shipping_info.config === 0) return;
+		if (window.gtmkit_settings.wc.add_shipping_info.config === 0 || window.gtmkit_data.wc.is_checkout === false) return;
 
 		if (window.gtmkit_settings.wc.add_shipping_info.config === 2) {
 			shippingInfo();
