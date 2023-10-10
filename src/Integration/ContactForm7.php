@@ -55,7 +55,7 @@ final class ContactForm7 extends AbstractIntegration {
 	 */
 	public function enqueue_scripts(): void {
 
-		if ( $this->options->get( 'integrations', 'cf7_load_js' ) === 1 && ! wp_script_is( 'contact-form-7' ) ) {
+		if ( (int) $this->options->get( 'integrations', 'cf7_load_js' ) === 1 && ! wp_script_is( 'contact-form-7' ) ) {
 			return;
 		}
 
