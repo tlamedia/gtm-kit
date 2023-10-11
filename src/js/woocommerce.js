@@ -307,6 +307,7 @@ function gtmkitLoad() {
 
 		if (product) {
 			productData = product.querySelector('.gtmkit_product_data');
+			if (!productData) return true;
 		} else {
 			return true;
 		}
