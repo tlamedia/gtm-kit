@@ -97,6 +97,7 @@ Bugfixes:
 * Using variation product selection without including gtmkit_product_data would result in a JavaScript error.
 * Fixes a problem where variation products would use the master product id.
 * Fixes an error when shipping was selected in the WooCommerce block cart.
+* Using the WooCommerce 'All products' block without including gtmkit_product_data would result in a JavaScript error.
 
 Other:
 
