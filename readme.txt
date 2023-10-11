@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.14.1
+Stable tag: 1.14.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,18 +88,14 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
-
-Enhancements:
+= 1.14.2 =
 
 Bugfixes:
 * Items was not loaded correct in the Ease Digital Downloads begin_checkout event.
-* Using variation product selection without including gtmkit_product_data would result in a JavaScript error.
 * Fixes a problem where variation products would use the master product id.
 * Fixes an error when shipping was selected in the WooCommerce block cart.
+* Using variation product selection without including gtmkit_product_data would result in a JavaScript error.
 * Using the WooCommerce 'All products' block without including gtmkit_product_data would result in a JavaScript error.
-
-Other:
 
 = 1.14.1 =
 
