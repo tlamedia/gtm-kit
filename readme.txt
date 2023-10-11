@@ -88,6 +88,14 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.X =
+
+Enhancements:
+
+Bugfixes:
+
+Other:
+
 = 1.14.2 =
 
 Bugfixes:
