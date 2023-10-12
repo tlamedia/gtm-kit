@@ -352,6 +352,7 @@ function gtmkitLoad() {
 		);
 
 		productVariationData.id = productVariationData.item_id =
+			window.gtmkit_settings.wc.pid_prefix +
 			productVariation.variation_id;
 		if (
 			window.gtmkit_settings.wc.use_sku &&
@@ -359,7 +360,7 @@ function gtmkitLoad() {
 			'' !== productVariation.sku
 		) {
 			productVariationData.id = productVariationData.item_id =
-				productVariation.sku;
+				window.gtmkit_settings.wc.pid_prefix + productVariation.sku;
 		}
 
 		productVariationData.price = productVariation.display_price;

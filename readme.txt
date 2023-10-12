@@ -93,6 +93,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Enhancements:
 
 Bugfixes:
+* The product ID Prefix was not added when a product variation was selected.
 
 Other:
 

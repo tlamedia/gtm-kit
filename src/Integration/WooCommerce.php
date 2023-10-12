@@ -237,6 +237,7 @@ final class WooCommerce extends AbstractEcommerce {
 	public function get_global_settings( array $global_settings ): array {
 
 		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
+		$global_settings['wc']['pid_prefix']                  = $this->prefix_item_id();
 		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
 		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
 		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
@@ -988,7 +989,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return string
 	 */
-	public function prefix_item_id( string $item_id ): string {
+	public function prefix_item_id( string $item_id = '' ): string {
 		return Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
 	}
 
