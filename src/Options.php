@@ -42,6 +42,7 @@ final class Options {
 			'woocommerce_shipping_info',
 			'woocommerce_payment_info',
 			'woocommerce_variable_product_tracking',
+			'woocommerce_view_item_list_limit',
 			'cf7_load_js',
 		],
 
@@ -114,6 +115,7 @@ final class Options {
 				'woocommerce_payment_info'              => 1,
 				'cf7_load_js'                           => 1,
 				'woocommerce_variable_product_tracking' => 0,
+				'woocommerce_view_item_list_limit'      => 0,
 			],
 		];
 	}
@@ -174,6 +176,7 @@ final class Options {
 				break;
 
 			case 'woocommerce_variable_product_tracking':
+			case 'woocommerce_view_item_list_limit':
 				$value = 0;
 				break;
 		}
