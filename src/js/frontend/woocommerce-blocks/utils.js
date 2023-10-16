@@ -8,7 +8,7 @@ export const pushEvent = (eventName, eventParams) => {
 	window[window.gtmkit_settings.datalayer_name].push({ ecommerce: null });
 	window[window.gtmkit_settings.datalayer_name].push({
 		event: eventName,
-		eventParams,
+		...eventParams,
 	});
 
 	if (window.gtmkit_settings.console_log === 'on')
@@ -54,4 +54,20 @@ export const paymentInfo = () => {
 	pushEvent('add_payment_info', eventParams);
 
 	window.gtmkit_data.wc.add_payment_info.fired = true;
+};
+
+/**
+ * Formats data into the impressionFieldObject shape.
+ *
+ * @param {Object} product
+ * @param {string} listName
+ */
+export const getProductImpressionObject = (product, listName = '') => {
+	const item = product.extensions.gtmkit.item;
+
+	if (listName) {
+		item.item_list_name = listName;
+	}
+
+	return item;
 };

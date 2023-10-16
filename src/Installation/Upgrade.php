@@ -41,6 +41,7 @@ final class Upgrade {
 		$available_upgrades = [
 			'1.11' => 'v111_upgrade',
 			'1.14' => 'v114_upgrade',
+			'1.15' => 'v115_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -105,6 +106,20 @@ final class Upgrade {
 		if ( ! isset( $options['integrations']['woocommerce_variable_product_tracking'] ) ) {
 			$values['integrations']['woocommerce_variable_product_tracking'] = 0;
 		}
+
+		Options::init()->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v1.15
+	 */
+	protected function v115_upgrade(): void {
+
+		$values = [
+			'integrations' => [
+				'woocommerce_view_item_list_limit' => 0,
+			],
+		];
 
 		Options::init()->set( $values, false, false );
 	}

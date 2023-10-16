@@ -212,6 +212,19 @@ final class WooCommerce extends AbstractEcommerce {
 			} else {
 				$this->util->enqueue_script( 'gtmkit-woocommerce-checkout', 'integration/woocommerce-checkout.js', false, [ 'gtmkit-woocommerce' ] );
 			}
+		} elseif ( has_block( 'woocommerce/all-products' ) ) {
+
+			$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
+
+			wp_localize_script(
+				'gtmkit-woocommerce-blocks',
+				'gtmkitWooCommerceBlocksBuild',
+				[
+					'root'  => esc_url_raw( rest_url() ),
+					'nonce' => wp_create_nonce( 'wp_rest' ),
+				]
+			);
+
 		}
 	}
 
@@ -229,6 +242,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
 		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
 		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
+		$global_settings['wc']['view_item_list']['config']    = (int) Options::init()->get( 'integrations', 'woocommerce_view_item_list_limit' );
 		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
@@ -1035,7 +1049,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function extend_product_data( $product ): array {
 		return array(
-			'item' => wp_json_encode( $this->get_item_data( $product ) ),
+			'item' => $this->get_item_data( $product ),
 		);
 	}
 
