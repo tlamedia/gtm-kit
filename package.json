@@ -51,7 +51,7 @@
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js ./src/js",
     "lint:js-fix": "wp-scripts lint-js ./src/js --fix",
-    "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js --output-path=build/frontend",
+    "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js --output-path=assets/frontend",
     "watch:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/_tailwind-compiled.scss --watch",
     "audit:prod": "npm audit --omit=dev",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
