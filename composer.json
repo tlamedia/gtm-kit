@@ -15,7 +15,7 @@
     "php": "^7.2 || ^8.0"
   },
   "require-dev": {
-    "php-stubs/woocommerce-stubs": "^7.9",
+    "php-stubs/woocommerce-stubs": "^8.2",
     "phpcompatibility/phpcompatibility-wp": "*",
     "phpstan/extension-installer": "^1.3.1",
     "phpstan/phpstan": "^1.10.26",
