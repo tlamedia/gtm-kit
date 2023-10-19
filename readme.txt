@@ -91,6 +91,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.X =
 
 Enhancements:
+* Inline scripts are now registered with the wp_add_inline_script insted of wp_head. This allows easy extension GTM Kit and implementation of a CSP (Content Security Policy).
 
 Bugfixes:
 * The product ID Prefix was not added when a product variation was selected.

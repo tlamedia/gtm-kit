@@ -62,7 +62,7 @@ final class ContactForm7 extends AbstractIntegration {
 		wp_enqueue_script(
 			'gtmkit-cf7',
 			GTMKIT_URL . 'assets/integration/contact-form-7.js',
-			[],
+			[ 'gtmkit' ],
 			$this->util->get_plugin_version(),
 			true
 		);

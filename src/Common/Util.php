@@ -224,7 +224,8 @@ final class Util {
 			$dependency = $deps_file['dependencies'];
 			$version    = $deps_file['version'];
 		}
+		$dependency[] = 'gtmkit';
 
-		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script . '.js', $dependency, $version, true );
+		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script . '.js', $dependency, $version, [ 'strategy' => 'defer' ] );
 	}
 }

@@ -194,7 +194,7 @@ final class WooCommerce extends AbstractEcommerce {
 		wp_enqueue_script(
 			'gtmkit-woocommerce',
 			GTMKIT_URL . 'assets/integration/woocommerce.js',
-			[],
+			[ 'gtmkit' ],
 			$this->util->get_plugin_version(),
 			true
 		);

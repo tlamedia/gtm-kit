@@ -84,7 +84,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 			wp_enqueue_script(
 				'gtmkit-edd',
 				GTMKIT_URL . 'assets/integration/edd.js',
-				[ 'jquery' ],
+				[ 'gtmkit', 'jquery' ],
 				$this->util->get_plugin_version(),
 				true
 			);
