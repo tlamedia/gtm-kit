@@ -209,23 +209,28 @@ final class Util {
 	 *
 	 * @param string $handle The script hande.
 	 * @param string $script The script name.
+	 * @param bool   $has_asset_file If the script has an asset file or not.
+	 * @param array  $deps The script dependencies.
+	 * @param array  $args The loading strategy.
 	 *
 	 * @return void
 	 */
-	public function enqueue_script( string $handle, string $script ): void {
+	public function enqueue_script( string $handle, string $script, bool $has_asset_file = false, array $deps = [], array $args = [ 'strategy' => 'defer' ] ): void {
 
-		$deps_file = GTMKIT_PATH . 'assets/' . $script . '.asset.php';
+		$ver = $this->get_plugin_version();
 
-		$dependency = [];
-		$version    = false;
-
-		if ( file_exists( $deps_file ) ) {
-			$deps_file  = require $deps_file;
-			$dependency = $deps_file['dependencies'];
-			$version    = $deps_file['version'];
+		if ( $has_asset_file ) {
+			$file = GTMKIT_PATH . 'assets/' . substr_replace( $script, '.asset.php', - strlen( '.js' ) );
+			if ( file_exists( $file ) ) {
+				$deps_file = require $file;
+				$deps      = $deps_file['dependencies'];
+				$ver       = $deps_file['version'];
+			}
 		}
-		$dependency[] = 'gtmkit';
 
-		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script . '.js', $dependency, $version, [ 'strategy' => 'defer' ] );
+		$deps[] = 'gtmkit';
+		$deps[] = 'gtmkit-container';
+
+		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script, $deps, $ver, $args );
 	}
 }

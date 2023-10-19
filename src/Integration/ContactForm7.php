@@ -58,13 +58,6 @@ final class ContactForm7 extends AbstractIntegration {
 		if ( (int) $this->options->get( 'integrations', 'cf7_load_js' ) === 1 && ! wp_script_is( 'contact-form-7' ) ) {
 			return;
 		}
-
-		wp_enqueue_script(
-			'gtmkit-cf7',
-			GTMKIT_URL . 'assets/integration/contact-form-7.js',
-			[ 'gtmkit' ],
-			$this->util->get_plugin_version(),
-			true
-		);
+		$this->util->enqueue_script( 'gtmkit-cf7', 'integration/contact-form-7.js' );
 	}
 }

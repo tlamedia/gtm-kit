@@ -81,23 +81,11 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		}
 
 		if ( ! edd_is_checkout() ) {
-			wp_enqueue_script(
-				'gtmkit-edd',
-				GTMKIT_URL . 'assets/integration/edd.js',
-				[ 'gtmkit', 'jquery' ],
-				$this->util->get_plugin_version(),
-				true
-			);
+			$this->util->enqueue_script( 'gtmkit-edd', 'integration/contact-edd.js', false, [ 'jquery' ] );
 		}
 
 		if ( edd_is_checkout() ) {
-			wp_enqueue_script(
-				'gtmkit-edd-checkout',
-				GTMKIT_URL . 'assets/integration/edd-checkout.js',
-				[ 'jquery' ],
-				$this->util->get_plugin_version(),
-				true
-			);
+			$this->util->enqueue_script( 'gtmkit-edd-checkout', 'integration/contact-edd-checkout.js', false, [ 'jquery' ] );
 		}
 	}
 
