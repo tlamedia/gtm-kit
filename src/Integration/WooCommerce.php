@@ -191,20 +191,14 @@ final class WooCommerce extends AbstractEcommerce {
 			return;
 		}
 
-		wp_enqueue_script(
-			'gtmkit-woocommerce',
-			GTMKIT_URL . 'assets/integration/woocommerce.js',
-			[ 'gtmkit' ],
-			$this->util->get_plugin_version(),
-			true
-		);
+		$this->util->enqueue_script( 'gtmkit-woocommerce', 'integration/woocommerce.js', false, [ 'jquery' ] );
 
 		if ( is_cart() || is_checkout() ) {
 
 			if ( has_block( 'woocommerce/cart' ) || has_block( 'woocommerce/checkout' ) ) {
 				wp_dequeue_script( 'gtmkit-woocommerce' );
 
-				$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks' );
+				$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
 
 				wp_localize_script(
 					'gtmkit-woocommerce-blocks',
@@ -216,13 +210,7 @@ final class WooCommerce extends AbstractEcommerce {
 				);
 
 			} else {
-				wp_enqueue_script(
-					'gtmkit-woocommerce-checkout',
-					GTMKIT_URL . 'assets/integration/woocommerce-checkout.js',
-					[ 'gtmkit-woocommerce' ],
-					$this->util->get_plugin_version(),
-					true
-				);
+				$this->util->enqueue_script( 'gtmkit-woocommerce-checkout', 'integration/woocommerce-checkout.js', false, [ 'gtmkit-woocommerce' ] );
 			}
 		}
 	}
