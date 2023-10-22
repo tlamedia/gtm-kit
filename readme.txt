@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.3
-Stable tag: 1.14.2
+Stable tag: 1.15
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,7 +88,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.15 =
 
 Enhancements:
 * Added support for the WooCommerce block 'all-products'.
@@ -97,8 +97,6 @@ Enhancements:
 Bugfixes:
 * The product ID Prefix was not added when a product variation was selected.
 * Tax was not added on the total on the add_shipping_info and add_payment_info events.
-
-Other:
 
 = 1.14.2 =
 

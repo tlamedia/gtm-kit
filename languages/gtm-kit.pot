@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.14.2\n"
+"Project-Id-Version: GTM Kit 1.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-11T07:44:56+00:00\n"
+"POT-Creation-Date: 2023-10-22T18:39:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: gtm-kit\n"
@@ -151,64 +151,64 @@ msgstr ""
 msgid "Which GTM Kit settings are active"
 msgstr ""
 
-#: src/Integration/EasyDigitalDownloads.php:116
-#: src/Integration/WooCommerce.php:253
+#: src/Integration/EasyDigitalDownloads.php:104
+#: src/Integration/WooCommerce.php:256
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:244
+#: src/Integration/WooCommerce.php:247
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:245
+#: src/Integration/WooCommerce.php:248
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:246
-#: src/Integration/WooCommerce.php:925
+#: src/Integration/WooCommerce.php:249
+#: src/Integration/WooCommerce.php:928
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:247
+#: src/Integration/WooCommerce.php:250
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:248
+#: src/Integration/WooCommerce.php:251
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:249
+#: src/Integration/WooCommerce.php:252
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:250
-#: src/Integration/WooCommerce.php:927
+#: src/Integration/WooCommerce.php:253
+#: src/Integration/WooCommerce.php:930
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:251
+#: src/Integration/WooCommerce.php:254
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:252
+#: src/Integration/WooCommerce.php:255
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:784
+#: src/Integration/WooCommerce.php:787
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:818
+#: src/Integration/WooCommerce.php:821
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:818
-#: src/Integration/WooCommerce.php:859
-#: src/Integration/WooCommerce.php:892
+#: src/Integration/WooCommerce.php:821
+#: src/Integration/WooCommerce.php:862
+#: src/Integration/WooCommerce.php:895
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1076
+#: src/Integration/WooCommerce.php:1079
 msgid "GTM Kit data."
 msgstr ""
 
@@ -363,18 +363,6 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
 msgid "Tutorials"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "%s is not active"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "If you haven't installed and activated %s you must do that."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Install %s"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -710,6 +698,18 @@ msgid "Log helpful messages and warnings to the browser log."
 msgstr ""
 
 #: assets/admin/settings.js:1
+msgid "Support for the WooCommerce all-products block"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "The new WooCommerce blocks evolve with every release of WooCommerce, and we are thrilled to announce that GTM Kit now support the all-product using the native WooCommerce events."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Inline scripts are now registered with the wp_add_inline_script insted of wp_head. This allows easy extension GTM Kit and implementation of a CSP (Content Security Policy)"
+msgstr ""
+
+#: assets/admin/settings.js:1
 msgid "New Admin GUI"
 msgstr ""
 
@@ -731,18 +731,6 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "We have put a lot of work in to improving the code quality and improving the compliance with WordPress Coding Standards."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Improved support for the WooCommerce cart and checkout blocks"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "The new WooCommerce blocks evolve with every release of WooCommerce, and we are thrilled to announce that GTM Kit now support the cart and checkout blocks using the native WooCommerce events."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Using the native JavaScript events is a much more reliable method than trying to parse the HTML which is subject to design changes."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -771,6 +759,18 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "GTM Kit Repository"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "%s is not active"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "If you haven't installed and activated %s you must do that."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Install %s"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -871,6 +871,18 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "Event customization"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Push view_item_list when the list is updated using a product filter."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Only only push view_item_list once per per page for each list."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Do you what to push the view_item_list event if the list is updated using a filter or just once per page view."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1176,4 +1188,9 @@ msgstr ""
 
 #: assets/admin/wizard.js:1
 msgid "Getting Started"
+msgstr ""
+
+#: assets/frontend/woocommerce-blocks.js:1
+#: src/js/frontend/woocommerce-blocks/index.js:162
+msgid "Product List"
 msgstr ""
