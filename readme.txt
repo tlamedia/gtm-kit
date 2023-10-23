@@ -96,6 +96,7 @@ Enhancements:
 
 Bugfixes:
 * The product ID Prefix was not added when a product variation was selected.
+* Tax was not added on the total on the add_shipping_info and add_payment_info events.
 
 Other:
 
