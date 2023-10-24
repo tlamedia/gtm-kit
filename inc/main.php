@@ -49,9 +49,13 @@ register_activation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_activati
  * Plugin activation hook.
  */
 function gtmkit_plugin_deactivation(): void {
-	global $wpdb;
 
-	$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit'" );
+	if ( function_exists( 'wp_set_option_autoload' ) ) {
+		wp_set_option_autoload( 'gtmkit', 'no' );
+	} else {
+		global $wpdb;
+		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'no' WHERE option_name = 'gtmkit'" );
+	}
 
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
 }
