@@ -52,8 +52,12 @@ final class Activation {
 	 * Set autoload on options.
 	 */
 	public function set_autoload_on_options(): void {
-		global $wpdb;
 
-		$wpdb->query( "UPDATE $wpdb->options SET autoload = 'yes' WHERE option_name = 'gtmkit'" );
+		if ( function_exists( 'wp_set_option_autoload' ) ) {
+			wp_set_option_autoload( 'gtmkit', 'yes' );
+		} else {
+			global $wpdb;
+			$wpdb->query( "UPDATE $wpdb->options SET autoload = 'yes' WHERE option_name = 'gtmkit'" );
+		}
 	}
 }
