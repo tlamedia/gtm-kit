@@ -105,6 +105,7 @@ Other:
 
 Enhancements:
 * Added support for the WooCommerce block 'all-products'.
+* Added support for Stape.io Cookie Keeper .
 * Inline scripts are now registered with the wp_add_inline_script insted of wp_head. This allows easy extension GTM Kit and implementation of a CSP (Content Security Policy).
 
 Bugfixes:
