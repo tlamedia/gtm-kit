@@ -2,7 +2,7 @@
 Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 1.15
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -95,6 +95,7 @@ Enhancements:
 Bugfixes:
 
 Other:
+* Tested up to WordPress 6.4
 
 = 1.15 =
 
