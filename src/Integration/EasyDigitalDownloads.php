@@ -260,7 +260,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 			}
 
 			if ( ( 1 === (int) edd_get_order_meta( $order->id, 'gtmkit_order_tracked', true ) ) ) {
-				return $data_layer;
+				if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'edd_debug_track_purchase' ) ) ) {
+					return $data_layer;
+				}
 			}
 		} else {
 			return $data_layer;
