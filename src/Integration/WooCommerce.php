@@ -1159,6 +1159,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['ecommerce']['customer']['billing_city']       = $wc_customer->get_billing_city();
 		$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
 		$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
+		$data_layer['ecommerce']['customer']['billing_state']      = $wc_customer->get_billing_state();
 		$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
 		$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '';
 		$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
@@ -1171,6 +1172,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['ecommerce']['customer']['shipping_city']      = $wc_customer->get_shipping_city();
 		$data_layer['ecommerce']['customer']['shipping_postcode']  = $wc_customer->get_shipping_postcode();
 		$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
+		$data_layer['ecommerce']['customer']['shipping_state']     = $wc_customer->get_shipping_state();
 
 		return $data_layer;
 	}

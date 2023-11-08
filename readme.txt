@@ -94,6 +94,7 @@ Enhancements:
 * Added the filter 'gtmkit_datalayer_script', which allows you to filter the datalayer script.
 
 Bugfixes:
+* Billing state and shipping stat was not included in the customer data on the 'purchase' event.
 
 Other:
 * Tested up to WordPress 6.4
