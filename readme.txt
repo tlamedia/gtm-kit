@@ -91,6 +91,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.X =
 
 Enhancements:
+* Added the filter 'gtmkit_datalayer_script', which allows you to filter the datalayer script.
 
 Bugfixes:
 

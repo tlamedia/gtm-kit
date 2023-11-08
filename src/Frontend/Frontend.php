@@ -117,7 +117,7 @@ final class Frontend {
 
 		wp_register_script( 'gtmkit-datalayer', '', [], GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit-datalayer' );
-		wp_add_inline_script( 'gtmkit-datalayer', $script, 'before' );
+		wp_add_inline_script( 'gtmkit-datalayer', apply_filters( 'gtmkit_datalayer_script', $script ), 'before' );
 	}
 
 		/**
