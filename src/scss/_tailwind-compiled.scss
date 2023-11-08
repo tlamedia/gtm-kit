@@ -698,10 +698,6 @@ video {
   display: flex;
 }
 
-.gtmkit-grid {
-  display: grid;
-}
-
 .gtmkit-hidden {
   display: none;
 }
@@ -740,10 +736,6 @@ video {
 
 .gtmkit-min-h-\[175px\] {
   min-height: 175px;
-}
-
-.gtmkit-min-h-screen {
-  min-height: 100vh;
 }
 
 .gtmkit-w-2 {
@@ -835,18 +827,14 @@ video {
   gap: 4rem;
 }
 
-.gtmkit-gap-4 {
-  gap: 1rem;
-}
-
 .gtmkit-gap-6 {
   gap: 1.5rem;
 }
 
-.gtmkit-space-x-8 > :not([hidden]) ~ :not([hidden]) {
+.gtmkit-space-x-9 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(2.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(2.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .gtmkit-space-y-1 > :not([hidden]) ~ :not([hidden]) {
@@ -1057,10 +1045,6 @@ video {
   padding-bottom: 18px;
 }
 
-.gtmkit-pt-4 {
-  padding-top: 1rem;
-}
-
 .gtmkit-pt-5 {
   padding-top: 1.25rem;
 }
@@ -1090,6 +1074,10 @@ video {
 .gtmkit-text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.gtmkit-text-\[15px\] {
+  font-size: 15px;
 }
 
 .gtmkit-text-base {

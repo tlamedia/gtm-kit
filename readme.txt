@@ -91,6 +91,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 = 1.X =
 
 Enhancements:
+* Add option to include customer data from Easy Digital Downloads on the purchase event.
 * Added the filter 'gtmkit_datalayer_script', which allows you to filter the datalayer script.
 * Added the constant 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE', which allows users of Easy Digital Downloads to force tracking of purchase event on every page refresh for debugging.
 

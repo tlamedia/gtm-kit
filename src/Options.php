@@ -270,8 +270,15 @@ final class Options {
 
 				break;
 			case 'integration':
-				if ( $key === 'woocommerce_debug_track_purchase' ) {
-					$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
+				switch ( $key ) {
+					case 'woocommerce_debug_track_purchase':
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
+						$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
+						break;
+					case 'edd_debug_track_purchase':
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
+						$return = defined( 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE' ) && GTMKIT_EDD_DEBUG_TRACK_PURCHASE === true;
+						break;
 				}
 
 				break;
