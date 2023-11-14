@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.15\n"
+"Project-Id-Version: GTM Kit 1.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-22T18:39:42+00:00\n"
+"POT-Creation-Date: 2023-11-14T14:56:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: gtm-kit\n"
@@ -36,11 +36,11 @@ msgstr ""
 msgid "https://www.tlamedia.dk/"
 msgstr ""
 
-#: inc/main.php:74
+#: inc/main.php:78
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:75
+#: inc/main.php:79
 #: assets/admin/settings.js:1
 msgid "Settings"
 msgstr ""
@@ -67,6 +67,7 @@ msgid "Only authenticated users can access endpoint."
 msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:67
+#: assets/admin/settings.js:1
 msgid "General"
 msgstr ""
 
@@ -247,10 +248,6 @@ msgid "Misc"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "What's New"
-msgstr ""
-
-#: assets/admin/settings.js:1
 msgid "Support"
 msgstr ""
 
@@ -331,10 +328,6 @@ msgid "Read articles"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Status"
-msgstr ""
-
-#: assets/admin/settings.js:1
 msgid "Container ID:"
 msgstr ""
 
@@ -344,6 +337,14 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "Edit container"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Server-side GTM"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -379,8 +380,11 @@ msgid "To start collecting data with Google Tag manager you must register the Co
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/wizard.js:1
-msgid "Enter Container ID"
+msgid "GTM Container ID:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Enter GTM Container ID"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -408,11 +412,11 @@ msgid "The default name of the data layer object is dataLayer. If you prefer to 
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "GTM Server Side"
+msgid "Server-side Tagging (sGTM)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "GTM Server Side Domain:"
+msgid "sGTM Container Domain:"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -433,6 +437,42 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "Only use if you are using a custom loader."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Cookie Keeper (for Stape users only)"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Google Tag Manager Server-side Tagging"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Learn more"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Hosting server-side GTM containers"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Setting up server-side tracking can be challenging and costly but there is an easy and cheap solution."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Stape.io is a solution for hosting server-side Google Tag Manager containers, offering a simplified approach that demands less technical expertise than solutions like Google Cloud Platform."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Additionally, it provides valuable add-ons for enhanced functionality."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Learn more about Stape.io"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -695,70 +735,6 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "Log helpful messages and warnings to the browser log."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Support for the WooCommerce all-products block"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "The new WooCommerce blocks evolve with every release of WooCommerce, and we are thrilled to announce that GTM Kit now support the all-product using the native WooCommerce events."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Inline scripts are now registered with the wp_add_inline_script insted of wp_head. This allows easy extension GTM Kit and implementation of a CSP (Content Security Policy)"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "New Admin GUI"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "There is a new admin GUI based on WordPress components and the admin is now more extendable."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "The autoload of options has been optimized for better performance."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Google Consent Mode default settings for sites not using a Consent Management Platform"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Not all sites are using Consent Management Platform to handle user consent , and we now allow those sites to set the default Consent Mode settings."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "We have put a lot of work in to improving the code quality and improving the compliance with WordPress Coding Standards."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Read about all the other change in the release Notes"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Older releases"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Changelog"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "About GTM Kit"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Version:"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "The plugin is open source (GPL v3 license) and contributions are welcome:"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "GTM Kit Repository"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1051,7 +1027,7 @@ msgid "Support options"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Support forum"
+msgid "WordPress.org Support Forum"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1063,11 +1039,31 @@ msgid "Plugin Homepage"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "WordPress.org Plugin Page"
+msgid "About GTM Kit"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Version:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "You can see the changes of all versions in:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "The changelog"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "The Github repository"
 msgstr ""
 
 #: assets/admin/wizard.js:1
 msgid "Container ID"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+msgid "Enter Container ID"
 msgstr ""
 
 #: assets/admin/wizard.js:1
