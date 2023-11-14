@@ -100,6 +100,7 @@ Bugfixes:
 
 Other:
 * Tested up to WordPress 6.4
+* Tested up to WooCommerce 8.3
 
 = 1.15 =
 
