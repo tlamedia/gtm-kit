@@ -88,6 +88,18 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.X =
+
+Release date: YYYY-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-16/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 1.16.2 =
 
 Release date: 2023-11-15
@@ -95,7 +107,6 @@ Release date: 2023-11-15
 #### Bugfixes:
 
 * Fix critical JS bug.
-
 
 = 1.16 =
 
