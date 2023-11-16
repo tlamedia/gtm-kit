@@ -97,6 +97,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Enhancements:
 
 #### Bugfixes:
+* Add missing _sbp cookie in the cookie keeper.
 
 #### Other:
 
