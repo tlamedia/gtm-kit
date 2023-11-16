@@ -19,6 +19,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',
     'TLA_Media\\GTM_Kit\\Frontend\\Frontend' => $baseDir . '/src/Frontend/Frontend.php',
+    'TLA_Media\\GTM_Kit\\Frontend\\Stape' => $baseDir . '/src/Frontend/Stape.php',
     'TLA_Media\\GTM_Kit\\Frontend\\UserData' => $baseDir . '/src/Frontend/UserData.php',
     'TLA_Media\\GTM_Kit\\Installation\\Activation' => $baseDir . '/src/Installation/Activation.php',
     'TLA_Media\\GTM_Kit\\Installation\\PluginDataImport' => $baseDir . '/src/Installation/PluginDataImport.php',

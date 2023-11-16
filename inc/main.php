@@ -10,6 +10,7 @@ namespace TLA_Media\GTM_Kit;
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
+use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
@@ -18,8 +19,8 @@ use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
+use TLA_Media\GTM_Kit\Frontend\Stape;
 use TLA_Media\GTM_Kit\Frontend\UserData;
-use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Installation\Activation;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
@@ -113,6 +114,8 @@ function gtmkit_frontend_init(): void {
 			EasyDigitalDownloads::register( $options, $util );
 		}
 	}
+
+	Stape::register( $options );
 
 	if ( $options->get( 'general', 'analytics_active' ) ) {
 		Analytics::register( $options, $util );
