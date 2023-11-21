@@ -99,6 +99,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
+* GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
 
 #### Other:
 

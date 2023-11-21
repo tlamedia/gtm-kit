@@ -199,30 +199,23 @@ final class Options {
 			return $value;
 		}
 
-		$return = null;
+		$constant_mapping = [
+			'general'     => [
+				'gtm_id'           => 'GTMKIT_CONTAINER_ID',
+				'container_active' => 'GTMKIT_CONTAINER_ACTIVE',
+				'console_log'      => 'GTMKIT_CONSOLE_LOG',
+				'gtm_auth'         => 'GTMKIT_GTM_AUTH',
+				'gtm_preview'      => 'GTMKIT_GTM_PREVIEW',
+			],
+			'integration' => [
+				'woocommerce_debug_track_purchase' => 'GTMKIT_WC_DEBUG_TRACK_PURCHASE',
+				'edd_debug_track_purchase'         => 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE',
+			],
+		];
 
-		switch ( $group ) {
-			case 'general':
-				switch ( $key ) {
-					case 'gtm_id':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ID : $value;
-						break;
-					case 'container_active':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONTAINER_ACTIVE : $value;
-						break;
-					case 'console_log':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = $this->is_const_defined( $group, $key ) ? GTMKIT_CONSOLE_LOG : $value;
-						break;
-				}
-				break;
-			default:
-				$return = $value;
-		}
+		$constant = $constant_mapping[ $group ][ $key ] ?? null;
 
-		return $return;
+		return $this->is_const_defined( $group, $key ) && $constant ? constant( $constant ) : $value;
 	}
 
 	/**
@@ -251,48 +244,47 @@ final class Options {
 
 		$return = false;
 
-		switch ( $group ) {
-			case 'general':
-				switch ( $key ) {
-					case 'gtm_id':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_CONTAINER_ID' ) && GTMKIT_CONTAINER_ID;
-						break;
-					case 'container_active':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_CONTAINER_ACTIVE' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONTAINER_ACTIVE === true );
-						break;
-					case 'console_log':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_CONSOLE_LOG' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONSOLE_LOG === true );
-						break;
-					case 'gtm_auth':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_GTM_AUTH' ) && ( GTMKIT_GTM_AUTH === false || GTMKIT_GTM_AUTH === true );
-						break;
-					case 'gtm_preview':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_GTM_PREVIEW' ) && ( GTMKIT_GTM_PREVIEW === false || GTMKIT_GTM_PREVIEW === true );
-						break;
-				}
-
+		switch ( $group . ':' . $key ) {
+			case 'general:gtm_id':
+				$return = $this->is_defined( 'GTMKIT_CONTAINER_ID' );
 				break;
-			case 'integration':
-				switch ( $key ) {
-					case 'woocommerce_debug_track_purchase':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE' ) && GTMKIT_WC_DEBUG_TRACK_PURCHASE === true;
-						break;
-					case 'edd_debug_track_purchase':
-						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
-						$return = defined( 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE' ) && GTMKIT_EDD_DEBUG_TRACK_PURCHASE === true;
-						break;
-				}
-
+			case 'general:container_active':
+				$return = $this->is_defined( 'GTMKIT_CONTAINER_ACTIVE', 'bool' );
+				break;
+			case 'general:console_log':
+				$return = $this->is_defined( 'GTMKIT_CONSOLE_LOG', 'bool' );
+				break;
+			case 'general:gtm_auth':
+				$return = $this->is_defined( 'GTMKIT_GTM_AUTH' );
+				break;
+			case 'general:gtm_preview':
+				$return = $this->is_defined( 'GTMKIT_GTM_PREVIEW' );
+				break;
+			case 'integration:woocommerce_debug_track_purchase':
+				$return = $this->is_defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE', 'bool' );
+				break;
+			case 'integration:edd_debug_track_purchase':
+				$return = $this->is_defined( 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE', 'bool' );
 				break;
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Is constant defined?
+	 *
+	 * @param string $constant The constant.
+	 * @param string $type The constant type.
+	 *
+	 * @return bool
+	 */
+	private function is_defined( string $constant, string $type = 'string' ): bool {
+		if ( $type === 'bool' ) {
+			return defined( $constant ) && ( constant( $constant ) === false || constant( $constant ) === true );
+		} else {
+			return defined( $constant ) && constant( $constant );
+		}
 	}
 
 	/**
