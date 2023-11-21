@@ -95,6 +95,7 @@ Release date: YYYY-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-16/).
 
 #### Enhancements:
+* Added option to specify the Google Tag Manager environment.
 
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
