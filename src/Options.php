@@ -266,6 +266,14 @@ final class Options {
 						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
 						$return = defined( 'GTMKIT_CONSOLE_LOG' ) && ( GTMKIT_CONTAINER_ACTIVE === false || GTMKIT_CONSOLE_LOG === true );
 						break;
+					case 'gtm_auth':
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
+						$return = defined( 'GTMKIT_GTM_AUTH' ) && ( GTMKIT_GTM_AUTH === false || GTMKIT_GTM_AUTH === true );
+						break;
+					case 'gtm_preview':
+						/** @noinspection PhpUndefinedConstantInspection */ // phpcs:ignore
+						$return = defined( 'GTMKIT_GTM_PREVIEW' ) && ( GTMKIT_GTM_PREVIEW === false || GTMKIT_GTM_PREVIEW === true );
+						break;
 				}
 
 				break;
