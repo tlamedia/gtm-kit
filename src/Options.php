@@ -33,19 +33,49 @@ final class Options {
 	 */
 	private static $map = [
 		'general'      => [
-			'gtm_id',
-			'container_active',
-			'script_implementation',
-			'noscript_implementation',
+			'gtm_id'                  => [
+				'default'  => '',
+				'constant' => 'GTMKIT_CONTAINER_ID',
+			],
+			'script_implementation'   => [ 'default' => 0 ],
+			'noscript_implementation' => [ 'default' => 0 ],
+			'container_active'        => [
+				'default'  => true,
+				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
+				'type'     => 'boolean',
+			],
+			'sgtm_domain'             => [ 'default' => '' ],
+			'console_log'             => [
+				'default'  => false,
+				'constant' => 'GTMKIT_CONSOLE_LOG',
+				'type'     => 'boolean',
+			],
+			'gtm_auth'                => [
+				'default'  => '',
+				'constant' => 'GTMKIT_AUTH',
+			],
+			'gtm_preview'             => [
+				'default'  => '',
+				'constant' => 'GTMKIT_PREVIEW',
+			],
 		],
 		'integrations' => [
-			'woocommerce_shipping_info',
-			'woocommerce_payment_info',
-			'woocommerce_variable_product_tracking',
-			'woocommerce_view_item_list_limit',
-			'cf7_load_js',
+			'woocommerce_shipping_info'             => [ 'default' => 1 ],
+			'woocommerce_payment_info'              => [ 'default' => 1 ],
+			'woocommerce_variable_product_tracking' => [ 'default' => 0 ],
+			'woocommerce_view_item_list_limit'      => [ 'default' => 0 ],
+			'woocommerce_debug_track_purchase'      => [
+				'default'  => false,
+				'constant' => 'GTMKIT_WC_DEBUG_TRACK_PURCHASE',
+				'type'     => 'boolean',
+			],
+			'cf7_load_js'                           => [ 'default' => 1 ],
+			'edd_debug_track_purchase'              => [
+				'default'  => false,
+				'constant' => 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE',
+				'type'     => 'boolean',
+			],
 		],
-
 	];
 
 	/**
@@ -58,33 +88,12 @@ final class Options {
 	}
 
 	/**
-	 * Pre update option
-	 *
-	 * @param mixed $new_value The new value.
-	 * @param mixed $old_value The old value.
-	 *
-	 * @return array|null
-	 */
-	public function pre_update_option( $new_value, $old_value ): ?array {
-
-		if ( ! is_array( $new_value ) ) {
-			return $new_value;
-		}
-
-		foreach ( $new_value as $group => $settings ) {
-			$old_value[ $group ] = $settings;
-		}
-
-		return $old_value;
-	}
-
-	/**
 	 * Initialize options
 	 *
 	 * @return Options
 	 * @example Options::init()->get('general', 'gtm_id');
 	 */
-	public static function init(): Options {
+	public static function init(): self {
 
 		static $instance;
 
@@ -96,28 +105,42 @@ final class Options {
 	}
 
 	/**
-	 * Default options that are saved on first installation.
+	 * Pre update option
+	 *
+	 * @param mixed $new_value The new value.
+	 * @param mixed $old_value The old value.
+	 *
+	 * @return array|null
+	 */
+	public function pre_update_option( $new_value, $old_value ): ?array {
+		if ( ! is_array( $new_value ) || ! is_array( $old_value ) ) {
+			return $new_value;
+		}
+		return array_merge( $old_value, $new_value );
+	}
+
+	/**
+	 * The default options.
+	 *
+	 * @param bool $flat Flattens the default settings for first install.
 	 *
 	 * @return array
 	 */
-	public static function get_defaults(): array {
+	public static function get_defaults( bool $flat = false ): array {
 
-		return [
-			'general'      => [
-				'gtm_id'                  => '',
-				'script_implementation'   => 0,
-				'noscript_implementation' => 0,
-				'container_active'        => true,
-			],
-			'integrations' => [
-				'gui-upgrade'                           => '',
-				'woocommerce_shipping_info'             => 1,
-				'woocommerce_payment_info'              => 1,
-				'cf7_load_js'                           => 1,
-				'woocommerce_variable_product_tracking' => 0,
-				'woocommerce_view_item_list_limit'      => 0,
-			],
-		];
+		$map = self::$map;
+
+		if ( $flat === true ) {
+			$defaults = [];
+			foreach ( $map as $group => $settings ) {
+				foreach ( $settings as $key => $option ) {
+					$defaults[ $group ][ $key ] = $option['default'];
+				}
+			}
+			return $defaults;
+		}
+
+		return $map;
 	}
 
 	/**
@@ -131,91 +154,21 @@ final class Options {
 	 * @example Options::init()->get( 'general', 'gtm_id' ).
 	 */
 	public function get( string $group, string $key, bool $strip_slashes = true ) {
+		$map = $this->get_default_key_value( $group, $key );
 
-		$value = null;
-
-		$value = $this->get_const_value( $group, $key, $value );
-
-		if ( $value === null ) {
-			// Ordinary database or default values.
-			if ( isset( $this->options[ $group ] ) ) {
-				$value = $this->options[ $group ][ $key ] ?? $this->postprocess_key_defaults( $key );
-			} elseif (
-					isset( self::$map[ $group ] ) &&
-					in_array( $key, self::$map[ $group ], true )
-				) {
-
-					$value = $this->postprocess_key_defaults( $key );
-			}
+		if ( $this->is_const_defined( $group, $key ) ) {
+			$value = constant( $map['constant'] );
+		} elseif ( isset( $this->options[ $group ][ $key ] ) ) {
+			$value = $this->options[ $group ][ $key ];
+		} elseif ( $map ) {
+			$value = $map['default'];
+		} else {
+			return null;
 		}
 
-		// Conditionally strip slashes only from values saved in DB. Constants should be processed as is.
-		if ( $strip_slashes && is_string( $value ) && ! $this->is_const_defined( $group, $key ) ) {
-			$value = stripslashes( $value );
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Postprocess options.
-	 *
-	 * @param string $key The key.
-	 *
-	 * @return int|string
-	 */
-	protected function postprocess_key_defaults( string $key ) {
-
-		$value = '';
-
-		switch ( $key ) {
-			case 'woocommerce_shipping_info':
-			case 'woocommerce_payment_info':
-			case 'cf7_load_js':
-				$value = 1;
-				break;
-
-			case 'woocommerce_variable_product_tracking':
-			case 'woocommerce_view_item_list_limit':
-				$value = 0;
-				break;
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Get constant value if defined.
-	 *
-	 * @param string $group The option group.
-	 * @param string $key The option key.
-	 * @param mixed  $value The option value.
-	 *
-	 * @return mixed
-	 */
-	protected function get_const_value( string $group, string $key, $value ) {
-
-		if ( ! $this->is_const_enabled() ) {
-			return $value;
-		}
-
-		$constant_mapping = [
-			'general'     => [
-				'gtm_id'           => 'GTMKIT_CONTAINER_ID',
-				'container_active' => 'GTMKIT_CONTAINER_ACTIVE',
-				'console_log'      => 'GTMKIT_CONSOLE_LOG',
-				'gtm_auth'         => 'GTMKIT_GTM_AUTH',
-				'gtm_preview'      => 'GTMKIT_GTM_PREVIEW',
-			],
-			'integration' => [
-				'woocommerce_debug_track_purchase' => 'GTMKIT_WC_DEBUG_TRACK_PURCHASE',
-				'edd_debug_track_purchase'         => 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE',
-			],
-		];
-
-		$constant = $constant_mapping[ $group ][ $key ] ?? null;
-
-		return $this->is_const_defined( $group, $key ) && $constant ? constant( $constant ) : $value;
+		return is_string( $value ) && $strip_slashes && ! $this->is_const_defined( $group, $key )
+			? stripslashes( $value )
+			: $value;
 	}
 
 	/**
@@ -226,6 +179,19 @@ final class Options {
 	public function is_const_enabled(): bool {
 
 		return defined( 'GTMKIT_ON' ) && GTMKIT_ON === true;
+	}
+
+	/**
+	 * Get default value for a key
+	 *
+	 * @param string $group The option group.
+	 * @param string $key The option key.
+	 *
+	 * @return array|null
+	 */
+	protected function get_default_key_value( string $group, string $key ): ?array {
+		$defaults = $this->get_defaults();
+		return $defaults[ $group ][ $key ] ?? null;
 	}
 
 	/**
@@ -242,59 +208,28 @@ final class Options {
 			return false;
 		}
 
-		$return = false;
-
-		switch ( $group . ':' . $key ) {
-			case 'general:gtm_id':
-				$return = $this->is_defined( 'GTMKIT_CONTAINER_ID' );
-				break;
-			case 'general:container_active':
-				$return = $this->is_defined( 'GTMKIT_CONTAINER_ACTIVE', 'bool' );
-				break;
-			case 'general:console_log':
-				$return = $this->is_defined( 'GTMKIT_CONSOLE_LOG', 'bool' );
-				break;
-			case 'general:gtm_auth':
-				$return = $this->is_defined( 'GTMKIT_GTM_AUTH' );
-				break;
-			case 'general:gtm_preview':
-				$return = $this->is_defined( 'GTMKIT_GTM_PREVIEW' );
-				break;
-			case 'integration:woocommerce_debug_track_purchase':
-				$return = $this->is_defined( 'GTMKIT_WC_DEBUG_TRACK_PURCHASE', 'bool' );
-				break;
-			case 'integration:edd_debug_track_purchase':
-				$return = $this->is_defined( 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE', 'bool' );
-				break;
+		$map = $this->get_default_key_value( $group, $key );
+		if ( ! $map || ! isset( $map['constant'] ) || ! defined( $map['constant'] ) ) {
+			return false;
 		}
 
-		return $return;
-	}
+		$value_type = gettype( constant( $map['constant'] ) );
 
-	/**
-	 * Is constant defined?
-	 *
-	 * @param string $constant The constant.
-	 * @param string $type The constant type.
-	 *
-	 * @return bool
-	 */
-	private function is_defined( string $constant, string $type = 'string' ): bool {
-		if ( $type === 'bool' ) {
-			return defined( $constant ) && ( constant( $constant ) === false || constant( $constant ) === true );
-		} else {
-			return defined( $constant ) && constant( $constant );
+		if ( isset( $map['type'] ) && $map['type'] !== $value_type ) {
+			return false;
 		}
+
+		return true;
 	}
 
 	/**
 	 * Set plugin options.
 	 *
 	 * @param array $options Plugin options.
-	 * @param bool  $once Update existing options or only add once.
+	 * @param bool  $first_install Add option on first install.
 	 * @param bool  $overwrite_existing Overwrite existing settings or merge.
 	 */
-	public function set( array $options, bool $once = false, bool $overwrite_existing = true ): void {
+	public function set( array $options, bool $first_install = false, bool $overwrite_existing = true ): void {
 
 		if ( ! $overwrite_existing ) {
 			$options = self::array_merge_recursive( $this->get_all_raw(), $options );
@@ -303,7 +238,7 @@ final class Options {
 		$options = $this->process_generic_options( $options );
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
-		if ( $once ) {
+		if ( $first_install ) {
 			\add_option( self::OPTION_NAME, $options, '', true );
 		} elseif ( is_multisite() ) {
 				\update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
