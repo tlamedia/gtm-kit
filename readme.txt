@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.16.2
+Stable tag: 1.17.0-beta.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,11 +88,11 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.17.0-beta.1 =
 
 Release date: YYYY-MM-DD
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-16/).
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
 
 #### Enhancements:
 * Added option to specify the Google Tag Manager environment.
@@ -104,6 +104,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
 
 #### Other:
+* Refactoring code for simplicity and maintainability
 
 = 1.16.2 =
 
