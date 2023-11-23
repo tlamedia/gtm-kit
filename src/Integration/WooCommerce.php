@@ -239,10 +239,10 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$global_settings['wc']['use_sku']                     = (bool) $this->options->get( 'integrations', 'woocommerce_use_sku' );
 		$global_settings['wc']['pid_prefix']                  = $this->prefix_item_id();
-		$global_settings['wc']['add_shipping_info']['config'] = (int) Options::init()->get( 'integrations', 'woocommerce_shipping_info' );
-		$global_settings['wc']['add_payment_info']['config']  = (int) Options::init()->get( 'integrations', 'woocommerce_payment_info' );
-		$global_settings['wc']['view_item']['config']         = (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' );
-		$global_settings['wc']['view_item_list']['config']    = (int) Options::init()->get( 'integrations', 'woocommerce_view_item_list_limit' );
+		$global_settings['wc']['add_shipping_info']['config'] = (int) $this->options->get( 'integrations', 'woocommerce_shipping_info' );
+		$global_settings['wc']['add_payment_info']['config']  = (int) $this->options->get( 'integrations', 'woocommerce_payment_info' );
+		$global_settings['wc']['view_item']['config']         = (int) $this->options->get( 'integrations', 'woocommerce_variable_product_tracking' );
+		$global_settings['wc']['view_item_list']['config']    = (int) $this->options->get( 'integrations', 'woocommerce_view_item_list_limit' );
 		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
@@ -360,7 +360,7 @@ final class WooCommerce extends AbstractEcommerce {
 			$data_layer['pageType'] = 'product-page';
 		}
 
-		if ( $product->get_type() === 'variable' && (int) Options::init()->get( 'integrations', 'woocommerce_variable_product_tracking' ) === 2 ) {
+		if ( $product->get_type() === 'variable' && (int) $this->options->get( 'integrations', 'woocommerce_variable_product_tracking' ) === 2 ) {
 			return $data_layer;
 		}
 
@@ -657,10 +657,7 @@ final class WooCommerce extends AbstractEcommerce {
 		];
 
 		if ( $this->options->get( 'integrations', 'woocommerce_brand' ) ) {
-			$item_data['item_brand'] = $this->get_product_term(
-				$product_id_to_query,
-				$this->options->get( 'integrations', 'woocommerce_brand' )
-			);
+			$item_data['item_brand'] = $product->get_attribute( $this->options->get( 'integrations', 'woocommerce_brand' ) );
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_google_business_vertical' ) ) {
@@ -992,7 +989,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 * @return string
 	 */
 	public function prefix_item_id( string $item_id = '' ): string {
-		return Options::init()->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
+		return $this->options->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
 	}
 
 	/**
