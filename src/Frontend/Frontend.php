@@ -45,7 +45,7 @@ final class Frontend {
 	 */
 	public static function register( Options $options ): void {
 		$page                    = new Frontend( $options );
-		$container_active        = $options->get( 'general', 'container_active' );
+		$container_active        = ( $options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
 		$noscript_implementation = $options->get( 'general', 'noscript_implementation' );
 
 		if ( empty( $options->get( 'general', 'just_the_container' ) ) ) {
