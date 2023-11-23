@@ -97,6 +97,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Enhancements:
 * Added option to specify the Google Tag Manager environment.
 * Performance optimization through optimized database queries and general code improvements.
+* Added a filter to deactivate the container, so the container can be deactivated on specific pages.
 
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
