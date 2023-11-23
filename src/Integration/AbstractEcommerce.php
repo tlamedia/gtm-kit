@@ -120,48 +120,27 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 * @return array The category path elements as an array.
 	 */
 	public function get_category_breadcrumb( int $category_id, string $taxonomy ): array {
+		static $categories = [];
+
+		if ( isset( $categories[ $category_id ] ) ) {
+			return $categories[ $category_id ];
+		}
+
 		$category_hierarchy = [];
-
-		$category = get_term( $category_id, $taxonomy );
-
-		if ( ! $category ) {
-			return $category_hierarchy;
+		$category           = get_term( $category_id, $taxonomy );
+		if ( $category ) {
+			$parents = get_ancestors( $category_id, $taxonomy, 'taxonomy' );
+			array_unshift( $parents, $category_id );
+			foreach ( $parents as $category_id ) {
+				$parent = get_term( $category_id, $taxonomy );
+				if ( $parent ) {
+					array_unshift( $category_hierarchy, $parent->name );
+				}
+			}
 		}
+		$categories[ $category_id ] = $category_hierarchy;
 
-		$parents = get_ancestors( $category_id, $taxonomy, 'taxonomy' );
-
-		array_unshift( $parents, $category_id );
-
-		foreach ( array_reverse( $parents ) as $category_id ) {
-			$parent               = get_term( $category_id, $taxonomy );
-			$category_hierarchy[] = $parent->name;
-
-		}
-
-		return $category_hierarchy;
-	}
-
-	/**
-	 * Get product term value.
-	 *
-	 * @param int    $product_id A product ID.
-	 * @param string $taxonomy The taxonomy slug.
-	 *
-	 * @return string Returns the first assigned taxonomy value.
-	 */
-	public function get_product_term( int $product_id, string $taxonomy ): string {
-
-		$product_terms = wp_get_post_terms(
-			$product_id,
-			$taxonomy,
-			[
-				'orderby' => 'parent',
-				'order'   => 'ASC',
-			]
-		);
-
-		return ( is_array( $product_terms ) && count( $product_terms ) ) ? $product_terms[0]->name : '';
-	}
+		return $category_hierarchy; }
 
 	/**
 	 * Prefix an item ID
