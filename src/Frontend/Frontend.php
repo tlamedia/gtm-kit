@@ -225,6 +225,10 @@ final class Frontend {
 		$domain = Options::init()->get( 'general', 'sgtm_domain' ) ? Options::init()->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
 
+		if ( empty( $gtm_id ) ) {
+			return;
+		}
+
 		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
 	}
 
