@@ -39,20 +39,57 @@ final class Util {
 
 		global $wp_version;
 
-		$data                      = [];
+		$data = [];
+		$data = $this->set_site_data( $data, $options, $wp_version );
+
+		$plugins = [
+			'gtm-kit/gtm-kit.php'         => 'gtmkit_version',
+			'woocommerce/woocommerce.php' => 'woocommerce_version',
+			'easy-digital-downloads/easy-digital-downloads.php' => 'edd_version',
+			'easy-digital-downloads-pro/easy-digital-downloads.php' => 'edd-pro_version',
+		];
+
+		foreach ( $plugins as $plugin => $key ) {
+			$data = $this->add_active_plugin_and_version( $plugin, $key, $data );
+		}
+
+		$data['locale'] = explode( '_', get_locale() )[0];
+		$data           = $this->add_shared_data( $data, $wp_version );
+
+		return $data;
+	}
+
+	/**
+	 * Set the site data
+	 *
+	 * @param array  $data Current data.
+	 * @param array  $options The options.
+	 * @param string $wp_version The WordPress version.
+	 *
+	 * @return array
+	 */
+	private function set_site_data( array $data, array $options, string $wp_version ): array {
 		$data['options']           = $this->anonymize_options( $options );
 		$data['web_server']        = $this->get_web_server();
 		$data['php_version']       = $this->shorten_version( phpversion() );
 		$data['wordpress_version'] = $this->shorten_version( $wp_version );
 		$data['current_theme']     = \wp_get_theme()->get( 'Name' );
 		$data['active_plugins']    = $this->get_active_plugins();
-		$data                      = $this->add_active_plugin_and_version( 'gtm-kit/gtm-kit.php', 'gtmkit_version', $data );
-		$data                      = $this->add_active_plugin_and_version( 'woocommerce/woocommerce.php', 'woocommerce_version', $data );
-		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads/easy-digital-downloads.php', 'edd_version', $data );
-		$data                      = $this->add_active_plugin_and_version( 'easy-digital-downloads-pro/easy-digital-downloads.php', 'edd-pro_version', $data );
-		$data['locale']            = explode( '_', get_locale() )[0];
 		$data['multisite']         = \is_multisite();
-		$data['shared_data']       = [
+
+		return $data;
+	}
+
+	/**
+	 * Add shared data
+	 *
+	 * @param array $data Current data.
+	 * @param array $wp_version The WordPress version.
+	 *
+	 * @return array
+	 */
+	private function add_shared_data( array $data, $wp_version ): array {
+		$data['shared_data'] = [
 			1 => [
 				'label' => __( 'Server type:', 'gtm-kit' ),
 				'value' => $this->get_web_server(),
