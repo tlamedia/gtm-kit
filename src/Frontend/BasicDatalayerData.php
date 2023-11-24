@@ -22,12 +22,28 @@ final class BasicDatalayerData {
 	protected $options;
 
 	/**
+	 * Set datalayer post type.
+	 *
+	 * @var bool
+	 */
+	protected $set_datalayer_post_type;
+
+	/**
+	 * Set datalayer page type.
+	 *
+	 * @var bool
+	 */
+	protected $set_datalayer_page_type;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options $options An instance of Options.
 	 */
 	public function __construct( Options $options ) {
-		$this->options = $options;
+		$this->options                 = $options;
+		$this->set_datalayer_post_type = (bool) $this->options->get( 'general', 'datalayer_post_type' );
+		$this->set_datalayer_page_type = (bool) $this->options->get( 'general', 'datalayer_page_type' );
 	}
 
 	/**
@@ -51,36 +67,17 @@ final class BasicDatalayerData {
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
-		$set_datalayer_post_type = (bool) $this->options->get( 'general', 'datalayer_post_type' );
-		$set_datalayer_page_type = (bool) $this->options->get( 'general', 'datalayer_page_type' );
-
-		if ( $set_datalayer_post_type ) {
-			$datalayer['pagePostType'] = get_post_type();
-		}
-
-		if ( $set_datalayer_page_type ) {
-			$datalayer['pageType'] = get_post_type();
-		}
+		$datalayer = $this->set_post_and_page_types( $datalayer, get_post_type() );
 
 		if ( is_singular() ) {
 			if ( is_front_page() ) {
-				if ( $set_datalayer_post_type ) {
-					$datalayer['pagePostType'] = 'frontpage';
-				}
-				if ( $set_datalayer_page_type ) {
-					$datalayer['pageType'] = 'frontpage';
-				}
+				$datalayer = $this->set_post_and_page_types( $datalayer, 'frontpage' );
 			} elseif ( is_home() ) {
-				if ( $set_datalayer_post_type ) {
-					$datalayer['pagePostType'] = 'blog_home';
-				}
-				if ( $set_datalayer_page_type ) {
-					$datalayer['pageType'] = 'blog_home';
-				}
+				$datalayer = $this->set_post_and_page_types( $datalayer, 'blog_home' );
 			} elseif ( is_search() ) {
-				$datalayer = $this->get_site_search_datalayer_content( $datalayer, $set_datalayer_post_type, $set_datalayer_page_type );
+				$datalayer = $this->set_post_and_page_types( $datalayer, 'search-results' );
+				$datalayer = $this->get_site_search_datalayer_content( $datalayer );
 			}
-
 			$datalayer = $this->get_singular_datalayer_content( $datalayer );
 		} elseif ( is_archive() || is_post_type_archive() ) {
 			if ( ( is_tax() || is_category() ) && $this->options->get( 'general', 'datalayer_categories' ) ) {
@@ -90,12 +87,28 @@ final class BasicDatalayerData {
 				}
 			}
 		} elseif ( is_404() ) {
-			if ( $set_datalayer_post_type ) {
-				$datalayer['pagePostType'] = '404-error';
-			}
-			if ( $set_datalayer_page_type ) {
-				$datalayer['pageType'] = '404-error';
-			}
+			$datalayer = $this->set_post_and_page_types( $datalayer, '404-error' );
+		}
+
+		return $datalayer;
+	}
+
+	/**
+	 * Set post and page types in the datalayer
+	 *
+	 * @param array  $datalayer The datalayer.
+	 * @param string $post_type The post type.
+	 * @param string $page_type The page type.
+	 *
+	 * @return array
+	 */
+	private function set_post_and_page_types( array $datalayer, string $post_type, string $page_type = '' ): array {
+
+		if ( $this->set_datalayer_post_type ) {
+			$datalayer['pagePostType'] = $post_type;
+		}
+		if ( $this->set_datalayer_page_type ) {
+			$datalayer['pageType'] = ( empty( $page_type ) ) ? $post_type : $page_type;
 		}
 
 		return $datalayer;
@@ -176,20 +189,10 @@ final class BasicDatalayerData {
 	 * Get the dataLayer data for site search
 	 *
 	 * @param array $datalayer The datalayer.
-	 * @param bool  $set_datalayer_post_type Whether the pagePostType property is active.
-	 * @param bool  $set_datalayer_page_type Whether the pageType property is active.
 	 *
 	 * @return array
 	 */
-	private function get_site_search_datalayer_content( array $datalayer, bool $set_datalayer_post_type, bool $set_datalayer_page_type ): array {
-
-		if ( $set_datalayer_post_type ) {
-			$datalayer['pagePostType'] = 'search-results';
-		}
-		if ( $set_datalayer_page_type ) {
-			$datalayer['pageType'] = 'search-results';
-		}
-
+	private function get_site_search_datalayer_content( array $datalayer ): array {
 		global $wp_query;
 
 		$datalayer['siteSearchQuery']   = get_search_query();
