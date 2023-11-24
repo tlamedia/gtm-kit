@@ -101,7 +101,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
-* GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
+* The constant GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
 
 #### Other:
 * Refactoring code for simplicity and maintainability
@@ -151,49 +151,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 * The product ID Prefix was not added when a product variation was selected.
 * Tax was not added on the total on the add_shipping_info and add_payment_info events.
-
-= 1.14.2 =
-
-Release date: 2023-10-11
-
-#### Bugfixes:
-
-* Items was not loaded correct in the Ease Digital Downloads begin_checkout event.
-* Fixes a problem where variation products would use the master product id.
-* Fixes an error when shipping was selected in the WooCommerce block cart.
-* Using variation product selection without including gtmkit_product_data would result in a JavaScript error.
-* Using the WooCommerce 'All products' block without including gtmkit_product_data would result in a JavaScript error.
-
-= 1.14.1 =
-
-Release date: 2023-10-06
-
-#### Bugfixes:
-
-* Set custom page type in post sidebar was removed by mistake in 1.14
-* Fix possible naming collision with other GTM plugins
-
-= 1.14 =
-
-Release date: 2023-10-03
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-14/).
-
-#### Enhancements:
-
-* There is a new admin GUI based on WordPress components and the admin is now more extendable.
-* We have added a more robust method of adding data attributes to the HTML.
-* The autoload of options has been optimized for better performance.
-
-#### Bugfixes:
-
-* Flush cache after setting or updating an option.
-
-#### Other:
-
-* Require WordPress 6.2
-* Require WooCommerce 7.6
-* Tested up to WooCommerce 8.2
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
