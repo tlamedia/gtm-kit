@@ -102,6 +102,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
 * The constant GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
+* Because of recent changes in WooCommerce clicks on grouped products in a product list would be treated as add_to_cart and not select_item.
 
 #### Other:
 * Refactoring code for simplicity and maintainability
