@@ -82,7 +82,7 @@ function gtmkitLoad() {
 
 		if (
 			eventTargetElement.closest(
-				'.add_to_cart_button:not(.single_add_to_cart_button)'
+				'.add_to_cart_button.ajax_add_to_cart:not(.single_add_to_cart_button)'
 			)
 		) {
 			event = 'add_to_cart';
@@ -291,8 +291,8 @@ function gtmkitLoad() {
 
 	// select_item event on clicks in product lists
 	const productListItemSelector =
-		'.products li:not(.product-category) a:not(.add_to_cart_button,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
-		'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
+		'.products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
+		'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
 		'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist,.tinvwl_add_to_wishlist_button)';
 	document.addEventListener('click', function (e) {
 		const eventTargetElement = e.target;
