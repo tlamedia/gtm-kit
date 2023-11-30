@@ -198,10 +198,14 @@ function gtmkitLoad() {
 						productData.getAttribute('data-gtmkit_product_id') +
 						'\\]]'
 				);
-				productQuantity = parseInt(productQuantity[0].value);
 
-				if (0 === productQuantity) {
+				productQuantity = Number(productQuantity[0].value);
+				productQuantity = isNaN(productQuantity) ? 0 : productQuantity;
+
+				if (0 === productQuantity && event === 'add_to_cart') {
 					return true;
+				} else if (0 === productQuantity && event === 'add_to_wishlist') {
+					productQuantity = 1;
 				}
 
 				const itemData = JSON.parse(

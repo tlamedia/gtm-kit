@@ -838,7 +838,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		return sprintf(
 			'<span class="gtmkit_product_data" style="display:none; visibility:hidden;" data-gtmkit_product_id="%s" data-gtmkit_product_data="%s"></span>',
-			esc_attr( $this->prefix_item_id( $product->get_id() ) ),
+			esc_attr( $product->get_id() ),
 			esc_attr( wp_json_encode( $item_data ) )
 		);
 	}
