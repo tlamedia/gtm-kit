@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.17.0-beta.1
+Stable tag: 1.17
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,9 +88,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.17.0-beta.1 =
+= 1.17.0 =
 
-Release date: YYYY-MM-DD
+Release date: 2023-12-04
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
 
@@ -98,11 +98,14 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Added option to specify the Google Tag Manager environment.
 * Performance optimization through optimized database queries and general code improvements.
 * Added a filter to deactivate the container, so the container can be deactivated on specific pages.
+* Improved support of the 'add_to_wishlist' event. Themes and plugins just have to add the class 'add_to_wishlist' on the 'Add to wishlist' button.
 
 #### Bugfixes:
 * Add missing _sbp cookie in the cookie keeper.
 * The constant GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
 * Because of recent changes in WooCommerce clicks on grouped products in a product list would be treated as add_to_cart and not select_item.
+* Clicks on variation products and grouped products in product lists was treated as add_to_cart events and are now select_item events as they should be.
+* If a product ID prefix was used the 'add_to_cart' event did not work on grouped products.
 
 #### Other:
 * Refactoring code for simplicity and maintainability
