@@ -157,7 +157,8 @@ function gtmkitLoad() {
 			'[name=variation_id]'
 		);
 		const productIsGrouped =
-			formCartElement.classList && formCartElement.classList.contains('grouped_form');
+			formCartElement.classList && formCartElement.classList.contains('grouped_form') &&
+			!formCartElement.classList.contains('bundle_form');
 
 		if (productVariantId.length) {
 			let quantity = 1;
