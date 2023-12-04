@@ -83,6 +83,7 @@ final class Frontend {
 		?>
 		window.gtmkit_settings = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
 		window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
+		window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
 		<?php if ( $this->options->get( 'general', 'gcm_default_settings' ) ) : ?>
 		if (typeof gtag === "undefined") {
 			function gtag(){<?php echo esc_attr( $this->datalayer_name ); ?>.push(arguments);}
@@ -111,8 +112,7 @@ final class Frontend {
 
 		$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
 
-		$script  = 'window.' . esc_js( $this->datalayer_name ) . ' = window.' . esc_js( $this->datalayer_name ) . ' || [];' . "\n";
-		$script .= 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
+		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 		$script .= esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
 
 		wp_register_script( 'gtmkit-datalayer', '', [], GTMKIT_VERSION, [ 'in_footer' => false ] );

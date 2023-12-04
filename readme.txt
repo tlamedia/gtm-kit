@@ -97,6 +97,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Enhancements:
 
 #### Bugfixes:
+* Fix missing datalayer when using Google Consent Mode default settings.
 
 #### Other:
 
