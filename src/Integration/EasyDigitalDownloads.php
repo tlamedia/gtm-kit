@@ -81,11 +81,11 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		}
 
 		if ( ! edd_is_checkout() ) {
-			$this->util->enqueue_script( 'gtmkit-edd', 'integration/contact-edd.js', false, [ 'jquery' ] );
+			$this->util->enqueue_script( 'gtmkit-edd', 'integration/edd.js', false, [ 'jquery' ] );
 		}
 
 		if ( edd_is_checkout() ) {
-			$this->util->enqueue_script( 'gtmkit-edd-checkout', 'integration/contact-edd-checkout.js', false, [ 'jquery' ] );
+			$this->util->enqueue_script( 'gtmkit-edd-checkout', 'integration/edd-checkout.js', false, [ 'jquery' ] );
 		}
 	}
 
