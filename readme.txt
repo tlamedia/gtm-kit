@@ -88,11 +88,21 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.X =
+
+Release date: YYYY-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 1.17.1 =
 
 Release date: 2023-12-05
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
 
 #### Bugfixes:
 * Fix missing datalayer when using Google Consent Mode default settings.
