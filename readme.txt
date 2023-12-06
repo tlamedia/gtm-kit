@@ -99,6 +99,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 
 #### Other:
+* Tested up to WooCommerce 8.4
 
 = 1.17.1 =
 
