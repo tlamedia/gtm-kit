@@ -863,7 +863,7 @@ final class WooCommerce extends AbstractEcommerce {
 			$this->get_item_data_tag(
 				$product,
 				$list_name,
-				$woocommerce_loop['loop']
+				( $woocommerce_loop['loop'] ) ?? 0
 			),
 			[
 				'span' => [
