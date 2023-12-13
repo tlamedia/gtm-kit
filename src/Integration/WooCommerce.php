@@ -781,7 +781,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function grouped_product_add_to_cart_tracking( string $label_value, WC_Product $product ): string {
 
-		$label_value .= $this->get_item_data_tag( $product, __( 'Grouped Product', 'gtm-kit' ), $this->grouped_product_position ++ );
+		$label_value .= $this->get_item_data_tag( $product, __( 'Grouped Product', 'gtm-kit' ), $this->grouped_product_position++ );
 
 		return $label_value;
 	}

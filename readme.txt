@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.17.1
+Stable tag: 1.17.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,15 +88,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.17.2 =
 
-Release date: YYYY-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
-
-#### Enhancements:
+Release date: 2023-12-13
 
 #### Bugfixes:
+* Fixes an edge case where the loop index was not defined in WooCommerce product categories.
 
 #### Other:
 * Tested up to WooCommerce 8.4
