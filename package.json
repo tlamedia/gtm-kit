@@ -13,23 +13,23 @@
     "textdomain": "gtm-kit"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^6.43.0",
-    "@wordpress/components": "^25.12.0",
-    "@wordpress/hooks": "^3.46.0",
-    "@wordpress/i18n": "^4.46.0",
-    "@wordpress/url": "^3.47.0"
+    "@wordpress/api-fetch": "^6.45.0",
+    "@wordpress/components": "^25.14.0",
+    "@wordpress/hooks": "^3.48.0",
+    "@wordpress/i18n": "^4.48.0",
+    "@wordpress/url": "^3.49.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^26.17.0",
-    "autoprefixer": "^10.4.14",
-    "cssnano": "^6.0.1",
-    "del-cli": "^5.0.0",
+    "@wordpress/scripts": "^26.19.0",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.2",
+    "del-cli": "^5.1.0",
     "mkdirp": "^3.0.1",
     "ncp": "^2.0.0",
-    "node-wp-i18n": "^1.2.6",
+    "node-wp-i18n": "^1.2.7",
     "postcss-cli": "^10.1.0",
-    "sass": "^1.60.0",
-    "tailwindcss": "^3.3.2",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.6",
     "uglify-js": "^3.17.4"
   },
   "scripts": {
