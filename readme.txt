@@ -96,6 +96,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Enhancements:
 * Add support for Google Consent Mode v2
+* Added a function to share system data with the GTM Kit support team. If you have registered a support request on WordPress.org and the GTM Kit support team has asked you to send your system data you can now do that in a secure way without posting any private information in the support forum.
 
 #### Bugfixes:
 * When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.

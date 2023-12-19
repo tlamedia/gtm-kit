@@ -89,6 +89,14 @@ final class AdminAPI {
 				'callback' => [ $this, 'get_site_data' ],
 			]
 		);
+
+		$this->util->rest_api_server->register_rest_route(
+			'/send-support-data',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'send_support_data' ],
+			]
+		);
 	}
 
 	/**
@@ -146,5 +154,43 @@ final class AdminAPI {
 	public function get_site_data(): void {
 		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
 		wp_send_json_success( $site_data );
+	}
+
+	/**
+	 * Send Support Data
+	 *
+	 * @return void
+	 */
+	public function send_support_data(): void {
+		$support_ticket = strtoupper( json_decode( file_get_contents( 'php://input' ), true ) );
+
+		$match = preg_match( '/FS(\d+)-([A-Z0-9]+)/', $support_ticket, $matches );
+
+		if ( $match === 1 ) {
+
+			$url = 'https://support.gtmkit.com/api/wporg/support/' . $support_ticket;
+
+			$body = [
+				'system_data' => wp_json_encode( $this->util->get_site_data( $this->options->get_all_raw(), false ) ),
+			];
+			$args = [
+				'method'    => 'PUT',
+				'headers'   => [
+					'Content-Type' => 'application/json',
+				],
+				'body'      => wp_json_encode( $body ),
+				'sslverify' => false,
+			];
+
+			$response = wp_remote_request( $url, $args );
+
+			if ( is_wp_error( $response ) ) {
+				wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
+			} else {
+				wp_send_json_success( __( 'Thank you! We have received the data.', 'gtm-kit' ) );
+			}
+		} else {
+			wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
+		}
 	}
 }

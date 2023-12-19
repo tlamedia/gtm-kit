@@ -32,15 +32,16 @@ final class Util {
 	 * Get the site data
 	 *
 	 * @param array $options The options.
+	 * @param bool  $anonymize Anonymize the data.
 	 *
 	 * @return array
 	 */
-	public function get_site_data( array $options ): array {
+	public function get_site_data( array $options, bool $anonymize = true ): array {
 
 		global $wp_version;
 
 		$data = [];
-		$data = $this->set_site_data( $data, $options, $wp_version );
+		$data = $this->set_site_data( $data, $options, $wp_version, $anonymize );
 
 		$plugins = [
 			'gtm-kit/gtm-kit.php'         => 'gtmkit_version',
@@ -54,7 +55,13 @@ final class Util {
 		}
 
 		$data['locale'] = explode( '_', get_locale() )[0];
-		$data           = $this->add_shared_data( $data, $wp_version );
+		if ( $anonymize ) {
+			$data = $this->add_shared_data( $data, $wp_version );
+		} else {
+			$data['support_data'] = [
+				'site_url' => site_url(),
+			];
+		}
 
 		return $data;
 	}
@@ -65,11 +72,12 @@ final class Util {
 	 * @param array  $data Current data.
 	 * @param array  $options The options.
 	 * @param string $wp_version The WordPress version.
+	 * @param bool   $anonymize Anonymize the data.
 	 *
 	 * @return array
 	 */
-	private function set_site_data( array $data, array $options, string $wp_version ): array {
-		$data['options']           = $this->anonymize_options( $options );
+	private function set_site_data( array $data, array $options, string $wp_version, bool $anonymize ): array {
+		$data['options']           = ( $anonymize ) ? $this->anonymize_options( $options ) : $options;
 		$data['web_server']        = $this->get_web_server();
 		$data['php_version']       = $this->shorten_version( phpversion() );
 		$data['wordpress_version'] = $this->shorten_version( $wp_version );
