@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-18/).
 
 #### Enhancements:
+* Add support for Google Consent Mode v2
 
 #### Bugfixes:
 * When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.
