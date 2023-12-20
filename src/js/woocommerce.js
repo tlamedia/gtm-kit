@@ -112,6 +112,8 @@ function gtmkitLoad() {
 			productData.getAttribute('data-gtmkit_product_data')
 		);
 
+		itemData.quantity = 1;
+
 		window[datalayerName].push({ ecommerce: null });
 		window[datalayerName].push({
 			event,
