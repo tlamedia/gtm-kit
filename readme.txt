@@ -100,6 +100,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Bugfixes:
 * When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.
+* On Single product pages a click on a quantity control would result in an undefined event.
 
 #### Other:
 
