@@ -150,6 +150,8 @@ function gtmkitLoad() {
 				event = 'add_to_cart';
 			} else if ( eventTargetElement.closest( '.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list,.disabled-add-wishlist)' ) ) {
 				event = 'add_to_wishlist';
+			} else {
+				return true;
 			}
 		} else {
 			return true;
