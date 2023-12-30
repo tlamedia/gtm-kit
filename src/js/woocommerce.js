@@ -200,8 +200,8 @@ function gtmkitLoad() {
 			productsInGroup.forEach(function (productData) {
 				let productQuantity = document.querySelectorAll(
 					'input[name=quantity\\[' +
-						productData.getAttribute('data-gtmkit_product_id') +
-						'\\]]'
+					productData.getAttribute('data-gtmkit_product_id') +
+					'\\]]'
 				);
 
 				productQuantity = Number(productQuantity[0].value);
@@ -287,7 +287,7 @@ function gtmkitLoad() {
 
 	// select_item event on clicks in product lists
 	const productListItemSelector =
-		'.products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
+		'.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
 		'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' +
 		'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist,.tinvwl_add_to_wishlist_button)';
 	document.addEventListener('click', function (e) {
@@ -344,7 +344,7 @@ function gtmkitLoad() {
 
 		const productVariationData = JSON.parse(
 			variationsForm.querySelector('[name=gtmkit_product_data]') &&
-				variationsForm.querySelector('[name=gtmkit_product_data]').value
+			variationsForm.querySelector('[name=gtmkit_product_data]').value
 		);
 
 		productVariationData.id = productVariationData.item_id =
