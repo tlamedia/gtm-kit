@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.17.2
+Stable tag: 1.18
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,9 +88,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.18 =
 
-Release date: 2024-MM-DD
+Release date: 2024-01-02
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-18/).
 
@@ -102,8 +102,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 * When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.
 * On Single product pages a click on a quantity control would result in an undefined event.
-
-#### Other:
 
 = 1.17.2 =
 
@@ -173,23 +171,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 * Tested up to WordPress 6.4
 * Tested up to WooCommerce 8.3
-
-= 1.15 =
-
-Release date: 2023-10-24
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-15/).
-
-#### Enhancements:
-
-* Added support for the WooCommerce block 'all-products'.
-* Added support for Stape.io Cookie Keeper .
-* Inline scripts are now registered with the wp_add_inline_script insted of wp_head. This allows easy extension GTM Kit and implementation of a CSP (Content Security Policy).
-
-#### Bugfixes:
-
-* The product ID Prefix was not added when a product variation was selected.
-* Tax was not added on the total on the add_shipping_info and add_payment_info events.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
