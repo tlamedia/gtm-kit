@@ -277,6 +277,7 @@ function gtmkitLoad() {
 
 		if (!itemData) return true;
 
+		window[datalayerName].push({ ecommerce: null });
 		window[datalayerName].push({
 			event: 'remove_from_cart',
 			ecommerce: {
@@ -321,6 +322,7 @@ function gtmkitLoad() {
 
 		if (!itemData) return true;
 
+		window[datalayerName].push({ ecommerce: null });
 		window[datalayerName].push({
 			event: 'select_item',
 			ecommerce: {
