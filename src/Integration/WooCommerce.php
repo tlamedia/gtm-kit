@@ -519,6 +519,36 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value = $order->get_total();
 		}
 
+		$data_layer = $this->get_purchase_event( $order, $data_layer );
+
+		$data_layer['ecommerce']['items'] = $this->get_order_items( $order );
+
+		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
+			$data_layer = $this->include_customer_data( $data_layer, $order_value );
+		}
+
+		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
+		$order->save();
+
+		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
+	}
+
+	/**
+	 * Get the purchase event for the data layer
+	 *
+	 * @param WC_Order $order The order.
+	 * @param array    $data_layer The datalayer content.
+	 *
+	 * @return array The datalayer content.
+	 */
+	public function get_purchase_event( WC_Order $order, array $data_layer = [] ): array {
+
+		if ( $this->options->get( 'integrations', 'woocommerce_exclude_tax' ) ) {
+			$order_value = $order->get_total() - $order->get_total_tax();
+		} else {
+			$order_value = $order->get_total();
+		}
+
 		$shipping_total = $order->get_shipping_total();
 		if ( $this->options->get( 'integrations', 'woocommerce_exclude_shipping' ) ) {
 			$order_value -= $shipping_total;
@@ -541,14 +571,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$data_layer['ecommerce']['items'] = $this->get_order_items( $order );
 
-		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
-			$data_layer = $this->include_customer_data( $data_layer, $order_value );
-		}
-
-		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
-		$order->save();
-
-		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
+		return $data_layer;
 	}
 
 	/**
