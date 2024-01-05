@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.18
+Stable tag: 1.18.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,19 +88,17 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.18.1 =
 
-Release date: 2024-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-18/).
-
-#### Enhancements:
+Release date: 2024-01-08
 
 #### Bugfixes:
 * Added missing flush of the ecommerce object on the select_item event.
+* 1.17 introduced a bug that caused item brand to be limited to a product attribute.
 
 #### Other:
 * Tested up to WooCommerce 8.5.
+* Minor refactoring.
 
 = 1.18 =
 
