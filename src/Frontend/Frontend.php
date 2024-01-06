@@ -74,14 +74,23 @@ final class Frontend {
 	 * The inline script for settings and data use by other GTM Kit scripts.
 	 */
 	public function enqueue_settings_and_data_script(): void {
-		$settings = [
-			'datalayer_name' => $this->datalayer_name,
-			'console_log'    => $this->options->get( 'general', 'console_log' ),
-		];
+		$settings = wp_cache_get( 'gtmkit_script_settings', 'gtmkit' );
+		if ( ! $settings ) {
+
+			$settings = apply_filters(
+				'gtmkit_header_script_settings',
+				[
+					'datalayer_name' => $this->datalayer_name,
+					'console_log'    => $this->options->get( 'general', 'console_log' ),
+				]
+			);
+
+			wp_cache_set( 'gtmkit_script_settings', $settings, 'gtmkit' );
+		}
 
 		ob_start();
 		?>
-		window.gtmkit_settings = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_settings', $settings ), JSON_FORCE_OBJECT ); ?>;
+		window.gtmkit_settings = <?php echo wp_json_encode( $settings, JSON_FORCE_OBJECT ); ?>;
 		window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
 		<?php if ( $this->options->get( 'general', 'gcm_default_settings' ) ) : ?>

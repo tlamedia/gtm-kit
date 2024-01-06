@@ -248,6 +248,7 @@ final class Options {
 
 		// Now we need to re-cache values.
 		wp_cache_delete( self::OPTION_NAME, 'options' );
+		wp_cache_delete( 'gtmkit_script_settings', 'gtmkit' );
 		$this->options = get_option( self::OPTION_NAME, [] );
 	}
 

@@ -39,6 +39,10 @@ abstract class AbstractOptionsPage {
 		add_action( 'admin_enqueue_scripts', [ $page, 'enqueue_page_assets' ] );
 
 		add_filter( 'admin_body_class', [ $page, 'admin_body_class' ] );
+
+		add_action( 'activated_plugin', [ $page, 'clear_script_settings_cache' ] );
+		add_action( 'deactivated_plugin', [ $page, 'clear_script_settings_cache' ] );
+		add_action( 'switch_theme', [ $page, 'clear_script_settings_cache' ] );
 	}
 
 	/**
@@ -244,5 +248,14 @@ abstract class AbstractOptionsPage {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Clear the script settings cache.
+	 *
+	 * @return void
+	 */
+	public function clear_script_settings_cache(): void {
+		wp_cache_delete( 'gtmkit_script_settings', 'gtmkit' );
 	}
 }
