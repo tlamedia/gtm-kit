@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-19/).
 
 #### Enhancements:
+* The script settings are the same on all pages and are now cached in the object cache for better performance.
 
 #### Bugfixes:
 
