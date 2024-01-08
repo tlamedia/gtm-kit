@@ -143,9 +143,31 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 		return $category_hierarchy; }
 
 	/**
+	 * Get product term value.
+	 *
+	 * @param int    $product_id A product ID.
+	 * @param string $taxonomy The taxonomy slug.
+	 *
+	 * @return string Returns the first assigned taxonomy value.
+	 */
+	public function get_product_term( int $product_id, string $taxonomy ): string {
+
+		$product_terms = wp_get_post_terms(
+			$product_id,
+			$taxonomy,
+			[
+				'orderby' => 'parent',
+				'order'   => 'ASC',
+			]
+		);
+
+		return ( is_array( $product_terms ) && count( $product_terms ) ) ? $product_terms[0]->name : '';
+	}
+
+	/**
 	 * Prefix an item ID
 	 *
-	 * @param string $item_id Tje item ID.
+	 * @param string $item_id The item ID.
 	 *
 	 * @return string
 	 */

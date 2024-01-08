@@ -680,7 +680,7 @@ final class WooCommerce extends AbstractEcommerce {
 		];
 
 		if ( $this->options->get( 'integrations', 'woocommerce_brand' ) ) {
-			$item_data['item_brand'] = $product->get_attribute( $this->options->get( 'integrations', 'woocommerce_brand' ) );
+			$item_data['item_brand'] = $this->get_product_term( $product_id_to_query, $this->options->get( 'integrations', 'woocommerce_brand' ) );
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_google_business_vertical' ) ) {
