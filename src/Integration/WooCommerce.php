@@ -600,7 +600,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array The datalayer content
 	 */
-	private function get_pages_property( array $data_layer ): array {
+	public function get_pages_property( array $data_layer ): array {
 		$data_layer['pages'] = [
 			'cart'          => str_replace( \home_url(), '', \wc_get_cart_url() ),
 			'checkout'      => str_replace( \home_url(), '', \wc_get_checkout_url() ),

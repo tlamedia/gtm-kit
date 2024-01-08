@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Common;
 
+use TLA_Media\GTM_Kit\Integration\WooCommerce;
+
 /**
  * Class for common utilities.
  */
@@ -53,14 +55,14 @@ final class Util {
 		foreach ( $plugins as $plugin => $key ) {
 			$data = $this->add_active_plugin_and_version( $plugin, $key, $data );
 		}
-
 		$data['locale'] = explode( '_', get_locale() )[0];
 		if ( $anonymize ) {
 			$data = $this->add_shared_data( $data, $wp_version );
 		} else {
-			$data['support_data'] = [
-				'site_url' => site_url(),
-			];
+			$data['support_data']['site_url'] = site_url();
+			if ( function_exists( 'WC' ) ) {
+				$data['support_data']['pages'] = WooCommerce::instance()->get_pages_property( [] )['pages'];
+			}
 		}
 
 		return $data;
