@@ -1,4 +1,4 @@
-=== GTM Kit - Google Tag Manager integration ===
+=== GTM Kit - Google Tag Manager & GA4 integration ===
 Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
@@ -7,7 +7,7 @@ Stable tag: 1.18.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Flexible tool for generating the data layer for Google Tag Manager. Including WooCommerce data for Google Analytics 4 and support for server side GTM.
+Flexible tool for generating the data layer for Google Tag Manager and GA4. Including WooCommerce data for Google Analytics 4 and support for server side GTM.
 
 == Description ==
 
