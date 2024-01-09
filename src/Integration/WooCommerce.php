@@ -255,6 +255,13 @@ final class WooCommerce extends AbstractEcommerce {
 			'shipping-tier-not-found'        => __( 'Shipping tier not found', 'gtm-kit' ),
 			'payment-method-not-found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
+		$global_settings['wc']['css_selectors']               = [
+			'singe_product_wishlist'   => '.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list,.disabled-add-wishlist)',
+			'product_list_select_item' => '.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' .
+										'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' .
+										'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist,.tinvwl_add_to_wishlist_button)',
+			'product_list_wishlist'    => '.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list)',
+		];
 
 		return $global_settings;
 	}
