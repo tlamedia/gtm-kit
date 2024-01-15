@@ -83,7 +83,7 @@ final class Util {
 		$data['web_server']        = $this->get_web_server();
 		$data['php_version']       = $this->shorten_version( phpversion() );
 		$data['wordpress_version'] = $this->shorten_version( $wp_version );
-		$data['current_theme']     = \wp_get_theme()->get( 'Name' );
+		$data['current_theme']     = ( wp_get_theme()->get( 'Template' ) ) ? ucfirst( wp_get_theme()->get( 'Template' ) ) : \wp_get_theme()->get( 'Name' );
 		$data['active_plugins']    = $this->get_active_plugins();
 		$data['multisite']         = \is_multisite();
 
@@ -122,7 +122,7 @@ final class Util {
 			],
 			5 => [
 				'label' => __( 'Current theme:', 'gtm-kit' ),
-				'value' => \wp_get_theme()->get( 'Name' ),
+				'value' => ( wp_get_theme()->get( 'Template' ) ) ? ucfirst( wp_get_theme()->get( 'Template' ) ) : \wp_get_theme()->get( 'Name' ),
 				'tag'   => 'code',
 			],
 			6 => [
