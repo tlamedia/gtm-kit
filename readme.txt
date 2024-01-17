@@ -168,34 +168,5 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Other:
 * Refactoring code for simplicity and maintainability
 
-= 1.16.2 =
-
-Release date: 2023-11-15
-
-#### Bugfixes:
-
-* Fix critical JS bug.
-
-= 1.16 =
-
-Release date: 2023-11-15
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-16/).
-
-#### Enhancements:
-
-* Add option to include customer data from Easy Digital Downloads on the purchase event.
-* Added the filter 'gtmkit_datalayer_script', which allows you to filter the datalayer script.
-* Added the constant 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE', which allows users of Easy Digital Downloads to force tracking of purchase event on every page refresh for debugging.
-
-#### Bugfixes:
-
-* Billing state and shipping stat was not included in the customer data on the 'purchase' event.
-
-#### Other:
-
-* Tested up to WordPress 6.4
-* Tested up to WooCommerce 8.3
-
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
