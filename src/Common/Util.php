@@ -22,12 +22,30 @@ final class Util {
 	public $rest_api_server;
 
 	/**
+	 * Asset path
+	 *
+	 * @var string
+	 */
+	public $asset_path;
+
+	/**
+	 * Asset URL
+	 *
+	 * @var string
+	 */
+	public $asset_url;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param RestAPIServer $rest_api_server Instance of RestAPIServer.
+	 * @param string        $path The plugin path.
+	 * @param string        $url The plugin URL.
 	 */
-	public function __construct( RestAPIServer $rest_api_server ) {
+	public function __construct( RestAPIServer $rest_api_server, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
 		$this->rest_api_server = $rest_api_server;
+		$this->asset_path      = $path . 'assets/';
+		$this->asset_url       = $url . 'assets/';
 	}
 
 	/**
@@ -267,7 +285,7 @@ final class Util {
 		$ver = $this->get_plugin_version();
 
 		if ( $has_asset_file ) {
-			$file = GTMKIT_PATH . 'assets/' . substr_replace( $script, '.asset.php', - strlen( '.js' ) );
+			$file = $this->asset_path . substr_replace( $script, '.asset.php', - strlen( '.js' ) );
 			if ( file_exists( $file ) ) {
 				$deps_file = require $file;
 				$deps      = $deps_file['dependencies'];
@@ -278,6 +296,6 @@ final class Util {
 		$deps[] = 'gtmkit';
 		$deps[] = 'gtmkit-container';
 
-		\wp_enqueue_script( $handle, GTMKIT_URL . 'assets/' . $script, $deps, $ver, $args );
+		\wp_enqueue_script( $handle, $this->asset_url . $script, $deps, $ver, $args );
 	}
 }
