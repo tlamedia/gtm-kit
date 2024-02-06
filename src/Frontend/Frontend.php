@@ -59,6 +59,10 @@ final class Frontend {
 			add_action( 'wp_head', [ $page, 'container_disabled' ] );
 		}
 
+		if ( $options->get( 'general', 'load_js_event' ) ) {
+			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_delay_js_script' ] );
+		}
+
 		if ( $noscript_implementation === '0' && $container_active ) {
 			add_action( 'wp_body_open', [ $page, 'get_body_script' ] );
 		} elseif ( $noscript_implementation === '1' && $container_active ) {
@@ -177,6 +181,18 @@ final class Frontend {
 	}
 
 	/**
+	 * This script fires the 'delay_js' event in Google Tag Manager
+	 */
+	public function enqueue_delay_js_script(): void {
+
+		$script = esc_attr( $this->datalayer_name ) . '.push({"event" : "load_delayed_js"});' . "\n";
+
+		wp_register_script( 'gtmkit-delay', '', [ 'gtmkit-container' ], GTMKIT_VERSION, [ 'strategy' => 'defer' ] );
+		wp_enqueue_script( 'gtmkit-delay' );
+		wp_add_inline_script( 'gtmkit-delay', $script, 'before' );
+	}
+
+	/**
 	 * Get GTM script
 	 *
 	 * @param string $gtm_id The GTM container ID.
@@ -212,6 +228,11 @@ final class Frontend {
 	 */
 	public function set_inline_script_attributes( array $attributes, string $script ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( isset( $attributes['id'] ) && strpos( $attributes['id'], 'gtmkit-' ) === 0 ) {
+
+			if ( strpos( $attributes['id'], 'gtmkit-delay' ) === 0 ) {
+				return $attributes;
+			}
+
 			$script_attributes = apply_filters(
 				'gtmkit_header_script_attributes',
 				[
