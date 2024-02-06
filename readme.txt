@@ -96,6 +96,8 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Enhancements:
 * The script settings are the same on all pages and are now cached in the object cache for better performance.
+* The function to share system data with the support team has been improved with more data.
+* The code has been refactored for extendability.
 
 #### Bugfixes:
 
