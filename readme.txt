@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-19/).
 
 #### Enhancements:
+* Add option to fire a 'load_delayed_js' event, which can be used to delay JavaScript execution in Google Tag Manager.
 * This release comes with many behind-the-scenes improvements and general enhancements.
 * The script settings are the same on all pages and are now cached in the object cache for better performance.
 * The function to share system data with the support team has been improved with more data.
