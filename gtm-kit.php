@@ -6,8 +6,8 @@
  * Version:     1.19
  * Plugin URI:  https://gtmkit.com/
  * Description: Google Tag Manager implementation focusing on flexibility and pagespeed.
- * Author:      TLA Media
- * Author URI:  https://www.tlamedia.dk/
+ * Author:      GTM Kit
+ * Author URI:  https://gtmkit.com/
  * Text Domain: gtm-kit
  * Domain Path: /languages/
  * License:     GPLv3
