@@ -1,5 +1,5 @@
 === GTM Kit - Google Tag Manager & GA4 integration ===
-Contributors: tlamedia, torbenlundsgaard
+Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
