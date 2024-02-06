@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4, gtag, easy digital downloads
 Tested up to: 6.4
-Stable tag: 1.18.1
+Stable tag: 1.19
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,9 +88,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.19 =
 
-Release date: 2024-MM-DD
+Release date: 2024-02-07
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-19/).
 
@@ -100,10 +100,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * The script settings are the same on all pages and are now cached in the object cache for better performance.
 * The function to share system data with the support team has been improved with more data.
 * The code has been refactored for extendability.
-
-#### Bugfixes:
-
-#### Other:
 
 = 1.18.1 =
 
