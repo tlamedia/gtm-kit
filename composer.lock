@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c0624485396747f5c239847a49acef8",
+    "content-hash": "1d37675fd2b9f0df210a9ae282e04f46",
     "packages": [],
     "packages-dev": [
         {
@@ -87,16 +87,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v8.5.2",
+            "version": "v8.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "fa776b4def33f38a28d3dbdfe6252c05a7152244"
+                "reference": "3f044ac7faeba21dc914d4bb5152a817cdd3a058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/fa776b4def33f38a28d3dbdfe6252c05a7152244",
-                "reference": "fa776b4def33f38a28d3dbdfe6252c05a7152244",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/3f044ac7faeba21dc914d4bb5152a817cdd3a058",
+                "reference": "3f044ac7faeba21dc914d4bb5152a817cdd3a058",
                 "shasum": ""
             },
             "require": {
@@ -125,22 +125,22 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.5.2"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.6.0"
             },
-            "time": "2024-01-25T20:00:44+00:00"
+            "time": "2024-02-15T20:29:40+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.4.1",
+            "version": "v6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "6d6063cf9464a306ca2a0529705d41312b08500b"
+                "reference": "6105bdab2f26c0204fe90ecc53d5684754550e8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/6d6063cf9464a306ca2a0529705d41312b08500b",
-                "reference": "6d6063cf9464a306ca2a0529705d41312b08500b",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/6105bdab2f26c0204fe90ecc53d5684754550e8f",
+                "reference": "6105bdab2f26c0204fe90ecc53d5684754550e8f",
                 "shasum": ""
             },
             "require-dev": {
@@ -149,9 +149,9 @@
                 "php": "^7.4 || ~8.0.0",
                 "php-stubs/generator": "^0.8.3",
                 "phpdocumentor/reflection-docblock": "^5.3",
-                "phpstan/phpstan": "^1.10.12",
+                "phpstan/phpstan": "^1.10.49",
                 "phpunit/phpunit": "^9.5",
-                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.8"
+                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.11"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -172,9 +172,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.4.1"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.4.3"
             },
-            "time": "2023-11-10T00:33:47+00:00"
+            "time": "2024-02-11T18:56:19+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -562,16 +562,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.57",
+            "version": "1.10.58",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e"
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1627b1d03446904aaa77593f370c5201d2ecc34e",
-                "reference": "1627b1d03446904aaa77593f370c5201d2ecc34e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a23518379ec4defd9e47cbf81019526861623ec2",
+                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
                 "shasum": ""
             },
             "require": {
@@ -620,7 +620,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-24T11:51:34+00:00"
+            "time": "2024-02-12T20:02:57+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
