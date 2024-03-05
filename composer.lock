@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d37675fd2b9f0df210a9ae282e04f46",
+    "content-hash": "bb3509873ed64e8e3afdf97ff21d7526",
     "packages": [],
     "packages-dev": [
         {
@@ -87,16 +87,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v8.6.0",
+            "version": "v8.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "3f044ac7faeba21dc914d4bb5152a817cdd3a058"
+                "reference": "ba95d7c652646aac136b6131fcc64008a2b917e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/3f044ac7faeba21dc914d4bb5152a817cdd3a058",
-                "reference": "3f044ac7faeba21dc914d4bb5152a817cdd3a058",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/ba95d7c652646aac136b6131fcc64008a2b917e6",
+                "reference": "ba95d7c652646aac136b6131fcc64008a2b917e6",
                 "shasum": ""
             },
             "require": {
@@ -125,9 +125,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.6.0"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.6.1"
             },
-            "time": "2024-02-15T20:29:40+00:00"
+            "time": "2024-02-20T17:47:00+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -562,16 +562,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.58",
+            "version": "1.10.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2"
+                "reference": "e607609388d3a6d418a50a49f7940e8086798281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a23518379ec4defd9e47cbf81019526861623ec2",
-                "reference": "a23518379ec4defd9e47cbf81019526861623ec2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e607609388d3a6d418a50a49f7940e8086798281",
+                "reference": "e607609388d3a6d418a50a49f7940e8086798281",
                 "shasum": ""
             },
             "require": {
@@ -620,7 +620,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-12T20:02:57+00:00"
+            "time": "2024-02-20T13:59:13+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -672,16 +672,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.8.1",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7"
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/14f5fff1e64118595db5408e946f3a22c75807f7",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
                 "shasum": ""
             },
             "require": {
@@ -748,7 +748,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-01-11T20:47:48+00:00"
+            "time": "2024-02-16T15:06:51+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -828,22 +828,22 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v1.3.2",
+            "version": "v1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "b8516ed6bab7ec50aae981698ce3f67f1be2e45a"
+                "reference": "f7ff091331bc00c5688fe4ce0c4d51d06fa61553"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/b8516ed6bab7ec50aae981698ce3f67f1be2e45a",
-                "reference": "b8516ed6bab7ec50aae981698ce3f67f1be2e45a",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/f7ff091331bc00c5688fe4ce0c4d51d06fa61553",
+                "reference": "f7ff091331bc00c5688fe4ce0c4d51d06fa61553",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
                 "php-stubs/wordpress-stubs": "^4.7 || ^5.0 || ^6.0",
-                "phpstan/phpstan": "^1.10.30",
+                "phpstan/phpstan": "^1.10.31",
                 "symfony/polyfill-php73": "^1.12.0"
             },
             "require-dev": {
@@ -884,9 +884,9 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.2"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.3"
             },
-            "time": "2023-10-16T17:23:56+00:00"
+            "time": "2024-02-26T13:55:50+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
