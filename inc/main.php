@@ -96,7 +96,7 @@ function gtmkit_load_text_domain(): void {
 function gtmkit_frontend_init(): void {
 	$options         = new Options();
 	$rest_api_server = new RestAPIServer();
-	$util            = new Util( $rest_api_server );
+	$util            = new Util( $options, $rest_api_server );
 
 	( new AdminAPI( $options, $util ) )->rest_init();
 
@@ -140,7 +140,7 @@ function gtmkit_admin_init(): void {
 
 	$options         = new Options();
 	$rest_api_server = new RestAPIServer();
-	$util            = new Util( $rest_api_server );
+	$util            = new Util( $options, $rest_api_server );
 
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
