@@ -97,6 +97,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Enhancements:
 
 #### Bugfixes:
+* Scripts were not enqueued if the container was inactive.
 
 #### Other:
 * Tested up to WooCommerce 8.7.

@@ -30,7 +30,7 @@ final class ContactForm7 extends AbstractIntegration {
 		if ( is_null( self::$instance ) ) {
 			$options         = new Options();
 			$rest_api_server = new RestAPIServer();
-			$util            = new Util( $rest_api_server );
+			$util            = new Util( $options, $rest_api_server );
 			self::$instance  = new self( $options, $util );
 		}
 

@@ -8,11 +8,19 @@
 namespace TLA_Media\GTM_Kit\Common;
 
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
+use TLA_Media\GTM_Kit\Options;
 
 /**
  * Class for common utilities.
  */
 final class Util {
+
+	/**
+	 * Instance of Options
+	 *
+	 * @var Options
+	 */
+	public $options;
 
 	/**
 	 * Instance of RestAPIServer
@@ -38,11 +46,13 @@ final class Util {
 	/**
 	 * Constructor.
 	 *
+	 * @param Options       $options Instance of Options.
 	 * @param RestAPIServer $rest_api_server Instance of RestAPIServer.
 	 * @param string        $path The plugin path.
 	 * @param string        $url The plugin URL.
 	 */
-	public function __construct( RestAPIServer $rest_api_server, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
+	public function __construct( Options $options, RestAPIServer $rest_api_server, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
+		$this->options         = $options;
 		$this->rest_api_server = $rest_api_server;
 		$this->asset_path      = $path . 'assets/';
 		$this->asset_url       = $url . 'assets/';
@@ -294,7 +304,12 @@ final class Util {
 		}
 
 		$deps[] = 'gtmkit';
-		$deps[] = 'gtmkit-container';
+
+		$container_active = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
+
+		if ( $container_active ) {
+			$deps[] = 'gtmkit-container';
+		}
 
 		\wp_enqueue_script( $handle, $this->asset_url . $script, $deps, $ver, $args );
 	}
