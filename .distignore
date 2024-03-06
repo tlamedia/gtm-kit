@@ -12,6 +12,8 @@ composer.json
 composer.lock
 package.json
 package-lock.json
+phpcs.xml.dist
+phpstan.neon.dist
 postcss.config.js
 README.md
 tailwind.config.js
