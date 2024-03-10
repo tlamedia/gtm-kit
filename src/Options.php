@@ -81,7 +81,10 @@ final class Options {
 			],
 		],
 		'premium'      => [
-			'addon_installed' => 0,
+			'addon_installed' => [
+				'default' => true,
+				'type'    => 'boolean',
+			],
 		],
 	];
 
@@ -287,10 +290,6 @@ final class Options {
 						}
 				}
 			}
-		}
-
-		if ( ! isset( $options['integrations'] ) ) {
-			$options['integrations'] = [];
 		}
 
 		return $options;
