@@ -58,6 +58,10 @@ final class Options {
 				'default'  => '',
 				'constant' => 'GTMKIT_PREVIEW',
 			],
+			'datalayer_page_type'     => [
+				'default' => true,
+				'type'    => 'boolean',
+			],
 		],
 		'integrations' => [
 			'woocommerce_shipping_info'             => [ 'default' => 1 ],
@@ -75,6 +79,9 @@ final class Options {
 				'constant' => 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE',
 				'type'     => 'boolean',
 			],
+		],
+		'premium'      => [
+			'addon_installed' => 0,
 		],
 	];
 
@@ -127,6 +134,22 @@ final class Options {
 	public static function get_defaults(): array {
 
 		$map = self::$map;
+
+		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+			$map['integrations']['woocommerce_integration'] = [
+				'default' => true,
+			];
+		}
+		if ( \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+			$map['integrations']['cf7_integration'] = [
+				'default' => true,
+			];
+		}
+		if ( ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ) ) {
+			$map['integrations']['edd_integration'] = [
+				'default' => true,
+			];
+		}
 
 		return $map;
 	}
