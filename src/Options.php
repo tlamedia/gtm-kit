@@ -122,23 +122,11 @@ final class Options {
 	/**
 	 * The default options.
 	 *
-	 * @param bool $flat Flattens the default settings for first install.
-	 *
 	 * @return array
 	 */
-	public static function get_defaults( bool $flat = false ): array {
+	public static function get_defaults(): array {
 
 		$map = self::$map;
-
-		if ( $flat === true ) {
-			$defaults = [];
-			foreach ( $map as $group => $settings ) {
-				foreach ( $settings as $key => $option ) {
-					$defaults[ $group ][ $key ] = $option['default'];
-				}
-			}
-			return $defaults;
-		}
 
 		return $map;
 	}
