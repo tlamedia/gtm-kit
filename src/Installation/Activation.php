@@ -41,7 +41,15 @@ final class Activation {
 		\add_option( 'gtmkit_initial_version', GTMKIT_VERSION, '', false );
 		\update_option( 'gtmkit_version', GTMKIT_VERSION, false );
 
-		Options::init()->set( Options::get_defaults( true ), true );
+		$map      = Options::get_defaults();
+		$defaults = [];
+		foreach ( $map as $group => $settings ) {
+			foreach ( $settings as $key => $option ) {
+				$defaults[ $group ][ $key ] = $option['default'];
+			}
+		}
+
+		Options::init()->set( $defaults, true );
 
 		// Add transient to trigger redirect to the Setup Wizard.
 		\set_transient( 'gtmkit_activation_redirect', true, 30 );
