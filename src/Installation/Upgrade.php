@@ -42,6 +42,7 @@ final class Upgrade {
 			'1.11' => 'v111_upgrade',
 			'1.14' => 'v114_upgrade',
 			'1.15' => 'v115_upgrade',
+			'1.20' => 'v120_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
