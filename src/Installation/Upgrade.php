@@ -123,4 +123,18 @@ final class Upgrade {
 
 		Options::init()->set( $values, false, false );
 	}
+
+	/**
+	 * Upgrade routine for v1.20
+	 */
+	protected function v120_upgrade(): void {
+
+		$values = [
+			'premium' => [
+				'addon_installed' => 0,
+			],
+		];
+
+		Options::init()->set( $values, false, false );
+	}
 }
