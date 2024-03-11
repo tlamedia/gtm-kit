@@ -52,8 +52,11 @@ final class Activation {
 		Options::init()->set( $defaults, true );
 
 		// Add transient to trigger redirect to the Setup Wizard.
-		\set_transient( 'gtmkit_activation_redirect', true, 30 );
-		\set_transient( 'gtmkit_first_install', true, 30 );
+		if ( ! defined( 'GTMKIT_WOO_FILE' ) ) {
+			\set_transient( 'gtmkit_activation_redirect', true, 30 );
+		}
+		\set_transient( 'gtmkit_first_install', true, 300 );
+		add_action( 'admin_notices', [ $this, 'show_activation_notice' ] );
 	}
 
 	/**
