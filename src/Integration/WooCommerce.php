@@ -8,6 +8,7 @@
 
 namespace TLA_Media\GTM_Kit\Integration;
 
+use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore;
 use Automattic\WooCommerce\StoreApi\StoreApi;
 use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
@@ -561,14 +562,15 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
-		$data_layer['event']     = 'purchase';
-		$data_layer['ecommerce'] = [
+		$data_layer['event']        = 'purchase';
+		$data_layer['ecommerce']    = [
 			'transaction_id' => (string) $order->get_order_number(),
 			'value'          => (float) $order_value,
 			'tax'            => (float) $order->get_total_tax(),
 			'shipping'       => (float) $shipping_total,
 			'currency'       => $order->get_currency(),
 		];
+		$data_layer['new_customer'] = ! DataStore::is_returning_customer( $order );
 
 		$coupons = $order->get_coupon_codes();
 
