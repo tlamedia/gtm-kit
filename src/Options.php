@@ -50,6 +50,11 @@ final class Options {
 				'constant' => 'GTMKIT_CONSOLE_LOG',
 				'type'     => 'boolean',
 			],
+			'debug_log'               => [
+				'default'  => false,
+				'constant' => 'GTMKIT_DEBUG_LOG',
+				'type'     => 'boolean',
+			],
 			'gtm_auth'                => [
 				'default'  => '',
 				'constant' => 'GTMKIT_AUTH',
