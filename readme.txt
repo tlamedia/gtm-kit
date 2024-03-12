@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-20/).
 
 #### Enhancements:
+* Added support for the 'new_customer' parameter on the 'purchase' event, which is used for customer acquisition reporting and Google Smart Shopping campaigns.
 * Added a debug log for debugging the 'purchase' event without make a purchase.
 
 #### Bugfixes:
