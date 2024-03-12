@@ -320,6 +320,11 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 
 		edd_add_order_meta( $order_id, 'gtmkit_order_tracked', 1 );
 
+		if ( $this->options->get( 'general', 'debug_log' ) ) {
+			error_log( 'GTM Kit: purchase event datalayer' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+			error_log( print_r( $data_layer, 1 ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+		}
+
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
 	}
 

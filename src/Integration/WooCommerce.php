@@ -578,6 +578,11 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$data_layer['ecommerce']['items'] = $this->get_order_items( $order );
 
+		if ( $this->options->get( 'general', 'debug_log' ) ) {
+			$logger = wc_get_logger();
+			$logger->info( wc_print_r( $data_layer, true ), array( 'source' => 'gtmkit-purchase' ) );
+		}
+
 		return $data_layer;
 	}
 
