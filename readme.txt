@@ -2,7 +2,7 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.19.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -109,6 +109,7 @@ Release date: 2024-03-05
 * Scripts were not enqueued if the container was inactive.
 
 #### Other:
+* Tested up to WordPress 6.5.
 * Tested up to WooCommerce 8.7.
 
 = 1.19 =
