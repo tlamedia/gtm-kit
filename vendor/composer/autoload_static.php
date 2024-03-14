@@ -30,6 +30,7 @@ class ComposerStaticInit3b585b55966a016a3d1b071eb261592a
         'TLA_Media\\GTM_Kit\\Admin\\IntegrationsOptionsPage' => __DIR__ . '/../..' . '/src/Admin/IntegrationsOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\MetaBox' => __DIR__ . '/../..' . '/src/Admin/MetaBox.php',
         'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => __DIR__ . '/../..' . '/src/Admin/SetupWizard.php',
+        'TLA_Media\\GTM_Kit\\Admin\\TemplatesOptionsPage' => __DIR__ . '/../..' . '/src/Admin/TemplatesOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => __DIR__ . '/../..' . '/src/Common/RestAPIServer.php',
         'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',

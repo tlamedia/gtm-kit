@@ -15,6 +15,7 @@ use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
+use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
@@ -147,6 +148,7 @@ function gtmkit_admin_init(): void {
 	SetupWizard::register();
 	GeneralOptionsPage::register();
 	IntegrationsOptionsPage::register();
+	TemplatesOptionsPage::register();
 	HelpOptionsPage::register();
 
 	do_action( 'gtmkit_admin_init', $options, $util );
