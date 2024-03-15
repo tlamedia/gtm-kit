@@ -23,16 +23,38 @@ abstract class AbstractOptionsPage {
 	protected $option_name = 'gtmkit';
 
 	/**
-	 * Constructor.
+	 * Plugin options.
+	 *
+	 * @var Options
 	 */
-	final public function __construct() {
+	protected $options;
+
+	/**
+	 * Utilities
+	 *
+	 * @var Util
+	 */
+	protected $util;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
+	 */
+	final public function __construct( Options $options, Util $util ) {
+		$this->options = $options;
+		$this->util    = $util;
 	}
 
 	/**
-	 * Register the options page.
+	 * Register frontend
+	 *
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
 	 */
-	public static function register(): void {
-		$page = new static();
+	public static function register( Options $options, Util $util ): void {
+		$page = new static( $options, $util );
 
 		add_action( 'admin_init', [ $page, 'configure' ] );
 		add_action( 'admin_menu', [ $page, 'add_admin_page' ] );

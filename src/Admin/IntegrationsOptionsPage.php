@@ -117,6 +117,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 					'edd'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
 				],
 				'taxonomyOptions'  => $taxonomy_options,
+				'settings'         => $this->options->get_all_raw(),
 			]
 		);
 	}

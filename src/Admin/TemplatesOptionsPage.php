@@ -92,6 +92,7 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'templatesUrl'    => \menu_page_url( 'gtmkit_templates', false ),
+				'settings'        => $this->options->get_all_raw(),
 			]
 		);
 	}
