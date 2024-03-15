@@ -25,10 +25,38 @@ final class SetupWizard {
 	const SLUG = 'gtmkit_setup_wizard';
 
 	/**
-	 * Register the setup wizard.
+	 * Plugin options.
+	 *
+	 * @var Options
 	 */
-	public static function register(): void {
-		$page = new SetupWizard();
+	protected $options;
+
+	/**
+	 * Utilities
+	 *
+	 * @var Util
+	 */
+	protected $util;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
+	 */
+	public function __construct( Options $options, Util $util ) {
+		$this->options = $options;
+		$this->util    = $util;
+	}
+
+	/**
+	 * Register frontend
+	 *
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
+	 */
+	public static function register( Options $options, Util $util ): void {
+		$page = new SetupWizard( $options, $util );
 
 		add_action( 'admin_init', [ $page, 'maybe_redirect_after_activation' ], 9999 );
 		add_action( 'admin_menu', [ $page, 'add_dashboard_page' ], 20 );
@@ -117,6 +145,9 @@ final class SetupWizard {
 				'root'         => esc_url_raw( rest_url() ),
 				'nonce'        => wp_create_nonce( 'wp_rest' ),
 				'dashboardUrl' => menu_page_url( 'gtmkit_general', false ),
+				'settings'     => $this->options->get_all_raw(),
+				'site_data'    => $this->util->get_site_data( $this->options->get_all_raw() ),
+				'install_data' => ( new PluginDataImport() )->get_all(),
 			]
 		);
 	}

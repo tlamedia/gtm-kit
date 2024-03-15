@@ -98,6 +98,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Added a new section for GTM templates that you can use to configure the necessary Tags, Triggers and Variables in Google Tag Manager.
 * Added support for the 'new_customer' parameter on the 'purchase' event, which is used for customer acquisition reporting and Google Smart Shopping campaigns.
 * Added a debug log for debugging the 'purchase' event without make a purchase.
+* Improved the pagespeed of the control panel. The control panel is now loading significantly faster than before.
 
 #### Bugfixes:
 

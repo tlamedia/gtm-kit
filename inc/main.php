@@ -145,11 +145,11 @@ function gtmkit_admin_init(): void {
 
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
-	SetupWizard::register();
-	GeneralOptionsPage::register();
-	IntegrationsOptionsPage::register();
-	TemplatesOptionsPage::register();
-	HelpOptionsPage::register();
+	SetupWizard::register( $options, $util );
+	GeneralOptionsPage::register( $options, $util );
+	IntegrationsOptionsPage::register( $options, $util );
+	TemplatesOptionsPage::register( $options, $util );
+	HelpOptionsPage::register( $options, $util );
 
 	do_action( 'gtmkit_admin_init', $options, $util );
 }

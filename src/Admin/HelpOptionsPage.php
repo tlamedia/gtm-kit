@@ -91,6 +91,7 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 				'nonce'           => \wp_create_nonce( 'wp_rest' ),
 				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
+				'settings'        => $this->options->get_all_raw(),
 			]
 		);
 	}

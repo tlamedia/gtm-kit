@@ -59,34 +59,10 @@ final class AdminAPI {
 	 */
 	public function register_rest_routes(): void {
 		$this->util->rest_api_server->register_rest_route(
-			'/get-install-data',
-			[
-				'methods'  => 'GET',
-				'callback' => [ $this, 'get_install_data' ],
-			]
-		);
-
-		$this->util->rest_api_server->register_rest_route(
-			'/get-options',
-			[
-				'methods'  => 'GET',
-				'callback' => [ $this, 'get_options' ],
-			]
-		);
-
-		$this->util->rest_api_server->register_rest_route(
 			'/set-options',
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'set_options' ],
-			]
-		);
-
-		$this->util->rest_api_server->register_rest_route(
-			'/get-site-data',
-			[
-				'methods'  => 'GET',
-				'callback' => [ $this, 'get_site_data' ],
 			]
 		);
 
@@ -116,25 +92,6 @@ final class AdminAPI {
 	}
 
 	/**
-	 * Get install data
-	 *
-	 * @return void
-	 */
-	public function get_install_data(): void {
-		$other_plugin_settings = ( new PluginDataImport() )->get_all();
-		wp_send_json_success( $other_plugin_settings );
-	}
-
-	/**
-	 * Get options
-	 *
-	 * @return void
-	 */
-	public function get_options(): void {
-		wp_send_json_success( $this->options->get_all_raw() );
-	}
-
-	/**
 	 * Set options
 	 *
 	 * @return void
@@ -144,16 +101,6 @@ final class AdminAPI {
 		$this->options->set( $new_options );
 
 		wp_send_json_success( $this->options->get_all_raw() );
-	}
-
-	/**
-	 * Get site data
-	 *
-	 * @return void
-	 */
-	public function get_site_data(): void {
-		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
-		wp_send_json_success( $site_data );
 	}
 
 	/**
