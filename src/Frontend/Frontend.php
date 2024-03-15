@@ -187,7 +187,7 @@ final class Frontend {
 
 		$script = esc_attr( $this->datalayer_name ) . '.push({"event" : "load_delayed_js"});' . "\n";
 
-		wp_register_script( 'gtmkit-delay', '', [ 'gtmkit-container' ], GTMKIT_VERSION, [ 'strategy' => 'defer' ] );
+		wp_register_script( 'gtmkit-delay', '', [ 'gtmkit-container' ], GTMKIT_VERSION, [ 'in_footer' => true ] );
 		wp_enqueue_script( 'gtmkit-delay' );
 		wp_add_inline_script( 'gtmkit-delay', $script, 'before' );
 	}
