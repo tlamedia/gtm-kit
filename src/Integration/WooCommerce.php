@@ -511,6 +511,10 @@ final class WooCommerce extends AbstractEcommerce {
 			return $data_layer;
 		}
 
+		if ( apply_filters( 'gtmkit_datalayer_exit_order_received', false, $order ) ) {
+			return $data_layer;
+		}
+
 		if ( ( 1 === (int) $order->get_meta( '_gtmkit_order_tracked' ) ) ) {
 			if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'woocommerce_debug_track_purchase' ) ) ) {
 				return $data_layer;
