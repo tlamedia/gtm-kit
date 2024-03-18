@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.5
-Stable tag: 1.19.1
+Stable tag: 1.20
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,9 +88,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.20 =
 
-Release date: 2024-MM-DD
+Release date: 2024-03-19
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-20/).
 
@@ -99,8 +99,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Added support for the 'new_customer' parameter on the 'purchase' event, which is used for customer acquisition reporting and Google Smart Shopping campaigns.
 * Added a debug log for debugging the 'purchase' event without make a purchase.
 * Improved the pagespeed of the control panel. The control panel is now loading significantly faster than before.
-
-#### Bugfixes:
 
 #### Other:
 * Require WooCommerce 8.0.
@@ -155,46 +153,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 * When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.
 * On Single product pages a click on a quantity control would result in an undefined event.
-
-= 1.17.2 =
-
-Release date: 2023-12-13
-
-#### Bugfixes:
-* Fixes an edge case where the loop index was not defined in WooCommerce product categories.
-
-#### Other:
-* Tested up to WooCommerce 8.4
-
-= 1.17.1 =
-
-Release date: 2023-12-05
-
-#### Bugfixes:
-* Fix missing datalayer when using Google Consent Mode default settings.
-* Easy Digital Downloads assets where enqueued with wrong filename.
-
-= 1.17.0 =
-
-Release date: 2023-12-04
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-17/).
-
-#### Enhancements:
-* Added option to specify the Google Tag Manager environment.
-* Performance optimization through optimized database queries and general code improvements.
-* Added a filter to deactivate the container, so the container can be deactivated on specific pages.
-* Improved support of the 'add_to_wishlist' event. Themes and plugins just have to add the class 'add_to_wishlist' on the 'Add to wishlist' button.
-
-#### Bugfixes:
-* Add missing _sbp cookie in the cookie keeper.
-* The constant GTMKIT_EDD_DEBUG_TRACK_PURCHASE and GTMKIT_WC_DEBUG_TRACK_PURCHASE was not overriding correct.
-* Because of recent changes in WooCommerce clicks on grouped products in a product list would be treated as add_to_cart and not select_item.
-* Clicks on variation products and grouped products in product lists was treated as add_to_cart events and are now select_item events as they should be.
-* If a product ID prefix was used the 'add_to_cart' event did not work on grouped products.
-
-#### Other:
-* Refactoring code for simplicity and maintainability
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
