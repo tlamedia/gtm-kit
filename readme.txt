@@ -100,6 +100,9 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Added a debug log for debugging the 'purchase' event without make a purchase.
 * Improved the pagespeed of the control panel. The control panel is now loading significantly faster than before.
 
+#### Bugfixes:
+* Add missing 'currency' on the 'view_item' event.
+
 #### Other:
 * Require WooCommerce 8.0.
 
