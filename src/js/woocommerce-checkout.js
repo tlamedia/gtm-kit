@@ -205,6 +205,7 @@ function gtmkitPaymentEvent() {
 			currency: window.gtmkit_data.wc.currency,
 			value: window.gtmkit_data.wc.cart_value,
 			paymentType,
+			payment_type: paymentType,
 			items: window.gtmkit_data.wc.cart_items,
 		},
 	});
