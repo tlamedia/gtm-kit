@@ -379,6 +379,13 @@ function gtmkitLoad() {
 				},
 			});
 		}
+
+		if (window.gtmkit_settings.console_log === true) {
+			// eslint-disable-next-line no-console
+			console.log(`GTM Kit: selectedProductVariationData`);
+			// eslint-disable-next-line no-console
+			console.log(selectedProductVariationData);
+		}
 	});
 }
 
