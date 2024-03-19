@@ -11,7 +11,7 @@ export const pushEvent = (eventName, eventParams) => {
 		...eventParams,
 	});
 
-	if (window.gtmkit_settings.console_log === 'on')
+	if (window.gtmkit_settings.console_log === true)
 		// eslint-disable-next-line no-console
 		console.log(`Pushing event ${eventName}`);
 };
