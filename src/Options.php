@@ -141,6 +141,10 @@ final class Options {
 	 */
 	public static function get_defaults(): array {
 
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		$map = self::$map;
 
 		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
