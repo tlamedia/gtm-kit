@@ -377,8 +377,9 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['productType'] = $product->get_type();
 		$data_layer['event']       = 'view_item';
 		$data_layer['ecommerce']   = [
-			'items' => [ $item ],
-			'value' => (float) $item['price'],
+			'items'    => [ $item ],
+			'value'    => (float) $item['price'],
+			'currency' => $this->store_currency,
 		];
 
 		return $data_layer;
