@@ -161,3 +161,9 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
+
+
+== Upgrade Notice ==
+
+= 1.20 =
+The parameter 'paymentType' on the event 'add_payment_info' has been renamed to 'payment_type'.
