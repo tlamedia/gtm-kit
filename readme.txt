@@ -103,6 +103,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 * Add missing 'currency' on the 'view_item' event.
 * Add missing 'payment_type' on the 'add_payment_info' event.
+* On the 'add_shipping_info' and 'add_payment_info' events the items parameter was cast as an object instead of an array as it should be.
 
 #### Other:
 * Require WooCommerce 8.0.

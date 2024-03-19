@@ -169,6 +169,8 @@ function gtmkitShippingEvent() {
 		? shippingElement.value
 		: window.gtmkit_settings.wc.text['shipping-tier-not-found'];
 
+	const items = Object.values(window.gtmkit_data.wc.cart_items);
+
 	window[datalayerName].push({ ecommerce: null });
 	window[datalayerName].push({
 		event: 'add_shipping_info',
@@ -176,7 +178,7 @@ function gtmkitShippingEvent() {
 			currency: window.gtmkit_data.wc.currency,
 			value: window.gtmkit_data.wc.cart_value,
 			shippingTier,
-			items: window.gtmkit_data.wc.cart_items,
+			items: [items],
 		},
 	});
 
@@ -198,6 +200,8 @@ function gtmkitPaymentEvent() {
 		? paymentElement.value
 		: window.gtmkit_settings.wc.text['payment-method-not-found'];
 
+	const items = Object.values(window.gtmkit_data.wc.cart_items);
+
 	window[datalayerName].push({ ecommerce: null });
 	window[datalayerName].push({
 		event: 'add_payment_info',
@@ -206,7 +210,7 @@ function gtmkitPaymentEvent() {
 			value: window.gtmkit_data.wc.cart_value,
 			paymentType,
 			payment_type: paymentType,
-			items: window.gtmkit_data.wc.cart_items,
+			items: [items],
 		},
 	});
 
