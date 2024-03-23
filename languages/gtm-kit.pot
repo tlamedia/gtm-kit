@@ -478,7 +478,7 @@ msgid "load_js event"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Setting this to On will push the event 'load_js' om page load."
+msgid "Setting this to On will push the event 'load_js' on page load."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -502,7 +502,7 @@ msgid "Enter gtm_auth code"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Enter your gtm_auth code your GTM environment."
+msgid "Enter the gtm_auth code for your GTM environment."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -514,7 +514,7 @@ msgid "Enter gtm_preview code"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Enter your gtm_preview code your GTM environment."
+msgid "Enter the gtm_preview code for your GTM environment."
 msgstr ""
 
 #: assets/admin/settings.js:1
