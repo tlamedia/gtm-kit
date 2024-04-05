@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-21/).
 
 #### Enhancements:
+* Added dynamic template sections that allows for template updates wíthout updating the plugin.
 
 #### Bugfixes:
 
