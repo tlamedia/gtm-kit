@@ -92,6 +92,7 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'settings'        => $this->options->get_all_raw(),
+				'site_data'       => [ 'gtmkit_version' => GTMKIT_VERSION ],
 			]
 		);
 	}
