@@ -89,11 +89,21 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 				'currentPage'     => $page_slug,
 				'root'            => \esc_url_raw( rest_url() ),
 				'nonce'           => \wp_create_nonce( 'wp_rest' ),
+				'tutorials'       => $this->get_tutorials(),
 				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'settings'        => $this->options->get_all_raw(),
 				'site_data'       => [ 'gtmkit_version' => GTMKIT_VERSION ],
 			]
 		);
+	}
+
+	/**
+	 * Get the templates
+	 *
+	 * @return array
+	 */
+	private function get_tutorials(): array {
+		return $this->util->get_data( '/get-tutorials', 'gtmkit_tutorials' );
 	}
 }
