@@ -121,12 +121,11 @@ final class AdminAPI {
 				'system_data' => wp_json_encode( $this->util->get_site_data( $this->options->get_all_raw(), false ) ),
 			];
 			$args = [
-				'method'    => 'PUT',
-				'headers'   => [
+				'method'  => 'PUT',
+				'headers' => [
 					'Content-Type' => 'application/json',
 				],
-				'body'      => wp_json_encode( $body ),
-				'sslverify' => false,
+				'body'    => wp_json_encode( $body ),
 			];
 
 			$response = wp_remote_request( $url, $args );
