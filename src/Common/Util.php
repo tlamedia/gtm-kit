@@ -44,6 +44,20 @@ final class Util {
 	public $asset_url;
 
 	/**
+	 * API namespace.
+	 *
+	 * @var string
+	 */
+	private $api_namespace = '/api/v1';
+
+	/**
+	 * API host.
+	 *
+	 * @var string
+	 */
+	private $api_host = 'https://app.gtmkit.com';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options       $options Instance of Options.
@@ -312,5 +326,44 @@ final class Util {
 		}
 
 		\wp_enqueue_script( $handle, $this->asset_url . $script, $deps, $ver, $args );
+	}
+
+	/**
+	 * Get API data
+	 *
+	 * @param string $endpoint The API endpoint.
+	 * @param string $transient The transient.
+	 *
+	 * @return array
+	 */
+	public function get_data( string $endpoint, string $transient ): array {
+		$data = get_transient( $transient );
+
+		if ( ! WP_DEBUG && $data !== false ) {
+			return $data;
+		}
+
+		$url = $this->api_host . $this->api_namespace . $endpoint;
+
+		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+			$url = add_query_arg( 'woo', 1, $url );
+		}
+
+		$response = wp_remote_get( $url );
+
+		if ( is_wp_error( $response ) ) {
+			return [];
+		}
+
+		$json = wp_remote_retrieve_body( $response );
+		$data = json_decode( $json, true );
+
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
+			return [];
+		}
+
+		set_transient( $transient, $data, 12 * HOUR_IN_SECONDS );
+
+		return $data;
 	}
 }
