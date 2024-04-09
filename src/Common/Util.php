@@ -349,6 +349,16 @@ final class Util {
 			$url = add_query_arg( 'woo', 1, $url );
 		}
 
+		$url = add_query_arg(
+			'plugins',
+			[
+				'woo' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
+				'cf7' => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+				'edd' => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+			],
+			$url
+		);
+
 		$response = wp_remote_get( $url );
 
 		if ( is_wp_error( $response ) ) {
