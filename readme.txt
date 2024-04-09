@@ -96,6 +96,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Enhancements:
 * Added dynamic template sections that allows for template updates wíthout updating the plugin.
+* The tutorial section is now dynamic and based on a feed, so we don't have to update the plugin to include new tutorials.
 
 #### Bugfixes:
 
