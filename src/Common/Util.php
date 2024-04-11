@@ -55,7 +55,7 @@ final class Util {
 	 *
 	 * @var string
 	 */
-	private $api_host = 'https://app.gtmkit.com';
+	private $api_host;
 
 	/**
 	 * Constructor.
@@ -70,6 +70,12 @@ final class Util {
 		$this->rest_api_server = $rest_api_server;
 		$this->asset_path      = $path . 'assets/';
 		$this->asset_url       = $url . 'assets/';
+
+		if ( $options->is_const_enabled() && defined( 'GTMKIT_API_HOST' ) ) {
+			$this->api_host = GTMKIT_API_HOST;
+		} else {
+			$this->api_host = 'https://app.gtmkit.com';
+		}
 	}
 
 	/**
