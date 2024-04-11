@@ -345,10 +345,6 @@ final class Util {
 
 		$url = $this->api_host . $this->api_namespace . $endpoint;
 
-		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-			$url = add_query_arg( 'woo', 1, $url );
-		}
-
 		$url = add_query_arg(
 			'plugins',
 			[
