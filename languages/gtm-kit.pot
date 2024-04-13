@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.20\n"
+"Project-Id-Version: GTM Kit 1.21\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-18T14:28:44+00:00\n"
+"POT-Creation-Date: 2024-04-13T13:18:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -60,12 +60,12 @@ msgstr ""
 msgid "Only authenticated users can access endpoint."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:135
-#: src/Admin/AdminAPI.php:140
+#: src/Admin/AdminAPI.php:134
+#: src/Admin/AdminAPI.php:139
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:137
+#: src/Admin/AdminAPI.php:136
 msgid "Thank you! We have received the data."
 msgstr ""
 
@@ -111,53 +111,53 @@ msgstr ""
 msgid "GTM Templates"
 msgstr ""
 
-#: src/Common/Util.php:132
+#: src/Common/Util.php:152
 msgid "Server type:"
 msgstr ""
 
-#: src/Common/Util.php:137
+#: src/Common/Util.php:157
 msgid "PHP version number:"
 msgstr ""
 
-#: src/Common/Util.php:142
+#: src/Common/Util.php:162
 msgid "WordPress version number:"
 msgstr ""
 
-#: src/Common/Util.php:147
+#: src/Common/Util.php:167
 msgid "WordPress multisite:"
 msgstr ""
 
-#: src/Common/Util.php:148
+#: src/Common/Util.php:168
 #: assets/admin/wizard.js:1
 msgid "Yes"
 msgstr ""
 
-#: src/Common/Util.php:148
+#: src/Common/Util.php:168
 #: assets/admin/wizard.js:1
 msgid "No"
 msgstr ""
 
-#: src/Common/Util.php:152
+#: src/Common/Util.php:172
 msgid "Current theme:"
 msgstr ""
 
-#: src/Common/Util.php:157
+#: src/Common/Util.php:177
 msgid "Current site language:"
 msgstr ""
 
-#: src/Common/Util.php:162
+#: src/Common/Util.php:182
 msgid "Active plugins:"
 msgstr ""
 
-#: src/Common/Util.php:163
+#: src/Common/Util.php:183
 msgid "Plugin name and version of all active plugins"
 msgstr ""
 
-#: src/Common/Util.php:167
+#: src/Common/Util.php:187
 msgid "Anonymized GTM Kit settings:"
 msgstr ""
 
-#: src/Common/Util.php:168
+#: src/Common/Util.php:188
 msgid "Which GTM Kit settings are active"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgid "Best Sellers"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:250
-#: src/Integration/WooCommerce.php:966
+#: src/Integration/WooCommerce.php:967
 msgid "Product Category"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgid "Products By Attribute"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:254
-#: src/Integration/WooCommerce.php:968
+#: src/Integration/WooCommerce.php:969
 msgid "Product Tag"
 msgstr ""
 
@@ -204,21 +204,21 @@ msgstr ""
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:825
+#: src/Integration/WooCommerce.php:826
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:859
+#: src/Integration/WooCommerce.php:860
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:859
-#: src/Integration/WooCommerce.php:900
-#: src/Integration/WooCommerce.php:933
+#: src/Integration/WooCommerce.php:860
+#: src/Integration/WooCommerce.php:901
+#: src/Integration/WooCommerce.php:934
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1117
+#: src/Integration/WooCommerce.php:1118
 msgid "GTM Kit data."
 msgstr ""
 
@@ -269,51 +269,11 @@ msgid "Easy way to sell Digital Products With WordPress"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "How to get the most out of Google Tag Manager with GTM Kit."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "WooCommerce integration"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Integrate WooCommerce with Google Tag Manager and Google Analytics."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Integrate Contact Form 7 with Google Tag Manager and Google Analytics."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Integrate Easy Digital Downloads with Google Tag Manager and Google Analytics."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "How to setup Google Analytics (GA4) in Google Tag Manager"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Learn how to configure the necessary tags to make Google Analytics collect your data."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Customization of the GTM container implementation and Server Side Tracking."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "One of the things that makes GTM Kit a great tool for developers is the ability to override options in wp-config.php."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Delaying JavaScript execution is a powerful page speed optimization technique."
-msgstr ""
-
-#: assets/admin/settings.js:1
 msgid "See all tutorials…"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "See all our tutorial and get the most out of GTM Kit"
+msgid "See all our tutorials and get the most out of GTM Kit"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -402,7 +362,7 @@ msgid "dataLayer variable name:"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do."
+msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do so."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -446,6 +406,7 @@ msgid "Google Tag Manager Server-side Tagging"
 msgstr ""
 
 #: assets/admin/settings.js:1
+#: assets/admin/settings.js:13
 msgid "Learn more"
 msgstr ""
 
@@ -538,7 +499,7 @@ msgid "Override settings in wp-config.php"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "You can override the values of using constants in wp-config.php, which is a very useful for setting the value in your development and staging environments."
+msgid "You can override the values by using constants in wp-config.php, which is a very useful for setting the value in your development and staging environments."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -554,7 +515,7 @@ msgid "Standard implementation as recommended by Google (no delay)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Load container when browser is idle (requestIdleCallback)"
+msgid "Load container when the browser is idle (requestIdleCallback)"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -663,6 +624,7 @@ msgid "Include the post author ID."
 msgstr ""
 
 #: assets/admin/settings.js:1
+#: assets/admin/settings.js:13
 msgid "User Data"
 msgstr ""
 
@@ -957,6 +919,14 @@ msgid "Enable this option to include customer data in the data layer on the \"pu
 msgstr ""
 
 #: assets/admin/settings.js:13
+msgid "User-Provided Data"
+msgstr ""
+
+#: assets/admin/settings.js:13
+msgid "The user data is available in the datalayer in 'ecommerce.customer' and a subset of the user data formatted for the 'User-Provided Data' variable is available in 'user-data'."
+msgstr ""
+
+#: assets/admin/settings.js:13
 msgid "Webhooks for server-side tracking"
 msgstr ""
 
@@ -1137,7 +1107,7 @@ msgid "Load JavaScript"
 msgstr ""
 
 #: assets/admin/settings.js:13
-msgid "Only on pages where where the Contact Form 7 script is registered (recommended)."
+msgid "Only on pages where the Contact Form 7 script is registered (recommended)."
 msgstr ""
 
 #: assets/admin/settings.js:13
@@ -1150,10 +1120,6 @@ msgstr ""
 
 #: assets/admin/settings.js:13
 msgid "Easy Digital Downloads"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "Choose between a basic configuration and an advanced eCommerce configuration"
 msgstr ""
 
 #: assets/admin/settings.js:13
@@ -1178,18 +1144,6 @@ msgid "Below you will find GTM container template files, with all the necessary 
 msgstr ""
 
 #: assets/admin/settings.js:13
-msgid "Templates"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "Google Analytics 4"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "Before you start"
-msgstr ""
-
-#: assets/admin/settings.js:13
 #: assets/admin/wizard.js:1
 msgid "Please read the guide on how to use the import files and configure GTM."
 msgstr ""
@@ -1200,15 +1154,7 @@ msgid "Read the guide"
 msgstr ""
 
 #: assets/admin/settings.js:13
-msgid "Basic configuration"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "If you don't have eCommerce functionality then this is the right choice for you."
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "This template includes the Google Tag, which will send basic events to Google Analytics 4."
+msgid "Templates"
 msgstr ""
 
 #: assets/admin/settings.js:13
@@ -1216,33 +1162,7 @@ msgid "GTM container import files:"
 msgstr ""
 
 #: assets/admin/settings.js:13
-#: assets/admin/wizard.js:1
-msgid "Google Analytics 4 - Basic Configuration"
-msgstr ""
-
-#: assets/admin/settings.js:13
 msgid "Necessary modifications:"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "Edit the variable with the name \"constant - GA4 Measurement ID\" and enter your Google Analytics 4 Measurement ID."
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "eCommerce configuration"
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "If you have a webshop then this is the right choice for you."
-msgstr ""
-
-#: assets/admin/settings.js:13
-msgid "This template includes the Google Tag and a Google Analytics GA4 event tag, that will catch all eCommerce events and send them to Google Analytics 4."
-msgstr ""
-
-#: assets/admin/settings.js:13
-#: assets/admin/wizard.js:1
-msgid "Google Analytics 4 - eCommerce"
 msgstr ""
 
 #: assets/admin/settings.js:13
@@ -1435,6 +1355,14 @@ msgstr ""
 
 #: assets/admin/wizard.js:1
 msgid "Google Tag Manager templates"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+msgid "Google Analytics 4 - Basic Configuration"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+msgid "Google Analytics 4 - eCommerce"
 msgstr ""
 
 #: assets/admin/wizard.js:1

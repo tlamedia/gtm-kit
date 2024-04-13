@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.5
-Stable tag: 1.20
+Stable tag: 1.21
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,18 +88,20 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.21 =
 
-Release date: 2024-MM-DD
+Release date: 2024-04-15
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-21/).
 
 #### Enhancements:
 * Added user-data in the datalayer containing user data formatted for the User-Provided Data variable so you don't have to map it manually.
+* Added Google Tag Manager templates for Google Ads and Facebook.
 * Added dynamic template sections that allows for template updates wíthout updating the plugin.
 * The tutorial section is now dynamic and based on a feed, so we don't have to update the plugin to include new tutorials.
 
 #### Bugfixes:
+* JavaScript translations was not loaded correct.
 
 #### Other:
 * Tested up to WooCommerce 8.8.
