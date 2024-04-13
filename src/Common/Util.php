@@ -378,4 +378,63 @@ final class Util {
 
 		return $data;
 	}
+
+	/**
+	 * Normalize and hash a string.
+	 *
+	 * @link https://developers.google.com/google-ads/api/docs/conversions/enhanced-conversions/web#php
+	 *
+	 * @param string $hash_algorithm The hash algorithm.
+	 * @param string $value The string to normalize and hash.
+	 * @param bool   $trim_intermediate_spaces Removes leading, trailing, and intermediate spaces.
+	 *
+	 * @return string The normalized and hashed string.
+	 */
+	public function normalize_and_hash(
+		string $hash_algorithm,
+		string $value,
+		bool $trim_intermediate_spaces
+	): string {
+		// Normalizes by first converting all characters to lowercase, then trimming spaces.
+		$normalized = strtolower( $value );
+		if ( $trim_intermediate_spaces === true ) {
+			// Removes leading, trailing, and intermediate spaces.
+			$normalized = str_replace( ' ', '', $normalized );
+		} else {
+			// Removes only leading and trailing spaces.
+			$normalized = trim( $normalized );
+		}
+
+		if ( $normalized === '' ) {
+			return '';
+		}
+
+		return hash( $hash_algorithm, strtolower( trim( $normalized ) ) );
+	}
+
+	/**
+	 * Returns the result of normalizing and hashing an email address. For this use case, Google
+	 * Ads requires removal of any '.' characters preceding "gmail.com" or "googlemail.com".
+	 *
+	 * @param string $hash_algorithm The hash algorithm to use.
+	 * @param string $email_address The email address to normalize and hash.
+	 * @return string The normalized and hashed email address.
+	 */
+	public function normalize_and_hash_email_address(
+		string $hash_algorithm,
+		string $email_address
+	): string {
+		$normalized_email = strtolower( $email_address );
+		$email_parts      = explode( '@', $normalized_email );
+		if (
+			count( $email_parts ) > 1
+			&& preg_match( '/^(gmail|googlemail)\.com\s*/', $email_parts[1] )
+		) {
+			// Removes any '.' characters from the portion of the email address before the domain
+			// if the domain is gmail.com or googlemail.com.
+			$email_parts[0]   = str_replace( '.', '', $email_parts[0] );
+			$normalized_email = sprintf( '%s@%s', $email_parts[0], $email_parts[1] );
+		}
+		return $this->normalize_and_hash( $hash_algorithm, $normalized_email, true );
+	}
 }
