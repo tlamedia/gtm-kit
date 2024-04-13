@@ -1213,6 +1213,16 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
 		$data_layer['ecommerce']['customer']['shipping_state']     = $wc_customer->get_shipping_state();
 
+		$data_layer['user_data']['sha256_email_address']         = $this->util->normalize_and_hash_email_address( 'sha256', $wc_customer->get_billing_email() );
+		$data_layer['user_data']['sha256_phone_number']          = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_phone(), true );
+		$data_layer['user_data']['address']['sha256_first_name'] = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_first_name(), false );
+		$data_layer['user_data']['address']['sha256_last_name']  = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_last_name(), false );
+		$data_layer['user_data']['address']['street']            = $wc_customer->get_billing_address_1();
+		$data_layer['user_data']['address']['city']              = $wc_customer->get_billing_city();
+		$data_layer['user_data']['address']['region']            = $wc_customer->get_billing_state();
+		$data_layer['user_data']['address']['postal_code']       = $wc_customer->get_billing_postcode();
+		$data_layer['user_data']['address']['country']           = $wc_customer->get_billing_country();
+
 		return $data_layer;
 	}
 

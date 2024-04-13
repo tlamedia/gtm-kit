@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-21/).
 
 #### Enhancements:
+* Added user-data in the datalayer containing user data formatted for the User-Provided Data variable so you don't have to map it manually.
 * Added dynamic template sections that allows for template updates wíthout updating the plugin.
 * The tutorial section is now dynamic and based on a feed, so we don't have to update the plugin to include new tutorials.
 
