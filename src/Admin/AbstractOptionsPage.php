@@ -159,8 +159,9 @@ abstract class AbstractOptionsPage {
 	 * @param string $script_handle The script handle.
 	 * @param string $path The plugin path.
 	 * @param string $url The plugin URL.
+	 * @param string $domain The translation domain.
 	 */
-	protected function enqueue_assets( string $page_slug, string $script_handle, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
+	protected function enqueue_assets( string $page_slug, string $script_handle, string $path = GTMKIT_PATH, string $url = GTMKIT_URL, string $domain = 'gtm-kit' ) {
 
 		$deps_file  = $path . 'assets/admin/' . $script_handle . '.asset.php';
 		$dependency = [];
@@ -177,6 +178,8 @@ abstract class AbstractOptionsPage {
 		\wp_enqueue_script( 'gtmkit-' . $script_handle . '-script', $url . 'assets/admin/' . $script_handle . '.js', $dependency, $version, true );
 
 		$this->localize_script( $page_slug, $script_handle );
+
+		\wp_set_script_translations( 'gtmkit-' . $script_handle . '-script', $domain );
 	}
 
 	/**
