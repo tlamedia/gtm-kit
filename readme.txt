@@ -150,37 +150,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * The function to share system data with the support team has been improved with more data.
 * The code has been refactored for extendability.
 
-= 1.18.1 =
-
-Release date: 2024-01-08
-
-#### Bugfixes:
-* Added missing flush of the ecommerce object on the select_item event.
-* 1.17 introduced a bug that caused item brand to be limited to a product attribute.
-
-#### Other:
-* Tested up to WooCommerce 8.5.
-* Minor refactoring.
-
-= 1.18 =
-
-Release date: 2024-01-02
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-18/).
-
-#### Enhancements:
-* Add support for Google Consent Mode v2
-* Added a function to share system data with the GTM Kit support team. If you have registered a support request on WordPress.org and the GTM Kit support team has asked you to send your system data you can now do that in a secure way without posting any private information in the support forum.
-* Enhanced support for the select_item event in more WordPress themes. This update significantly improves the compatibility of the select_item event handling in themes such as Woodmart.
-
-#### Bugfixes:
-* When adding a product to the cart from a product category page the quantity was not specified in the add_to_cart event.
-* On Single product pages a click on a quantity control would result in an undefined event.
-
-= Earlier versions =
-For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
-
-
 == Upgrade Notice ==
 
 = 1.20 =
