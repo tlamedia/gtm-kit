@@ -108,7 +108,14 @@ final class Frontend {
 				'personalization_storage': '<?php echo ( $this->options->get( 'general', 'gcm_personalization_storage' ) ) ? 'granted' : 'denied'; ?>',
 				'functionality_storage': '<?php echo ( $this->options->get( 'general', 'gcm_functionality_storage' ) ) ? 'granted' : 'denied'; ?>',
 				'security_storage': '<?php echo ( $this->options->get( 'general', 'gcm_security_storage' ) ) ? 'granted' : 'denied'; ?>',
+				<?php
+				if ( $this->options->get( 'general', 'gcm_wait_for_update' ) ) {
+					echo esc_html( (int) $this->options->get( 'general', 'gcm_ad_personalization' ) );
+				}
+				?>
 			});
+			<?php echo ( $this->options->get( 'general', 'gcm_ads_data_redaction' ) ) ? 'gtag("set", "ads_data_redaction", true);' : ''; ?>
+			<?php echo ( $this->options->get( 'general', 'gcm_url_passthrough' ) ) ? 'gtag("set", "url_passthrough", true);' : ''; ?>
 		} else if ( window.gtmkit_settings.console_log === 'on' ) {
 			console.warn('GTM Kit: gtag is already defined')
 		}<?php endif; ?>
