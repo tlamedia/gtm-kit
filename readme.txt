@@ -96,6 +96,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-22/).
 
 #### Enhancements:
+- Added an Event Inspector for verifying that events are being pushed to the datalayer. You can now debug events without using GTM preview mode.
 - Added advanced GCM settings: 'ads_data_redaction', 'url_passthrough' and 'wait_for_update'.
 - Updated the custom container loader.
 
