@@ -111,6 +111,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'wa'               => defined( 'GTMKIT_WOO_FILE' ),
 				'dashboardUrl'     => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl'  => \menu_page_url( 'gtmkit_integrations', false ),
+				'templatesUrl'     => \menu_page_url( 'gtmkit_templates', false ),
 				'pluginInstallUrl' => $admin_url . 'plugin-install.php?tab=search&type=term&s=',
 				'plugins'          => [
 					'woocommerce' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
