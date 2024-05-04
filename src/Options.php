@@ -45,6 +45,11 @@ final class Options {
 				'type'     => 'boolean',
 			],
 			'sgtm_domain'             => [ 'default' => '' ],
+			'event_inspector'         => [
+				'default'  => false,
+				'constant' => 'GTMKIT_EVENT_INSPECTOR',
+				'type'     => 'boolean',
+			],
 			'console_log'             => [
 				'default'  => false,
 				'constant' => 'GTMKIT_CONSOLE_LOG',
