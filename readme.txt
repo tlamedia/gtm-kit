@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.5
-Stable tag: 1.21
+Stable tag: 1.22
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,21 +88,16 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 1.22 =
 
-= 1.X =
-
-Release date: 2024-MM-DD
+Release date: 2024-05-08
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-22/).
 
 #### Enhancements:
 - Added an Event Inspector for verifying that events are being pushed to the datalayer. You can now debug events without using GTM preview mode.
 - Added advanced GCM settings: 'ads_data_redaction', 'url_passthrough' and 'wait_for_update'.
-- Updated the custom container loader.
-
-#### Bugfixes:
-
-#### Other:
+- Updated the custom container loader for use with Stape.io.
 
 = 1.21 =
 
@@ -141,30 +136,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Other:
 * Require WooCommerce 8.0.
-
-= 1.19.1 =
-
-Release date: 2024-03-05
-
-#### Bugfixes:
-* Scripts were not enqueued if the container was inactive.
-
-#### Other:
-* Tested up to WordPress 6.5.
-* Tested up to WooCommerce 8.7.
-
-= 1.19 =
-
-Release date: 2024-02-07
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-19/).
-
-#### Enhancements:
-* Add option to fire a 'load_delayed_js' event, which can be used to delay JavaScript execution in Google Tag Manager.
-* This release comes with many behind-the-scenes improvements and general enhancements.
-* The script settings are the same on all pages and are now cached in the object cache for better performance.
-* The function to share system data with the support team has been improved with more data.
-* The code has been refactored for extendability.
 
 == Upgrade Notice ==
 

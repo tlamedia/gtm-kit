@@ -108,7 +108,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'currentPage'      => $page_slug,
 				'root'             => \esc_url_raw( rest_url() ),
 				'nonce'            => \wp_create_nonce( 'wp_rest' ),
-				'wa'               => defined( 'GTMKIT_WOO_FILE' ),
+				'wa'               => $this->util->is_premium(),
 				'dashboardUrl'     => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl'  => \menu_page_url( 'gtmkit_integrations', false ),
 				'templatesUrl'     => \menu_page_url( 'gtmkit_templates', false ),
