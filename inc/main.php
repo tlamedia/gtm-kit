@@ -148,7 +148,9 @@ function gtmkit_admin_init(): void {
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util );
-	TemplatesOptionsPage::register( $options, $util );
+	if ( ! $util->is_premium() ) {
+		TemplatesOptionsPage::register( $options, $util );
+	}
 	HelpOptionsPage::register( $options, $util );
 
 	do_action( 'gtmkit_admin_init', $options, $util );
