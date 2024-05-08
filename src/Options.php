@@ -92,7 +92,7 @@ final class Options {
 		],
 		'premium'      => [
 			'addon_installed' => [
-				'default' => true,
+				'default' => false,
 				'type'    => 'boolean',
 			],
 		],
