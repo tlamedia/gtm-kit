@@ -126,6 +126,8 @@ final class SetupWizard {
 
 		$deps_file  = GTMKIT_PATH . 'assets/admin/wizard.asset.php';
 		$dependency = [];
+		$version    = false;
+
 		if ( file_exists( $deps_file ) ) {
 			$deps_file  = require $deps_file;
 			$dependency = $deps_file['dependencies'];
