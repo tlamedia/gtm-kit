@@ -148,12 +148,12 @@ final class Util {
 	/**
 	 * Add shared data
 	 *
-	 * @param array $data Current data.
-	 * @param array $wp_version The WordPress version.
+	 * @param array  $data Current data.
+	 * @param string $wp_version The WordPress version.
 	 *
 	 * @return array
 	 */
-	private function add_shared_data( array $data, $wp_version ): array {
+	private function add_shared_data( array $data, string $wp_version ): array {
 		$data['shared_data'] = [
 			1 => [
 				'label' => __( 'Server type:', 'gtm-kit' ),

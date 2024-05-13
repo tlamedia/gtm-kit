@@ -86,7 +86,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'public'   => true,
 				'_builtin' => false,
 			],
-			'object'
+			'objects'
 		);
 
 		$taxonomy_options = [];

@@ -541,14 +541,14 @@ final class WooCommerce extends AbstractEcommerce {
 			$data_layer = $this->include_customer_data( $data_layer, $order_value );
 		}
 
-		$order->add_meta_data( '_gtmkit_order_tracked', 1 );
+		$order->add_meta_data( '_gtmkit_order_tracked', '1' );
 		$order->save();
 
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
 	}
 
 	/**
-	 * Get the purchase event for the data layer
+	 * Retrieves purchase event data for the data layer.
 	 *
 	 * @param WC_Order $order The order.
 	 * @param array    $data_layer The datalayer content.
@@ -568,15 +568,16 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
-		$data_layer['event']        = 'purchase';
-		$data_layer['ecommerce']    = [
+		$data_layer['event']     = 'purchase';
+		$data_layer['ecommerce'] = [
 			'transaction_id' => (string) $order->get_order_number(),
 			'value'          => (float) $order_value,
 			'tax'            => (float) $order->get_total_tax(),
 			'shipping'       => (float) $shipping_total,
 			'currency'       => $order->get_currency(),
 		];
-		$data_layer['new_customer'] = ! DataStore::is_returning_customer( $order );
+		/** @phpstan-ignore-next-line level5 */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
+		$data_layer['new_customer'] = ! DataStore::is_returning_customer( $order ); // Param $order is declared as array but object is expected.
 
 		$coupons = $order->get_coupon_codes();
 
@@ -881,7 +882,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		return sprintf(
 			'<span class="gtmkit_product_data" style="display:none; visibility:hidden;" data-gtmkit_product_id="%s" data-gtmkit_product_data="%s"></span>',
-			esc_attr( $product->get_id() ),
+			esc_attr( (string) $product->get_id() ),
 			esc_attr( wp_json_encode( $item_data ) )
 		);
 	}
