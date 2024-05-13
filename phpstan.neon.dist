@@ -1,7 +1,7 @@
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
-	level: 1
+	level: 2
 	bootstrapFiles:
 		- bin/phpstan/constants.php
 		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
@@ -15,3 +15,5 @@ parameters:
 		- '#edd[a-zA-Z0-9\\_]+ not found#'
 		- '#EDD[a-zA-Z0-9\\_]* not found#'
 		- '#Parameter \$[a-zA-Z0-9\\_]+ of method .* has invalid type EDD_[a-zA-Z0-9\\_]+\.#'
+		- '#unknown class EDD#'
+		- '#has invalid type EDD#'

@@ -92,10 +92,12 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 		$taxonomy_options = [];
 
 		foreach ( $taxonomies as $taxonomy ) {
-			$taxonomy_options[] = [
-				'label' => $taxonomy->label,
-				'value' => $taxonomy->name,
-			];
+			if ( is_object( $taxonomy ) && property_exists( $taxonomy, 'label' ) && property_exists( $taxonomy, 'name' ) ) {
+				$taxonomy_options[] = [
+					'label' => $taxonomy->label,
+					'value' => $taxonomy->name,
+				];
+			}
 		}
 
 		$admin_url = is_network_admin() ? network_admin_url() : admin_url();

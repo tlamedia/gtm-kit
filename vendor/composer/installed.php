@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'tlamedia/gtm-kit',
-        'pretty_version' => 'dev-support',
-        'version' => 'dev-support',
-        'reference' => 'dfbedd763557cbcd7bcac30b5a630c0676c2e4d5',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '72a801fafdd619d9cba7ab0a990db0fe099b70bc',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'tlamedia/gtm-kit' => array(
-            'pretty_version' => 'dev-support',
-            'version' => 'dev-support',
-            'reference' => 'dfbedd763557cbcd7bcac30b5a630c0676c2e4d5',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '72a801fafdd619d9cba7ab0a990db0fe099b70bc',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
