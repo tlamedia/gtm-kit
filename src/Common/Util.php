@@ -65,7 +65,14 @@ final class Util {
 	 * @param string        $path The plugin path.
 	 * @param string        $url The plugin URL.
 	 */
-	public function __construct( Options $options, RestAPIServer $rest_api_server, string $path = GTMKIT_PATH, string $url = GTMKIT_URL ) {
+	public function __construct( Options $options, RestAPIServer $rest_api_server, string $path = '', string $url = '' ) {
+		if ( empty( $path ) ) {
+			$path = GTMKIT_PATH;
+		}
+		if ( empty( $url ) ) {
+			$url = GTMKIT_URL;
+		}
+
 		$this->options         = $options;
 		$this->rest_api_server = $rest_api_server;
 		$this->asset_path      = $path . 'assets/';

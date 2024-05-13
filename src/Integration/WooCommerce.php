@@ -20,6 +20,7 @@ use TLA_Media\GTM_Kit\Options;
 use WC_Coupon;
 use WC_Customer;
 use WC_Order;
+use WC_Order_Item_Product;
 use WC_Product;
 
 /**
@@ -562,7 +563,7 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value = $order->get_total();
 		}
 
-		$shipping_total = $order->get_shipping_total();
+		$shipping_total = (float) $order->get_shipping_total();
 		if ( $this->options->get( 'integrations', 'woocommerce_exclude_shipping' ) ) {
 			$order_value -= $shipping_total;
 		}
@@ -1241,29 +1242,31 @@ final class WooCommerce extends AbstractEcommerce {
 		if ( $items ) {
 			foreach ( $items as $item ) {
 
-				$product       = $item->get_product();
-				$inc_tax       = ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) );
-				$product_price = round( $order->get_item_total( $item, $inc_tax ), 2 );
+				if ( $item instanceof WC_Order_Item_Product ) {
+					$product       = $item->get_product();
+					$inc_tax       = ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) );
+					$product_price = round( $order->get_item_total( $item, $inc_tax ), 2 );
 
-				$additional_item_attributes = [
-					'quantity' => $item->get_quantity(),
-					'price'    => $product_price,
-				];
+					$additional_item_attributes = [
+						'quantity' => $item->get_quantity(),
+						'price'    => $product_price,
+					];
 
-				$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
+					$coupon_discount = $this->get_coupon_discount( $coupons, $item->get_data() );
 
-				if ( $coupon_discount['coupon_codes'] ) {
-					$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
+					if ( $coupon_discount['coupon_codes'] ) {
+						$additional_item_attributes['coupon'] = implode( '|', array_filter( $coupon_discount['coupon_codes'] ) );
+					}
+					if ( $coupon_discount['discount'] ) {
+						$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
+					}
+
+					$order_items[] = $this->get_item_data(
+						$product,
+						$additional_item_attributes,
+						'purchase'
+					);
 				}
-				if ( $coupon_discount['discount'] ) {
-					$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
-				}
-
-				$order_items[] = $this->get_item_data(
-					$product,
-					$additional_item_attributes,
-					'purchase'
-				);
 			}
 		}
 

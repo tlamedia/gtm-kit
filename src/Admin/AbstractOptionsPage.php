@@ -132,7 +132,7 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Get the parent slug of the admin page.
 	 *
-	 * @return string|null
+	 * @return string
 	 */
 	abstract protected function get_parent_slug(): string;
 
@@ -161,7 +161,14 @@ abstract class AbstractOptionsPage {
 	 * @param string $url The plugin URL.
 	 * @param string $domain The translation domain.
 	 */
-	protected function enqueue_assets( string $page_slug, string $script_handle, string $path = GTMKIT_PATH, string $url = GTMKIT_URL, string $domain = 'gtm-kit' ) {
+	protected function enqueue_assets( string $page_slug, string $script_handle, string $path = '', string $url = '', string $domain = 'gtm-kit' ) {
+
+		if ( empty( $path ) ) {
+			$path = GTMKIT_PATH;
+		}
+		if ( empty( $url ) ) {
+			$url = GTMKIT_URL;
+		}
 
 		$deps_file  = $path . 'assets/admin/' . $script_handle . '.asset.php';
 		$dependency = [];

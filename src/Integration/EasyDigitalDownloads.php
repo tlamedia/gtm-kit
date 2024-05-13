@@ -419,6 +419,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 */
 	public function include_customer_data( array $data_layer, $order ): array {
 
+		if ( ! ( $order instanceof Order ) ) {
+			return $data_layer;
+		}
+
 		$customer     = new \EDD_Customer( $order->customer_id );
 		$payment_meta = edd_get_payment_meta( edd_get_purchase_id_by_key( $order->payment_key ) );
 		$address      = $payment_meta['user_info']['address'];
