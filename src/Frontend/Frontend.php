@@ -113,7 +113,7 @@ final class Frontend {
 				'functionality_storage': '<?php echo ( $this->options->get( 'general', 'gcm_functionality_storage' ) ) ? 'granted' : 'denied'; ?>',
 				'security_storage': '<?php echo ( $this->options->get( 'general', 'gcm_security_storage' ) ) ? 'granted' : 'denied'; ?>',
 				<?php if ( $this->options->get( 'general', 'gcm_wait_for_update' ) ) : ?>
-				'wait_for_update':  <?php echo esc_html( (int) $this->options->get( 'general', 'gcm_wait_for_update' ) ); ?>
+				'wait_for_update':  <?php echo esc_html( (string) ( (int) $this->options->get( 'general', 'gcm_wait_for_update' ) ) ); ?>
 				<?php endif; ?>
 			});
 			<?php echo ( $this->options->get( 'general', 'gcm_ads_data_redaction' ) ) ? 'gtag("set", "ads_data_redaction", true);' : ''; ?>
