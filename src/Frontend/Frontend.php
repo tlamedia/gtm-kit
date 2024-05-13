@@ -115,7 +115,6 @@ final class Frontend {
 				<?php if ( $this->options->get( 'general', 'gcm_wait_for_update' ) ) : ?>
 				'wait_for_update':  <?php echo esc_html( (int) $this->options->get( 'general', 'gcm_wait_for_update' ) ); ?>
 				<?php endif; ?>
-				?>
 			});
 			<?php echo ( $this->options->get( 'general', 'gcm_ads_data_redaction' ) ) ? 'gtag("set", "ads_data_redaction", true);' : ''; ?>
 			<?php echo ( $this->options->get( 'general', 'gcm_url_passthrough' ) ) ? 'gtag("set", "url_passthrough", true);' : ''; ?>
