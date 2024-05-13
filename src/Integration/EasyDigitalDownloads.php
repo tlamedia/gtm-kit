@@ -43,7 +43,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get instance
 	 */
-	public static function instance(): ?EasyDigitalDownloads {
+	public static function instance(): EasyDigitalDownloads {
 		if ( is_null( self::$instance ) ) {
 			$options         = new Options();
 			$rest_api_server = new RestAPIServer();

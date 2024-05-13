@@ -26,7 +26,7 @@ final class ContactForm7 extends AbstractIntegration {
 	/**
 	 * Get instance
 	 */
-	public static function instance(): ?ContactForm7 {
+	public static function instance(): ContactForm7 {
 		if ( is_null( self::$instance ) ) {
 			$options         = new Options();
 			$rest_api_server = new RestAPIServer();

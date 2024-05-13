@@ -1,7 +1,8 @@
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
-	level: 2
+	level: 4
+	treatPhpDocTypesAsCertain: false
 	bootstrapFiles:
 		- bin/phpstan/constants.php
 		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php

@@ -60,7 +60,7 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get instance
 	 */
-	public static function instance(): ?WooCommerce {
+	public static function instance(): WooCommerce {
 		if ( is_null( self::$instance ) ) {
 			$options         = new Options();
 			$rest_api_server = new RestAPIServer();
