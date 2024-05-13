@@ -54,6 +54,7 @@ final class UserData {
 		$include_user_id   = $this->options->get( 'general', 'datalayer_user_id' );
 		$include_user_role = $this->options->get( 'general', 'datalayer_user_role' );
 
+		$current_user_id = 0;
 		if ( $include_logged_in || $include_user_id || $include_user_role ) {
 			$current_user_id = get_current_user_id();
 		}
