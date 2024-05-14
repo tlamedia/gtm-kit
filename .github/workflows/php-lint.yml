@@ -29,6 +29,28 @@ on:
       - synchronize
 
 jobs:
+  php-syntax:
+    name: PHP syntax
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: parallel-lint
+      - name: Check source code for syntax errors
+        run: 'composer exec --no-interaction -- parallel-lint *.php inc/ src/'
   php-lint:
     name: PHPStan
     runs-on: ubuntu-latest
