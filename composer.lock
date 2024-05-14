@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31c59c81cb48e4aefa191a429f1133b",
+    "content-hash": "b4a8a8768f020ae1707123a6a0c578a2",
     "packages": [],
     "packages-dev": [
         {
@@ -87,16 +87,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v8.8.3",
+            "version": "v8.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "a0d52f2fee4e3dac8f2629fd80657ddf7c86b64f"
+                "reference": "2c0bb50a76a703206151fac3123faec6ba7d5879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/a0d52f2fee4e3dac8f2629fd80657ddf7c86b64f",
-                "reference": "a0d52f2fee4e3dac8f2629fd80657ddf7c86b64f",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/2c0bb50a76a703206151fac3123faec6ba7d5879",
+                "reference": "2c0bb50a76a703206151fac3123faec6ba7d5879",
                 "shasum": ""
             },
             "require": {
@@ -125,22 +125,22 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.8.3"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.9.0"
             },
-            "time": "2024-04-29T17:39:19+00:00"
+            "time": "2024-05-14T16:07:36+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.5.2",
+            "version": "v6.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "379f17a90c01498d4c99a0d15aab6e7aa6a2c840"
+                "reference": "e611a83292d02055a25f83291a98fadd0c21e092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/379f17a90c01498d4c99a0d15aab6e7aa6a2c840",
-                "reference": "379f17a90c01498d4c99a0d15aab6e7aa6a2c840",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/e611a83292d02055a25f83291a98fadd0c21e092",
+                "reference": "e611a83292d02055a25f83291a98fadd0c21e092",
                 "shasum": ""
             },
             "require-dev": {
@@ -172,9 +172,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.5.2"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.5.3"
             },
-            "time": "2024-04-14T17:30:14+00:00"
+            "time": "2024-05-08T02:12:31+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -592,16 +592,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.67",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
+                "reference": "666cb1703742cea9cc80fee631f0940e1592fa6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/666cb1703742cea9cc80fee631f0940e1592fa6e",
+                "reference": "666cb1703742cea9cc80fee631f0940e1592fa6e",
                 "shasum": ""
             },
             "require": {
@@ -646,29 +646,28 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T07:22:02+00:00"
+            "time": "2024-05-13T06:02:22+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa"
+                "reference": "fa8cce7720fa782899a0aa97b6a41225d1bb7b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa",
-                "reference": "089d8a8258ed0aeefdc7b68b6c3d25572ebfdbaa",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/fa8cce7720fa782899a0aa97b6a41225d1bb7b26",
+                "reference": "fa8cce7720fa782899a0aa97b6a41225d1bb7b26",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.10.3"
+                "phpstan/phpstan": "^1.11"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-php-parser": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
@@ -692,9 +691,9 @@
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/1.1.4"
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/1.2.0"
             },
-            "time": "2023-08-05T09:02:04+00:00"
+            "time": "2024-04-20T06:39:48+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
