@@ -53,6 +53,8 @@ jobs:
         run: composer validate --strict
       - name: Composer Install
         run: composer install --no-interaction --no-progress
+      - name: Check PSR-4 mapping
+        run: composer dump-autoload --dev --optimize --strict-psr
       - name: PHPStan
         run: composer phpstan
   phpcs:
