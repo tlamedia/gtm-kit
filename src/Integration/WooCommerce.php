@@ -1127,7 +1127,7 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Has WooCommerce blocks
 	 *
-	 * @param int $post_id Tne post ID.
+	 * @param int $post_id The post ID.
 	 *
 	 * @return array
 	 */
