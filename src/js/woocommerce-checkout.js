@@ -178,7 +178,7 @@ function gtmkitShippingEvent() {
 			currency: window.gtmkit_data.wc.currency,
 			value: window.gtmkit_data.wc.cart_value,
 			shippingTier,
-			items: [items],
+			items: items,
 		},
 	});
 
@@ -209,7 +209,7 @@ function gtmkitPaymentEvent() {
 			currency: window.gtmkit_data.wc.currency,
 			value: window.gtmkit_data.wc.cart_value,
 			payment_type: paymentType,
-			items: [items],
+			items: items,
 		},
 	});
 
