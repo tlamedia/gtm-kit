@@ -1278,7 +1278,7 @@ msgid "The changelog"
 msgstr ""
 
 #: assets/admin/settings.js:13
-msgid "The Github repository"
+msgid "The GitHub repository"
 msgstr ""
 
 #: assets/admin/settings.js:13

@@ -309,7 +309,7 @@ final class Util {
 	/**
 	 * Enqueue script in build
 	 *
-	 * @param string $handle The script hande.
+	 * @param string $handle The script handle.
 	 * @param string $script The script name.
 	 * @param bool   $has_asset_file If the script has an asset file or not.
 	 * @param array  $deps The script dependencies.
