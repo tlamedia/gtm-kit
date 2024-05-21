@@ -156,7 +156,11 @@ final class Frontend {
 		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 		$script .= esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
 
-		wp_register_script( 'gtmkit-datalayer', '', [ 'gtmkit-container' ], GTMKIT_VERSION, [ 'in_footer' => false ] );
+		$dependency = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) )
+			? [ 'gtmkit-container' ]
+			: [ 'gtmkit' ];
+
+		wp_register_script( 'gtmkit-datalayer', '', $dependency, GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit-datalayer' );
 		wp_add_inline_script( 'gtmkit-datalayer', apply_filters( 'gtmkit_datalayer_script', $script ), 'before' );
 	}
