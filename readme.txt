@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.5
-Stable tag: 1.22.2.1
+Stable tag: 1.22.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,15 +88,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 1.22.3 =
 
-Release date: 2024-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-23/).
-
-#### Enhancements:
+Release date: 2024-05-22
 
 #### Bugfixes:
+- The datalayer was not pushed when the container was disabled.
 
 #### Other:
 - Improved quality assurance (CI). Thanks [szepeviktor](https://github.com/szepeviktor)
