@@ -518,7 +518,7 @@ final class WooCommerce extends AbstractEcommerce {
 		}
 
 		if ( ( 1 === (int) $order->get_meta( '_gtmkit_order_tracked' ) ) ) {
-			if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'woocommerce_debug_track_purchase' ) ) ) {
+			if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integrations', 'woocommerce_debug_track_purchase' ) ) ) {
 				return $data_layer;
 			}
 		}
