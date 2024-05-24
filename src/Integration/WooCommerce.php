@@ -535,8 +535,6 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$data_layer = $this->get_purchase_event( $order, $data_layer );
 
-		$data_layer['ecommerce']['items'] = $this->get_order_items( $order );
-
 		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
 			$data_layer = $this->include_customer_data( $data_layer, $order_value );
 		}
