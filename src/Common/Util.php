@@ -108,7 +108,7 @@ final class Util {
 		];
 
 		foreach ( $plugins as $plugin => $key ) {
-			$data = $this->add_active_plugin_and_version( $plugin, $key, $data );
+			$data = $this->add_active_plugin_and_version( $plugin, $key, $data, $anonymize );
 		}
 		$data['locale'] = explode( '_', get_locale() )[0];
 		if ( $anonymize ) {
@@ -227,14 +227,15 @@ final class Util {
 	 * @param string $plugin The plugin slug.
 	 * @param string $key The key.
 	 * @param array  $data The data.
+	 * @param bool   $shorten Shorten the version number or not.
 	 *
 	 * @return array An array of active plugins names.
 	 */
-	public function add_active_plugin_and_version( string $plugin, string $key, array $data ): array {
+	public function add_active_plugin_and_version( string $plugin, string $key, array $data, bool $shorten = true ): array {
 
 		if ( \is_plugin_active( $plugin ) ) {
 			$version      = \get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin )['Version'];
-			$data[ $key ] = $this->shorten_version( $version );
+			$data[ $key ] = ( $shorten ) ? $this->shorten_version( $version ) : $version;
 		}
 
 		return $data;
