@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.22.3\n"
+"Project-Id-Version: GTM Kit 1.22.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-22T06:05:55+00:00\n"
+"POT-Creation-Date: 2024-05-28T09:26:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -175,7 +175,7 @@ msgid "Best Sellers"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:251
-#: src/Integration/WooCommerce.php:969
+#: src/Integration/WooCommerce.php:974
 msgid "Product Category"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgid "Products By Attribute"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:255
-#: src/Integration/WooCommerce.php:971
+#: src/Integration/WooCommerce.php:976
 msgid "Product Tag"
 msgstr ""
 
@@ -204,21 +204,21 @@ msgstr ""
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:828
+#: src/Integration/WooCommerce.php:833
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:862
+#: src/Integration/WooCommerce.php:867
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:862
-#: src/Integration/WooCommerce.php:903
-#: src/Integration/WooCommerce.php:936
+#: src/Integration/WooCommerce.php:867
+#: src/Integration/WooCommerce.php:908
+#: src/Integration/WooCommerce.php:941
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1120
+#: src/Integration/WooCommerce.php:1125
 msgid "GTM Kit data."
 msgstr ""
 
