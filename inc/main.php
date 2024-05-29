@@ -85,6 +85,27 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 }
 
 /**
+ * Remove deactivation link.
+ *
+ * @param array $links Existing plugin action links.
+ *
+ * @return array
+ */
+function gtmkit_remove_deactivation_link( array $links ): array {
+
+	unset( $links['deactivate'] );
+	$no_deactivation_explanation = '<span style="color: #2C3338">' . sprintf(
+		/* translators: %s is GTM Kit Add-On. */
+		__( 'Required by %s', 'gtm-kit' ),
+		'GTM Kit Add-On'
+	) . '</span>';
+
+	array_unshift( $links, $no_deactivation_explanation );
+
+	return $links;
+}
+
+/**
  * Load text domain for translation.
  */
 function gtmkit_load_text_domain(): void {
@@ -150,8 +171,12 @@ function gtmkit_admin_init(): void {
 	IntegrationsOptionsPage::register( $options, $util );
 	if ( ! $util->is_premium() ) {
 		TemplatesOptionsPage::register( $options, $util );
+	} else {
+		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
 	}
 	HelpOptionsPage::register( $options, $util );
+
+	add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );
 
 	do_action( 'gtmkit_admin_init', $options, $util );
 }
@@ -174,7 +199,6 @@ if ( ! wp_installing() ) {
 	if ( is_admin() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain' );
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_admin_init' );
-		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );
 	} elseif ( ! wp_doing_ajax() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_frontend_init' );
 	}
