@@ -87,7 +87,7 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 Yes! Pagespeed is one of our main focus points, and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
- 
+
 = 1.X =
 
 Release date: 2024-MM-DD
@@ -99,6 +99,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 
 #### Other:
+* Tested up to WooCommerce 8.9.
 
 = 1.22.3 =
 
