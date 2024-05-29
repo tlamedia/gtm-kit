@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.22.3.1\n"
+"Project-Id-Version: GTM Kit 1.22.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-28T09:26:28+00:00\n"
+"POT-Creation-Date: 2024-05-29T20:50:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -37,6 +37,11 @@ msgstr ""
 #: inc/main.php:81
 #: assets/admin/settings.js:13
 msgid "Settings"
+msgstr ""
+
+#. translators: %s is GTM Kit Add-On.
+#: inc/main.php:99
+msgid "Required by %s"
 msgstr ""
 
 #: src/Admin/AbstractOptionsPage.php:264
