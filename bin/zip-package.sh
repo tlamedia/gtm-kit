@@ -1,17 +1,38 @@
 #!/bin/sh
 
+plugin_slug="gtm-kit"
+
 # Get the current directory
 current_dir=$(pwd)
 
-# Extract the last directory from the current path
-base_dir=$(basename "$current_dir")
-
 # Check if the base directory is 'bin'
+base_dir=$(basename "$current_dir")
 if [ "$base_dir" = "bin" ]; then
     cd ..
 fi
 
-rm ./bundled/gtm-kit.zip
-zip -rq ./bundled/gtm-kit.zip * -x "node_modules/*" -x "bin/*" -x "bundled/*" -x "**/.*" -x gulpfile.babel.js -x package.json -x package-lock.json -x tailwind.config.js -x "composer.*" -x "*.dist" -x postcss.config.js -x README.md
+# Check if the 'bundled' directory exists, if not create it
+[ ! -d "./bundled" ] && mkdir bundled
 
-echo "Done."
+# Remove the previous zip file if it exists
+[ -f "./bundled/${plugin_slug}.zip" ] && rm "./bundled/${plugin_slug}.zip"
+
+# Navigate to the plugin directory
+cd ..
+
+# Create a zip file excluding specified directories and files
+zip -rq "./${plugin_slug}/bundled/${plugin_slug}.zip" $plugin_slug \
+-x "${plugin_slug}/node_modules/*" \
+-x "${plugin_slug}/bin/*" \
+-x "${plugin_slug}/bundled/*" \
+-x "**/.*" \
+-x "${plugin_slug}/gulpfile.babel.js" \
+-x "${plugin_slug}/package.json" \
+-x "${plugin_slug}/package-lock.json" \
+-x "${plugin_slug}/tailwind.config.js" \
+-x "${plugin_slug}/composer.*" \
+-x "${plugin_slug}/*.dist" \
+-x "${plugin_slug}/postcss.config.js" \
+-x "${plugin_slug}/README.md"
+
+echo "Done"
