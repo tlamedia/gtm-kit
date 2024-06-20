@@ -13,14 +13,14 @@
     "textdomain": "gtm-kit"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^6.54.0",
-    "@wordpress/components": "^27.5.0",
-    "@wordpress/hooks": "^3.57.0",
-    "@wordpress/i18n": "^4.57.0",
-    "@wordpress/url": "^3.58.0"
+    "@wordpress/api-fetch": "^7.1.0",
+    "@wordpress/components": "^28.1.0",
+    "@wordpress/hooks": "^4.1.0",
+    "@wordpress/i18n": "^5.1.0",
+    "@wordpress/url": "^4.1.0"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^27.8.0",
+    "@wordpress/scripts": "^28.1.0",
     "autoprefixer": "^10.4.19",
     "cssnano": "^6.1.2",
     "del-cli": "^5.1.0",
