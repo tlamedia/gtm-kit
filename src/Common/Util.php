@@ -81,7 +81,7 @@ final class Util {
 		if ( $options->is_const_enabled() && defined( 'GTMKIT_API_HOST' ) ) {
 			$this->api_host = GTMKIT_API_HOST;
 		} else {
-			$this->api_host = 'https://app.gtmkit.com';
+			$this->api_host = 'https://api.gtmkit.com';
 		}
 	}
 
