@@ -110,19 +110,30 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'currentPage'      => $page_slug,
 				'root'             => \esc_url_raw( rest_url() ),
 				'nonce'            => \wp_create_nonce( 'wp_rest' ),
-				'wa'               => $this->util->is_premium(),
+				'integrations'     => Integrations::get_integrations(),
 				'dashboardUrl'     => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl'  => \menu_page_url( 'gtmkit_integrations', false ),
 				'templatesUrl'     => \menu_page_url( 'gtmkit_templates', false ),
 				'pluginInstallUrl' => $admin_url . 'plugin-install.php?tab=search&type=term&s=',
-				'plugins'          => [
-					'woocommerce' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
-					'cf7'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
-					'edd'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
-				],
+				'plugins'          => $this->get_plugins(),
 				'taxonomyOptions'  => $taxonomy_options,
 				'settings'         => $this->options->get_all_raw(),
 			]
 		);
+	}
+
+	/**
+	 * Get the plugins.
+	 *
+	 * @return array
+	 */
+	private function get_plugins(): array {
+		$plugins = [
+			'woocommerce' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'cf7'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+			'edd'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+		];
+
+		return apply_filters( 'gtmkit_integrations_plugins', $plugins );
 	}
 }

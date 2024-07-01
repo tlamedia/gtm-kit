@@ -112,6 +112,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'root'            => \esc_url_raw( rest_url() ),
 				'nonce'           => \wp_create_nonce( 'wp_rest' ),
 				'tutorials'       => $this->get_tutorials(),
+				'integrations'    => Integrations::get_integrations(),
 				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'settings'        => $this->options->get_all_raw(),
