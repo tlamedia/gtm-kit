@@ -44,6 +44,7 @@ final class Upgrade {
 			'1.15' => 'v115_upgrade',
 			'1.20' => 'v120_upgrade',
 			'1.22' => 'v122_upgrade',
+			'1.23' => 'v123_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -141,13 +142,27 @@ final class Upgrade {
 	}
 
 	/**
-	 * Upgrade routine for v1.20
+	 * Upgrade routine for v1.22
 	 */
 	protected function v122_upgrade(): void {
 
 		$values = [
 			'premium' => [
 				'addon_installed' => false,
+			],
+		];
+
+		Options::init()->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v1.23
+	 */
+	protected function v123_upgrade(): void {
+
+		$values = [
+			'general' => [
+				'exclude_user_roles' => [],
 			],
 		];
 
