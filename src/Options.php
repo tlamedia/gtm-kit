@@ -72,7 +72,7 @@ final class Options {
 				'default' => true,
 				'type'    => 'boolean',
 			],
-			'exclude_user_roles'      => [],
+			'exclude_user_roles'      => [ 'default' => [] ],
 		],
 		'integrations' => [
 			'woocommerce_shipping_info'             => [ 'default' => 1 ],
