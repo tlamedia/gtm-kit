@@ -101,7 +101,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 
 #### Other:
-* Tested up to WooCommerce 9.0.
+* Tested up to WooCommerce 9.1.
 
 = 1.22.4 =
 
