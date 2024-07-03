@@ -2,8 +2,8 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Tested up to: 6.5
-Stable tag: 1.22.4
+Tested up to: 6.6
+Stable tag: 1.23
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,8 +98,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Added an option to exclude selected user roles from tracking.
 * Improve the flexibility of GTM Kit integrations.
 
-#### Bugfixes:
-
 #### Other:
 * Tested up to WooCommerce 9.1.
 
@@ -115,6 +113,7 @@ Release date: 2024-05-30
 
 #### Other:
 * Tested up to WooCommerce 8.9.
+* Tested up to WordPress 6.6.
 
 = 1.22.3 =
 
