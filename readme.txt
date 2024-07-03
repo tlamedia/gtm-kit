@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-23/).
 
 #### Enhancements:
+* Added an option to exclude selected user roles from tracking.
 * Improve the flexibility of GTM Kit integrations.
 
 #### Bugfixes:

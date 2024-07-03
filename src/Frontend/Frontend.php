@@ -53,7 +53,7 @@ final class Frontend {
 			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_datalayer_content' ] );
 		}
 
-		if ( $container_active ) {
+		if ( $container_active && $page->is_user_allowed() ) {
 			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_header_script' ] );
 		} elseif ( $options->get( 'general', 'console_log' ) ) {
 			add_action( 'wp_head', [ $page, 'container_disabled' ] );
@@ -301,6 +301,10 @@ final class Frontend {
 	 */
 	public function container_disabled(): void {
 		echo '<script>console.warn("[GTM Kit] Google Tag Manager container is disabled.");</script>';
+
+		if ( ! $this->is_user_allowed() ) {
+			echo '<script>console.warn("[GTM Kit] The current user role is excluded from tracking.");</script>';
+		}
 	}
 
 	/**
@@ -348,5 +352,27 @@ final class Frontend {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Is user allowed
+	 *
+	 * @return bool
+	 */
+	public function is_user_allowed(): bool {
+
+		$is_user_allowed     = true;
+		$excluded_user_roles = $this->options->get( 'general', 'exclude_user_roles' );
+
+		if ( ! empty( $excluded_user_roles ) ) {
+			foreach ( wp_get_current_user()->roles as $role ) {
+				if ( in_array( $role, $excluded_user_roles, true ) ) {
+					$is_user_allowed = false;
+					break;
+				}
+			}
+		}
+
+		return $is_user_allowed;
 	}
 }

@@ -117,6 +117,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'settings'        => $this->options->get_all_raw(),
 				'site_data'       => $this->util->get_site_data( $this->options->get_all_raw() ),
+				'user_roles'      => $this->get_user_roles(),
 			]
 		);
 	}
@@ -128,5 +129,25 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 */
 	private function get_tutorials(): array {
 		return $this->util->get_data( '/get-tutorials', 'gtmkit_tutorials' );
+	}
+
+	/**
+	 * Get user roles
+	 *
+	 * @return array
+	 */
+	private function get_user_roles(): array {
+
+		$user_roles = [];
+		$roles      = get_editable_roles();
+
+		foreach ( $roles as $role_id => $role_info ) {
+			$user_roles[] = [
+				'role' => $role_id,
+				'name' => translate_user_role( $role_info['name'] ),
+			];
+		}
+
+		return $user_roles;
 	}
 }
