@@ -100,6 +100,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Other:
 * Tested up to WooCommerce 9.1.
+* Tested up to WordPress 6.6.
 
 = 1.22.4 =
 
@@ -113,7 +114,6 @@ Release date: 2024-05-30
 
 #### Other:
 * Tested up to WooCommerce 8.9.
-* Tested up to WordPress 6.6.
 
 = 1.22.3 =
 
