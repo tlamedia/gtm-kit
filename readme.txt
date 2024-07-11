@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-24/).
 
 #### Enhancements:
+* The 'Getting Started' section the setup wizard has been updated with new content.
 
 #### Bugfixes:
 

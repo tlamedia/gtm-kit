@@ -148,6 +148,7 @@ final class SetupWizard {
 				'nonce'        => wp_create_nonce( 'wp_rest' ),
 				'dashboardUrl' => menu_page_url( 'gtmkit_general', false ),
 				'templatesUrl' => menu_page_url( 'gtmkit_templates', false ),
+				'helpUrl'      => menu_page_url( 'gtmkit_help', false ),
 				'settings'     => $this->options->get_all_raw(),
 				'site_data'    => $this->util->get_site_data( $this->options->get_all_raw() ),
 				'install_data' => ( new PluginDataImport() )->get_all(),
