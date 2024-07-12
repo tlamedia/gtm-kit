@@ -98,6 +98,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * The 'Getting Started' section the setup wizard has been updated with new content.
 
 #### Bugfixes:
+* An upgrade function was causing problems for multisite installations leading lost configuration.
 
 #### Other:
 
