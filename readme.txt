@@ -98,6 +98,9 @@ Release date: 2024-07-15
 #### Bugfixes:
 * An upgrade function was causing problems for multisite installations leading lost configuration.
 
+#### Other:
+* The load priority of the script 'gtmkit-js-before' has been lowered from 1 to 5 to allow user to register scripts before.
+
 = 1.23 =
 
 Release date: 2024-07-04
@@ -157,3 +160,8 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 - Added an Event Inspector for verifying that events are being pushed to the datalayer. You can now debug events without using GTM preview mode.
 - Added advanced GCM settings: 'ads_data_redaction', 'url_passthrough' and 'wait_for_update'.
 - Updated the custom container loader for use with Stape.io.
+
+== Upgrade Notice ==
+
+= 1.23.1 =
+The load priority of the script 'gtmkit-js-before' has been lowered from 1 to 5.
