@@ -49,7 +49,7 @@ final class Frontend {
 		$noscript_implementation = $options->get( 'general', 'noscript_implementation' );
 
 		if ( empty( $options->get( 'general', 'just_the_container' ) ) ) {
-			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_settings_and_data_script' ], 1, 0 );
+			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_settings_and_data_script' ], 5, 0 );
 			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_datalayer_content' ] );
 		}
 
