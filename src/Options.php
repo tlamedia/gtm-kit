@@ -270,7 +270,7 @@ final class Options {
 		if ( $first_install ) {
 			\add_option( self::OPTION_NAME, $options, '', true );
 		} elseif ( is_multisite() ) {
-				\update_blog_option( get_main_site_id(), self::OPTION_NAME, $options );
+				\update_blog_option( get_current_blog_id(), self::OPTION_NAME, $options );
 		} else {
 			\update_option( self::OPTION_NAME, $options, true );
 		}
