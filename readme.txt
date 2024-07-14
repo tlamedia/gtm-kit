@@ -96,6 +96,7 @@ Release date: 2024-07-15
 * The 'Getting Started' section the setup wizard has been updated with new content.
 
 #### Bugfixes:
+* The settings were not saved correctly in multisite installations.
 * An upgrade function was causing problems for multisite installations leading lost configuration.
 
 #### Other:
