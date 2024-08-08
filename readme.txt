@@ -100,6 +100,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Other:
 * Require WooCommerce 8.2.
+* Tested up to WooCommerce 9.2.
 
 = 1.23.1 =
 
