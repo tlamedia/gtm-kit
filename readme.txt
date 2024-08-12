@@ -88,7 +88,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.23.1 =
+= 1.23.2 =
 
 Release date: 2024-08-13
 
