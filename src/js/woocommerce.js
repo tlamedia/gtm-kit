@@ -86,7 +86,7 @@ function gtmkitLoad() {
 			)
 		) {
 			event = 'add_to_cart';
-		} else if (
+		} else if ( window.gtmkit_settings.wc.wishlist &&
 			(eventTargetElement.closest('.products') ||
 				eventTargetElement.closest('.wc-block-grid__products')) &&
 			eventTargetElement.closest(
@@ -148,7 +148,7 @@ function gtmkitLoad() {
 		if ( formCartElement ) {
 			if ( eventTargetElement.closest( '.single_add_to_cart_button:not(.disabled,.input-needed)' ) ) {
 				event = 'add_to_cart';
-			} else if ( eventTargetElement.closest( window.gtmkit_settings.wc.css_selectors.single_product_wishlist ) ) {
+			} else if ( window.gtmkit_settings.wc.wishlist && eventTargetElement.closest( window.gtmkit_settings.wc.css_selectors.single_product_wishlist ) ) {
 				event = 'add_to_wishlist';
 			} else {
 				return true;
