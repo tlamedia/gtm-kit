@@ -112,8 +112,6 @@ final class WooCommerce extends AbstractEcommerce {
 			20,
 			3
 		);
-		add_filter( 'tinvwl_wishlist_item_meta_post', [ self::$instance, 'Compatibility_With_TI_Wishlist' ] );
-
 		add_action( 'woocommerce_after_shop_loop_item', [ self::$instance, 'product_list_loop_add_to_cart_tracking' ] );
 		add_filter( 'woocommerce_cart_item_remove_link', [ self::$instance, 'cart_item_remove_link' ], 10, 2 );
 
@@ -245,6 +243,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$global_settings['wc']['add_payment_info']['config']  = (int) $this->options->get( 'integrations', 'woocommerce_payment_info' );
 		$global_settings['wc']['view_item']['config']         = (int) $this->options->get( 'integrations', 'woocommerce_variable_product_tracking' );
 		$global_settings['wc']['view_item_list']['config']    = (int) $this->options->get( 'integrations', 'woocommerce_view_item_list_limit' );
+		$global_settings['wc']['wishlist']                    = false;
 		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
@@ -258,11 +257,9 @@ final class WooCommerce extends AbstractEcommerce {
 			'payment-method-not-found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
 		$global_settings['wc']['css_selectors']               = [
-			'single_product_wishlist'  => '.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list,.disabled-add-wishlist)',
-			'product_list_select_item' => '.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' .
-										'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist,.tinvwl_add_to_wishlist_button),' .
-										'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist,.tinvwl_add_to_wishlist_button)',
-			'product_list_wishlist'    => '.add_to_wishlist, .tinvwl_add_to_wishlist_button:not(.tinvwl-product-in-list)',
+			'product_list_select_item' => '.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
+										'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
+										'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist)',
 		];
 
 		return $global_settings;
@@ -1043,24 +1040,6 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function prefix_item_id( string $item_id = '' ): string {
 		return $this->options->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
-	}
-
-	/**
-	 * Compatibility with TI WooCommerce Wishlist
-	 *
-	 * @param array<string, mixed> $item_data Item data.
-	 *
-	 * @return array<string, mixed>
-	 */
-	public function Compatibility_With_TI_Wishlist( array $item_data ): array {
-
-		foreach ( array_keys( $item_data ) as $key ) {
-			if ( strpos( $key, 'gtmkit_' ) === 0 ) {
-				unset( $item_data[ $key ] );
-			}
-		}
-
-		return $item_data;
 	}
 
 	/**

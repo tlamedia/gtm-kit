@@ -27,6 +27,7 @@ final class PluginAvailability {
 	public function register() {
 		$this->seo_plugins();
 		$this->conflicting_plugins();
+		$this->wishlist_plugins();
 		$this->register_plugins();
 	}
 
@@ -72,6 +73,27 @@ final class PluginAvailability {
 			'gtm-ecommerce-woo-pro' => [
 				'name' => 'Google Tag Manager for WooCommerce PRO',
 				'slug' => 'gtm-ecommerce-woo-pro/gtm-ecommerce-woo-pro.php',
+			],
+		];
+	}
+
+	/**
+	 * Wishlist plugins.
+	 *
+	 * @return void
+	 */
+	protected function wishlist_plugins() {
+		$this->plugins['wishlist_plugins'] = [
+			'yith-woocommerce-wishlist' => [
+				'name' => 'YITH WooCommerce Wishlist',
+				'slug' => 'yith-woocommerce-wishlist/init.php',
+				'gf'   => true,
+			],
+
+			'gtm-ecommerce-woo-pro'     => [
+				'name' => 'TI WooCommerce Wishlist',
+				'slug' => 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php',
+				'gf'   => true,
 			],
 		];
 	}
@@ -132,5 +154,16 @@ final class PluginAvailability {
 	 */
 	public function is_active( array $plugin ): bool {
 		return isset( $plugin['active'] ) && $plugin['active'] === true;
+	}
+
+	/**
+	 * Determines whether a grandfathered polyfill is available.
+	 *
+	 * @param array<string, mixed> $plugin The plugin to check.
+	 *
+	 * @return bool Whether the plugin is active.
+	 */
+	public function gf_polyfill_available( array $plugin ): bool {
+		return isset( $plugin['gf'] ) && $plugin['gf'] === true;
 	}
 }

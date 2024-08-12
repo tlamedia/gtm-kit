@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Installation;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Options;
 
 /**
@@ -44,6 +45,7 @@ final class Upgrade {
 			'1.15' => 'v115_upgrade',
 			'1.20' => 'v120_upgrade',
 			'1.22' => 'v122_upgrade',
+			'2.0'  => 'v2_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -152,5 +154,24 @@ final class Upgrade {
 		];
 
 		Options::init()->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v2.0
+	 */
+	protected function v2_upgrade(): void {
+
+		if ( (
+			new WooCommerceConditional() )->is_met() &&
+			( is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) || is_plugin_active( 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php' )
+		) ) {
+			$values = [
+				'misc' => [
+					'gf_wishlist' => true,
+				],
+			];
+
+			Options::init()->set( $values, false, false );
+		}
 	}
 }
