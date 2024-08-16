@@ -1066,7 +1066,7 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Registers the actual data into each endpoint.
 	 */
-	public function extend_store() {
+	public function extend_store(): void {
 
 		// Register into `cart/items`.
 		$this->extend->register_endpoint_data(

@@ -75,7 +75,7 @@ final class SetupWizard {
 	/**
 	 * Maybe redirect to the setup wizard after plugin activation.
 	 */
-	public function maybe_redirect_after_activation() {
+	public function maybe_redirect_after_activation(): void {
 
 		if ( wp_doing_ajax() || wp_doing_cron() ) {
 			return;
@@ -118,7 +118,7 @@ final class SetupWizard {
 	 *
 	 * @param string $hook The asset hook.
 	 */
-	public function enqueue_assets( string $hook ) {
+	public function enqueue_assets( string $hook ): void {
 
 		if ( strpos( $hook, self::SLUG ) === false ) {
 			return;
@@ -159,7 +159,7 @@ final class SetupWizard {
 	/**
 	 * Setup Wizard Content
 	 */
-	public function setup_wizard_content() {
+	public function setup_wizard_content(): void {
 		$admin_url = is_network_admin() ? network_admin_url() : admin_url();
 
 		$this->settings_error_page( 'gtmkit-settings', '<a class="gtmkit-text-color-grey gtmkit-text-sm" href="' . $admin_url . '">' . esc_html__( 'Go back to the Dashboard', 'gtm-kit' ) . '</a>' );

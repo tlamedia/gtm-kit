@@ -95,7 +95,7 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Configure the admin page using the settings API.
 	 */
-	abstract public function configure();
+	abstract public function configure(): void;
 
 	/**
 	 * Get the capability required to view the admin pages.
@@ -160,7 +160,7 @@ abstract class AbstractOptionsPage {
 	 * @param string $page_slug The page slug.
 	 * @param string $script_handle The script handle.
 	 */
-	abstract public function localize_script( string $page_slug, string $script_handle );
+	abstract public function localize_script( string $page_slug, string $script_handle ): void;
 
 	/**
 	 * Add body class.

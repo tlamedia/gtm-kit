@@ -45,7 +45,7 @@ final class MetaBox {
 	/**
 	 * Add "GTM Kit" meta box
 	 */
-	public function add_meta_boxes() {
+	public function add_meta_boxes(): void {
 		if ( current_user_can( 'manage_options' ) ) {
 			$post_types = get_post_types(
 				[
@@ -77,7 +77,7 @@ final class MetaBox {
 	/**
 	 * Displays some checkbox to de/activate some cache options
 	 */
-	public function display_meta_boxes() {
+	public function display_meta_boxes(): void {
 		if ( current_user_can( 'manage_options' ) ) {
 			wp_nonce_field( 'gtmkit_box_option', '_gtmkitnonce', false );
 			$page_type = get_post_meta( get_the_ID(), 'gtmkit_page_type', true );
@@ -103,7 +103,7 @@ final class MetaBox {
 	/**
 	 * Manage the cache options from the meta box.
 	 */
-	public function save_meta_box_options() {
+	public function save_meta_box_options(): void {
 		if ( current_user_can( 'manage_options' ) && isset( $_POST['post_ID'], $_POST['_gtmkitnonce'] ) ) {
 
 			check_admin_referer( 'gtmkit_box_option', '_gtmkitnonce' );
