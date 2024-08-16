@@ -687,7 +687,11 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @return array The item data.
 	 */
-	public function get_item_data( WC_Product $product, array $additional_item_attributes = [], string $event_context = '' ): array {
+	public function get_item_data( $product, array $additional_item_attributes = [], string $event_context = '' ): array {
+
+		if ( ! ( $product instanceof WC_Product ) ) {
+			return [];
+		}
 
 		$product_id_to_query = ( $product->get_type() === 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
