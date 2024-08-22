@@ -324,10 +324,13 @@ final class Util {
 
 		if ( $has_asset_file ) {
 			$file = $this->asset_path . substr_replace( $script, '.asset.php', - strlen( '.js' ) );
-			if ( file_exists( $file ) ) {
-				$deps_file = require $file;
-				$deps      = $deps_file['dependencies'];
-				$ver       = $deps_file['version'];
+			$file = \realpath( $this->asset_path . substr_replace( $script, '.asset.php', - strlen( '.js' ) ) );
+
+			// Ensure the file is within the expected directory.
+			if ( $file && \strpos( $file, \realpath( $this->asset_path ) ) === 0 && \file_exists( $file ) ) {
+				$deps_data = require $file; // nosemgrep.
+				$deps      = $deps_data['dependencies'];
+				$ver       = $deps_data['version'];
 			}
 		}
 

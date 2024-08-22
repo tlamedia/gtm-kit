@@ -112,7 +112,8 @@ final class MetaBox {
 				if ( empty( $_POST['gtmkit_option']['page_type'] ) ) {
 					delete_post_meta( (int) $_POST['post_ID'], 'gtmkit_page_type' );
 				} else {
-					update_post_meta( (int) $_POST['post_ID'], 'gtmkit_page_type', $_POST['gtmkit_option']['page_type'] );
+					$page_type = sanitize_text_field( $_POST['gtmkit_option']['page_type'] );
+					update_post_meta( (int) $_POST['post_ID'], 'gtmkit_page_type', $page_type );
 				}
 			}
 		}
