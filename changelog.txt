@@ -1,0 +1,21 @@
+*** GTM Kit Woo Add-On ***
+
+2024-08-22 - version 1.23.3
+* Fix: Prevent fatal errors caused by invalid filter input from third-party plugins.
+* Fix: In WordPress versions prior to 6.6, the options pages fail to load due to a missing dependency.
+
+2024-08-13 - version 1.23.2
+* Dev: Require WooCommerce 8.2.
+* Dev: Tested up to WooCommerce 9.2.
+
+2024-07-15 - version 1.23.1
+* Update: The 'Getting Started' section the setup wizard has been updated with new content.
+* Fix: The settings were not saved correctly in multisite installations.
+* Fix: An upgrade function was causing problems for multisite installations leading lost configuration.
+* Dev: The load priority of the script 'gtmkit-js-before' has been lowered from 1 to 5 to allow user to register scripts before.
+
+2024-07-04 - version 1.23
+* Add: Added an option to exclude selected user roles from tracking.
+* Add: Improve the flexibility of GTM Kit integrations.
+* Dev: Tested up to WooCommerce 9.1.
+* Dev: Tested up to WordPress 6.6.
