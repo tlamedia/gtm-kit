@@ -28,14 +28,15 @@ trait AssetsTrait {
 			$url = GTMKIT_URL;
 		}
 
-		$deps_file  = $path . 'assets/admin/' . $script_handle . '.asset.php';
+		$deps_file  = \realpath( $path . 'assets/admin/' . $script_handle . '.asset.php' );
 		$dependency = [];
 		$version    = false;
 
-		if ( \file_exists( $deps_file ) ) {
-			$deps_file  = require $deps_file;
-			$dependency = $deps_file['dependencies'];
-			$version    = $deps_file['version'];
+		// Ensure the file is within the expected directory.
+		if ( $deps_file && \strpos( $deps_file, \realpath( $path . 'assets/admin/' ) ) === 0 && \file_exists( $deps_file ) ) {
+			$deps_data  = require $deps_file; // nosemgrep.
+			$dependency = $deps_data['dependencies'];
+			$version    = $deps_data['version'];
 		}
 
 		if ( $settings_dependency ) {
