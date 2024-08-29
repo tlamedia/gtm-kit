@@ -20,12 +20,19 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	protected $option_group = 'general';
 
 	/**
+	 * The notifications
+	 *
+	 * @var array
+	 */
+	protected $notifications = [];
+
+	/**
 	 * Adds the admin page to the menu.
 	 */
 	public function add_admin_page(): void {
 		add_menu_page(
 			$this->get_page_title(),
-			'GTM KIT',
+			$this->get_main_menu_title(),
 			$this->get_capability(),
 			$this->get_menu_slug(),
 			[ $this, 'render' ],
@@ -59,12 +66,21 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
+	 * Get the main admin page menu title.
+	 *
+	 * @return string
+	 */
+	protected function get_main_menu_title(): string {
+		return 'GTM Kit' . $this->get_notification_counter();
+	}
+
+	/**
 	 * Get the admin page menu title.
 	 *
 	 * @return string
 	 */
 	protected function get_menu_title(): string {
-		return __( 'General', 'gtm-kit' );
+		return __( 'General', 'gtm-kit' ) . $this->get_notification_counter();
 	}
 
 	/**
@@ -118,6 +134,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'settings'        => $this->options->get_all_raw(),
 				'site_data'       => $this->util->get_site_data( $this->options->get_all_raw() ),
 				'user_roles'      => $this->get_user_roles(),
+				'notifications'   => $this->get_notifications(),
 			]
 		);
 	}
@@ -149,5 +166,40 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 		}
 
 		return $user_roles;
+	}
+
+	/**
+	 * Get the notifications array
+	 *
+	 * @return array
+	 */
+	private function get_notifications_array(): array {
+		if ( empty( $this->notifications ) ) {
+			$notifications_handler = NotificationsHandler::get();
+			$this->notifications   = $notifications_handler->get_notifications_array();
+		}
+
+		return $this->notifications;
+	}
+
+	/**
+	 * Returns the notification count in HTML format.
+	 *
+	 * @return string The notification count in HTML format.
+	 */
+	private function get_notification_counter(): string {
+		return sprintf(
+			' <span class="menu-counter count-%1$d"><span class="count" aria-hidden="true">%1$d</span></span>',
+			$this->get_notifications_array()['metrics']['total']
+		);
+	}
+
+	/**
+	 * Returns the notifications.
+	 *
+	 * @return object The notifications.
+	 */
+	protected function get_notifications(): object {
+		return (object) $this->get_notifications_array();
 	}
 }

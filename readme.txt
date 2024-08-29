@@ -95,6 +95,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-24/).
 
 #### Enhancements:
+* A notifications handler has been added to communicate issues and notifications that require the user’s attention.
 
 #### Bugfixes:
 

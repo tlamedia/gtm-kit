@@ -23,6 +23,7 @@ module.exports = {
 				'color-heading': 'var(--gtmkit-text-color-heading)',
 				'color-grey': 'var(--gtmkit-color-grey)',
 				'color-button-disabled': 'var(--gtmkit-button-disabled)',
+				'color-background-disabled': 'var(--gtmkit-button-disabled-bg)',
 				'color-success': 'var(--gtmkit-color-success)',
 				'color-warning': 'var(--gtmkit-color-warning)',
 				'color-error': 'var(--gtmkit-color-error)',

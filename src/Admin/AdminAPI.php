@@ -73,6 +73,14 @@ final class AdminAPI {
 				'callback' => [ $this, 'send_support_data' ],
 			]
 		);
+
+		$this->util->rest_api_server->register_rest_route(
+			'/set-notification-status',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'set_notification_status' ],
+			]
+		);
 	}
 
 	/**
@@ -138,5 +146,67 @@ final class AdminAPI {
 		} else {
 			wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
 		}
+	}
+
+	/**
+	 * Set notification status
+	 *
+	 * @return void
+	 */
+	public function set_notification_status(): void {
+		$input = $this->get_json_input();
+
+		if ( $this->validate_notification_input( $input ) ) {
+			$notification_id = sanitize_text_field( $input['notification-id'] );
+			$action          = sanitize_text_field( $input['action'] );
+
+			$notifications_handler = NotificationsHandler::get();
+			$notifications_handler->setup_current_notifications();
+			$notification = $notifications_handler->get_notification_by_id( $notification_id );
+
+			if ( $notification instanceof Notification ) {
+				switch ( $action ) {
+					case 'dismiss':
+						$notification_action = $notifications_handler->maybe_dismiss_notification( $notification );
+						break;
+					case 'restore':
+						$notification_action = $notifications_handler->restore_notification( $notification );
+						break;
+					default:
+						$notification_action = false;
+				}
+
+				if ( $notification_action ) {
+					wp_send_json_success( (object) $notifications_handler->get_notifications_array() );
+				} else {
+					wp_send_json_error( (object) $notifications_handler->get_notifications_array() );
+				}
+			} else {
+				wp_send_json_error( 'The notification was not found.' );
+			}
+		} else {
+			wp_send_json_error( 'Invalid input.' );
+		}
+	}
+
+	/**
+	 * Validate notification input
+	 *
+	 * @param array|null $input The input.
+	 * @return bool
+	 */
+	private function validate_notification_input( ?array $input ): bool {
+		return isset( $input['notification-id'], $input['action'] )
+				&& in_array( $input['action'], [ 'dismiss', 'restore' ], true );
+	}
+
+	/**
+	 * Get JSON input
+	 *
+	 * @return array|null
+	 */
+	private function get_json_input(): ?array {
+		$input_raw = file_get_contents( 'php://input' );
+		return $input_raw ? json_decode( $input_raw, true ) : null;
 	}
 }

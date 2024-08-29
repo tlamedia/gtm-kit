@@ -14,6 +14,7 @@ use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
+use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
@@ -60,6 +61,8 @@ function gtmkit_plugin_deactivation(): void {
 	}
 
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
+
+	do_action( 'gtmkit_deactivate' );
 }
 
 register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deactivation' );
@@ -164,6 +167,7 @@ function gtmkit_admin_init(): void {
 	$rest_api_server = new RestAPIServer();
 	$util            = new Util( $options, $rest_api_server );
 
+	NotificationsHandler::get();
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
