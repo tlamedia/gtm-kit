@@ -96,6 +96,8 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 #### Enhancements:
 * A notifications handler has been added to communicate issues and notifications that require the user’s attention.
+* Added a warning when other Google Tag Manager plugins that may cause a conflict are active.
+* WooCommerce users are advised to install a supported SEO plugin to take advantage of a default category in data layer items.
 
 #### Bugfixes:
 

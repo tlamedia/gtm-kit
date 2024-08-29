@@ -33,6 +33,8 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Admin\\MetaBox' => __DIR__ . '/../..' . '/src/Admin/MetaBox.php',
         'TLA_Media\\GTM_Kit\\Admin\\Notification' => __DIR__ . '/../..' . '/src/Admin/Notification.php',
         'TLA_Media\\GTM_Kit\\Admin\\NotificationsHandler' => __DIR__ . '/../..' . '/src/Admin/NotificationsHandler.php',
+        'TLA_Media\\GTM_Kit\\Admin\\PluginAvailability' => __DIR__ . '/../..' . '/src/Admin/PluginAvailability.php',
+        'TLA_Media\\GTM_Kit\\Admin\\PluginSuggestions' => __DIR__ . '/../..' . '/src/Admin/PluginSuggestions.php',
         'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => __DIR__ . '/../..' . '/src/Admin/SetupWizard.php',
         'TLA_Media\\GTM_Kit\\Admin\\TemplatesOptionsPage' => __DIR__ . '/../..' . '/src/Admin/TemplatesOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\Conditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/Conditional.php',

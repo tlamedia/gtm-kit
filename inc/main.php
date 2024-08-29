@@ -15,7 +15,9 @@ use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
+use TLA_Media\GTM_Kit\Admin\PluginAvailability;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
+use TLA_Media\GTM_Kit\Admin\PluginSuggestions;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
@@ -166,11 +168,14 @@ function gtmkit_admin_init(): void {
 		new Upgrade();
 	}
 
-	$options         = new Options();
-	$rest_api_server = new RestAPIServer();
-	$util            = new Util( $options, $rest_api_server );
+	$options             = new Options();
+	$rest_api_server     = new RestAPIServer();
+	$util                = new Util( $options, $rest_api_server );
+	$plugin_availability = new PluginAvailability();
 
-	NotificationsHandler::get();
+	$notifications_handler = NotificationsHandler::get();
+
+	PluginSuggestions::register( $notifications_handler, $plugin_availability );
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );

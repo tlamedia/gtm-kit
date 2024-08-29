@@ -2,6 +2,8 @@
 
 2024-MM-DD - version 1.X
 * Add: A notifications handler has been added to communicate issues and notifications that require the user’s attention.
+* Add: Added a warning when other Google Tag Manager plugins that may cause a conflict are active.
+* Add: WooCommerce users are advised to install a supported SEO plugin to take advantage of a default category in data layer items.
 
 2024-08-22 - version 1.23.3
 * Fix: Prevent fatal errors caused by invalid filter input from third-party plugins.

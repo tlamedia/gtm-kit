@@ -18,6 +18,8 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\MetaBox' => $baseDir . '/src/Admin/MetaBox.php',
     'TLA_Media\\GTM_Kit\\Admin\\Notification' => $baseDir . '/src/Admin/Notification.php',
     'TLA_Media\\GTM_Kit\\Admin\\NotificationsHandler' => $baseDir . '/src/Admin/NotificationsHandler.php',
+    'TLA_Media\\GTM_Kit\\Admin\\PluginAvailability' => $baseDir . '/src/Admin/PluginAvailability.php',
+    'TLA_Media\\GTM_Kit\\Admin\\PluginSuggestions' => $baseDir . '/src/Admin/PluginSuggestions.php',
     'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
     'TLA_Media\\GTM_Kit\\Admin\\TemplatesOptionsPage' => $baseDir . '/src/Admin/TemplatesOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\Conditional' => $baseDir . '/src/Common/Conditionals/Conditional.php',
