@@ -17,6 +17,9 @@ use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
+use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WoocommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
@@ -129,13 +132,13 @@ function gtmkit_frontend_init(): void {
 		BasicDatalayerData::register( $options );
 		UserData::register( $options );
 
-		if ( $options->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
+		if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WoocommerceConditional() )->is_met() ) {
 			WooCommerce::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists( 'WPCF7' ) ) {
+		if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
 			ContactForm7::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists( 'EDD_Requirements_Check' ) ) {
+		if ( $options->get( 'integrations', 'edd_integration' ) && ( new EasyDigitalDownloadsConditional() )->is_met() ) {
 			EasyDigitalDownloads::register( $options, $util );
 		}
 	}
