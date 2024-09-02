@@ -25,7 +25,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\Conditional' => $baseDir . '/src/Common/Conditionals/Conditional.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\ContactForm7Conditional' => $baseDir . '/src/Common/Conditionals/ContactForm7Conditional.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\EasyDigitalDownloadsConditional' => $baseDir . '/src/Common/Conditionals/EasyDigitalDownloadsConditional.php',
-    'TLA_Media\\GTM_Kit\\Common\\Conditionals\\WoocommerceConditional' => $baseDir . '/src/Common/Conditionals/WoocommerceConditional.php',
+    'TLA_Media\\GTM_Kit\\Common\\Conditionals\\WooCommerceConditional' => $baseDir . '/src/Common/Conditionals/WooCommerceConditional.php',
     'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => $baseDir . '/src/Common/RestAPIServer.php',
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',

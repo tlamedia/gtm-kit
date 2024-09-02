@@ -10,7 +10,7 @@ namespace TLA_Media\GTM_Kit\Common\Conditionals;
 /**
  * Conditional that is only met when WooCommerce is active.
  */
-class WoocommerceConditional implements Conditional {
+class WooCommerceConditional implements Conditional {
 
 	/**
 	 * Returns `true` when the WooCommerce plugin is installed and activated.

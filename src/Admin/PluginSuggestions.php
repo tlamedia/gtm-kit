@@ -7,9 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
-use TLA_Media\GTM_Kit\Common\Conditionals\Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
-use TLA_Media\GTM_Kit\Common\Conditionals\WoocommerceConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 
 /**
  * Suggested plugins
@@ -63,7 +62,7 @@ final class PluginSuggestions {
 	 * @return void
 	 */
 	public function suggest_seo_plugin(): void {
-		if ( ! ( new WoocommerceConditional() )->is_met() && ! ( new EasyDigitalDownloadsConditional() )->is_met() ) {
+		if ( ! ( new WooCommerceConditional() )->is_met() && ! ( new EasyDigitalDownloadsConditional() )->is_met() ) {
 			return;
 		}
 

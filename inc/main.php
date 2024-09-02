@@ -21,7 +21,7 @@ use TLA_Media\GTM_Kit\Admin\PluginSuggestions;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
-use TLA_Media\GTM_Kit\Common\Conditionals\WoocommerceConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
@@ -134,7 +134,7 @@ function gtmkit_frontend_init(): void {
 		BasicDatalayerData::register( $options );
 		UserData::register( $options );
 
-		if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WoocommerceConditional() )->is_met() ) {
+		if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
 			WooCommerce::register( $options, $util );
 		}
 		if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
