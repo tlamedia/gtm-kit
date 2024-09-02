@@ -102,6 +102,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 #### Bugfixes:
 
 #### Other:
+* Require WordPress 6.3.
 
 = 1.23.3 =
 
