@@ -448,13 +448,4 @@ final class Util {
 		}
 		return $this->normalize_and_hash( $hash_algorithm, $normalized_email, true );
 	}
-
-	/**
-	 * Is premium
-	 *
-	 * @return bool True when is premium.
-	 */
-	public function is_premium(): bool {
-		return \defined( 'GTMKIT_WOO_FILE' );
-	}
 }

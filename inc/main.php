@@ -21,6 +21,7 @@ use TLA_Media\GTM_Kit\Admin\PluginSuggestions;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
@@ -181,7 +182,7 @@ function gtmkit_admin_init(): void {
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util );
-	if ( ! $util->is_premium() ) {
+	if ( ! ( new PremiumConditional() )->is_met() ) {
 		TemplatesOptionsPage::register( $options, $util );
 	} else {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
