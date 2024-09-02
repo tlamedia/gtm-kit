@@ -14,7 +14,7 @@
  * Requires at least: 6.3
  * Requires PHP: 7.2
  *
- * WC requires at least: 8.2
+ * WC requires at least: 8.3
  * WC tested up to: 9.2
  *
  * @package GTM Kit
