@@ -40,6 +40,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\Conditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/Conditional.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\ContactForm7Conditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/ContactForm7Conditional.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\EasyDigitalDownloadsConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/EasyDigitalDownloadsConditional.php',
+        'TLA_Media\\GTM_Kit\\Common\\Conditionals\\PremiumConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/PremiumConditional.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\WooCommerceConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/WooCommerceConditional.php',
         'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => __DIR__ . '/../..' . '/src/Common/RestAPIServer.php',
         'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',

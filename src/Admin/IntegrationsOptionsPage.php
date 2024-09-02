@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+
 /**
  * IntegrationsOptionsPage
  */
@@ -110,7 +112,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'currentPage'      => $page_slug,
 				'root'             => \esc_url_raw( rest_url() ),
 				'nonce'            => \wp_create_nonce( 'wp_rest' ),
-				'isPremium'        => $this->util->is_premium(),
+				'isPremium'        => ( new PremiumConditional() )->is_met(),
 				'integrations'     => Integrations::get_integrations(),
 				'dashboardUrl'     => \menu_page_url( 'gtmkit_general', false ),
 				'integrationsUrl'  => \menu_page_url( 'gtmkit_integrations', false ),
