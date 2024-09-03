@@ -19,7 +19,7 @@ final class RestAPIServer {
 	 *
 	 * @var string
 	 */
-	private $route_namespace = 'gtmkit/v1';
+	private string $route_namespace = 'gtmkit/v1';
 
 	/**
 	 * Permission callback
@@ -39,8 +39,8 @@ final class RestAPIServer {
 	/**
 	 * Register REST route
 	 *
-	 * @param string $route The route.
-	 * @param array  $args The arguments.
+	 * @param string               $route The route.
+	 * @param array<string, mixed> $args The arguments.
 	 *
 	 * @return void
 	 */

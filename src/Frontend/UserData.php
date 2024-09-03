@@ -19,7 +19,7 @@ final class UserData {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Constructor.
@@ -44,9 +44,9 @@ final class UserData {
 	/**
 	 * Get the dataLayer content
 	 *
-	 * @param array $datalayer The datalayer.
+	 * @param array<string, mixed> $datalayer The datalayer.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 

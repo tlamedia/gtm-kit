@@ -20,42 +20,42 @@ final class Util {
 	 *
 	 * @var Options
 	 */
-	public $options;
+	public Options $options;
 
 	/**
 	 * Instance of RestAPIServer
 	 *
 	 * @var RestAPIServer
 	 */
-	public $rest_api_server;
+	public RestAPIServer $rest_api_server;
 
 	/**
 	 * Asset path
 	 *
 	 * @var string
 	 */
-	public $asset_path;
+	public string $asset_path;
 
 	/**
 	 * Asset URL
 	 *
 	 * @var string
 	 */
-	public $asset_url;
+	public string $asset_url;
 
 	/**
 	 * API namespace.
 	 *
 	 * @var string
 	 */
-	private $api_namespace = '/api/v1';
+	private string $api_namespace = '/api/v1';
 
 	/**
 	 * API host.
 	 *
 	 * @var string
 	 */
-	private $api_host;
+	private string $api_host;
 
 	/**
 	 * Constructor.
@@ -88,10 +88,10 @@ final class Util {
 	/**
 	 * Get the site data
 	 *
-	 * @param array $options The options.
-	 * @param bool  $anonymize Anonymize the data.
+	 * @param array<string, mixed> $options The options.
+	 * @param bool                 $anonymize Anonymize the data.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_site_data( array $options, bool $anonymize = true ): array {
 
@@ -126,12 +126,12 @@ final class Util {
 	/**
 	 * Set the site data
 	 *
-	 * @param array  $data Current data.
-	 * @param array  $options The options.
-	 * @param string $wp_version The WordPress version.
-	 * @param bool   $anonymize Anonymize the data.
+	 * @param array<string, mixed> $data Current data.
+	 * @param array<string, mixed> $options The options.
+	 * @param string               $wp_version The WordPress version.
+	 * @param bool                 $anonymize Anonymize the data.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function set_site_data( array $data, array $options, string $wp_version, bool $anonymize ): array {
 		$data['options']           = ( $anonymize ) ? $this->anonymize_options( $options ) : $options;
@@ -148,10 +148,10 @@ final class Util {
 	/**
 	 * Add shared data
 	 *
-	 * @param array  $data Current data.
-	 * @param string $wp_version The WordPress version.
+	 * @param array<string, mixed> $data Current data.
+	 * @param string               $wp_version The WordPress version.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function add_shared_data( array $data, string $wp_version ): array {
 		$data['shared_data'] = [
@@ -203,7 +203,7 @@ final class Util {
 	/**
 	 * Gets names of all active plugins.
 	 *
-	 * @return array An array of active plugins names.
+	 * @return array<int, string> An array of active plugins names.
 	 */
 	public function get_active_plugins(): array {
 
@@ -224,12 +224,12 @@ final class Util {
 	/**
 	 * Add plugin to array if active.
 	 *
-	 * @param string $plugin The plugin slug.
-	 * @param string $key The key.
-	 * @param array  $data The data.
-	 * @param bool   $shorten Shorten the version number or not.
+	 * @param string               $plugin The plugin slug.
+	 * @param string               $key The key.
+	 * @param array<string, mixed> $data The data.
+	 * @param bool                 $shorten Shorten the version number or not.
 	 *
-	 * @return array An array of active plugins names.
+	 * @return array<string, mixed> An array of active plugins names.
 	 */
 	public function add_active_plugin_and_version( string $plugin, string $key, array $data, bool $shorten = true ): array {
 
@@ -244,9 +244,9 @@ final class Util {
 	/**
 	 * Anonymize options
 	 *
-	 * @param array $options The options.
+	 * @param array<string, mixed> $options The options.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function anonymize_options( array $options ): array {
 
@@ -310,15 +310,18 @@ final class Util {
 	/**
 	 * Enqueue script in build
 	 *
-	 * @param string $handle The script handle.
-	 * @param string $script The script name.
-	 * @param bool   $has_asset_file If the script has an asset file or not.
-	 * @param array  $deps The script dependencies.
-	 * @param array  $args The loading strategy.
+	 * @param string                      $handle The script handle.
+	 * @param string                      $script The script name.
+	 * @param bool                        $has_asset_file If the script has an asset file or not.
+	 * @param array<int, string>          $deps The script dependencies.
+	 * @param array<string, string|false> $args The loading strategy.
 	 *
 	 * @return void
 	 */
-	public function enqueue_script( string $handle, string $script, bool $has_asset_file = false, array $deps = [], array $args = [ 'strategy' => 'defer' ] ): void {
+	public function enqueue_script( string $handle, string $script, bool $has_asset_file = false, array $deps = [], array $args = [
+		'strategy'  => 'defer',
+		'in_footer' => false,
+	] ): void {
 
 		$ver = $this->get_plugin_version();
 
@@ -351,7 +354,7 @@ final class Util {
 	 * @param string $endpoint The API endpoint.
 	 * @param string $transient The transient.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_data( string $endpoint, string $transient ): array {
 		$data = get_transient( $transient );

@@ -19,21 +19,21 @@ final class BasicDatalayerData {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Set datalayer post type.
 	 *
 	 * @var bool
 	 */
-	protected $set_datalayer_post_type;
+	protected bool $set_datalayer_post_type;
 
 	/**
 	 * Set datalayer page type.
 	 *
 	 * @var bool
 	 */
-	protected $set_datalayer_page_type;
+	protected bool $set_datalayer_page_type;
 
 	/**
 	 * Constructor.
@@ -61,9 +61,9 @@ final class BasicDatalayerData {
 	/**
 	 * Get the basic dataLayer data
 	 *
-	 * @param array $datalayer The datalayer.
+	 * @param array<string, mixed> $datalayer The datalayer.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_datalayer_content( array $datalayer ): array {
 
@@ -96,11 +96,11 @@ final class BasicDatalayerData {
 	/**
 	 * Set post and page types in the datalayer
 	 *
-	 * @param array  $datalayer The datalayer.
-	 * @param string $post_type The post type.
-	 * @param string $page_type The page type.
+	 * @param array<string, mixed> $datalayer The datalayer.
+	 * @param string               $post_type The post type.
+	 * @param string               $page_type The page type.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function set_post_and_page_types( array $datalayer, string $post_type, string $page_type = '' ): array {
 
@@ -117,9 +117,9 @@ final class BasicDatalayerData {
 	/**
 	 * Get priority dataLayer data
 	 *
-	 * @param array $datalayer The datalayer.
+	 * @param array<string, mixed> $datalayer The datalayer.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_priority_datalayer_content( array $datalayer ): array {
 
@@ -135,9 +135,9 @@ final class BasicDatalayerData {
 	/**
 	 * Get the dataLayer data for singular post types
 	 *
-	 * @param array $datalayer The datalayer.
+	 * @param array<string, mixed> $datalayer The datalayer.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_singular_datalayer_content( array $datalayer ): array {
 
@@ -188,9 +188,9 @@ final class BasicDatalayerData {
 	/**
 	 * Get the dataLayer data for site search
 	 *
-	 * @param array $datalayer The datalayer.
+	 * @param array<string, mixed> $datalayer The datalayer.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_site_search_datalayer_content( array $datalayer ): array {
 		global $wp_query;

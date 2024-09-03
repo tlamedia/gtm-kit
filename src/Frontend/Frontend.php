@@ -19,14 +19,14 @@ final class Frontend {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Datalayer name.
 	 *
 	 * @var string
 	 */
-	protected $datalayer_name;
+	protected string $datalayer_name;
 
 	/**
 	 * Constructor.
@@ -253,10 +253,10 @@ final class Frontend {
 	/**
 	 * Set inline script attributes
 	 *
-	 * @param array  $attributes The script attributes.
-	 * @param string $script The script.
+	 * @param array<string, mixed> $attributes The script attributes.
+	 * @param string               $script The script.
 	 *
-	 * @return array The script attributes.
+	 * @return array<string, mixed> The script attributes.
 	 */
 	public function set_inline_script_attributes( array $attributes, string $script ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( isset( $attributes['id'] ) && strpos( $attributes['id'], 'gtmkit-' ) === 0 ) {
@@ -310,9 +310,9 @@ final class Frontend {
 	/**
 	 * Exclude GTM Kit in WP Rocket
 	 *
-	 * @param array $pattern The exclude list.
+	 * @param array<int, string> $pattern The exclude list.
 	 *
-	 * @return array
+	 * @return array<int, string>
 	 */
 	public function wp_rocket_exclude_javascript( array $pattern ): array {
 		$pattern[] = 'dataLayer';
@@ -324,10 +324,10 @@ final class Frontend {
 	/**
 	 * Adds Google Tag Manager domain DNS Prefetch printed by wp_resource_hints
 	 *
-	 * @param array  $hints URLs to print for resource hints.
-	 * @param string $relation_type The relation type the URL are printed for.
+	 * @param array<int, string> $hints URLs to print for resource hints.
+	 * @param string             $relation_type The relation type the URL are printed for.
 	 *
-	 * @return array URL to print
+	 * @return array<int, string> URL to print
 	 */
 	public function dns_prefetch( array $hints, string $relation_type ): array {
 

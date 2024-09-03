@@ -20,21 +20,21 @@ final class Analytics {
 	 *
 	 * @var Analytics
 	 */
-	public static $instance;
+	public static Analytics $instance;
 
 	/**
 	 * Plugin options.
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Utility
 	 *
 	 * @var Util
 	 */
-	private $util;
+	private Util $util;
 
 	/**
 	 * Constructor.

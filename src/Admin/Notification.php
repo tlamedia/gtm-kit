@@ -29,16 +29,16 @@ class Notification {
 	/**
 	 * Options of this Notification.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
-	private $options;
+	private array $options;
 
 	/**
 	 * The default values for the optional arguments.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
-	private $defaults = [
+	private array $defaults = [
 		'id'       => '',
 		'user_id'  => null,
 		'type'     => self::NOTICE,
@@ -50,21 +50,21 @@ class Notification {
 	 *
 	 * @var string
 	 */
-	private $header;
+	private string $header;
 
 	/**
 	 * The message for the notification.
 	 *
 	 * @var string
 	 */
-	private $message;
+	private string $message;
 
 	/**
 	 * Notification class constructor.
 	 *
-	 * @param string $message Message string.
-	 * @param string $header The header.
-	 * @param array  $options Set of options.
+	 * @param string               $message Message string.
+	 * @param string               $header The header.
+	 * @param array<string, mixed> $options Set of options.
 	 */
 	public function __construct( string $message, string $header = '', array $options = [] ) {
 		$this->header  = $header;
@@ -142,7 +142,7 @@ class Notification {
 	/**
 	 * Return the object properties as an array.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function to_array(): array {
 		return [
@@ -164,7 +164,7 @@ class Notification {
 	/**
 	 * Renders the notification as an array for use in the settings.
 	 *
-	 * @return array The rendered notification.
+	 * @return array<string, string> The rendered notification.
 	 */
 	public function render(): array {
 		return [
@@ -177,9 +177,9 @@ class Notification {
 	/**
 	 * Make sure we only have values that we can work with.
 	 *
-	 * @param array $options Options to normalize.
+	 * @param array<string, mixed> $options Options to normalize.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function normalize_options( array $options ): array {
 		$options = wp_parse_args( $options, $this->defaults );

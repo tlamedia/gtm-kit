@@ -23,9 +23,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Instance.
 	 *
-	 * @var EasyDigitalDownloads
+	 * @var null|EasyDigitalDownloads
 	 */
-	protected static $instance = null;
+	protected static ?EasyDigitalDownloads $instance = null;
 
 	/**
 	 * Constructor.
@@ -92,9 +92,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the global script settings
 	 *
-	 * @param array $global_settings Script settings.
+	 * @param array<string, mixed> $global_settings Script settings.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_global_settings( array $global_settings ): array {
 
@@ -110,9 +110,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the global script data
 	 *
-	 * @param array $global_data Script data.
+	 * @param array<string, mixed> $global_data Script data.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_global_data( array $global_data ): array {
 
@@ -133,9 +133,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer content
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content( array $data_layer ): array {
 
@@ -157,9 +157,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_page( array $data_layer ): array {
 
@@ -187,9 +187,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for category pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_category( array $data_layer ): array {
 
@@ -203,9 +203,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product tag pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_tag( array $data_layer ): array {
 
@@ -219,9 +219,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for checkout page
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_checkout( array $data_layer ): array {
 		if ( $this->options->get( 'general', 'datalayer_page_type' ) ) {
@@ -239,9 +239,9 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for order_received page
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_order_received( array $data_layer ): array {
 
@@ -333,7 +333,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @param string $event_context The event context of the item data.
 	 *
-	 * @return array The cart items.
+	 * @return array<int, mixed> The cart items.
 	 */
 	public function get_cart_items( string $event_context ): array {
 		$cart_items = [];
@@ -351,12 +351,12 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Get item data.
 	 *
-	 * @param EDD_Download $download An instance of EDD_Download.
-	 * @param array        $options Optional options.
-	 * @param array        $additional_item_attributes Any key-value pair that needs to be added to the item data.
-	 * @param string       $event_context The event context of the item data.
+	 * @param EDD_Download         $download An instance of EDD_Download.
+	 * @param array<string, mixed> $options Optional options.
+	 * @param array<string, mixed> $additional_item_attributes Any key-value pair that needs to be added to the item data.
+	 * @param string               $event_context The event context of the item data.
 	 *
-	 * @return array The item data.
+	 * @return array<string, mixed> The item data.
 	 */
 	public function get_item_data( EDD_Download $download, array $options = [], array $additional_item_attributes = [], string $event_context = '' ): array {
 
@@ -412,10 +412,10 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	/**
 	 * Include customer data
 	 *
-	 * @param array       $data_layer The datalayer content.
-	 * @param Order|false $order Order.
+	 * @param array<string, mixed> $data_layer The datalayer content.
+	 * @param Order|false          $order Order.
 	 *
-	 * @return array The datalayer.
+	 * @return array<string, mixed> The datalayer.
 	 */
 	public function include_customer_data( array $data_layer, $order ): array {
 

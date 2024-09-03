@@ -17,7 +17,7 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 	 *
 	 * @var string
 	 */
-	protected $option_group = 'help';
+	protected string $option_group = 'help';
 
 	/**
 	 * Configure the options page.
@@ -101,7 +101,7 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Get the templates
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_tutorials(): array {
 		return $this->util->get_data( '/get-tutorials', 'gtmkit_tutorials' );

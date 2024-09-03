@@ -19,7 +19,7 @@ final class MetaBox {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Constructor.

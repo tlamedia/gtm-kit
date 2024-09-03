@@ -15,7 +15,7 @@ class PluginDataImport {
 	/**
 	 * Get the data for all plugins.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_all(): array {
 
@@ -54,7 +54,7 @@ class PluginDataImport {
 	 *
 	 * @param string $slug The plugin slug.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get( string $slug ): array {
 
@@ -87,7 +87,7 @@ class PluginDataImport {
 	/**
 	 * Check if GTM4WP plugin settings are present and extract them.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_gtm4wp(): array {
 
@@ -132,7 +132,7 @@ class PluginDataImport {
 	/**
 	 * Check if GTM for WooCommerce plugin settings are present and extract them.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_gtm_for_woocommerce(): array {
 
@@ -157,7 +157,7 @@ class PluginDataImport {
 	/**
 	 * Check if Metronet Tag Manager plugin settings are present and extract them.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_metronet_tag_manager(): array {
 
@@ -184,7 +184,7 @@ class PluginDataImport {
 	/**
 	 * Check if Google Analytics and Google Tag Manager plugin settings are present and extract them.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_google_analytics_and_google_tag_manager(): array {
 
@@ -206,7 +206,7 @@ class PluginDataImport {
 	/**
 	 * Check if Google Tag Manager plugin settings are present and extract them.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_google_tag_manager(): array {
 

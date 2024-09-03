@@ -26,7 +26,7 @@ final class Stape {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Constructor.
@@ -94,7 +94,7 @@ final class Stape {
 	/**
 	 * Set cookie.
 	 *
-	 * @param  array $args Parameters.
+	 * @param  array<string, mixed> $args Parameters.
 	 * @return void
 	 */
 	private function set_cookie( array $args ): void {

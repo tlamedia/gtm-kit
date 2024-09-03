@@ -130,8 +130,8 @@ final class PluginSuggestions {
 	/**
 	 * Build conflicting plugin notification.
 	 *
-	 * @param string $notification_id The id of the notification to be created.
-	 * @param array  $plugin The plugin data.
+	 * @param string                $notification_id The id of the notification to be created.
+	 * @param array<string, string> $plugin The plugin data.
 	 *
 	 * @return Notification The notification containing the suggested plugin.
 	 */
