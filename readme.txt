@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.6
-Stable tag: 1.23.3
+Stable tag: 2.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,7 +22,7 @@ The following GA4 events are automatically included in the dataLayer:
 - view_item_list
 - select_item
 - view_item
-- add_to_wishlist
+- add_to_wishlist **[Premium]**
 - add_to_cart
 - view_cart
 - remove_from_cart
@@ -30,6 +30,9 @@ The following GA4 events are automatically included in the dataLayer:
 - add_shipping_info
 - add_payment_info
 - purchase
+- refund **[Premium]**
+
+Unlock all features with [GTM Kit Woo Add-On](https://jump.gtmkit.com/link/2-30DDC).
 
 ### Easy Digital Downloads
 - view_item
@@ -88,20 +91,24 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 1.X =
+= 2.0 =
 
-Release date: 2024-MM-DD
+Release date: 2024-09-DD
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-24/).
+We are introducing [GTM Kit Woo Add-On](https://jump.gtmkit.com/link/2-30DDC), which is a premium plugin that unlock premium features in GTM Kit.
+
+Find out about what else is new in our [our release post](https://gtmkit.com/gtm-kit-2-20/).
+
+#### Breaking change:
+* Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.
 
 #### Enhancements:
 * A notifications handler has been added to communicate issues and notifications that require the user’s attention.
 * Added a warning when other Google Tag Manager plugins that may cause a conflict are active.
 * WooCommerce users are advised to install a supported SEO plugin to take advantage of a default category in data layer items.
 
-#### Bugfixes:
-
 #### Other:
+* Increased PHPStan analysis level to 6, enhancing static code analysis and catching potential issues earlier in the development process.
 * Require WordPress 6.3.
 * Require WooCommerce 8.3.
 * Require PHP 7.4.
@@ -153,5 +160,5 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 == Upgrade Notice ==
 
-= 1.23.1 =
-The load priority of the script 'gtmkit-js-before' has been lowered from 1 to 5.
+= 2.0 =
+Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.

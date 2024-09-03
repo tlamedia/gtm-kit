@@ -1,9 +1,15 @@
 *** GTM Kit ***
 
-2024-MM-DD - version 1.X
+2024-09-DD - version 2.0
+* Remove: Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking the add_to_wishlist event, you must purchase the GTM Kit Add-On plugin.
 * Add: A notifications handler has been added to communicate issues and notifications that require the user’s attention.
 * Add: Added a warning when other Google Tag Manager plugins that may cause a conflict are active.
 * Add: WooCommerce users are advised to install a supported SEO plugin to take advantage of a default category in data layer items.
+* Changed: Require WordPress 6.3.
+* Changed: Require WooCommerce 8.3.
+* Changed: Require PHP 7.4.
+* Dev: Increased PHPStan analysis level to 6, enhancing static code analysis and catching potential issues earlier in the development process.
+
 
 2024-08-22 - version 1.23.3
 * Fix: Prevent fatal errors caused by invalid filter input from third-party plugins.

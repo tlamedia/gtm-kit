@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 1.23.3\n"
+"Project-Id-Version: GTM Kit 2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-21T11:23:44+00:00\n"
+"POT-Creation-Date: 2024-09-03T15:14:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -30,17 +30,17 @@ msgstr ""
 msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
 msgstr ""
 
-#: inc/main.php:80
+#: inc/main.php:89
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:81
-#: assets/admin/settings.js:13
+#: inc/main.php:90
+#: assets/admin/settings.js:15
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is GTM Kit Add-On.
-#: inc/main.php:99
+#: inc/main.php:108
 msgid "Required by %s"
 msgstr ""
 
@@ -60,32 +60,33 @@ msgstr ""
 msgid "Go back to the Dashboard"
 msgstr ""
 
-#: src/Admin/AdminAPI.php:88
+#: src/Admin/AdminAPI.php:96
 #: src/Common/RestAPIServer.php:33
 msgid "Only authenticated users can access endpoint."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:134
-#: src/Admin/AdminAPI.php:139
+#: src/Admin/AdminAPI.php:142
+#: src/Admin/AdminAPI.php:147
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:136
+#: src/Admin/AdminAPI.php:144
 msgid "Thank you! We have received the data."
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:67
+#: src/Admin/GeneralOptionsPage.php:83
 #: assets/admin/settings.js:1
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:76
+#: src/Admin/GeneralOptionsPage.php:92
 msgid "General Settings"
 msgstr ""
 
 #: src/Admin/HelpOptionsPage.php:44
 #: src/Admin/HelpOptionsPage.php:53
 #: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Help"
 msgstr ""
 
@@ -101,10 +102,10 @@ msgstr ""
 msgid "Easy way to sell Digital Products With WordPress"
 msgstr ""
 
-#: src/Admin/IntegrationsOptionsPage.php:44
-#: src/Admin/IntegrationsOptionsPage.php:53
+#: src/Admin/IntegrationsOptionsPage.php:46
+#: src/Admin/IntegrationsOptionsPage.php:55
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Integrations"
 msgstr ""
 
@@ -121,6 +122,23 @@ msgstr ""
 #. translators: %1$s = opening strong tag, %2$s = closing strong tag.
 #: src/Admin/MetaBox.php:95
 msgid "%1$sNote:%2$s This will only be applied if page type has been activated in the global settings of GTM Kit."
+msgstr ""
+
+#: src/Admin/PluginSuggestions.php:121
+msgid "It appears that you are not currently using a supported SEO plugin. By installing either WordPress SEO or Rank Math, you can assign a primary category to each product. This primary category will then be used in the data layer if the product is associated with multiple categories."
+msgstr ""
+
+#: src/Admin/PluginSuggestions.php:126
+msgid "Plugin suggestion:"
+msgstr ""
+
+#. translators: %s is the name of the plugin.
+#: src/Admin/PluginSuggestions.php:144
+msgid "It seems that you have installed the Google Tag Manager plugin called %1$s. Running two different GTM plugins simultaneously can lead to unexpected results, significantly impact data accuracy, and slow down page speed. Please consider deactivating %2$s unless you have carefully considered and addressed the potential challenges."
+msgstr ""
+
+#: src/Admin/PluginSuggestions.php:152
+msgid "Possible Conflict:"
 msgstr ""
 
 #: src/Admin/TemplatesOptionsPage.php:44
@@ -235,7 +253,7 @@ msgstr ""
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1129
+#: src/Integration/WooCommerce.php:1128
 msgid "GTM Kit data."
 msgstr ""
 
@@ -306,11 +324,25 @@ msgid "Edit container"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Server-side GTM"
+#: assets/admin/settings.js:15
+msgid "Notifications"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
+msgid "There are some problems that require your attention."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "There are some notifications that may require your attention."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:15
+msgid "No notifications at the moment."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "See all notifications"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -415,6 +447,10 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 msgid "Google Tag Manager Server-side Tagging"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -635,7 +671,7 @@ msgid "Post ID"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Post data"
 msgstr ""
 
@@ -701,7 +737,7 @@ msgid "Include the user role if the user is logged in."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Google Consent Mode"
 msgstr ""
 
@@ -832,7 +868,7 @@ msgid "You can help by sharing anonymous data with us. Below is a detailed view 
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Misc"
 msgstr ""
 
@@ -1237,6 +1273,7 @@ msgid "Read the guide"
 msgstr ""
 
 #: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Templates"
 msgstr ""
 
@@ -1316,23 +1353,34 @@ msgstr ""
 msgid "The GitHub repository"
 msgstr ""
 
-#: assets/admin/settings.js:13
+#. translators: %d is number %s can be either 'problem' or 'notification'.
+#: assets/admin/settings.js:15
+msgid "You have %d hidden %s:"
+msgid_plural "You have %d hidden %ss:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/admin/settings.js:15
+msgid "Problems"
+msgstr ""
+
+#: assets/admin/settings.js:15
 msgid "Google Tag Manager Templates"
 msgstr ""
 
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Dashboard"
 msgstr ""
 
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Container"
 msgstr ""
 
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "User data"
 msgstr ""
 
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
 msgid "Support"
 msgstr ""
 
