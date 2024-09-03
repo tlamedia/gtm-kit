@@ -3,7 +3,7 @@
         'name' => 'tlamedia/gtm-kit',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f7ba2571672c183f726162cd01538732ab5a323e',
+        'reference' => 'ca06f673a306e22c4414f86f3e40c3b2adc92f80',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'tlamedia/gtm-kit' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f7ba2571672c183f726162cd01538732ab5a323e',
+            'reference' => 'ca06f673a306e22c4414f86f3e40c3b2adc92f80',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
