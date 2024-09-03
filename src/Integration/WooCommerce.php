@@ -31,9 +31,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Instance.
 	 *
-	 * @var WooCommerce
+	 * @var null|WooCommerce
 	 */
-	protected static $instance = null;
+	protected static ?WooCommerce $instance = null;
 
 	/**
 	 * Stores Rest Extending instance.
@@ -233,9 +233,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the global script settings
 	 *
-	 * @param array $global_settings Script settings.
+	 * @param array<string, mixed> $global_settings Script settings.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_global_settings( array $global_settings ): array {
 
@@ -271,9 +271,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the global script data
 	 *
-	 * @param array $global_data Script data.
+	 * @param array<string, mixed> $global_data Script data.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_global_data( array $global_data ): array {
 
@@ -319,9 +319,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the WooCommerce dataLayer content
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content( array $data_layer ): array {
 
@@ -353,9 +353,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_page( array $data_layer ): array {
 
@@ -389,9 +389,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for category pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_category( array $data_layer ): array {
 
@@ -405,9 +405,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for product tag pages
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_product_tag( array $data_layer ): array {
 
@@ -421,9 +421,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for cart page
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_cart( array $data_layer ): array {
 
@@ -450,9 +450,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for checkout page
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_checkout( array $data_layer ): array {
 
@@ -483,9 +483,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the dataLayer data for order_received page
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_datalayer_content_order_received( array $data_layer ): array {
 
@@ -555,10 +555,10 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Retrieves purchase event data for the data layer.
 	 *
-	 * @param WC_Order $order The order.
-	 * @param array    $data_layer The datalayer content.
+	 * @param WC_Order             $order The order.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content.
+	 * @return array<string, mixed> The datalayer content.
 	 */
 	public function get_purchase_event( WC_Order $order, array $data_layer = [] ): array {
 
@@ -603,9 +603,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the permalinkStructure property for the dataLayer
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	private function get_permalink_structure_property( array $data_layer ): array {
 		$wc_permalink_structure           = \wc_get_permalink_structure();
@@ -622,9 +622,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the pages property for the dataLayer
 	 *
-	 * @param array $data_layer The datalayer content.
+	 * @param array<string, mixed> $data_layer The datalayer content.
 	 *
-	 * @return array The datalayer content
+	 * @return array<string, mixed> The datalayer content
 	 */
 	public function get_pages_property( array $data_layer ): array {
 		$data_layer['pages'] = [
@@ -642,7 +642,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @param string $event_context The event context of the item data.
 	 *
-	 * @return array The cart items.
+	 * @return array<int, mixed> The cart items.
 	 */
 	public function get_cart_items( string $event_context ): array {
 		$cart_items = [];
@@ -681,11 +681,11 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get item data.
 	 *
-	 * @param WC_Product $product An instance of WP_Product.
-	 * @param array      $additional_item_attributes Any key-value pair that needs to be added to the item data.
-	 * @param string     $event_context The event context of the item data.
+	 * @param WC_Product           $product An instance of WP_Product.
+	 * @param array<string, mixed> $additional_item_attributes Any key-value pair that needs to be added to the item data.
+	 * @param string               $event_context The event context of the item data.
 	 *
-	 * @return array The item data.
+	 * @return array<string, mixed> The item data.
 	 */
 	public function get_item_data( $product, array $additional_item_attributes = [], string $event_context = '' ): array {
 
@@ -741,10 +741,10 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get the coupons and discount for an item
 	 *
-	 * @param array $coupons The coupons.
-	 * @param array $item The item.
+	 * @param array<int, mixed>    $coupons The coupons.
+	 * @param array<string, mixed> $item The item.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_coupon_discount( array $coupons, array $item ): array {
 
@@ -1048,9 +1048,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Compatibility with TI WooCommerce Wishlist
 	 *
-	 * @param array $item_data Item data.
+	 * @param array<string, mixed> $item_data Item data.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function Compatibility_With_TI_Wishlist( array $item_data ): array {
 
@@ -1095,7 +1095,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @param WC_Product $product Current product data.
 	 *
-	 * @return array $product Registered data or empty array if condition is not satisfied.
+	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
 	 */
 	public function extend_product_data( $product ): array {
 		return array(
@@ -1106,9 +1106,9 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Register GTM data into products endpoint.
 	 *
-	 * @param array $cart_item Cart item data.
+	 * @param array<string, mixed> $cart_item Cart item data.
 	 *
-	 * @return array $product Registered data or empty array if condition is not satisfied.
+	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
 	 */
 	public function extend_cart_data( array $cart_item ): array {
 		return array(
@@ -1116,11 +1116,10 @@ final class WooCommerce extends AbstractEcommerce {
 		);
 	}
 
-
 	/**
 	 * Register subscription product schema into cart/items endpoint.
 	 *
-	 * @return array Registered schema.
+	 * @return array<string, mixed> Registered schema.
 	 */
 	public function extend_product_schema(): array {
 
@@ -1138,7 +1137,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @param int $post_id The post ID.
 	 *
-	 * @return array
+	 * @return array<int, mixed>
 	 */
 	public function has_woocommerce_blocks( int $post_id ): array {
 		$post_content = get_the_content( null, false, $post_id );
@@ -1161,7 +1160,7 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Get WooCommerce blocks
 	 *
-	 * @return array
+	 * @return array<int, mixed>
 	 */
 	public function get_woocommerce_blocks(): array {
 		return $this->has_woocommerce_blocks( get_the_ID() );
@@ -1170,10 +1169,10 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Include customer data
 	 *
-	 * @param array $data_layer The datalayer content.
-	 * @param mixed $order_value Order value.
+	 * @param array<string, mixed> $data_layer The datalayer content.
+	 * @param mixed                $order_value Order value.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function include_customer_data( array $data_layer, $order_value ): array {
 
@@ -1242,7 +1241,7 @@ final class WooCommerce extends AbstractEcommerce {
 	 *
 	 * @param WC_Order $order The order.
 	 *
-	 * @return array
+	 * @return array<int, mixed>
 	 */
 	private function get_order_items( WC_Order $order ): array {
 		$order_items = [];

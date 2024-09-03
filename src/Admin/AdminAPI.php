@@ -22,14 +22,14 @@ final class AdminAPI {
 	 *
 	 * @var Options
 	 */
-	private $options;
+	private Options $options;
 
 	/**
 	 * An instance of Util.
 	 *
 	 * @var Util
 	 */
-	private $util;
+	private Util $util;
 
 	/**
 	 * Constructor
@@ -192,7 +192,7 @@ final class AdminAPI {
 	/**
 	 * Validate notification input
 	 *
-	 * @param array|null $input The input.
+	 * @param array<string, string>|null $input The input.
 	 * @return bool
 	 */
 	private function validate_notification_input( ?array $input ): bool {
@@ -203,7 +203,7 @@ final class AdminAPI {
 	/**
 	 * Get JSON input
 	 *
-	 * @return array|null
+	 * @return array<string, string>|null
 	 */
 	private function get_json_input(): ?array {
 		$input_raw = file_get_contents( 'php://input' );

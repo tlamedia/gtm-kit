@@ -29,14 +29,14 @@ final class SetupWizard {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Utilities
 	 *
 	 * @var Util
 	 */
-	protected $util;
+	protected Util $util;
 
 	/**
 	 * Constructor.

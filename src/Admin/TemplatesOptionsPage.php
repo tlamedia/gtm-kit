@@ -17,7 +17,7 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 	 *
 	 * @var string
 	 */
-	protected $option_group = 'templates';
+	protected string $option_group = 'templates';
 
 	/**
 	 * Configure the options page.
@@ -101,7 +101,7 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Get the templates
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_templates(): array {
 		return $this->util->get_data( '/get-templates', 'gtmkit_templates' );

@@ -19,7 +19,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 *
 	 * @var string
 	 */
-	protected $option_group = 'integrations';
+	protected string $option_group = 'integrations';
 
 	/**
 	 * Configure the options page.
@@ -128,7 +128,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Get the plugins.
 	 *
-	 * @return array
+	 * @return array<string, bool>
 	 */
 	private function get_plugins(): array {
 		$plugins = [

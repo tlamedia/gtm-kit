@@ -22,16 +22,16 @@ final class Options {
 	/**
 	 * All the options.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
-	private $options;
+	private array $options;
 
 	/**
 	 * Map of all the default options
 	 *
-	 * @var array
+	 * @var array<string, array<string, array<string, mixed>>>
 	 */
-	private static $map = [
+	private static array $map = [
 		'general'      => [
 			'gtm_id'                  => [
 				'default'  => '',
@@ -131,7 +131,7 @@ final class Options {
 	 * @param mixed $new_value The new value.
 	 * @param mixed $old_value The old value.
 	 *
-	 * @return array|null
+	 * @return array<string, mixed>|null
 	 */
 	public function pre_update_option( $new_value, $old_value ): ?array {
 		if ( ! is_array( $new_value ) || ! is_array( $old_value ) ) {
@@ -143,7 +143,7 @@ final class Options {
 	/**
 	 * The default options.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public static function get_defaults(): array {
 
@@ -216,7 +216,7 @@ final class Options {
 	 * @param string $group The option group.
 	 * @param string $key The option key.
 	 *
-	 * @return array|null
+	 * @return array<string, mixed>|null
 	 */
 	protected function get_default_key_value( string $group, string $key ): ?array {
 		$defaults = $this->get_defaults();
@@ -254,9 +254,9 @@ final class Options {
 	/**
 	 * Set plugin options.
 	 *
-	 * @param array $options Plugin options.
-	 * @param bool  $first_install Add option on first install.
-	 * @param bool  $overwrite_existing Overwrite existing settings or merge.
+	 * @param array<string, mixed> $options Plugin options.
+	 * @param bool                 $first_install Add option on first install.
+	 * @param bool                 $overwrite_existing Overwrite existing settings or merge.
 	 */
 	public function set( array $options, bool $first_install = false, bool $overwrite_existing = true ): void {
 
@@ -284,9 +284,9 @@ final class Options {
 	/**
 	 * Process the generic plugin options.
 	 *
-	 * @param array $options The options array.
+	 * @param array<string, mixed> $options The options array.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function process_generic_options( array $options ): array {
 
@@ -313,7 +313,7 @@ final class Options {
 	/**
 	 * Merge recursively, including a proper substitution of values in sub-arrays when keys are the same.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public static function array_merge_recursive(): array {
 
@@ -359,7 +359,7 @@ final class Options {
 	/**
 	 * Get all the options, but without stripping the slashes.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_all_raw(): array {
 

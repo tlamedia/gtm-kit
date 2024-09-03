@@ -22,21 +22,21 @@ abstract class AbstractOptionsPage {
 	 *
 	 * @var string
 	 */
-	protected $option_name = 'gtmkit';
+	protected string $option_name = 'gtmkit';
 
 	/**
 	 * Plugin options.
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Utilities
 	 *
 	 * @var Util
 	 */
-	protected $util;
+	protected Util $util;
 
 	/**
 	 * Constructor.

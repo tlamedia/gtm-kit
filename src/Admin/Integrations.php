@@ -15,7 +15,7 @@ final class Integrations {
 	/**
 	 * Get the integrations
 	 *
-	 * @return array
+	 * @return array<string, array<string, string>>
 	 */
 	public static function get_integrations(): array {
 

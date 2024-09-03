@@ -15,9 +15,9 @@ final class PluginAvailability {
 	/**
 	 * Holds the plugins.
 	 *
-	 * @var array
+	 * @var array<string, array<string, array<string, mixed>>>
 	 */
-	protected $plugins = [];
+	protected array $plugins = [];
 
 	/**
 	 * Registers the plugins so we can access them.
@@ -94,10 +94,10 @@ final class PluginAvailability {
 	/**
 	 * Normalize plugin
 	 *
-	 * @param array  $plugin The plugin.
-	 * @param string $id The plugin ID.
+	 * @param array<string, mixed> $plugin The plugin.
+	 * @param string               $id The plugin ID.
 	 *
-	 * @return array Normalized plugin.
+	 * @return array<string, mixed> Normalized plugin.
 	 */
 	private function normalize_plugin( array $plugin, string $id ): array {
 		$defaults = [
@@ -117,7 +117,7 @@ final class PluginAvailability {
 	 *
 	 * @param string $category Limit the plugins to a category.
 	 *
-	 * @return array Array containing the information about the plugins.
+	 * @return array<string, array<string, mixed>> Array containing the information about the plugins.
 	 */
 	public function get_plugins( string $category = '' ): array {
 		return ( $category ) ? $this->plugins[ $category ] : $this->plugins;
@@ -126,7 +126,7 @@ final class PluginAvailability {
 	/**
 	 * Determines whether a plugin is active.
 	 *
-	 * @param array $plugin The plugin to check.
+	 * @param array<string, mixed> $plugin The plugin to check.
 	 *
 	 * @return bool Whether the plugin is active.
 	 */

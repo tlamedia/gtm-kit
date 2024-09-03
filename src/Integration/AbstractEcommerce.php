@@ -21,21 +21,21 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 *
 	 * @var string
 	 */
-	protected $store_currency;
+	protected string $store_currency;
 
 	/**
 	 * Grouped product list position.
 	 *
 	 * @var int
 	 */
-	protected $grouped_product_position;
+	protected int $grouped_product_position;
 
 	/**
 	 * Global data.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
-	protected $global_data;
+	protected array $global_data;
 
 	/**
 	 * Constructor.
@@ -53,7 +53,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	/**
 	 * Get instance
 	 */
-	abstract public static function instance();
+	abstract public static function instance(): self;
 
 	/**
 	 * Register frontend
@@ -69,7 +69,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 * @param int    $product_id The product ID.
 	 * @param string $taxonomy The taxonomy slug.
 	 *
-	 * @return array The category breadcrumb for the given product ID.
+	 * @return array<int|string, mixed> The category breadcrumb for the given product ID.
 	 */
 	public function get_primary_product_category( int $product_id, string $taxonomy ): array {
 
@@ -117,7 +117,7 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 	 * @param int    $category_id The ID of the product category.
 	 * @param string $taxonomy The taxonomy slug.
 	 *
-	 * @return array The category path elements as an array.
+	 * @return array<int, string> The category path elements as an array.
 	 */
 	public function get_category_breadcrumb( int $category_id, string $taxonomy ): array {
 		static $categories = [];

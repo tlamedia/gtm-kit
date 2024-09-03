@@ -76,9 +76,9 @@ register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deacti
 /**
  * Add plugin action links on Plugins page.
  *
- * @param array $links Existing plugin action links.
+ * @param array<string, string> $links Existing plugin action links.
  *
- * @return array
+ * @return array<string, string>
  */
 function gtmkit_add_plugin_action_link( array $links ): array {
 
@@ -96,9 +96,9 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 /**
  * Remove deactivation link.
  *
- * @param array $links Existing plugin action links.
+ * @param array<string, string> $links Existing plugin action links.
  *
- * @return array
+ * @return array<string, string>
  */
 function gtmkit_remove_deactivation_link( array $links ): array {
 

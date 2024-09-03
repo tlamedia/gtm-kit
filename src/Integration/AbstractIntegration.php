@@ -20,14 +20,14 @@ abstract class AbstractIntegration {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Utilities
 	 *
 	 * @var Util
 	 */
-	protected $util;
+	protected Util $util;
 
 	/**
 	 * Constructor.
@@ -43,7 +43,7 @@ abstract class AbstractIntegration {
 	/**
 	 * Get instance
 	 */
-	abstract public static function instance();
+	abstract public static function instance(): self;
 
 	/**
 	 * Register frontend

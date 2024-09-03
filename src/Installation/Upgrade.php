@@ -34,7 +34,7 @@ final class Upgrade {
 	/**
 	 * Get upgrades if applicable.
 	 *
-	 * @return array
+	 * @return array<string>
 	 */
 	protected function get_upgrades(): array {
 

@@ -24,35 +24,35 @@ final class NotificationsHandler {
 	 *
 	 * @var NotificationsHandler|null
 	 */
-	private static $instance = null;
+	private static ?NotificationsHandler $instance = null;
 
 	/**
 	 * Notifications array.
 	 *
 	 * @var Notification[][]
 	 */
-	private $notifications = [];
+	private array $notifications = [];
 
 	/**
 	 * Queued transactions before notifications retrieval.
 	 *
-	 * @var array
+	 * @var array<int, array{0: callable, 1: array<int, mixed>}>
 	 */
-	private $queued_transactions = [];
+	private array $queued_transactions = [];
 
 	/**
 	 * Flag whether notifications have been retrieved.
 	 *
 	 * @var bool
 	 */
-	private $notifications_retrieved = false;
+	private bool $notifications_retrieved = false;
 
 	/**
 	 * Flag whether notifications need to be updated.
 	 *
 	 * @var bool
 	 */
-	private $notifications_need_storage = false;
+	private bool $notifications_need_storage = false;
 
 	/**
 	 * Constructor.
@@ -226,7 +226,7 @@ final class NotificationsHandler {
 	/**
 	 * The default notifications array
 	 *
-	 * @return array
+	 * @return array<string, array<string, mixed>>
 	 */
 	private function default_notifications_array(): array {
 		return [
@@ -251,7 +251,7 @@ final class NotificationsHandler {
 	/**
 	 * Get the notifications for the settings.
 	 *
-	 * @return array
+	 * @return array<string, array{total: int, active: array<string>, dismissed: array<string>}|int>
 	 */
 	public function get_notifications_array(): array {
 		$notifications_array = $this->default_notifications_array();
@@ -387,7 +387,7 @@ final class NotificationsHandler {
 	 *
 	 * @param array|Notification[] $notifications The notifications to split.
 	 *
-	 * @return array The notifications, split on user ID.
+	 * @return array<int, Notification[]> The notifications, split on user ID.
 	 */
 	private function split_on_user_id( array $notifications ): array {
 		$split_notifications = [];
@@ -547,7 +547,7 @@ final class NotificationsHandler {
 	 *
 	 * @param Notification $notification Notification to convert.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function notification_to_array( Notification $notification ): array {
 		return $notification->to_array();
@@ -556,7 +556,7 @@ final class NotificationsHandler {
 	/**
 	 * Convert stored array to Notification.
 	 *
-	 * @param array $notification_data Array to convert to Notification.
+	 * @param array<string, mixed> $notification_data Array to convert to Notification.
 	 *
 	 * @return Notification
 	 */
@@ -582,8 +582,8 @@ final class NotificationsHandler {
 	/**
 	 * Queues a notification transaction for later execution if notifications are not yet set up.
 	 *
-	 * @param callable $callback Callback that performs the transaction.
-	 * @param array    $args     Arguments to pass to the callback.
+	 * @param callable          $callback Callback that performs the transaction.
+	 * @param array<int, mixed> $args     Arguments to pass to the callback.
 	 *
 	 * @return bool True if transaction was queued, false if it can be performed immediately.
 	 */
@@ -600,8 +600,8 @@ final class NotificationsHandler {
 	/**
 	 * Adds a notification transaction to the queue for later execution.
 	 *
-	 * @param callable $callback Callback that performs the transaction.
-	 * @param array    $args     Arguments to pass to the callback.
+	 * @param callable          $callback Callback that performs the transaction.
+	 * @param array<int, mixed> $args     Arguments to pass to the callback.
 	 *
 	 * @return void
 	 */
@@ -640,7 +640,7 @@ final class NotificationsHandler {
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @return array|false Array with notifications or false when not set.
+	 * @return array<int, array<int, mixed>>|false Array with notifications or false when not set.
 	 */
 	protected function get_stored_notifications() {
 		return get_user_option( self::STORAGE_KEY, get_current_user_id() );

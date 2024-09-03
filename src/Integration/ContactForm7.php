@@ -19,9 +19,9 @@ final class ContactForm7 extends AbstractIntegration {
 	/**
 	 * Instance.
 	 *
-	 * @var ContactForm7 An instance of ContactForm7.
+	 * @var null|ContactForm7 An instance of ContactForm7.
 	 */
-	protected static $instance = null;
+	protected static ?ContactForm7 $instance = null;
 
 	/**
 	 * Get instance

@@ -17,14 +17,14 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 *
 	 * @var string
 	 */
-	protected $option_group = 'general';
+	protected string $option_group = 'general';
 
 	/**
 	 * The notifications
 	 *
-	 * @var array
+	 * @var array<string, array<string, int|array<string>>|int>
 	 */
-	protected $notifications = [];
+	protected array $notifications = [];
 
 	/**
 	 * Adds the admin page to the menu.
@@ -140,9 +140,9 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Get the templates
+	 * Get the tutorials
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	private function get_tutorials(): array {
 		return $this->util->get_data( '/get-tutorials', 'gtmkit_tutorials' );
@@ -151,7 +151,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Get user roles
 	 *
-	 * @return array
+	 * @return array<array<string, string>>
 	 */
 	private function get_user_roles(): array {
 
@@ -171,7 +171,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Get the notifications array
 	 *
-	 * @return array
+	 * @return array<string, array<string, int|array<string>>|int>
 	 */
 	private function get_notifications_array(): array {
 		if ( empty( $this->notifications ) ) {
