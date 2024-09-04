@@ -150,51 +150,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 * Tested up to WooCommerce 9.1.
 * Tested up to WordPress 6.6.
 
-= 1.22.4 =
-
-Release date: 2024-05-30
-
-#### Enhancements:
-* Improve log and support data.
-
-#### Bugfixes:
-* There was a typo preventing the GTMKIT_WC_DEBUG_TRACK_PURCHASE constant from having any effect.
-
-#### Other:
-* Tested up to WooCommerce 8.9.
-
-= 1.22.3 =
-
-Release date: 2024-05-22
-
-#### Bugfixes:
-- The datalayer was not pushed when the container was disabled.
-
-#### Other:
-- Improved quality assurance (CI). Thanks [szepeviktor](https://github.com/szepeviktor)
-
-= 1.22.2 =
-
-#### Bugfixes:
-- Fix items in add_shipping_info and add_payment_info
-
-= 1.22.1 =
-
-Release date: 2024-05-13
-
-#### Bugfixes:
-- wait_for_update was not printed in Google Consent Mode default settings.
-
-= 1.22 =
-
-Release date: 2024-05-08
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1-22/).
-
-#### Enhancements:
-- Added an Event Inspector for verifying that events are being pushed to the datalayer. You can now debug events without using GTM preview mode.
-- Added advanced GCM settings: 'ads_data_redaction', 'url_passthrough' and 'wait_for_update'.
-- Updated the custom container loader for use with Stape.io.
 
 == Upgrade Notice ==
 
