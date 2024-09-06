@@ -161,9 +161,13 @@ final class Upgrade {
 	 */
 	protected function v2_upgrade(): void {
 
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		if ( (
 			new WooCommerceConditional() )->is_met() &&
-			( is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) || is_plugin_active( 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php' )
+			( \is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) || \is_plugin_active( 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php' )
 		) ) {
 			$values = [
 				'misc' => [
