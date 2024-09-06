@@ -34,6 +34,7 @@ use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
+use TLA_Media\GTM_Kit\Admin\UpgradesOptionsPage;
 
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
@@ -187,6 +188,7 @@ function gtmkit_admin_init(): void {
 	} else {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
 	}
+	UpgradesOptionsPage::register( $options, $util );
 	HelpOptionsPage::register( $options, $util );
 
 	add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );

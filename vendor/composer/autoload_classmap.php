@@ -22,6 +22,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\PluginSuggestions' => $baseDir . '/src/Admin/PluginSuggestions.php',
     'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
     'TLA_Media\\GTM_Kit\\Admin\\TemplatesOptionsPage' => $baseDir . '/src/Admin/TemplatesOptionsPage.php',
+    'TLA_Media\\GTM_Kit\\Admin\\UpgradesOptionsPage' => $baseDir . '/src/Admin/UpgradesOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\Conditional' => $baseDir . '/src/Common/Conditionals/Conditional.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\ContactForm7Conditional' => $baseDir . '/src/Common/Conditionals/ContactForm7Conditional.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\EasyDigitalDownloadsConditional' => $baseDir . '/src/Common/Conditionals/EasyDigitalDownloadsConditional.php',
