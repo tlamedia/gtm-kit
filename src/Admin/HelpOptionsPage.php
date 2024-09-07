@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+
 /**
  * HelpOptionsPage
  */
@@ -94,6 +96,7 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
 				'settings'        => $this->options->get_all_raw(),
 				'site_data'       => [ 'gtmkit_version' => GTMKIT_VERSION ],
+				'isPremium'       => ( new PremiumConditional() )->is_met(),
 			]
 		);
 	}
