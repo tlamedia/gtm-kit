@@ -97,7 +97,7 @@ Release date: 2024-09-DD
 
 We are introducing [GTM Kit Woo Add-On](https://jump.gtmkit.com/link/2-30DDC), which is a premium plugin that unlock premium features in GTM Kit.
 
-Find out about what else is new in our [our release post](https://gtmkit.com/gtm-kit-2-20/).
+Find out about what else is new in our [our release post](https://gtmkit.com/gtm-kit-2-0/).
 
 #### Breaking change:
 * Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.
