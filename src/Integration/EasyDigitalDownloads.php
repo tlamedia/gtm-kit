@@ -484,7 +484,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 *
 	 * @return float
 	 */
-	public function get_price_to_display( int $download_id, string $price_index = null ): float {
+	public function get_price_to_display( int $download_id, ?string $price_index = null ): float {
 
 		if ( edd_has_variable_prices( $download_id ) ) {
 
