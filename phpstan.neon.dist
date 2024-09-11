@@ -14,5 +14,3 @@ parameters:
 		- gtm-kit.php
 		- src/
 		- uninstall.php
-	ignoreErrors:
-		- '#Path in require_once.*plugin#'

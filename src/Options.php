@@ -148,6 +148,7 @@ final class Options {
 	public static function get_defaults(): array {
 
 		if ( ! function_exists( 'is_plugin_active' ) ) {
+			// @phpstan-ignore-next-line
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
