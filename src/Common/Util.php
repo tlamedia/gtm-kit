@@ -208,6 +208,7 @@ final class Util {
 	public function get_active_plugins(): array {
 
 		if ( ! function_exists( 'get_plugins' ) ) {
+			// @phpstan-ignore-next-line
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
