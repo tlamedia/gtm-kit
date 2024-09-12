@@ -10,6 +10,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
+use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 /**
@@ -32,14 +33,23 @@ final class PluginSuggestions {
 	private NotificationsHandler $notifications_handler;
 
 	/**
+	 * An instance of Util.
+	 *
+	 * @var Util
+	 */
+	private Util $util;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Util                 $util Util.
 	 */
-	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability ) {
+	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ) {
 		$this->notifications_handler = $notifications_handler;
 		$this->plugin_availability   = $plugin_availability;
+		$this->util                  = $util;
 	}
 
 	/**
@@ -47,11 +57,12 @@ final class PluginSuggestions {
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Util                 $util Util.
 	 *
 	 * @return void
 	 */
-	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability ): void {
-		$page = new self( $notifications_handler, $plugin_availability );
+	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ): void {
+		$page = new self( $notifications_handler, $plugin_availability, $util );
 
 		add_action( 'admin_init', [ $page->plugin_availability, 'register' ] );
 		add_action( 'admin_init', [ $page, 'suggest_premium' ] );
@@ -303,8 +314,9 @@ final class PluginSuggestions {
 	 */
 	protected function get_gf_wishlist_plugin_notification( string $notification_id ): Notification {
 
-		$link_1 = '<a href="https://jump.gtmkit.com/link/2-30DDC" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">GTM Kit Woo Add-On</a>';
-		$link_2 = '<a href="https://jump.gtmkit.com/link/3-63585" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">Grandfathered Wishlist Functionality</a>';
+		$upgrades_url = $this->util->get_admin_page_url() . 'upgrades';
+		$link_1       = '<a href="' . $upgrades_url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">GTM Kit Woo Add-On</a>';
+		$link_2       = '<a href="https://jump.gtmkit.com/link/3-63585" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">Grandfathered Wishlist Functionality</a>';
 
 		$message = sprintf(
 		/* translators: %1$s and %2$s are links with the text 'GTM Kit Woo Add-On' and 'Grandfathered Wishlist Functionality' respectively. */
