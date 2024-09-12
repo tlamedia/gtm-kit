@@ -146,6 +146,7 @@ final class SetupWizard {
 				'currentPage'  => 'wizard',
 				'root'         => esc_url_raw( rest_url() ),
 				'nonce'        => wp_create_nonce( 'wp_rest' ),
+				'adminURL'     => $this->util->get_admin_page_url(),
 				'dashboardUrl' => menu_page_url( 'gtmkit_general', false ),
 				'templatesUrl' => menu_page_url( 'gtmkit_templates', false ),
 				'helpUrl'      => menu_page_url( 'gtmkit_help', false ),
