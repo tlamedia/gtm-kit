@@ -92,7 +92,7 @@ final class UpgradesOptionsPage extends AbstractOptionsPage {
 				'root'          => \esc_url_raw( rest_url() ),
 				'nonce'         => \wp_create_nonce( 'wp_rest' ),
 				'opportunities' => $this->get_upgrade_opportunities(),
-				'adminURL'      => $this->util->get_admin_page_url(),
+				'adminPageUrl'  => $this->util->get_admin_page_url(),
 				'settings'      => $this->options->get_all_raw(),
 			]
 		);

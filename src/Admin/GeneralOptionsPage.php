@@ -129,7 +129,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'nonce'         => \wp_create_nonce( 'wp_rest' ),
 				'tutorials'     => $this->get_tutorials(),
 				'integrations'  => Integrations::get_integrations(),
-				'adminURL'      => $this->util->get_admin_page_url(),
+				'adminPageUrl'  => $this->util->get_admin_page_url(),
 				'settings'      => $this->options->get_all_raw(),
 				'site_data'     => $this->util->get_site_data( $this->options->get_all_raw() ),
 				'user_roles'    => $this->get_user_roles(),
