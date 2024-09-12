@@ -87,15 +87,15 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 			'gtmkit-' . $script_handle . '-script',
 			'gtmkitSettings',
 			[
-				'rootId'      => 'gtmkit-settings',
-				'currentPage' => $page_slug,
-				'root'        => \esc_url_raw( rest_url() ),
-				'nonce'       => \wp_create_nonce( 'wp_rest' ),
-				'tutorials'   => $this->get_tutorials(),
-				'adminURL'    => $this->util->get_admin_page_url(),
-				'settings'    => $this->options->get_all_raw(),
-				'site_data'   => [ 'gtmkit_version' => GTMKIT_VERSION ],
-				'isPremium'   => ( new PremiumConditional() )->is_met(),
+				'rootId'       => 'gtmkit-settings',
+				'currentPage'  => $page_slug,
+				'root'         => \esc_url_raw( rest_url() ),
+				'nonce'        => \wp_create_nonce( 'wp_rest' ),
+				'tutorials'    => $this->get_tutorials(),
+				'adminPageUrl' => $this->util->get_admin_page_url(),
+				'settings'     => $this->options->get_all_raw(),
+				'site_data'    => [ 'gtmkit_version' => GTMKIT_VERSION ],
+				'isPremium'    => ( new PremiumConditional() )->is_met(),
 			]
 		);
 	}
