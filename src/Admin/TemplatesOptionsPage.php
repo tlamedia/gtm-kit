@@ -85,15 +85,13 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 			'gtmkit-' . $script_handle . '-script',
 			'gtmkitSettings',
 			[
-				'rootId'          => 'gtmkit-settings',
-				'currentPage'     => $page_slug,
-				'root'            => \esc_url_raw( rest_url() ),
-				'nonce'           => \wp_create_nonce( 'wp_rest' ),
-				'templates'       => $this->get_templates(),
-				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
-				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
-				'templatesUrl'    => \menu_page_url( 'gtmkit_templates', false ),
-				'settings'        => $this->options->get_all_raw(),
+				'rootId'      => 'gtmkit-settings',
+				'currentPage' => $page_slug,
+				'root'        => \esc_url_raw( rest_url() ),
+				'nonce'       => \wp_create_nonce( 'wp_rest' ),
+				'templates'   => $this->get_templates(),
+				'adminURL'    => $this->util->get_admin_page_url(),
+				'settings'    => $this->options->get_all_raw(),
 			]
 		);
 	}

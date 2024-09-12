@@ -87,14 +87,13 @@ final class UpgradesOptionsPage extends AbstractOptionsPage {
 			'gtmkit-' . $script_handle . '-script',
 			'gtmkitSettings',
 			[
-				'rootId'          => 'gtmkit-settings',
-				'currentPage'     => $page_slug,
-				'root'            => \esc_url_raw( rest_url() ),
-				'nonce'           => \wp_create_nonce( 'wp_rest' ),
-				'opportunities'   => $this->get_upgrade_opportunities(),
-				'dashboardUrl'    => \menu_page_url( 'gtmkit_general', false ),
-				'integrationsUrl' => \menu_page_url( 'gtmkit_integrations', false ),
-				'settings'        => $this->options->get_all_raw(),
+				'rootId'        => 'gtmkit-settings',
+				'currentPage'   => $page_slug,
+				'root'          => \esc_url_raw( rest_url() ),
+				'nonce'         => \wp_create_nonce( 'wp_rest' ),
+				'opportunities' => $this->get_upgrade_opportunities(),
+				'adminURL'      => $this->util->get_admin_page_url(),
+				'settings'      => $this->options->get_all_raw(),
 			]
 		);
 	}
