@@ -165,11 +165,12 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Add body class.
 	 *
-	 * @param string $classes The body classes.
+	 * @param string|null $classes The body classes.
 	 *
 	 * @return string
 	 */
-	public function admin_body_class( string $classes ): string {
+	public function admin_body_class( ?string $classes ): string {
+		$classes = $classes ?? '';
 
 		$page_parent = get_admin_page_parent();
 
