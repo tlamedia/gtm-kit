@@ -22,9 +22,9 @@
   },
   "require-dev": {
     "easydigitaldownloads/easy-digital-downloads": "^3.3",
-    "php-stubs/woocommerce-stubs": "^9.2",
+    "php-stubs/woocommerce-stubs": "^9.3",
     "phpcompatibility/phpcompatibility-wp": "*",
-    "phpstan/extension-installer": "^1.4.2",
+    "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^1.12",
     "phpstan/phpstan-deprecation-rules": "^1.2",
     "szepeviktor/phpstan-wordpress": "^v1.3.5",
