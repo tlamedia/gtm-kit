@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+1024-09-DD
+* Fix: * Fix an edge case that could cause a fatal error in admin_body_class().
+
 2024-09-11 - version 2.0.0
 * Remove: Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking the add_to_wishlist event, you must purchase the GTM Kit Add-On plugin.
 * Add: A notifications handler has been added to communicate issues and notifications that require the user’s attention.

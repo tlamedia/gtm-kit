@@ -100,6 +100,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Enhancements:
 
 #### Bugfixes:
+* Fix an edge case that could cause a fatal error in admin_body_class().
 
 #### Other:
 
