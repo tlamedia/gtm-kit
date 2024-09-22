@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-1024-09-DD
+2024-09-23 - version 2.0.1
 * Fix: * Fix an edge case that could cause a fatal error in admin_body_class().
 
 2024-09-11 - version 2.0.0
