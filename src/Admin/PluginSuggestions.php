@@ -245,7 +245,8 @@ final class PluginSuggestions {
 			) . ' ';
 		}
 
-		$link     = '<a href="https://jump.gtmkit.com/link/2-30DDC" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">GTM Kit Woo Add-On</a>';
+		$url      = $this->util->get_admin_page_url() . 'upgrades';
+		$link     = '<a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">GTM Kit Woo Add-On</a>';
 		$message .= sprintf(
 		/* translators: %1$s is a link with the text 'GTM Kit Woo Add-On'. */
 			__( 'With the %1$s, you can track the add_to_wishlist event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior.', 'gtm-kit' ),
