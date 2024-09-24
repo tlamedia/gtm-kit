@@ -100,6 +100,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Enhancements:
 
 #### Bugfixes:
+* In some cases other plugins or a theme could block GTM Kit from firing JS event like the one the fires the add_to_cart GTM event.
 
 #### Other:
 
