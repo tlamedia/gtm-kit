@@ -60,19 +60,34 @@ final class PluginAvailability {
 	 */
 	protected function conflicting_plugins() {
 		$this->plugins['conflicting'] = [
-			'gtm4wp'                => [
+			'gtm4wp'                           => [
 				'name' => 'Google Tag Manager for WordPress',
 				'slug' => 'duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php',
 			],
 
-			'gtm-ecommerce-woo'     => [
+			'gtm-ecommerce-woo'                => [
 				'name' => 'GTM for WooCommerce FREE',
 				'slug' => 'gtm-ecommerce-woo/gtm-ecommerce-woo.php',
 			],
 
-			'gtm-ecommerce-woo-pro' => [
+			'gtm-ecommerce-woo-pro'            => [
 				'name' => 'Google Tag Manager for WooCommerce PRO',
 				'slug' => 'gtm-ecommerce-woo-pro/gtm-ecommerce-woo-pro.php',
+			],
+
+			'wk-google-analytics'              => [
+				'name' => 'Google Analytics and Google Tag Manager by WEBKINDER',
+				'slug' => 'wk-google-analytics/wk-ga.php',
+			],
+
+			'google-tag-manager'               => [
+				'name' => 'Google Tag Manager',
+				'slug' => 'google-tag-manager/google-tag-manager.php',
+			],
+
+			'really-simple-google-tag-manager' => [
+				'name' => 'Really Simple Google Tag Manager',
+				'slug' => 'really-simple-google-tag-manager/really-simple-google-tag-manager.php',
 			],
 		];
 	}
@@ -90,7 +105,7 @@ final class PluginAvailability {
 				'gf'   => true,
 			],
 
-			'gtm-ecommerce-woo-pro'     => [
+			'ti-woocommerce-wishlist'   => [
 				'name' => 'TI WooCommerce Wishlist',
 				'slug' => 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php',
 				'gf'   => true,
