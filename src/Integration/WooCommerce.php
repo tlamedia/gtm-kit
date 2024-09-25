@@ -490,7 +490,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$order_id = apply_filters( 'woocommerce_thankyou_order_id', absint( $wp->query_vars['order-received'] ) );
 
-		if ( ! $order_id ) {
+		if ( ! $order_id || apply_filters( 'gtmkit_disable_frontend_purchase_event', false ) ) {
 			return $data_layer;
 		}
 
