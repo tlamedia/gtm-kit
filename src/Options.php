@@ -152,7 +152,7 @@ final class Options {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		$map = self::$map;
+		$map = apply_filters( 'gtmkit_options_defaults', self::$map );
 
 		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			$map['integrations']['woocommerce_integration'] = [
