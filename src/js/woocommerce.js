@@ -99,7 +99,7 @@ function gtmkitLoad() {
 		}
 
 		const productElement = eventTargetElement.closest(
-			'.product,.wc-block-grid__product'
+			window.gtmkit_settings.wc.css_selectors.product_list_element
 		);
 		const productData =
 			productElement &&
@@ -292,8 +292,12 @@ function gtmkitLoad() {
 		const linkElement = eventTargetElement.closest( window.gtmkit_settings.wc.css_selectors.product_list_select_item );
 		if (!linkElement) return true;
 
+		if ( window.gtmkit_settings.wc.css_selectors.product_list_exclude && linkElement.closest(window.gtmkit_settings.wc.css_selectors.product_list_exclude)) {
+			return true;
+		}
+
 		const product = eventTargetElement.closest(
-			'.product,.wc-block-grid__product'
+			window.gtmkit_settings.wc.css_selectors.product_list_element
 		);
 
 		let productData;

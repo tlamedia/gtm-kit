@@ -258,8 +258,10 @@ final class WooCommerce extends AbstractEcommerce {
 		];
 		$global_settings['wc']['css_selectors']               = [
 			'product_list_select_item' => '.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
-										'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
-										'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist)',
+											'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
+											'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist)',
+			'product_list_element'     => '.product,.wc-block-grid__product',
+			'product_list_exclude'     => '',
 		];
 
 		return $global_settings;
