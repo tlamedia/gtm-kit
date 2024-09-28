@@ -14,6 +14,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
 use Exception;
+use TLA_Media\GTM_Kit\Common\Conditionals\BricksConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
@@ -244,6 +245,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$global_settings['wc']['view_item']['config']         = (int) $this->options->get( 'integrations', 'woocommerce_variable_product_tracking' );
 		$global_settings['wc']['view_item_list']['config']    = (int) $this->options->get( 'integrations', 'woocommerce_view_item_list_limit' );
 		$global_settings['wc']['wishlist']                    = false;
+		$global_settings['wc']['css_selectors']               = $this->get_css_selectors();
 		$global_settings['wc']['text']                        = [
 			'wp-block-handpicked-products'   => __( 'Handpicked Products', 'gtm-kit' ),
 			'wp-block-product-best-sellers'  => __( 'Best Sellers', 'gtm-kit' ),
@@ -256,15 +258,31 @@ final class WooCommerce extends AbstractEcommerce {
 			'shipping-tier-not-found'        => __( 'Shipping tier not found', 'gtm-kit' ),
 			'payment-method-not-found'       => __( 'Payment method not found', 'gtm-kit' ),
 		];
-		$global_settings['wc']['css_selectors']               = [
+
+		return $global_settings;
+	}
+
+	/**
+	 * Get CSS Selectors
+	 *
+	 * @return array{product_list_select_item: string, product_list_element: string, product_list_exclude: string, product_list_add_to_cart: string}
+	 */
+	private function get_css_selectors(): array {
+
+		$css_selectors = [
 			'product_list_select_item' => '.products .product:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
 											'.wc-block-grid__products li:not(.product-category) a:not(.add_to_cart_button.ajax_add_to_cart,.add_to_wishlist),' .
 											'.woocommerce-grouped-product-list-item__label a:not(.add_to_wishlist)',
 			'product_list_element'     => '.product,.wc-block-grid__product',
 			'product_list_exclude'     => '',
+			'product_list_add_to_cart' => '.add_to_cart_button.ajax_add_to_cart:not(.single_add_to_cart_button)',
 		];
 
-		return $global_settings;
+		if ( ( new BricksConditional() )->is_met() ) {
+			$css_selectors['product_list_add_to_cart'] .= ',.add_to_cart_button.brx_ajax_add_to_cart:not(.single_add_to_cart_button)';
+		}
+
+		return $css_selectors;
 	}
 
 	/**
