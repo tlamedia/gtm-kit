@@ -82,7 +82,7 @@ function gtmkitLoad() {
 
 		if (
 			eventTargetElement.closest(
-				'.add_to_cart_button.ajax_add_to_cart:not(.single_add_to_cart_button)'
+				window.gtmkit_settings.wc.css_selectors.product_list_add_to_cart
 			)
 		) {
 			event = 'add_to_cart';

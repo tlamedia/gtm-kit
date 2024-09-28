@@ -98,6 +98,7 @@ Release date: 2024-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-1/).
 
 #### Enhancements:
+* Added support for the Bricks theme builder.
 
 #### Bugfixes:
 * In some cases other plugins or a theme could block GTM Kit from firing JS event like the one the fires the add_to_cart GTM event.
