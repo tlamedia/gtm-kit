@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.6
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,9 +91,9 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 2.X =
+= 2.1.0 =
 
-Release date: 2024-MM-DD
+Release date: 2024-10-01
 
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-1/).
 
@@ -101,9 +101,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 * Added support for the Bricks theme builder.
 
 #### Bugfixes:
-* In some cases other plugins or a theme could block GTM Kit from firing JS event like the one the fires the add_to_cart GTM event.
-
-#### Other:
+* In some cases other plugins or a theme could block GTM Kit from firing JS event like the one that fires the add_to_cart GTM event.
 
 = 2.0.1 =
 

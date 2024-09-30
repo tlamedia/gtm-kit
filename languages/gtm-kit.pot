@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.0.1\n"
+"Project-Id-Version: GTM Kit 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-22T11:44:20+00:00\n"
+"POT-Creation-Date: 2024-09-30T14:37:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -140,37 +140,37 @@ msgid "It seems that you have installed the %1$s theme."
 msgstr ""
 
 #. translators: %1$s is a link with the text 'GTM Kit Woo Add-On'.
-#: src/Admin/PluginSuggestions.php:251
+#: src/Admin/PluginSuggestions.php:252
 msgid "With the %1$s, you can track the add_to_wishlist event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior."
 msgstr ""
 
-#: src/Admin/PluginSuggestions.php:258
+#: src/Admin/PluginSuggestions.php:259
 msgid "Upgrade:"
 msgstr ""
 
-#: src/Admin/PluginSuggestions.php:271
+#: src/Admin/PluginSuggestions.php:272
 msgid "It appears that you are not currently using a supported SEO plugin. By installing either WordPress SEO or Rank Math, you can assign a primary category to each product. This primary category will then be used in the data layer if the product is associated with multiple categories."
 msgstr ""
 
-#: src/Admin/PluginSuggestions.php:276
+#: src/Admin/PluginSuggestions.php:277
 msgid "Plugin suggestion:"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: src/Admin/PluginSuggestions.php:294
+#: src/Admin/PluginSuggestions.php:295
 msgid "It seems that you have installed the Google Tag Manager plugin called %1$s. Running two different GTM plugins simultaneously can lead to unexpected results, significantly impact data accuracy, and slow down page speed. Please consider deactivating %2$s unless you have carefully considered and addressed the potential challenges."
 msgstr ""
 
-#: src/Admin/PluginSuggestions.php:302
+#: src/Admin/PluginSuggestions.php:303
 msgid "Possible Conflict:"
 msgstr ""
 
 #. translators: %1$s and %2$s are links with the text 'GTM Kit Woo Add-On' and 'Grandfathered Wishlist Functionality' respectively.
-#: src/Admin/PluginSuggestions.php:323
+#: src/Admin/PluginSuggestions.php:324
 msgid "Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking the add_to_wishlist event, you must either purchase the %1$s or download the free %2$s plugin."
 msgstr ""
 
-#: src/Admin/PluginSuggestions.php:331
+#: src/Admin/PluginSuggestions.php:332
 msgid "Breaking change:"
 msgstr ""
 
@@ -240,63 +240,63 @@ msgid "Which GTM Kit settings are active"
 msgstr ""
 
 #: src/Integration/EasyDigitalDownloads.php:104
-#: src/Integration/WooCommerce.php:257
+#: src/Integration/WooCommerce.php:259
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:248
+#: src/Integration/WooCommerce.php:250
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:249
+#: src/Integration/WooCommerce.php:251
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:250
-#: src/Integration/WooCommerce.php:975
+#: src/Integration/WooCommerce.php:252
+#: src/Integration/WooCommerce.php:995
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:251
+#: src/Integration/WooCommerce.php:253
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:252
+#: src/Integration/WooCommerce.php:254
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:253
+#: src/Integration/WooCommerce.php:255
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:254
-#: src/Integration/WooCommerce.php:977
+#: src/Integration/WooCommerce.php:256
+#: src/Integration/WooCommerce.php:997
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:255
+#: src/Integration/WooCommerce.php:257
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:256
+#: src/Integration/WooCommerce.php:258
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:834
+#: src/Integration/WooCommerce.php:854
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:868
+#: src/Integration/WooCommerce.php:888
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:868
-#: src/Integration/WooCommerce.php:909
-#: src/Integration/WooCommerce.php:942
+#: src/Integration/WooCommerce.php:888
+#: src/Integration/WooCommerce.php:929
+#: src/Integration/WooCommerce.php:962
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1107
+#: src/Integration/WooCommerce.php:1127
 msgid "GTM Kit data."
 msgstr ""
 
@@ -951,6 +951,26 @@ msgstr ""
 msgid "Log the \"purchase\" event to the debug log."
 msgstr ""
 
+#: assets/admin/settings.js:1
+msgid "About GTM Kit"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Version:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Learn about changes and follow the development of GTM Kit:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "The changelog"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "The GitHub repository"
+msgstr ""
+
 #. translators: %s is the name of the plugin.
 #: assets/admin/settings.js:4
 msgid "%s is not active"
@@ -1030,7 +1050,7 @@ msgid "WooCommerce"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Basic settings"
+msgid "Basic Settings"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1078,7 +1098,7 @@ msgid "The user data is available in the datalayer in 'ecommerce.customer' and a
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Webhooks for server-side tracking"
+msgid "Webhooks for Server-side Tracking"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1103,27 +1123,35 @@ msgid "Send webhooks to server GTM container"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "This option will allow webhooks to be sent to your server GTM container."
+msgid "This option will allow you to send GTM events using webhooks to your server GTM container."
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Purchase webhook"
+msgid "GTM Events Send by Server-Side Webhooks:"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Enable this option to include the permalink structure of the product base, category base, tag base and attribute base."
+msgid "Send an 'purchase' event from the server side when an order is created."
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Refund webhook"
+msgid "Send 'purchase' event when an order is created.'"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Enable this option to include the path of cart, checkout, order received and my account page."
+msgid "Send 'purchase' event when the order has been paid and order status is 'Processing'."
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Event customization"
+msgid "Send an 'order_paid' event from the server side when an order has 'Processing' status."
+msgstr ""
+
+#: assets/admin/settings.js:19
+msgid "Send an 'refund' event from the server side when an order has been refunded or cancelled."
+msgstr ""
+
+#: assets/admin/settings.js:19
+msgid "Event Customization"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1135,7 +1163,7 @@ msgid "Only only push view_item_list once per per page for each list."
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Do you what to push the view_item_list event if the list is updated using a filter or just once per page view."
+msgid "Do you what to push the view_item_list event if the list is updated using a filter or just once per page view?"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1180,6 +1208,10 @@ msgstr ""
 
 #: assets/admin/settings.js:19
 msgid "When do you want to fire the \"add_payment_info\" event?"
+msgstr ""
+
+#: assets/admin/settings.js:19
+msgid "Disable the 'purchase' event in frontend an rely on server-side webhook."
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1255,15 +1287,19 @@ msgid "Include permalink structure"
 msgstr ""
 
 #: assets/admin/settings.js:19
+msgid "Enable this option to include the permalink structure of the product base, category base, tag base and attribute base."
+msgstr ""
+
+#: assets/admin/settings.js:19
 msgid "Include path of pages"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Contact Form 7"
+msgid "Enable this option to include the path of cart, checkout, order received and my account page."
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Basic Settings"
+msgid "Contact Form 7"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1288,10 +1324,6 @@ msgstr ""
 
 #: assets/admin/settings.js:19
 msgid "Advanced settings"
-msgstr ""
-
-#: assets/admin/settings.js:19
-msgid "Get template"
 msgstr ""
 
 #: assets/admin/settings.js:19
@@ -1385,23 +1417,11 @@ msgid "Send system data"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "About GTM Kit"
+msgid "Restore"
 msgstr ""
 
 #: assets/admin/settings.js:19
-msgid "Version:"
-msgstr ""
-
-#: assets/admin/settings.js:19
-msgid "Learn about changes and follow the development of GTM Kit:"
-msgstr ""
-
-#: assets/admin/settings.js:19
-msgid "The changelog"
-msgstr ""
-
-#: assets/admin/settings.js:19
-msgid "The GitHub repository"
+msgid "Dismiss"
 msgstr ""
 
 #. translators: %d is number %s can be either 'problem' or 'notification'.
