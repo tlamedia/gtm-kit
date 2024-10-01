@@ -31,8 +31,9 @@ The following GA4 events are automatically included in the dataLayer:
 - add_payment_info
 - purchase
 - refund **[Premium]**
+- order_paid **[Premium]**
 
-Unlock all features with [GTM Kit Woo Add-On](https://jump.gtmkit.com/link/2-30DDC).
+Unlock all features with [GTM Kit Woo Add-On](https://woocommerce.com/products/gtm-kit-woo-add-on/).
 
 ### Easy Digital Downloads
 - view_item
@@ -90,6 +91,18 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 Yes! Pagespeed is one of our main focus points, and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
+
+= 2.X.Y =
+
+Release date: 2024-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-2/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
 
 = 2.1.0 =
 
@@ -181,3 +194,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-1
 
 = 2.0 =
 Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.
+
+= Earlier versions =
+For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
