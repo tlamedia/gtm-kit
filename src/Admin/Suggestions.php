@@ -14,9 +14,9 @@ use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 /**
- * Suggested plugins
+ * Suggestions
  */
-final class PluginSuggestions {
+final class Suggestions {
 
 	/**
 	 * An instance of PluginAvailability.
@@ -33,6 +33,13 @@ final class PluginSuggestions {
 	private NotificationsHandler $notifications_handler;
 
 	/**
+	 * An instance of Options.
+	 *
+	 * @var Options
+	 */
+	private Options $options;
+
+	/**
 	 * An instance of Util.
 	 *
 	 * @var Util
@@ -44,11 +51,13 @@ final class PluginSuggestions {
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Options              $options Options.
 	 * @param Util                 $util Util.
 	 */
-	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ) {
+	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Options $options, Util $util ) {
 		$this->notifications_handler = $notifications_handler;
 		$this->plugin_availability   = $plugin_availability;
+		$this->options               = $options;
 		$this->util                  = $util;
 	}
 
@@ -57,12 +66,13 @@ final class PluginSuggestions {
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Options              $options Options.
 	 * @param Util                 $util Util.
 	 *
 	 * @return void
 	 */
-	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ): void {
-		$page = new self( $notifications_handler, $plugin_availability, $util );
+	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Options $options, Util $util ): void {
+		$page = new self( $notifications_handler, $plugin_availability, $options, $util );
 
 		add_action( 'admin_init', [ $page->plugin_availability, 'register' ] );
 		add_action( 'admin_init', [ $page, 'suggest_premium' ] );
@@ -83,7 +93,7 @@ final class PluginSuggestions {
 		if ( ! (
 			( new WooCommerceConditional() )->is_met() &&
 			! ( new PremiumConditional() )->is_met() &&
-			! Options::init()->get( 'misc', 'gf_wishlist' ) === true )
+			! $this->options->get( 'misc', 'gf_wishlist' ) === true )
 		) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
@@ -182,7 +192,7 @@ final class PluginSuggestions {
 		if ( ! (
 			( new WooCommerceConditional() )->is_met() &&
 			! ( new PremiumConditional() )->is_met() &&
-			Options::init()->get( 'misc', 'gf_wishlist' ) === true )
+			$this->options->get( 'misc', 'gf_wishlist' ) === true )
 		) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
