@@ -164,7 +164,10 @@ final class AdminAPI {
 			$notifications_handler->setup_current_notifications();
 			$notification = $notifications_handler->get_notification_by_id( $notification_id );
 
-			if ( $notification instanceof Notification ) {
+			if ( $action === 'remove' ) {
+				$notifications_handler->remove_notification_by_id( $notification_id );
+				wp_send_json_success( (object) $notifications_handler->get_notifications_array() );
+			} elseif ( $notification instanceof Notification ) {
 				switch ( $action ) {
 					case 'dismiss':
 						$notification_action = $notifications_handler->maybe_dismiss_notification( $notification );
@@ -197,7 +200,7 @@ final class AdminAPI {
 	 */
 	private function validate_notification_input( ?array $input ): bool {
 		return isset( $input['notification-id'], $input['action'] )
-				&& in_array( $input['action'], [ 'dismiss', 'restore' ], true );
+				&& in_array( $input['action'], [ 'dismiss', 'restore', 'remove' ], true );
 	}
 
 	/**

@@ -7,6 +7,9 @@
 
 namespace TLA_Media\GTM_Kit;
 
+use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
+use TLA_Media\GTM_Kit\Installation\AutomaticUpdates;
+
 /**
  * Options
  */
@@ -93,6 +96,12 @@ final class Options {
 		],
 		'premium'      => [
 			'addon_installed' => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+		],
+		'misc'         => [
+			'auto_update' => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
@@ -265,31 +274,63 @@ final class Options {
 			$options = self::array_merge_recursive( $this->get_all_raw(), $options );
 		}
 
-		$options = $this->process_generic_options( $options );
+		$options = $this->process_options( $options );
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $first_install ) {
 			\add_option( self::OPTION_NAME, $options, '', true );
 		} elseif ( is_multisite() ) {
-				\update_blog_option( get_current_blog_id(), self::OPTION_NAME, $options );
+			\update_blog_option( get_current_blog_id(), self::OPTION_NAME, $options );
 		} else {
 			\update_option( self::OPTION_NAME, $options, true );
 		}
 
-		// Now we need to re-cache values.
+		$this->clear_cache();
+	}
+
+	/**
+	 * Set single option.
+	 *
+	 * @param string $group Option group.
+	 * @param string $key Option key.
+	 * @param mixed  $value Option value.
+	 */
+	public function set_option( string $group, string $key, $value ): void {
+
+		$options = $this->get_all_raw();
+
+		$options[ $group ][ $key ] = $value;
+
+		if ( is_multisite() ) {
+			\update_blog_option( get_current_blog_id(), self::OPTION_NAME, $options );
+		} else {
+			\update_option( self::OPTION_NAME, $options, true );
+		}
+
+		$this->clear_cache();
+	}
+
+	/**
+	 * Clear the cache
+	 *
+	 * @return void
+	 */
+	private function clear_cache(): void {
 		wp_cache_delete( self::OPTION_NAME, 'options' );
 		wp_cache_delete( 'gtmkit_script_settings', 'gtmkit' );
 		$this->options = get_option( self::OPTION_NAME, [] );
 	}
 
 	/**
-	 * Process the generic plugin options.
+	 * Process the plugin options.
 	 *
 	 * @param array<string, mixed> $options The options array.
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function process_generic_options( array $options ): array {
+	private function process_options( array $options ): array {
+
+		$old_options = $this->get_all_raw();
 
 		foreach ( $options as $group => $keys ) {
 			foreach ( $keys as $option_name => $option_value ) {
@@ -300,9 +341,11 @@ final class Options {
 						}
 						break;
 
-					case 'debug_events':
-						if ( $option_name === 'email_debug' ) {
-							$options[ $group ][ $option_name ] = (bool) $option_value;
+					case 'misc':
+						if ( $option_name === 'auto_update' ) {
+							if ( $old_options[ $group ][ $option_name ] !== $option_value ) {
+								$this->auto_update_setting( $option_value );
+							}
 						}
 				}
 			}
@@ -373,5 +416,15 @@ final class Options {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Auto-update setting
+	 *
+	 * @param bool $activate Activate or deactivate auto-updates.
+	 */
+	private function auto_update_setting( bool $activate ): void {
+		AutomaticUpdates::instance()->activate_auto_update( $activate );
+		NotificationsHandler::get()->remove_notification_by_id( 'gtmkit-auto-update' );
 	}
 }
