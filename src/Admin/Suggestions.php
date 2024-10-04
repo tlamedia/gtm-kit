@@ -75,10 +75,29 @@ final class Suggestions {
 		$page = new self( $notifications_handler, $plugin_availability, $options, $util );
 
 		add_action( 'admin_init', [ $page->plugin_availability, 'register' ] );
+		add_action( 'admin_init', [ $page, 'suggest_auto_update' ] );
 		add_action( 'admin_init', [ $page, 'suggest_premium' ] );
 		add_action( 'admin_init', [ $page, 'suggest_seo_plugin' ] );
 		add_action( 'admin_init', [ $page, 'detect_conflicting_plugins' ] );
 		add_action( 'admin_init', [ $page, 'suggest_grandfathered_wishlist' ] );
+	}
+
+	/**
+	 * Suggest Auto-update.
+	 *
+	 * @return void
+	 */
+	public function suggest_auto_update(): void {
+
+		$notification_id = 'gtmkit-auto-update';
+
+		if ( $this->options->get( 'misc', 'auto_update' ) === true || ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) && AUTOMATIC_UPDATER_DISABLED ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_auto_update_notification( $notification_id );
+		$this->notifications_handler->add_notification( $notification );
 	}
 
 	/**
@@ -344,6 +363,28 @@ final class Suggestions {
 		);
 	}
 
+	/**
+	 * Build suggestion of auto-update notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_auto_update_notification( string $notification_id ): Notification {
+
+		$message = __( 'New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date.', 'gtm-kit' );
+
+		$url      = $this->util->get_admin_page_url() . 'general#/misc';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Automatic Updates:', 'gtm-kit' )
+		);
+	}
 
 	/**
 	 * New notification.

@@ -178,6 +178,7 @@ function gtmkit_admin_init(): void {
 
 	$notifications_handler = NotificationsHandler::get();
 
+	AutomaticUpdates::register();
 	Suggestions::register( $notifications_handler, $plugin_availability, $options, $util );
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );

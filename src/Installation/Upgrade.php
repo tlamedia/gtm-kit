@@ -179,4 +179,21 @@ final class Upgrade {
 			Options::init()->set( $values, false, false );
 		}
 	}
+
+	/**
+	 * Upgrade routine for v2.2
+	 */
+	protected function v22_upgrade(): void {
+		$auto_update_plugins = (array) get_site_option( 'auto_update_plugins', array() );
+
+		$automatic_updates = in_array( 'gtm-kit/gtm-kit.php', $auto_update_plugins, true );
+
+		$values = [
+			'misc' => [
+				'auto_update' => $automatic_updates,
+			],
+		];
+
+		Options::init()->set( $values, false, false );
+	}
 }
