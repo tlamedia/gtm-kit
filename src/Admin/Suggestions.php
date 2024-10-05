@@ -110,7 +110,7 @@ final class Suggestions {
 
 		$notification_id = 'gtmkit-event-inspector';
 
-		if ( $this->options->get( 'general', 'event_inspector' ) === false || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'xlocal' ) ) {
+		if ( $this->options->get( 'general', 'event_inspector' ) === false || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
 		}
