@@ -185,7 +185,7 @@ final class AdminAPI {
 					wp_send_json_error( (object) $notifications_handler->get_notifications_array() );
 				}
 			} else {
-				wp_send_json_error( 'The notification was not found.' );
+				wp_send_json_error( (object) $notifications_handler->get_notifications_array() ); // The notification was not found.
 			}
 		} else {
 			wp_send_json_error( 'Invalid input.' );
