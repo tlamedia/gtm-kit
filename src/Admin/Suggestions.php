@@ -82,6 +82,7 @@ final class Suggestions {
 		add_action( 'admin_init', [ $page, 'suggest_grandfathered_wishlist' ] );
 		add_action( 'admin_init', [ $page, 'suggest_inspector_deactivation' ] );
 		add_action( 'admin_init', [ $page, 'suggest_container_injection' ] );
+		add_action( 'admin_init', [ $page, 'suggest_log_deactivation' ] );
 	}
 
 	/**
@@ -140,6 +141,27 @@ final class Suggestions {
 		}
 
 		$notification = $this->get_suggest_container_injection_notification( $notification_id, $container_active, $gtm_id );
+		$this->notifications_handler->add_notification( $notification );
+	}
+
+	/**
+	 * Suggest container injection
+	 *
+	 * @return void
+	 */
+	public function suggest_log_deactivation(): void {
+
+		$notification_id = 'gtmkit-log-active';
+
+		$console_log = $this->options->get( 'general', 'console_log' );
+		$debug_og    = $this->options->get( 'general', 'debug_log' );
+
+		if ( ( ! $console_log && $debug_og ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_log_deactivation_notification( $notification_id, $console_log, $debug_og );
 		$this->notifications_handler->add_notification( $notification );
 	}
 
@@ -485,6 +507,39 @@ final class Suggestions {
 			$message,
 			__( 'GTM Container Injection:', 'gtm-kit' ),
 			Notification::PROBLEM
+		);
+	}
+
+	/**
+	 * Build suggestion of container injection notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 * @param bool   $console_log Console log activation status.
+	 * @param bool   $debug_log Debug log activation status.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_log_deactivation_notification( string $notification_id, bool $console_log, bool $debug_log ): Notification {
+
+		$message = __( 'Debug logging should not be active in production environments longer than necessary as it affects performance.', 'gtm-kit' );
+
+		if ( $console_log ) {
+			$message .= ' ' . __( 'The browser console log is active.', 'gtm-kit' );
+		}
+
+		if ( $debug_log ) {
+			$message .= ' ' . __( 'The debug log for "purchase" events is active.', 'gtm-kit' );
+		}
+
+		$url      = $this->util->get_admin_page_url() . 'general#/misc';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Logging and debugging:', 'gtm-kit' ),
 		);
 	}
 
