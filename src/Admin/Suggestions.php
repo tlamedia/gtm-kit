@@ -81,6 +81,7 @@ final class Suggestions {
 		add_action( 'admin_init', [ $page, 'detect_conflicting_plugins' ] );
 		add_action( 'admin_init', [ $page, 'suggest_grandfathered_wishlist' ] );
 		add_action( 'admin_init', [ $page, 'suggest_inspector_deactivation' ] );
+		add_action( 'admin_init', [ $page, 'suggest_container_injection' ] );
 	}
 
 	/**
@@ -119,6 +120,27 @@ final class Suggestions {
 			$notification = $this->get_suggest_inspector_deactivation_notification( $notification_id );
 			$this->notifications_handler->add_notification( $notification );
 		}
+	}
+
+	/**
+	 * Suggest container injection
+	 *
+	 * @return void
+	 */
+	public function suggest_container_injection(): void {
+
+		$notification_id = 'gtmkit-container-injection';
+
+		$container_active = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
+		$gtm_id           = $this->options->get( 'general', 'gtm_id' );
+
+		if ( ( $container_active && $gtm_id ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_container_injection_notification( $notification_id, $container_active, $gtm_id );
+		$this->notifications_handler->add_notification( $notification );
 	}
 
 	/**
@@ -427,6 +449,41 @@ final class Suggestions {
 			$notification_id,
 			$message,
 			__( 'Event Inspector:', 'gtm-kit' ),
+			Notification::PROBLEM
+		);
+	}
+
+
+	/**
+	 * Build suggestion of container injection notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 * @param bool   $container_active The container activation status.
+	 * @param string $gtm_id The GTM Container ID.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_container_injection_notification( string $notification_id, bool $container_active, string $gtm_id ): Notification {
+
+		$message = __( 'The Google Tag Manager container is not injected.', 'gtm-kit' );
+
+		if ( ! $container_active ) {
+			$message .= ' ' . __( 'The "Inject Container Code" option is not enabled.', 'gtm-kit' );
+		}
+
+		if ( ! $gtm_id ) {
+			$message .= ' ' . __( 'The "GTM Container ID" value is empty.', 'gtm-kit' );
+		}
+
+		$url      = $this->util->get_admin_page_url() . 'general#/container';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'GTM Container Injection:', 'gtm-kit' ),
 			Notification::PROBLEM
 		);
 	}
