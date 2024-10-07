@@ -184,7 +184,7 @@ final class Upgrade {
 	 * Upgrade routine for v2.2
 	 */
 	protected function v22_upgrade(): void {
-		$auto_update_plugins = (array) get_site_option( 'auto_update_plugins', array() );
+		$auto_update_plugins = (array) get_site_option( 'auto_update_plugins', [] );
 
 		$automatic_updates = in_array( 'gtm-kit/gtm-kit.php', $auto_update_plugins, true );
 
