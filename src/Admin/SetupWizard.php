@@ -134,7 +134,7 @@ final class SetupWizard {
 			$version    = $deps_file['version'];
 		}
 
-		wp_enqueue_style( 'gtmkit-wizard-style', GTMKIT_URL . 'assets/admin/wizard.css', array( 'wp-components' ), $version );
+		wp_enqueue_style( 'gtmkit-wizard-style', GTMKIT_URL . 'assets/admin/wizard.css', [ 'wp-components' ], $version );
 
 		wp_enqueue_script( 'gtmkit-wizard-script', GTMKIT_URL . 'assets/admin/wizard.js', $dependency, $version, true );
 

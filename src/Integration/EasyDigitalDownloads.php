@@ -139,7 +139,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 */
 	public function get_datalayer_content( array $data_layer ): array {
 
-		if ( is_singular( array( 'download' ) ) ) {
+		if ( is_singular( [ 'download' ] ) ) {
 			$data_layer = $this->get_datalayer_content_product_page( $data_layer );
 		} elseif ( is_tax( 'download_category' ) ) {
 			$data_layer = $this->get_datalayer_content_product_category( $data_layer );

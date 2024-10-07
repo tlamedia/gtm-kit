@@ -611,7 +611,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		if ( $this->options->get( 'general', 'debug_log' ) ) {
 			$logger = wc_get_logger();
-			$logger->info( wc_print_r( $data_layer, true ), array( 'source' => 'gtmkit-purchase' ) );
+			$logger->info( wc_print_r( $data_layer, true ), [ 'source' => 'gtmkit-purchase' ] );
 		}
 
 		return $data_layer;
@@ -1069,23 +1069,23 @@ final class WooCommerce extends AbstractEcommerce {
 
 		// Register into `cart/items`.
 		$this->extend->register_endpoint_data(
-			array(
+			[
 				'endpoint'        => ProductSchema::IDENTIFIER,
 				'namespace'       => 'gtmkit',
-				'data_callback'   => array( self::$instance, 'extend_product_data' ),
-				'schema_callback' => array( self::$instance, 'extend_product_schema' ),
+				'data_callback'   => [ self::$instance, 'extend_product_data' ],
+				'schema_callback' => [ self::$instance, 'extend_product_schema' ],
 				'schema_type'     => ARRAY_A,
-			)
+			]
 		);
 
 		$this->extend->register_endpoint_data(
-			array(
+			[
 				'endpoint'        => CartItemSchema::IDENTIFIER,
 				'namespace'       => 'gtmkit',
-				'data_callback'   => array( self::$instance, 'extend_cart_data' ),
-				'schema_callback' => array( self::$instance, 'extend_product_schema' ),
+				'data_callback'   => [ self::$instance, 'extend_cart_data' ],
+				'schema_callback' => [ self::$instance, 'extend_product_schema' ],
 				'schema_type'     => ARRAY_A,
-			)
+			]
 		);
 	}
 
@@ -1097,9 +1097,9 @@ final class WooCommerce extends AbstractEcommerce {
 	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
 	 */
 	public function extend_product_data( $product ): array {
-		return array(
+		return [
 			'item' => $this->get_item_data( $product ),
-		);
+		];
 	}
 
 	/**
@@ -1110,9 +1110,9 @@ final class WooCommerce extends AbstractEcommerce {
 	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
 	 */
 	public function extend_cart_data( array $cart_item ): array {
-		return array(
+		return [
 			'item' => wp_json_encode( $this->get_item_data( $cart_item['data'] ) ),
-		);
+		];
 	}
 
 	/**
@@ -1122,13 +1122,13 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function extend_product_schema(): array {
 
-		return array(
-			'gtmkit_data' => array(
+		return [
+			'gtmkit_data' => [
 				'description' => __( 'GTM Kit data.', 'gtm-kit' ),
-				'type'        => array( 'string', 'null' ),
+				'type'        => [ 'string', 'null' ],
 				'readonly'    => true,
-			),
-		);
+			],
+		];
 	}
 
 	/**
@@ -1141,7 +1141,7 @@ final class WooCommerce extends AbstractEcommerce {
 	public function has_woocommerce_blocks( int $post_id ): array {
 		$post_content = get_the_content( null, false, $post_id );
 
-		$woocommerce_blocks = array();
+		$woocommerce_blocks = [];
 
 		// This will return an array of blocks.
 		$blocks = parse_blocks( $post_content );

@@ -66,11 +66,11 @@ final class Stape {
 		}
 
 		$this->set_cookie(
-			array(
+			[
 				'name'    => self::COOKIE_KEEPER_NAME,
 				'value'   => md5( wp_rand( PHP_INT_MIN, PHP_INT_MAX ) . '|' . filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_SPECIAL_CHARS ) . '|' . time() ),
 				'expires' => time() + ( YEAR_IN_SECONDS * 2 ),
-			)
+			]
 		);
 	}
 
@@ -82,11 +82,11 @@ final class Stape {
 	 */
 	private function delete_cookie(): void {
 		$this->set_cookie(
-			array(
+			[
 				'name'    => self::COOKIE_KEEPER_NAME,
 				'value'   => '',
 				'expires' => -1,
-			)
+			]
 		);
 		unset( $_COOKIE[ self::COOKIE_KEEPER_NAME ] );
 	}
@@ -100,7 +100,7 @@ final class Stape {
 	private function set_cookie( array $args ): void {
 		$args = wp_parse_args(
 			$args,
-			array(
+			[
 				'name'     => '',
 				'value'    => '',
 				'expires'  => 0,
@@ -109,7 +109,7 @@ final class Stape {
 				'secure'   => true,
 				'httponly' => false,
 				'samesite' => 'lax',
-			)
+			]
 		);
 
 		setcookie(

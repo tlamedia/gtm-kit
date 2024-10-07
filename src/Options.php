@@ -102,7 +102,7 @@ final class Options {
 		],
 		'misc'         => [
 			'auto_update' => [
-				'default' => false,
+				'default' => true,
 				'type'    => 'boolean',
 			],
 		],
@@ -364,16 +364,16 @@ final class Options {
 		$arrays = func_get_args();
 
 		if ( count( $arrays ) < 2 ) {
-			return $arrays[0] ?? array();
+			return $arrays[0] ?? [];
 		}
 
-		$merged = array();
+		$merged = [];
 
 		while ( $arrays ) {
 			$array = array_shift( $arrays );
 
 			if ( ! is_array( $array ) ) {
-				return array();
+				return [];
 			}
 
 			if ( empty( $array ) ) {

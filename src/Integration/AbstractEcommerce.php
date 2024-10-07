@@ -90,10 +90,10 @@ abstract class AbstractEcommerce extends AbstractIntegration {
 			$product_categories = wp_get_post_terms(
 				$product_id,
 				$taxonomy,
-				array(
+				[
 					'orderby' => 'parent',
 					'order'   => 'ASC',
-				)
+				]
 			);
 
 			if ( count( $product_categories ) ) {
