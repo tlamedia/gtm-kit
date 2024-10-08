@@ -18,6 +18,6 @@ class PremiumConditional implements Conditional {
 	 * @return bool `true` when the WooCommerce plugin is installed and activated.
 	 */
 	public function is_met(): bool {
-		return \defined( 'GTMKIT_WOO_FILE' );
+		return \defined( 'GTMKIT_WOO_FILE' ) || \defined( 'GTMKIT_PREMIUM_FILE' );
 	}
 }
