@@ -364,8 +364,6 @@ final class Util {
 			return $data;
 		}
 
-		$url = $this->api_host . $this->api_namespace . $endpoint;
-
 		$url = add_query_arg(
 			'plugins',
 			[
@@ -373,7 +371,7 @@ final class Util {
 				'cf7' => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
 				'edd' => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
 			],
-			$url
+			$this->get_api_url( $endpoint )
 		);
 
 		$response = wp_remote_get( $url );
@@ -392,6 +390,17 @@ final class Util {
 		set_transient( $transient, $data, 12 * HOUR_IN_SECONDS );
 
 		return $data;
+	}
+
+	/**
+	 * Get API Url
+	 *
+	 * @param string $endpoint The endpoint.
+	 *
+	 * @return string The API Url.
+	 */
+	public function get_api_url( string $endpoint ): string {
+		return $this->api_host . $this->api_namespace . $endpoint;
 	}
 
 	/**
