@@ -344,8 +344,13 @@ final class Frontend {
 	 * Get the Event Inspector HTML
 	 */
 	public function get_event_inspector(): void {
+		$restrict = apply_filters( 'gtmkit_restrict_event_inspector', false );
 		?>
-		<div id="gtmkit-event-inspector">
+		<div id="gtmkit-event-inspector" 
+		<?php
+		if ( $restrict ) :
+			?>
+			class="restrict"<?php endif; ?>>
 			<div id="gtmkit-event-inspector-wrapper">
 				<div id="gtmkit-event-inspector-title">GTM Kit Event Inspector:</div>
 				<ul id="gtmkit-event-inspector-list"></ul>

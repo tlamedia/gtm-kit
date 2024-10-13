@@ -12,6 +12,9 @@
 	background-color: var(--gtmkit-background-white);
 	border-top: 2px solid var(--gtmkit-color-grey);
 
+	&.restrict {
+		display: none;
+	}
 }
 
 #gtmkit-event-inspector-wrapper{
