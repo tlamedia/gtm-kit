@@ -670,10 +670,6 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.gtmkit-mb-20 {
-  margin-bottom: 5rem;
-}
-
 .gtmkit-mb-4 {
   margin-bottom: 1rem;
 }
@@ -692,10 +688,6 @@ video {
 
 .gtmkit-ml-2 {
   margin-left: 0.5rem;
-}
-
-.gtmkit-ml-4 {
-  margin-left: 1rem;
 }
 
 .gtmkit-ml-6 {
@@ -728,10 +720,6 @@ video {
 
 .gtmkit-mt-8 {
   margin-top: 2rem;
-}
-
-.gtmkit-block {
-  display: block;
 }
 
 .gtmkit-inline-block {
@@ -795,8 +783,8 @@ video {
   width: 2rem;
 }
 
-.gtmkit-w-\[225px\] {
-  width: 225px;
+.gtmkit-w-\[200px\] {
+  width: 200px;
 }
 
 .gtmkit-w-\[250px\] {
@@ -1137,6 +1125,11 @@ video {
   padding-right: 2rem;
 }
 
+.gtmkit-py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
 .gtmkit-py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1172,11 +1165,6 @@ video {
   padding-bottom: 1px;
 }
 
-.gtmkit-py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
-}
-
 .gtmkit-pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -1201,8 +1189,20 @@ video {
   padding-top: 2rem;
 }
 
-.gtmkit-text-left {
-  text-align: left;
+.gtmkit-pl-4 {
+  padding-left: 1rem;
+}
+
+.gtmkit-pl-8 {
+  padding-left: 2rem;
+}
+
+.gtmkit-pl-10 {
+  padding-left: 2.5rem;
+}
+
+.gtmkit-pl-12 {
+  padding-left: 3rem;
 }
 
 .gtmkit-text-center {
@@ -1212,11 +1212,6 @@ video {
 .\!gtmkit-text-base {
   font-size: 1rem !important;
   line-height: 1.5rem !important;
-}
-
-.\!gtmkit-text-lg {
-  font-size: 1.125rem !important;
-  line-height: 1.75rem !important;
 }
 
 .gtmkit-text-2xl {
@@ -1263,18 +1258,6 @@ video {
   line-height: 1rem;
 }
 
-.gtmkit-text-\[10px\] {
-  font-size: 10px;
-}
-
-.gtmkit-text-\[11px\] {
-  font-size: 11px;
-}
-
-.gtmkit-text-\[12px\] {
-  font-size: 12px;
-}
-
 .gtmkit-font-bold {
   font-weight: 700;
 }
@@ -1287,12 +1270,12 @@ video {
   font-weight: 500;
 }
 
-.gtmkit-font-semibold {
-  font-weight: 600;
-}
-
 .gtmkit-font-normal {
   font-weight: 400;
+}
+
+.gtmkit-font-semibold {
+  font-weight: 600;
 }
 
 .gtmkit-uppercase {
@@ -1400,10 +1383,6 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:gtmkit-mt-10 {
-    margin-top: 2.5rem;
-  }
-
   .md\:gtmkit-mt-12 {
     margin-top: 3rem;
   }
