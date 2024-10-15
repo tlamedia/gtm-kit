@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2024-10-16 - version 2.2.0
+* Add: Added notifications and warnings for missing GTM container, debug log usage, auto-update and event inspector usage. These improvements aim to ensure smooth production operations.
+
 2024-10-01 - version 2.1.0
 * Add: Added support for the Bricks theme builder.
 * Fix: In some cases other plugins or a theme could block GTM Kit from firing JS event like the one that fires the add_to_cart GTM event.
