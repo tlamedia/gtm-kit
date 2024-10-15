@@ -274,7 +274,9 @@ final class Options {
 			$options = self::array_merge_recursive( $this->get_all_raw(), $options );
 		}
 
-		$options = $this->process_options( $options );
+		if ( $first_install === false ) {
+			$options = $this->process_options( $options );
+		}
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $first_install ) {
