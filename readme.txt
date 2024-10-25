@@ -92,6 +92,18 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 2.X.Y =
+
+Release date: 2024-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-3/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 2.2.0 =
 
 Release date: 2024-10-16
