@@ -101,6 +101,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Enhancements:
 
 #### Bugfixes:
+* If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
 
 #### Other:
 

@@ -348,12 +348,12 @@ final class WooCommerce extends AbstractEcommerce {
 			$data_layer = $this->get_datalayer_content_product_category( $data_layer );
 		} elseif ( is_product_tag() ) {
 			$data_layer = $this->get_datalayer_content_product_tag( $data_layer );
-		} elseif ( is_cart() ) {
-			$data_layer = $this->get_datalayer_content_cart( $data_layer );
 		} elseif ( is_order_received_page() ) {
 			$data_layer = $this->get_datalayer_content_order_received( $data_layer );
 		} elseif ( is_checkout() ) {
 			$data_layer = $this->get_datalayer_content_checkout( $data_layer );
+		} elseif ( is_cart() ) {
+			$data_layer = $this->get_datalayer_content_cart( $data_layer );
 		}
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_permalink_structure' ) ) {
