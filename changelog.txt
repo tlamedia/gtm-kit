@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2024-10-DD - version 2.2.1
+* Fix: If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
+
 2024-10-16 - version 2.2.0
 * Add: Added notifications and warnings for missing GTM container, debug log usage, auto-update and event inspector usage. These improvements aim to ensure smooth production operations.
 
