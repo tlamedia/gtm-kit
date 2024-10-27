@@ -2,8 +2,8 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Tested up to: 6.6
-Stable tag: 2.2.0
+Tested up to: 6.7
+Stable tag: 2.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,18 +92,15 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
-= 2.X.Y =
+= 2.2.1 =
 
 Release date: 2024-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-3/).
-
-#### Enhancements:
 
 #### Bugfixes:
 * If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
 
 #### Other:
+* Tested up to WordPress 6.7.
 
 = 2.2.0 =
 
