@@ -156,7 +156,7 @@ final class Suggestions {
 		$console_log = $this->options->get( 'general', 'console_log' );
 		$debug_og    = $this->options->get( 'general', 'debug_log' );
 
-		if ( ( ! $console_log && $debug_og ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+		if ( ( ! $console_log && ! $debug_og ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
 		}
