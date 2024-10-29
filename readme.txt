@@ -97,7 +97,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 Release date: 2024-10-29
 
 #### Bugfixes:
-* If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
+* If the cart and checkout endpoints were set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
 
 #### Other:
 * Tested up to WordPress 6.7.

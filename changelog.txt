@@ -1,7 +1,7 @@
 *** GTM Kit ***
 
 2024-10-29 - version 2.2.1
-* Fix: If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
+* Fix: If the cart and checkout endpoints were set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
 * Dev: Tested up to WordPress 6.7.
 
 2024-10-16 - version 2.2.0
