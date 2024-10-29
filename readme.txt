@@ -94,7 +94,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 = 2.2.1 =
 
-Release date: 2024-MM-DD
+Release date: 2024-10-29
 
 #### Bugfixes:
 * If the cart and checkout endpoints where set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
