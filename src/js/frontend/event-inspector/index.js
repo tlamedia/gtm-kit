@@ -35,7 +35,7 @@ function getDataLayer() {
 			) {
 				return;
 			}
-			storedEvents.push( event.event );
+			storedEvents.push( event );
 		} );
 
 		if ( storedEvents.length > 5 ) {
@@ -56,7 +56,7 @@ function renderList( events ) {
 	const listItem = '<li>{{event}}</li>';
 	const reversedList = [ ...events ].reverse();
 	const rendered = reversedList.map( ( item ) => {
-		return listItem.replace( '{{event}}', item );
+		return listItem.replace( '{{event}}', item.event );
 	} );
 
 	document.getElementById( 'gtmkit-event-inspector-list' ).innerHTML =

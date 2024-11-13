@@ -18,6 +18,6 @@ class ContactForm7Conditional implements Conditional {
 	 * @return bool `true` when the Contact Form 7 plugin is installed and activated.
 	 */
 	public function is_met(): bool {
-		return \class_exists( 'CF7' );
+		return \class_exists( 'WPCF7' );
 	}
 }

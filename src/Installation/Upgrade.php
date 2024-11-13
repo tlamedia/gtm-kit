@@ -46,6 +46,7 @@ final class Upgrade {
 			'1.20' => 'v120_upgrade',
 			'1.22' => 'v122_upgrade',
 			'2.0'  => 'v2_upgrade',
+			'2.2'  => 'v22_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -178,5 +179,22 @@ final class Upgrade {
 
 			Options::init()->set( $values, false, false );
 		}
+	}
+
+	/**
+	 * Upgrade routine for v2.2
+	 */
+	protected function v22_upgrade(): void {
+		$auto_update_plugins = (array) get_site_option( 'auto_update_plugins', [] );
+
+		$automatic_updates = in_array( 'gtm-kit/gtm-kit.php', $auto_update_plugins, true );
+
+		$values = [
+			'misc' => [
+				'auto_update' => $automatic_updates,
+			],
+		];
+
+		Options::init()->set( $values, false, false );
 	}
 }

@@ -14,9 +14,9 @@ use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options;
 
 /**
- * Suggested plugins
+ * Suggestions
  */
-final class PluginSuggestions {
+final class Suggestions {
 
 	/**
 	 * An instance of PluginAvailability.
@@ -33,6 +33,13 @@ final class PluginSuggestions {
 	private NotificationsHandler $notifications_handler;
 
 	/**
+	 * An instance of Options.
+	 *
+	 * @var Options
+	 */
+	private Options $options;
+
+	/**
 	 * An instance of Util.
 	 *
 	 * @var Util
@@ -44,11 +51,13 @@ final class PluginSuggestions {
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Options              $options Options.
 	 * @param Util                 $util Util.
 	 */
-	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ) {
+	public function __construct( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Options $options, Util $util ) {
 		$this->notifications_handler = $notifications_handler;
 		$this->plugin_availability   = $plugin_availability;
+		$this->options               = $options;
 		$this->util                  = $util;
 	}
 
@@ -57,18 +66,103 @@ final class PluginSuggestions {
 	 *
 	 * @param NotificationsHandler $notifications_handler The notifications handler to add notifications to.
 	 * @param PluginAvailability   $plugin_availability Plugin Availability.
+	 * @param Options              $options Options.
 	 * @param Util                 $util Util.
 	 *
 	 * @return void
 	 */
-	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Util $util ): void {
-		$page = new self( $notifications_handler, $plugin_availability, $util );
+	public static function register( NotificationsHandler $notifications_handler, PluginAvailability $plugin_availability, Options $options, Util $util ): void {
+		$page = new self( $notifications_handler, $plugin_availability, $options, $util );
 
 		add_action( 'admin_init', [ $page->plugin_availability, 'register' ] );
+		add_action( 'admin_init', [ $page, 'suggest_auto_update' ] );
 		add_action( 'admin_init', [ $page, 'suggest_premium' ] );
 		add_action( 'admin_init', [ $page, 'suggest_seo_plugin' ] );
 		add_action( 'admin_init', [ $page, 'detect_conflicting_plugins' ] );
 		add_action( 'admin_init', [ $page, 'suggest_grandfathered_wishlist' ] );
+		add_action( 'admin_init', [ $page, 'suggest_inspector_deactivation' ] );
+		add_action( 'admin_init', [ $page, 'suggest_container_injection' ] );
+		add_action( 'admin_init', [ $page, 'suggest_log_deactivation' ] );
+	}
+
+	/**
+	 * Suggest Auto-update.
+	 *
+	 * @return void
+	 */
+	public function suggest_auto_update(): void {
+
+		$notification_id = 'gtmkit-auto-update';
+
+		if ( $this->options->get( 'misc', 'auto_update' ) === true || ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) && AUTOMATIC_UPDATER_DISABLED ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_auto_update_notification( $notification_id );
+		$this->notifications_handler->add_notification( $notification );
+	}
+
+	/**
+	 * Suggest event inspector deactivation.
+	 *
+	 * @return void
+	 */
+	public function suggest_inspector_deactivation(): void {
+
+		$notification_id = 'gtmkit-event-inspector';
+
+		if ( $this->options->get( 'general', 'event_inspector' ) === false || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		if ( $this->options->get( 'general', 'event_inspector' ) === true ) {
+			$notification = $this->get_suggest_inspector_deactivation_notification( $notification_id );
+			$this->notifications_handler->add_notification( $notification );
+		}
+	}
+
+	/**
+	 * Suggest container injection
+	 *
+	 * @return void
+	 */
+	public function suggest_container_injection(): void {
+
+		$notification_id = 'gtmkit-container-injection';
+
+		$container_active = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
+		$gtm_id           = $this->options->get( 'general', 'gtm_id' );
+
+		if ( ( $container_active && $gtm_id ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_container_injection_notification( $notification_id, $container_active, $gtm_id );
+		$this->notifications_handler->add_notification( $notification );
+	}
+
+	/**
+	 * Suggest container injection
+	 *
+	 * @return void
+	 */
+	public function suggest_log_deactivation(): void {
+
+		$notification_id = 'gtmkit-log-active';
+
+		$console_log = $this->options->get( 'general', 'console_log' );
+		$debug_og    = $this->options->get( 'general', 'debug_log' );
+
+		if ( ( ! $console_log && ! $debug_og ) || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_suggest_log_deactivation_notification( $notification_id, $console_log, $debug_og );
+		$this->notifications_handler->add_notification( $notification );
 	}
 
 	/**
@@ -83,7 +177,7 @@ final class PluginSuggestions {
 		if ( ! (
 			( new WooCommerceConditional() )->is_met() &&
 			! ( new PremiumConditional() )->is_met() &&
-			! Options::init()->get( 'misc', 'gf_wishlist' ) === true )
+			! $this->options->get( 'misc', 'gf_wishlist' ) === true )
 		) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
@@ -182,7 +276,7 @@ final class PluginSuggestions {
 		if ( ! (
 			( new WooCommerceConditional() )->is_met() &&
 			! ( new PremiumConditional() )->is_met() &&
-			Options::init()->get( 'misc', 'gf_wishlist' ) === true )
+			$this->options->get( 'misc', 'gf_wishlist' ) === true )
 		) {
 			$this->notifications_handler->remove_notification_by_id( $notification_id );
 			return;
@@ -334,6 +428,120 @@ final class PluginSuggestions {
 		);
 	}
 
+	/**
+	 * Build suggestion of auto-update notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_auto_update_notification( string $notification_id ): Notification {
+
+		$message = __( 'New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date.', 'gtm-kit' );
+
+		$url      = $this->util->get_admin_page_url() . 'general#/misc';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Automatic Updates:', 'gtm-kit' )
+		);
+	}
+
+	/**
+	 * Build suggestion of inspector deactivation notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_inspector_deactivation_notification( string $notification_id ): Notification {
+
+		$message = __( 'The event inspector is active and visible to all users. You should not keep it active longer than necessary.', 'gtm-kit' );
+
+		$url      = $this->util->get_admin_page_url() . 'general#/misc';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Event Inspector:', 'gtm-kit' ),
+			Notification::PROBLEM
+		);
+	}
+
+
+	/**
+	 * Build suggestion of container injection notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 * @param bool   $container_active The container activation status.
+	 * @param string $gtm_id The GTM Container ID.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_container_injection_notification( string $notification_id, bool $container_active, string $gtm_id ): Notification {
+
+		$message = __( 'The Google Tag Manager container is not injected.', 'gtm-kit' );
+
+		if ( ! $container_active ) {
+			$message .= ' ' . __( 'The "Inject Container Code" option is not enabled.', 'gtm-kit' );
+		}
+
+		if ( ! $gtm_id ) {
+			$message .= ' ' . __( 'The "GTM Container ID" value is empty.', 'gtm-kit' );
+		}
+
+		$url      = $this->util->get_admin_page_url() . 'general#/container';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'GTM Container Injection:', 'gtm-kit' ),
+			Notification::PROBLEM
+		);
+	}
+
+	/**
+	 * Build suggestion of container injection notification.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 * @param bool   $console_log Console log activation status.
+	 * @param bool   $debug_log Debug log activation status.
+	 *
+	 * @return Notification The notification containing the suggested plugin.
+	 */
+	protected function get_suggest_log_deactivation_notification( string $notification_id, bool $console_log, bool $debug_log ): Notification {
+
+		$message = __( 'Debug logging should not be active in production environments longer than necessary as it affects performance.', 'gtm-kit' );
+
+		if ( $console_log ) {
+			$message .= ' ' . __( 'The browser console log is active.', 'gtm-kit' );
+		}
+
+		if ( $debug_log ) {
+			$message .= ' ' . __( 'The debug log for "purchase" events is active.', 'gtm-kit' );
+		}
+
+		$url      = $this->util->get_admin_page_url() . 'general#/misc';
+		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
+		$message .= __( 'Go to settings', 'gtm-kit' );
+		$message .= '</a>';
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Logging and debugging:', 'gtm-kit' ),
+		);
+	}
 
 	/**
 	 * New notification.

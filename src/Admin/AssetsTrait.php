@@ -55,7 +55,7 @@ trait AssetsTrait {
 		}
 
 		if ( \file_exists( $path . 'assets/admin/' . $script_handle . '.css' ) ) {
-			\wp_enqueue_style( 'gtmkit-' . $script_handle . '-style', $url . 'assets/admin/' . $script_handle . '.css', array( 'wp-components' ), $version );
+			\wp_enqueue_style( 'gtmkit-' . $script_handle . '-style', $url . 'assets/admin/' . $script_handle . '.css', [ 'wp-components' ], $version );
 		}
 
 		\wp_enqueue_script( 'gtmkit-' . $script_handle . '-script', $url . 'assets/admin/' . $script_handle . '.js', $dependency, $version, true );
