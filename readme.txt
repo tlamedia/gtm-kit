@@ -104,6 +104,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Other:
 * Tested up to WooCommerce 9.4.
+* Tested up to PHP 8.4.
 
 = 2.2.1 =
 
