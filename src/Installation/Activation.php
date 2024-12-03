@@ -63,9 +63,6 @@ final class Activation {
 
 		if ( function_exists( 'wp_set_option_autoload' ) ) {
 			wp_set_option_autoload( 'gtmkit', true );
-		} else {
-			global $wpdb;
-			$wpdb->query( "UPDATE $wpdb->options SET autoload = 'yes' WHERE option_name = 'gtmkit'" );
 		}
 	}
 }

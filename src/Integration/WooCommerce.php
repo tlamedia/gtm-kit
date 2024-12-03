@@ -1027,28 +1027,11 @@ final class WooCommerce extends AbstractEcommerce {
 			'remove_from_cart'
 		);
 
-		if ( class_exists( 'WP_HTML_Tag_Processor' ) ) {
-			$link_html = new \WP_HTML_Tag_Processor( $woocommerce_cart_item_remove_link );
-			$link_html->next_tag();
-			$link_html->set_attribute( 'data-gtmkit_product_data', esc_attr( wp_json_encode( $item_data ) ) );
-			$woocommerce_cart_item_remove_link = $link_html->get_updated_html();
-		} else {
-			$find_href                  = ' href="';
-			$replace_width_product_data = sprintf( ' data-gtmkit_product_data="%s" href="', esc_attr( wp_json_encode( $item_data ) ) );
+		$link_html = new \WP_HTML_Tag_Processor( $woocommerce_cart_item_remove_link );
+		$link_html->next_tag();
+		$link_html->set_attribute( 'data-gtmkit_product_data', esc_attr( wp_json_encode( $item_data ) ) );
 
-			$substring_pos = strpos( $woocommerce_cart_item_remove_link, $find_href );
-
-			if ( $substring_pos !== false ) {
-				$woocommerce_cart_item_remove_link = substr_replace(
-					$woocommerce_cart_item_remove_link,
-					$replace_width_product_data,
-					$substring_pos,
-					strlen( $find_href )
-				);
-			}
-		}
-
-		return $woocommerce_cart_item_remove_link;
+		return $link_html->get_updated_html();
 	}
 
 	/**
