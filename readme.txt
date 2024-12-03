@@ -175,3 +175,6 @@ Find out about what else is new in our [our release post](https://gtmkit.com/gtm
 * Require WordPress 6.3.
 * Require WooCommerce 8.3.
 * Require PHP 7.4.
+
+= Earlier versions =
+For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
