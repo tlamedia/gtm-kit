@@ -11,7 +11,7 @@
  * Text Domain: gtm-kit
  * Domain Path: /languages/
  * License:     GPLv3
- * Requires at least: 6.3
+ * Requires at least: 6.4
  * Requires PHP: 7.4
  *
  * WC requires at least: 8.3

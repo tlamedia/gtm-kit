@@ -104,6 +104,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Bugfixes:
 
 #### Other:
+* Require WordPress 6.4.
 
 = 2.2.2 =
 
