@@ -94,7 +94,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 = 2.2.2 =
 
-Release date: 2024-12-DD
+Release date: 2024-12-03
 
 #### Other:
 * Tested up to WooCommerce 9.4.

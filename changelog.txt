@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-2024-12-DD - version 2.2.2
+2024-12-03 - version 2.2.2
 * Dev: Tested up to WooCommerce 9.4.
 * Dev: Tested up to PHP 8.4.
 
