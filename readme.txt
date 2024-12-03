@@ -92,6 +92,19 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+
+= 2.X.Y =
+
+Release date: 2024-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-3/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 2.2.2 =
 
 Release date: 2024-12-03
@@ -162,12 +175,3 @@ Find out about what else is new in our [our release post](https://gtmkit.com/gtm
 * Require WordPress 6.3.
 * Require WooCommerce 8.3.
 * Require PHP 7.4.
-
-
-== Upgrade Notice ==
-
-= 2.0 =
-Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.
-
-= Earlier versions =
-For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
