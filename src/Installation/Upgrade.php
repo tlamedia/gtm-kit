@@ -45,7 +45,6 @@ final class Upgrade {
 			'1.15' => 'v115_upgrade',
 			'1.20' => 'v120_upgrade',
 			'1.22' => 'v122_upgrade',
-			'2.0'  => 'v2_upgrade',
 			'2.2'  => 'v22_upgrade',
 		];
 
@@ -155,30 +154,6 @@ final class Upgrade {
 		];
 
 		Options::init()->set( $values, false, false );
-	}
-
-	/**
-	 * Upgrade routine for v2.0
-	 */
-	protected function v2_upgrade(): void {
-
-		if ( ! function_exists( 'get_plugins' ) ) {
-			// @phpstan-ignore-next-line
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		if ( (
-			new WooCommerceConditional() )->is_met() &&
-			( \is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) || \is_plugin_active( 'ti-woocommerce-wishlist/ti-woocommerce-wishlist.php' )
-		) ) {
-			$values = [
-				'misc' => [
-					'gf_wishlist' => true,
-				],
-			];
-
-			Options::init()->set( $values, false, false );
-		}
 	}
 
 	/**
