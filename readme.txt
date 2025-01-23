@@ -106,7 +106,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Other:
 * Require WordPress 6.4.
 * Require WooCommerce 8.4.
-* Tested up to WooCommerce 9.5.
+* Tested up to WooCommerce 9.6.
 
 = 2.2.2 =
 
