@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.7
-Stable tag: 2.2.2
+Stable tag: 2.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,15 +93,12 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 == Changelog ==
 
 
-= 2.X.Y =
+= 2.3 =
 
-Release date: 2025-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-3/).
-
-#### Enhancements:
+Release date: 2025-01-28
 
 #### Bugfixes:
+* Fix an edge case fatal error in admin if $hook for some reason is missing,
 
 #### Other:
 * Require WordPress 6.4.
@@ -149,35 +146,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Bugfixes:
 * In some cases other plugins or a theme could block GTM Kit from firing JS event like the one that fires the add_to_cart GTM event.
-
-= 2.0.1 =
-
-Release date: 2024-09-23
-
-#### Bugfixes:
-* Fix an edge case that could cause a fatal error in admin_body_class().
-
-= 2.0.0 =
-
-Release date: 2024-09-DD
-
-We are introducing [GTM Kit Woo Add-On](https://jump.gtmkit.com/link/2-30DDC), which is a premium plugin that unlock premium features in GTM Kit.
-
-Find out about what else is new in our [our release post](https://gtmkit.com/gtm-kit-2-0/).
-
-#### Breaking change:
-* Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit.
-
-#### Enhancements:
-* A notifications handler has been added to communicate issues and notifications that require the user’s attention.
-* Added a warning when other Google Tag Manager plugins that may cause a conflict are active.
-* WooCommerce users are advised to install a supported SEO plugin to take advantage of a default category in data layer items.
-
-#### Other:
-* Increased PHPStan analysis level to 6, enhancing static code analysis and catching potential issues earlier in the development process.
-* Require WordPress 6.3.
-* Require WooCommerce 8.3.
-* Require PHP 7.4.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

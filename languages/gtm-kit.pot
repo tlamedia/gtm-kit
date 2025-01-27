@@ -1,15 +1,15 @@
-# Copyright (C) 2024 GTM Kit
+# Copyright (C) 2025 GTM Kit
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.2.2\n"
+"Project-Id-Version: GTM Kit 2.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-02T14:59:19+00:00\n"
+"POT-Creation-Date: 2025-01-27T21:26:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -30,17 +30,17 @@ msgstr ""
 msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
 msgstr ""
 
-#: inc/main.php:91
+#: inc/main.php:88
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:92
+#: inc/main.php:89
 #: assets/admin/settings.js:22
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is GTM Kit Add-On.
-#: inc/main.php:110
+#: inc/main.php:107
 msgid "Required by %s"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1127
+#: src/Integration/WooCommerce.php:1110
 msgid "GTM Kit data."
 msgstr ""
 
@@ -1678,5 +1678,6 @@ msgstr ""
 
 #: assets/frontend/woocommerce-blocks.js:1
 #: src/js/frontend/woocommerce-blocks/index.js:162
+#: assets/frontend/woocommerce-blocks.js:166
 msgid "Product List"
 msgstr ""
