@@ -100,7 +100,7 @@ Release date: 2025-03-DD
 * Fix a rare case of divisionByZero in calculation of discount.
 
 #### Other:
-
+* Tested up to WooCommerce 9.7.
 
 = 2.3 =
 
