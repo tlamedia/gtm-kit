@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.7
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,7 +94,7 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 = 2.3.1 =
 
-Release date: 2025-03-DD
+Release date: 2025-03-12
 
 #### Bugfixes:
 * Fix a rare case of divisionByZero in calculation of discount.

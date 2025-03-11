@@ -1,5 +1,9 @@
 *** GTM Kit ***
 
+2025-03-12 - version 2.3.1
+* Fix: Fix a rare case of divisionByZero in calculation of discount.
+* Dev: Tested up to WooCommerce 9.7.
+
 2025-01-28 - version 2.3.0
 * Fix: Fix an edge case fatal error in admin if $hook for some reason is missing,
 * Changed: Require WordPress 6.4.
