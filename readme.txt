@@ -92,6 +92,15 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 
 == Changelog ==
 
+= 2.3.1 =
+
+Release date: 2025-03-DD
+
+#### Bugfixes:
+* Fix a rare case of divisionByZero in calculation of discount.
+
+#### Other:
+
 
 = 2.3 =
 
