@@ -813,7 +813,11 @@ final class WooCommerce extends AbstractEcommerce {
 						$discount = $discount + $item['subtotal_tax'] - $item['total_tax'];
 					}
 
-					$discount = $discount / $item['quantity'];
+					if ( isset( $item['quantity'] ) && $item['quantity'] > 0 ) {
+						$discount = $discount / $item['quantity'];
+					} else {
+						$discount = 0;
+					}
 				}
 			}
 		}
