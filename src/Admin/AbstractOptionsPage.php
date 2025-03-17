@@ -197,7 +197,7 @@ abstract class AbstractOptionsPage {
 		<style>
 			#gtmkit-settings-loader {
 				visibility: hidden;
-				animation: loadGTMKitSettingsNoJSView 0s 2s forwards;
+				animation: loadGTMKitSettingsNoJSView 0s 5s forwards;
 			}
 
 			@keyframes loadGTMKitSettingsNoJSView {
