@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2025-04-01 - version 2.3.2
+* Fix: Permission were not checked correct on the admin API.
+
 2025-03-12 - version 2.3.1
 * Fix: Fix a rare case of divisionByZero in calculation of discount.
 * Dev: Tested up to WooCommerce 9.7.
