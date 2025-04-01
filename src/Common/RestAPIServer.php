@@ -45,7 +45,7 @@ final class RestAPIServer {
 	 * @return void
 	 */
 	public function register_rest_route( string $route, array $args ): void {
-		if ( ! isset( $args['permissions_callback'] ) ) {
+		if ( ! isset( $args['permission_callback'] ) ) {
 			$args['permission_callback'] = [ $this, 'permission_callback' ];
 		}
 
