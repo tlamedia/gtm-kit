@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.3.1\n"
+"Project-Id-Version: GTM Kit 2.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-11T08:57:32+00:00\n"
+"POT-Creation-Date: 2025-04-01T14:54:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -60,17 +60,12 @@ msgstr ""
 msgid "Go back to the Dashboard"
 msgstr ""
 
-#: src/Admin/AdminAPI.php:96
-#: src/Common/RestAPIServer.php:33
-msgid "Only authenticated users can access endpoint."
-msgstr ""
-
-#: src/Admin/AdminAPI.php:142
-#: src/Admin/AdminAPI.php:147
+#: src/Admin/AdminAPI.php:126
+#: src/Admin/AdminAPI.php:131
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:144
+#: src/Admin/AdminAPI.php:128
 msgid "Thank you! We have received the data."
 msgstr ""
 
@@ -244,6 +239,10 @@ msgstr ""
 
 #: src/Admin/UpgradesOptionsPage.php:118
 msgid "The plugin is installed and activated"
+msgstr ""
+
+#: src/Common/RestAPIServer.php:33
+msgid "Only authenticated users can access endpoint."
 msgstr ""
 
 #: src/Common/Util.php:159

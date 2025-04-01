@@ -156,16 +156,16 @@
         },
         {
             "name": "easydigitaldownloads/easy-digital-downloads",
-            "version": "3.3.6.1",
+            "version": "3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awesomemotive/easy-digital-downloads.git",
-                "reference": "74f6123679a64d75151e6edc98bffa397f05150b"
+                "reference": "d19419dc5194aac31530d717cff0e975119da262"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/74f6123679a64d75151e6edc98bffa397f05150b",
-                "reference": "74f6123679a64d75151e6edc98bffa397f05150b",
+                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/d19419dc5194aac31530d717cff0e975119da262",
+                "reference": "d19419dc5194aac31530d717cff0e975119da262",
                 "shasum": ""
             },
             "require": {
@@ -248,9 +248,9 @@
             ],
             "support": {
                 "issues": "https://easydigitaldownloads.com/support",
-                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.3.6.1"
+                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.3.7"
             },
-            "time": "2025-01-21T17:32:24+00:00"
+            "time": "2025-03-17T21:35:55+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -871,16 +871,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.8",
+            "version": "2.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f9adff3b87c03b12cc7e46a30a524648e497758f"
+                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f9adff3b87c03b12cc7e46a30a524648e497758f",
-                "reference": "f9adff3b87c03b12cc7e46a30a524648e497758f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8ca5f79a8f63c49b2359065832a654e1ec70ac30",
+                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30",
                 "shasum": ""
             },
             "require": {
@@ -925,7 +925,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-09T09:30:48+00:00"
+            "time": "2025-03-24T13:45:00+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.11.3",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10"
+                "reference": "2d1b63db139c3c6ea0c927698e5160f8b3b8d630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
-                "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/2d1b63db139c3c6ea0c927698e5160f8b3b8d630",
+                "reference": "2d1b63db139c3c6ea0c927698e5160f8b3b8d630",
                 "shasum": ""
             },
             "require": {
@@ -1100,11 +1100,11 @@
                     "type": "open_collective"
                 },
                 {
-                    "url": "https://thanks.dev/phpcsstandards",
+                    "url": "https://thanks.dev/u/gh/phpcsstandards",
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-01-23T17:04:15+00:00"
+            "time": "2025-03-18T05:04:51+00:00"
         },
         {
             "name": "stripe/stripe-php",
