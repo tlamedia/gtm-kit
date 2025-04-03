@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.7
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.4.1 =
+
+Release date: 2025-04-02
+
+#### Security:
+* When debug logging is enabled, the Easy Digital Downloads integration was activaed sensitive customer information was logged to server error logs. If debug logging remains active in a production environment or if logs are not properly secured, it could lead to unauthorized access to personal data. - [CVE-2025-31001](https://www.cve.org/CVERecord?id=CVE-2025-31001).
+
 = 2.4.0 =
 
 Release date: 2025-04-03
@@ -108,7 +115,7 @@ Release date: 2025-04-03
 Release date: 2025-04-02
 
 #### Security:
-* Permissions were not checked correct on the admin API - [CVE-2025-31001](https://www.cve.org/CVERecord?id=CVE-2025-31001).
+* Permissions were not checked correct on the admin API.
 
 = 2.3.1 =
 
@@ -161,18 +168,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Other:
 * Minor refactoring
-
-= 2.1.0 =
-
-Release date: 2024-10-01
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-1/).
-
-#### Enhancements:
-* Added support for the Bricks theme builder.
-
-#### Bugfixes:
-* In some cases other plugins or a theme could block GTM Kit from firing JS event like the one that fires the add_to_cart GTM event.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
