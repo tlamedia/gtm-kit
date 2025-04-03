@@ -3,7 +3,7 @@
  * GTM Kit Plugin
  *
  * Plugin Name: GTM Kit
- * Version:     2.4.0
+ * Version:     2.4.1
  * Plugin URI:  https://gtmkit.com/
  * Description: Google Tag Manager implementation focusing on flexibility and pagespeed.
  * Author:      GTM Kit
@@ -27,7 +27,7 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit();
 }
 
-const GTMKIT_VERSION = '2.4.0';
+const GTMKIT_VERSION = '2.4.1';
 
 if ( ! defined( 'GTMKIT_FILE' ) ) {
 	define( 'GTMKIT_FILE', __FILE__ );
