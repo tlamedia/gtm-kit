@@ -32,7 +32,7 @@
     "uglify-js": "^3.19.3"
   },
   "scripts": {
-    "build": "wp-scripts build src/js/frontend/woocommerce-blocks.js src/js/frontend/event-inspector.js --output-path=assets/frontend",
+    "build": "wp-scripts build src/js/frontend/woocommerce-blocks.js --output-path=assets/frontend",
     "build:assets": "npm run clean:assets && npm run build:js && npm run copy:images",
     "build:js": "npm run uglify:woocommerce && npm run uglify:woocommerce-checkout && npm run uglify:edd && npm run uglify:edd-checkout && npm run uglify:cf7",
     "clean:assets": "del assets",
@@ -49,7 +49,7 @@
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js ./src/js",
     "lint:js-fix": "wp-scripts lint-js ./src/js --fix",
-    "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js src/js/frontend/event-inspector.js --output-path=assets/frontend",
+    "watch": "wp-scripts start src/js/frontend/woocommerce-blocks.js --output-path=assets/frontend",
     "watch:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/_tailwind-compiled.scss --watch",
     "audit:prod": "npm audit --omit=dev",
     "lint:pkg-json": "wp-scripts lint-pkg-json",

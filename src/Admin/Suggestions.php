@@ -80,7 +80,6 @@ final class Suggestions {
 		add_action( 'admin_init', [ $page, 'suggest_seo_plugin' ] );
 		add_action( 'admin_init', [ $page, 'detect_conflicting_plugins' ] );
 		add_action( 'admin_init', [ $page, 'suggest_grandfathered_wishlist' ] );
-		add_action( 'admin_init', [ $page, 'suggest_inspector_deactivation' ] );
 		add_action( 'admin_init', [ $page, 'suggest_container_injection' ] );
 		add_action( 'admin_init', [ $page, 'suggest_log_deactivation' ] );
 	}
@@ -101,26 +100,6 @@ final class Suggestions {
 
 		$notification = $this->get_suggest_auto_update_notification( $notification_id );
 		$this->notifications_handler->add_notification( $notification );
-	}
-
-	/**
-	 * Suggest event inspector deactivation.
-	 *
-	 * @return void
-	 */
-	public function suggest_inspector_deactivation(): void {
-
-		$notification_id = 'gtmkit-event-inspector';
-
-		if ( $this->options->get( 'general', 'event_inspector' ) === false || ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE === 'local' ) ) {
-			$this->notifications_handler->remove_notification_by_id( $notification_id );
-			return;
-		}
-
-		if ( $this->options->get( 'general', 'event_inspector' ) === true ) {
-			$notification = $this->get_suggest_inspector_deactivation_notification( $notification_id );
-			$this->notifications_handler->add_notification( $notification );
-		}
 	}
 
 	/**
@@ -450,31 +429,6 @@ final class Suggestions {
 			__( 'Automatic Updates:', 'gtm-kit' )
 		);
 	}
-
-	/**
-	 * Build suggestion of inspector deactivation notification.
-	 *
-	 * @param string $notification_id The id of the notification to be created.
-	 *
-	 * @return Notification The notification containing the suggested plugin.
-	 */
-	protected function get_suggest_inspector_deactivation_notification( string $notification_id ): Notification {
-
-		$message = __( 'The event inspector is active and visible to all users. You should not keep it active longer than necessary.', 'gtm-kit' );
-
-		$url      = $this->util->get_admin_page_url() . 'general#/misc';
-		$message .= ' <a href="' . $url . '" class="gtmkit-text-color-primary gtmkit hover:gtmkit-underline gtmkit-font-bold">';
-		$message .= __( 'Go to settings', 'gtm-kit' );
-		$message .= '</a>';
-
-		return $this->new_notification(
-			$notification_id,
-			$message,
-			__( 'Event Inspector:', 'gtm-kit' ),
-			Notification::PROBLEM
-		);
-	}
-
 
 	/**
 	 * Build suggestion of container injection notification.

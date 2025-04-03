@@ -69,10 +69,6 @@ final class Frontend {
 			add_action( 'body_footer', [ $page, 'get_body_script' ] );
 		}
 
-		if ( $options->get( 'general', 'event_inspector' ) ) {
-			add_action( 'wp_footer', [ $page, 'get_event_inspector' ] );
-		}
-
 		add_filter( 'wp_resource_hints', [ $page, 'dns_prefetch' ], 10, 2 );
 		add_filter( 'rocket_excluded_inline_js_content', [ $page, 'wp_rocket_exclude_javascript' ] );
 		add_filter( 'wp_inline_script_attributes', [ $page, 'set_inline_script_attributes' ], 10, 2 );
@@ -127,23 +123,6 @@ final class Frontend {
 		wp_register_script( 'gtmkit', '', [], GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit' );
 		wp_add_inline_script( 'gtmkit', $script, 'before' );
-
-		if ( $this->options->get( 'general', 'event_inspector' ) ) {
-
-			$deps_file  = GTMKIT_PATH . 'assets/frontend/event-inspector.asset.php';
-			$dependency = [];
-			$version    = false;
-
-			if ( \file_exists( $deps_file ) ) {
-				$deps_file  = require $deps_file;
-				$dependency = $deps_file['dependencies'];
-				$version    = $deps_file['version'];
-			}
-			$dependency[] = 'gtmkit';
-
-			\wp_enqueue_style( 'gtmkit-event-inspector-style', GTMKIT_URL . 'assets/frontend/event-inspector.css', [], $version );
-			\wp_enqueue_script( 'gtmkit-event-inspector-script', GTMKIT_URL . 'assets/frontend/event-inspector.js', $dependency, $version, [ 'strategy' => 'defer' ] );
-		}
 	}
 
 	/**
@@ -338,25 +317,6 @@ final class Frontend {
 		}
 
 		return $hints;
-	}
-
-	/**
-	 * Get the Event Inspector HTML
-	 */
-	public function get_event_inspector(): void {
-		$restrict = apply_filters( 'gtmkit_restrict_event_inspector', false );
-		?>
-		<div id="gtmkit-event-inspector" 
-		<?php
-		if ( $restrict ) :
-			?>
-			class="restrict"<?php endif; ?>>
-			<div id="gtmkit-event-inspector-wrapper">
-				<div id="gtmkit-event-inspector-title">GTM Kit Event Inspector:</div>
-				<ul id="gtmkit-event-inspector-list"></ul>
-			</div>
-		</div>
-		<?php
 	}
 
 	/**
