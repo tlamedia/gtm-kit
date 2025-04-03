@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.7
-Stable tag: 2.3.2
+Stable tag: 2.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,13 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 Yes! Pagespeed is one of our main focus points, and we strive to make the plugin compatible with full page caching.
 
 == Changelog ==
+
+= 2.4.0 =
+
+Release date: 2025-04-03
+
+#### Feature Removed:
+* The Event Inspector has been removed and is only available the premium version. It was often used in an inappropriate way where end-users unintentionally were shown debug data.
 
 = 2.3.2 =
 

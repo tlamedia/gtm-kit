@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.3.2\n"
+"Project-Id-Version: GTM Kit 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-01T14:54:13+00:00\n"
+"POT-Creation-Date: 2025-04-03T07:50:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -120,109 +120,100 @@ msgid "%1$sNote:%2$s This will only be applied if page type has been activated i
 msgstr ""
 
 #. translators: %1$s is the name of the plugin and %2$s is the name of the theme.
-#: src/Admin/Suggestions.php:322
+#: src/Admin/Suggestions.php:301
 msgid "It seems that you have installed the %1$s plugin and %1$s theme."
 msgstr ""
 
 #. translators: %1$s is the name of the plugin.
-#: src/Admin/Suggestions.php:329
+#: src/Admin/Suggestions.php:308
 msgid "It seems that you have installed the %1$s plugin."
 msgstr ""
 
 #. translators: %1$s is the name of the theme.
-#: src/Admin/Suggestions.php:336
+#: src/Admin/Suggestions.php:315
 msgid "It seems that you have installed the %1$s theme."
 msgstr ""
 
 #. translators: %1$s is a link with the text 'GTM Kit Woo Add-On'.
-#: src/Admin/Suggestions.php:346
+#: src/Admin/Suggestions.php:325
 msgid "With the %1$s, you can track the add_to_wishlist event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior."
 msgstr ""
 
-#: src/Admin/Suggestions.php:353
+#: src/Admin/Suggestions.php:332
 msgid "Upgrade:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:366
+#: src/Admin/Suggestions.php:345
 msgid "It appears that you are not currently using a supported SEO plugin. By installing either WordPress SEO or Rank Math, you can assign a primary category to each product. This primary category will then be used in the data layer if the product is associated with multiple categories."
 msgstr ""
 
-#: src/Admin/Suggestions.php:371
+#: src/Admin/Suggestions.php:350
 msgid "Plugin suggestion:"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: src/Admin/Suggestions.php:389
+#: src/Admin/Suggestions.php:368
 msgid "It seems that you have installed the Google Tag Manager plugin called %1$s. Running two different GTM plugins simultaneously can lead to unexpected results, significantly impact data accuracy, and slow down page speed. Please consider deactivating %2$s unless you have carefully considered and addressed the potential challenges."
 msgstr ""
 
-#: src/Admin/Suggestions.php:397
+#: src/Admin/Suggestions.php:376
 msgid "Possible Conflict:"
 msgstr ""
 
 #. translators: %1$s and %2$s are links with the text 'GTM Kit Woo Add-On' and 'Grandfathered Wishlist Functionality' respectively.
-#: src/Admin/Suggestions.php:418
+#: src/Admin/Suggestions.php:397
 msgid "Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking the add_to_wishlist event, you must either purchase the %1$s or download the free %2$s plugin."
 msgstr ""
 
-#: src/Admin/Suggestions.php:426
+#: src/Admin/Suggestions.php:405
 msgid "Breaking change:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:440
+#: src/Admin/Suggestions.php:419
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
 msgid "New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date."
 msgstr ""
 
-#: src/Admin/Suggestions.php:444
-#: src/Admin/Suggestions.php:467
-#: src/Admin/Suggestions.php:502
-#: src/Admin/Suggestions.php:536
+#: src/Admin/Suggestions.php:423
+#: src/Admin/Suggestions.php:456
+#: src/Admin/Suggestions.php:490
 msgid "Go to settings"
 msgstr ""
 
-#: src/Admin/Suggestions.php:450
+#: src/Admin/Suggestions.php:429
 msgid "Automatic Updates:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:463
-msgid "The event inspector is active and visible to all users. You should not keep it active longer than necessary."
-msgstr ""
-
-#: src/Admin/Suggestions.php:473
-msgid "Event Inspector:"
-msgstr ""
-
-#: src/Admin/Suggestions.php:490
+#: src/Admin/Suggestions.php:444
 msgid "The Google Tag Manager container is not injected."
 msgstr ""
 
-#: src/Admin/Suggestions.php:493
+#: src/Admin/Suggestions.php:447
 msgid "The \"Inject Container Code\" option is not enabled."
 msgstr ""
 
-#: src/Admin/Suggestions.php:497
+#: src/Admin/Suggestions.php:451
 msgid "The \"GTM Container ID\" value is empty."
 msgstr ""
 
-#: src/Admin/Suggestions.php:508
+#: src/Admin/Suggestions.php:462
 msgid "GTM Container Injection:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:524
+#: src/Admin/Suggestions.php:478
 msgid "Debug logging should not be active in production environments longer than necessary as it affects performance."
 msgstr ""
 
-#: src/Admin/Suggestions.php:527
+#: src/Admin/Suggestions.php:481
 msgid "The browser console log is active."
 msgstr ""
 
-#: src/Admin/Suggestions.php:531
+#: src/Admin/Suggestions.php:485
 msgid "The debug log for \"purchase\" events is active."
 msgstr ""
 
-#: src/Admin/Suggestions.php:542
+#: src/Admin/Suggestions.php:496
 msgid "Logging and debugging:"
 msgstr ""
 
@@ -1004,15 +995,7 @@ msgid "Event Inspector"
 msgstr ""
 
 #: assets/admin/settings.js:1
-msgid "The event inspector is placed in the footer of the front and it allows you to see all the fired GTM events."
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "Only enable for Administrator"
-msgstr ""
-
-#: assets/admin/settings.js:1
-msgid "The Event Inspector will only be visible for user with the Administrator role."
+msgid "The event inspector is placed in the footer of the frontand and allows you to see all the fired GTM events."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1677,6 +1660,5 @@ msgstr ""
 
 #: assets/frontend/woocommerce-blocks.js:1
 #: src/js/frontend/woocommerce-blocks/index.js:162
-#: assets/frontend/woocommerce-blocks.js:166
 msgid "Product List"
 msgstr ""
