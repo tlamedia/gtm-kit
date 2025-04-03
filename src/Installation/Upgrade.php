@@ -46,6 +46,7 @@ final class Upgrade {
 			'1.20' => 'v120_upgrade',
 			'1.22' => 'v122_upgrade',
 			'2.2'  => 'v22_upgrade',
+			'2.4'  => 'v24_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -167,6 +168,19 @@ final class Upgrade {
 		$values = [
 			'misc' => [
 				'auto_update' => $automatic_updates,
+			],
+		];
+
+		Options::init()->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v2.4
+	 */
+	protected function v24_upgrade(): void {
+		$values = [
+			'general' => [
+				'event_inspector' => false,
 			],
 		];
 
