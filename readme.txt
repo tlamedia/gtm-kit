@@ -90,6 +90,10 @@ Yes! We strive to support the full feature set of Google Analytics 4 and will im
 
 Yes! Pagespeed is one of our main focus points, and we strive to make the plugin compatible with full page caching.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/gtm-kit)
+
 == Changelog ==
 
 = 2.4.0 =
