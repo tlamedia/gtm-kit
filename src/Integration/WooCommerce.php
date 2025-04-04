@@ -1121,11 +1121,15 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Has WooCommerce blocks
 	 *
-	 * @param int $post_id The post ID.
+	 * @param int|null $post_id The post ID.
 	 *
 	 * @return array<int, mixed>
 	 */
-	public function has_woocommerce_blocks( int $post_id ): array {
+	public function has_woocommerce_blocks( ?int $post_id ): array {
+		if ( null === $post_id ) {
+			return [];
+		}
+
 		$post_content = get_the_content( null, false, $post_id );
 
 		$woocommerce_blocks = [];
