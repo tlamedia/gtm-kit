@@ -15,7 +15,7 @@
  * Requires PHP: 7.4
  *
  * WC requires at least: 8.4
- * WC tested up to: 9.7
+ * WC tested up to: 9.8
  *
  * @package GTM Kit
  * @copyright Copyright (C) 2021-2024, GTM Kit ApS
