@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2025-04-15 - version 2.4.3
+* Fix: Fix conflict with GTM Kit Woo i admin settings..
+
 2025-04-09 - version 2.4.2
 * Fix: Fix fatal error in admin when used together with MC4WP: Mailchimp for WordPress.
 * Dev: Tested up to WordPress 6.8.

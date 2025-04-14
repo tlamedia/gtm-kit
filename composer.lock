@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18ed5ae647b9e89c93e82ac918cd521d",
+    "content-hash": "341733d06935cff2b29c0ca69223666d",
     "packages": [],
     "packages-dev": [
         {
@@ -361,16 +361,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v9.7.0",
+            "version": "v9.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "3d5ee501872282058abbd0d6d6b08c511de039de"
+                "reference": "2c412566f94bdd8ed1bc1a50c05bd2dd1cff0df5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/3d5ee501872282058abbd0d6d6b08c511de039de",
-                "reference": "3d5ee501872282058abbd0d6d6b08c511de039de",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/2c412566f94bdd8ed1bc1a50c05bd2dd1cff0df5",
+                "reference": "2c412566f94bdd8ed1bc1a50c05bd2dd1cff0df5",
                 "shasum": ""
             },
             "require": {
@@ -399,9 +399,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v9.7.0"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v9.8.1"
             },
-            "time": "2025-02-25T12:21:28+00:00"
+            "time": "2025-04-11T18:56:54+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -1024,16 +1024,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.12.1",
+            "version": "3.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "ea16a1f3719783345febd3aab41beb55c8c84bfd"
+                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ea16a1f3719783345febd3aab41beb55c8c84bfd",
-                "reference": "ea16a1f3719783345febd3aab41beb55c8c84bfd",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
+                "reference": "6d4cf6032d4b718f168c90a96e36c7d0eaacb2aa",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1104,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-04-04T12:57:55+00:00"
+            "time": "2025-04-13T04:10:18+00:00"
         },
         {
             "name": "stripe/stripe-php",
