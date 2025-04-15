@@ -116,9 +116,9 @@ final class SetupWizard {
 	/**
 	 * Load the assets needed for the Setup Wizard.
 	 *
-	 * @param string|null $hook The asset hook.
+	 * @param mixed $hook The asset hook.
 	 */
-	public function enqueue_assets( ?string $hook ): void {
+	public function enqueue_assets( $hook ): void {
 
 		if ( $hook === null || strpos( $hook, self::SLUG ) === false ) {
 			return;

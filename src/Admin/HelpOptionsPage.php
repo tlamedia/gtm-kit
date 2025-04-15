@@ -67,9 +67,9 @@ final class HelpOptionsPage extends AbstractOptionsPage {
 	/**
 	 * Enqueue admin page scripts and styles.
 	 *
-	 * @param string $hook Current hook.
+	 * @param mixed $hook Current hook.
 	 */
-	public function enqueue_page_assets( string $hook ): void {
+	public function enqueue_page_assets( $hook ): void {
 		if ( \strpos( $hook, $this->get_menu_slug() ) !== false ) {
 			$this->enqueue_assets( 'help', 'settings' );
 		}
