@@ -150,9 +150,9 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Enqueue admin page scripts and styles.
 	 *
-	 * @param string $hook Current hook.
+	 * @param mixed $hook Current hook.
 	 */
-	abstract public function enqueue_page_assets( string $hook ): void;
+	abstract public function enqueue_page_assets( $hook ): void;
 
 	/**
 	 * Localize script.
