@@ -101,7 +101,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 Release date: 2025-04-15
 
 #### Bugfixes:
- * Fix conflict with GTM Kit Woo i admin settings.
+ * Fix conflict with GTM Kit Woo in admin settings.
 
 = 2.4.2 =
 
