@@ -271,6 +271,7 @@ final class Options {
 
 		if ( $first_install === false ) {
 			$options = $this->process_options( $options );
+			$options = \apply_filters( 'gtmkit_process_options', $options );
 		}
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
@@ -281,6 +282,8 @@ final class Options {
 		} else {
 			\update_option( self::OPTION_NAME, $options, true );
 		}
+
+		do_action( 'gtmkit_options_set' );
 
 		$this->clear_cache();
 	}
