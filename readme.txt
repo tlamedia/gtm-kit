@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.8
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,23 +96,34 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.4.4 =
+
+Release date: 2025-04-30
+
+#### Bugfixes:
+* The $hook type hint in enqueue_page_assets was removed to avoid conflicts with plugins passing non-standard data types.
+
+#### Other:
+* Introduced the gtmkit_options_set action and the gtmkit_process_options filter.
+* Fixed deprecation in Easy Digital Downloads.
+
 = 2.4.3 =
 
 Release date: 2025-04-15
 
 #### Bugfixes:
- * Fix conflict with GTM Kit Woo in admin settings.
+* Fix conflict with GTM Kit Woo in admin settings.
 
 = 2.4.2 =
 
 Release date: 2025-04-09
 
 #### Bugfixes:
- * Fix fatal error when used together with MC4WP: Mailchimp for WordPress.
+* Fix fatal error when used together with MC4WP: Mailchimp for WordPress.
 
 #### Other:
- * Tested up to WordPress 6.8.
- * Tested up to WooCommerce 9.8.
+* Tested up to WordPress 6.8.
+* Tested up to WooCommerce 9.8.
 
 = 2.4.1 =
 
