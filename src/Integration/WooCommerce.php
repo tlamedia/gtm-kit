@@ -52,6 +52,7 @@ final class WooCommerce extends AbstractEcommerce {
 	public function __construct( Options $options, Util $util ) {
 		$this->store_currency = get_woocommerce_currency();
 
+		// @phpstan-ignore-next-line
 		$this->extend = StoreApi::container()->get( ExtendSchema::class );
 
 		// Call parent constructor.
