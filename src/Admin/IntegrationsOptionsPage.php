@@ -8,6 +8,8 @@
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Options;
 
 /**
  * IntegrationsOptionsPage
@@ -20,6 +22,18 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	 * @var string
 	 */
 	protected string $option_group = 'integrations';
+
+	/**
+	 * Create an instance of the options page.
+	 *
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
+	 *
+	 * @return AbstractOptionsPage
+	 */
+	protected static function create_instance( Options $options, Util $util ): AbstractOptionsPage {
+		return new self( $options, $util );
+	}
 
 	/**
 	 * Configure the options page.

@@ -54,9 +54,14 @@ abstract class AbstractOptionsPage {
 	 *
 	 * @param Options $options The Options instance.
 	 * @param Util    $util The Util instance.
+	 * @throws \RuntimeException If called on the abstract class directly.
 	 */
 	public static function register( Options $options, Util $util ): void {
-		$page = new static( $options, $util );
+		if ( static::class === self::class ) {
+			throw new \RuntimeException( 'Cannot call register() on the abstract class ' . self::class );
+		}
+
+		$page = static::create_instance( $options, $util );
 
 		add_action( 'admin_init', [ $page, 'configure' ] );
 		add_action( 'admin_menu', [ $page, 'add_admin_page' ] );
@@ -68,6 +73,16 @@ abstract class AbstractOptionsPage {
 		add_action( 'deactivated_plugin', [ $page, 'clear_script_settings_cache' ] );
 		add_action( 'switch_theme', [ $page, 'clear_script_settings_cache' ] );
 	}
+
+	/**
+	 * Create an instance of the options page.
+	 * This method should be implemented by concrete classes.
+	 *
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
+	 * @return AbstractOptionsPage
+	 */
+	abstract protected static function create_instance( Options $options, Util $util ): AbstractOptionsPage;
 
 	/**
 	 * Adds the admin page to the menu.
