@@ -56,7 +56,7 @@ final class AutomaticUpdates {
 	 * @param array<int, string> $old_value The previous value of the option.
 	 */
 	public function wp_option_updated( $option, $value, $old_value = [] ): void {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['asset'] ) && ! empty( $_POST['state'] ) ) { // @phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( wp_doing_ajax() && ! empty( $_POST['asset'] ) && ! empty( $_POST['state'] ) ) { // @phpcs:ignore WordPress.Security.NonceVerification.Missing
 			// Option is being updated by the ajax request performed when using the enable/disable auto-updates links on the plugins page.
 
 			if ( sanitize_text_field( $_POST['asset'] ) !== GTMKIT_BASENAME ) { // @phpcs:ignore WordPress.Security.NonceVerification.Missing
