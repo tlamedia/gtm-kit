@@ -8,6 +8,8 @@
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Options;
 
 /**
  * GeneralOptionsPage
@@ -27,6 +29,18 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 * @var array<string, array<string, int|array<string>>|int>
 	 */
 	protected array $notifications = [];
+
+	/**
+	 * Create an instance of the options page.
+	 *
+	 * @param Options $options The Options instance.
+	 * @param Util    $util The Util instance.
+	 *
+	 * @return AbstractOptionsPage
+	 */
+	protected static function create_instance( Options $options, Util $util ): AbstractOptionsPage {
+		return new self( $options, $util );
+	}
 
 	/**
 	 * Adds the admin page to the menu.
