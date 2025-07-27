@@ -338,6 +338,12 @@ final class Options {
 					case 'general':
 						if ( $option_name === 'gtm_id' ) {
 							$options[ $group ][ $option_name ] = \sanitize_text_field( $option_value );
+						} elseif ( $option_name === 'sgtm_domain' ) {
+							if ( str_starts_with( $option_value, 'http://' ) || str_starts_with( $option_value, 'https://' ) ) {
+								$url_parts    = \wp_parse_url( $option_value );
+								$option_value = $url_parts['host'] ?? '';
+							}
+							$options[ $group ][ $option_name ] = $option_value;
 						}
 						break;
 
