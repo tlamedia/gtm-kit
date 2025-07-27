@@ -21,7 +21,7 @@
     "php": "^7.4 || ^8.0"
   },
   "require-dev": {
-    "easydigitaldownloads/easy-digital-downloads": "^3.3",
+    "easydigitaldownloads/easy-digital-downloads": "^3.5",
     "php-stubs/woocommerce-stubs": "^10.0",
     "phpcompatibility/phpcompatibility-wp": "*",
     "phpstan/extension-installer": "^1.4.3",
