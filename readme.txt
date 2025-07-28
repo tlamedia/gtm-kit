@@ -96,6 +96,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.5.0 =
+
+Release date: 2025-08-XX
+
+#### Other:
+* Require WooCommerce 9.0.
+* Tested up to WooCommerce 10.0.
+
 = 2.4.4 =
 
 Release date: 2025-04-30
