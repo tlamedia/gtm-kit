@@ -100,6 +100,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 Release date: 2025-08-XX
 
+#### Bugfixes:
+* The add_to_cart event did not fire in some blocks.
+
 #### Other:
 * Require WooCommerce 9.0.
 * Tested up to WooCommerce 10.0.

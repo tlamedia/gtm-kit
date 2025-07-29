@@ -137,7 +137,7 @@ addAction(
 	`${actionPrefix}-cart-add-item`,
 	namespace,
 	({ product, quantity = 1 }) => {
-		const item = JSON.parse(product.extensions.gtmkit.item);
+		const item = product.extensions.gtmkit.item;
 
 		const eventParams = {
 			ecommerce: {
