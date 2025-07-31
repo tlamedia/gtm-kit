@@ -214,7 +214,7 @@ final class WooCommerce extends AbstractEcommerce {
 			} else {
 				$this->util->enqueue_script( 'gtmkit-woocommerce-checkout', 'integration/woocommerce-checkout.js', false, [ 'gtmkit-woocommerce' ] );
 			}
-		} elseif ( has_block( 'woocommerce/all-products' ) ) {
+		} elseif ( has_block( 'woocommerce/all-products' ) || has_block( 'woocommerce/product-collection' ) ) {
 
 			$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
 
