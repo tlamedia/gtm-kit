@@ -101,6 +101,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 Release date: 2025-MM-DD
 
 #### Enhancements:
+* Add tracking on the product collection block.
 
 #### Bugfixes:
 
