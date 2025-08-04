@@ -98,7 +98,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.5.0 =
 
-Release date: 2025-08-XX
+Release date: 2025-08-05
 
 #### Bugfixes:
 * The add_to_cart event did not fire in the all-products block.
