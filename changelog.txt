@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-2025-08-XX - version 2.5.0
+2025-08-05 - version 2.5.0
 * Fix: The add_to_cart event did not fire in the all-products block.
 * Changed: Require WooCommerce 9.0.
 * Dev: Tested up to WooCommerce 10.0.
