@@ -306,7 +306,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		if ( is_checkout() && ! is_order_received_page() ) {
 			$global_data['wc']['cart_items']                 = $this->get_cart_items( 'begin_checkout' );
-			$global_data['wc']['cart_value']                 = (float) wc_prices_include_tax() ? WC()->cart->get_cart_contents_total() + WC()->cart->get_cart_contents_tax() : WC()->cart->get_cart_contents_total();
+			$global_data['wc']['cart_value']                 = round( wc_prices_include_tax() ? ( WC()->cart->get_cart_contents_total() + WC()->cart->get_cart_contents_tax() ) : WC()->cart->get_cart_contents_total(), 2 );
 			$global_data['wc']['chosen_shipping_method']     = WC()->session->get( 'chosen_shipping_methods' )[0] ?? '';
 			$global_data['wc']['chosen_payment_method']      = $this->get_payment_method();
 			$global_data['wc']['add_payment_info']['fired']  = false;
@@ -397,7 +397,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['event']       = 'view_item';
 		$data_layer['ecommerce']   = [
 			'items'    => [ $item ],
-			'value'    => (float) $item['price'],
+			'value'    => round( $item['price'], 2 ),
 			'currency' => $this->store_currency,
 		];
 
@@ -458,7 +458,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['event']     = 'view_cart';
 		$data_layer['ecommerce'] = [
 			'currency' => $this->store_currency,
-			'value'    => (float) $cart_value,
+			'value'    => round( $cart_value, 2 ),
 			'items'    => $this->get_cart_items( 'view_cart' ),
 		];
 
@@ -486,7 +486,7 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$data_layer['event']                 = 'begin_checkout';
 		$data_layer['ecommerce']['currency'] = $this->store_currency;
-		$data_layer['ecommerce']['value']    = (float) $cart_value;
+		$data_layer['ecommerce']['value']    = round( $cart_value, 2 );
 
 		$coupons = WC()->cart->get_applied_coupons();
 		if ( $coupons ) {
@@ -594,9 +594,9 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['event']     = 'purchase';
 		$data_layer['ecommerce'] = [
 			'transaction_id' => (string) $order->get_order_number(),
-			'value'          => (float) $order_value,
-			'tax'            => (float) $order->get_total_tax(),
-			'shipping'       => (float) $shipping_total,
+			'value'          => round( $order_value, 2 ),
+			'tax'            => round( $order->get_total_tax(), 2 ),
+			'shipping'       => round( $shipping_total, 2 ),
 			'currency'       => $order->get_currency(),
 		];
 		/** @phpstan-ignore-next-line level5 */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
@@ -1186,7 +1186,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer['ecommerce']['customer']['id'] = $wc_customer->get_id();
 
 		$data_layer['ecommerce']['customer']['order_count'] = $order_count;
-		$data_layer['ecommerce']['customer']['total_spent'] = (float) $total_spent;
+		$data_layer['ecommerce']['customer']['total_spent'] = round( $total_spent, 2 );
 
 		$data_layer['ecommerce']['customer']['first_name'] = $wc_customer->get_first_name();
 		$data_layer['ecommerce']['customer']['last_name']  = $wc_customer->get_last_name();
