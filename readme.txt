@@ -105,6 +105,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Enhancements:
 
 #### Bugfixes:
+* Force rounding values to 2 decimal places to fix rounding issues in edge cases.
 
 #### Other:
 
