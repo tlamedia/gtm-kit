@@ -390,16 +390,16 @@
         },
         {
             "name": "easydigitaldownloads/easy-digital-downloads",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awesomemotive/easy-digital-downloads.git",
-                "reference": "f9846ef9ef3131b5f6bb08b9ee031f82a0695a28"
+                "reference": "cfe98eff45b5d3f97298bbaa9aa11e7dfa87cdde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/f9846ef9ef3131b5f6bb08b9ee031f82a0695a28",
-                "reference": "f9846ef9ef3131b5f6bb08b9ee031f82a0695a28",
+                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/cfe98eff45b5d3f97298bbaa9aa11e7dfa87cdde",
+                "reference": "cfe98eff45b5d3f97298bbaa9aa11e7dfa87cdde",
                 "shasum": ""
             },
             "require": {
@@ -498,9 +498,9 @@
             ],
             "support": {
                 "issues": "https://easydigitaldownloads.com/support",
-                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.5.0"
+                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.5.1"
             },
-            "time": "2025-07-15T19:54:57+00:00"
+            "time": "2025-08-18T19:49:29+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -667,16 +667,16 @@
         },
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v10.0.2",
+            "version": "v10.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "54123e2fa2a07b11d03fe15f27fb7a64d970a9df"
+                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/54123e2fa2a07b11d03fe15f27fb7a64d970a9df",
-                "reference": "54123e2fa2a07b11d03fe15f27fb7a64d970a9df",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
+                "reference": "b8e010db32f6a5876f0c49fda467e15ea5d6f97f",
                 "shasum": ""
             },
             "require": {
@@ -705,9 +705,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.0.2"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v10.1.1"
             },
-            "time": "2025-07-14T17:13:11+00:00"
+            "time": "2025-08-20T15:58:51+00:00"
         },
         {
             "name": "php-stubs/wordpress-stubs",
@@ -1663,7 +1663,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -1724,7 +1724,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -1736,6 +1736,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -1744,7 +1748,7 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
@@ -1804,7 +1808,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.32.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -1813,6 +1817,10 @@
                 },
                 {
                     "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
                     "type": "github"
                 },
                 {

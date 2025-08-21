@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.8
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,19 +96,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.X = 
+= 2.5.1 =
 
-Release date: 2025-MM-DD
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-X/).
-
-#### Enhancements:
+Release date: 2025-08-22
 
 #### Bugfixes:
 * Force rounding values to 2 decimal places to fix rounding issues in edge cases.
 * In some cases the GTM container would not load after activating and deactivating settings in 'Server-side Tagging (sGTM)'.
 
 #### Other:
+* Tested up to WooCommerce 10.1.
 
 = 2.5.0 =
 
