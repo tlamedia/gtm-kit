@@ -106,6 +106,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Bugfixes:
 * Force rounding values to 2 decimal places to fix rounding issues in edge cases.
+* In some cases the GTM container would not load after activating and deactivating settings in 'Server-side Tagging (sGTM)'.
 
 #### Other:
 
