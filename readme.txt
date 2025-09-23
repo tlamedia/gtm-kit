@@ -105,6 +105,7 @@ Release date: 2025-MM-DD
 #### Bugfixes:
 
 #### Other:
+* Tested up to WooCommerce 10.2.
 
 = 2.5.1 =
 
