@@ -211,7 +211,7 @@ if ( ! wp_installing() ) {
 	);
 
 	if ( is_admin() ) {
-		add_action( 'init', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain' );
+		add_action( 'admin_init', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain' );
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_admin_init' );
 	} elseif ( ! wp_doing_ajax() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_frontend_init' );
