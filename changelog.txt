@@ -1,6 +1,11 @@
 *** GTM Kit ***
 
-2025-08-2 - version 2.5.1
+2025-09-24 - version 2.6.0
+* Add: Add tracking on the product collection block.
+* Changed: Require WooCommerce 9.2.
+* Dev: Tested up to WooCommerce 10.2.
+
+2025-08-22 - version 2.5.1
 * Fix: Force rounding values to 2 decimal places to fix rounding issues in edge cases.
 * Fix: In some cases the GTM container would not load after activating and deactivating settings in 'Server-side Tagging (sGTM)'.
 * Dev: Tested up to WooCommerce 10.1.
