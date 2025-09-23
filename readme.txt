@@ -106,6 +106,7 @@ Release date: 2025-MM-DD
 
 #### Other:
 * Tested up to WooCommerce 10.2.
+* Require WooCommerce 9.2.
 
 = 2.5.1 =
 
