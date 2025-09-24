@@ -201,35 +201,5 @@ Release date: 2025-01-28
 * Require WooCommerce 8.4.
 * Tested up to WooCommerce 9.6.
 
-= 2.2.2 =
-
-Release date: 2024-12-03
-
-#### Other:
-* Tested up to WooCommerce 9.4.
-* Tested up to PHP 8.4.
-
-= 2.2.1 =
-
-Release date: 2024-10-29
-
-#### Bugfixes:
-* If the cart and checkout endpoints were set to the same page in order to skip the cart the 'checkout' and 'purchase' events would not fire.
-
-#### Other:
-* Tested up to WordPress 6.7.
-
-= 2.2.0 =
-
-Release date: 2024-10-16
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-2/).
-
-#### Enhancements:
-* Added notifications and warnings for missing GTM container, debug log usage, auto-update and event inspector usage. These improvements aim to ensure smooth production operations.
-
-#### Other:
-* Minor refactoring
-
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
