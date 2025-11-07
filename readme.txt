@@ -104,6 +104,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Enhancements:
 * Add option to define a custom page that should be detected as the order-received page.
+* The debug info now includes a check to determine if WooCommerce purchase events have been recorded in the logs. This information is included in the debug data to assist with troubleshooting and support.
 
 #### Bugfixes:
 

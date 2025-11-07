@@ -111,10 +111,25 @@ final class Util {
 			$data = $this->add_active_plugin_and_version( $plugin, $key, $data, $anonymize );
 		}
 		$data['locale'] = explode( '_', get_locale() )[0];
+
 		if ( $anonymize ) {
 			$data = $this->add_shared_data( $data, $wp_version );
 		} else {
-			$data['support_data']['site_url'] = site_url();
+			$purchase_event_recorded = false;
+
+			// Check if WooCommerce logs contain GTM Kit purchase events.
+			if ( class_exists( 'WC_Log_Handler_File' ) ) {
+				$log_files = \WC_Log_Handler_File::get_log_files();
+				// Check if any log file starts with 'gtmkit-purchase'.
+				foreach ( $log_files as $log_file ) {
+					if ( strpos( $log_file, 'gtmkit-purchase' ) === 0 ) {
+						$purchase_event_recorded = true;
+						break;
+					}
+				}
+			}
+			$data['support_data']['purchase_event_recorded'] = $purchase_event_recorded;
+			$data['support_data']['site_url']                = site_url();
 			if ( function_exists( 'WC' ) ) {
 				$data['support_data']['pages'] = WooCommerce::instance()->get_pages_property( [] )['pages'];
 			}
