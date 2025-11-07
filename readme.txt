@@ -2,7 +2,7 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 2.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -110,7 +110,9 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 #### Other:
 * Tested up to WooCommerce 10.3.
+* Tested up to WordPress 6.9.
 * Require WooCommerce 9.4.
+* Require WordPress 6.7.
 
 = 2.6.0 =
 
