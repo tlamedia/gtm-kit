@@ -39,17 +39,6 @@ trait AssetsTrait {
 			$version    = $deps_data['version'];
 		}
 
-		// Polyfill for WordPress versions earlier than 6.6.
-		if ( in_array( 'react-jsx-runtime', $dependency, true ) && ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
-			wp_register_script(
-				'react-jsx-runtime',
-				GTMKIT_URL . 'assets/react-jsx-runtime.js',
-				[ 'react' ],
-				'18.3.1',
-				true
-			);
-		}
-
 		if ( $settings_dependency ) {
 			$dependency[] = 'gtmkit-settings-script';
 		}
