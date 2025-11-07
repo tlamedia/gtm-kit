@@ -103,6 +103,7 @@ Release date: 2025-MM-DD
 Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-X/).
 
 #### Enhancements:
+* Add option to define a custom page that should be detected as the order-received page.
 
 #### Bugfixes:
 

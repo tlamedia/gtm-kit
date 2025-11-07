@@ -116,6 +116,24 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 			}
 		}
 
+		$pages = get_pages(
+			[
+				'sort_column' => 'post_title',
+				'sort_order'  => 'ASC',
+			]
+		);
+
+		$page_options = [];
+
+		foreach ( $pages as $page ) {
+			if ( is_object( $page ) && property_exists( $page, 'post_title' ) && property_exists( $page, 'ID' ) ) {
+				$page_options[] = [
+					'label' => $page->post_title . ' (ID: ' . $page->ID . ')',
+					'value' => (string) $page->ID,
+				];
+			}
+		}
+
 		$admin_url = is_network_admin() ? network_admin_url() : admin_url();
 
 		\wp_localize_script(
@@ -132,6 +150,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'pluginInstallUrl' => $this->util->get_plugin_install_url(),
 				'plugins'          => $this->get_plugins(),
 				'taxonomyOptions'  => $taxonomy_options,
+				'pageOptions'      => $page_options,
 				'settings'         => $this->options->get_all_raw(),
 			]
 		);
