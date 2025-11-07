@@ -96,6 +96,18 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.X =
+
+Release date: 2025-MM-DD
+
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-X/).
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 2.6.0 =
 
 Release date: 2025-09-24
