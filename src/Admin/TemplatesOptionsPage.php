@@ -104,9 +104,11 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 				'currentPage'  => $page_slug,
 				'root'         => \esc_url_raw( rest_url() ),
 				'nonce'        => \wp_create_nonce( 'wp_rest' ),
-				'templates'    => $this->get_templates(),
+				'templates'    => $this->get_template_assistant_data(),
+				'generatorUrl' => $this->util->get_api_url( '/generate-template' ),
 				'adminPageUrl' => $this->util->get_admin_page_url(),
 				'settings'     => $this->options->get_all_raw(),
+				'site_data'    => $this->util->get_site_data( $this->options->get_all_raw() ),
 			]
 		);
 	}
@@ -116,7 +118,7 @@ final class TemplatesOptionsPage extends AbstractOptionsPage {
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function get_templates(): array {
-		return $this->util->get_data( '/get-templates', 'gtmkit_templates' );
+	private function get_template_assistant_data(): array {
+		return $this->util->get_data( '/get-template-assistant', 'gtmkit_templates' );
 	}
 }

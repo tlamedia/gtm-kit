@@ -81,6 +81,14 @@ final class AdminAPI {
 				'callback' => [ $this, 'set_notification_status' ],
 			]
 		);
+
+		$this->util->rest_api_server->register_rest_route(
+			'/generate_template',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'generate_template' ],
+			]
+		);
 	}
 
 	/**
@@ -177,6 +185,72 @@ final class AdminAPI {
 	}
 
 	/**
+	 * Generate GTM template based on user selections
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function generate_template(): \WP_REST_Response {
+		$data = $this->get_json_input();
+
+		// Validate input exists.
+		if ( ! $data ) {
+			return new \WP_REST_Response(
+				[ 'error' => __( 'Invalid input data.', 'gtm-kit' ) ],
+				400
+			);
+		}
+
+		// Sanitize and validate selectedServices (array of strings).
+		$selected_services = [];
+		if ( isset( $data['selectedServices'] ) && is_array( $data['selectedServices'] ) ) {
+			foreach ( $data['selectedServices'] as $service ) {
+				$sanitized_service = sanitize_text_field( $service );
+				if ( ! empty( $sanitized_service ) ) {
+					$selected_services[] = $sanitized_service;
+				}
+			}
+		}
+
+		// Sanitize and validate serviceConfigs (nested array).
+		$configurations = [];
+		if ( isset( $data['serviceConfigs'] ) && is_array( $data['serviceConfigs'] ) ) {
+			foreach ( $data['serviceConfigs'] as $service_id => $config ) {
+				$sanitized_service_id = sanitize_text_field( $service_id );
+				if ( is_array( $config ) ) {
+					$configurations[ $sanitized_service_id ] = [];
+					foreach ( $config as $key => $value ) {
+						$sanitized_key   = sanitize_text_field( $key );
+						$sanitized_value = sanitize_text_field( $value );
+						$configurations[ $sanitized_service_id ][ $sanitized_key ] = $sanitized_value;
+					}
+				}
+			}
+		}
+
+		// Sanitize and validate gtmType (only allow specific values).
+		$gtm_type = isset( $data['gtmType'] ) ? sanitize_text_field( $data['gtmType'] ) : 'web';
+		if ( ! in_array( $gtm_type, [ 'web', 'standard', 'server-side' ], true ) ) {
+			$gtm_type = 'web';
+		}
+
+		$ecommerce = isset( $data['ecommerce'] ) ? (bool) $data['ecommerce'] : false;
+
+		$template = [
+			'selectedServices' => $selected_services,
+			'configurations'   => $configurations,
+			'gtmType'          => $gtm_type,
+			'ecommerce'        => $ecommerce,
+		];
+
+		// Return as JSON download.
+		$response = new \WP_REST_Response( $template );
+		$response->header( 'Content-Type', 'application/json' );
+		$response->header( 'Content-Disposition', 'attachment; filename="gtm-template.json"' );
+
+		return $response;
+	}
+
+	/**
 	 * Validate notification input
 	 *
 	 * @param array<string, string>|null $input The input.
@@ -194,6 +268,10 @@ final class AdminAPI {
 	 */
 	private function get_json_input(): ?array {
 		$input_raw = file_get_contents( 'php://input' );
-		return $input_raw ? json_decode( $input_raw, true ) : null;
+		if ( ! $input_raw ) {
+			return null;
+		}
+		$decoded = json_decode( $input_raw, true );
+		return is_array( $decoded ) ? $decoded : null;
 	}
 }
