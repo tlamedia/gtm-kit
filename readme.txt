@@ -109,6 +109,8 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 #### Bugfixes:
 
 #### Other:
+* Tested up to WooCommerce 10.3.
+* Require WooCommerce 9.4.
 
 = 2.6.0 =
 
