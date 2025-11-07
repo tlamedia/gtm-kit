@@ -100,15 +100,18 @@ final class Util {
 		$data = [];
 		$data = $this->set_site_data( $data, $options, $wp_version, $anonymize );
 
-		$plugins = [
-			'gtm-kit/gtm-kit.php'         => 'gtmkit_version',
+		$data = $this->add_active_plugin_and_version( 'gtm-kit/gtm-kit.php', 'gtmkit_version', $data, $anonymize );
+
+		$data['ecommerce'] = false;
+
+		$ecommerce_plugins = [
 			'woocommerce/woocommerce.php' => 'woocommerce_version',
 			'easy-digital-downloads/easy-digital-downloads.php' => 'edd_version',
 			'easy-digital-downloads-pro/easy-digital-downloads.php' => 'edd-pro_version',
 		];
 
-		foreach ( $plugins as $plugin => $key ) {
-			$data = $this->add_active_plugin_and_version( $plugin, $key, $data, $anonymize );
+		foreach ( $ecommerce_plugins as $plugin => $key ) {
+			$data = $this->add_active_plugin_and_version( $plugin, $key, $data, $anonymize, true );
 		}
 		$data['locale'] = explode( '_', get_locale() )[0];
 
@@ -243,14 +246,18 @@ final class Util {
 	 * @param string               $key The key.
 	 * @param array<string, mixed> $data The data.
 	 * @param bool                 $shorten Shorten the version number or not.
+	 * @param bool                 $is_ecommerce Whether this is an ecommerce plugin.
 	 *
 	 * @return array<string, mixed> An array of active plugins names.
 	 */
-	public function add_active_plugin_and_version( string $plugin, string $key, array $data, bool $shorten = true ): array {
+	public function add_active_plugin_and_version( string $plugin, string $key, array $data, bool $shorten = true, bool $is_ecommerce = false ): array {
 
 		if ( \is_plugin_active( $plugin ) ) {
 			$version      = \get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin )['Version'];
 			$data[ $key ] = ( $shorten ) ? $this->shorten_version( $version ) : $version;
+			if ( $is_ecommerce ) {
+				$data['ecommerce'] = true;
+			}
 		}
 
 		return $data;

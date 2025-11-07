@@ -47,6 +47,7 @@ final class Upgrade {
 			'1.22' => 'v122_upgrade',
 			'2.2'  => 'v22_upgrade',
 			'2.4'  => 'v24_upgrade',
+			'2.6'  => 'v26_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -185,5 +186,12 @@ final class Upgrade {
 		];
 
 		Options::init()->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v2.6
+	 */
+	protected function v26_upgrade(): void {
+		delete_transient( 'gtmkit_templates' );
 	}
 }
