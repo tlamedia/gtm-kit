@@ -138,6 +138,10 @@ final class WooCommerce extends AbstractEcommerce {
 			}
 		);
 
+		if ( $options->get( 'integrations', 'woocommerce_custom_order_received_page_enabled' ) ) {
+			add_filter( 'woocommerce_is_order_received_page', [ self::$instance, 'is_custom_order_received_page' ] );
+		}
+
 		add_action(
 			'woocommerce_shortcode_before_featured_products_loop',
 			[
@@ -1271,5 +1275,31 @@ final class WooCommerce extends AbstractEcommerce {
 		}
 
 		return $order_items;
+	}
+
+	/**
+	 * I the current page the custom order received page
+	 *
+	 * @param bool $is_order_received_page True when viewing the order received page.
+	 *
+	 * @return bool
+	 */
+	public function is_custom_order_received_page( bool $is_order_received_page ): bool {
+		// If WooCommerce already detected it, respect that.
+		if ( $is_order_received_page ) {
+			return true;
+		}
+
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return false;
+		}
+
+		$page_id = $this->options->get( 'integrations', 'woocommerce_custom_order_received_page' );
+
+		if ( ! empty( $page_id ) && is_page( $page_id ) ) {
+			return true;
+		}
+
+		return false;
 	}
 }
