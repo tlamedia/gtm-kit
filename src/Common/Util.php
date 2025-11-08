@@ -287,7 +287,7 @@ final class Util {
 	 * @return string
 	 */
 	public function shorten_version( string $version ): string {
-		return preg_replace( '@^(\d\.\d+).*@', '\1', $version );
+		return preg_replace( '@^(\d+\.\d+).*@', '\1', $version );
 	}
 
 	/**
