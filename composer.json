@@ -21,14 +21,14 @@
     "php": "^7.4 || ^8.0"
   },
   "require-dev": {
-    "easydigitaldownloads/easy-digital-downloads": "^3.5",
+    "easydigitaldownloads/easy-digital-downloads": "^3.6",
     "php-stubs/woocommerce-stubs": "^10.3",
     "phpcompatibility/phpcompatibility-wp": "*",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-deprecation-rules": "^2.0",
     "szepeviktor/phpstan-wordpress": "^v2.0",
-    "wp-coding-standards/wpcs": "^3.2"
+    "wp-coding-standards/wpcs": "^3.3"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

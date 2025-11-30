@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
 {
     public static $prefixLengthsPsr4 = array (
-        'T' => 
+        'T' =>
         array (
             'TLA_Media\\GTM_Kit\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'TLA_Media\\GTM_Kit\\' => 
+        'TLA_Media\\GTM_Kit\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

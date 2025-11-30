@@ -56,10 +56,12 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          # Run PHPStan on a modern PHP to avoid parse errors in vendor stubs
+          # while the plugin still supports older PHP versions at runtime.
+          php-version: '8.2'
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
