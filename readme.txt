@@ -107,6 +107,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 * The debug info now includes a check to determine if WooCommerce purchase events have been recorded in the logs. This information is included in the debug data to assist with troubleshooting and support.
 
 #### Bugfixes:
+* Fix edge case where quantity in the Datalayer was 0. Set a default quantity of 1 when the quantity element is missing.
 
 #### Other:
 * Tested up to WooCommerce 10.3.

@@ -242,9 +242,8 @@ function gtmkitLoad() {
 				formCartElement.querySelector('[name=gtmkit_product_data]').value
 			);
 
-			itemData.quantity =
-				formCartElement.querySelector('[name=quantity]') &&
-				formCartElement.querySelector('[name=quantity]').value;
+			const quantityElement = formCartElement.querySelector('[name=quantity]');
+			itemData.quantity = ( quantityElement && quantityElement.value ) || 1;
 
 			window[datalayerName].push({ ecommerce: null });
 			window[datalayerName].push({
