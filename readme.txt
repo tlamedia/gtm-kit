@@ -123,7 +123,7 @@ Release date: 2025-09-24
 * Add tracking on the product collection block.
 
 #### Other:
-* Tested up to WooCommerce 10.2.
+* Tested up to WooCommerce 10.4.
 * Require WooCommerce 9.2.
 
 = 2.5.1 =
