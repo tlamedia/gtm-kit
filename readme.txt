@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.9
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,13 +96,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.X =
+= 2.7.0 =
 
-Release date: 2025-MM-DD
+Release date: 2026-01-06
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-X/).
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-7/).
 
 #### Enhancements:
+* We have added a new template assistant to help you create your own custom templates for Google Tag Manager.
 * Add option to define a custom page that should be detected as the order-received page.
 * The debug info now includes a check to determine if WooCommerce purchase events have been recorded in the logs. This information is included in the debug data to assist with troubleshooting and support.
 
@@ -110,7 +111,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 * Fix edge case where quantity in the Datalayer was 0. Set a default quantity of 1 when the quantity element is missing.
 
 #### Other:
-* Tested up to WooCommerce 10.3.
+* Tested up to WooCommerce 10.4.
 * Tested up to WordPress 6.9.
 * Require WooCommerce 9.4.
 * Require WordPress 6.7.
