@@ -1,5 +1,15 @@
 *** GTM Kit ***
 
+2026-01-06 - version 2.7.0
+* Add: We have added a new template assistant to help you create your own custom templates for Google Tag Manager.
+* Add: Add option to define a custom page that should be detected as the order-received page.
+* Add: The debug info now includes a check to determine if WooCommerce purchase events have been recorded in the logs. This information is included in the debug data to assist with troubleshooting and support.
+* Fix: Fix edge case where quantity in the Datalayer was 0. Set a default quantity of 1 when the quantity element is missing.
+* Changed: Require WooCommerce 9.4.
+* Changed: Require WordPress 6.7.
+* Dev: Tested up to WooCommerce 10.4.
+* Dev: Tested up to WordPress 6.9.
+
 2025-09-24 - version 2.6.0
 * Add: Add tracking on the product collection block.
 * Changed: Require WooCommerce 9.2.
