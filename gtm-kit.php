@@ -18,7 +18,7 @@
  * WC tested up to: 10.4
  *
  * @package GTM Kit
- * @copyright Copyright (C) 2021-2025, GTM Kit ApS
+ * @copyright Copyright (C) 2021-2026, GTM Kit ApS
  */
 
 if ( ! function_exists( 'add_filter' ) ) {
