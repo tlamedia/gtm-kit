@@ -183,7 +183,7 @@ Release date: 2025-04-09
 Release date: 2025-04-02
 
 #### Security:
-* When debug logging is enabled, the Easy Digital Downloads integration was activaed sensitive customer information was logged to server error logs. If debug logging remains active in a production environment or if logs are not properly secured, it could lead to unauthorized access to personal data. - [CVE-2025-31001](https://www.cve.org/CVERecord?id=CVE-2025-31001).
+* When debug logging is enabled, the Easy Digital Downloads integration was activated sensitive customer information was logged to server error logs. If debug logging remains active in a production environment or if logs are not properly secured, it could lead to unauthorized access to personal data. - [CVE-2025-31001](https://www.cve.org/CVERecord?id=CVE-2025-31001).
 
 = 2.4.0 =
 
@@ -223,3 +223,4 @@ Release date: 2025-01-28
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
+
