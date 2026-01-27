@@ -143,6 +143,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'currentPage'   => $page_slug,
 				'root'          => \esc_url_raw( rest_url() ),
 				'nonce'         => \wp_create_nonce( 'wp_rest' ),
+				'pluginUrl'     => GTMKIT_URL,
 				'isPremium'     => ( new PremiumConditional() )->is_met(),
 				'tutorials'     => $this->get_tutorials(),
 				'integrations'  => Integrations::get_integrations(),

@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -734,6 +734,10 @@ video {
   display: flex;
 }
 
+.gtmkit-inline-flex {
+  display: inline-flex;
+}
+
 .gtmkit-grid {
   display: grid;
 }
@@ -756,6 +760,10 @@ video {
 
 .gtmkit-h-8 {
   height: 2rem;
+}
+
+.gtmkit-h-auto {
+  height: auto;
 }
 
 .gtmkit-h-min {
@@ -795,6 +803,10 @@ video {
   width: 250px;
 }
 
+.gtmkit-w-\[600px\] {
+  width: 600px;
+}
+
 .gtmkit-w-fit {
   width: -moz-fit-content;
   width: fit-content;
@@ -808,6 +820,10 @@ video {
   min-width: 225px;
 }
 
+.gtmkit-min-w-\[600px\] {
+  min-width: 600px;
+}
+
 .gtmkit-max-w-3xl {
   max-width: 48rem;
 }
@@ -818,6 +834,10 @@ video {
 
 .gtmkit-max-w-\[90\%\] {
   max-width: 90%;
+}
+
+.gtmkit-max-w-\[90vw\] {
+  max-width: 90vw;
 }
 
 .gtmkit-max-w-lg {
@@ -839,6 +859,10 @@ video {
 
 .gtmkit-max-w-xl {
   max-width: 36rem;
+}
+
+.gtmkit-flex-1 {
+  flex: 1 1 0%;
 }
 
 .gtmkit-flex-auto {
@@ -881,6 +905,10 @@ video {
   flex-wrap: wrap;
 }
 
+.gtmkit-items-start {
+  align-items: flex-start;
+}
+
 .gtmkit-items-center {
   align-items: center;
 }
@@ -919,6 +947,10 @@ video {
 
 .gtmkit-gap-8 {
   gap: 2rem;
+}
+
+.gtmkit-gap-1 {
+  gap: 0.25rem;
 }
 
 .gtmkit-gap-x-16 {
@@ -997,6 +1029,10 @@ video {
   border-width: 1px;
 }
 
+.gtmkit-border-0 {
+  border-width: 0px;
+}
+
 .gtmkit-border-2 {
   border-width: 2px;
 }
@@ -1048,6 +1084,11 @@ video {
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
 }
 
+.gtmkit-border-yellow-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 240 138 / var(--tw-border-opacity, 1));
+}
+
 .gtmkit-border-b-color-primary {
   border-bottom-color: var(--gtmkit-color-primary);
 }
@@ -1095,9 +1136,18 @@ video {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
+.gtmkit-bg-transparent {
+  background-color: transparent;
+}
+
 .gtmkit-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.gtmkit-bg-yellow-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));
 }
 
 .gtmkit-p-3 {
