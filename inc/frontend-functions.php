@@ -5,7 +5,7 @@
  * @package GTM Kit
  */
 
-use TLA_Media\GTM_Kit\Options\Options;
+use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 
 /**
@@ -14,10 +14,11 @@ use TLA_Media\GTM_Kit\Frontend\Frontend;
  * @return void
  */
 function gtmkit_the_noscript_tag(): void {
-	// @phpstan-ignore-next-line staticMethod.deprecated
-	$noscript_implementation = (int) Options::init()->get( 'general', 'noscript_implementation' );
+	$options                 = OptionsFactory::get_instance();
+	$noscript_implementation = (int) $options->get( 'general', 'noscript_implementation' );
 
 	if ( $noscript_implementation === 2 ) {
-		Frontend::get_body_script();
+		$frontend = new Frontend( $options );
+		$frontend->get_body_script();
 	}
 }

@@ -16,9 +16,19 @@ use TLA_Media\GTM_Kit\Options\Options;
 final class Upgrade {
 
 	/**
-	 * Constructor
+	 * Plugin options.
+	 *
+	 * @var Options
 	 */
-	public function __construct() {
+	protected Options $options;
+
+	/**
+	 * Constructor
+	 *
+	 * @param Options $options An instance of Options.
+	 */
+	public function __construct( Options $options ) {
+		$this->options = $options;
 
 		$upgrades = $this->get_upgrades();
 
@@ -68,8 +78,7 @@ final class Upgrade {
 	 */
 	protected function v111_upgrade(): void {
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		$script_implementation = Options::init()->get( 'general', 'script_implementation' );
+		$script_implementation = $this->options->get( 'general', 'script_implementation' );
 
 		if ( $script_implementation === 2 ) {
 			$values = [
@@ -78,8 +87,7 @@ final class Upgrade {
 				],
 			];
 
-			// @phpstan-ignore-next-line staticMethod.deprecated
-			Options::init()->set( $values, false, false );
+			$this->options->set( $values, false, false );
 		}
 	}
 
@@ -101,8 +109,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		$options = Options::init()->get_all_raw();
+		$options = $this->options->get_all_raw();
 
 		if ( ! isset( $options['integrations']['cf7_load_js'] ) ) {
 			$values['integrations']['cf7_load_js'] = 1;
@@ -117,8 +124,7 @@ final class Upgrade {
 			$values['integrations']['woocommerce_variable_product_tracking'] = 0;
 		}
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -132,8 +138,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -147,8 +152,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -162,8 +166,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -180,8 +183,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -194,8 +196,7 @@ final class Upgrade {
 			],
 		];
 
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set( $values, false, false );
+		$this->options->set( $values, false, false );
 	}
 
 	/**
@@ -213,8 +214,7 @@ final class Upgrade {
 	 * instead of proper booleans, causing integration settings to appear disabled.
 	 */
 	protected function v280_upgrade(): void {
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		$options = Options::init()->get_all_raw();
+		$options = $this->options->get_all_raw();
 		$updated = false;
 
 		// Settings groups to check for 'on' string values.
@@ -240,8 +240,7 @@ final class Upgrade {
 
 		// Only update if changes were made.
 		if ( $updated ) {
-			// @phpstan-ignore-next-line staticMethod.deprecated
-			Options::init()->set( $options, false, true );
+			$this->options->set( $options, false, true );
 		}
 	}
 }

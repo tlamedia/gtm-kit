@@ -26,6 +26,7 @@ use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
+use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\Stape;
@@ -54,7 +55,8 @@ require_once GTMKIT_PATH . 'src/Options/compatibility.php';
  * Plugin activation hook.
  */
 function gtmkit_plugin_activation(): void {
-	new Activation();
+	$options = OptionsFactory::get_instance();
+	new Activation( $options );
 	do_action( 'gtmkit_activate' );
 }
 
@@ -128,7 +130,7 @@ function gtmkit_load_text_domain(): void {
  * Load frontend.
  */
 function gtmkit_frontend_init(): void {
-	$options         = new Options();
+	$options         = OptionsFactory::get_instance();
 	$rest_api_server = new RestAPIServer();
 	$util            = new Util( $options, $rest_api_server );
 
@@ -164,22 +166,23 @@ function gtmkit_frontend_init(): void {
  */
 function gtmkit_admin_init(): void {
 
+	$options = OptionsFactory::get_instance();
+
 	if ( version_compare( get_option( 'gtmkit_version' ), GTMKIT_VERSION, '<' ) ) {
 		if ( function_exists( 'opcache_reset' ) ) {
 			opcache_reset();
 		}
 
-		new Upgrade();
+		new Upgrade( $options );
 	}
 
-	$options             = new Options();
 	$rest_api_server     = new RestAPIServer();
 	$util                = new Util( $options, $rest_api_server );
 	$plugin_availability = new PluginAvailability();
 
 	$notifications_handler = NotificationsHandler::get();
 
-	AutomaticUpdates::register();
+	AutomaticUpdates::register( $options );
 	Suggestions::register( $notifications_handler, $plugin_availability, $options, $util );
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );

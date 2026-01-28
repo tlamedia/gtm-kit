@@ -22,10 +22,28 @@ final class AutomaticUpdates {
 	public static ?self $instance = null;
 
 	/**
-	 * Register analytics
+	 * Plugin options.
+	 *
+	 * @var Options
 	 */
-	public static function register(): void {
-		self::$instance = new self();
+	protected Options $options;
+
+	/**
+	 * Constructor
+	 *
+	 * @param Options $options An instance of Options.
+	 */
+	private function __construct( Options $options ) {
+		$this->options = $options;
+	}
+
+	/**
+	 * Register analytics
+	 *
+	 * @param Options $options An instance of Options.
+	 */
+	public static function register( Options $options ): void {
+		self::$instance = new self( $options );
 
 		self::$instance->add_wp_hooks();
 
@@ -37,12 +55,18 @@ final class AutomaticUpdates {
 	/**
 	 * Get the singleton instance of this class.
 	 *
+	 * @param Options|null $options An instance of Options (required on first call).
+	 *
+	 * @throws \RuntimeException If Options instance is not provided on first call.
 	 * @return self
 	 */
-	public static function instance(): self {
+	public static function instance( ?Options $options = null ): self {
 
 		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
+			if ( is_null( $options ) ) {
+				throw new \RuntimeException( 'Options instance required on first call to AutomaticUpdates::instance()' );
+			}
+			self::$instance = new self( $options );
 		}
 
 		return self::$instance;
@@ -92,8 +116,7 @@ final class AutomaticUpdates {
 	 * @return void
 	 */
 	public function update_gtmkit_option( bool $is_enabled ): void {
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		Options::init()->set_option( 'misc', 'auto_update', $is_enabled );
+		$this->options->set_option( 'misc', 'auto_update', $is_enabled );
 	}
 
 	/**
@@ -146,8 +169,7 @@ final class AutomaticUpdates {
 	 * @return void
 	 */
 	public function activation_sync(): void {
-		// @phpstan-ignore-next-line staticMethod.deprecated
-		$enabled = Options::init()->get( 'misc', 'auto_update' );
+		$enabled = $this->options->get( 'misc', 'auto_update' );
 		if ( ! $enabled ) {
 			return;
 		}
