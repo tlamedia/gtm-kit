@@ -1,5 +1,10 @@
 *** GTM Kit ***
 
+2026-01-29 - version 2.8.0
+* Add: Improved internal handling of plugin settings to make GTM Kit more reliable and easier to maintain, while ensuring full backward compatibility with existing configurations.
+* Changed: Require WooCommerce 9.5.
+* Dev: Tested up to WooCommerce 10.5.
+
 2026-01-06 - version 2.7.0
 * Add: We have added a new template assistant to help you create your own custom templates for Google Tag Manager.
 * Add: Add option to define a custom page that should be detected as the order-received page.

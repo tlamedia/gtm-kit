@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.9
-Stable tag: 2.7.0
+Stable tag: 2.8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,14 +96,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
- 2.X.Y =
+= 2.8.0 =
 
-Release date: 2026-MM-DD
+Release date: 2026-01-29
 
 #### Enhancements:
 * Improved internal handling of plugin settings to make GTM Kit more reliable and easier to maintain, while ensuring full backward compatibility with existing configurations.
-
-#### Bugfixes:
 
 #### Other:
 * Tested up to WooCommerce 10.5.
@@ -140,99 +138,6 @@ Release date: 2025-09-24
 * Tested up to WooCommerce 10.4.
 * Require WooCommerce 9.2.
 
-= 2.5.1 =
-
-Release date: 2025-08-22
-
-#### Bugfixes:
-* Force rounding values to 2 decimal places to fix rounding issues in edge cases.
-* In some cases the GTM container would not load after activating and deactivating settings in 'Server-side Tagging (sGTM)'.
-
-#### Other:
-* Tested up to WooCommerce 10.1.
-
-= 2.5.0 =
-
-Release date: 2025-08-05
-
-#### Bugfixes:
-* The add_to_cart event did not fire in the all-products block.
-
-#### Other:
-* Require WooCommerce 9.0.
-* Tested up to WooCommerce 10.0.
-
-= 2.4.4 =
-
-Release date: 2025-04-30
-
-#### Bugfixes:
-* The $hook type hint in enqueue_page_assets was removed to avoid conflicts with plugins passing non-standard data types.
-
-#### Other:
-* Introduced the gtmkit_options_set action and the gtmkit_process_options filter.
-* Fixed deprecation in Easy Digital Downloads.
-
-= 2.4.3 =
-
-Release date: 2025-04-15
-
-#### Bugfixes:
-* Fix conflict with GTM Kit Woo in admin settings.
-
-= 2.4.2 =
-
-Release date: 2025-04-09
-
-#### Bugfixes:
-* Fix fatal error when used together with MC4WP: Mailchimp for WordPress.
-
-#### Other:
-* Tested up to WordPress 6.8.
-* Tested up to WooCommerce 9.8.
-
-= 2.4.1 =
-
-Release date: 2025-04-02
-
-#### Security:
-* When debug logging is enabled, the Easy Digital Downloads integration was activated sensitive customer information was logged to server error logs. If debug logging remains active in a production environment or if logs are not properly secured, it could lead to unauthorized access to personal data. - [CVE-2025-31001](https://www.cve.org/CVERecord?id=CVE-2025-31001).
-
-= 2.4.0 =
-
-Release date: 2025-04-03
-
-#### Feature Removed:
-* The Event Inspector has been removed and is only available the premium version. It was often used in an inappropriate way where end-users unintentionally were shown debug data.
-
-= 2.3.2 =
-
-Release date: 2025-04-02
-
-#### Security:
-* Permissions were not checked correct on the admin API.
-
-= 2.3.1 =
-
-Release date: 2025-03-12
-
-#### Bugfixes:
-* Fix a rare case of divisionByZero in calculation of discount.
-
-#### Other:
-* Tested up to WooCommerce 9.7.
-
-= 2.3 =
-
-Release date: 2025-01-28
-
-#### Bugfixes:
-* Fix an edge case fatal error in admin if $hook for some reason is missing,
-
-#### Other:
-* Require WordPress 6.4.
-* Require WooCommerce 8.4.
-* Tested up to WooCommerce 9.6.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

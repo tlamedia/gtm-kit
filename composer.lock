@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "apimatic/core",
-            "version": "0.3.16",
+            "version": "0.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apimatic/core-lib-php.git",
-                "reference": "ae4ab4ca26a41be41718f33c703d67b7a767c07b"
+                "reference": "a48a583f686ee3786432b976c795a2817ec095b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apimatic/core-lib-php/zipball/ae4ab4ca26a41be41718f33c703d67b7a767c07b",
-                "reference": "ae4ab4ca26a41be41718f33c703d67b7a767c07b",
+                "url": "https://api.github.com/repos/apimatic/core-lib-php/zipball/a48a583f686ee3786432b976c795a2817ec095b3",
+                "reference": "a48a583f686ee3786432b976c795a2817ec095b3",
                 "shasum": ""
             },
             "require": {
@@ -58,9 +58,9 @@
             ],
             "support": {
                 "issues": "https://github.com/apimatic/core-lib-php/issues",
-                "source": "https://github.com/apimatic/core-lib-php/tree/0.3.16"
+                "source": "https://github.com/apimatic/core-lib-php/tree/0.3.17"
             },
-            "time": "2025-11-25T04:42:27+00:00"
+            "time": "2026-01-27T05:14:10+00:00"
         },
         {
             "name": "apimatic/core-interfaces",
@@ -391,16 +391,16 @@
         },
         {
             "name": "easydigitaldownloads/easy-digital-downloads",
-            "version": "3.6.3",
+            "version": "3.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awesomemotive/easy-digital-downloads.git",
-                "reference": "86d0df2011c55e2fc4bacae84b89fae1df4415f0"
+                "reference": "a6e15711a8f6a2056ff98720cd158173231c5bad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/86d0df2011c55e2fc4bacae84b89fae1df4415f0",
-                "reference": "86d0df2011c55e2fc4bacae84b89fae1df4415f0",
+                "url": "https://api.github.com/repos/awesomemotive/easy-digital-downloads/zipball/a6e15711a8f6a2056ff98720cd158173231c5bad",
+                "reference": "a6e15711a8f6a2056ff98720cd158173231c5bad",
                 "shasum": ""
             },
             "require": {
@@ -499,9 +499,9 @@
             ],
             "support": {
                 "issues": "https://easydigitaldownloads.com/support",
-                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.6.3"
+                "source": "https://github.com/awesomemotive/easy-digital-downloads/tree/3.6.4"
             },
-            "time": "2025-12-23T22:01:53+00:00"
+            "time": "2026-01-15T21:21:20+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1199,11 +1199,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.33",
+            "version": "2.1.37",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9e800e6bee7d5bd02784d4c6069b48032d16224f",
-                "reference": "9e800e6bee7d5bd02784d4c6069b48032d16224f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/28cd424c5ea984128c95cfa7ea658808e8954e49",
+                "reference": "28cd424c5ea984128c95cfa7ea658808e8954e49",
                 "shasum": ""
             },
             "require": {
@@ -1248,7 +1248,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-05T10:24:31+00:00"
+            "time": "2026-01-24T08:21:55+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
