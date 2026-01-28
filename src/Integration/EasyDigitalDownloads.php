@@ -12,7 +12,7 @@ use EDD\Orders\Order;
 use EDD_Download;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 
 /**
@@ -98,7 +98,8 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 */
 	public function get_global_settings( array $global_settings ): array {
 
-		$global_settings['edd']['use_sku']                    = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
+		$global_settings['edd']['use_sku'] = (bool) $this->options->get( 'integrations', 'edd_use_sku' );
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		$global_settings['edd']['add_payment_info']['config'] = (int) Options::init()->get( 'integrations', 'edd_payment_info' );
 		$global_settings['edd']['text']                       = [
 			'payment-method-not-found' => __( 'Payment method not found', 'gtm-kit' ),
@@ -467,6 +468,7 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 	 * @return string
 	 */
 	public function prefix_item_id( string $item_id ): string {
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		return Options::init()->get( 'integrations', 'edd_product_id_prefix' ) . $item_id;
 	}
 

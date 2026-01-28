@@ -11,7 +11,7 @@ use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Suggestions

@@ -25,6 +25,7 @@ use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\Stape;
@@ -45,6 +46,9 @@ if ( ! defined( 'GTMKIT_VERSION' ) ) {
 }
 
 require GTMKIT_PATH . 'vendor/autoload.php';
+
+// Load Options backward compatibility (for gtm-kit-woo v1.4.0 and below).
+require_once GTMKIT_PATH . 'src/Options/compatibility.php';
 
 /**
  * Plugin activation hook.

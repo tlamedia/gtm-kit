@@ -7,7 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Frontend
@@ -213,6 +213,7 @@ final class Frontend {
 		if ( $domain !== 'www.googletagmanager.com' && $loader !== 'gtm' && $this->options->get( 'general', 'sgtm_cookie_keeper' ) ) {
 			$gtm_id = preg_replace( '/^GTM\-/i', '', $gtm_id );
 			echo "/* Google Tag Manager with Stape.io Cookie Keeper */\n";
+			// @phpstan-ignore-next-line staticMethod.deprecated
 			echo '!function(){"use strict";function l(e){for(var t=e,r=0,n=document.cookie.split(";");r<n.length;r++){var o=n[r].split("=");if(o[0].trim()===t)return o[1]}}function s(e){return localStorage.getItem(e)}function u(e){return window[e]}function d(e,t){e=document.querySelector(e);return t?null==e?void 0:e.getAttribute(t):null==e?void 0:e.textContent}var e=window,t=document,r="script",n="' . esc_js( $this->datalayer_name ) . '",o="' . esc_js( $gtm_id ) . '",a="https://' . esc_attr( $domain ) . '",i="",c="' . esc_attr( $loader ) . '",E="cookie",I="_sbp",v="",g=!1;try{var g=!!E&&(m=navigator.userAgent,!!(m=new RegExp("Version/([0-9._]+)(.*Mobile)?.*Safari.*").exec(m)))&&16.4<=parseFloat(m[1]),A="stapeUserId"===E,f=g&&!A?function(e,t,r){void 0===t&&(t="");var n={cookie:l,localStorage:s,jsVariable:u,cssSelector:d},t=Array.isArray(t)?t:[t];if(e&&n[e])for(var o=n[e],a=0,i=t;a<i.length;a++){var c=i[a],c=r?o(c,r):o(c);if(c)return c}else console.warn("invalid uid source",e)}(E,I,v):void 0;g=g&&(!!f||A)}catch(e){console.error(e)}var m=e,E=(m[n]=m[n]||[],m[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"}),t.getElementsByTagName(r)[0]),I="dataLayer"===n?"":"&l="+n,v=f?"&bi="+encodeURIComponent(f):"",A=t.createElement(r),e=g?"kp"+c:c,n=!g&&i?i:a;A.async=!0,A.src=n+"/"+e+".js?st="+o+I+v' . ( ( ! empty( Options::init()->get( 'general', 'gtm_auth' ) ) && ! empty( Options::init()->get( 'general', 'gtm_preview' ) ) ) ? "+'&gtm_auth=" . esc_attr( Options::init()->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( Options::init()->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'" : '' ) . ',null!=(f=E.parentNode)&&f.insertBefore(A,E)}();';
 			echo "\n/* End Google Tag Manager */\n";
 		} else {
@@ -265,9 +266,10 @@ final class Frontend {
 	 * The Google Tag Manager noscript
 	 */
 	public static function get_body_script(): void {
+			// @phpstan-ignore-next-line staticMethod.deprecated
 		$domain = Options::init()->get( 'general', 'sgtm_domain' ) ? Options::init()->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
+			// @phpstan-ignore-next-line staticMethod.deprecated
 		$gtm_id = Options::init()->get( 'general', 'gtm_id' );
-
 		if ( empty( $gtm_id ) ) {
 			return;
 		}

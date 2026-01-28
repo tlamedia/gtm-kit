@@ -7,7 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * UserData

@@ -101,6 +101,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 Release date: 2026-MM-DD
 
 #### Enhancements:
+* Improved internal handling of plugin settings to make GTM Kit more reliable and easier to maintain, while ensuring full backward compatibility with existing configurations.
 
 #### Bugfixes:
 

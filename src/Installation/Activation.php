@@ -7,7 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Installation;
 
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Activation
@@ -41,6 +41,7 @@ final class Activation {
 		\add_option( 'gtmkit_initial_version', GTMKIT_VERSION, '', false );
 		\update_option( 'gtmkit_version', GTMKIT_VERSION, false );
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		$map      = Options::get_defaults();
 		$defaults = [];
 		foreach ( $map as $group => $settings ) {
@@ -49,6 +50,7 @@ final class Activation {
 			}
 		}
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $defaults, true );
 
 		// Add transient to trigger redirect to the Setup Wizard.

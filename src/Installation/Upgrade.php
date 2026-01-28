@@ -8,7 +8,7 @@
 namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Upgrade
@@ -40,14 +40,15 @@ final class Upgrade {
 	protected function get_upgrades(): array {
 
 		$available_upgrades = [
-			'1.11' => 'v111_upgrade',
-			'1.14' => 'v114_upgrade',
-			'1.15' => 'v115_upgrade',
-			'1.20' => 'v120_upgrade',
-			'1.22' => 'v122_upgrade',
-			'2.2'  => 'v22_upgrade',
-			'2.4'  => 'v24_upgrade',
-			'2.7'  => 'v27_upgrade',
+			'1.11'  => 'v111_upgrade',
+			'1.14'  => 'v114_upgrade',
+			'1.15'  => 'v115_upgrade',
+			'1.20'  => 'v120_upgrade',
+			'1.22'  => 'v122_upgrade',
+			'2.2'   => 'v22_upgrade',
+			'2.4'   => 'v24_upgrade',
+			'2.7'   => 'v27_upgrade',
+			'2.8.0' => 'v280_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -67,6 +68,7 @@ final class Upgrade {
 	 */
 	protected function v111_upgrade(): void {
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		$script_implementation = Options::init()->get( 'general', 'script_implementation' );
 
 		if ( $script_implementation === 2 ) {
@@ -76,6 +78,7 @@ final class Upgrade {
 				],
 			];
 
+			// @phpstan-ignore-next-line staticMethod.deprecated
 			Options::init()->set( $values, false, false );
 		}
 	}
@@ -98,6 +101,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		$options = Options::init()->get_all_raw();
 
 		if ( ! isset( $options['integrations']['cf7_load_js'] ) ) {
@@ -113,6 +117,7 @@ final class Upgrade {
 			$values['integrations']['woocommerce_variable_product_tracking'] = 0;
 		}
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -127,6 +132,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -141,6 +147,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -155,6 +162,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -172,6 +180,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -185,6 +194,7 @@ final class Upgrade {
 			],
 		];
 
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set( $values, false, false );
 	}
 
@@ -193,5 +203,45 @@ final class Upgrade {
 	 */
 	protected function v27_upgrade(): void {
 		delete_transient( 'gtmkit_templates' );
+	}
+
+	/**
+	 * Upgrade routine for v2.8.0
+	 *
+	 * Convert legacy string 'on' values to proper boolean true or integer 1.
+	 * Legacy data from earlier versions stored toggle values as 'on' strings
+	 * instead of proper booleans, causing integration settings to appear disabled.
+	 */
+	protected function v280_upgrade(): void {
+		// @phpstan-ignore-next-line staticMethod.deprecated
+		$options = Options::init()->get_all_raw();
+		$updated = false;
+
+		// Settings groups to check for 'on' string values.
+		$groups_to_check = [ 'general', 'integrations', 'premium', 'misc' ];
+
+		foreach ( $groups_to_check as $group ) {
+			if ( ! isset( $options[ $group ] ) || ! is_array( $options[ $group ] ) ) {
+				continue;
+			}
+
+			foreach ( $options[ $group ] as $key => $value ) {
+				// Convert string 'on' to boolean true.
+				if ( $value === 'on' || $value === '1' ) {
+					$options[ $group ][ $key ] = true;
+					$updated                   = true;
+				} elseif ( $value === 'off' || $value === '0' ) {
+					// Convert string 'off' to boolean false.
+					$options[ $group ][ $key ] = false;
+					$updated                   = true;
+				}
+			}
+		}
+
+		// Only update if changes were made.
+		if ( $updated ) {
+			// @phpstan-ignore-next-line staticMethod.deprecated
+			Options::init()->set( $options, false, true );
+		}
 	}
 }

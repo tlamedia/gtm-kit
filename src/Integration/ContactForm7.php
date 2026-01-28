@@ -9,7 +9,7 @@ namespace TLA_Media\GTM_Kit\Integration;
 
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Contact Form 7 integration

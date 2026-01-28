@@ -5,10 +5,11 @@
  * @package GTM Kit
  */
 
-namespace TLA_Media\GTM_Kit;
+namespace TLA_Media\GTM_Kit\Options;
 
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Installation\AutomaticUpdates;
+use TLA_Media\GTM_Kit\Options\Processor\OptionProcessorRegistry;
 
 /**
  * Options
@@ -30,84 +31,28 @@ final class Options {
 	private array $options;
 
 	/**
-	 * Map of all the default options
+	 * Processor registry
 	 *
-	 * @var array<string, array<string, array<string, mixed>>>
+	 * @var OptionProcessorRegistry
 	 */
-	private static array $map = [
-		'general'      => [
-			'gtm_id'                  => [
-				'default'  => '',
-				'constant' => 'GTMKIT_CONTAINER_ID',
-			],
-			'script_implementation'   => [ 'default' => 0 ],
-			'noscript_implementation' => [ 'default' => 0 ],
-			'container_active'        => [
-				'default'  => true,
-				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
-				'type'     => 'boolean',
-			],
-			'sgtm_domain'             => [ 'default' => '' ],
-			'console_log'             => [
-				'default'  => false,
-				'constant' => 'GTMKIT_CONSOLE_LOG',
-				'type'     => 'boolean',
-			],
-			'debug_log'               => [
-				'default'  => false,
-				'constant' => 'GTMKIT_DEBUG_LOG',
-				'type'     => 'boolean',
-			],
-			'gtm_auth'                => [
-				'default'  => '',
-				'constant' => 'GTMKIT_AUTH',
-			],
-			'gtm_preview'             => [
-				'default'  => '',
-				'constant' => 'GTMKIT_PREVIEW',
-			],
-			'datalayer_page_type'     => [
-				'default' => true,
-				'type'    => 'boolean',
-			],
-			'exclude_user_roles'      => [ 'default' => [] ],
-		],
-		'integrations' => [
-			'woocommerce_shipping_info'             => [ 'default' => 1 ],
-			'woocommerce_payment_info'              => [ 'default' => 1 ],
-			'woocommerce_variable_product_tracking' => [ 'default' => 0 ],
-			'woocommerce_view_item_list_limit'      => [ 'default' => 0 ],
-			'woocommerce_debug_track_purchase'      => [
-				'default'  => false,
-				'constant' => 'GTMKIT_WC_DEBUG_TRACK_PURCHASE',
-				'type'     => 'boolean',
-			],
-			'cf7_load_js'                           => [ 'default' => 1 ],
-			'edd_debug_track_purchase'              => [
-				'default'  => false,
-				'constant' => 'GTMKIT_EDD_DEBUG_TRACK_PURCHASE',
-				'type'     => 'boolean',
-			],
-		],
-		'premium'      => [
-			'addon_installed' => [
-				'default' => false,
-				'type'    => 'boolean',
-			],
-		],
-		'misc'         => [
-			'auto_update' => [
-				'default' => true,
-				'type'    => 'boolean',
-			],
-		],
-	];
+	private OptionProcessorRegistry $processor_registry;
+
+	/**
+	 * Validator
+	 *
+	 * @var OptionValidator
+	 */
+	private OptionValidator $validator;
+
+	/**
 
 	/**
 	 * Construct
 	 */
 	public function __construct() {
-		$this->options = \get_option( self::OPTION_NAME, [] );
+		$this->options            = \get_option( self::OPTION_NAME, [] );
+		$this->processor_registry = new OptionProcessorRegistry();
+		$this->validator          = new OptionValidator();
 
 		\add_filter( 'pre_update_option_gtmkit', [ $this, 'pre_update_option' ], 10, 2 );
 	}
@@ -115,18 +60,21 @@ final class Options {
 	/**
 	 * Initialize options
 	 *
+	 * @deprecated Use OptionsFactory::get_instance() instead
 	 * @return Options
 	 * @example Options::init()->get('general', 'gtm_id');
 	 */
 	public static function init(): self {
+		return OptionsFactory::get_instance();
+	}
 
-		static $instance;
-
-		if ( ! $instance ) {
-			$instance = new self();
-		}
-
-		return $instance;
+	/**
+	 * Create new instance (for DI)
+	 *
+	 * @return Options
+	 */
+	public static function create(): self {
+		return new self();
 	}
 
 	/**
@@ -147,33 +95,14 @@ final class Options {
 	/**
 	 * The default options.
 	 *
+	 * @deprecated Use OptionSchema::get_schema() instead
 	 * @return array<string, mixed>
 	 */
 	public static function get_defaults(): array {
+		$schema = OptionSchema::get_schema();
 
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		$map = apply_filters( 'gtmkit_options_defaults', self::$map );
-
-		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-			$map['integrations']['woocommerce_integration'] = [
-				'default' => true,
-			];
-		}
-		if ( \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
-			$map['integrations']['cf7_integration'] = [
-				'default' => true,
-			];
-		}
-		if ( ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ) ) {
-			$map['integrations']['edd_integration'] = [
-				'default' => true,
-			];
-		}
-
-		return $map;
+		// Apply filter for backward compatibility.
+		return apply_filters( 'gtmkit_options_defaults', $schema );
 	}
 
 	/**
@@ -223,8 +152,7 @@ final class Options {
 	 * @return array<string, mixed>|null
 	 */
 	protected function get_default_key_value( string $group, string $key ): ?array {
-		$defaults = $this->get_defaults();
-		return $defaults[ $group ][ $key ] ?? null;
+		return OptionSchema::get_option_schema( $group, $key );
 	}
 
 	/**
@@ -268,10 +196,42 @@ final class Options {
 			$options = self::array_merge_recursive( $this->get_all_raw(), $options );
 		}
 
-		if ( $first_install === false ) {
+		// Validate and process options (skip on first install).
+		if ( ! $first_install ) {
+			// Validate options.
+			$validation_results = $this->validator->validate_all( $options );
+
+			// Check for errors.
+			$errors = array_filter( $validation_results, fn( $result ) => ! $result->is_valid() );
+
+			if ( ! empty( $errors ) ) {
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					foreach ( $errors as $option_key => $result ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for validation errors.
+						error_log(
+							sprintf(
+								'GTM Kit: Invalid option value for %s: %s',
+								$option_key,
+								$result->get_error_message()
+							)
+						);
+					}
+				}
+
+				// Trigger error hook (for admin notices).
+				do_action( 'gtmkit_options_validation_failed', $errors );
+
+				// Don't save invalid options (fail-fast).
+				return;
+			}
+
+			// Process options.
 			$options = $this->process_options( $options );
 			$options = \apply_filters( 'gtmkit_process_options', $options );
 		}
+
+		// Store old options for after_save hooks.
+		$old_options = $first_install ? [] : $this->get_all_raw();
 
 		// Whether to update existing options or to add these options only once if they don't exist yet.
 		if ( $first_install ) {
@@ -280,6 +240,11 @@ final class Options {
 			\update_blog_option( get_current_blog_id(), self::OPTION_NAME, $options );
 		} else {
 			\update_option( self::OPTION_NAME, $options, true );
+		}
+
+		// Run after_save hooks AFTER successful save.
+		if ( ! $first_install ) {
+			$this->run_after_save_hooks( $options, $old_options );
 		}
 
 		do_action( 'gtmkit_options_set' );
@@ -332,31 +297,86 @@ final class Options {
 		$old_options = $this->get_all_raw();
 
 		foreach ( $options as $group => $keys ) {
-			foreach ( $keys as $option_name => $option_value ) {
-				switch ( $group ) {
-					case 'general':
-						if ( $option_name === 'gtm_id' ) {
-							$options[ $group ][ $option_name ] = \sanitize_text_field( $option_value );
-						} elseif ( $option_name === 'sgtm_domain' ) {
-							if ( str_starts_with( $option_value, 'http://' ) || str_starts_with( $option_value, 'https://' ) ) {
-								$url_parts    = \wp_parse_url( $option_value );
-								$option_value = $url_parts['host'] ?? '';
-							}
-							$options[ $group ][ $option_name ] = $option_value;
-						}
-						break;
+			if ( ! is_array( $keys ) ) {
+				continue;
+			}
 
-					case 'misc':
-						if ( $option_name === 'auto_update' ) {
-							if ( $old_options[ $group ][ $option_name ] !== $option_value ) {
-								$this->auto_update_setting( $option_value );
-							}
-						}
+			foreach ( $keys as $option_name => $option_value ) {
+				$option_key = "$group.$option_name";
+				$old_value  = $old_options[ $group ][ $option_name ] ?? null;
+
+				// Type coercion based on schema.
+				$schema = OptionSchema::get_option_schema( $group, $option_name );
+				if ( $schema && isset( $schema['type'] ) ) {
+					$option_value = $this->coerce_type( $option_value, $schema['type'] );
 				}
+
+				// Process through registry.
+				$options[ $group ][ $option_name ] = $this->processor_registry->process(
+					$option_key,
+					$option_value,
+					$old_value
+				);
 			}
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Run after_save hooks for changed options
+	 *
+	 * @param array<string, mixed> $new_options New options.
+	 * @param array<string, mixed> $old_options Old options.
+	 * @return void
+	 */
+	private function run_after_save_hooks( array $new_options, array $old_options ): void {
+		foreach ( $new_options as $group => $keys ) {
+			if ( ! is_array( $keys ) ) {
+				continue;
+			}
+
+			foreach ( $keys as $option_name => $option_value ) {
+				$option_key = "$group.$option_name";
+				$old_value  = $old_options[ $group ][ $option_name ] ?? null;
+
+				// Run after_save hooks.
+				$this->processor_registry->after_save(
+					$option_key,
+					$option_value,
+					$old_value
+				);
+			}
+		}
+	}
+
+	/**
+	 * Coerce value to expected type
+	 *
+	 * @param mixed  $value Value to coerce.
+	 * @param string $type Expected type.
+	 * @return mixed Coerced value.
+	 */
+	private function coerce_type( $value, string $type ) {
+		switch ( $type ) {
+			case 'integer':
+				return (int) $value;
+			case 'boolean':
+				// Handle string booleans from frontend.
+				if ( $value === 'true' || $value === '1' || $value === 1 ) {
+					return true;
+				}
+				if ( $value === 'false' || $value === '0' || $value === 0 ) {
+					return false;
+				}
+				return (bool) $value;
+			case 'string':
+				return (string) $value;
+			case 'array':
+				return is_array( $value ) ? $value : [];
+			default:
+				return $value;
+		}
 	}
 
 	/**
@@ -421,15 +441,5 @@ final class Options {
 		}
 
 		return $options;
-	}
-
-	/**
-	 * Auto-update setting
-	 *
-	 * @param bool $activate Activate or deactivate auto-updates.
-	 */
-	private function auto_update_setting( bool $activate ): void {
-		AutomaticUpdates::instance()->activate_auto_update( $activate );
-		NotificationsHandler::get()->remove_notification_by_id( 'gtmkit-auto-update' );
 	}
 }
