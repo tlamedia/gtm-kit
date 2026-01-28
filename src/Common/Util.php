@@ -8,7 +8,7 @@
 namespace TLA_Media\GTM_Kit\Common;
 
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Class for common utilities.

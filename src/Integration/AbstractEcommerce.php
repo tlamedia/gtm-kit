@@ -9,7 +9,7 @@
 namespace TLA_Media\GTM_Kit\Integration;
 
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * AbstractEcommerce

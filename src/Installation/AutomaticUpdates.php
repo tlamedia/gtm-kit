@@ -7,7 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Installation;
 
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 
 /**
  * Activation
@@ -92,6 +92,7 @@ final class AutomaticUpdates {
 	 * @return void
 	 */
 	public function update_gtmkit_option( bool $is_enabled ): void {
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		Options::init()->set_option( 'misc', 'auto_update', $is_enabled );
 	}
 
@@ -145,6 +146,7 @@ final class AutomaticUpdates {
 	 * @return void
 	 */
 	public function activation_sync(): void {
+		// @phpstan-ignore-next-line staticMethod.deprecated
 		$enabled = Options::init()->get( 'misc', 'auto_update' );
 		if ( ! $enabled ) {
 			return;

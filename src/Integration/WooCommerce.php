@@ -17,7 +17,7 @@ use Exception;
 use TLA_Media\GTM_Kit\Common\Conditionals\BricksConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Options;
+use TLA_Media\GTM_Kit\Options\Options;
 use WC_Coupon;
 use WC_Customer;
 use WC_Order;

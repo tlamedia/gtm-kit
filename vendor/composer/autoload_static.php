@@ -59,7 +59,17 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Integration\\ContactForm7' => __DIR__ . '/../..' . '/src/Integration/ContactForm7.php',
         'TLA_Media\\GTM_Kit\\Integration\\EasyDigitalDownloads' => __DIR__ . '/../..' . '/src/Integration/EasyDigitalDownloads.php',
         'TLA_Media\\GTM_Kit\\Integration\\WooCommerce' => __DIR__ . '/../..' . '/src/Integration/WooCommerce.php',
-        'TLA_Media\\GTM_Kit\\Options' => __DIR__ . '/../..' . '/src/Options.php',
+        'TLA_Media\\GTM_Kit\\Options\\OptionKeys' => __DIR__ . '/../..' . '/src/Options/OptionKeys.php',
+        'TLA_Media\\GTM_Kit\\Options\\OptionSchema' => __DIR__ . '/../..' . '/src/Options/OptionSchema.php',
+        'TLA_Media\\GTM_Kit\\Options\\OptionValidator' => __DIR__ . '/../..' . '/src/Options/OptionValidator.php',
+        'TLA_Media\\GTM_Kit\\Options\\Options' => __DIR__ . '/../..' . '/src/Options/Options.php',
+        'TLA_Media\\GTM_Kit\\Options\\OptionsFactory' => __DIR__ . '/../..' . '/src/Options/OptionsFactory.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\AutoUpdateProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/AutoUpdateProcessor.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\DomainProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/DomainProcessor.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\GTMIdProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/GTMIdProcessor.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorInterface' => __DIR__ . '/../..' . '/src/Options/Processor/OptionProcessorInterface.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorRegistry' => __DIR__ . '/../..' . '/src/Options/Processor/OptionProcessorRegistry.php',
+        'TLA_Media\\GTM_Kit\\Options\\ValidationResult' => __DIR__ . '/../..' . '/src/Options/ValidationResult.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
