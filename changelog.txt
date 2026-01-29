@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2026-01-30 - version 2.8.1
+* fix: Fixes correct detection of the premium plugin.
+
 2026-01-29 - version 2.8.0
 * Add: Improved internal handling of plugin settings to make GTM Kit more reliable and easier to maintain, while ensuring full backward compatibility with existing configurations.
 * Changed: Require WooCommerce 9.5.
