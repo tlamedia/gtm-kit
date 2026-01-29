@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.9
-Stable tag: 2.8.0
+Stable tag: 2.8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,15 +96,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-2.X.Y =
+= 2.8.1 =
 
-Release date: 2026-MM-DD
-
-#### Enhancements:
+Release date: 2026-01-30
 
 #### Bugfixes:
-
-#### Other:
+* Fixes correct detection of the premium plugin.
 
 = 2.8.0 =
 
