@@ -41,7 +41,9 @@ final class OptionKeys {
 	public const INTEGRATIONS_EDD_INTEGRATION                       = 'integrations.edd_integration';
 
 	// Premium Options.
-	public const PREMIUM_ADDON_INSTALLED = 'premium.addon_installed';
+	public const PREMIUM_ADDON_INSTALLED     = 'premium.addon_installed';
+	public const PREMIUM_PREMIUM_INSTALLED   = 'premium.premium_installed';
+	public const PREMIUM_WOO_ADDON_INSTALLED = 'premium.woo_addon_installed';
 
 	// Misc Options.
 	public const MISC_AUTO_UPDATE = 'misc.auto_update';
