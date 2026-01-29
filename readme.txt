@@ -96,6 +96,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+2.X.Y =
+
+Release date: 2026-MM-DD
+
+#### Enhancements:
+
+#### Bugfixes:
+
+#### Other:
+
 = 2.8.0 =
 
 Release date: 2026-01-29
