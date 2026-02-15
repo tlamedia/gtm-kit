@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2026-02-XX - version 2.8.2
+* Fix: Fix undefined array key warning for order-received query var in edge cases like certain payment gateway redirects or bot traffic.
+
 2026-01-30 - version 2.8.1
 * fix: Fixes correct detection of the premium plugin.
 

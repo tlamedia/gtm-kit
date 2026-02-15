@@ -96,6 +96,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.8.2 =
+
+Release date: 2026-02-XX
+
+#### Bugfixes:
+* Fix undefined array key warning for order-received query var in edge cases like certain payment gateway redirects or bot traffic.
+
 = 2.8.1 =
 
 Release date: 2026-01-30
