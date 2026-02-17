@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.9
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,7 +98,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.8.2 =
 
-Release date: 2026-02-XX
+Release date: 2026-02-17
 
 #### Bugfixes:
 * Fix undefined array key warning for order-received query var in edge cases like certain payment gateway redirects or bot traffic.
