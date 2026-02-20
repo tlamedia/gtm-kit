@@ -108,7 +108,7 @@ final class Analytics {
 		];
 
 		\wp_remote_post(
-			'https://api.mixpanel.com/track',
+			'https://api-eu.mixpanel.com/track',
 			[
 				'headers'     => [
 					'Content-Type' => 'application/json',
