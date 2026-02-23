@@ -4,23 +4,23 @@
  * @param {string} eventName
  * @param {Object} eventParams
  */
-export const pushEvent = (eventName, eventParams) => {
-	window[window.gtmkit_settings.datalayer_name].push({ ecommerce: null });
-	window[window.gtmkit_settings.datalayer_name].push({
+export const pushEvent = ( eventName, eventParams ) => {
+	window[ window.gtmkit_settings.datalayer_name ].push( { ecommerce: null } );
+	window[ window.gtmkit_settings.datalayer_name ].push( {
 		event: eventName,
 		...eventParams,
-	});
+	} );
 
-	if (window.gtmkit_settings.console_log === true)
+	if ( window.gtmkit_settings.console_log === true )
 		// eslint-disable-next-line no-console
-		console.log(`Pushing event ${eventName}`);
+		console.log( `Pushing event ${ eventName }` );
 };
 
 /**
  * Track shipping info
  */
 export const shippingInfo = () => {
-	if (window.gtmkit_data.wc.add_shipping_info.fired === true) return;
+	if ( window.gtmkit_data.wc.add_shipping_info.fired === true ) return;
 
 	const eventParams = {
 		ecommerce: {
@@ -31,7 +31,7 @@ export const shippingInfo = () => {
 		},
 	};
 
-	pushEvent('add_shipping_info', eventParams);
+	pushEvent( 'add_shipping_info', eventParams );
 
 	window.gtmkit_data.wc.add_shipping_info.fired = true;
 };
@@ -40,7 +40,7 @@ export const shippingInfo = () => {
  * Track payment info
  */
 export const paymentInfo = () => {
-	if (window.gtmkit_data.wc.add_payment_info.fired === true) return;
+	if ( window.gtmkit_data.wc.add_payment_info.fired === true ) return;
 
 	const eventParams = {
 		ecommerce: {
@@ -51,7 +51,7 @@ export const paymentInfo = () => {
 		},
 	};
 
-	pushEvent('add_payment_info', eventParams);
+	pushEvent( 'add_payment_info', eventParams );
 
 	window.gtmkit_data.wc.add_payment_info.fired = true;
 };
@@ -62,12 +62,25 @@ export const paymentInfo = () => {
  * @param {Object} product
  * @param {string} listName
  */
-export const getProductImpressionObject = (product, listName = '') => {
+export const getProductImpressionObject = ( product, listName = '' ) => {
 	const item = product.extensions.gtmkit.item;
 
-	if (listName) {
+	if ( listName ) {
 		item.item_list_name = listName;
 	}
 
 	return item;
+};
+
+/**
+ * Log an error to the console when console logging is enabled.
+ *
+ * @param {string} handler
+ * @param {Error}  error
+ */
+export const logError = ( handler, error ) => {
+	if ( window.gtmkit_settings?.console_log === true ) {
+		// eslint-disable-next-line no-console
+		console.error( `GTM Kit: Error in ${ handler } handler`, error );
+	}
 };
