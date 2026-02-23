@@ -3,7 +3,7 @@ Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Tested up to: 6.9
-Stable tag: 2.8.2
+Stable tag: 2.8.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,7 +98,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.8.3 =
 
-Release date: 2026-02-DD
+Release date: 2026-02-24
 
 #### Bugfixes:
 * Fix: Add error handling to WooCommerce blocks action handlers to prevent tracking errors from breaking checkout functionality or interfering with third-party plugins.

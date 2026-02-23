@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-2026-02-DD - version 2.8.3
+2026-02-24 - version 2.8.3
 * Fix: Add error handling to WooCommerce blocks action handlers to prevent tracking errors from breaking checkout functionality or interfering with third-party plugins.
 
 2026-02-17 - version 2.8.2
