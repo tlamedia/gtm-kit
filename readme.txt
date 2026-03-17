@@ -98,10 +98,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.8.3 =
 
-Release date: 2026-02-24
+Release date: 2026-03-18
 
 #### Bugfixes:
 * Fix: Add error handling to WooCommerce blocks action handlers to prevent tracking errors from breaking checkout functionality or interfering with third-party plugins.
+
+#### Other:
+* Tested up to WooCommerce 10.6.
 
 = 2.8.2 =
 
