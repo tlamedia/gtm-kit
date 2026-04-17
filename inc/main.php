@@ -213,6 +213,7 @@ if ( ! wp_installing() ) {
 			if ( class_exists( FeaturesUtil::class ) ) {
 				FeaturesUtil::declare_compatibility( 'custom_order_tables', GTMKIT_FILE );
 				FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', GTMKIT_FILE );
+				FeaturesUtil::declare_compatibility( 'product_instance_caching', GTMKIT_FILE );
 			}
 		}
 	);
