@@ -96,6 +96,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### Other:
+* Declared compatibility with WooCommerce Product Object Caching (`product_instance_caching`) introduced in WooCommerce 10.5. No functional change; resolves the "incompatible plugins" notice in WooCommerce → Settings → Advanced → Features.
+
 = 2.8.3 =
 
 Release date: 2026-03-18

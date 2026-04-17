@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Dev: Declared compatibility with WooCommerce Product Object Caching (`product_instance_caching`) introduced in WooCommerce 10.5. No functional change; resolves the "incompatible plugins" notice in WooCommerce → Settings → Advanced → Features.
+
 2026-03-18 - version 2.8.3
 * Fix: Add error handling to WooCommerce blocks action handlers to prevent tracking errors from breaking checkout functionality or interfering with third-party plugins.
 * Dev: Tested up to WooCommerce 10.6.
