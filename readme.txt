@@ -2,8 +2,8 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Tested up to: 6.9
-Stable tag: 2.8.3
+Tested up to: 7.0
+Stable tag: 2.8.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,10 +96,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.8.3 =
+
+Release date: 2026-04-23
 
 #### Other:
 * Declared compatibility with WooCommerce Product Object Caching (`product_instance_caching`) introduced in WooCommerce 10.5. No functional change; resolves the "incompatible plugins" notice in WooCommerce → Settings → Advanced → Features.
+* Tested up to WooCommerce 10.7.
+* Tested up to WordPress 7.0.
 
 = 2.8.3 =
 
