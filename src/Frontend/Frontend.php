@@ -135,9 +135,7 @@ final class Frontend {
 		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 		$script .= esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
 
-		$dependency = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) )
-			? [ 'gtmkit-container' ]
-			: [ 'gtmkit' ];
+		$dependency = self::will_register_container( $this->options ) ? [ 'gtmkit-container' ] : [ 'gtmkit' ];
 
 		wp_register_script( 'gtmkit-datalayer', '', $dependency, GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit-datalayer' );
@@ -196,7 +194,9 @@ final class Frontend {
 
 		$script = esc_attr( $this->datalayer_name ) . '.push({"event" : "load_delayed_js"});' . "\n";
 
-		wp_register_script( 'gtmkit-delay', '', [ 'gtmkit-container' ], GTMKIT_VERSION, [ 'in_footer' => true ] );
+		$dependency = self::will_register_container( $this->options ) ? [ 'gtmkit-container' ] : [ 'gtmkit' ];
+
+		wp_register_script( 'gtmkit-delay', '', $dependency, GTMKIT_VERSION, [ 'in_footer' => true ] );
 		wp_enqueue_script( 'gtmkit-delay' );
 		wp_add_inline_script( 'gtmkit-delay', $script, 'before' );
 	}
@@ -324,19 +324,51 @@ final class Frontend {
 	 * @return bool
 	 */
 	public function is_user_allowed(): bool {
+		return self::is_user_allowed_for( $this->options );
+	}
 
-		$is_user_allowed     = true;
-		$excluded_user_roles = $this->options->get( 'general', 'exclude_user_roles' );
+	/**
+	 * Whether the current user's role is allowed to receive GTM Kit scripts.
+	 *
+	 * @param Options $options An instance of Options.
+	 */
+	public static function is_user_allowed_for( Options $options ): bool {
+		$excluded_user_roles = $options->get( 'general', 'exclude_user_roles' );
 
-		if ( ! empty( $excluded_user_roles ) ) {
-			foreach ( wp_get_current_user()->roles as $role ) {
-				if ( in_array( $role, $excluded_user_roles, true ) ) {
-					$is_user_allowed = false;
-					break;
-				}
+		if ( empty( $excluded_user_roles ) ) {
+			return true;
+		}
+
+		foreach ( wp_get_current_user()->roles as $role ) {
+			if ( in_array( $role, $excluded_user_roles, true ) ) {
+				return false;
 			}
 		}
 
-		return $is_user_allowed;
+		return true;
+	}
+
+	/**
+	 * Whether the gtmkit-container script will be registered during this request.
+	 *
+	 * Mirrors the gates inside {@see Frontend::register()} and
+	 * {@see Frontend::enqueue_header_script()} so dependent scripts only list
+	 * 'gtmkit-container' when it will actually be registered.
+	 *
+	 * @param Options $options An instance of Options.
+	 */
+	public static function will_register_container( Options $options ): bool {
+		$container_active = $options->get( 'general', 'container_active' )
+			&& apply_filters( 'gtmkit_container_active', true );
+
+		if ( ! $container_active ) {
+			return false;
+		}
+
+		if ( empty( $options->get( 'general', 'gtm_id' ) ) ) {
+			return false;
+		}
+
+		return self::is_user_allowed_for( $options );
 	}
 }
