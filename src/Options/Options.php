@@ -205,20 +205,7 @@ final class Options {
 			$errors = array_filter( $validation_results, fn( $result ) => ! $result->is_valid() );
 
 			if ( ! empty( $errors ) ) {
-				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-					foreach ( $errors as $option_key => $result ) {
-					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Intentional debug logging for validation errors.
-						error_log(
-							sprintf(
-								'GTM Kit: Invalid option value for %s: %s',
-								$option_key,
-								$result->get_error_message()
-							)
-						);
-					}
-				}
-
-				// Trigger error hook (for admin notices).
+				// Trigger error hook (for admin notices and optional logging).
 				do_action( 'gtmkit_options_validation_failed', $errors );
 
 				// Don't save invalid options (fail-fast).
