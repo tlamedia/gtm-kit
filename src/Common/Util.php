@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Common;
 
+use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
 use TLA_Media\GTM_Kit\Options\Options;
 
@@ -361,9 +362,7 @@ final class Util {
 
 		$deps[] = 'gtmkit';
 
-		$container_active = ( $this->options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
-
-		if ( $container_active ) {
+		if ( Frontend::will_register_container( $this->options ) ) {
 			$deps[] = 'gtmkit-container';
 		}
 
