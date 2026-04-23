@@ -3,7 +3,7 @@
  * GTM Kit Plugin
  *
  * Plugin Name: GTM Kit
- * Version:     2.8.3
+ * Version:     2.8.4
  * Plugin URI:  https://gtmkit.com/
  * Description: Google Tag Manager implementation focusing on flexibility and pagespeed.
  * Author:      GTM Kit
@@ -15,7 +15,7 @@
  * Requires PHP: 7.4
  *
  * WC requires at least: 9.5
- * WC tested up to: 10.5
+ * WC tested up to: 10.7
  *
  * @package GTM Kit
  * @copyright Copyright (C) 2021-2026, GTM Kit ApS
@@ -27,7 +27,7 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit();
 }
 
-const GTMKIT_VERSION = '2.8.3';
+const GTMKIT_VERSION = '2.8.4';
 
 if ( ! defined( 'GTMKIT_FILE' ) ) {
 	define( 'GTMKIT_FILE', __FILE__ );
