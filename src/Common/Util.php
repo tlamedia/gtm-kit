@@ -226,10 +226,7 @@ final class Util {
 	 */
 	public function get_active_plugins(): array {
 
-		if ( ! function_exists( 'get_plugins' ) ) {
-			// @phpstan-ignore-next-line requireOnce.fileNotFound -- ABSPATH is defined by WordPress at runtime; path is not statically resolvable.
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
+		self::load_plugin_api();
 
 		$plugins        = [];
 		$active_plugins = array_intersect_key( \get_plugins(), array_flip( array_filter( array_keys( \get_plugins() ), 'is_plugin_active' ) ) );
@@ -508,5 +505,24 @@ final class Util {
 	 */
 	private function get_admin_url(): string {
 		return is_network_admin() ? network_admin_url() : admin_url();
+	}
+
+	/**
+	 * Ensure WordPress' admin-side plugin API (`is_plugin_active()`, `get_plugins()`, etc.)
+	 * is loaded.
+	 *
+	 * WordPress loads `wp-admin/includes/plugin.php` automatically on admin requests but not
+	 * on the frontend, REST, or AJAX. Any non-admin code path that calls `is_plugin_active()`
+	 * or `get_plugins()` must require the file first. Centralised here so the single
+	 * `requireOnce.fileNotFound` suppression lives in one place rather than being duplicated
+	 * at every call site.
+	 *
+	 * @return void
+	 */
+	public static function load_plugin_api(): void {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			// @phpstan-ignore-next-line requireOnce.fileNotFound -- ABSPATH is defined by WordPress at runtime; path is not statically resolvable.
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 	}
 }
