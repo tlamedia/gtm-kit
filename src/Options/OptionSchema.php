@@ -146,6 +146,7 @@ final class OptionSchema {
 
 		// Dynamic options based on active plugins.
 		if ( ! function_exists( 'is_plugin_active' ) ) {
+			// @phpstan-ignore-next-line requireOnce.fileNotFound -- ABSPATH is defined by WordPress at runtime; path is not statically resolvable.
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
