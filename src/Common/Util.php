@@ -227,6 +227,7 @@ final class Util {
 	public function get_active_plugins(): array {
 
 		if ( ! function_exists( 'get_plugins' ) ) {
+			// @phpstan-ignore-next-line requireOnce.fileNotFound -- ABSPATH is defined by WordPress at runtime; path is not statically resolvable.
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
