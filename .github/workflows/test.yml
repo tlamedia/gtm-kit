@@ -1,9 +1,36 @@
 name: Tests
 
+# Skip the matrix when a change cannot possibly affect test outcomes —
+# Markdown, changelog/readme text, translations, LICENSE, editor/dist
+# config, built assets, and the release zip. Anything else (PHP, JS,
+# composer/npm manifests, the workflow file itself, etc.) still runs
+# the full matrix.
 on:
   pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '**/*.pot'
+      - 'LICENSE'
+      - '.editorconfig'
+      - '.distignore'
+      - '.gitignore'
+      - 'languages/**'
+      - 'assets/**'
+      - 'bundled/**'
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '**/*.pot'
+      - 'LICENSE'
+      - '.editorconfig'
+      - '.distignore'
+      - '.gitignore'
+      - 'languages/**'
+      - 'assets/**'
+      - 'bundled/**'
 
 jobs:
   test:
