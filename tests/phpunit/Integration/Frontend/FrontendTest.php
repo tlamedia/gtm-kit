@@ -24,9 +24,14 @@ use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use WP_UnitTestCase;
 
+/**
+ * Integration tests for {@see Frontend::get_gtm_script()}.
+ */
 final class FrontendTest extends WP_UnitTestCase {
 
 	/**
+	 * The rendered snippet carries the configured container ID and dataLayer name.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::get_gtm_script
 	 */
 	public function test_get_gtm_script_renders_container_id_and_datalayer_name(): void {

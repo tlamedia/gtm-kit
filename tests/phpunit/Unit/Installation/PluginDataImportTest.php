@@ -16,9 +16,14 @@ use Brain\Monkey\Functions;
 use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Geography unit test for src/Installation/ via PluginDataImport::get().
+ */
 final class PluginDataImportTest extends TestCase {
 
 	/**
+	 * Unknown plugin slugs round-trip to an empty array.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
 	 */
 	public function test_get_returns_empty_array_for_unknown_plugin_slug(): void {

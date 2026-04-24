@@ -22,6 +22,9 @@ use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Unit tests for {@see Util::shorten_version()}.
+ */
 final class UtilTest extends TestCase {
 
 	/**
@@ -32,6 +35,8 @@ final class UtilTest extends TestCase {
 	private Util $util;
 
 	/**
+	 * Wire up real Options + RestAPIServer with stubbed WP functions.
+	 *
 	 * @inheritDoc
 	 */
 	protected function set_up(): void {
@@ -57,6 +62,8 @@ final class UtilTest extends TestCase {
 	}
 
 	/**
+	 * Collapses a three-part semver to major.minor.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Common\Util::shorten_version
 	 */
 	public function test_shorten_version_keeps_major_minor(): void {
@@ -64,6 +71,8 @@ final class UtilTest extends TestCase {
 	}
 
 	/**
+	 * Strips pre-release suffixes from a semver string.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Common\Util::shorten_version
 	 */
 	public function test_shorten_version_handles_prerelease_suffix(): void {
@@ -71,6 +80,8 @@ final class UtilTest extends TestCase {
 	}
 
 	/**
+	 * Leaves a two-part major.minor unchanged.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Common\Util::shorten_version
 	 */
 	public function test_shorten_version_leaves_two_part_versions_unchanged(): void {
