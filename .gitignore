@@ -2,3 +2,5 @@
 
 *.map
 /bundled/
+/tests/_reports/
+/phpunit.xml
