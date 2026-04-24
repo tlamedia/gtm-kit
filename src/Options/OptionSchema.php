@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Options;
 
+use TLA_Media\GTM_Kit\Common\Util;
+
 /**
  * Option Schema - Defines validation rules, types, and defaults
  *
@@ -145,10 +147,7 @@ final class OptionSchema {
 		];
 
 		// Dynamic options based on active plugins.
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			// @phpstan-ignore-next-line requireOnce.fileNotFound -- ABSPATH is defined by WordPress at runtime; path is not statically resolvable.
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
+		Util::load_plugin_api();
 
 		if ( \is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			$schema['woocommerce_integration'] = [
