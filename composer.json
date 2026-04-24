@@ -71,6 +71,6 @@
     ],
     "test:unit": "vendor/bin/phpunit --testsuite unit",
     "test:integration": "vendor/bin/phpunit --testsuite integration",
-    "test:coverage": "vendor/bin/phpunit --coverage-html tests/_reports/coverage --coverage-clover tests/_reports/clover.xml"
+    "test:coverage": "vendor/bin/phpunit --testsuite integration --coverage-html tests/_reports/coverage --coverage-clover tests/_reports/clover.xml"
   }
 }
