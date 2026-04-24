@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Dev: Introduced an internal automated test suite (PHPUnit + Vitest) and continuous integration across PHP 7.4–8.4 × WordPress 6.9. No functional change — every future release is now verified by unit and integration tests before shipping, raising the bar on quality and reliability.
+
 2026-04-23 - version 2.8.4
 * Dev: Declared compatibility with WooCommerce Product Object Caching (`product_instance_caching`) introduced in WooCommerce 10.5. No functional change; resolves the "incompatible plugins" notice in WooCommerce → Settings → Advanced → Features.
 * Dev: Tested up to WooCommerce 10.7.

@@ -96,7 +96,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.8.3 =
+= Unreleased =
+
+#### Other:
+* Introduced an internal automated test suite (PHPUnit + Vitest) and continuous integration across PHP 7.4–8.4 × WordPress 6.9. No functional change — every future release is now verified by unit and integration tests before shipping, raising the bar on quality and reliability.
+
+= 2.8.4 =
 
 Release date: 2026-04-23
 
