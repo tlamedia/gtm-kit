@@ -71,19 +71,23 @@ jobs:
         # the mysql service container already provisioned `gtmkit_tests`.
         run: bash bin/install-wp-tests.sh gtmkit_tests root root 127.0.0.1:3306 "$WP_VERSION" true
 
-      - name: Unit tests (no coverage)
-        if: matrix.php != '8.3'
+      - name: Unit tests
         run: composer test:unit
 
       - name: Integration tests (no coverage)
         if: matrix.php != '8.3'
         run: composer test:integration
 
-      - name: PHP tests with coverage
+      - name: Integration tests with coverage
+        # Coverage is scoped to the integration suite because the two suites
+        # use different bootstraps (BrainMonkey vs wp-phpunit) and cannot
+        # run under a single phpunit invocation. Integration exercises the
+        # widest set of src/ paths, so it's the most valuable cell to measure.
         if: matrix.php == '8.3'
         run: |
           set -o pipefail
-          vendor/bin/phpunit --coverage-text --coverage-clover tests/_reports/clover.xml | tee tests/_reports/coverage.txt
+          mkdir -p tests/_reports
+          vendor/bin/phpunit --testsuite integration --coverage-text --coverage-clover tests/_reports/clover.xml | tee tests/_reports/coverage.txt
 
       - name: JS tests
         run: npm test

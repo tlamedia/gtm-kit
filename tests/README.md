@@ -92,6 +92,8 @@ open tests/_reports/coverage/index.html
 
 Report directory `tests/_reports/` is gitignored. Clover XML at `tests/_reports/clover.xml` is the format uploaded as a CI artifact.
 
+Coverage is scoped to the **integration** suite. The unit suite uses the BrainMonkey bootstrap (no WP boot), and the integration suite uses the wp-phpunit bootstrap (full WP boot) — the two cannot share a single PHPUnit invocation. Integration covers the widest set of `src/` paths, so it is the cell we measure. Line coverage for pure utilities exercised only by the unit suite will therefore be undercounted; this is an accepted tradeoff for the simpler harness.
+
 Local runs without a coverage driver print `Warning: No code coverage driver available` and skip coverage generation — the suite itself still passes. Install Xdebug in your PHP CLI to enable local HTML reports.
 
 ### Updating the coverage baseline
