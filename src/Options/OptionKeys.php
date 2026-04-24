@@ -28,6 +28,20 @@ final class OptionKeys {
 	public const GENERAL_DATALAYER_PAGE_TYPE     = 'general.datalayer_page_type';
 	public const GENERAL_EXCLUDE_USER_ROLES      = 'general.exclude_user_roles';
 
+	// Google Consent Mode v2 options.
+	public const GENERAL_GCM_DEFAULT_SETTINGS        = 'general.gcm_default_settings';
+	public const GENERAL_GCM_AD_PERSONALIZATION      = 'general.gcm_ad_personalization';
+	public const GENERAL_GCM_AD_STORAGE              = 'general.gcm_ad_storage';
+	public const GENERAL_GCM_AD_USER_DATA            = 'general.gcm_ad_user_data';
+	public const GENERAL_GCM_ANALYTICS_STORAGE       = 'general.gcm_analytics_storage';
+	public const GENERAL_GCM_PERSONALIZATION_STORAGE = 'general.gcm_personalization_storage';
+	public const GENERAL_GCM_FUNCTIONALITY_STORAGE   = 'general.gcm_functionality_storage';
+	public const GENERAL_GCM_SECURITY_STORAGE        = 'general.gcm_security_storage';
+	public const GENERAL_GCM_ADS_DATA_REDACTION      = 'general.gcm_ads_data_redaction';
+	public const GENERAL_GCM_URL_PASSTHROUGH         = 'general.gcm_url_passthrough';
+	public const GENERAL_GCM_WAIT_FOR_UPDATE         = 'general.gcm_wait_for_update';
+	public const GENERAL_GCM_REGION                  = 'general.gcm_region';
+
 	// Integration Options.
 	public const INTEGRATIONS_WOOCOMMERCE_INTEGRATION               = 'integrations.woocommerce_integration';
 	public const INTEGRATIONS_WOOCOMMERCE_SHIPPING_INFO             = 'integrations.woocommerce_shipping_info';

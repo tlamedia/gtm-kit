@@ -98,7 +98,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = Unreleased =
 
+#### New:
+* Scope Google Consent Mode defaults to specific countries or regions (e.g. DK, DE, US-CA) instead of applying them everywhere. Useful for sites with visitors both inside and outside the EU.
+* Consent updates from other plugins or partner scripts can now talk to GTM Kit through a simple JavaScript API, making CMP integrations easier.
+
 #### Other:
+* "Wait For Update" is now a proper number field with a sensible 500 ms default on new installs. Your existing value is kept.
+* Clearer warning on the Consent Mode page — if Cookiebot, Complianz, CookieYes, or Cookie Information already handles your consent, leave this setting off.
 * Introduced an internal automated test suite (PHPUnit + Vitest) and continuous integration across PHP 7.4–8.4 × WordPress 6.9. No functional change — every future release is now verified by unit and integration tests before shipping, raising the bar on quality and reliability.
 
 = 2.8.4 =

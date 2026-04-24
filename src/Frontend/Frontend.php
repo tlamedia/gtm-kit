@@ -92,31 +92,117 @@ final class Frontend {
 			wp_cache_set( 'gtmkit_script_settings', $settings, 'gtmkit' );
 		}
 
+		/**
+		 * Per-category Consent Mode v2 default state.
+		 *
+		 * Filters are applied even when the master toggle is off, so an
+		 * integrator can force-enable via {@see 'gtmkit_consent_default_settings_enabled'}
+		 * without editing the admin UI.
+		 *
+		 * @param array<string, 'granted'|'denied'> $consent_defaults The seven-category state.
+		 */
+		$consent_defaults = apply_filters(
+			'gtmkit_consent_default_state',
+			[
+				'ad_personalization'      => $this->options->get( 'general', 'gcm_ad_personalization' ) ? 'granted' : 'denied',
+				'ad_storage'              => $this->options->get( 'general', 'gcm_ad_storage' ) ? 'granted' : 'denied',
+				'ad_user_data'            => $this->options->get( 'general', 'gcm_ad_user_data' ) ? 'granted' : 'denied',
+				'analytics_storage'       => $this->options->get( 'general', 'gcm_analytics_storage' ) ? 'granted' : 'denied',
+				'personalization_storage' => $this->options->get( 'general', 'gcm_personalization_storage' ) ? 'granted' : 'denied',
+				'functionality_storage'   => $this->options->get( 'general', 'gcm_functionality_storage' ) ? 'granted' : 'denied',
+				'security_storage'        => $this->options->get( 'general', 'gcm_security_storage' ) ? 'granted' : 'denied',
+			]
+		);
+
+		/**
+		 * Region codes the consent defaults apply to.
+		 *
+		 * @param array<int, string> $consent_region Zero or more ISO region codes (e.g. `DK`, `DE-BY`, `US-CA`).
+		 */
+		$consent_region = apply_filters(
+			'gtmkit_consent_region',
+			$this->options->get( 'general', 'gcm_region' )
+		);
+		if ( ! is_array( $consent_region ) ) {
+			$consent_region = [];
+		}
+
+		/**
+		 * Whether GTM Kit should emit the consent default block at all.
+		 *
+		 * When false, GTM Kit stays silent so a CMP or GTM-based consent
+		 * implementation can own the flow without double-firing.
+		 *
+		 * @param bool $consent_enabled Master toggle state after filter.
+		 */
+		$consent_enabled = (bool) apply_filters(
+			'gtmkit_consent_default_settings_enabled',
+			(bool) $this->options->get( 'general', 'gcm_default_settings' )
+		);
+
+		$wait_for_update    = (int) $this->options->get( 'general', 'gcm_wait_for_update' );
+		$ads_data_redaction = (bool) $this->options->get( 'general', 'gcm_ads_data_redaction' );
+		$url_passthrough    = (bool) $this->options->get( 'general', 'gcm_url_passthrough' );
+
+		// Build the inner body of gtag('consent', 'default', { ... }) so the
+		// conditional wait_for_update and region fields don't leak template
+		// whitespace into the rendered script.
+		$consent_lines = [];
+		foreach (
+			[
+				'ad_personalization',
+				'ad_storage',
+				'ad_user_data',
+				'analytics_storage',
+				'personalization_storage',
+				'functionality_storage',
+				'security_storage',
+			] as $category
+		) {
+			$consent_lines[] = sprintf(
+				"'%s': '%s'",
+				$category,
+				esc_js( (string) ( $consent_defaults[ $category ] ?? 'denied' ) )
+			);
+		}
+		if ( $wait_for_update > 0 ) {
+			$consent_lines[] = "'wait_for_update': " . $wait_for_update;
+		}
+		if ( ! empty( $consent_region ) ) {
+			$consent_lines[] = "'region': " . (string) wp_json_encode( array_values( $consent_region ) );
+		}
+		$consent_body = implode( ",\n\t\t\t\t", $consent_lines );
+
 		ob_start();
 		?>
 		window.gtmkit_settings = <?php echo wp_json_encode( $settings, JSON_FORCE_OBJECT ); ?>;
 		window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
-		<?php if ( $this->options->get( 'general', 'gcm_default_settings' ) ) : ?>
+		<?php if ( $consent_enabled ) : ?>
 		if (typeof gtag === "undefined") {
 			function gtag(){<?php echo esc_attr( $this->datalayer_name ); ?>.push(arguments);}
 			gtag('consent', 'default', {
-				'ad_personalization': '<?php echo ( $this->options->get( 'general', 'gcm_ad_personalization' ) ) ? 'granted' : 'denied'; ?>',
-				'ad_storage': '<?php echo ( $this->options->get( 'general', 'gcm_ad_storage' ) ) ? 'granted' : 'denied'; ?>',
-				'ad_user_data': '<?php echo ( $this->options->get( 'general', 'gcm_ad_user_data' ) ) ? 'granted' : 'denied'; ?>',
-				'analytics_storage': '<?php echo ( $this->options->get( 'general', 'gcm_analytics_storage' ) ) ? 'granted' : 'denied'; ?>',
-				'personalization_storage': '<?php echo ( $this->options->get( 'general', 'gcm_personalization_storage' ) ) ? 'granted' : 'denied'; ?>',
-				'functionality_storage': '<?php echo ( $this->options->get( 'general', 'gcm_functionality_storage' ) ) ? 'granted' : 'denied'; ?>',
-				'security_storage': '<?php echo ( $this->options->get( 'general', 'gcm_security_storage' ) ) ? 'granted' : 'denied'; ?>',
-				<?php if ( $this->options->get( 'general', 'gcm_wait_for_update' ) ) : ?>
-				'wait_for_update':  <?php echo esc_html( (string) ( (int) $this->options->get( 'general', 'gcm_wait_for_update' ) ) ); ?>
-				<?php endif; ?>
+				<?php
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $consent_body is composed entirely of hardcoded category keys, esc_js()-escaped 'granted'/'denied' literals, an integer cast, and JSON of ISO region codes already sanitized by OptionSchema::sanitize_region_codes(). Re-escaping would corrupt the JSON and the double quotes it contains.
+				echo $consent_body;
+				?>
+
 			});
-			<?php echo ( $this->options->get( 'general', 'gcm_ads_data_redaction' ) ) ? 'gtag("set", "ads_data_redaction", true);' : ''; ?>
-			<?php echo ( $this->options->get( 'general', 'gcm_url_passthrough' ) ) ? 'gtag("set", "url_passthrough", true);' : ''; ?>
+			<?php echo $ads_data_redaction ? 'gtag("set", "ads_data_redaction", true);' : ''; ?>
+			<?php echo $url_passthrough ? 'gtag("set", "url_passthrough", true);' : ''; ?>
 		} else if ( window.gtmkit_settings.console_log === 'on' ) {
 			console.warn('GTM Kit: gtag is already defined')
-		}<?php endif; ?>
+		}
+		window.gtmkit = window.gtmkit || {};
+		window.gtmkit.consent = {
+			update: function (state) {
+				if (typeof gtag !== 'undefined') {
+					gtag('consent', 'update', state);
+				}
+				window.dispatchEvent(new CustomEvent('gtmkit:consent:updated', { detail: state }));
+			}
+		};
+		<?php endif; ?>
 		<?php
 		$script = ob_get_clean();
 

@@ -49,60 +49,113 @@ final class OptionSchema {
 	 */
 	private static function get_general_schema(): array {
 		return [
-			'gtm_id'                  => [
+			'gtm_id'                      => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_CONTAINER_ID',
 				'sanitize' => 'sanitize_text_field',
 				'validate' => [ self::class, 'validate_gtm_id' ],
 			],
-			'script_implementation'   => [
+			'script_implementation'       => [
 				'default'  => 0,
 				'type'     => 'integer',
 				'validate' => [ self::class, 'validate_in_range', 0, 2 ],
 			],
-			'noscript_implementation' => [
+			'noscript_implementation'     => [
 				'default'  => 0,
 				'type'     => 'integer',
 				'validate' => [ self::class, 'validate_in_range', 0, 2 ],
 			],
-			'container_active'        => [
+			'container_active'            => [
 				'default'  => true,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
 			],
-			'sgtm_domain'             => [
+			'sgtm_domain'                 => [
 				'default'  => '',
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_domain' ],
 			],
-			'console_log'             => [
+			'console_log'                 => [
 				'default'  => false,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONSOLE_LOG',
 			],
-			'debug_log'               => [
+			'debug_log'                   => [
 				'default'  => false,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_DEBUG_LOG',
 			],
-			'gtm_auth'                => [
+			'gtm_auth'                    => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_AUTH',
 			],
-			'gtm_preview'             => [
+			'gtm_preview'                 => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_PREVIEW',
 			],
-			'datalayer_page_type'     => [
+			'datalayer_page_type'         => [
 				'default' => true,
 				'type'    => 'boolean',
 			],
-			'exclude_user_roles'      => [
+			'exclude_user_roles'          => [
 				'default' => [],
 				'type'    => 'array',
+			],
+
+			// Google Consent Mode v2 defaults.
+			'gcm_default_settings'        => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_ad_personalization'      => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_ad_storage'              => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_ad_user_data'            => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_analytics_storage'       => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_personalization_storage' => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_functionality_storage'   => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_security_storage'        => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_ads_data_redaction'      => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_url_passthrough'         => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'gcm_wait_for_update'         => [
+				'default'  => 500,
+				'type'     => 'integer',
+				'validate' => [ self::class, 'validate_in_range', 0, 30000 ],
+			],
+			'gcm_region'                  => [
+				'default'  => [],
+				'type'     => 'array',
+				'sanitize' => [ self::class, 'sanitize_region_codes' ],
+				'validate' => [ self::class, 'validate_region_codes' ],
 			],
 		];
 	}
@@ -243,5 +296,59 @@ final class OptionSchema {
 	 */
 	public static function validate_in_range( $value, int $min, int $max ): bool {
 		return is_numeric( $value ) && $value >= $min && $value <= $max;
+	}
+
+	/**
+	 * Regular expression for Consent Mode v2 region codes.
+	 *
+	 * ISO 3166-1 alpha-2 with optional ISO 3166-2 subdivision, per Google's
+	 * spec. Examples: `DK`, `DE-BY`, `US-CA`.
+	 */
+	public const REGION_CODE_PATTERN = '/^[A-Z]{2}(-[A-Z0-9]{1,3})?$/';
+
+	/**
+	 * Sanitize an array of region codes.
+	 *
+	 * Trims, uppercases, and drops any entry that is not a valid
+	 * ISO 3166-1 alpha-2 code with an optional ISO 3166-2 subdivision.
+	 *
+	 * @param mixed $value Raw value from the request.
+	 * @return array<int, string> Sanitized, de-duplicated, zero-indexed list.
+	 */
+	public static function sanitize_region_codes( $value ): array {
+		if ( ! is_array( $value ) ) {
+			return [];
+		}
+
+		$sanitized = [];
+		foreach ( $value as $code ) {
+			if ( ! is_string( $code ) ) {
+				continue;
+			}
+			$code = strtoupper( trim( $code ) );
+			if ( $code === '' ) {
+				continue;
+			}
+			if ( preg_match( self::REGION_CODE_PATTERN, $code ) !== 1 ) {
+				continue;
+			}
+			$sanitized[] = $code;
+		}
+
+		return array_values( array_unique( $sanitized ) );
+	}
+
+	/**
+	 * Validate an array of region codes.
+	 *
+	 * Accepts any array; invalid entries are dropped by
+	 * {@see self::sanitize_region_codes()}. Rejects non-array values so the
+	 * save pipeline fails fast rather than silently storing garbage.
+	 *
+	 * @param mixed $value Value to validate.
+	 * @return bool
+	 */
+	public static function validate_region_codes( $value ): bool {
+		return is_array( $value );
 	}
 }

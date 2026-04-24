@@ -38,6 +38,7 @@ final class OptionProcessorRegistry {
 	private function register_defaults(): void {
 		$this->register( OptionKeys::GENERAL_GTM_ID, new GTMIdProcessor() );
 		$this->register( OptionKeys::GENERAL_SGTM_DOMAIN, new DomainProcessor() );
+		$this->register( OptionKeys::GENERAL_GCM_REGION, new RegionCodesProcessor() );
 		$this->register( OptionKeys::MISC_AUTO_UPDATE, new AutoUpdateProcessor() );
 	}
 
