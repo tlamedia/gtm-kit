@@ -19,9 +19,14 @@ use TLA_Media\GTM_Kit\Integration\AbstractIntegration;
 use TLA_Media\GTM_Kit\Options\Options;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Geography unit test for src/Integration/ via AbstractIntegration DI.
+ */
 final class AbstractIntegrationTest extends TestCase {
 
 	/**
+	 * Injected Options + Util end up on the protected properties.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Integration\AbstractIntegration::__construct
 	 */
 	public function test_constructor_assigns_injected_dependencies(): void {
@@ -43,18 +48,42 @@ final class AbstractIntegrationTest extends TestCase {
 		$util    = new Util( $options, new RestAPIServer() );
 
 		$integration = new class( $options, $util ) extends AbstractIntegration {
+			// phpcs:disable Squiz.Commenting.FunctionComment.InvalidNoReturn -- stub for an abstract contract we intentionally do not exercise.
+			/**
+			 * Required by AbstractIntegration; not exercised here.
+			 *
+			 * @return self
+			 * @throws \RuntimeException Always — this starter test does not cover instance().
+			 */
 			public static function instance(): self {
 				throw new \RuntimeException( 'instance() not exercised in this starter test.' );
 			}
+			// phpcs:enable Squiz.Commenting.FunctionComment.InvalidNoReturn
 
+			/**
+			 * Required by AbstractIntegration; no-op for this starter test.
+			 *
+			 * @param Options $options An instance of Options.
+			 * @param Util    $util    An instance of Util.
+			 */
 			public static function register( Options $options, Util $util ): void {
 				// No-op: registration is a downstream concern.
 			}
 
+			/**
+			 * Expose the injected Options for assertion.
+			 *
+			 * @return Options
+			 */
 			public function get_injected_options(): Options {
 				return $this->options;
 			}
 
+			/**
+			 * Expose the injected Util for assertion.
+			 *
+			 * @return Util
+			 */
 			public function get_injected_util(): Util {
 				return $this->util;
 			}

@@ -18,10 +18,23 @@ use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Unit tests for {@see Util::anonymize_options()}.
+ */
 final class UtilAnonymizeTest extends TestCase {
 
+	/**
+	 * System under test.
+	 *
+	 * @var Util
+	 */
 	private Util $util;
 
+	/**
+	 * Wire up real Options + RestAPIServer with stubbed WP functions.
+	 *
+	 * @inheritDoc
+	 */
 	protected function set_up(): void {
 		parent::set_up();
 
@@ -43,6 +56,8 @@ final class UtilAnonymizeTest extends TestCase {
 	}
 
 	/**
+	 * Drops gtm_id and masks identifying string values.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Common\Util::anonymize_options
 	 */
 	public function test_anonymize_options_strips_gtm_id_and_replaces_identifying_values(): void {

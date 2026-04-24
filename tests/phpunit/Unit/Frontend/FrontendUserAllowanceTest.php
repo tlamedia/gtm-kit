@@ -18,9 +18,14 @@ use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Options\Options;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Geography unit test for src/Frontend/ via the is_user_allowed_for() short-circuit.
+ */
 final class FrontendUserAllowanceTest extends TestCase {
 
 	/**
+	 * With no excluded roles configured, the guard returns true without calling WP.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::is_user_allowed_for
 	 */
 	public function test_is_user_allowed_for_returns_true_when_no_roles_are_excluded(): void {

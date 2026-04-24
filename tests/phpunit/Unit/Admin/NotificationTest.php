@@ -16,9 +16,14 @@ use Brain\Monkey\Functions;
 use TLA_Media\GTM_Kit\Admin\Notification;
 use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
+/**
+ * Geography unit test for src/Admin/ via {@see Notification::render()}.
+ */
 final class NotificationTest extends TestCase {
 
 	/**
+	 * Notification::render() returns the id/header/message triple.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Admin\Notification::render
 	 */
 	public function test_render_exposes_id_header_and_message(): void {
