@@ -4,6 +4,7 @@
 /bin
 /bundled
 /node_modules
+/tests
 .babelrc
 .distignore
 .editorconfig
@@ -13,7 +14,11 @@ composer.lock
 package.json
 package-lock.json
 phpcs.xml.dist
+phpcs-report.xml
 phpstan.neon.dist
+phpunit.xml
+phpunit.xml.dist
 postcss.config.js
 README.md
 tailwind.config.js
+vitest.config.js

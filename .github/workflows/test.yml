@@ -1,0 +1,108 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php }} × WP ${{ matrix.wp }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.1', '8.2', '8.3', '8.4' ]
+        wp: [ '6.9' ]
+
+    env:
+      # Matrix values copied into env vars so shell `run:` blocks consume them
+      # via "$VAR" rather than interpolating `${{ matrix.* }}` directly — the
+      # safer pattern from the GitHub Actions injection guide.
+      PHP_VERSION: ${{ matrix.php }}
+      WP_VERSION: ${{ matrix.wp }}
+      WP_TESTS_DIR: /tmp/wordpress-tests-lib-${{ matrix.wp }}
+      WP_CORE_DIR: /tmp/wordpress-${{ matrix.wp }}
+      TMPDIR: /tmp
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: gtmkit_tests
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u root -proot --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: pcov
+          tools: composer:v2
+          extensions: mysqli, mbstring, json
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install subversion (for bin/install-wp-tests.sh)
+        run: sudo apt-get update && sudo apt-get install -y subversion
+
+      - name: Composer install
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: npm ci
+        run: npm ci --no-audit --no-fund
+
+      - name: Install WP test suite
+        # Pass `true` as the 6th arg so install-wp-tests.sh skips DB creation —
+        # the mysql service container already provisioned `gtmkit_tests`.
+        run: bash bin/install-wp-tests.sh gtmkit_tests root root 127.0.0.1:3306 "$WP_VERSION" true
+
+      - name: Unit tests (no coverage)
+        if: matrix.php != '8.3'
+        run: composer test:unit
+
+      - name: Integration tests (no coverage)
+        if: matrix.php != '8.3'
+        run: composer test:integration
+
+      - name: PHP tests with coverage
+        if: matrix.php == '8.3'
+        run: |
+          set -o pipefail
+          vendor/bin/phpunit --coverage-text --coverage-clover tests/_reports/clover.xml | tee tests/_reports/coverage.txt
+
+      - name: JS tests
+        run: npm test
+
+      - name: Upload Clover coverage artifact
+        if: matrix.php == '8.3' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-clover
+          path: tests/_reports/clover.xml
+          retention-days: 30
+
+      - name: Post coverage summary
+        if: matrix.php == '8.3' && always()
+        run: |
+          {
+            echo "### Coverage — PHP $PHP_VERSION × WP $WP_VERSION"
+            echo
+            echo '```'
+            tail -100 tests/_reports/coverage.txt || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

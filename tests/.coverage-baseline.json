@@ -1,0 +1,18 @@
+{
+  "_note": "Baseline pending first green CI run. See tests/README.md § Updating the coverage baseline. Populate line_coverage_pct from tests/_reports/clover.xml (PHP) and tests/_reports/js-coverage/clover.xml (JS). This file is a soft comparison point for future PRs, not an enforced gate.",
+  "recorded_at": null,
+  "git_sha": null,
+  "ci_run_url": null,
+  "php": {
+    "line_coverage_pct": null,
+    "lines_covered": null,
+    "lines_total": null,
+    "clover_artifact": "tests/_reports/clover.xml"
+  },
+  "js": {
+    "line_coverage_pct": null,
+    "lines_covered": null,
+    "lines_total": null,
+    "clover_artifact": "tests/_reports/js-coverage/clover.xml"
+  }
+}
