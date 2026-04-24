@@ -43,4 +43,34 @@ final class OptionKeysTest extends TestCase {
 		$this->assertTrue( OptionKeys::exists( OptionKeys::GENERAL_GTM_ID ) );
 		$this->assertFalse( OptionKeys::exists( 'nonexistent.key' ) );
 	}
+
+	/**
+	 * All 12 Consent Mode v2 option keys are registered under the
+	 * General group and round-trip through {@see OptionKeys::parse()}.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Options\OptionKeys::exists
+	 * @covers \TLA_Media\GTM_Kit\Options\OptionKeys::parse
+	 */
+	public function test_consent_mode_keys_are_registered(): void {
+		$gcm_keys = [
+			OptionKeys::GENERAL_GCM_DEFAULT_SETTINGS,
+			OptionKeys::GENERAL_GCM_AD_PERSONALIZATION,
+			OptionKeys::GENERAL_GCM_AD_STORAGE,
+			OptionKeys::GENERAL_GCM_AD_USER_DATA,
+			OptionKeys::GENERAL_GCM_ANALYTICS_STORAGE,
+			OptionKeys::GENERAL_GCM_PERSONALIZATION_STORAGE,
+			OptionKeys::GENERAL_GCM_FUNCTIONALITY_STORAGE,
+			OptionKeys::GENERAL_GCM_SECURITY_STORAGE,
+			OptionKeys::GENERAL_GCM_ADS_DATA_REDACTION,
+			OptionKeys::GENERAL_GCM_URL_PASSTHROUGH,
+			OptionKeys::GENERAL_GCM_WAIT_FOR_UPDATE,
+			OptionKeys::GENERAL_GCM_REGION,
+		];
+
+		foreach ( $gcm_keys as $key ) {
+			$this->assertTrue( OptionKeys::exists( $key ), sprintf( '%s must be registered.', $key ) );
+			$parts = OptionKeys::parse( $key );
+			$this->assertSame( 'general', $parts['group'], sprintf( '%s must live under the general group.', $key ) );
+		}
+	}
 }
