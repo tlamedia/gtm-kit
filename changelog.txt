@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-Unreleased
+2026-04-29 - version 2.9.0
 * Add: Scope Google Consent Mode defaults to specific countries or regions (e.g. DK, DE, US-CA) instead of applying them everywhere. Useful for sites with visitors both inside and outside the EU.
 * Add: Consent updates from other plugins or partner scripts can now talk to GTM Kit through a simple JavaScript API, making CMP integrations easier.
 * Changed: "Wait For Update" is now a proper number field with a sensible 500 ms default on new installs. Your existing value is kept.
