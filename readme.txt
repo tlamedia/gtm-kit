@@ -100,7 +100,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 Release date: 2026-04-29
 
-#### New:
+Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-9/).
+
+#### Enhancements:
 * Scope Google Consent Mode defaults to specific countries or regions (e.g. DK, DE, US-CA) instead of applying them everywhere. Useful for sites with visitors both inside and outside the EU.
 * Consent updates from other plugins or partner scripts can now talk to GTM Kit through a simple JavaScript API, making CMP integrations easier.
 
@@ -155,37 +157,6 @@ Release date: 2026-01-29
 #### Other:
 * Tested up to WooCommerce 10.5.
 * Require WooCommerce 9.5.
-
-= 2.7.0 =
-
-Release date: 2026-01-06
-
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-7/).
-
-#### Enhancements:
-* We have added a new template assistant to help you create your own custom templates for Google Tag Manager.
-* Add option to define a custom page that should be detected as the order-received page.
-* The debug info now includes a check to determine if WooCommerce purchase events have been recorded in the logs. This information is included in the debug data to assist with troubleshooting and support.
-
-#### Bugfixes:
-* Fix edge case where quantity in the Datalayer was 0. Set a default quantity of 1 when the quantity element is missing.
-
-#### Other:
-* Tested up to WooCommerce 10.4.
-* Tested up to WordPress 6.9.
-* Require WooCommerce 9.4.
-* Require WordPress 6.7.
-
-= 2.6.0 =
-
-Release date: 2025-09-24
-
-#### Enhancements:
-* Add tracking on the product collection block.
-
-#### Other:
-* Tested up to WooCommerce 10.4.
-* Require WooCommerce 9.2.
 
 
 = Earlier versions =
