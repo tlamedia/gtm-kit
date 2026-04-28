@@ -102,6 +102,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Scope Google Consent Mode defaults to specific countries or regions (e.g. DK, DE, US-CA) instead of applying them everywhere. Useful for sites with visitors both inside and outside the EU.
 * Consent updates from other plugins or partner scripts can now talk to GTM Kit through a simple JavaScript API, making CMP integrations easier.
 
+#### Bugfixes:
+* Webhooks for Server-side Tracking on the WooCommerce integrations page no longer stay locked after entering an sGTM Container Domain on premium installs.
+
 #### Other:
 * "Wait For Update" is now a proper number field with a sensible 500 ms default on new installs. Your existing value is kept.
 * Clearer warning on the Consent Mode page — if Cookiebot, Complianz, CookieYes, or Cookie Information already handles your consent, leave this setting off.
