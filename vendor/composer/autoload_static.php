@@ -69,6 +69,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Options\\Processor\\GTMIdProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/GTMIdProcessor.php',
         'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorInterface' => __DIR__ . '/../..' . '/src/Options/Processor/OptionProcessorInterface.php',
         'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorRegistry' => __DIR__ . '/../..' . '/src/Options/Processor/OptionProcessorRegistry.php',
+        'TLA_Media\\GTM_Kit\\Options\\Processor\\RegionCodesProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/RegionCodesProcessor.php',
         'TLA_Media\\GTM_Kit\\Options\\ValidationResult' => __DIR__ . '/../..' . '/src/Options/ValidationResult.php',
     );
 

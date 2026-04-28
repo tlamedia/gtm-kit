@@ -54,5 +54,6 @@ return array(
     'TLA_Media\\GTM_Kit\\Options\\Processor\\GTMIdProcessor' => $baseDir . '/src/Options/Processor/GTMIdProcessor.php',
     'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorInterface' => $baseDir . '/src/Options/Processor/OptionProcessorInterface.php',
     'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorRegistry' => $baseDir . '/src/Options/Processor/OptionProcessorRegistry.php',
+    'TLA_Media\\GTM_Kit\\Options\\Processor\\RegionCodesProcessor' => $baseDir . '/src/Options/Processor/RegionCodesProcessor.php',
     'TLA_Media\\GTM_Kit\\Options\\ValidationResult' => $baseDir . '/src/Options/ValidationResult.php',
 );
