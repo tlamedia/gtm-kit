@@ -96,6 +96,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### Bugfixes:
+* Eliminate "dependencies that are not registered: gtmkit-container" warnings logged by WordPress 6.9.1+ on sites that have GTM Kit's container active.
+
 = 2.9.0 =
 
 Release date: 2026-04-29

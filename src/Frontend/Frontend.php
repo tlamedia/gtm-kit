@@ -54,7 +54,8 @@ final class Frontend {
 		}
 
 		if ( $container_active && $page->is_user_allowed() ) {
-			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_header_script' ] );
+			// Priority 6 so 'gtmkit-container' is registered before any dependent script (WP 6.9.1 validates deps at enqueue time).
+			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_header_script' ], 6 );
 		} elseif ( $options->get( 'general', 'console_log' ) ) {
 			add_action( 'wp_head', [ $page, 'container_disabled' ] );
 		}
