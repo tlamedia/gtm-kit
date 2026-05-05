@@ -98,6 +98,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = Unreleased =
 
+#### New:
+* New developer hooks let CMP integrations and consent add-ons plug into GTM Kit's consent flow without forking the plugin — sites running Cookiebot, CookieYes, WP Consent API or in-house consent solutions can now feed their state straight into GTM Kit.
+* Server-side broadcast `gtmkit_consent_updated` so other plugins can react to consent state changes without polling.
+* Per-event `gtmkit_event_should_defer` filter so future deferral features can hold individual events back when consent is missing.
+
 #### Bugfixes:
 * Eliminate "dependencies that are not registered: gtmkit-container" warnings logged by WordPress 6.9.1+ on sites that have GTM Kit's container active.
 

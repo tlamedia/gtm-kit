@@ -29,13 +29,40 @@ final class Frontend {
 	protected string $datalayer_name;
 
 	/**
+	 * Consent signal source registry.
+	 *
+	 * @var ConsentSignalSourceRegistry
+	 */
+	protected ConsentSignalSourceRegistry $signal_source_registry;
+
+	/**
+	 * Event deferral gate.
+	 *
+	 * @var EventDeferralGate
+	 */
+	protected EventDeferralGate $event_deferral_gate;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param Options $options An instance of Options.
+	 * The registry and deferral gate default to fresh instances when
+	 * not supplied so existing call sites (`new Frontend( $options )`)
+	 * keep working; the bootstrap in `inc/main.php` wires explicit
+	 * services for the production request lifecycle.
+	 *
+	 * @param Options                          $options An instance of Options.
+	 * @param ConsentSignalSourceRegistry|null $signal_source_registry Optional pre-built registry.
+	 * @param EventDeferralGate|null           $event_deferral_gate    Optional pre-built deferral gate.
 	 */
-	public function __construct( Options $options ) {
-		$this->options        = $options;
-		$this->datalayer_name = ( $this->options->get( 'general', 'datalayer_name' ) ) ? $this->options->get( 'general', 'datalayer_name' ) : 'dataLayer';
+	public function __construct(
+		Options $options,
+		?ConsentSignalSourceRegistry $signal_source_registry = null,
+		?EventDeferralGate $event_deferral_gate = null
+	) {
+		$this->options                = $options;
+		$this->datalayer_name         = ( $this->options->get( 'general', 'datalayer_name' ) ) ? $this->options->get( 'general', 'datalayer_name' ) : 'dataLayer';
+		$this->signal_source_registry = $signal_source_registry ?? new ConsentSignalSourceRegistry( $options );
+		$this->event_deferral_gate    = $event_deferral_gate ?? new EventDeferralGate( $this->signal_source_registry );
 	}
 
 	/**
@@ -94,28 +121,6 @@ final class Frontend {
 		}
 
 		/**
-		 * Per-category Consent Mode v2 default state.
-		 *
-		 * Filters are applied even when the master toggle is off, so an
-		 * integrator can force-enable via {@see 'gtmkit_consent_default_settings_enabled'}
-		 * without editing the admin UI.
-		 *
-		 * @param array<string, 'granted'|'denied'> $consent_defaults The seven-category state.
-		 */
-		$consent_defaults = apply_filters(
-			'gtmkit_consent_default_state',
-			[
-				'ad_personalization'      => $this->options->get( 'general', 'gcm_ad_personalization' ) ? 'granted' : 'denied',
-				'ad_storage'              => $this->options->get( 'general', 'gcm_ad_storage' ) ? 'granted' : 'denied',
-				'ad_user_data'            => $this->options->get( 'general', 'gcm_ad_user_data' ) ? 'granted' : 'denied',
-				'analytics_storage'       => $this->options->get( 'general', 'gcm_analytics_storage' ) ? 'granted' : 'denied',
-				'personalization_storage' => $this->options->get( 'general', 'gcm_personalization_storage' ) ? 'granted' : 'denied',
-				'functionality_storage'   => $this->options->get( 'general', 'gcm_functionality_storage' ) ? 'granted' : 'denied',
-				'security_storage'        => $this->options->get( 'general', 'gcm_security_storage' ) ? 'granted' : 'denied',
-			]
-		);
-
-		/**
 		 * Region codes the consent defaults apply to.
 		 *
 		 * @param array<int, string> $consent_region Zero or more ISO region codes (e.g. `DK`, `DE-BY`, `US-CA`).
@@ -140,6 +145,40 @@ final class Frontend {
 			'gtmkit_consent_default_settings_enabled',
 			(bool) $this->options->get( 'general', 'gcm_default_settings' )
 		);
+
+		/**
+		 * Per-category Consent Mode v2 default state.
+		 *
+		 * Resolved through the signal source registry so Premium add-ons
+		 * (WP Consent API integration, named CMP integrations) can plug
+		 * in alternative state providers via the
+		 * {@see 'gtmkit_consent_signal_sources'} filter. The default
+		 * `gtmkit_default` source delegates to the legacy
+		 * {@see 'gtmkit_consent_default_state'} filter, so existing
+		 * integrations keep working unchanged.
+		 *
+		 * The registry is only consulted when the master toggle is on.
+		 * When off, the consent block is suppressed entirely so a CMP
+		 * or GTM-based consent solution can own the flow without
+		 * double-firing.
+		 *
+		 * @var array<string, string> $consent_defaults
+		 */
+		$consent_defaults = [
+			'ad_personalization'      => 'denied',
+			'ad_storage'              => 'denied',
+			'ad_user_data'            => 'denied',
+			'analytics_storage'       => 'denied',
+			'personalization_storage' => 'denied',
+			'functionality_storage'   => 'denied',
+			'security_storage'        => 'denied',
+		];
+		if ( $consent_enabled ) {
+			$resolved_state = $this->signal_source_registry->read_state();
+			if ( null !== $resolved_state ) {
+				$consent_defaults = $resolved_state;
+			}
+		}
 
 		$wait_for_update    = (int) $this->options->get( 'general', 'gcm_wait_for_update' );
 		$ads_data_redaction = (bool) $this->options->get( 'general', 'gcm_ads_data_redaction' );
@@ -218,6 +257,16 @@ final class Frontend {
 	public function enqueue_datalayer_content(): void {
 
 		$datalayer_data = apply_filters( 'gtmkit_datalayer_content', [] );
+		if ( ! is_array( $datalayer_data ) ) {
+			$datalayer_data = [];
+		}
+
+		// Ask the deferral gate before pushing. A Premium-only event deferral queue can return true here
+		// when consent is missing for the categories this event requires; default returns false.
+		$event_name = isset( $datalayer_data['event'] ) && is_string( $datalayer_data['event'] ) ? $datalayer_data['event'] : '';
+		if ( $this->event_deferral_gate->should_defer( $event_name, $datalayer_data ) ) {
+			return;
+		}
 
 		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
 		$script .= esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
@@ -278,6 +327,11 @@ final class Frontend {
 	 * This script fires the 'delay_js' event in Google Tag Manager
 	 */
 	public function enqueue_delay_js_script(): void {
+
+		$payload = [ 'event' => 'load_delayed_js' ];
+		if ( $this->event_deferral_gate->should_defer( 'load_delayed_js', $payload ) ) {
+			return;
+		}
 
 		$script = esc_attr( $this->datalayer_name ) . '.push({"event" : "load_delayed_js"});' . "\n";
 
