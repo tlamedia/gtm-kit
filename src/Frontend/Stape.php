@@ -54,6 +54,10 @@ final class Stape {
 	 * @return void
 	 */
 	public function add_cookie_keeper() {
+		if ( ( defined( 'WP_CLI' ) && WP_CLI ) || headers_sent() ) {
+			return;
+		}
+
 		if ( ! $this->options->get( 'general', 'sgtm_cookie_keeper' ) ) {
 			if ( ! empty( $_COOKIE[ self::COOKIE_KEEPER_NAME ] ) ) {
 				$this->delete_cookie();
