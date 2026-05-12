@@ -97,6 +97,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### New:
+* New welcome modal greets fresh installs on their first GTM Kit admin page and links to the documentation. Existing installs are not interrupted.
+* GTM Kit can now surface launch and upgrade announcements from gtmkit.com without a plugin release.
+
+#### Other:
+* New `gtmkit_introductions` filter and `Introduction_Interface` contract let add-ons register their own announcement modals through a documented public API.
+
 = 2.11.0 =
 
 Release date: 2026-05-11

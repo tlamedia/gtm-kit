@@ -1,5 +1,10 @@
 *** GTM Kit ***
 
+Unreleased
+* Add: New welcome modal greets fresh installs on their first GTM Kit admin page and links to the documentation. Existing installs are not interrupted.
+* Add: GTM Kit can now surface launch and upgrade announcements from gtmkit.com without a plugin release.
+* Dev: New `gtmkit_introductions` filter and `Introduction_Interface` contract let add-ons register their own announcement modals via a documented public API.
+
 2026-05-11 - version 2.11.0
 * Add: "Exclude tax" toggle now controls every standard e-commerce event the data layer emits: `view_cart`, `begin_checkout`, `purchase`, variation prices on variable product pages (re-fired `view_item` + `add_to_cart`), and the per-item coupon `discount` field.
 * Fix: Cart, checkout, variation, and coupon-discount events now follow the "Exclude tax" toggle consistently across `value`, `price`, and `discount` fields. The GTM Kit Woo and GTM Kit Premium add-ons extend the fix to refund and order-paid events in their paired releases.

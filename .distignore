@@ -4,6 +4,8 @@
 /bin
 /bundled
 /node_modules
+/src/js
+/src/scss
 /tests
 .DS_Store
 .babelrc
@@ -23,3 +25,4 @@ postcss.config.js
 README.md
 tailwind.config.js
 vitest.config.js
+webpack.config.js

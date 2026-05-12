@@ -379,12 +379,16 @@ final class Util {
 	/**
 	 * Get API data
 	 *
-	 * @param string $endpoint The API endpoint.
-	 * @param string $transient The transient.
+	 * @param string                $endpoint The API endpoint.
+	 * @param string                $transient The transient.
+	 * @param array<string, scalar> $extra_args Optional. Additional query args appended to this
+	 *                                          request only. Used by callers that need to send
+	 *                                          per-endpoint metadata (e.g. plugin version) without
+	 *                                          changing the contract for other callers.
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function get_data( string $endpoint, string $transient ): array {
+	public function get_data( string $endpoint, string $transient, array $extra_args = [] ): array {
 		$data = get_transient( $transient );
 
 		if ( ! WP_DEBUG && $data !== false ) {
@@ -393,13 +397,13 @@ final class Util {
 
 		$url = add_query_arg(
 			'plugins',
-			[
-				'woo' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
-				'cf7' => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
-				'edd' => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
-			],
+			$this->get_active_plugin_flags(),
 			$this->get_api_url( $endpoint )
 		);
+
+		if ( ! empty( $extra_args ) ) {
+			$url = add_query_arg( $extra_args, $url );
+		}
 
 		$response = wp_remote_get( $url );
 
@@ -417,6 +421,26 @@ final class Util {
 		set_transient( $transient, $data, 12 * HOUR_IN_SECONDS );
 
 		return $data;
+	}
+
+	/**
+	 * Map of plugin slugs that the GTM Kit API surfaces use to decide which content is relevant
+	 * for the current site.
+	 *
+	 * Returns booleans for every plugin the API knows about, including the GTM Kit add-ons
+	 * themselves so endpoints can target Woo or Premium users without bundling that copy in the
+	 * marketplace plugin.
+	 *
+	 * @return array<string, bool>
+	 */
+	public function get_active_plugin_flags(): array {
+		return [
+			'woo'             => \is_plugin_active( 'woocommerce/woocommerce.php' ),
+			'cf7'             => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
+			'edd'             => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+			'gtm-kit-woo'     => \is_plugin_active( 'gtm-kit-woo/gtm-kit-woo.php' ),
+			'gtm-kit-premium' => \is_plugin_active( 'gtm-kit-premium/gtm-kit-premium.php' ),
+		];
 	}
 
 	/**

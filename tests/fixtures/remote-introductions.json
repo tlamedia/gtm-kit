@@ -1,0 +1,54 @@
+[
+	{
+		"id": "release-2026-q2-free",
+		"priority": 500,
+		"min_version": "3.0.0",
+		"max_version": null,
+		"blocks": [
+			{ "type": "heading", "text": "Next big release of GTM Kit is here" },
+			{
+				"type": "body",
+				"paragraphs": [
+					"Lots of new features in GTM Kit.",
+					"All your existing configuration carries over."
+				]
+			},
+			{
+				"type": "image",
+				"url": "https://placehold.co/1200x600/png?text=GTM+Kit+Screenshot",
+				"alt": "GTM Kit screenshot",
+				"width": 1200,
+				"height": 600
+			},
+			{
+				"type": "cta",
+				"label": "See what's new",
+				"url": "https://gtmkit.com/changelog/",
+				"variant": "primary"
+			},
+			{ "type": "cta", "label": "Maybe later", "variant": "dismiss" }
+		]
+	},
+	{
+		"id": "premium-launch-2026-q2-woo",
+		"priority": 500,
+		"min_version": "3.0.0",
+		"max_version": null,
+		"blocks": [
+			{ "type": "heading", "text": "Your Woo setup, upgraded" },
+			{
+				"type": "body",
+				"paragraphs": [
+					"New and improved features in GTM Kit Woo Add-on."
+				]
+			},
+			{
+				"type": "cta",
+				"label": "Upgrade your tracking",
+				"url": "https://gtmkit.com/",
+				"variant": "primary"
+			},
+			{ "type": "cta", "label": "Maybe later", "variant": "dismiss" }
+		]
+	}
+]

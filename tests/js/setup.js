@@ -12,3 +12,8 @@ if ( typeof window !== 'undefined' ) {
 	window.gtmkit_settings = window.gtmkit_settings || {};
 	window.gtmkit_data = window.gtmkit_data || {};
 }
+
+// Opt into React's act() environment so React Testing tests that wrap
+// renders/clicks in `act(...)` do not log warnings about misconfigured
+// environments.
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;

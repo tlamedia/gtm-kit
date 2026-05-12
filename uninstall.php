@@ -14,3 +14,6 @@ delete_option( 'gtmkit' );
 delete_option( 'gtmkit_version' );
 delete_option( 'gtmkit_initial_version' );
 delete_option( 'gtmkit_activation_prevent_redirect' );
+
+// Remove the per-user introductions seen-state across all users.
+delete_metadata( 'user', 0, '_gtmkit_introductions', '', true );

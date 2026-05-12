@@ -13,6 +13,7 @@ use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
+use TLA_Media\GTM_Kit\Admin\Introductions\UI\Introductions_Integration;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\PluginAvailability;
@@ -196,6 +197,7 @@ function gtmkit_admin_init(): void {
 	}
 	UpgradesOptionsPage::register( $options, $util );
 	HelpOptionsPage::register( $options, $util );
+	Introductions_Integration::register( $options, $util );
 
 	add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );
 

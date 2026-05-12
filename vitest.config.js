@@ -15,7 +15,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig( {
 	test: {
 		environment: 'jsdom',
-		include: [ 'tests/js/**/*.test.js' ],
+		include: [ 'tests/js/**/*.test.{js,jsx}' ],
 		setupFiles: [ './tests/js/setup.js' ],
 		coverage: {
 			provider: 'v8',
@@ -24,6 +24,9 @@ export default defineConfig( {
 			include: [ 'src/js/**/*.js' ],
 			exclude: [ 'src/js/frontend/**' ],
 		},
+	},
+	esbuild: {
+		jsx: 'automatic',
 	},
 	resolve: {
 		alias: {

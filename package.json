@@ -15,6 +15,7 @@
   "dependencies": {
     "@wordpress/api-fetch": "^7.33.1",
     "@wordpress/components": "^30.6.4",
+    "@wordpress/element": "^6.33.0",
     "@wordpress/hooks": "^4.33.1",
     "@wordpress/i18n": "^6.6.1",
     "@wordpress/url": "^4.33.1"
@@ -35,6 +36,7 @@
   },
   "scripts": {
     "build": "wp-scripts build src/js/frontend/woocommerce-blocks.js --output-path=assets/frontend",
+    "build:introductions": "wp-scripts build src/js/admin/introductions/introductions.js --output-path=assets/admin",
     "build:assets": "npm run clean:assets && npm run build:js && npm run copy:images && npm run check:consent-gating-size",
     "build:js": "npm run uglify:woocommerce && npm run uglify:woocommerce-checkout && npm run uglify:edd && npm run uglify:edd-checkout && npm run uglify:cf7 && npm run uglify:consent-gating",
     "check:consent-gating-size": "node ./bin/check-consent-gating-size.js",
