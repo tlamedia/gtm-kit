@@ -861,6 +861,10 @@ final class WooCommerce extends AbstractEcommerce {
 	public function single_product_add_to_cart_tracking(): void {
 		global $product;
 
+		if ( ! ( $product instanceof WC_Product ) ) {
+			return;
+		}
+
 		$item_data = $this->get_item_data( $product );
 
 		echo '<input type="hidden" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n"; // phpcs:ignore
@@ -949,6 +953,10 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function product_list_loop_add_to_cart_tracking(): void {
 		global $product, $woocommerce_loop;
+
+		if ( ! ( $product instanceof WC_Product ) ) {
+			return;
+		}
 
 		if ( ! empty( $woocommerce_loop['gtmkit_list_name'] ) ) {
 			$list_name = $woocommerce_loop['gtmkit_list_name'];

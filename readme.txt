@@ -104,6 +104,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * GTM Kit can now surface launch and upgrade announcements from gtmkit.com without a plugin release.
 
 #### Bugfixes:
+* Prevent a fatal error on WooCommerce shop and archive pages when another plugin (e.g. WP Grid Builder) re-runs the product loop without a current product in context. GTM Kit now skips its hidden product-data tag instead of crashing the page.
 * No more "headers already sent" PHP warning when running WP-CLI commands on sites that use the Cookie Keeper option.
 
 #### Other:
