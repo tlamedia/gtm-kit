@@ -1,6 +1,6 @@
 *** GTM Kit ***
 
-Unreleased
+2026-05-19 - version 2.12.0
 * Fix: Prevent a fatal error on WooCommerce shop and archive pages when another plugin (e.g. WP Grid Builder) re-runs the product loop without a current product in context. GTM Kit now skips its hidden product-data tag instead of crashing the page.
 * Fix: No more "headers already sent" PHP warning when running WP-CLI commands on sites that use the Cookie Keeper option.
 * Add: New welcome modal greets fresh installs on their first GTM Kit admin page and links to the documentation. Existing installs are not interrupted.
