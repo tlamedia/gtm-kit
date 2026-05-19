@@ -268,6 +268,7 @@ final class Remote_Introductions_Source {
 			return;
 		}
 		$context = is_array( $entry ) ? \wp_json_encode( $entry ) : (string) $entry;
-		\error_log( '[gtm-kit] Remote_Introductions_Source dropped entry (' . $reason . '): ' . $context ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Developer-only debug surface, gated by WP_DEBUG.
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log,QITStandard.PHP.DebugCode.DebugFunctionFound -- Developer-only debug surface, gated by WP_DEBUG.
+		\error_log( '[gtm-kit] Remote_Introductions_Source dropped entry (' . $reason . '): ' . $context );
 	}
 }
