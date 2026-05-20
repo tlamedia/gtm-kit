@@ -125,7 +125,7 @@ final class BackwardCompatTest extends WP_UnitTestCase {
 		$this->assertSnapshot( 'master-toggle-off.snapshot.js', $inline );
 
 		$this->assertStringNotContainsString( "gtag('consent', 'default'", $inline );
-		$this->assertStringNotContainsString( 'window.gtmkit.consent', $inline );
+		$this->assertStringNotContainsString( 'window.gtmkit.consent =', $inline );
 		$this->assertStringNotContainsString( 'gtmkit:consent:updated', $inline );
 	}
 

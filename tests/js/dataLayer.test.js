@@ -13,13 +13,14 @@
  * state from one test never leaks into another.
  */
 
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ensureDataLayer, pushDataLayer } from '../../src/js/dataLayer.js';
 
 describe( 'dataLayer helpers', () => {
 	beforeEach( () => {
 		delete window.dataLayer;
 		delete window.customDL;
+		delete window.gtmkit;
 	} );
 
 	it( 'respects a custom dataLayer name', () => {
@@ -54,5 +55,109 @@ describe( 'dataLayer helpers', () => {
 		expect( second ).toBe( first );
 		expect( window.dataLayer ).toHaveLength( 1 );
 		expect( window.dataLayer[ 0 ] ).toEqual( { event: 'priorVisit' } );
+	} );
+} );
+
+describe( 'pushDataLayer deferral seam', () => {
+	beforeEach( () => {
+		delete window.dataLayer;
+		delete window.customDL;
+		delete window.gtmkit;
+	} );
+
+	it( 'pushes immediately when no gate is defined (free-user behaviour)', () => {
+		const before = JSON.stringify( window.gtmkit );
+
+		pushDataLayer( { event: 'add_to_cart' } );
+
+		expect( window.dataLayer ).toEqual( [ { event: 'add_to_cart' } ] );
+		// The helper must not invent a namespace when none was present.
+		expect( JSON.stringify( window.gtmkit ) ).toBe( before );
+	} );
+
+	it( 'pushes immediately when shouldDefer returns false', () => {
+		window.gtmkit = {
+			events: {
+				shouldDefer: vi.fn().mockReturnValue( false ),
+				deferralSink: vi.fn(),
+			},
+		};
+
+		pushDataLayer( { event: 'page_view' } );
+
+		expect( window.dataLayer ).toEqual( [ { event: 'page_view' } ] );
+		expect( window.gtmkit.events.deferralSink ).not.toHaveBeenCalled();
+		expect( window.gtmkit.events.shouldDefer ).toHaveBeenCalledWith(
+			'page_view',
+			{ event: 'page_view' },
+			undefined
+		);
+	} );
+
+	it( 'hands the event to the registered sink when shouldDefer returns true', () => {
+		const sink = vi.fn();
+		window.gtmkit = {
+			events: {
+				shouldDefer: vi.fn().mockReturnValue( true ),
+				deferralSink: sink,
+			},
+			consent: { state: { analytics_storage: 'denied' } },
+		};
+
+		const event = { event: 'add_to_cart', ecommerce: { value: 9.99 } };
+		pushDataLayer( event, 'customDL' );
+
+		// The helper still ensures the array exists, but no event lands on it.
+		expect( window.customDL ).toEqual( [] );
+		expect( sink ).toHaveBeenCalledTimes( 1 );
+		expect( sink ).toHaveBeenCalledWith( event, 'customDL' );
+		expect( window.gtmkit.events.shouldDefer ).toHaveBeenCalledWith(
+			'add_to_cart',
+			event,
+			{ analytics_storage: 'denied' }
+		);
+	} );
+
+	it( 'falls back to pushing when shouldDefer returns true but no sink is registered', () => {
+		window.gtmkit = {
+			events: {
+				shouldDefer: vi.fn().mockReturnValue( true ),
+			},
+		};
+
+		pushDataLayer( { event: 'add_to_cart' } );
+
+		expect( window.dataLayer ).toEqual( [ { event: 'add_to_cart' } ] );
+	} );
+
+	it( 'passes the current consent state from window.gtmkit.consent.state', () => {
+		const state = { analytics_storage: 'granted', ad_storage: 'denied' };
+		const shouldDefer = vi.fn().mockReturnValue( false );
+		window.gtmkit = {
+			events: { shouldDefer },
+			consent: { state },
+		};
+
+		pushDataLayer( { event: 'view_item' } );
+
+		expect( shouldDefer ).toHaveBeenCalledWith(
+			'view_item',
+			{ event: 'view_item' },
+			state
+		);
+	} );
+
+	it( 'tolerates payloads that are not objects or lack an event name', () => {
+		const shouldDefer = vi.fn().mockReturnValue( false );
+		window.gtmkit = { events: { shouldDefer } };
+
+		pushDataLayer( [ 'consent', 'default', {} ] );
+
+		expect( shouldDefer ).toHaveBeenCalledWith(
+			'',
+			[ 'consent', 'default', {} ],
+			undefined
+		);
+		expect( window.dataLayer ).toHaveLength( 1 );
 	} );
 } );

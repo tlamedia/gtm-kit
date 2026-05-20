@@ -63,14 +63,14 @@ jQuery(document).ready(function ($) {
 	});
 
 	function pushDatalayer(itemData) {
-		window[datalayerName].push({ ecommerce: null });
-		window[datalayerName].push({
+		window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+		window.gtmkit.events.push({
 			event: 'add_to_cart',
 			ecommerce: {
 				currency: window.gtmkit_data.edd.currency,
 				value: itemData.price * itemData.quantity,
 				items: [itemData],
 			},
-		});
+		}, datalayerName);
 	}
 });

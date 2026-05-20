@@ -97,6 +97,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### New:
+* New `window.gtmkit.events.push()` helper now sits in front of every GTM Kit event push, so an add-on can defer consent-sensitive events in the browser without server-side suppression.
+
+#### Other:
+* PHP-rendered initial dataLayer content is now emitted through the same client helper, so deferral works the same on full-page-cached and uncached pages.
+
 = 2.12.0 =
 
 Release date: 2026-05-19

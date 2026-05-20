@@ -5,11 +5,15 @@
  * @param {Object} eventParams
  */
 export const pushEvent = ( eventName, eventParams ) => {
-	window[ window.gtmkit_settings.datalayer_name ].push( { ecommerce: null } );
-	window[ window.gtmkit_settings.datalayer_name ].push( {
-		event: eventName,
-		...eventParams,
-	} );
+	const datalayerName = window.gtmkit_settings.datalayer_name;
+	window.gtmkit.events.push( { ecommerce: null }, datalayerName );
+	window.gtmkit.events.push(
+		{
+			event: eventName,
+			...eventParams,
+		},
+		datalayerName
+	);
 
 	if ( window.gtmkit_settings.console_log === true )
 		// eslint-disable-next-line no-console

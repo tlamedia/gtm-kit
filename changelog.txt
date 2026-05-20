@@ -1,5 +1,9 @@
 *** GTM Kit ***
 
+Unreleased
+* Add: New `window.gtmkit.events.push()` helper now sits in front of every GTM Kit event push, so an add-on can defer consent-sensitive events in the browser without server-side suppression.
+* Changed: PHP-rendered initial dataLayer content is now emitted through the same client helper, so deferral works the same on full-page-cached and uncached pages.
+
 2026-05-19 - version 2.12.0
 * Fix: Prevent a fatal error on WooCommerce shop and archive pages when another plugin (e.g. WP Grid Builder) re-runs the product loop without a current product in context. GTM Kit now skips its hidden product-data tag instead of crashing the page.
 * Fix: No more "headers already sent" PHP warning when running WP-CLI commands on sites that use the Cookie Keeper option.
