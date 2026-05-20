@@ -73,8 +73,23 @@ final class Frontend {
 	 */
 	public static function register( Options $options ): void {
 		$page                    = new Frontend( $options );
-		$container_active        = ( $options->get( 'general', 'container_active' ) && apply_filters( 'gtmkit_container_active', true ) );
+		$url_excluded            = UrlExclusion::is_excluded(
+			UrlExclusion::current_request_path(),
+			$options->get( 'general', 'excluded_url_patterns' )
+		);
+		$base_active             = ( $options->get( 'general', 'container_active' ) && ! $url_excluded );
+		$container_active        = (bool) apply_filters( 'gtmkit_container_active', $base_active );
 		$noscript_implementation = $options->get( 'general', 'noscript_implementation' );
+
+		// On an excluded URL with no filter override, withhold every enqueue
+		// path together: head loader, noscript iframe, the dependent
+		// settings/data + dataLayer scripts, the delay-js push, the
+		// resource-hint DNS prefetch, and the cache-plugin attribute
+		// filters. The decision is per-URL and so safe to bake into the
+		// cached response.
+		if ( $url_excluded && ! $container_active ) {
+			return;
+		}
 
 		if ( empty( $options->get( 'general', 'just_the_container' ) ) ) {
 			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_settings_and_data_script' ], 5, 0 );
@@ -639,8 +654,13 @@ final class Frontend {
 	 * @param Options $options An instance of Options.
 	 */
 	public static function will_register_container( Options $options ): bool {
-		$container_active = $options->get( 'general', 'container_active' )
-			&& apply_filters( 'gtmkit_container_active', true );
+		$url_excluded = UrlExclusion::is_excluded(
+			UrlExclusion::current_request_path(),
+			$options->get( 'general', 'excluded_url_patterns' )
+		);
+
+		$base_active      = $options->get( 'general', 'container_active' ) && ! $url_excluded;
+		$container_active = (bool) apply_filters( 'gtmkit_container_active', $base_active );
 
 		if ( ! $container_active ) {
 			return false;

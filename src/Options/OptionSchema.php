@@ -62,6 +62,40 @@ final class OptionSchema {
 	public const CMP_CUSTOM_NAME_PATTERN = '/[^a-zA-Z0-9_-]/';
 
 	/**
+	 * URL-exclusion pattern mode: shell-style wildcards. `*` matches any
+	 * run of characters including `/`; `?` matches a single character;
+	 * all other regex metacharacters are escaped.
+	 *
+	 * @var string
+	 */
+	public const URL_EXCLUSION_MODE_GLOB = 'glob';
+
+	/**
+	 * URL-exclusion pattern mode: raw PCRE regular expression. Run with a
+	 * `~` delimiter and the `i` flag; bad patterns fail open (no match).
+	 *
+	 * @var string
+	 */
+	public const URL_EXCLUSION_MODE_REGEX = 'regex';
+
+	/**
+	 * Hard cap on the number of URL-exclusion patterns stored. Caps the
+	 * worst-case per-request matching cost.
+	 *
+	 * @var int
+	 */
+	public const URL_EXCLUSION_MAX_PATTERNS = 100;
+
+	/**
+	 * Hard cap on the length of a single URL-exclusion pattern. Long
+	 * patterns are a poor signal and amplify the ReDoS surface even with
+	 * PHP's backtrack limit in place.
+	 *
+	 * @var int
+	 */
+	public const URL_EXCLUSION_MAX_PATTERN_LENGTH = 500;
+
+	/**
 	 * Default value for the cmp_script_attributes option on fresh installs
 	 * with no detected CMP. Activation overrides for fresh installs where
 	 * a CMP plugin is detected; the upgrade routine overrides to keep
@@ -134,6 +168,12 @@ final class OptionSchema {
 				'default'  => true,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
+			],
+			'excluded_url_patterns'       => [
+				'default'  => [],
+				'type'     => 'array',
+				'sanitize' => [ self::class, 'sanitize_excluded_url_patterns' ],
+				'validate' => [ self::class, 'validate_excluded_url_patterns' ],
 			],
 			'sgtm_domain'                 => [
 				'default'  => '',
@@ -495,5 +535,156 @@ final class OptionSchema {
 	 */
 	public static function validate_cmp_script_attributes( $value ): bool {
 		return is_array( $value );
+	}
+
+	/**
+	 * Sanitize the excluded_url_patterns option to a list of
+	 * `{pattern, mode}` records.
+	 *
+	 * Drops entries with an empty pattern, trims each pattern, coerces
+	 * the mode to `glob` unless explicitly `regex`, and caps both the
+	 * list length and per-pattern length to bound the worst-case match
+	 * cost per request.
+	 *
+	 * @param mixed $value Raw value from the request.
+	 * @return array<int, array{pattern: string, mode: string}>
+	 */
+	public static function sanitize_excluded_url_patterns( $value ): array {
+		if ( ! is_array( $value ) ) {
+			return [];
+		}
+
+		$sanitized = [];
+		foreach ( $value as $entry ) {
+			if ( ! is_array( $entry ) ) {
+				continue;
+			}
+
+			$pattern = isset( $entry['pattern'] ) ? (string) $entry['pattern'] : '';
+			$pattern = trim( $pattern );
+
+			$mode = isset( $entry['mode'] ) ? (string) $entry['mode'] : self::URL_EXCLUSION_MODE_GLOB;
+			$mode = $mode === self::URL_EXCLUSION_MODE_REGEX
+				? self::URL_EXCLUSION_MODE_REGEX
+				: self::URL_EXCLUSION_MODE_GLOB;
+
+			// Glob patterns pasted as a full URL get reduced to the path
+			// the matcher actually sees at runtime, so the admin does not
+			// have to know that hostname / scheme are stripped server-side.
+			// Regex patterns are left alone because `://` is legitimate
+			// regex syntax inside them.
+			if ( $mode === self::URL_EXCLUSION_MODE_GLOB ) {
+				$pattern = self::extract_path_from_url_pattern( $pattern );
+			}
+
+			if ( $pattern === '' ) {
+				continue;
+			}
+
+			if ( strlen( $pattern ) > self::URL_EXCLUSION_MAX_PATTERN_LENGTH ) {
+				$pattern = substr( $pattern, 0, self::URL_EXCLUSION_MAX_PATTERN_LENGTH );
+			}
+
+			$sanitized[] = [
+				'pattern' => $pattern,
+				'mode'    => $mode,
+			];
+
+			if ( count( $sanitized ) >= self::URL_EXCLUSION_MAX_PATTERNS ) {
+				break;
+			}
+		}
+
+		return $sanitized;
+	}
+
+	/**
+	 * Reduce a glob pattern pasted as a full URL to just its path.
+	 *
+	 * `https://example.test/foo/*`, `http://example.test/foo/*`, and
+	 * `//example.test/foo/*` all collapse to `/foo/*`. Inputs that do
+	 * not carry a host (`/foo/*`, `foo/*`, `*`) are returned unchanged.
+	 *
+	 * @param string $pattern Raw glob pattern as entered by the admin.
+	 * @return string
+	 */
+	private static function extract_path_from_url_pattern( string $pattern ): string {
+		if ( $pattern === '' ) {
+			return '';
+		}
+
+		if (
+			stripos( $pattern, 'http://' ) !== 0
+			&& stripos( $pattern, 'https://' ) !== 0
+			&& strpos( $pattern, '//' ) !== 0
+		) {
+			return $pattern;
+		}
+
+		$parts = \wp_parse_url( $pattern );
+		if ( ! is_array( $parts ) || empty( $parts['host'] ) ) {
+			return $pattern;
+		}
+
+		$path = isset( $parts['path'] ) ? (string) $parts['path'] : '';
+
+		return $path === '' ? '/' : $path;
+	}
+
+	/**
+	 * Validate the excluded_url_patterns option.
+	 *
+	 * Rejects non-array values so the save pipeline fails fast. Rejects
+	 * regex entries whose pattern cannot be compiled, surfacing the
+	 * problem to the admin rather than silently dropping the row.
+	 *
+	 * @param mixed $value Value to validate.
+	 * @return bool
+	 */
+	public static function validate_excluded_url_patterns( $value ): bool {
+		if ( ! is_array( $value ) ) {
+			return false;
+		}
+
+		foreach ( $value as $entry ) {
+			if ( ! is_array( $entry ) ) {
+				continue;
+			}
+
+			$pattern = isset( $entry['pattern'] ) ? trim( (string) $entry['pattern'] ) : '';
+			if ( $pattern === '' ) {
+				continue;
+			}
+
+			$mode = isset( $entry['mode'] ) ? (string) $entry['mode'] : '';
+			if ( $mode !== self::URL_EXCLUSION_MODE_REGEX ) {
+				continue;
+			}
+
+			if ( ! self::is_valid_regex_pattern( $pattern ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check that a regex pattern compiles under the runtime delimiter
+	 * and flags used by the URL-exclusion matcher.
+	 *
+	 * Suppresses the compile warning because the goal here is to detect
+	 * a bad pattern at save time, not to log it.
+	 *
+	 * @param string $pattern Raw pattern as entered by the admin.
+	 * @return bool True when the pattern compiles cleanly.
+	 */
+	public static function is_valid_regex_pattern( string $pattern ): bool {
+		$delimited = '~' . str_replace( '~', '\~', $pattern ) . '~i';
+
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- preg_match emits a warning on compile failure; we surface the result via the return value instead.
+		$result = @preg_match( $delimited, '' );
+
+		return $result !== false;
 	}
 }

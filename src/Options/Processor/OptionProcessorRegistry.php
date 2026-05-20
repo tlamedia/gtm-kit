@@ -39,6 +39,7 @@ final class OptionProcessorRegistry {
 		$this->register( OptionKeys::GENERAL_GTM_ID, new GTMIdProcessor() );
 		$this->register( OptionKeys::GENERAL_SGTM_DOMAIN, new DomainProcessor() );
 		$this->register( OptionKeys::GENERAL_GCM_REGION, new RegionCodesProcessor() );
+		$this->register( OptionKeys::GENERAL_EXCLUDED_URL_PATTERNS, new ExcludedUrlPatternsProcessor() );
 		$this->register( OptionKeys::MISC_AUTO_UPDATE, new AutoUpdateProcessor() );
 	}
 
