@@ -58,8 +58,8 @@ function gtmkitCartQuantityChange() {
 					// quantity increase
 					itemData.quantity = currentValue - defaultValue;
 
-					window[datalayerName].push({ ecommerce: null });
-					window[datalayerName].push({
+					window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+					window.gtmkit.events.push({
 						event: 'add_to_cart',
 						ecommerce: {
 							currency: window.gtmkit_data.wc.currency,
@@ -67,13 +67,13 @@ function gtmkitCartQuantityChange() {
 								itemData.price * (currentValue - defaultValue),
 							items: [itemData],
 						},
-					});
+					}, datalayerName);
 				} else {
 					// quantity decrease
 					itemData.quantity = defaultValue - currentValue;
 
-					window[datalayerName].push({ ecommerce: null });
-					window[datalayerName].push({
+					window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+					window.gtmkit.events.push({
 						event: 'remove_from_cart',
 						ecommerce: {
 							currency: window.gtmkit_data.wc.currency,
@@ -81,7 +81,7 @@ function gtmkitCartQuantityChange() {
 								itemData.price * (defaultValue - currentValue),
 							items: [itemData],
 						},
-					});
+					}, datalayerName);
 				}
 			}
 		});
@@ -171,8 +171,8 @@ function gtmkitShippingEvent() {
 
 	const items = Object.values(window.gtmkit_data.wc.cart_items);
 
-	window[datalayerName].push({ ecommerce: null });
-	window[datalayerName].push({
+	window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+	window.gtmkit.events.push({
 		event: 'add_shipping_info',
 		ecommerce: {
 			currency: window.gtmkit_data.wc.currency,
@@ -180,7 +180,7 @@ function gtmkitShippingEvent() {
 			shippingTier,
 			items: items,
 		},
-	});
+	}, datalayerName);
 
 	window.gtmkit_data.wc.add_shipping_info.fired = true;
 }
@@ -202,8 +202,8 @@ function gtmkitPaymentEvent() {
 
 	const items = Object.values(window.gtmkit_data.wc.cart_items);
 
-	window[datalayerName].push({ ecommerce: null });
-	window[datalayerName].push({
+	window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+	window.gtmkit.events.push({
 		event: 'add_payment_info',
 		ecommerce: {
 			currency: window.gtmkit_data.wc.currency,
@@ -211,7 +211,7 @@ function gtmkitPaymentEvent() {
 			payment_type: paymentType,
 			items: items,
 		},
-	});
+	}, datalayerName);
 
 	window.gtmkit_data.wc.add_payment_info.fired = true;
 }

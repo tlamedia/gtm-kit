@@ -62,13 +62,13 @@ function gtmkitLoad() {
 			items.push(itemData);
 		});
 
-		window[datalayerName].push({ ecommerce: null });
-		window[datalayerName].push({
+		window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+		window.gtmkit.events.push({
 			event: 'view_item_list',
 			ecommerce: {
 				items,
 			},
-		});
+		}, datalayerName);
 	}
 
 	// add_to_cart event for simple products in product lists
@@ -114,15 +114,15 @@ function gtmkitLoad() {
 
 		itemData.quantity = 1;
 
-		window[datalayerName].push({ ecommerce: null });
-		window[datalayerName].push({
+		window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+		window.gtmkit.events.push({
 			event,
 			ecommerce: {
 				currency: window.gtmkit_data.wc.currency,
 				value: itemData.price,
 				items: [itemData],
 			},
-		});
+		}, datalayerName);
 	}, true);
 
 	// add_to_cart event on product page
@@ -180,15 +180,15 @@ function gtmkitLoad() {
 				(selectedProductVariationData && event === 'add_to_cart') ||
 				event === 'add_to_wishlist'
 			) {
-				window[datalayerName].push({ ecommerce: null });
-				window[datalayerName].push({
+				window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+				window.gtmkit.events.push({
 					event,
 					ecommerce: {
 						currency: window.gtmkit_data.wc.currency,
 						value: price * quantity,
 						items: [selectedProductVariationData],
 					},
-				});
+				}, datalayerName);
 			}
 		} else if (productIsGrouped) {
 			const productsInGroup = document.querySelectorAll(
@@ -227,15 +227,15 @@ function gtmkitLoad() {
 				return true;
 			}
 
-			window[datalayerName].push({ ecommerce: null });
-			window[datalayerName].push({
+			window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+			window.gtmkit.events.push({
 				event,
 				ecommerce: {
 					currency: window.gtmkit_data.wc.currency,
 					value,
 					items: products,
 				},
-			});
+			}, datalayerName);
 		} else {
 			const itemData = JSON.parse(
 				formCartElement.querySelector('[name=gtmkit_product_data]') &&
@@ -245,15 +245,15 @@ function gtmkitLoad() {
 			const quantityElement = formCartElement.querySelector('[name=quantity]');
 			itemData.quantity = ( quantityElement && quantityElement.value ) || 1;
 
-			window[datalayerName].push({ ecommerce: null });
-			window[datalayerName].push({
+			window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+			window.gtmkit.events.push({
 				event,
 				ecommerce: {
 					currency: window.gtmkit_data.wc.currency,
 					value: itemData.price * itemData.quantity,
 					items: [itemData],
 				},
-			});
+			}, datalayerName);
 		}
 	}, true);
 
@@ -276,13 +276,13 @@ function gtmkitLoad() {
 
 		if (!itemData) return true;
 
-		window[datalayerName].push({ ecommerce: null });
-		window[datalayerName].push({
+		window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+		window.gtmkit.events.push({
 			event: 'remove_from_cart',
 			ecommerce: {
 				items: [itemData],
 			},
-		});
+		}, datalayerName);
 	}, true);
 
 	// select_item event on clicks in product lists
@@ -321,13 +321,13 @@ function gtmkitLoad() {
 
 		if (!itemData) return true;
 
-		window[datalayerName].push({ ecommerce: null });
-		window[datalayerName].push({
+		window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+		window.gtmkit.events.push({
 			event: 'select_item',
 			ecommerce: {
 				items: [itemData],
 			},
-		});
+		}, datalayerName);
 	}, true);
 
 	// track product variations on product page
@@ -378,15 +378,15 @@ function gtmkitLoad() {
 		selectedProductVariationData = productVariationData;
 
 		if (window.gtmkit_settings.wc.view_item.config !== 0) {
-			window[datalayerName].push({ ecommerce: null });
-			window[datalayerName].push({
+			window.gtmkit.events.push({ ecommerce: null }, datalayerName);
+			window.gtmkit.events.push({
 				event: 'view_item',
 				ecommerce: {
 					currency: window.gtmkit_data.wc.currency,
 					value: productVariationData.price,
 					items: [productVariationData],
 				},
-			});
+			}, datalayerName);
 		}
 
 		if (window.gtmkit_settings.console_log === true) {

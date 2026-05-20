@@ -89,7 +89,7 @@ final class ConsentRegionAndApiTest extends WP_UnitTestCase {
 		( new Frontend( $options ) )->enqueue_settings_and_data_script();
 
 		$inline = $this->extract_inline_script();
-		$this->assertStringContainsString( 'window.gtmkit.consent', $inline, 'JS update surface must be exposed when consent mode is on.' );
+		$this->assertStringContainsString( 'window.gtmkit.consent =', $inline, 'JS update surface must be exposed when consent mode is on.' );
 		$this->assertStringContainsString( "gtag('consent', 'update', state)", $inline, 'Update function must forward to gtag consent update.' );
 		$this->assertStringContainsString( "'gtmkit:consent:updated'", $inline, 'Custom event name must be dispatched.' );
 	}
@@ -107,7 +107,7 @@ final class ConsentRegionAndApiTest extends WP_UnitTestCase {
 		( new Frontend( $options ) )->enqueue_settings_and_data_script();
 
 		$inline = $this->extract_inline_script();
-		$this->assertStringNotContainsString( 'window.gtmkit.consent', $inline, 'JS update surface must not leak when consent mode is off.' );
+		$this->assertStringNotContainsString( 'window.gtmkit.consent =', $inline, 'JS update surface must not leak when consent mode is off.' );
 		$this->assertStringNotContainsString( 'gtmkit:consent:updated', $inline, 'Consent event name must not leak when consent mode is off.' );
 	}
 
@@ -200,7 +200,7 @@ final class ConsentRegionAndApiTest extends WP_UnitTestCase {
 		}
 
 		$this->assertStringContainsString( "gtag('consent', 'default'", $inline, 'Filter must be able to force-enable the consent block.' );
-		$this->assertStringContainsString( 'window.gtmkit.consent', $inline, 'Filter must expose the JS update surface.' );
+		$this->assertStringContainsString( 'window.gtmkit.consent =', $inline, 'Filter must expose the JS update surface.' );
 	}
 
 	/**

@@ -142,12 +142,13 @@ final class FilterHooksTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * When the filter returns true, the dataLayer push helper skips the
-	 * push entirely — no inline script is registered.
+	 * Full-page-cache safety: the deferral filter does **not** suppress
+	 * the initial dataLayer content push. PHP always emits; the client
+	 * decides per-visitor through the `window.gtmkit.events.push` helper.
 	 *
 	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::enqueue_datalayer_content
 	 */
-	public function test_returning_true_from_filter_skips_datalayer_push(): void {
+	public function test_datalayer_content_push_is_not_suppressed_by_filter(): void {
 		$options = OptionsFactory::get_instance();
 
 		add_filter(
@@ -161,10 +162,13 @@ final class FilterHooksTest extends WP_UnitTestCase {
 
 		( new Frontend( $options ) )->enqueue_datalayer_content();
 
-		$this->assertFalse(
-			wp_scripts()->query( 'gtmkit-datalayer' ),
-			'Deferred event must not register the gtmkit-datalayer inline script.'
+		$this->assertTrue(
+			(bool) wp_scripts()->query( 'gtmkit-datalayer' ),
+			'PHP must always register the gtmkit-datalayer inline script; deferral happens client-side.'
 		);
+		$inline = $this->extract_inline_script( 'gtmkit-datalayer' );
+		$this->assertStringContainsString( '"event":"purchase"', $inline, 'Payload must reach the inline script regardless of the filter.' );
+		$this->assertStringContainsString( 'window.gtmkit.events.push(', $inline, 'Inline push must route through the client helper.' );
 	}
 
 	/**

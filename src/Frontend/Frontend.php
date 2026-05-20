@@ -224,6 +224,7 @@ final class Frontend {
 		window.gtmkit_settings = <?php echo wp_json_encode( $settings, JSON_FORCE_OBJECT ); ?>;
 		window.gtmkit_data = <?php echo wp_json_encode( apply_filters( 'gtmkit_header_script_data', [] ), JSON_FORCE_OBJECT ); ?>;
 		window.<?php echo esc_js( $this->datalayer_name ); ?> = window.<?php echo esc_js( $this->datalayer_name ); ?> || [];
+		window.gtmkit = window.gtmkit || {};
 		<?php if ( $consent_enabled ) : ?>
 		if (typeof gtag === "undefined") {
 			function gtag(){<?php echo esc_attr( $this->datalayer_name ); ?>.push(arguments);}
@@ -239,7 +240,6 @@ final class Frontend {
 		} else if ( window.gtmkit_settings.console_log === 'on' ) {
 			console.warn('GTM Kit: gtag is already defined')
 		}
-		window.gtmkit = window.gtmkit || {};
 		window.gtmkit.consent = {
 			state: {
 				<?php
@@ -263,6 +263,29 @@ final class Frontend {
 			}
 		};
 		<?php endif; ?>
+		window.gtmkit.events = window.gtmkit.events || {};
+		window.gtmkit.events.push = window.gtmkit.events.push || function (event, name) {
+			var layerName = (typeof name === 'string' && name) ? name : 'dataLayer';
+			window[layerName] = window[layerName] || [];
+			var events = window.gtmkit.events;
+			if (typeof events.shouldDefer === 'function') {
+				var eventName = (event && typeof event === 'object' && typeof event.event === 'string') ? event.event : '';
+				var consentState = (window.gtmkit.consent && window.gtmkit.consent.state) ? window.gtmkit.consent.state : undefined;
+				if (events.shouldDefer(eventName, event, consentState)) {
+					if (typeof events.deferralSink === 'function') {
+						events.deferralSink(event, layerName);
+						return window[layerName];
+					}
+				}
+			}
+			window[layerName].push(event);
+			return window[layerName];
+		};
+		window.gtmkit.events.registerDeferralSink = window.gtmkit.events.registerDeferralSink || function (fn) {
+			if (typeof fn === 'function') {
+				window.gtmkit.events.deferralSink = fn;
+			}
+		};
 		<?php
 		$script = ob_get_clean();
 
@@ -281,15 +304,11 @@ final class Frontend {
 			$datalayer_data = [];
 		}
 
-		// Ask the deferral gate before pushing. A Premium-only event deferral queue can return true here
-		// when consent is missing for the categories this event requires; default returns false.
-		$event_name = isset( $datalayer_data['event'] ) && is_string( $datalayer_data['event'] ) ? $datalayer_data['event'] : '';
-		if ( $this->event_deferral_gate->should_defer( $event_name, $datalayer_data ) ) {
-			return;
-		}
-
+		// Route through the client push helper so deferral happens in the
+		// browser. Server-side suppression would freeze the decision into
+		// the cached HTML and drop the event for every visitor.
 		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
-		$script .= esc_attr( $this->datalayer_name ) . '.push( gtmkit_dataLayer_content );' . "\n";
+		$script .= 'window.gtmkit.events.push( gtmkit_dataLayer_content, ' . wp_json_encode( $this->datalayer_name ) . ' );' . "\n";
 
 		// Ask the script registry whether `gtmkit-container` was actually registered earlier in this request rather than re-evaluating the gate predicate, which can disagree with the earlier evaluation if a `gtmkit_container_active` filter callback was added between `register()` and `wp_enqueue_scripts`.
 		$dependency = wp_script_is( 'gtmkit-container', 'registered' ) ? [ 'gtmkit-container' ] : [ 'gtmkit' ];
