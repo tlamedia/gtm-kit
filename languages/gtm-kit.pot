@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.12.0\n"
+"Project-Id-Version: GTM Kit 2.13.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-18T09:07:01+00:00\n"
+"POT-Creation-Date: 2026-05-25T13:21:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -877,6 +877,7 @@ msgstr ""
 
 #: assets/admin/389.js:1
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/883.js:3
 msgid "Warning!"
 msgstr ""
@@ -1003,283 +1004,435 @@ msgid "Learn More"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "Help finding GTM Container ID"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "Where to find your GTM Container ID"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "You can find your GTM Container ID in Google Tag Manager at the top of your workspace. It looks like GTM-XXXXXXX."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "GTM Container ID location in Google Tag Manager"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "Open Google Tag Manager"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Google Tag Manager container"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "General Container Settings"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "GTM Container ID:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter GTM Container ID"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/767.js:1
 msgid "Find your Container ID in Google Tag Manager"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Inject Container Code"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Setting this to Off will remove the Google Tag Manager container code but the data layer will remain."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Just the container"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Setting this to On will reduce the functionality to just the GTM container code. No additional data will be pushed to the datalayer regardless of any other settings."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "dataLayer variable name:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do so."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Server-side Tagging (sGTM)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "sGTM Container Domain:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter domain"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter your custom domain name if you are using a custom server side GTM container for tracking."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "sGTM container identifier:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter loader name"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Only use if you are using a custom loader."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Cookie Keeper (for Stape users only)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Google Tag Manager Server-side Tagging"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 #: assets/admin/690.js:19
 msgid "Learn more"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Hosting server-side GTM containers"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Setting up server-side tracking can be challenging and costly but there is an easy and cheap solution."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Stape.io is a solution for hosting server-side Google Tag Manager containers, offering a simplified approach that demands less technical expertise than solutions like Google Cloud Platform."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Additionally, it provides valuable add-ons for enhanced functionality."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Learn more about Stape.io"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Page Speed Optimization"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "load_delayed_js event"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Setting this to On will push the event 'load_delayed_js' on page load."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Delay JavaScript execution"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Page optimization plugins can delay the 'load_delayed_js' event and this can be used to delay the triggering og tags in Google Tag Manager."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Google Tag Manager Environment"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "gtm_auth:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter gtm_auth code"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter the gtm_auth code for your GTM environment."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "gtm_preview:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter gtm_preview code"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Enter the gtm_preview code for your GTM environment."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Environments"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "In Google Tag Manager you can define different environments like Live, Dev and QA."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "To use a specific environment in GTM Kit you must enter the \"gtm_auth\" and \"gtm_preview\" codes for that environment."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "If left empty the default environment will be used."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Override settings in wp-config.php"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "You can override the values by using constants in wp-config.php, which is a very useful for setting the value in your development and staging environments."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Exclude User Roles"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Exclude user roles"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Select the roles that you want to exclude from tracking."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Excluding user roles is not compatible with all full-page cache solutions. Some full-page cache solutions may cache the page identically for all users, regardless of their user role. This could result in users being excluded who should not be."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Please ensure thorough and proper testing of this."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Container Code Implementation"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Container code implementation:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Standard implementation as recommended by Google (no delay)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Load container when the browser is idle (requestIdleCallback)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle."
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Container code noscript implementation:"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Just after the opening <body> tag"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Footer of the page (not recommended by Google)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Custom (insert function in your template)"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "Disable <noscript> implementation"
 msgstr ""
 
 #: assets/admin/508.js:1
+#: assets/admin/523.js:1
 msgid "The preferred method to implement the <noscript> container code is just after the opening <body> tag. This requires that your theme uses the \"body_open\" hook. If your theme does not support this the script can be injected in the footer or you can use the function below."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "No patterns configured. GTM Kit loads on every frontend page."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Pattern"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Mode"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Invalid regular expression."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Invalid regular expression:"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Glob"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Regex"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Remove pattern"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Remove"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Add pattern"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Maximum of 100 patterns reached."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Exclude pages from GTM"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Add URL patterns to suppress GTM Kit on matching pages. The container, noscript iframe, and dataLayer scripts all stay off when the current request path matches one of the patterns below."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Matching is on the URL path only: query string is ignored, casing is ignored, and a single trailing slash is normalised. Empty list = GTM Kit loads on every page. On subdirectory installs, patterns must include the full path (e.g. /shop/checkout-embed/*)."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Examples"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "— third-party checkout iframe routes"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "— partner-hosted subpages with their own analytics"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "— in-app webview routes"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Pattern syntax"
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Glob mode (default): * matches any run of characters including /; ? matches a single character; all other characters are matched literally."
+msgstr ""
+
+#: assets/admin/523.js:1
+msgid "Regex mode: enter a raw PCRE pattern without delimiters. The matcher adds ~ delimiters and the i flag. Invalid patterns are rejected on save."
 msgstr ""
 
 #: assets/admin/563.js:1

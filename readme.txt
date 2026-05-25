@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.12.0
+Stable tag: 2.13.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,8 @@ Depending on how you use Google Tag Manager you can delay the loading of the con
 
 You may enter a custom domain name if you are using a custom server side GTM (sGTM) container for tracking. It's also possible to specify a custom loader. GTM Kit has full support for Stape server GTM hosting.
 
+You can also exclude specific pages from GTM entirely. Add URL patterns on the Container settings page and GTM Kit holds back the container, the noscript fallback, and its data layer scripts on matching pages. Useful for third-party checkout iframes, partner-hosted subpages, and in-app webview routes that run their own tracking. Glob patterns are supported by default, with optional regex for advanced matching.
+
 ## Post data
 
 You may specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager.
@@ -66,7 +68,7 @@ You may specify which post data elements you wish to include in the dataLayer fo
 == Screenshots ==
 
 1. GTM Kit Dashboard
-2. Google Tag Manager container code and server side GTM
+2. Container settings: container code, server side GTM, and page exclusions
 3. Post data settings
 4. Google Consent Mode
 5. WooCommerce Integration
@@ -97,7 +99,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.13.0 =
+
+Release date: 2026-05-26
+
+Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-13/).
 
 #### New:
 * New "Exclude pages from GTM" section on the Container settings page lets you list URL patterns where GTM Kit should stay off. Useful for third-party checkout iframes, partner-hosted subpages, or in-app webview routes that have their own tracking.
@@ -111,7 +117,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 Release date: 2026-05-19
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-12/).
+Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-12/).
 
 #### New:
 * New welcome modal greets fresh installs on their first GTM Kit admin page and links to the documentation. Existing installs are not interrupted.
@@ -128,7 +134,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 Release date: 2026-05-11
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-11/).
+Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-11/).
 
 #### New:
 * "Exclude tax" toggle now controls every standard e-commerce event the data layer emits: `view_cart`, `begin_checkout`, `purchase`, variation prices on variable product pages (re-fired `view_item` + `add_to_cart`), and the per-item coupon `discount` field.
@@ -156,7 +162,7 @@ Tag-only follow-up to 2.10.0 — completes the consent admin-badge surface along
 
 Release date: 2026-05-06
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-10/).
+Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-10/).
 
 #### New:
 * New "CMP script attributes" section on the Consent settings page lets you toggle Cookiebot, Iubenda, and CookieYes script-blocking attributes with one click and add a custom attribute for any other CMP — no PHP filters required.
@@ -179,7 +185,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 Release date: 2026-04-29
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-9/).
+Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-9/).
 
 #### Enhancements:
 * Scope Google Consent Mode defaults to specific countries or regions (e.g. DK, DE, US-CA) instead of applying them everywhere. Useful for sites with visitors both inside and outside the EU.
