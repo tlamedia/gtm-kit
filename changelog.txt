@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Dev: New `gtmkit_loaded` action hook fires once GTM Kit core has finished loading, giving add-ons and integrations a reliable point to bootstrap against the active GTM Kit instead of depending on plugin load order.
+
 2026-05-26 - version 2.13.1
 * Fix: The "Exclude pages from GTM" feature now also holds back the WooCommerce, Contact Form 7, and Easy Digital Downloads tracking scripts on excluded pages. Previously those add-on scripts could still load on an excluded page and fail, because the core GTM Kit runtime they rely on was withheld there.
 
