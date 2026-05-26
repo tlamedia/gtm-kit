@@ -116,7 +116,7 @@ final class UrlExclusion {
 			}
 
 			if ( $result === false && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- intentional debug-mode signal for admins debugging a malformed pattern.
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log,QITStandard.PHP.DebugCode.DebugFunctionFound -- intentional debug-mode signal for admins debugging a malformed pattern.
 				error_log( sprintf( '[GTM Kit] URL exclusion pattern failed at runtime: %s', $pattern ) );
 			}
 		}
@@ -188,7 +188,7 @@ final class UrlExclusion {
 	 * @return string
 	 */
 	public static function current_request_path(): string {
-		$raw = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$raw = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		if ( $raw === '' ) {
 			return '/';
 		}
