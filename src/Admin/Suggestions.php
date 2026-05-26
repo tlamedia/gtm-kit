@@ -345,6 +345,7 @@ final class Suggestions {
 	 */
 	protected function get_suggest_seo_plugin_notification( string $notification_id ): Notification {
 
+		// phpcs:ignore -- "Rank" here is part of the SEO plugin name "Rank Math" in a translatable UI string, not an SQL identifier; the marketplace SQL reserved-word scan false-positives on the word.
 		$message = __( 'It appears that you are not currently using a supported SEO plugin. By installing either WordPress SEO or Rank Math, you can assign a primary category to each product. This primary category will then be used in the data layer if the product is associated with multiple categories.', 'gtm-kit' );
 
 		return $this->new_notification(
