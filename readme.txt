@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.13.0
+Stable tag: 2.13.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,15 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/gtm-kit)
 
 == Changelog ==
+
+= 2.13.1 =
+
+Release date: 2026-05-26
+
+A maintenance fix for the 2.13 line; see the [2.13 release post](https://gtmkit.com/gtm-kit-2-13/) for what 2.13 introduced.
+
+#### Bugfixes:
+* The "Exclude pages from GTM" feature now also holds back the WooCommerce, Contact Form 7, and Easy Digital Downloads tracking scripts on excluded pages. Previously those add-on scripts could still load on an excluded page and fail, because the core GTM Kit runtime they rely on was withheld there.
 
 = 2.13.0 =
 

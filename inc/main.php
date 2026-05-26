@@ -137,18 +137,28 @@ function gtmkit_frontend_init(): void {
 
 	( new AdminAPI( $options, $util ) )->rest_init();
 
+	$output_gate = Frontend::resolve_output_gate( $options );
+
 	if ( ! $options->get( 'general', 'just_the_container' ) ) {
 		BasicDatalayerData::register( $options );
 		UserData::register( $options );
 
-		if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
-			WooCommerce::register( $options, $util );
-		}
-		if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
-			ContactForm7::register( $options, $util );
-		}
-		if ( $options->get( 'integrations', 'edd_integration' ) && ( new EasyDigitalDownloadsConditional() )->is_met() ) {
-			EasyDigitalDownloads::register( $options, $util );
+		// Integrations enqueue their own gtmkit-dependent bundles and call the
+		// window.gtmkit runtime, so they must honor the same per-URL output
+		// gate as the core runtime. On an excluded URL with no filter override
+		// the gtmkit handle and its runtime are withheld, so registering an
+		// integration here would enqueue a script that depends on a handle that
+		// was never registered and calls a runtime that never loaded.
+		if ( ! Frontend::is_output_suppressed( $output_gate ) ) {
+			if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
+				WooCommerce::register( $options, $util );
+			}
+			if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
+				ContactForm7::register( $options, $util );
+			}
+			if ( $options->get( 'integrations', 'edd_integration' ) && ( new EasyDigitalDownloadsConditional() )->is_met() ) {
+				EasyDigitalDownloads::register( $options, $util );
+			}
 		}
 	}
 
@@ -158,7 +168,7 @@ function gtmkit_frontend_init(): void {
 		Analytics::register( $options, $util );
 	}
 
-	Frontend::register( $options );
+	Frontend::register( $options, $output_gate );
 	require GTMKIT_PATH . 'inc/frontend-functions.php';
 }
 
