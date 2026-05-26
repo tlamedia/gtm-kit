@@ -99,6 +99,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### Other:
+* New `gtmkit_loaded` action hook fires once GTM Kit core has finished loading, giving add-ons and integrations a reliable point to bootstrap against the active GTM Kit.
+
 = 2.13.1 =
 
 Release date: 2026-05-26

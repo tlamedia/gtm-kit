@@ -237,4 +237,17 @@ if ( ! wp_installing() ) {
 	} elseif ( ! wp_doing_ajax() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_frontend_init' );
 	}
+
+	// Signal that the core plugin is loaded and its autoloader, classes and
+	// services are available. Add-ons hook this to boot themselves, so they bind
+	// to the active core deterministically instead of racing on plugins_loaded.
+	// Priority 11 runs after the core init callbacks registered above (default
+	// priority 10).
+	add_action(
+		'plugins_loaded',
+		static function (): void {
+			do_action( 'gtmkit_loaded' );
+		},
+		11
+	);
 }
