@@ -288,4 +288,88 @@ final class UrlExclusionGateTest extends WP_UnitTestCase {
 			'gtmkit_is_url_excluded=true must withhold gtmkit-container.'
 		);
 	}
+
+	/**
+	 * The shared output gate reports "not suppressed" on a normal URL, so
+	 * gtmkit_frontend_init() registers the integrations alongside the runtime.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::resolve_output_gate
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::is_output_suppressed
+	 */
+	public function test_output_gate_not_suppressed_on_normal_url(): void {
+		$_SERVER['REQUEST_URI'] = '/any-page';
+
+		$gate = Frontend::resolve_output_gate( OptionsFactory::get_instance() );
+
+		$this->assertFalse( $gate['url_excluded'], 'A normal URL is not excluded.' );
+		$this->assertTrue( $gate['container_active'], 'An active container stays active on a normal URL.' );
+		$this->assertFalse(
+			Frontend::is_output_suppressed( $gate ),
+			'Integrations must register on a non-excluded URL.'
+		);
+	}
+
+	/**
+	 * On an excluded URL the shared gate reports "suppressed", which is the
+	 * signal gtmkit_frontend_init() uses to skip the WooCommerce / CF7 / EDD
+	 * integration enqueues alongside the withheld core runtime.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::resolve_output_gate
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::is_output_suppressed
+	 */
+	public function test_output_gate_suppressed_on_excluded_url(): void {
+		$_SERVER['REQUEST_URI'] = '/checkout-embed/payment';
+		$options                = OptionsFactory::get_instance();
+		$options->set_option(
+			'general',
+			'excluded_url_patterns',
+			[
+				[
+					'pattern' => '/checkout-embed/*',
+					'mode'    => 'glob',
+				],
+			]
+		);
+
+		$gate = Frontend::resolve_output_gate( $options );
+
+		$this->assertTrue( $gate['url_excluded'], 'The configured pattern matches the request path.' );
+		$this->assertFalse( $gate['container_active'], 'An excluded URL deactivates the container.' );
+		$this->assertTrue(
+			Frontend::is_output_suppressed( $gate ),
+			'Integration enqueues must be skipped on an excluded URL.'
+		);
+	}
+
+	/**
+	 * A `gtmkit_container_active` override on an excluded URL flips the gate
+	 * back to "not suppressed", so the integrations register again in tandem
+	 * with the core runtime.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::resolve_output_gate
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::is_output_suppressed
+	 */
+	public function test_output_gate_override_keeps_integrations_on_excluded_url(): void {
+		$_SERVER['REQUEST_URI'] = '/checkout-embed/payment';
+		$options                = OptionsFactory::get_instance();
+		$options->set_option(
+			'general',
+			'excluded_url_patterns',
+			[
+				[
+					'pattern' => '/checkout-embed/*',
+					'mode'    => 'glob',
+				],
+			]
+		);
+		add_filter( 'gtmkit_container_active', '__return_true' );
+
+		$gate = Frontend::resolve_output_gate( $options );
+
+		$this->assertTrue( $gate['container_active'], 'The override forces the container active.' );
+		$this->assertFalse(
+			Frontend::is_output_suppressed( $gate ),
+			'An override that re-enables the container must also re-enable integrations.'
+		);
+	}
 }

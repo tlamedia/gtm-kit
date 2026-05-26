@@ -67,27 +67,65 @@ final class Frontend {
 	}
 
 	/**
-	 * Register frontend
+	 * Resolve the per-request output gate.
+	 *
+	 * Computes the URL-exclusion state and the resulting container-active
+	 * value, applying the `gtmkit_container_active` filter exactly once so
+	 * the same decision can gate both the core runtime here and the
+	 * integration enqueues in `gtmkit_frontend_init()`.
 	 *
 	 * @param Options $options An instance of Options.
+	 * @return array{url_excluded: bool, container_active: bool}
 	 */
-	public static function register( Options $options ): void {
-		$page                    = new Frontend( $options );
-		$url_excluded            = UrlExclusion::is_excluded(
+	public static function resolve_output_gate( Options $options ): array {
+		$url_excluded     = UrlExclusion::is_excluded(
 			UrlExclusion::current_request_path(),
 			$options->get( 'general', 'excluded_url_patterns' )
 		);
-		$base_active             = ( $options->get( 'general', 'container_active' ) && ! $url_excluded );
-		$container_active        = (bool) apply_filters( 'gtmkit_container_active', $base_active );
+		$base_active      = ( $options->get( 'general', 'container_active' ) && ! $url_excluded );
+		$container_active = (bool) apply_filters( 'gtmkit_container_active', $base_active );
+
+		return [
+			'url_excluded'     => $url_excluded,
+			'container_active' => $container_active,
+		];
+	}
+
+	/**
+	 * Whether all GTM Kit frontend output is withheld for this request.
+	 *
+	 * True only when the URL matches an exclusion pattern and no
+	 * `gtmkit_container_active` filter forced the container back on. When
+	 * true, the core runtime and every integration enqueue must be skipped
+	 * so dependent scripts never reference a runtime that was never loaded.
+	 *
+	 * @param array{url_excluded: bool, container_active: bool} $gate Resolved output gate.
+	 * @return bool
+	 */
+	public static function is_output_suppressed( array $gate ): bool {
+		return ( $gate['url_excluded'] && ! $gate['container_active'] );
+	}
+
+	/**
+	 * Register frontend
+	 *
+	 * @param Options                                                $options An instance of Options.
+	 * @param array{url_excluded: bool, container_active: bool}|null $gate    Pre-resolved output gate; resolved here when null.
+	 */
+	public static function register( Options $options, ?array $gate = null ): void {
+		$page                    = new Frontend( $options );
+		$gate                    = $gate ?? self::resolve_output_gate( $options );
+		$container_active        = $gate['container_active'];
 		$noscript_implementation = $options->get( 'general', 'noscript_implementation' );
 
 		// On an excluded URL with no filter override, withhold every enqueue
 		// path together: head loader, noscript iframe, the dependent
 		// settings/data + dataLayer scripts, the delay-js push, the
 		// resource-hint DNS prefetch, and the cache-plugin attribute
-		// filters. The decision is per-URL and so safe to bake into the
-		// cached response.
-		if ( $url_excluded && ! $container_active ) {
+		// filters. Integration enqueues are withheld in tandem from
+		// gtmkit_frontend_init() using the same gate. The decision is
+		// per-URL and so safe to bake into the cached response.
+		if ( self::is_output_suppressed( $gate ) ) {
 			return;
 		}
 
