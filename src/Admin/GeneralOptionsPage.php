@@ -8,6 +8,7 @@
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 
@@ -145,6 +146,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'nonce'              => \wp_create_nonce( 'wp_rest' ),
 				'pluginUrl'          => GTMKIT_URL,
 				'isPremium'          => ( new PremiumConditional() )->is_met(),
+				'isPremiumPlugin'    => ( new PremiumPluginConditional() )->is_met(),
 				'tutorials'          => $this->get_tutorials(),
 				'integrations'       => Integrations::get_integrations(),
 				'adminPageUrl'       => $this->util->get_admin_page_url(),
