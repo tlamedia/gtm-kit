@@ -71,6 +71,17 @@ if ( $gtmkit_suite === 'integration' ) {
 
 if ( $gtmkit_suite !== 'integration' ) {
 	require_once $gtmkit_plugin_dir . '/vendor/yoast/wp-test-utils/src/BrainMonkey/bootstrap.php';
+
+	// Bare class stubs for WP types referenced in SUT typehints so the
+	// unit suite can reflect over signatures without booting WordPress.
+	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/stubs/wp-user.php';
+	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/stubs/wp-query.php';
+
+	// Test helpers that aren't autoloaded (small subclasses of SUT
+	// classes used as test seams). PHPUnit's test files themselves are
+	// loaded by the runner, but supporting classes referenced from
+	// `set_up()` need to be wired explicitly here.
+	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/Frontend/HeadersOpenEngagementEvents.php';
 }
 
 unset( $gtmkit_plugin_dir, $gtmkit_suite, $gtmkit_argv_index, $gtmkit_argv_value );

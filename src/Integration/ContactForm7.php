@@ -59,5 +59,35 @@ final class ContactForm7 extends AbstractIntegration {
 			return;
 		}
 		$this->util->enqueue_script( 'gtmkit-cf7', 'integration/contact-form-7.js' );
+
+		// Hand the CF7 module the generate_lead toggle + an optional
+		// payload override so the second push fires alongside the
+		// existing `gtmkit.CF7MailSent` event without requiring a
+		// second `wpcf7mailsent` listener.
+		$generate_lead_enabled = (bool) $this->options->get( 'general', 'engagement_event_generate_lead_enabled' );
+
+		/**
+		 * Extra fields merged into the `generate_lead` payload. Sites
+		 * that want to assign a lead value (e.g. `value` + `currency`)
+		 * return them here. Empty by default; the event is otherwise
+		 * carried with the same form metadata the CF7 integration
+		 * already exposes (`formId`, `response`).
+		 *
+		 * @param array<string, mixed> $payload       Extra fields merged into the push.
+		 * @param array<string, mixed> $form_metadata Metadata available at registration time. Empty here because per-form values become available only at submission time inside the JS listener.
+		 */
+		$payload = apply_filters( 'gtmkit_engagement_event_generate_lead_payload', [], [] );
+		if ( ! is_array( $payload ) ) {
+			$payload = [];
+		}
+
+		wp_localize_script(
+			'gtmkit-cf7',
+			'gtmkitCf7Engagement',
+			[
+				'generateLeadEnabled' => $generate_lead_enabled,
+				'payload'             => (object) $payload,
+			]
+		);
 	}
 }

@@ -29,6 +29,7 @@ use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
+use TLA_Media\GTM_Kit\Frontend\EngagementEvents;
 use TLA_Media\GTM_Kit\Frontend\Frontend;
 use TLA_Media\GTM_Kit\Frontend\Stape;
 use TLA_Media\GTM_Kit\Frontend\UserData;
@@ -128,6 +129,28 @@ function gtmkit_load_text_domain(): void {
 }
 
 /**
+ * Register the engagement-event hooks for any non-admin request.
+ *
+ * Runs on the frontend, AJAX, and REST contexts so the `wp_login`,
+ * `user_register`, and `woocommerce_created_customer` actions still
+ * write their handoff cookie when the login or registration flow
+ * lives outside a normal frontend page render (e.g. JSON login
+ * plugins, Woo Store API checkout).
+ */
+function gtmkit_engagement_events_init(): void {
+	$options = OptionsFactory::get_instance();
+
+	// `just_the_container` opts every dataLayer surface out, including
+	// engagement events: the cookie that ends up pushed as a dataLayer
+	// event is the same surface as a direct push.
+	if ( $options->get( 'general', 'just_the_container' ) ) {
+		return;
+	}
+
+	EngagementEvents::register( $options );
+}
+
+/**
  * Load frontend.
  */
 function gtmkit_frontend_init(): void {
@@ -158,6 +181,27 @@ function gtmkit_frontend_init(): void {
 			}
 			if ( $options->get( 'integrations', 'edd_integration' ) && ( new EasyDigitalDownloadsConditional() )->is_met() ) {
 				EasyDigitalDownloads::register( $options, $util );
+			}
+
+			$engagement_enabled =
+				$options->get( 'general', 'engagement_event_login_enabled' )
+				|| $options->get( 'general', 'engagement_event_signup_enabled' )
+				|| $options->get( 'general', 'engagement_event_search_enabled' );
+			if ( $engagement_enabled ) {
+				add_action(
+					'wp_enqueue_scripts',
+					static function () use ( $util ): void {
+						$util->enqueue_script( 'gtmkit-engagement-events', 'frontend/engagement-events.js' );
+						wp_localize_script(
+							'gtmkit-engagement-events',
+							'gtmkitEngagementEvents',
+							[
+								'cookieName' => EngagementEvents::cookie_name(),
+								'cookiePath' => EngagementEvents::cookie_path(),
+							]
+						);
+					}
+				);
 			}
 		}
 	}
@@ -232,6 +276,17 @@ if ( ! wp_installing() ) {
 
 	// Priority 0 so the textdomain is loaded before any other init callback that might call __() against it (WP 6.7+ warns when JIT loading triggers before init).
 	add_action( 'init', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain', 0 );
+
+	// Engagement-event hooks (`wp_login`, `user_register`,
+	// `woocommerce_created_customer`) fire on AJAX and REST requests
+	// too (e.g. JSON login plugins, Woo blocks checkout). Register
+	// outside the admin / frontend / AJAX split so the cookie write
+	// path is attached on every request type the action can trigger
+	// from. The cookie is the only side effect; no enqueues happen.
+	if ( ! is_admin() ) {
+		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_engagement_events_init' );
+	}
+
 	if ( is_admin() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_admin_init' );
 	} elseif ( ! wp_doing_ajax() ) {
