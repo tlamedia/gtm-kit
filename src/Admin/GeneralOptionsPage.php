@@ -149,6 +149,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'isPremiumPlugin'    => ( new PremiumPluginConditional() )->is_met(),
 				'tutorials'          => $this->get_tutorials(),
 				'integrations'       => Integrations::get_integrations(),
+				'plugins'            => IntegrationsOptionsPage::get_plugins(),
 				'adminPageUrl'       => $this->util->get_admin_page_url(),
 				'settings'           => $this->options->get_all_raw(),
 				'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
