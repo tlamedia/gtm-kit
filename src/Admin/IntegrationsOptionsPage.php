@@ -7,8 +7,11 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 
@@ -150,7 +153,7 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 				'integrations'     => Integrations::get_integrations(),
 				'adminPageUrl'     => $this->util->get_admin_page_url(),
 				'pluginInstallUrl' => $this->util->get_plugin_install_url(),
-				'plugins'          => $this->get_plugins(),
+				'plugins'          => self::get_plugins(),
 				'taxonomyOptions'  => $taxonomy_options,
 				'pageOptions'      => $page_options,
 				'settings'         => $this->options->get_all_raw(),
@@ -159,15 +162,21 @@ final class IntegrationsOptionsPage extends AbstractOptionsPage {
 	}
 
 	/**
-	 * Get the plugins.
+	 * Get the plugin-availability map exposed to the React app under the
+	 * `plugins` key in `window.gtmkitSettings`.
+	 *
+	 * Public so other admin pages (e.g. {@see GeneralOptionsPage}) can
+	 * surface the same map without duplicating the detection logic.
+	 * Routed through the Conditional classes so detection survives
+	 * renamed plugin files and mu-plugin installs.
 	 *
 	 * @return array<string, bool>
 	 */
-	private function get_plugins(): array {
+	public static function get_plugins(): array {
 		$plugins = [
-			'woocommerce' => \is_plugin_active( 'woocommerce/woocommerce.php' ),
-			'cf7'         => \is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ),
-			'edd'         => ( \is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) || \is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) ),
+			'woocommerce' => ( new WooCommerceConditional() )->is_met(),
+			'cf7'         => ( new ContactForm7Conditional() )->is_met(),
+			'edd'         => ( new EasyDigitalDownloadsConditional() )->is_met(),
 		];
 
 		return apply_filters( 'gtmkit_integrations_plugins', $plugins );
