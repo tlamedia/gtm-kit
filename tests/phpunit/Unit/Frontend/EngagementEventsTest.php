@@ -99,7 +99,7 @@ final class EngagementEventsTest extends TestCase {
 			return [];
 		}
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_decode -- Test helper decoding the JSON the SUT wrote via `wp_json_encode`.
-		$decoded = \json_decode( rawurldecode( $last['value'] ), true );
+		$decoded = \json_decode( $last['value'], true );
 		return is_array( $decoded ) ? $decoded : [];
 	}
 

@@ -369,6 +369,12 @@ class EngagementEvents {
 	/**
 	 * Write the engagement-event cookie.
 	 *
+	 * The raw JSON payload is handed to `setcookie()` unmodified.
+	 * `setcookie()` URL-encodes the value on the way out, so the
+	 * frontend module only needs a single `decodeURIComponent` to
+	 * recover the JSON. Adding our own `rawurlencode()` here would
+	 * double-encode and break the JS-side `JSON.parse`.
+	 *
 	 * @param array<string, mixed> $payload Payload encoded as JSON.
 	 */
 	private function write_cookie( array $payload ): void {
@@ -377,7 +383,7 @@ class EngagementEvents {
 			return;
 		}
 
-		$value = rawurlencode( $json );
+		$value = $json;
 
 		$name = self::cookie_name();
 
