@@ -17,6 +17,15 @@ use TLA_Media\GTM_Kit\Options\Options;
 final class ContactForm7 extends AbstractIntegration {
 
 	/**
+	 * "Load JavaScript" setting value for the "on all pages" mode.
+	 * The recommended mode is `1` and falls through any non-`2`
+	 * value, so only the all-pages path needs a named constant.
+	 *
+	 * @var int
+	 */
+	private const LOAD_JS_ALL_PAGES = 2;
+
+	/**
 	 * Instance.
 	 *
 	 * @var null|ContactForm7 An instance of ContactForm7.
@@ -40,6 +49,18 @@ final class ContactForm7 extends AbstractIntegration {
 	/**
 	 * Register frontend
 	 *
+	 * The recommended "only on pages where CF7 is registered" mode
+	 * hooks into the `wpcf7_enqueue_scripts` action that Contact Form
+	 * 7 fires from inside its own enqueue path. That action is
+	 * invoked from both the standard `wp_enqueue_scripts` flow and
+	 * the late shortcode-time enqueue used by performance plugins
+	 * (e.g. WP Rocket sets `wpcf7_load_js` to false so CF7 only loads
+	 * during shortcode render). Using the action means our integration
+	 * script lands on every page where CF7's own script lands, with
+	 * no false negatives from `wp_script_is()` running before CF7 has
+	 * decided to enqueue. The "on all pages" mode keeps the direct
+	 * `wp_enqueue_scripts` hook so the integration loads unconditionally.
+	 *
 	 * @param Options $options An instance of Options.
 	 * @param Util    $util An instance of Util.
 	 */
@@ -47,17 +68,27 @@ final class ContactForm7 extends AbstractIntegration {
 
 		self::$instance = new self( $options, $util );
 
-		add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
+		$mode = (int) $options->get( 'integrations', 'cf7_load_js' );
+
+		if ( self::LOAD_JS_ALL_PAGES === $mode ) {
+			add_action( 'wp_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
+			return;
+		}
+
+		add_action( 'wpcf7_enqueue_scripts', [ self::$instance, 'enqueue_scripts' ] );
 	}
 
 	/**
-	 * Enqueue scripts
+	 * Enqueue scripts.
+	 *
+	 * Runs from one of two hooks depending on the "Load JavaScript"
+	 * setting; both reach the same handle + localized config. The
+	 * hook-level gating in {@see self::register()} replaces the old
+	 * inline `wp_script_is()` check, which produced false negatives on
+	 * pages where CF7 enqueues later than `wp_enqueue_scripts` priority 10.
 	 */
 	public function enqueue_scripts(): void {
 
-		if ( (int) $this->options->get( 'integrations', 'cf7_load_js' ) === 1 && ! wp_script_is( 'contact-form-7' ) ) {
-			return;
-		}
 		$this->util->enqueue_script( 'gtmkit-cf7', 'integration/contact-form-7.js' );
 
 		// Hand the CF7 module the generate_lead toggle + an optional

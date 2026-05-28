@@ -104,6 +104,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 #### New:
 * New "Engagement events" settings section emits GA4 standard `login`, `sign_up`, `search`, and `generate_lead` events out of the box. Each event has its own toggle and defaults to on, so customers see the events the moment they upgrade.
 
+#### Bugfixes:
+* The Contact Form 7 integration now loads reliably on form pages when "Load JavaScript" is set to the recommended "Only on pages where the Contact Form 7 script is registered" mode, even when a performance plugin (e.g. WP Rocket) defers Contact Form 7's own scripts until shortcode render. Previously the integration could be skipped on legitimate form pages and `gtmkit.CF7MailSent` would not fire.
+
 #### Other:
 * New developer filters let extensions tag the method, normalise the search term, assign a lead value, rename the handoff cookie, veto any event, or opt custom search templates into the `search` event.
 * Prepare the settings and setup-wizard bootstrap for React 19, which WordPress will ship in a future release. No behaviour change under the current React 18.
