@@ -46,6 +46,12 @@ final class OptionKeys {
 	// Script gating.
 	public const GENERAL_CONSENT_GATING_MODE = 'general.consent_gating_mode';
 
+	// Engagement events.
+	public const GENERAL_ENGAGEMENT_EVENT_LOGIN_ENABLED         = 'general.engagement_event_login_enabled';
+	public const GENERAL_ENGAGEMENT_EVENT_SIGNUP_ENABLED        = 'general.engagement_event_signup_enabled';
+	public const GENERAL_ENGAGEMENT_EVENT_SEARCH_ENABLED        = 'general.engagement_event_search_enabled';
+	public const GENERAL_ENGAGEMENT_EVENT_GENERATE_LEAD_ENABLED = 'general.engagement_event_generate_lead_enabled';
+
 	// CMP script attribute support.
 	public const GENERAL_CMP_SCRIPT_ATTRIBUTES = 'general.cmp_script_attributes';
 

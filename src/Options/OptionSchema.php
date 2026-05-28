@@ -147,115 +147,115 @@ final class OptionSchema {
 	 */
 	private static function get_general_schema(): array {
 		return [
-			'gtm_id'                      => [
+			'gtm_id'                                 => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_CONTAINER_ID',
 				'sanitize' => 'sanitize_text_field',
 				'validate' => [ self::class, 'validate_gtm_id' ],
 			],
-			'script_implementation'       => [
+			'script_implementation'                  => [
 				'default'  => 0,
 				'type'     => 'integer',
 				'validate' => [ self::class, 'validate_in_range', 0, 2 ],
 			],
-			'noscript_implementation'     => [
+			'noscript_implementation'                => [
 				'default'  => 0,
 				'type'     => 'integer',
 				'validate' => [ self::class, 'validate_in_range', 0, 2 ],
 			],
-			'container_active'            => [
+			'container_active'                       => [
 				'default'  => true,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
 			],
-			'excluded_url_patterns'       => [
+			'excluded_url_patterns'                  => [
 				'default'  => [],
 				'type'     => 'array',
 				'sanitize' => [ self::class, 'sanitize_excluded_url_patterns' ],
 				'validate' => [ self::class, 'validate_excluded_url_patterns' ],
 			],
-			'sgtm_domain'                 => [
+			'sgtm_domain'                            => [
 				'default'  => '',
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_domain' ],
 			],
-			'console_log'                 => [
+			'console_log'                            => [
 				'default'  => false,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONSOLE_LOG',
 			],
-			'debug_log'                   => [
+			'debug_log'                              => [
 				'default'  => false,
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_DEBUG_LOG',
 			],
-			'gtm_auth'                    => [
+			'gtm_auth'                               => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_AUTH',
 			],
-			'gtm_preview'                 => [
+			'gtm_preview'                            => [
 				'default'  => '',
 				'type'     => 'string',
 				'constant' => 'GTMKIT_PREVIEW',
 			],
-			'datalayer_page_type'         => [
+			'datalayer_page_type'                    => [
 				'default' => true,
 				'type'    => 'boolean',
 			],
-			'exclude_user_roles'          => [
+			'exclude_user_roles'                     => [
 				'default' => [],
 				'type'    => 'array',
 			],
 
 			// Google Consent Mode v2 defaults.
-			'gcm_default_settings'        => [
+			'gcm_default_settings'                   => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_ad_personalization'      => [
+			'gcm_ad_personalization'                 => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_ad_storage'              => [
+			'gcm_ad_storage'                         => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_ad_user_data'            => [
+			'gcm_ad_user_data'                       => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_analytics_storage'       => [
+			'gcm_analytics_storage'                  => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_personalization_storage' => [
+			'gcm_personalization_storage'            => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_functionality_storage'   => [
+			'gcm_functionality_storage'              => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_security_storage'        => [
+			'gcm_security_storage'                   => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_ads_data_redaction'      => [
+			'gcm_ads_data_redaction'                 => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_url_passthrough'         => [
+			'gcm_url_passthrough'                    => [
 				'default' => false,
 				'type'    => 'boolean',
 			],
-			'gcm_wait_for_update'         => [
+			'gcm_wait_for_update'                    => [
 				'default'  => 500,
 				'type'     => 'integer',
 				'validate' => [ self::class, 'validate_in_range', 0, 30000 ],
 			],
-			'gcm_region'                  => [
+			'gcm_region'                             => [
 				'default'  => [],
 				'type'     => 'array',
 				'sanitize' => [ self::class, 'sanitize_region_codes' ],
@@ -264,7 +264,7 @@ final class OptionSchema {
 
 			// Script gating mode (always_load | weak_block | strong_block).
 			// Default 'always_load' preserves the pre-2.10 emission for every existing install.
-			'consent_gating_mode'         => [
+			'consent_gating_mode'                    => [
 				'default'  => self::GATING_MODE_ALWAYS_LOAD,
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_enum', self::GATING_MODES ],
@@ -275,11 +275,32 @@ final class OptionSchema {
 			// Activation pre-selects a detected CMP for fresh installs; the
 			// upgrade routine seeds Cookiebot=true for upgraders to preserve
 			// the previously hardcoded behavior.
-			'cmp_script_attributes'       => [
+			'cmp_script_attributes'                  => [
 				'default'  => self::CMP_SCRIPT_ATTRIBUTES_DEFAULT,
 				'type'     => 'array',
 				'sanitize' => [ self::class, 'sanitize_cmp_script_attributes' ],
 				'validate' => [ self::class, 'validate_cmp_script_attributes' ],
+			],
+
+			// GA4 engagement events. Default on so customers get the
+			// `login`, `sign_up`, `search`, and `generate_lead` events the
+			// moment they install or upgrade. Each toggle is independent so
+			// support tickets about double-fires resolve with a checkbox.
+			'engagement_event_login_enabled'         => [
+				'default' => true,
+				'type'    => 'boolean',
+			],
+			'engagement_event_signup_enabled'        => [
+				'default' => true,
+				'type'    => 'boolean',
+			],
+			'engagement_event_search_enabled'        => [
+				'default' => true,
+				'type'    => 'boolean',
+			],
+			'engagement_event_generate_lead_enabled' => [
+				'default' => true,
+				'type'    => 'boolean',
 			],
 		];
 	}
