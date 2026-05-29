@@ -12,6 +12,7 @@
 .distignore
 .editorconfig
 .gitignore
+.wp-env.json
 composer.json
 composer.lock
 package.json
