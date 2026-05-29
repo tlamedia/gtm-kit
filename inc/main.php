@@ -39,6 +39,7 @@ use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
+use TLA_Media\GTM_Kit\Integration\WooCommerceBlocks;
 use TLA_Media\GTM_Kit\Admin\UpgradesOptionsPage;
 
 
@@ -175,6 +176,7 @@ function gtmkit_frontend_init(): void {
 		if ( ! Frontend::is_output_suppressed( $output_gate ) ) {
 			if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
 				WooCommerce::register( $options, $util );
+				WooCommerceBlocks::register( $options, WooCommerce::instance() );
 			}
 			if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
 				ContactForm7::register( $options, $util );

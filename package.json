@@ -21,6 +21,10 @@
     "@wordpress/url": "^4.33.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^20.19.39",
+    "@wordpress/e2e-test-utils-playwright": "^1.45.0",
+    "@wordpress/env": "^10.39.0",
     "@wordpress/scripts": "^30.26.2",
     "autoprefixer": "^10.4.23",
     "cssnano": "^7.1.2",
@@ -31,6 +35,7 @@
     "postcss-cli": "^11.0.1",
     "sass": "^1.97.2",
     "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
     "uglify-js": "^3.19.3",
     "vitest": "^2.1.9"
   },
@@ -63,6 +68,12 @@
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
     "check-engines": "wp-scripts check-engines",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e:blocks": "playwright test --config tests/e2e/blocks/playwright.config.ts",
+    "test:e2e:blocks:env:start": "wp-env start && bash tests/e2e/blocks/fixtures/seed-block-store.sh",
+    "test:e2e:blocks:env:stop": "wp-env stop",
+    "test:e2e:blocks:env:seed": "bash tests/e2e/blocks/fixtures/seed-block-store.sh",
+    "test:e2e:blocks:full": "npm run test:e2e:blocks:env:start && npm run test:e2e:blocks && npm run test:e2e:blocks:env:stop",
+    "test:e2e:blocks:install": "playwright install chromium"
   }
 }

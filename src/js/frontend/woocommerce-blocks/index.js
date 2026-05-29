@@ -1,265 +1,107 @@
 /**
- * External dependencies
- */
-import { __ } from '@wordpress/i18n';
-import { addAction } from '@wordpress/hooks';
-
-/**
- * Internal dependencies
- */
-import { actionPrefix, namespace } from './constants';
-import {
-	getProductImpressionObject,
-	shippingInfo,
-	paymentInfo,
-	pushEvent,
-	logError,
-} from './utils';
-
-/**
- * Track the shipping rate being set
- */
-addAction(
-	`${ actionPrefix }-checkout-set-selected-shipping-rate`,
-	namespace,
-	( { shippingRateId } ) => {
-		try {
-			window.gtmkit_data.wc.chosen_shipping_method = shippingRateId;
-
-			if (
-				window.gtmkit_settings.wc.add_shipping_info.config === 0 ||
-				window.gtmkit_data.wc.is_checkout === false
-			)
-				return;
-
-			if ( window.gtmkit_settings.wc.add_shipping_info.config === 2 ) {
-				shippingInfo();
-			}
-		} catch ( e ) {
-			logError( 'set-selected-shipping-rate', e );
-		}
-	}
-);
-
-/**
- * Track the payment method being set
- */
-addAction(
-	`${ actionPrefix }-checkout-set-active-payment-method`,
-	namespace,
-	( { value } ) => {
-		try {
-			window.gtmkit_data.wc.chosen_payment_method = value;
-
-			if ( window.gtmkit_settings.wc.add_payment_info.config === 0 )
-				return;
-
-			if ( window.gtmkit_settings.wc.add_payment_info.config === 2 ) {
-				paymentInfo();
-			}
-		} catch ( e ) {
-			logError( 'set-active-payment-method', e );
-		}
-	}
-);
-
-/**
- * Checkout submit
+ * WooCommerce block tracking entry point.
  *
- * Note, this is used to indicate checkout submission, not `purchase` which is triggered on the thanks page.
+ * Detects which block data stores and block UIs are present on the page
+ * and mounts only the subscribers that apply. Over-enqueueing the bundle
+ * is harmless: each subscriber no-ops when its store or block is absent.
+ *
+ * Every event flows through `window.gtmkit.events.push()` (see utils.js),
+ * so consent gating and the Premium deferral queue apply automatically.
  */
-addAction( `${ actionPrefix }-checkout-submit`, namespace, () => {
+
+import { select, subscribe } from '@wordpress/data';
+
+import { CHECKOUT_STORE } from './constants';
+import { createCartSubscriber } from './stores/cart-subscriber';
+import { createCheckoutSubscriber } from './stores/checkout-subscriber';
+import { createMiniCartSubscriber } from './blocks/mini-cart';
+import { createCrossSellsSubscriber } from './blocks/cart-cross-sells';
+import { initAllProducts } from './blocks/all-products';
+import { createProductCollectionSubscriber } from './blocks/product-collection';
+import { createRelatedProductsSubscriber } from './blocks/related-products';
+import { initSingleProductBlock } from './blocks/single-product-block';
+import { createProductSearchSubscriber } from './blocks/product-search';
+import { logError } from './utils';
+
+/**
+ * Whether a data store is registered and resolvable.
+ *
+ * @param {string} storeName Store key.
+ * @return {boolean} True when the store resolves.
+ */
+const hasStore = ( storeName ) => {
 	try {
-		if ( window.gtmkit_settings.wc.add_shipping_info.config !== 0 )
-			shippingInfo();
-		if ( window.gtmkit_settings.wc.add_payment_info.config !== 0 )
-			paymentInfo();
+		return Boolean( select( storeName ) );
 	} catch ( e ) {
-		logError( 'checkout-submit', e );
+		return false;
 	}
-} );
+};
 
 /**
- * Change cart item quantities
- *
- * @summary Custom change_cart_quantity event.
+ * Detect available stores/blocks and mount the matching subscribers.
  */
-addAction(
-	`${ actionPrefix }-cart-set-item-quantity`,
-	namespace,
-	( { product, quantity = 1 } ) => {
-		try {
-			if ( product.quantity < quantity ) {
-				// quantity increase
+export const boot = () => {
+	try {
+		const deps = { select, subscribe };
 
-				const quantityAdded = quantity - product.quantity;
-				const item = JSON.parse( product.extensions.gtmkit.item );
-				item.quantity = quantityAdded;
+		// The cart subscriber uses a global subscription and guards on the
+		// store internally, so it can mount before the Cart/Checkout block
+		// registers wc/store/cart (which it does lazily). Mounting it
+		// unconditionally is harmless: it no-ops until the store appears.
+		createCartSubscriber( deps );
 
-				const eventParams = {
-					ecommerce: {
-						currency: window.gtmkit_data.wc.currency,
-						value:
-							( product.prices.sale_price / 100 ) * quantityAdded,
-						items: [ item ],
-					},
-				};
-
-				pushEvent( 'add_to_cart', eventParams );
-			} else {
-				// quantity decrease
-
-				const quantityRemoved = product.quantity - quantity;
-				const item = JSON.parse( product.extensions.gtmkit.item );
-				item.quantity = quantityRemoved;
-
-				const eventParams = {
-					ecommerce: {
-						currency: window.gtmkit_data.wc.currency,
-						value:
-							( product.prices.sale_price / 100 ) *
-							quantityRemoved,
-						items: [ item ],
-					},
-				};
-
-				pushEvent( 'remove_from_cart', eventParams );
-			}
-		} catch ( e ) {
-			logError( 'cart-set-item-quantity', e );
+		// The Mini Cart block (WC 10.x) is an Interactivity API block and
+		// does not register wc/store/cart, so mount on DOM presence and read
+		// the cart over the Store API on open.
+		if ( document.querySelector( '.wc-block-mini-cart' ) ) {
+			createMiniCartSubscriber();
 		}
-	}
-);
 
-/**
- * remove_from_cart.
- */
-addAction(
-	`${ actionPrefix }-cart-remove-item`,
-	namespace,
-	( { product, quantity } ) => {
-		try {
-			const item = JSON.parse( product.extensions.gtmkit.item );
-
-			const eventParams = {
-				ecommerce: {
-					currency: window.gtmkit_data.wc.currency,
-					value: ( product.prices.sale_price / 100 ) * quantity,
-					items: [ item ],
-				},
-			};
-
-			pushEvent( 'remove_from_cart', eventParams );
-		} catch ( e ) {
-			logError( 'cart-remove-item', e );
+		if (
+			hasStore( CHECKOUT_STORE ) ||
+			document.querySelector( '.wp-block-woocommerce-checkout' )
+		) {
+			createCheckoutSubscriber( deps );
 		}
-	}
-);
 
-/**
- * add_to_cart.
- */
-addAction(
-	`${ actionPrefix }-cart-add-item`,
-	namespace,
-	( { product, quantity = 1 } ) => {
-		try {
-			const item = product.extensions.gtmkit.item;
-
-			const eventParams = {
-				ecommerce: {
-					currency: window.gtmkit_data.wc.currency,
-					value: ( product.prices.sale_price / 100 ) * quantity,
-					items: [ item ],
-				},
-			};
-
-			pushEvent( 'add_to_cart', eventParams );
-		} catch ( e ) {
-			logError( 'cart-add-item', e );
+		// Cart block cross-sells read from the cart store's crossSells.
+		if ( document.querySelector( '.wp-block-woocommerce-cart' ) ) {
+			createCrossSellsSubscriber( deps );
 		}
-	}
-);
 
-const lists = [];
+		// The All Products grid surfaces its products through a render
+		// action, not the DOM, so subscribe unconditionally: the listener is
+		// inert until the (legacy client-rendered) block dispatches.
+		initAllProducts();
 
-/**
- * view_item_list.
- */
-addAction(
-	`${ actionPrefix }-product-list-render`,
-	namespace,
-	( { products, listName = __( 'Product List', 'gtm-kit' ) } ) => {
-		try {
-			if (
-				products.length === 0 ||
-				window.gtmkit_data.wc.is_cart === true
-			) {
-				return;
-			}
-
-			if (
-				window.gtmkit_settings.wc.view_item_list.config === 1 &&
-				Object.values( window.gtmkit_data.wc.blocks ).includes(
-					'filter-wrapper'
-				)
-			) {
-				if ( lists.includes( listName ) ) return;
-				lists.push( listName );
-			}
-
-			const eventParams = {
-				ecommerce: {
-					items: products.map( ( product, index ) => ( {
-						...getProductImpressionObject( product, listName ),
-						index,
-					} ) ),
-				},
-			};
-
-			pushEvent( 'view_item_list', eventParams );
-		} catch ( e ) {
-			logError( 'product-list-render', e );
+		if (
+			document.querySelector( '.wp-block-woocommerce-product-collection' )
+		) {
+			createProductCollectionSubscriber( {} );
 		}
-	}
-);
 
-/**
- * select_item.
- */
-addAction(
-	`${ actionPrefix }-product-view-link`,
-	namespace,
-	( { product, listName = '' } ) => {
-		try {
-			const eventParams = {
-				ecommerce: {
-					item_list_name: listName,
-					items: [ getProductImpressionObject( product, listName ) ],
-				},
-			};
-
-			pushEvent( 'select_item', eventParams );
-		} catch ( e ) {
-			logError( 'product-view-link', e );
+		if (
+			document.querySelector( '.wp-block-woocommerce-related-products' )
+		) {
+			createRelatedProductsSubscriber();
 		}
-	}
-);
 
-/**
- * Product Search
- */
-addAction(
-	`${ actionPrefix }-product-search`,
-	namespace,
-	( { searchTerm } ) => {
-		try {
-			const eventParams = {
-				search_term: searchTerm,
-			};
-			pushEvent( 'search', eventParams );
-		} catch ( e ) {
-			logError( 'product-search', e );
+		if (
+			document.querySelector( '.wp-block-woocommerce-single-product' )
+		) {
+			initSingleProductBlock();
 		}
+
+		if ( document.querySelector( '.wc-block-product-search' ) ) {
+			createProductSearchSubscriber();
+		}
+	} catch ( e ) {
+		logError( 'boot', e );
 	}
-);
+};
+
+if ( document.readyState === 'loading' ) {
+	document.addEventListener( 'DOMContentLoaded', boot );
+} else {
+	boot();
+}

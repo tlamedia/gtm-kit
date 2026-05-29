@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"core": "WordPress/WordPress#6.8",
+	"plugins": [
+		".",
+		"https://downloads.wordpress.org/plugin/woocommerce.10.7.0.zip",
+		"https://downloads.wordpress.org/plugin/wp-consent-api.2.0.1.zip"
+	],
+	"env": {
+		"development": {
+			"port": 8890,
+			"config": {
+				"WP_DEBUG": true,
+				"SCRIPT_DEBUG": true
+			}
+		},
+		"tests": {
+			"port": 8891,
+			"config": {
+				"WP_DEBUG": true,
+				"SCRIPT_DEBUG": true,
+				"DISABLE_WP_CRON": true
+			},
+			"mappings": {
+				"wp-content/mu-plugins/gtmkit-blocks-deferral-sink.php": "./tests/e2e/blocks/fixtures/deferral-sink/mu-plugin-sink.php"
+			}
+		}
+	}
+}

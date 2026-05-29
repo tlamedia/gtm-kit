@@ -22,7 +22,15 @@ export default defineConfig( {
 			reporter: [ 'text', 'html', 'clover' ],
 			reportsDirectory: './tests/_reports/js-coverage',
 			include: [ 'src/js/**/*.js' ],
-			exclude: [ 'src/js/frontend/**' ],
+			// The block subscriber modules are covered by the
+			// tests/js/woocommerce-blocks suite. The bundle entry and the
+			// boot module pull in the externalized `@wordpress/data` global
+			// that only exists in a real WordPress runtime, so they are
+			// excluded from the unit-coverage surface.
+			exclude: [
+				'src/js/frontend/woocommerce-blocks.js',
+				'src/js/frontend/woocommerce-blocks/index.js',
+			],
 		},
 	},
 	esbuild: {

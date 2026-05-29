@@ -103,12 +103,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 #### New:
 * New "Engagement events" settings section emits GA4 standard `login`, `sign_up`, `search`, and `generate_lead` events out of the box. Each event has its own toggle and defaults to on, so customers see the events the moment they upgrade.
+* Rebuilt WooCommerce block tracking on stable data-store APIs. Cart, Checkout, Mini Cart, All Products, Product Collection, Single Product, Related Products, the Cart block cross-sells, and product filter blocks now all emit ecommerce events end to end, including add_to_cart and view_cart from the Mini Cart, list and select tracking for the All Products grid and cart cross-sells, and view_item_list re-fires when a filter or pagination control updates a Product Collection.
 
 #### Bugfixes:
 * The Contact Form 7 integration now loads reliably on form pages when "Load JavaScript" is set to the recommended "Only on pages where the Contact Form 7 script is registered" mode, even when a performance plugin (e.g. WP Rocket) defers Contact Form 7's own scripts until shortcode render. Previously the integration could be skipped on legitimate form pages and `gtmkit.CF7MailSent` would not fire.
 
 #### Other:
 * New developer filters let extensions tag the method, normalise the search term, assign a lead value, rename the handoff cookie, veto any event, or opt custom search templates into the `search` event.
+* New `gtmkit_blocks_supported` filter lets developers add custom block names to the list that loads GTM Kit's block tracking.
+* Raised the minimum WooCommerce version to 10.3 for the new block tracking integration. Sites on earlier WooCommerce continue to receive classic-template tracking unchanged.
+* Added Vitest and Playwright test harnesses covering the block tracking path, plus PHPUnit coverage for the block detection and Store API extension.
 * Prepare the settings and setup-wizard bootstrap for React 19, which WordPress will ship in a future release. No behaviour change under the current React 18.
 
 = 2.13.1 =
