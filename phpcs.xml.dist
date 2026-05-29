@@ -32,6 +32,12 @@
 	     and one-object-per-file rules do not apply. -->
 	<exclude-pattern>/tests/manual/*</exclude-pattern>
 
+	<!-- Exclude E2E fixtures. The seeders run via wp eval-file and the
+	     mu-plugins load only in the wp-env tests environment, so they are
+	     test drivers rather than shipped plugin code (same rationale as
+	     /tests/manual/*). -->
+	<exclude-pattern>/tests/e2e/*</exclude-pattern>
+
 	<!-- Strip the file paths down to the relevant bit. -->
 	<arg name="basepath" value="."/>
 

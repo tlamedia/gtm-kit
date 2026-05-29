@@ -9,10 +9,6 @@
 namespace TLA_Media\GTM_Kit\Integration;
 
 use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
 use Exception;
 use TLA_Media\GTM_Kit\Common\Conditionals\BricksConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
@@ -38,13 +34,6 @@ final class WooCommerce extends AbstractEcommerce {
 	protected static ?WooCommerce $instance = null;
 
 	/**
-	 * Stores Rest Extending instance.
-	 *
-	 * @var ExtendSchema
-	 */
-	private $extend;
-
-	/**
 	 * Tax resolver. Canonical price/total path for the data layer.
 	 *
 	 * @var TaxResolver
@@ -59,9 +48,6 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function __construct( Options $options, Util $util ) {
 		$this->store_currency = get_woocommerce_currency();
-
-		// @phpstan-ignore-next-line
-		$this->extend = StoreApi::container()->get( ExtendSchema::class );
 
 		$this->tax_resolver = new TaxResolver( $options );
 
@@ -195,12 +181,15 @@ final class WooCommerce extends AbstractEcommerce {
 				'set_list_name_in_woocommerce_loop',
 			]
 		);
-
-		add_action( 'woocommerce_blocks_loaded', [ self::$instance, 'extend_store' ] );
 	}
 
 	/**
 	 * Enqueue scripts
+	 *
+	 * Classic-template path only. The block tracking bundle is enqueued by
+	 * {@see WooCommerceBlocks::enqueue_block_assets()} on a later priority,
+	 * which also dequeues `gtmkit-woocommerce` on a block-built Cart or
+	 * Checkout page where the block bundle takes over tracking.
 	 */
 	public function enqueue_scripts(): void {
 
@@ -210,39 +199,18 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$this->util->enqueue_script( 'gtmkit-woocommerce', 'integration/woocommerce.js', false, [ 'jquery' ] );
 
-		if ( is_cart() || is_checkout() ) {
-
-			if ( has_block( 'woocommerce/cart' ) || has_block( 'woocommerce/checkout' ) ) {
-				wp_dequeue_script( 'gtmkit-woocommerce' );
-
-				$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
-
-				wp_localize_script(
-					'gtmkit-woocommerce-blocks',
-					'gtmkitWooCommerceBlocksBuild',
-					[
-						'root'  => esc_url_raw( rest_url() ),
-						'nonce' => wp_create_nonce( 'wp_rest' ),
-					]
-				);
-
-			} else {
-				$this->util->enqueue_script( 'gtmkit-woocommerce-checkout', 'integration/woocommerce-checkout.js', false, [ 'gtmkit-woocommerce' ] );
-			}
-		} elseif ( has_block( 'woocommerce/all-products' ) || has_block( 'woocommerce/product-collection' ) ) {
-
-			$this->util->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
-
-			wp_localize_script(
-				'gtmkit-woocommerce-blocks',
-				'gtmkitWooCommerceBlocksBuild',
-				[
-					'root'  => esc_url_raw( rest_url() ),
-					'nonce' => wp_create_nonce( 'wp_rest' ),
-				]
-			);
-
+		if ( ( is_cart() || is_checkout() ) && ! WooCommerceBlocks::instance()->has_cart_or_checkout_block() ) {
+			$this->util->enqueue_script( 'gtmkit-woocommerce-checkout', 'integration/woocommerce-checkout.js', false, [ 'gtmkit-woocommerce' ] );
 		}
+	}
+
+	/**
+	 * Get the Util instance.
+	 *
+	 * Exposed so the block integration can share the same configured Util.
+	 */
+	public function get_util(): Util {
+		return $this->util;
 	}
 
 	/**
@@ -313,7 +281,7 @@ final class WooCommerce extends AbstractEcommerce {
 		$global_data['wc']['currency']    = $this->store_currency;
 		$global_data['wc']['is_cart']     = is_cart();
 		$global_data['wc']['is_checkout'] = ( is_checkout() && ! is_order_received_page() );
-		$global_data['wc']['blocks']      = $this->get_woocommerce_blocks();
+		$global_data['wc']['blocks']      = WooCommerceBlocks::instance()->get_woocommerce_blocks();
 
 		if ( is_cart() ) {
 			$global_data['wc']['cart_items'] = $this->get_cart_items( 'view_cart' );
@@ -1078,113 +1046,6 @@ final class WooCommerce extends AbstractEcommerce {
 	 */
 	public function prefix_item_id( string $item_id = '' ): string {
 		return $this->options->get( 'integrations', 'woocommerce_product_id_prefix' ) . $item_id;
-	}
-
-	/**
-	 * Registers the actual data into each endpoint.
-	 */
-	public function extend_store(): void {
-
-		// Register into `cart/items`.
-		$this->extend->register_endpoint_data(
-			[
-				'endpoint'        => ProductSchema::IDENTIFIER,
-				'namespace'       => 'gtmkit',
-				'data_callback'   => [ self::$instance, 'extend_product_data' ],
-				'schema_callback' => [ self::$instance, 'extend_product_schema' ],
-				'schema_type'     => ARRAY_A,
-			]
-		);
-
-		$this->extend->register_endpoint_data(
-			[
-				'endpoint'        => CartItemSchema::IDENTIFIER,
-				'namespace'       => 'gtmkit',
-				'data_callback'   => [ self::$instance, 'extend_cart_data' ],
-				'schema_callback' => [ self::$instance, 'extend_product_schema' ],
-				'schema_type'     => ARRAY_A,
-			]
-		);
-	}
-
-	/**
-	 * Register GTM data into products endpoint.
-	 *
-	 * @param WC_Product $product Current product data.
-	 *
-	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
-	 */
-	public function extend_product_data( $product ): array {
-		return [
-			'item' => $this->get_item_data( $product ),
-		];
-	}
-
-	/**
-	 * Register GTM data into products endpoint.
-	 *
-	 * @param array<string, mixed> $cart_item Cart item data.
-	 *
-	 * @return array<string, mixed> $product Registered data or empty array if condition is not satisfied.
-	 */
-	public function extend_cart_data( array $cart_item ): array {
-		return [
-			'item' => wp_json_encode( $this->get_item_data( $cart_item['data'] ) ),
-		];
-	}
-
-	/**
-	 * Register subscription product schema into cart/items endpoint.
-	 *
-	 * @return array<string, mixed> Registered schema.
-	 */
-	public function extend_product_schema(): array {
-
-		return [
-			'gtmkit_data' => [
-				'description' => __( 'GTM Kit data.', 'gtm-kit' ),
-				'type'        => [ 'string', 'null' ],
-				'readonly'    => true,
-			],
-		];
-	}
-
-	/**
-	 * Has WooCommerce blocks
-	 *
-	 * @param int|null $post_id The post ID.
-	 *
-	 * @return array<int, mixed>
-	 */
-	public function has_woocommerce_blocks( ?int $post_id ): array {
-		if ( null === $post_id ) {
-			return [];
-		}
-
-		$post_content = get_the_content( null, false, $post_id );
-
-		$woocommerce_blocks = [];
-
-		// This will return an array of blocks.
-		$blocks = parse_blocks( $post_content );
-
-		// Then you can loop over the array and check if any of the blocks are WooCommerce blocks.
-		foreach ( $blocks as $block ) {
-			if ( ! empty( $block['blockName'] ) && strpos( $block['blockName'], 'woocommerce/' ) !== false ) {
-				$woocommerce_blocks[] = str_replace( 'woocommerce/', '', $block['blockName'] );
-			}
-		}
-
-		return $woocommerce_blocks;
-	}
-
-	/**
-	 * Get WooCommerce blocks
-	 *
-	 * @return array<int, mixed>
-	 */
-	public function get_woocommerce_blocks(): array {
-		return $this->has_woocommerce_blocks( get_the_ID() );
 	}
 
 	/**
