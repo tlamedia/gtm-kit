@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.13.1\n"
+"Project-Id-Version: GTM Kit 2.14.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-26T08:09:11+00:00\n"
+"POT-Creation-Date: 2026-06-01T09:32:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -30,17 +30,17 @@ msgstr ""
 msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
 msgstr ""
 
-#: inc/main.php:95
+#: inc/main.php:97
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:96
+#: inc/main.php:98
 #: assets/admin/settings.js:1
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is GTM Kit Add-On.
-#: inc/main.php:114
+#: inc/main.php:116
 msgid "Required by %s"
 msgstr ""
 
@@ -73,18 +73,18 @@ msgstr ""
 msgid "Invalid input data."
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:99
+#: src/Admin/GeneralOptionsPage.php:100
 #: assets/admin/191.js:1
 #: assets/admin/settings.js:1
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:108
+#: src/Admin/GeneralOptionsPage.php:109
 msgid "General Settings"
 msgstr ""
 
-#: src/Admin/HelpOptionsPage.php:60
-#: src/Admin/HelpOptionsPage.php:69
+#: src/Admin/HelpOptionsPage.php:61
+#: src/Admin/HelpOptionsPage.php:70
 #: assets/admin/48.js:1
 #: assets/admin/settings.js:1
 msgid "Help"
@@ -102,8 +102,8 @@ msgstr ""
 msgid "Easy way to sell Digital Products With WordPress"
 msgstr ""
 
-#: src/Admin/IntegrationsOptionsPage.php:60
-#: src/Admin/IntegrationsOptionsPage.php:69
+#: src/Admin/IntegrationsOptionsPage.php:64
+#: src/Admin/IntegrationsOptionsPage.php:73
 #: assets/admin/191.js:1
 #: assets/admin/352.js:1
 #: assets/admin/settings.js:1
@@ -300,63 +300,63 @@ msgid "Which GTM Kit settings are active"
 msgstr ""
 
 #: src/Integration/EasyDigitalDownloads.php:104
-#: src/Integration/WooCommerce.php:275
+#: src/Integration/WooCommerce.php:243
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:266
+#: src/Integration/WooCommerce.php:234
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:267
+#: src/Integration/WooCommerce.php:235
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:268
-#: src/Integration/WooCommerce.php:1030
+#: src/Integration/WooCommerce.php:236
+#: src/Integration/WooCommerce.php:998
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:269
+#: src/Integration/WooCommerce.php:237
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:270
+#: src/Integration/WooCommerce.php:238
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:271
+#: src/Integration/WooCommerce.php:239
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:272
-#: src/Integration/WooCommerce.php:1032
+#: src/Integration/WooCommerce.php:240
+#: src/Integration/WooCommerce.php:1000
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:273
+#: src/Integration/WooCommerce.php:241
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:274
+#: src/Integration/WooCommerce.php:242
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:885
+#: src/Integration/WooCommerce.php:853
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:919
+#: src/Integration/WooCommerce.php:887
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:919
-#: src/Integration/WooCommerce.php:964
-#: src/Integration/WooCommerce.php:997
+#: src/Integration/WooCommerce.php:887
+#: src/Integration/WooCommerce.php:932
+#: src/Integration/WooCommerce.php:965
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:1145
+#: src/Integration/WooCommerceBlocks.php:340
 msgid "GTM Kit data."
 msgstr ""
 
@@ -378,15 +378,15 @@ msgid "Tutorials"
 msgstr ""
 
 #: assets/admin/76.js:1
-#: assets/admin/690.js:1
-#: assets/admin/690.js:19
+#: assets/admin/674.js:1
+#: assets/admin/674.js:19
 msgid "(not set)"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:4
 #: assets/admin/345.js:4
-#: assets/admin/690.js:4
+#: assets/admin/674.js:4
 #: assets/admin/838.js:4
 msgid "%s Integration"
 msgstr ""
@@ -394,7 +394,7 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:7
 #: assets/admin/345.js:7
-#: assets/admin/690.js:7
+#: assets/admin/674.js:7
 #: assets/admin/838.js:7
 msgid "Track %s"
 msgstr ""
@@ -402,7 +402,7 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:10
 #: assets/admin/345.js:10
-#: assets/admin/690.js:10
+#: assets/admin/674.js:10
 #: assets/admin/838.js:10
 msgid "Activate the %s integration"
 msgstr ""
@@ -410,7 +410,7 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:13
 #: assets/admin/345.js:13
-#: assets/admin/690.js:13
+#: assets/admin/674.js:13
 #: assets/admin/838.js:13
 msgid "%s is not active"
 msgstr ""
@@ -418,7 +418,7 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:16
 #: assets/admin/345.js:16
-#: assets/admin/690.js:16
+#: assets/admin/674.js:16
 #: assets/admin/838.js:16
 msgid "If you haven't installed and activated %s you must do that."
 msgstr ""
@@ -426,7 +426,7 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:19
 #: assets/admin/345.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 #: assets/admin/838.js:19
 msgid "Install %s"
 msgstr ""
@@ -438,67 +438,67 @@ msgstr ""
 
 #: assets/admin/76.js:19
 #: assets/admin/345.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Basic Settings"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Use SKU instead of ID"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Exclude tax"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Exclude tax from prices and revenue"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Include customer data"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enable this option to include customer data in the data layer on the \"purchase\" event."
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Google Ads Settings"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Google Business Vertical"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "In order to use Google Ads Remarketing you must select your business type (vertical)."
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Product ID prefix"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enter prefix"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer."
 msgstr ""
 
@@ -507,57 +507,57 @@ msgid "Advanced settings"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Dequeue the default JavaScript"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript."
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Retail"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Education"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Flights"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Hotel rental"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Jobs"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Local deals"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Real estate"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Travel"
 msgstr ""
 
 #: assets/admin/76.js:19
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Custom"
 msgstr ""
 
@@ -869,16 +869,284 @@ msgstr ""
 msgid "Where do you want load the JavaScript?"
 msgstr ""
 
-#: assets/admin/389.js:1
-#: assets/admin/690.js:19
+#: assets/admin/368.js:1
+#: assets/admin/674.js:1
+#: assets/admin/761.js:1
+msgid "Unlock with premium"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Event deferral"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Hold back ecommerce events in the browser until the visitor grants consent, then release them in the order they fired. The decision runs entirely client-side, so a cached page stays identical for every visitor."
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Defer events until consent is granted"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Events to defer"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Checked events wait for consent. Unchecked events fire immediately."
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Timeout"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Seconds to wait"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "On timeout"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Flush the queued events anyway"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Drop the queued events (never fire without consent)"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Required consent categories"
+msgstr ""
+
+#: assets/admin/368.js:1
+msgid "Deferred events are released once these consent categories are granted."
+msgstr ""
+
+#. translators: %s is an HTML attribute string rendered in monospace.
+#: assets/admin/368.js:3
+msgid "Adds %s to GTM Kit scripts."
+msgstr ""
+
+#: assets/admin/368.js:3
 #: assets/admin/settings.js:1
-msgid "User Data"
+msgid "Google Consent Mode"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Script gating"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Choose whether GTM Kit loads the Google Tag Manager container unconditionally, lets it load but hands consent to Consent Mode v2, or holds the container script back until consent is granted."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Gating mode"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Always load (default)"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Weak block (Consent Mode)"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Strong block"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "GTM loads on every page. Use this if your CMP handles consent through Consent Mode tags or attributes, or if you do not yet have a CMP."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "GTM loads but starts in denied state via Consent Mode. Tags inside GTM that respect Consent Mode (most do) will not fire until consent is granted. Recommended when using a CMP that publishes consent state to the data layer or to WP Consent API."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "GTM does not execute until consent is granted. Strongest privacy posture. Use this if you want a guarantee that no tracking fires before consent. Some tag features that depend on early loading (auto-event listeners, scroll tracking from page-load time) will be limited."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Strong-block mode requires a consent signal to load GTM. With the master toggle off, GTM Kit emits no consent code itself; you must ensure your CMP or custom code fires the gtmkit:consent:updated event when consent is granted, otherwise GTM will not load."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "CMP script attributes"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "If your consent platform blocks scripts via HTML attributes, enable the matching option below. GTM Kit will add the attribute to its inline scripts so your CMP recognizes them."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Custom attribute"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Use this to add an attribute that is not in the list above. Names accept letters, digits, underscore, and dash; everything else is stripped on save. Leave the name empty to omit the attribute."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Name"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Value"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Resulting script tag attributes"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Google Consent Mode Activation"
+msgstr ""
+
+#: assets/admin/368.js:3
+#: assets/admin/389.js:1
+#: assets/admin/523.js:1
+msgid "Warning!"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Many consent management platforms (Cookiebot, Complianz, CookieYes, Cookie Information, etc.) handle Google Consent Mode themselves — either via their own client script or via tags inside your GTM container. If your CMP already does this, leave this setting off. Turning it on alongside a CMP that also emits gtag('consent', 'default', ...) will cause double-firing and unpredictable consent state."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Only turn this on if you have no CMP or if your CMP explicitly does not implement Consent Mode itself."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "GTM Kit will only set the default Consent Mode settings and you must update the settings yourself when the user has given consent. When this setting is on, GTM Kit also exposes window.gtmkit.consent.update() and the gtmkit:consent:updated window event for partner scripts."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "See an example of how consent is updated"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Activate GCM settings"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Choose this option if you would like to activate the default settings below"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Google Consent Mode Default Settings"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Ad Personalization"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables personalized advertising"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Ad Storage"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables storage, such as cookies, related to advertising"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Ad User Data"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables sending user data related to advertising to Google"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Analytics Storage"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables storage, such as cookies, related to analytics (for example, visit duration)"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Functionality Storage"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables storage that supports the functionality of the website or app such as language settings"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Personalization Storage"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables storage related to personalization such as video recommendations"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Security Storage"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Enables storage related to security such as authentication functionality, fraud prevention, and other user protection"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Advanced"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Redact Ads Data"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Redact advertising data"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Pass through URL parameters"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Pass through ad click, client ID, and session ID information in URLs"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Wait For Update"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Milliseconds to wait for a CMP to call gtag('consent', 'update', ...) before tags fire with default state. 500 ms is a safe baseline. Set to 0 to disable the wait."
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Region"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "e.g. DK, DE, US-CA"
+msgstr ""
+
+#: assets/admin/368.js:3
+msgid "Limit defaults to specific countries or regions (ISO codes, e.g. DK, DE-BY, US-CA). Leave empty to apply globally. Separate multiple codes with commas."
 msgstr ""
 
 #: assets/admin/389.js:1
-#: assets/admin/523.js:1
-#: assets/admin/883.js:3
-msgid "Warning!"
+#: assets/admin/674.js:19
+#: assets/admin/settings.js:1
+msgid "User Data"
 msgstr ""
 
 #: assets/admin/389.js:1
@@ -1206,7 +1474,7 @@ msgid "Server-side tagging is a silver bullet that gives you improved data accur
 msgstr ""
 
 #: assets/admin/523.js:1
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Learn more"
 msgstr ""
 
@@ -1410,218 +1678,257 @@ msgstr ""
 msgid "Save and continue"
 msgstr ""
 
-#: assets/admin/690.js:1
-#: assets/admin/761.js:1
-msgid "Unlock with premium"
-msgstr ""
-
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 #: assets/admin/settings.js:1
 msgid "WooCommerce"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Brand"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Select the taxonomy that is used for product brands"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Exclude shipping from revenue"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "User-Provided Data"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "The user data is available in the datalayer in 'ecommerce.customer' and a subset of the user data formatted for the 'User-Provided Data' variable is available in 'user-data'."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Webhooks for Server-side Tracking"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "In order to use webhooks you must first enable Server-side Tagging by entering a sGTM Container Domain"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Go to sGTM settings"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "In order to use webhooks you must configure you server-side container to handle the webhooks"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 #: assets/admin/809.js:1
 msgid "Go to GTM Templates"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send webhooks to server GTM container"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "This option will allow you to send GTM events using webhooks to your server GTM container."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
+msgid "Send webhooks from a background queue"
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Dispatch webhooks from a background queue instead of during the checkout request, so the checkout is not held up by the server container. Failed deliveries are retried automatically."
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Queued jobs appear under"
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Scheduled Actions"
+msgstr ""
+
+#: assets/admin/674.js:19
 msgid "GTM Events Send by Server-Side Webhooks:"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send an 'purchase' event from the server side when an order is created."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send 'purchase' event when an order is created.'"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send 'purchase' event when the order has been paid and order status is 'Processing'."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send an 'order_paid' event from the server side when an order has 'Processing' status."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Send an 'refund' event from the server side when an order has been refunded or cancelled."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
+msgid "WooCommerce Subscriptions Events:"
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Send a 'subscription_started' event from the server side when a subscription is created."
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Send a 'subscription_renewed' event from the server side when a renewal payment completes (including off-session cron renewals)."
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Send a 'subscription_cancelled' event from the server side when a subscription is cancelled."
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Send a 'subscription_expired' event from the server side when a subscription expires."
+msgstr ""
+
+#: assets/admin/674.js:19
+msgid "Send a 'subscription_reactivated' event from the server side when a cancelled or expired subscription is reactivated."
+msgstr ""
+
+#: assets/admin/674.js:19
 msgid "Event Customization"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Push view_item_list when the list is updated using a product filter."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Only only push view_item_list once per per page for each list."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Do you what to push the view_item_list event if the list is updated using a filter or just once per page view?"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Only push view_item on the master product"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Push view_item on master and variation products (higher number of views)."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Only push view_item on variation products."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When do you want to fire the \"view_item\" event on variable products?"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When the 'Place order' button is clicked"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When a shipment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Disable the 'add_shipment_info' event."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When do you want to fire the \"add_shipment_info\" event?"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When a payment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Disable the 'add_payment_info' event."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "When do you want to fire the \"add_payment_info\" event?"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Disable the 'purchase' event in frontend an rely on server-side webhook."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
+msgid "Disable the 'subscription_started' event in frontend and rely on the server-side webhook."
+msgstr ""
+
+#: assets/admin/674.js:19
 msgid "Custom CSS Selectors"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "If your shop is not compatible with the default CSS selectors you can specify your own CSS selectors."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Single Product (add_to_wishlist):"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enter CSS selector"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enter the CSS selector that matches button, which should be use to fire the add_to_wishlist event."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Product List (select_item):"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enter the CSS selector that matches your product list item, which should be use to fire the select_item event."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Product List (add_to_wishlist):"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Advanced Settings"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Custom Order Received Page"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enable custom order received (thank you) page"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Select Page"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Select a custom page to use as the order received (thank you) page"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Include permalink structure"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enable this option to include the permalink structure of the product base, category base, tag base and attribute base."
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Include path of pages"
 msgstr ""
 
-#: assets/admin/690.js:19
+#: assets/admin/674.js:19
 msgid "Enable this option to include the path of cart, checkout, order received and my account page."
 msgstr ""
 
@@ -1786,212 +2093,6 @@ msgstr ""
 msgid "Go to the dashboard"
 msgstr ""
 
-#. translators: %s is an HTML attribute string rendered in monospace.
-#: assets/admin/883.js:3
-msgid "Adds %s to GTM Kit scripts."
-msgstr ""
-
-#: assets/admin/883.js:3
-#: assets/admin/settings.js:1
-msgid "Google Consent Mode"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Script gating"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Choose whether GTM Kit loads the Google Tag Manager container unconditionally, lets it load but hands consent to Consent Mode v2, or holds the container script back until consent is granted."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Gating mode"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Always load (default)"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Weak block (Consent Mode)"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Strong block"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "GTM loads on every page. Use this if your CMP handles consent through Consent Mode tags or attributes, or if you do not yet have a CMP."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "GTM loads but starts in denied state via Consent Mode. Tags inside GTM that respect Consent Mode (most do) will not fire until consent is granted. Recommended when using a CMP that publishes consent state to the data layer or to WP Consent API."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "GTM does not execute until consent is granted. Strongest privacy posture. Use this if you want a guarantee that no tracking fires before consent. Some tag features that depend on early loading (auto-event listeners, scroll tracking from page-load time) will be limited."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Strong-block mode requires a consent signal to load GTM. With the master toggle off, GTM Kit emits no consent code itself; you must ensure your CMP or custom code fires the gtmkit:consent:updated event when consent is granted, otherwise GTM will not load."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "CMP script attributes"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "If your consent platform blocks scripts via HTML attributes, enable the matching option below. GTM Kit will add the attribute to its inline scripts so your CMP recognizes them."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Custom attribute"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Use this to add an attribute that is not in the list above. Names accept letters, digits, underscore, and dash; everything else is stripped on save. Leave the name empty to omit the attribute."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Name"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Value"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Resulting script tag attributes"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Google Consent Mode Activation"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Many consent management platforms (Cookiebot, Complianz, CookieYes, Cookie Information, etc.) handle Google Consent Mode themselves — either via their own client script or via tags inside your GTM container. If your CMP already does this, leave this setting off. Turning it on alongside a CMP that also emits gtag('consent', 'default', ...) will cause double-firing and unpredictable consent state."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Only turn this on if you have no CMP or if your CMP explicitly does not implement Consent Mode itself."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "GTM Kit will only set the default Consent Mode settings and you must update the settings yourself when the user has given consent. When this setting is on, GTM Kit also exposes window.gtmkit.consent.update() and the gtmkit:consent:updated window event for partner scripts."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "See an example of how consent is updated"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Activate GCM settings"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Choose this option if you would like to activate the default settings below"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Google Consent Mode Default Settings"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Ad Personalization"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables personalized advertising"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Ad Storage"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables storage, such as cookies, related to advertising"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Ad User Data"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables sending user data related to advertising to Google"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Analytics Storage"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables storage, such as cookies, related to analytics (for example, visit duration)"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Functionality Storage"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables storage that supports the functionality of the website or app such as language settings"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Personalization Storage"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables storage related to personalization such as video recommendations"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Security Storage"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Enables storage related to security such as authentication functionality, fraud prevention, and other user protection"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Advanced"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Redact Ads Data"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Redact advertising data"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Pass through URL parameters"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Pass through ad click, client ID, and session ID information in URLs"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Wait For Update"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Milliseconds to wait for a CMP to call gtag('consent', 'update', ...) before tags fire with default state. 500 ms is a safe baseline. Set to 0 to disable the wait."
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Region"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "e.g. DK, DE, US-CA"
-msgstr ""
-
-#: assets/admin/883.js:3
-msgid "Limit defaults to specific countries or regions (ISO codes, e.g. DK, DE-BY, US-CA). Leave empty to apply globally. Separate multiple codes with commas."
-msgstr ""
-
 #: assets/admin/958.js:1
 #: assets/admin/settings.js:1
 msgid "Post Data"
@@ -2068,6 +2169,55 @@ msgstr ""
 
 #: assets/admin/958.js:1
 msgid "Include the post author ID."
+msgstr ""
+
+#: assets/admin/996.js:1
+#: assets/admin/settings.js:1
+msgid "Engagement events"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "GA4 standard events"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Fire GA4 standard engagement events for logins, sign-ups, on-site search, and Contact Form 7 lead submissions. Each event can be disabled independently if your GTM container or GA4 setup already covers it."
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Login"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Fires `login` on successful WordPress and WooCommerce account logins."
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Sign-up"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Fires `sign_up` on new account registrations, including accounts created during WooCommerce checkout."
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Search"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Fires `search` on WordPress and WooCommerce product search results pages."
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Enable the Contact Form 7 integration first."
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Generate lead (CF7)"
+msgstr ""
+
+#: assets/admin/996.js:1
+msgid "Fires `generate_lead` alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled."
 msgstr ""
 
 #: assets/admin/introductions.js:1
@@ -2242,9 +2392,4 @@ msgstr ""
 
 #: assets/admin/wizard.js:1
 msgid "Share Anonymous Data"
-msgstr ""
-
-#: assets/frontend/woocommerce-blocks.js:1
-#: src/js/frontend/woocommerce-blocks/index.js:192
-msgid "Product List"
 msgstr ""
