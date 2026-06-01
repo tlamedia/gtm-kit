@@ -20,8 +20,11 @@ import { pushEvent, parseItem, getCurrency, logError } from '../utils';
 
 const BLOCK_PRODUCT_DATA = '.gtmkit_block_product_data';
 const PRODUCT_ANCHOR = 'a';
-const ADD_TO_CART_BUTTON =
-	'.wc-block-components-product-button__button, .add_to_cart_button';
+// Only the legacy AJAX add-to-cart button (`.add_to_cart_button`). The block
+// component button (`.wc-block-components-product-button__button`) routes the
+// add through the Store API, so the cart-store subscriber already emits
+// `add_to_cart` for it; matching it here too would double-count the event.
+const ADD_TO_CART_BUTTON = '.add_to_cart_button';
 // Links that are not product links: the post-add "View cart" forward link.
 const NON_PRODUCT_LINK = '.added_to_cart, .wc-forward, .wc_forward';
 // Newer WooCommerce renders the Cart/Checkout cross-sells as a Product
@@ -192,9 +195,11 @@ export const createProductCollectionSubscriber = ( {
 		}
 	};
 
-	// Delegated add_to_cart for the collection's (legacy AJAX) add-to-cart
-	// button. The button drives a classic AJAX add that does not touch the
-	// block cart store, so the event is built from the rendered item data.
+	// Delegated add_to_cart for a collection's legacy AJAX add-to-cart button
+	// only. That path does not touch the block cart store, so the cart-store
+	// subscriber never sees it and the event is built from the rendered item
+	// data here. Block component buttons go through the Store API and are
+	// owned by the cart subscriber (see ADD_TO_CART_BUTTON above).
 	const onAddToCart = ( event ) => {
 		try {
 			if ( ! event.target.closest ) {

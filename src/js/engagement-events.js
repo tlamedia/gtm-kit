@@ -100,7 +100,13 @@
 
 		let decoded;
 		try {
-			decoded = JSON.parse( decodeURIComponent( raw ) );
+			// PHP's setcookie() encodes spaces as "+", which
+			// decodeURIComponent does not turn back into a space. Restore
+			// them first so multi-word values (e.g. a filtered "Google
+			// OAuth" login method) round-trip intact.
+			decoded = JSON.parse(
+				decodeURIComponent( raw.replace( /\+/g, '%20' ) )
+			);
 		} catch ( e ) {
 			return;
 		}

@@ -37,8 +37,7 @@ const buildCollection = ( ids ) => {
 		anchor.href = `#product-${ id }`;
 		anchor.textContent = `Product ${ id }`;
 		const addButton = document.createElement( 'button' );
-		addButton.className =
-			'wc-block-components-product-button__button add_to_cart_button';
+		addButton.className = 'add_to_cart_button';
 		addButton.textContent = 'Add to cart';
 		li.appendChild( span );
 		li.appendChild( anchor );
@@ -133,5 +132,25 @@ describe( 'product collection', () => {
 			'Product Collection'
 		);
 		expect( adds[ 0 ].ecommerce.value ).toBe( 10 );
+	} );
+
+	it( 'does not emit add_to_cart for a block component button (cart subscriber owns it)', () => {
+		// The block product button routes the add through the Store API, so
+		// the cart-store subscriber emits add_to_cart for it. This module must
+		// stay silent for that button or the event would be double-counted.
+		const li = document.querySelector(
+			'.wp-block-woocommerce-product-collection li'
+		);
+		const blockButton = document.createElement( 'button' );
+		blockButton.className = 'wc-block-components-product-button__button';
+		blockButton.textContent = 'Add to cart';
+		li.appendChild( blockButton );
+
+		blockButton.dispatchEvent(
+			new window.MouseEvent( 'click', { bubbles: true } )
+		);
+
+		const adds = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
+		expect( adds ).toHaveLength( 0 );
 	} );
 } );
