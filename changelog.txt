@@ -1,7 +1,6 @@
 *** GTM Kit ***
 
-Unreleased
-* Dev: Rebuilt the bundled admin settings build so the Consent page carries the new event deferral controls. The controls are inert without a Premium license, which drives them.
+2026-06-01 - version 2.14.0
 * Fix: The Contact Form 7 integration now loads reliably on form pages when "Load JavaScript" is set to the recommended "Only on pages where the Contact Form 7 script is registered" mode, even when a performance plugin (e.g. WP Rocket) defers Contact Form 7's own scripts until shortcode render. Previously the integration could be skipped on legitimate form pages and `gtmkit.CF7MailSent` would not fire.
 * Add: New "Engagement events" settings section emits GA4 standard `login`, `sign_up`, `search`, and `generate_lead` events out of the box. Each event has its own toggle and defaults to on, so customers see the events the moment they upgrade.
 * Add: New developer filters let extensions tag the method (`gtmkit_engagement_event_login_method`, `gtmkit_engagement_event_signup_method`), normalise the search term (`gtmkit_engagement_event_search_term`), assign a lead value (`gtmkit_engagement_event_generate_lead_payload`), rename the handoff cookie (`gtmkit_engagement_event_cookie_name`), veto any event (`gtmkit_engagement_event_should_emit`), or opt custom search templates into the `search` event (`gtmkit_is_search_results_page`).
