@@ -105,6 +105,24 @@ describe( 'engagement-events module', () => {
 		);
 	} );
 
+	it( 'decodes a multi-word method that PHP setcookie() encoded with "+"', () => {
+		const push = installPushSpy();
+		window.gtmkit_settings = { datalayer_name: 'dataLayer' };
+		// PHP's setcookie() URL-encodes the value with spaces as "+", not
+		// "%20". Model that exact wire format so the round-trip is covered.
+		const phpEncoded = encodeURIComponent(
+			JSON.stringify( { event: 'login', method: 'Google OAuth' } )
+		).replace( /%20/g, '+' );
+		document.cookie = `gtmkit_engagement_event=${ phpEncoded }`;
+
+		loadModule();
+
+		expect( push ).toHaveBeenCalledWith(
+			{ event: 'login', method: 'Google OAuth' },
+			'dataLayer'
+		);
+	} );
+
 	it( 'deletes the cookie and pushes nothing when JSON.parse fails', () => {
 		const push = installPushSpy();
 		// Raw value that fails JSON.parse after decodeURIComponent.
