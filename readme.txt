@@ -109,6 +109,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * The Contact Form 7 integration now loads reliably on form pages when "Load JavaScript" is set to the recommended "Only on pages where the Contact Form 7 script is registered" mode, even when a performance plugin (e.g. WP Rocket) defers Contact Form 7's own scripts until shortcode render. Previously the integration could be skipped on legitimate form pages and `gtmkit.CF7MailSent` would not fire.
 
 #### Other:
+* Rebuilt the bundled admin settings build so the Consent page carries the new event deferral controls. The controls are inert without a Premium license, which drives them.
 * New developer filters let extensions tag the method, normalise the search term, assign a lead value, rename the handoff cookie, veto any event, or opt custom search templates into the `search` event.
 * New `gtmkit_blocks_supported` filter lets developers add custom block names to the list that loads GTM Kit's block tracking.
 * Raised the minimum WooCommerce version to 10.3 for the new block tracking integration. Sites on earlier WooCommerce continue to receive classic-template tracking unchanged.
