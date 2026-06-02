@@ -101,7 +101,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 2.14.0 =
 
-Release date: 2026-06-01
+Release date: 2026-06-02
 
 Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-14/).
 
