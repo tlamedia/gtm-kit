@@ -18,6 +18,16 @@ use TLA_Media\GTM_Kit\Options\Options;
 final class GeneralOptionsPage extends AbstractOptionsPage {
 
 	/**
+	 * The settings registration contract version exposed to the shell and to
+	 * add-ons through the `gtmkit_settings_registry` filter. Bump only with a
+	 * compatibility story; a field-schema or condition-grammar change is
+	 * breaking.
+	 *
+	 * @var int
+	 */
+	public const SETTINGS_REGISTRY_SCHEMA_VERSION = 1;
+
+	/**
 	 * The option group.
 	 *
 	 * @var string
@@ -142,6 +152,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			[
 				'rootId'             => 'gtmkit-settings',
 				'currentPage'        => $page_slug,
+				'version'            => GTMKIT_VERSION,
 				'root'               => \esc_url_raw( rest_url() ),
 				'nonce'              => \wp_create_nonce( 'wp_rest' ),
 				'pluginUrl'          => GTMKIT_URL,
@@ -151,13 +162,54 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 				'integrations'       => Integrations::get_integrations(),
 				'plugins'            => IntegrationsOptionsPage::get_plugins(),
 				'adminPageUrl'       => $this->util->get_admin_page_url(),
+				'templates'          => $this->util->get_data( '/get-template-assistant', 'gtmkit_templates' ),
+				'generatorUrl'       => $this->util->get_api_url( '/generate-template' ),
+				'opportunities'      => $this->get_upgrade_opportunities(),
 				'settings'           => $this->options->get_all_raw(),
 				'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
 				'user_roles'         => $this->get_user_roles(),
 				'notifications'      => $this->get_notifications(),
 				'consentAdminBadges' => $this->get_consent_admin_badges(),
+				'settingsRegistry'   => $this->get_settings_registry(),
 			]
 		);
+	}
+
+	/**
+	 * Build the settings registration payload add-ons contribute their
+	 * capability/section/field schema to.
+	 *
+	 * Add-ons hook `gtmkit_settings_registry`, receiving the accumulating
+	 * payload and the contract version, and append entries to `fields` and
+	 * `sections`. Each field/section mirrors the shell's registry schema
+	 * (`key`, `capability`, `section`, `order`, `control`, `label`, `tier`, and
+	 * the declarative `visibleWhen`/`enabledWhen` conditions). Core stamps the
+	 * `schemaVersion`, so an add-on cannot forge a version it does not target;
+	 * the shell ignores a payload whose version it does not understand.
+	 *
+	 * A registered field supersedes the core upsell stub of the same `key`, so
+	 * add-on field UI lives in the add-on, not in core.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_settings_registry(): array {
+		$registry = (array) apply_filters(
+			'gtmkit_settings_registry',
+			[
+				'fields'   => [],
+				'sections' => [],
+			],
+			self::SETTINGS_REGISTRY_SCHEMA_VERSION
+		);
+
+		$fields   = ( isset( $registry['fields'] ) && is_array( $registry['fields'] ) ) ? array_values( $registry['fields'] ) : [];
+		$sections = ( isset( $registry['sections'] ) && is_array( $registry['sections'] ) ) ? array_values( $registry['sections'] ) : [];
+
+		return [
+			'schemaVersion' => self::SETTINGS_REGISTRY_SCHEMA_VERSION,
+			'fields'        => $fields,
+			'sections'      => $sections,
+		];
 	}
 
 	/**
