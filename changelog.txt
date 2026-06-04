@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Dev: New `gtmkit_settings_registry` filter lets add-ons register their settings fields with the GTM Kit settings screen at runtime. The settings screen now exposes its field registry and related metadata, preparing for GTM Kit's new settings interface.
+
 2026-06-03 - version 2.14.1
 * Fix: WooCommerce block tracking now loads on block (FSE) themes where Cart, Checkout, Mini Cart, Product Collection, or Related Products are rendered from block templates and template parts. Previously the block tracking bundle could fail to load on these sites, so block ecommerce events never fired.
 

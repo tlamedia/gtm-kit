@@ -112,46 +112,4 @@ final class UpgradesOptionsPage extends AbstractOptionsPage {
 			]
 		);
 	}
-
-	/**
-	 * Get opportunities
-	 *
-	 * @return object
-	 */
-	private function get_upgrade_opportunities(): object {
-		$integrations = $this->util->get_data( '/get-upgrade-opportunities', 'gtmkit_upgrade_opportunities' );
-
-		$active_theme = wp_get_theme();
-
-		$opportunities = [];
-
-		if ( ! empty( $integrations['upgrades'] ) ) {
-			foreach ( $integrations['upgrades'] as $add_on => $add_on_info ) {
-				if ( \is_plugin_active( $add_on . '/' . $add_on . '.php' ) ) {
-					$opportunities['upgrades'][ $add_on ] = [
-						'name'   => $add_on_info['name'],
-						'header' => __( 'The plugin is installed and activated', 'gtm-kit' ),
-						'usp'    => [],
-					];
-				} else {
-					$opportunities['upgrades'][ $add_on ] = $add_on_info;
-
-					foreach ( $integrations['plugins'] as $plugin => $plugin_info ) {
-						if ( \is_plugin_active( $plugin ) && $plugin_info['add_on'][ $add_on ] ) {
-							$opportunities['plugins'][ $plugin ] = $plugin_info;
-						}
-					}
-
-					foreach ( $integrations['themes'] as $theme => $theme_info ) {
-						if ( $active_theme->get_template() === $theme && $theme_info['add_on'][ $add_on ] ) {
-							$opportunities['theme'] = $theme_info;
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		return (object) $opportunities;
-	}
 }
