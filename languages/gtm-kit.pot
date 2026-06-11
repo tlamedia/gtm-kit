@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.14.1\n"
+"Project-Id-Version: GTM Kit 2.15.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-02T15:02:42+00:00\n"
+"POT-Creation-Date: 2026-06-11T14:23:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -35,7 +35,7 @@ msgid "Go to GTM Kit Settings page"
 msgstr ""
 
 #: inc/main.php:98
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Settings"
 msgstr ""
 
@@ -60,6 +60,10 @@ msgstr ""
 msgid "Go back to the Dashboard"
 msgstr ""
 
+#: src/Admin/AbstractOptionsPage.php:292
+msgid "The plugin is installed and activated"
+msgstr ""
+
 #: src/Admin/AdminAPI.php:134
 #: src/Admin/AdminAPI.php:139
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
@@ -73,20 +77,20 @@ msgstr ""
 msgid "Invalid input data."
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:100
+#: src/Admin/GeneralOptionsPage.php:110
 #: assets/admin/191.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:109
+#: src/Admin/GeneralOptionsPage.php:119
 msgid "General Settings"
 msgstr ""
 
 #: src/Admin/HelpOptionsPage.php:61
 #: src/Admin/HelpOptionsPage.php:70
 #: assets/admin/48.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Help"
 msgstr ""
 
@@ -106,7 +110,9 @@ msgstr ""
 #: src/Admin/IntegrationsOptionsPage.php:73
 #: assets/admin/191.js:1
 #: assets/admin/352.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:25
+#: assets/admin/settings.js:29
 msgid "Integrations"
 msgstr ""
 
@@ -121,6 +127,7 @@ msgstr ""
 #: src/Admin/MetaBox.php:90
 #: assets/admin/563.js:1
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Page type"
 msgstr ""
 
@@ -180,8 +187,9 @@ msgid "Breaking change:"
 msgstr ""
 
 #: src/Admin/Suggestions.php:423
-#: assets/admin/761.js:1
+#: assets/admin/519.js:1
 #: assets/admin/837.js:1
+#: assets/admin/settings.js:10
 msgid "New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date."
 msgstr ""
 
@@ -229,18 +237,16 @@ msgstr ""
 
 #: src/Admin/TemplatesOptionsPage.php:59
 #: src/Admin/TemplatesOptionsPage.php:68
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "GTM Templates"
 msgstr ""
 
 #: src/Admin/UpgradesOptionsPage.php:59
 #: src/Admin/UpgradesOptionsPage.php:68
 #: assets/admin/474.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Upgrades"
-msgstr ""
-
-#: src/Admin/UpgradesOptionsPage.php:133
-msgid "The plugin is installed and activated"
 msgstr ""
 
 #: src/Common/RestAPIServer.php:33
@@ -377,24 +383,20 @@ msgstr ""
 msgid "Tutorials"
 msgstr ""
 
-#: assets/admin/76.js:1
-#: assets/admin/674.js:1
-#: assets/admin/674.js:19
-msgid "(not set)"
-msgstr ""
-
 #. translators: %s is the name of the plugin.
+#. translators: %s: integration name.
 #: assets/admin/76.js:4
 #: assets/admin/345.js:4
-#: assets/admin/674.js:4
+#: assets/admin/567.js:4
 #: assets/admin/838.js:4
+#: assets/admin/settings.js:26
 msgid "%s Integration"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:7
 #: assets/admin/345.js:7
-#: assets/admin/674.js:7
+#: assets/admin/567.js:7
 #: assets/admin/838.js:7
 msgid "Track %s"
 msgstr ""
@@ -402,163 +404,461 @@ msgstr ""
 #. translators: %s is the name of the plugin.
 #: assets/admin/76.js:10
 #: assets/admin/345.js:10
-#: assets/admin/674.js:10
+#: assets/admin/567.js:10
 #: assets/admin/838.js:10
 msgid "Activate the %s integration"
 msgstr ""
 
-#. translators: %s is the name of the plugin.
-#: assets/admin/76.js:13
-#: assets/admin/345.js:13
-#: assets/admin/674.js:13
-#: assets/admin/838.js:13
-msgid "%s is not active"
-msgstr ""
-
-#. translators: %s is the name of the plugin.
-#: assets/admin/76.js:16
-#: assets/admin/345.js:16
-#: assets/admin/674.js:16
-#: assets/admin/838.js:16
-msgid "If you haven't installed and activated %s you must do that."
-msgstr ""
-
-#. translators: %s is the name of the plugin.
-#: assets/admin/76.js:19
-#: assets/admin/345.js:19
-#: assets/admin/674.js:19
-#: assets/admin/838.js:19
-msgid "Install %s"
-msgstr ""
-
-#: assets/admin/76.js:19
-#: assets/admin/settings.js:1
+#: assets/admin/76.js:10
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "Easy Digital Downloads"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/345.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/345.js:10
+#: assets/admin/567.js:10
 msgid "Basic Settings"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Use SKU instead of ID"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Use SKU instead of the product ID with fallback to ID if no SKU is set."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Exclude tax"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Exclude tax from prices and revenue"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Include customer data"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enable this option to include customer data in the data layer on the \"purchase\" event."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
 msgid "Google Ads Settings"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Google Business Vertical"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "In order to use Google Ads Remarketing you must select your business type (vertical)."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Product ID prefix"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enter prefix"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "If your product feed generator is adding a prefix to the product IDs, you can add the prefix here to include it in the Data Layer."
 msgstr ""
 
-#: assets/admin/76.js:19
+#: assets/admin/76.js:10
 msgid "Advanced settings"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Dequeue the default JavaScript"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
+#: assets/admin/76.js:10
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enable this option to dequeue the default JavaScript if you plan to create your own JavaScript."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Retail"
+#: assets/admin/169.js:1
+#: assets/admin/519.js:1
+#: assets/admin/567.js:1
+msgid "Unlock with premium"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Education"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:10
+msgid "Event deferral"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Flights"
+#: assets/admin/169.js:1
+msgid "Hold back ecommerce events in the browser until the visitor grants consent, then release them in the order they fired. The decision runs entirely client-side, so a cached page stays identical for every visitor."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Hotel rental"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:10
+msgid "Defer events until consent is granted"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Jobs"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Local deals"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Events to defer"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Real estate"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Checked events wait for consent. Unchecked events fire immediately."
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Travel"
+#: assets/admin/169.js:1
+msgid "Timeout"
 msgstr ""
 
-#: assets/admin/76.js:19
-#: assets/admin/674.js:19
-msgid "Custom"
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Seconds to wait"
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "On timeout"
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Flush the queued events anyway"
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Drop the queued events (never fire without consent)"
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Required consent categories"
+msgstr ""
+
+#: assets/admin/169.js:1
+#: assets/admin/settings.js:18
+msgid "Deferred events are released once these consent categories are granted."
+msgstr ""
+
+#. translators: %s is an HTML attribute string rendered in monospace.
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:13
+#: assets/admin/settings.js:15
+#: assets/admin/settings.js:17
+msgid "Adds %s to GTM Kit scripts."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:29
+msgid "Google Consent Mode"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Script gating"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Choose whether GTM Kit loads the Google Tag Manager container unconditionally, lets it load but hands consent to Consent Mode v2, or holds the container script back until consent is granted."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Gating mode"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Always load (default)"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Weak block (Consent Mode)"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Strong block"
+msgstr ""
+
+#: assets/admin/169.js:3
+msgid "GTM loads on every page. Use this if your CMP handles consent through Consent Mode tags or attributes, or if you do not yet have a CMP."
+msgstr ""
+
+#: assets/admin/169.js:3
+msgid "GTM loads but starts in denied state via Consent Mode. Tags inside GTM that respect Consent Mode (most do) will not fire until consent is granted. Recommended when using a CMP that publishes consent state to the data layer or to WP Consent API."
+msgstr ""
+
+#: assets/admin/169.js:3
+msgid "GTM does not execute until consent is granted. Strongest privacy posture. Use this if you want a guarantee that no tracking fires before consent. Some tag features that depend on early loading (auto-event listeners, scroll tracking from page-load time) will be limited."
+msgstr ""
+
+#: assets/admin/169.js:3
+msgid "Strong-block mode requires a consent signal to load GTM. With the master toggle off, GTM Kit emits no consent code itself; you must ensure your CMP or custom code fires the gtmkit:consent:updated event when consent is granted, otherwise GTM will not load."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "CMP script attributes"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "If your consent platform blocks scripts via HTML attributes, enable the matching option below. GTM Kit will add the attribute to its inline scripts so your CMP recognizes them."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:17
+#: assets/admin/settings.js:18
+msgid "Custom attribute"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:17
+msgid "Use this to add an attribute that is not in the list above. Names accept letters, digits, underscore, and dash; everything else is stripped on save. Leave the name empty to omit the attribute."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:17
+msgid "Name"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:17
+msgid "Value"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:17
+#: assets/admin/settings.js:18
+msgid "Resulting script tag attributes"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Google Consent Mode Activation"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/389.js:1
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Warning!"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Many consent management platforms (Cookiebot, Complianz, CookieYes, Cookie Information, etc.) handle Google Consent Mode themselves — either via their own client script or via tags inside your GTM container. If your CMP already does this, leave this setting off. Turning it on alongside a CMP that also emits gtag('consent', 'default', …) will cause double-firing and unpredictable consent state."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Only turn this on if you have no CMP or if your CMP explicitly does not implement Consent Mode itself."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "GTM Kit will only set the default Consent Mode settings and you must update the settings yourself when the user has given consent. When this setting is on, GTM Kit also exposes window.gtmkit.consent.update() and the gtmkit:consent:updated window event for partner scripts."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "See an example of how consent is updated"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Activate GCM settings"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Choose this option if you would like to activate the default settings below"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Google Consent Mode Default Settings"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Ad Personalization"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables personalized advertising"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Ad Storage"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables storage, such as cookies, related to advertising"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Ad User Data"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables sending user data related to advertising to Google"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Analytics Storage"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables storage, such as cookies, related to analytics (for example, visit duration)"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Functionality Storage"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables storage that supports the functionality of the website or app such as language settings"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Personalization Storage"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables storage related to personalization such as video recommendations"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Security Storage"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Enables storage related to security such as authentication functionality, fraud prevention, and other user protection"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Advanced"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Redact Ads Data"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Redact advertising data"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Pass through URL parameters"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Pass through ad click, client ID, and session ID information in URLs"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Wait For Update"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Milliseconds to wait for a CMP to call gtag('consent', 'update', …) before tags fire with default state. 500 ms is a safe baseline. Set to 0 to disable the wait."
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Region"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "e.g. DK, DE, US-CA"
+msgstr ""
+
+#: assets/admin/169.js:3
+#: assets/admin/settings.js:10
+msgid "Limit defaults to specific countries or regions (ISO codes, e.g. DK, DE-BY, US-CA). Leave empty to apply globally. Separate multiple codes with commas."
+msgstr ""
+
+#: assets/admin/176.js:1
+msgid "About the assistant"
+msgstr ""
+
+#: assets/admin/176.js:1
+msgid "The assistant builds a ready-to-import GTM container from your setup, with tags, triggers and variables already wired to the data layer GTM Kit pushes. It is a starting point you import into Google Tag Manager, then review and publish yourself."
+msgstr ""
+
+#: assets/admin/176.js:1
+msgid "Read the import guide"
+msgstr ""
+
+#: assets/admin/176.js:1
+msgid "Generating a template never touches your live container. Nothing goes live until you import the file and publish it in Google Tag Manager."
 msgstr ""
 
 #: assets/admin/176.js:1
@@ -574,19 +874,15 @@ msgid "Template Assistant"
 msgstr ""
 
 #: assets/admin/176.js:1
+msgid "Generate a GTM container template from your setup"
+msgstr ""
+
+#: assets/admin/176.js:1
 msgid "Get your Google Tag Manager container template"
 msgstr ""
 
 #: assets/admin/176.js:1
-msgid "GTM Kit is sending data to your Google Tag Manger container but you still need to configure Tags, Triggers and Variables in GTM to use the data."
-msgstr ""
-
-#: assets/admin/176.js:1
-msgid "Below you will find the template generator, which will generate a Google Tag Manager template based on you choices."
-msgstr ""
-
-#: assets/admin/176.js:1
-msgid "When you have generated the template you can import it into your Google Tag Manager container and deploy it."
+msgid "GTM Kit is sending data to your container, but you still need to configure Tags, Triggers and Variables in GTM. The generator builds a template from your choices to import and deploy."
 msgstr ""
 
 #: assets/admin/176.js:1
@@ -662,6 +958,9 @@ msgid "Select the services that you want to send tracking data to."
 msgstr ""
 
 #: assets/admin/176.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:22
+#: assets/admin/settings.js:25
 msgid "Premium"
 msgstr ""
 
@@ -771,11 +1070,16 @@ msgstr ""
 
 #: assets/admin/191.js:1
 #: assets/admin/352.js:1
+#: assets/admin/settings.js:22
+#: assets/admin/settings.js:25
+#: assets/admin/settings.js:28
+#: assets/admin/settings.js:29
 msgid "Active"
 msgstr ""
 
 #: assets/admin/191.js:1
 #: assets/admin/352.js:1
+#: assets/admin/settings.js:22
 msgid "Inactive"
 msgstr ""
 
@@ -810,7 +1114,7 @@ msgstr ""
 
 #: assets/admin/191.js:1
 #: assets/admin/467.js:4
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Notifications"
 msgstr ""
 
@@ -832,8 +1136,10 @@ msgid "See all notifications"
 msgstr ""
 
 #: assets/admin/191.js:1
-#: assets/admin/761.js:1
+#: assets/admin/519.js:1
 #: assets/admin/923.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:22
 #: assets/admin/wizard.js:1
 msgid "Help improve GTM Kit"
 msgstr ""
@@ -843,345 +1149,87 @@ msgid "Share anonymous data with the development team to help improve GTM Kit."
 msgstr ""
 
 #: assets/admin/191.js:1
-#: assets/admin/761.js:1
+#: assets/admin/519.js:1
 #: assets/admin/923.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:22
 msgid "Share anonymous data"
 msgstr ""
 
-#: assets/admin/345.js:19
-#: assets/admin/settings.js:1
+#: assets/admin/345.js:10
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "Contact Form 7"
 msgstr ""
 
-#: assets/admin/345.js:19
+#: assets/admin/345.js:10
+#: assets/admin/settings.js:10
 msgid "Load JavaScript"
 msgstr ""
 
-#: assets/admin/345.js:19
+#: assets/admin/345.js:10
+#: assets/admin/settings.js:10
 msgid "Only on pages where the Contact Form 7 script is registered (recommended)."
 msgstr ""
 
-#: assets/admin/345.js:19
+#: assets/admin/345.js:10
+#: assets/admin/settings.js:10
 msgid "On all pages"
 msgstr ""
 
-#: assets/admin/345.js:19
+#: assets/admin/345.js:10
+#: assets/admin/settings.js:10
 msgid "Where do you want load the JavaScript?"
 msgstr ""
 
-#: assets/admin/368.js:1
-#: assets/admin/674.js:1
-#: assets/admin/761.js:1
-msgid "Unlock with premium"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Event deferral"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Hold back ecommerce events in the browser until the visitor grants consent, then release them in the order they fired. The decision runs entirely client-side, so a cached page stays identical for every visitor."
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Defer events until consent is granted"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Events to defer"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Checked events wait for consent. Unchecked events fire immediately."
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Timeout"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Seconds to wait"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "On timeout"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Flush the queued events anyway"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Drop the queued events (never fire without consent)"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Required consent categories"
-msgstr ""
-
-#: assets/admin/368.js:1
-msgid "Deferred events are released once these consent categories are granted."
-msgstr ""
-
-#. translators: %s is an HTML attribute string rendered in monospace.
-#: assets/admin/368.js:3
-msgid "Adds %s to GTM Kit scripts."
-msgstr ""
-
-#: assets/admin/368.js:3
-#: assets/admin/settings.js:1
-msgid "Google Consent Mode"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Script gating"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Choose whether GTM Kit loads the Google Tag Manager container unconditionally, lets it load but hands consent to Consent Mode v2, or holds the container script back until consent is granted."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Gating mode"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Always load (default)"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Weak block (Consent Mode)"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Strong block"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "GTM loads on every page. Use this if your CMP handles consent through Consent Mode tags or attributes, or if you do not yet have a CMP."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "GTM loads but starts in denied state via Consent Mode. Tags inside GTM that respect Consent Mode (most do) will not fire until consent is granted. Recommended when using a CMP that publishes consent state to the data layer or to WP Consent API."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "GTM does not execute until consent is granted. Strongest privacy posture. Use this if you want a guarantee that no tracking fires before consent. Some tag features that depend on early loading (auto-event listeners, scroll tracking from page-load time) will be limited."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Strong-block mode requires a consent signal to load GTM. With the master toggle off, GTM Kit emits no consent code itself; you must ensure your CMP or custom code fires the gtmkit:consent:updated event when consent is granted, otherwise GTM will not load."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "CMP script attributes"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "If your consent platform blocks scripts via HTML attributes, enable the matching option below. GTM Kit will add the attribute to its inline scripts so your CMP recognizes them."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Custom attribute"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Use this to add an attribute that is not in the list above. Names accept letters, digits, underscore, and dash; everything else is stripped on save. Leave the name empty to omit the attribute."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Name"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Value"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Resulting script tag attributes"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Google Consent Mode Activation"
-msgstr ""
-
-#: assets/admin/368.js:3
 #: assets/admin/389.js:1
-#: assets/admin/523.js:1
-msgid "Warning!"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Many consent management platforms (Cookiebot, Complianz, CookieYes, Cookie Information, etc.) handle Google Consent Mode themselves — either via their own client script or via tags inside your GTM container. If your CMP already does this, leave this setting off. Turning it on alongside a CMP that also emits gtag('consent', 'default', ...) will cause double-firing and unpredictable consent state."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Only turn this on if you have no CMP or if your CMP explicitly does not implement Consent Mode itself."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "GTM Kit will only set the default Consent Mode settings and you must update the settings yourself when the user has given consent. When this setting is on, GTM Kit also exposes window.gtmkit.consent.update() and the gtmkit:consent:updated window event for partner scripts."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "See an example of how consent is updated"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Activate GCM settings"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Choose this option if you would like to activate the default settings below"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Google Consent Mode Default Settings"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Ad Personalization"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables personalized advertising"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Ad Storage"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables storage, such as cookies, related to advertising"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Ad User Data"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables sending user data related to advertising to Google"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Analytics Storage"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables storage, such as cookies, related to analytics (for example, visit duration)"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Functionality Storage"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables storage that supports the functionality of the website or app such as language settings"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Personalization Storage"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables storage related to personalization such as video recommendations"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Security Storage"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Enables storage related to security such as authentication functionality, fraud prevention, and other user protection"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Advanced"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Redact Ads Data"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Redact advertising data"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Pass through URL parameters"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Pass through ad click, client ID, and session ID information in URLs"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Wait For Update"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Milliseconds to wait for a CMP to call gtag('consent', 'update', ...) before tags fire with default state. 500 ms is a safe baseline. Set to 0 to disable the wait."
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Region"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "e.g. DK, DE, US-CA"
-msgstr ""
-
-#: assets/admin/368.js:3
-msgid "Limit defaults to specific countries or regions (ISO codes, e.g. DK, DE-BY, US-CA). Leave empty to apply globally. Separate multiple codes with commas."
-msgstr ""
-
-#: assets/admin/389.js:1
-#: assets/admin/674.js:19
-#: assets/admin/settings.js:1
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:29
 msgid "User Data"
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Including user data is not compatible with full page caching."
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Full page caching will cache user data making it the same for all users. There are ways around this, but it depends on the chosen cache solution and is only for advanced users."
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "User Data Settings"
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Logged in"
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Include whether the user is logged in."
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "User ID"
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Include the user ID if the user is logged in."
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "User role"
 msgstr ""
 
 #: assets/admin/389.js:1
+#: assets/admin/settings.js:10
 msgid "Include the user role if the user is logged in."
 msgstr ""
 
@@ -1210,6 +1258,7 @@ msgid "Plugin Homepage"
 msgstr ""
 
 #: assets/admin/428.js:1
+#: assets/admin/settings.js:29
 msgid "Share system data with the GTM Kit support team"
 msgstr ""
 
@@ -1222,14 +1271,17 @@ msgid "Enter support ticket"
 msgstr ""
 
 #: assets/admin/428.js:1
+#: assets/admin/settings.js:29
 msgid "Send system data"
 msgstr ""
 
 #: assets/admin/467.js:1
+#: assets/admin/settings.js:22
 msgid "Restore"
 msgstr ""
 
 #: assets/admin/467.js:1
+#: assets/admin/settings.js:22
 msgid "Dismiss"
 msgstr ""
 
@@ -1241,8 +1293,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: assets/admin/467.js:4
-#: assets/admin/761.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:29
 msgid "Misc"
 msgstr ""
 
@@ -1270,368 +1322,98 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "No patterns configured. GTM Kit loads on every frontend page."
+#: assets/admin/519.js:1
+#: assets/admin/837.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/wizard.js:1
+msgid "Automatic Updates"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Pattern"
+#: assets/admin/519.js:1
+#: assets/admin/837.js:1
+#: assets/admin/settings.js:10
+msgid "You can, of course, manually update GTM Kit whenever it suits you, but we highly recommend that you regularly update your plugins and themes to the latest versions to keep your site secure."
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Mode"
+#: assets/admin/519.js:1
+#: assets/admin/837.js:1
+#: assets/admin/settings.js:10
+msgid "Enable Automatic Updates"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Invalid regular expression."
+#: assets/admin/519.js:1
+#: assets/admin/837.js:1
+#: assets/admin/settings.js:10
+msgid "Automatically update the GTM Kit plugin when new releases are available."
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Invalid regular expression:"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Logging and debugging"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Glob"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Event Inspector"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Regex"
+#: assets/admin/519.js:1
+msgid "The event inspector is placed in the footer of the frontand and allows you to see all the fired GTM events."
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Remove pattern"
+#: assets/admin/519.js:1
+msgid "The Event Inspector loads only for logged-in administrators or when WP_DEBUG is enabled. It is disabled entirely under strong-block consent mode."
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Remove"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Console log"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Add pattern"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Log helpful messages and warnings to the browser log."
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Maximum of 100 patterns reached."
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Debug log"
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "Help finding GTM Container ID"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "Log the \"purchase\" event to the debug log."
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "Where to find your GTM Container ID"
+#: assets/admin/519.js:1
+#: assets/admin/settings.js:10
+msgid "GTM Kit will never transmit any domain names or container ID's."
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "You can find your GTM Container ID in Google Tag Manager at the top of your workspace. It looks like GTM-XXXXXXX."
+#: assets/admin/519.js:1
+#: assets/admin/923.js:1
+#: assets/admin/settings.js:10
+msgid "I agree to share anonymous data with the development team to help improve GTM Kit."
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "GTM Container ID location in Google Tag Manager"
+#: assets/admin/519.js:1
+msgid "About GTM Kit"
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "Open Google Tag Manager"
+#: assets/admin/519.js:1
+msgid "Version:"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "Google Tag Manager container"
+#: assets/admin/519.js:1
+msgid "Learn about changes and follow the development of GTM Kit:"
 msgstr ""
 
-#: assets/admin/523.js:1
-msgid "General Container Settings"
+#: assets/admin/519.js:1
+msgid "The changelog"
 msgstr ""
 
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "GTM Container ID:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter GTM Container ID"
-msgstr ""
-
-#: assets/admin/523.js:1
-#: assets/admin/767.js:1
-msgid "Find your Container ID in Google Tag Manager"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Inject Container Code"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Setting this to Off will remove the Google Tag Manager container code but the data layer will remain."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Just the container"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Setting this to On will reduce the functionality to just the GTM container code. No additional data will be pushed to the datalayer regardless of any other settings."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "dataLayer variable name:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do so."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Exclude pages from GTM"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Add URL patterns to suppress GTM Kit on matching pages. The container, noscript iframe, and dataLayer scripts all stay off when the current request path matches one of the patterns below."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Matching is on the URL path only: query string is ignored, casing is ignored, and a single trailing slash is normalised. Empty list = GTM Kit loads on every page. On subdirectory installs, patterns must include the full path (e.g. /shop/checkout-embed/*)."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Examples"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "— third-party checkout iframe routes"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "— partner-hosted subpages with their own analytics"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "— in-app webview routes"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Pattern syntax"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Glob mode (default): * matches any run of characters including /; ? matches a single character; all other characters are matched literally."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Regex mode: enter a raw PCRE pattern without delimiters. The matcher adds ~ delimiters and the i flag. Invalid patterns are rejected on save."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Server-side Tagging (sGTM)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "sGTM Container Domain:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter domain"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter your custom domain name if you are using a custom server side GTM container for tracking."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "sGTM container identifier:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter loader name"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Only use if you are using a custom loader."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Cookie Keeper (for Stape users only)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Google Tag Manager Server-side Tagging"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
-msgstr ""
-
-#: assets/admin/523.js:1
-#: assets/admin/674.js:19
-msgid "Learn more"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Hosting server-side GTM containers"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Setting up server-side tracking can be challenging and costly but there is an easy and cheap solution."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Stape.io is a solution for hosting server-side Google Tag Manager containers, offering a simplified approach that demands less technical expertise than solutions like Google Cloud Platform."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Additionally, it provides valuable add-ons for enhanced functionality."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Learn more about Stape.io"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Page Speed Optimization"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "load_delayed_js event"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Setting this to On will push the event 'load_delayed_js' on page load."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Delay JavaScript execution"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Page optimization plugins can delay the 'load_delayed_js' event and this can be used to delay the triggering og tags in Google Tag Manager."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Google Tag Manager Environment"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "gtm_auth:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter gtm_auth code"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter the gtm_auth code for your GTM environment."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "gtm_preview:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter gtm_preview code"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Enter the gtm_preview code for your GTM environment."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Environments"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "In Google Tag Manager you can define different environments like Live, Dev and QA."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "To use a specific environment in GTM Kit you must enter the \"gtm_auth\" and \"gtm_preview\" codes for that environment."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "If left empty the default environment will be used."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Override settings in wp-config.php"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "You can override the values by using constants in wp-config.php, which is a very useful for setting the value in your development and staging environments."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Exclude User Roles"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Exclude user roles"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Select the roles that you want to exclude from tracking."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Excluding user roles is not compatible with all full-page cache solutions. Some full-page cache solutions may cache the page identically for all users, regardless of their user role. This could result in users being excluded who should not be."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Please ensure thorough and proper testing of this."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Container Code Implementation"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Container code implementation:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Standard implementation as recommended by Google (no delay)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Load container when the browser is idle (requestIdleCallback)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle."
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Container code noscript implementation:"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Just after the opening <body> tag"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Footer of the page (not recommended by Google)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Custom (insert function in your template)"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "Disable <noscript> implementation"
-msgstr ""
-
-#: assets/admin/523.js:1
-msgid "The preferred method to implement the <noscript> container code is just after the opening <body> tag. This requires that your theme uses the \"body_open\" hook. If your theme does not support this the script can be injected in the footer or you can use the function below."
+#: assets/admin/519.js:1
+msgid "The GitHub repository"
 msgstr ""
 
 #: assets/admin/563.js:1
@@ -1648,6 +1430,7 @@ msgid "Include the page type i.e. page, product, category, cart, checkout etc in
 msgstr ""
 
 #: assets/admin/563.js:1
+#: assets/admin/settings.js:10
 msgid "Track WooCommerce"
 msgstr ""
 
@@ -1656,6 +1439,7 @@ msgid "Would you like to track e-commerce data from WooCommerce?"
 msgstr ""
 
 #: assets/admin/563.js:1
+#: assets/admin/settings.js:10
 msgid "Track Contact Form 7"
 msgstr ""
 
@@ -1664,6 +1448,7 @@ msgid "Would you like to track form submissions from Contact Form 7?"
 msgstr ""
 
 #: assets/admin/563.js:1
+#: assets/admin/settings.js:10
 msgid "Track Easy Digital Downloads"
 msgstr ""
 
@@ -1678,350 +1463,727 @@ msgstr ""
 msgid "Save and continue"
 msgstr ""
 
-#: assets/admin/674.js:19
-#: assets/admin/settings.js:1
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "WooCommerce"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Brand"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Select the taxonomy that is used for product brands"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Exclude shipping from revenue"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "User-Provided Data"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "The user data is available in the datalayer in 'ecommerce.customer' and a subset of the user data formatted for the 'User-Provided Data' variable is available in 'user-data'."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Learn more"
+msgstr ""
+
+#: assets/admin/567.js:10
 msgid "Webhooks for Server-side Tracking"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "In order to use webhooks you must first enable Server-side Tagging by entering a sGTM Container Domain"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Go to sGTM settings"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "In order to use webhooks you must configure you server-side container to handle the webhooks"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 #: assets/admin/809.js:1
 msgid "Go to GTM Templates"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Send webhooks to server GTM container"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "This option will allow you to send GTM events using webhooks to your server GTM container."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Send webhooks from a background queue"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Dispatch webhooks from a background queue instead of during the checkout request, so the checkout is not held up by the server container. Failed deliveries are retried automatically."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Queued jobs appear under"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Scheduled Actions"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "GTM Events Send by Server-Side Webhooks:"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send an 'purchase' event from the server side when an order is created."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send 'purchase' event when an order is created.'"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send 'purchase' event when the order has been paid and order status is 'Processing'."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send an 'order_paid' event from the server side when an order has 'Processing' status."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send an 'refund' event from the server side when an order has been refunded or cancelled."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+msgid "Order Status Events:"
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "Order status events are always delivered via the background queue, so they are sent reliably even when the status changes without a customer browser present (admin, cron, or payment gateway)."
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "Send an 'order_processing' event from the server side when an order transitions to the 'Processing' status. Fires alongside 'order_paid' when both are enabled."
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "Send an 'order_completed' event from the server side when an order transitions to the 'Completed' status."
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "Send an 'order_refunded' event from the server side when an order's status changes to 'Refunded'. This is the full-refund status event; individual refunds are covered by the 'refund' event."
+msgstr ""
+
+#: assets/admin/567.js:10
 msgid "WooCommerce Subscriptions Events:"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send a 'subscription_started' event from the server side when a subscription is created."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send a 'subscription_renewed' event from the server side when a renewal payment completes (including off-session cron renewals)."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send a 'subscription_cancelled' event from the server side when a subscription is cancelled."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send a 'subscription_expired' event from the server side when a subscription expires."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Send a 'subscription_reactivated' event from the server side when a cancelled or expired subscription is reactivated."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+msgid "Server-Side Consent:"
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "Apply the consent given at checkout to the identifiers sent in server-side webhooks. The consent state is recorded when the order is placed and governs every later webhook for that order, including subscription renewals."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Consent gating of webhooks"
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Off: send webhooks regardless of the consent given at checkout."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Suppress: strip identifiers the customer did not consent to, and do not send the webhook at all when both marketing and analytics consent were denied."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Anonymize: strip identifiers the customer did not consent to, but always send the webhook so aggregate conversion data is preserved."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Unknown consent"
+msgstr ""
+
+#: assets/admin/567.js:10
+msgid "How to handle orders with no recorded consent state, for example orders placed before consent capture or created by an administrator."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Treat unknown consent as granted and send the webhook unchanged."
+msgstr ""
+
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
+msgid "Treat unknown consent as denied."
+msgstr ""
+
+#: assets/admin/567.js:10
 msgid "Event Customization"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Push view_item_list when the list is updated using a product filter."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Only only push view_item_list once per per page for each list."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Do you what to push the view_item_list event if the list is updated using a filter or just once per page view?"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Only push view_item on the master product"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Push view_item on master and variation products (higher number of views)."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Only push view_item on variation products."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "When do you want to fire the \"view_item\" event on variable products?"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "When the 'Place order' button is clicked"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "When a shipment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Disable the 'add_shipment_info' event."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "When do you want to fire the \"add_shipment_info\" event?"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "When a payment method is selected with fallback to the 'Place order' button."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Disable the 'add_payment_info' event."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "When do you want to fire the \"add_payment_info\" event?"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Disable the 'purchase' event in frontend an rely on server-side webhook."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Disable the 'subscription_started' event in frontend and rely on the server-side webhook."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Custom CSS Selectors"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "If your shop is not compatible with the default CSS selectors you can specify your own CSS selectors."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Single Product (add_to_wishlist):"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Enter CSS selector"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Enter the CSS selector that matches button, which should be use to fire the add_to_wishlist event."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Product List (select_item):"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Enter the CSS selector that matches your product list item, which should be use to fire the select_item event."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Product List (add_to_wishlist):"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Advanced Settings"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Custom Order Received Page"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enable custom order received (thank you) page"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Select Page"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Select a custom page to use as the order received (thank you) page"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Include permalink structure"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enable this option to include the permalink structure of the product base, category base, tag base and attribute base."
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
 msgid "Include path of pages"
 msgstr ""
 
-#: assets/admin/674.js:19
+#: assets/admin/567.js:10
+#: assets/admin/settings.js:10
 msgid "Enable this option to include the path of cart, checkout, order received and my account page."
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/923.js:1
-msgid "GTM Kit is used together with a wide variety of server configurations and plugins. It is very helpful for us to know what some of these configurations are so we can test the most common configurations."
+#: assets/admin/756.js:1
+msgid "Google Tag Manager container"
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/923.js:1
-msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "General Container Settings"
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/837.js:1
-#: assets/admin/wizard.js:1
-msgid "Automatic Updates"
+#: assets/admin/756.js:1
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:10
+msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/837.js:1
-msgid "You can, of course, manually update GTM Kit whenever it suits you, but we highly recommend that you regularly update your plugins and themes to the latest versions to keep your site secure."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "GTM Container ID:"
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/837.js:1
-msgid "Enable Automatic Updates"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter GTM Container ID"
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/837.js:1
-msgid "Automatically update the GTM Kit plugin when new releases are available."
+#: assets/admin/756.js:1
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:17
+msgid "Find your Container ID in Google Tag Manager"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Logging and debugging"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Inject Container Code"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Event Inspector"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Setting this to Off will remove the Google Tag Manager container code but the data layer will remain."
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "The event inspector is placed in the footer of the frontand and allows you to see all the fired GTM events."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Just the container"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "The Event Inspector loads only for logged-in administrators or when WP_DEBUG is enabled. It is disabled entirely under strong-block consent mode."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Setting this to On will reduce the functionality to just the GTM container code. No additional data will be pushed to the datalayer regardless of any other settings."
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Console log"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "dataLayer variable name:"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Log helpful messages and warnings to the browser log."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "The default name of the data layer object is dataLayer. If you prefer to use a different name for your data layer, you may do so."
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Debug log"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Exclude pages from GTM"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Log the \"purchase\" event to the debug log."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Add URL patterns to suppress GTM Kit on matching pages. The container, noscript iframe, and dataLayer scripts all stay off when the current request path matches one of the patterns below."
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "GTM Kit will never transmit any domain names or container ID's."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Matching is on the URL path only: query string is ignored, casing is ignored, and a single trailing slash is normalised. Empty list = GTM Kit loads on every page. On subdirectory installs, patterns must include the full path (e.g. /shop/checkout-embed/*)."
 msgstr ""
 
-#: assets/admin/761.js:1
-#: assets/admin/923.js:1
-msgid "I agree to share anonymous data with the development team to help improve GTM Kit."
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Examples"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "About GTM Kit"
+#: assets/admin/756.js:1
+msgid "— third-party checkout iframe routes"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Version:"
+#: assets/admin/756.js:1
+msgid "— partner-hosted subpages with their own analytics"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "Learn about changes and follow the development of GTM Kit:"
+#: assets/admin/756.js:1
+msgid "— in-app webview routes"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "The changelog"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Pattern syntax"
 msgstr ""
 
-#: assets/admin/761.js:1
-msgid "The GitHub repository"
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Glob mode (default): * matches any run of characters including /; ? matches a single character; all other characters are matched literally."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Regex mode: enter a raw PCRE pattern without delimiters. The matcher adds ~ delimiters and the i flag. Invalid patterns are rejected on save."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Server-side Tagging (sGTM)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "sGTM Container Domain:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter domain"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter your custom domain name if you are using a custom server side GTM container for tracking."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "sGTM container identifier:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter loader name"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Only use if you are using a custom loader."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Cookie Keeper (for Stape users only)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Google Tag Manager Server-side Tagging"
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Server-side tagging is a silver bullet that gives you improved data accuracy, performance, privacy, and flexibility."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Hosting server-side GTM containers"
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Setting up server-side tracking can be challenging and costly but there is an easy and cheap solution."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Stape.io is a solution for hosting server-side Google Tag Manager containers, offering a simplified approach that demands less technical expertise than solutions like Google Cloud Platform."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Additionally, it provides valuable add-ons for enhanced functionality."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Learn more about Stape.io"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Page Speed Optimization"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "load_delayed_js event"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Setting this to On will push the event 'load_delayed_js' on page load."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Delay JavaScript execution"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Page optimization plugins can delay the 'load_delayed_js' event and this can be used to delay the triggering og tags in Google Tag Manager."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Google Tag Manager Environment"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "gtm_auth:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter gtm_auth code"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter the gtm_auth code for your GTM environment."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "gtm_preview:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter gtm_preview code"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Enter the gtm_preview code for your GTM environment."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Environments"
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "In Google Tag Manager you can define different environments like Live, Dev and QA."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "To use a specific environment in GTM Kit you must enter the \"gtm_auth\" and \"gtm_preview\" codes for that environment."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "If left empty the default environment will be used."
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "Override settings in wp-config.php"
+msgstr ""
+
+#: assets/admin/756.js:1
+msgid "You can override the values by using constants in wp-config.php, which is a very useful for setting the value in your development and staging environments."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Exclude User Roles"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Exclude user roles"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Select the roles that you want to exclude from tracking."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Excluding user roles is not compatible with all full-page cache solutions. Some full-page cache solutions may cache the page identically for all users, regardless of their user role. This could result in users being excluded who should not be."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Please ensure thorough and proper testing of this."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Container Code Implementation"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Container code implementation:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Standard implementation as recommended by Google (no delay)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Load container when the browser is idle (requestIdleCallback)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle."
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Container code noscript implementation:"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Just after the opening <body> tag"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Footer of the page (not recommended by Google)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Custom (insert function in your template)"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "Disable <noscript> implementation"
+msgstr ""
+
+#: assets/admin/756.js:1
+#: assets/admin/settings.js:10
+msgid "The preferred method to implement the <noscript> container code is just after the opening <body> tag. This requires that your theme uses the \"body_open\" hook. If your theme does not support this the script can be injected in the footer or you can use the function below."
+msgstr ""
+
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:1
+msgid "Help finding GTM Container ID"
+msgstr ""
+
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:1
+msgid "Where to find your GTM Container ID"
+msgstr ""
+
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:1
+msgid "You can find your GTM Container ID in Google Tag Manager at the top of your workspace. It looks like GTM-XXXXXXX."
+msgstr ""
+
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:1
+msgid "GTM Container ID location in Google Tag Manager"
+msgstr ""
+
+#: assets/admin/767.js:1
+#: assets/admin/settings.js:1
+msgid "Open Google Tag Manager"
 msgstr ""
 
 #: assets/admin/767.js:1
@@ -2093,118 +2255,154 @@ msgstr ""
 msgid "Go to the dashboard"
 msgstr ""
 
+#: assets/admin/923.js:1
+#: assets/admin/settings.js:10
+msgid "GTM Kit is used together with a wide variety of server configurations and plugins. It is very helpful for us to know what some of these configurations are so we can test the most common configurations."
+msgstr ""
+
+#: assets/admin/923.js:1
+#: assets/admin/settings.js:10
+msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
+msgstr ""
+
 #: assets/admin/958.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Post Data"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post Data Settings"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post type"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the type of the current post or archive page."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the defined page type. I.e. post, page, product, category, cart, checkout etc. You may override this on page-level and set you own page type i.e. \"campaign\"."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Categories"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the categories of the current post or archive page."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Tags"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the tags of the current post or archive page."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post title"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the Post ID of the current post."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post ID"
 msgstr ""
 
 #: assets/admin/958.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "Post data"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the post date."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post author name"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the post author name."
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Post author ID"
 msgstr ""
 
 #: assets/admin/958.js:1
+#: assets/admin/settings.js:10
 msgid "Include the post author ID."
 msgstr ""
 
 #: assets/admin/996.js:1
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Engagement events"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "GA4 standard events"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Fire GA4 standard engagement events for logins, sign-ups, on-site search, and Contact Form 7 lead submissions. Each event can be disabled independently if your GTM container or GA4 setup already covers it."
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Login"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Fires `login` on successful WordPress and WooCommerce account logins."
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Sign-up"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Fires `sign_up` on new account registrations, including accounts created during WooCommerce checkout."
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Search"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Fires `search` on WordPress and WooCommerce product search results pages."
 msgstr ""
 
@@ -2213,10 +2411,12 @@ msgid "Enable the Contact Form 7 integration first."
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Generate lead (CF7)"
 msgstr ""
 
 #: assets/admin/996.js:1
+#: assets/admin/settings.js:10
 msgid "Fires `generate_lead` alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled."
 msgstr ""
 
@@ -2266,119 +2466,923 @@ msgid "Got it"
 msgstr ""
 
 #: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "No patterns configured. GTM Kit loads on every frontend page."
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Pattern"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Mode"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Invalid regular expression."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Invalid regular expression:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Glob"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Regex"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Remove pattern"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Remove"
+msgstr ""
+
+#: assets/admin/settings.js:1
+msgid "Add pattern"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:18
+msgid "Maximum of 100 patterns reached."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/settings.js:17
+msgid "(not set)"
+msgstr ""
+
+#. translators: %s is the name of the plugin.
+#: assets/admin/settings.js:4
+msgid "%s is not active"
+msgstr ""
+
+#. translators: %s is the name of the plugin.
+#: assets/admin/settings.js:7
+msgid "If you haven't installed and activated %s you must do that."
+msgstr ""
+
+#. translators: %s is the name of the plugin.
+#: assets/admin/settings.js:10
+msgid "Install %s"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "About this section"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Live dataLayer preview"
+msgstr ""
+
+#: assets/admin/settings.js:10
 msgid "Setup Integration"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 msgid "Get Template"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 msgid "Read More"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+msgid "Retail"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Education"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Flights"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Hotel rental"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Jobs"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Local deals"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Real estate"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Travel"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Custom"
+msgstr ""
+
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Settings saved successfully."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "License validation failed. Please check your license key."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Network error. Please check your connection and try again."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Server error. Please try again later."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "An unexpected error occurred. Please try again."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 msgid "Save"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 msgid "Saved"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Something went wrong"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "An unexpected error occurred. Please try refreshing the page."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Try Again"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Reload Page"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "Section Error"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "The"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
 #: assets/admin/wizard.js:1
 msgid "This section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:1
-msgid "Google Tag Manager Templates"
-msgstr ""
-
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:25
+#: assets/admin/settings.js:29
 msgid "Dashboard"
 msgstr ""
 
-#: assets/admin/settings.js:1
-msgid "Container"
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "Setup"
 msgstr ""
 
-#: assets/admin/settings.js:1
-msgid "User data"
+#: assets/admin/settings.js:10
+msgid "Container, delivery and environment"
 msgstr ""
 
-#: assets/admin/settings.js:1
-msgid "Templates"
+#: assets/admin/settings.js:10
+msgid "Setup controls how the GTM container loads, the data layer name, server-side tagging, and which pages and roles are excluded from tracking."
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+msgid "Read the setup guide"
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "Events & data layer"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Post data, user data and engagement events"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "These settings control the page and user data GTM Kit adds to the data layer, plus the standard GA4 events it fires automatically, so your tags always have consistent variables to build on."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Read the events guide"
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "Commerce"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce and Easy Digital Downloads tracking"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Commerce tracking pushes view_item, add_to_cart, begin_checkout and purchase events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Read the commerce docs"
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "Consent & privacy"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Consent Mode, script gating and CMP integration"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "You need a consent platform"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "These settings control the consent signals GTM Kit sends to Google Tag Manager. They do not ask visitors for consent. You need a Consent Management Platform (CMP) to collect and store consent choices."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "GTM Kit wires up these signals but is not responsible for your privacy compliance. Configuring consent correctly for your region is your responsibility: consult your own legal guidance."
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "Tools"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Updates, logging and diagnostics"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "These tools help you keep GTM Kit healthy: control automatic updates, turn on logging when you need to debug, and choose whether to share anonymous usage data."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Read the troubleshooting guide"
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
+msgid "License"
+msgstr ""
+
+#: assets/admin/settings.js:10
+#: assets/admin/settings.js:29
 msgid "Support"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Page data"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Basic Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: User Data"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Event Customization"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Webhooks for server-side tracking"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Google Ads Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Advanced Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "WooCommerce: Custom CSS Selectors"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Easy Digital Downloads: Basic Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Easy Digital Downloads: Google Ads Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Easy Digital Downloads: Advanced Settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Enable the Contact Form 7 integration."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Enable the WooCommerce integration."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "view_item_list (with product filter)"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Only push view_item_list once per page for each list."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Do you want to push the view_item_list event if the list is updated using a filter or just once per page view?"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "view_item (variable product)"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "add_shipping_info"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Disable the 'add_shipping_info' event."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "When do you want to fire the \"add_shipping_info\" event?"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "add_payment_info"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Include WooCommerce permalink structure"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Include path of WooCommerce pages"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Enable the Easy Digital Downloads integration."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the purchase event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Purchase webhook trigger"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "When an order is created."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "When the order is paid and status is Processing."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the order_paid event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the refund event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the order_processing event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the order_completed event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the order_refunded event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the subscription_started event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the subscription_renewed event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the subscription_cancelled event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the subscription_expired event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Send the subscription_reactivated event server-side"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Disable the frontend purchase event"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Disable the frontend subscription_started event"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Single Product (add_to_wishlist)"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Product List (select_item)"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Product List (add_to_wishlist)"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "third-party checkout"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "partner-hosted subpages"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "in-app webview routes"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "sGTM Hosting"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Server-side tagging improves data accuracy, performance, privacy, and flexibility."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Stape.io offers an affordable and user-friendly hosting solution for server-side Google Tag Manager containers."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Use GTM environments such as Live, Dev, or QA by entering the environment’s gtm_auth and gtm_preview values. If left empty, the default environment is used."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "These values can also be defined in wp-config.php"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Strong-block mode requires a consent signal to load GTM. With the Consent Mode master toggle off, GTM Kit emits no consent code itself; your CMP or custom code must fire the gtmkit:consent:updated event when consent is granted, otherwise GTM will not load."
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Plugin"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Gravity Forms"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Viewing:"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "All integrations"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Search all settings…"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Search all settings"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "Save changes"
+msgstr ""
+
+#: assets/admin/settings.js:10
+msgid "(Premium)"
+msgstr ""
+
+#. translators: %s: search query.
+#: assets/admin/settings.js:11
+msgid "Results for “%s”"
+msgstr ""
+
+#: assets/admin/settings.js:11
+msgid "No settings match your search."
+msgstr ""
+
+#: assets/admin/settings.js:17
+#: assets/admin/settings.js:18
+msgid "GTM Kit Premium"
+msgstr ""
+
+#. translators: %s: the product that unlocks this setting.
+#: assets/admin/settings.js:18
+msgid "Upgrade to %s to manage this setting here."
+msgstr ""
+
+#: assets/admin/settings.js:18
+msgid "Adds"
+msgstr ""
+
+#: assets/admin/settings.js:18
+msgid "to GTM Kit scripts."
+msgstr ""
+
+#: assets/admin/settings.js:18
+msgid "Name and value added as an attribute. Leave the name empty to omit it."
+msgstr ""
+
+#: assets/admin/settings.js:18
+msgid "Add pattern +"
+msgstr ""
+
+#: assets/admin/settings.js:18
+msgid "GTM Kit Woo Add-On"
+msgstr ""
+
+#. translators: %s: the add-on plugin name to update.
+#: assets/admin/settings.js:19
+msgid "Update %s to its latest version to manage this setting here."
+msgstr ""
+
+#: assets/admin/settings.js:19
+msgid "Promotion"
+msgstr ""
+
+#: assets/admin/settings.js:19
+msgid "Warning"
+msgstr ""
+
+#. translators: 1: integration name, 2: setting count, 3: capability name.
+#: assets/admin/settings.js:20
+msgid "Filtered to %1$s — %2$d settings in %3$s. Universal capabilities (Setup, Consent) still apply and stay available."
+msgstr ""
+
+#. translators: 1: integration name, 2: capability name.
+#: assets/admin/settings.js:21
+msgid "Filtered to %1$s. No %1$s settings in %2$s — universal settings still apply and stay available."
+msgstr ""
+
+#. translators: 1: hidden integration name, 2: active filter name.
+#: assets/admin/settings.js:22
+msgid "%1$s settings hidden by the %2$s filter."
+msgstr ""
+
+#: assets/admin/settings.js:22
+#: assets/admin/settings.js:24
+#: assets/admin/settings.js:25
+msgid "Off"
+msgstr ""
+
+#: assets/admin/settings.js:22
+msgid "Share anonymous data to help improve GTM Kit."
+msgstr ""
+
+#: assets/admin/settings.js:22
+#: assets/admin/settings.js:29
+msgid "Manage"
+msgstr ""
+
+#: assets/admin/settings.js:22
+msgid "Needs attention"
+msgstr ""
+
+#: assets/admin/settings.js:22
+msgid "You're all caught up. Nothing needs attention right now."
+msgstr ""
+
+#. translators: %d: number of dismissed notifications.
+#: assets/admin/settings.js:23
+msgid "Hide dismissed notifications (%d)"
+msgstr ""
+
+#. translators: %d: number of dismissed notifications.
+#: assets/admin/settings.js:24
+msgid "Show dismissed notifications (%d)"
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: assets/admin/settings.js:29
+msgid "Container"
+msgstr ""
+
+#: assets/admin/settings.js:24
+msgid "Not set"
+msgstr ""
+
+#: assets/admin/settings.js:24
+msgid "Injected on all pages"
+msgstr ""
+
+#: assets/admin/settings.js:24
+msgid "Consent Mode v2"
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: assets/admin/settings.js:25
+msgid "On"
+msgstr ""
+
+#. translators: %s: comma-separated region codes.
+#: assets/admin/settings.js:25
+msgid "Region: %s"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "All regions"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Server-side"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Webhook queue available"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Overview of your GTM Kit setup"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Set up your GTM container"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Recommended next step"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "GTM Kit is sending data to your container. Generate the Tags, Triggers and Variables you still need in Google Tag Manager."
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Open Template Assistant"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Resources"
+msgstr ""
+
+#: assets/admin/settings.js:25
+#: assets/admin/settings.js:29
+msgid "Read"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "All tutorials"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Browse the full guide library"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "What you configure here"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "This page is for enabling integrations and their basic plugin settings."
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Tracking itself, which events fire and what goes into the data layer, is configured on the capability pages (Commerce, Events & data layer, Consent & privacy)."
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Not installed"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Configure"
+msgstr ""
+
+#: assets/admin/settings.js:25
+msgid "Enable integrations here. Their settings live on the capability pages."
+msgstr ""
+
+#. translators: %s: capability name.
+#: assets/admin/settings.js:27
+msgid "Reached from Integrations · settings live under %s"
+msgstr ""
+
+#. translators: %s: integration name.
+#: assets/admin/settings.js:28
+msgid "Install and activate the %s plugin to configure this integration."
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Trouble activating?"
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Make sure the key is pasted in full (it starts with GTMK-) with no leading or trailing spaces, and that your server can reach the GTM Kit licensing server. If activation still fails, premium licence holders get priority email support and we can check it from our side."
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Contact premium support"
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Server-side webhooks & background queue"
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "WooCommerce Subscriptions tracking"
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Event deferral until consent"
+msgstr ""
+
+#: assets/admin/settings.js:28
+msgid "Order attribution & enhanced conversions"
+msgstr ""
+
+#. translators: %s: license renewal date.
+#: assets/admin/settings.js:29
+msgid "Active · renews %s"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Your license"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "License key"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Status"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Deactivate license"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Unlock GTM Kit Premium"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Upgrade"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Server-side tracking, the webhook queue, subscriptions and more."
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Enter license key"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Activate license"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Buy a license"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Go to my account"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Get help and contact us"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Premium support"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Premium subscribers get direct email support, usually a same-day reply on weekdays. Bugs, configuration questions, edge cases."
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Contact support"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Get GTM Kit Premium"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Community support"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Free support in the WordPress.org support forum. Covers the plugin itself, not Google Tag Manager configuration."
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "WordPress support forum"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Bug reports"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Found a reproducible bug? Open an issue on GitHub with steps to reproduce and the plugin version. Public, searchable, faster to triage."
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Report on GitHub"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below."
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Support ticket"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "FS-12345"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Documentation"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "View all documentation"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Integration"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Google Tag Manager Templates"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "User data"
+msgstr ""
+
+#: assets/admin/settings.js:29
+msgid "Templates"
+msgstr ""
+
+#: assets/admin/settings.js:29
 msgid "Container Settings"
 msgstr ""
 
-#: assets/admin/settings.js:1
+#: assets/admin/settings.js:29
 msgid "Miscellaneous"
 msgstr ""
 
