@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Fix: The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
+
 2026-06-12 - version 2.15.0
 * Fix: Security hardening. Links served to the settings interface from remote content (upgrade offers, templates, tutorials) and notifications are now validated before they are used for navigation.
 * Dev: New `gtmkit_settings_registry` filter lets add-ons register their settings fields with the GTM Kit settings screen at runtime. The settings screen now exposes its field registry and related metadata, preparing for GTM Kit's new settings interface.

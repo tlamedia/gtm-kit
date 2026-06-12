@@ -99,6 +99,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### Bugfixes:
+* The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
+
 = 2.15.0 =
 
 Release date: 2026-06-12
