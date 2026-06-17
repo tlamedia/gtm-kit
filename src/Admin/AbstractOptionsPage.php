@@ -87,21 +87,41 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Whether the capability-axis settings shell is the active admin UI.
 	 *
-	 * Defaults to the legacy per-page UI; flip with the `gtmkit_shell_v2`
-	 * filter, which doubles as a kill-switch. When the shell is active it owns
-	 * in-app navigation, so the WP admin submenu collapses to the single
-	 * top-level entry and the standalone settings sub-pages are not registered.
+	 * Defaults to the shell. Turn it off site-wide with the `gtmkit_shell_v2`
+	 * filter (`__return_false`), which doubles as a kill-switch. A
+	 * `?gtmkit_shell=v1` or `?gtmkit_shell=v2` request parameter overrides the
+	 * default for that request in either direction, a symmetric per-request
+	 * escape hatch for spot-checking or a quick rollback. When the shell is
+	 * active it owns in-app navigation, so the WP admin submenu collapses to the
+	 * single top-level entry and the standalone settings sub-pages are not
+	 * registered.
 	 *
 	 * @return bool
 	 */
 	public static function is_shell_v2_active(): bool {
+		// A ?gtmkit_shell=v1|v2 request parameter wins over the default, so the
+		// previous UI can be reached without changing site configuration. This
+		// is a read-only display preference, so no nonce check applies.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['gtmkit_shell'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$requested = sanitize_key( wp_unslash( $_GET['gtmkit_shell'] ) );
+			if ( 'v1' === $requested ) {
+				return false;
+			}
+			if ( 'v2' === $requested ) {
+				return true;
+			}
+		}
+
 		/**
 		 * Filters whether the capability-axis settings shell is the active
-		 * admin UI. Defaults to false (the legacy per-page UI).
+		 * admin UI. Defaults to true (the redesigned settings interface);
+		 * return false to fall back to the legacy per-page UI.
 		 *
 		 * @param bool $active Whether the shell is active.
 		 */
-		return (bool) apply_filters( 'gtmkit_shell_v2', false );
+		return (bool) apply_filters( 'gtmkit_shell_v2', true );
 	}
 
 	/**
