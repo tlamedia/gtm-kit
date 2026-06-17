@@ -152,6 +152,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			[
 				'rootId'             => 'gtmkit-settings',
 				'currentPage'        => $page_slug,
+				'shellV2'            => self::is_shell_v2_active(),
 				'version'            => GTMKIT_VERSION,
 				'root'               => \esc_url_raw( rest_url() ),
 				'nonce'              => \wp_create_nonce( 'wp_rest' ),
