@@ -125,12 +125,26 @@ final class Options {
 		} elseif ( $map ) {
 			$value = $map['default'];
 		} else {
-			return null;
+			$value = null;
 		}
 
-		return is_string( $value ) && $strip_slashes && ! $this->is_const_defined( $group, $key )
-			? stripslashes( $value )
-			: $value;
+		if ( is_string( $value ) && $strip_slashes && ! $this->is_const_defined( $group, $key ) ) {
+			$value = stripslashes( $value );
+		}
+
+		/**
+		 * Filters a resolved option value as it leaves the read path.
+		 *
+		 * Fires for every read, including the not-found case where `$value` is
+		 * null, so a listener can supply the value from an alternative store
+		 * (for example a network-level override) without the core read path
+		 * needing to know about it.
+		 *
+		 * @param mixed  $value The resolved value, or null when the key is unknown.
+		 * @param string $group The option group.
+		 * @param string $key   The option key.
+		 */
+		return apply_filters( 'gtmkit_option_value', $value, $group, $key );
 	}
 
 	/**

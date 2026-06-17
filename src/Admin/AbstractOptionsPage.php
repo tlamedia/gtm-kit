@@ -85,9 +85,35 @@ abstract class AbstractOptionsPage {
 	abstract protected static function create_instance( Options $options, Util $util ): AbstractOptionsPage;
 
 	/**
+	 * Whether the capability-axis settings shell is the active admin UI.
+	 *
+	 * Defaults to the legacy per-page UI; flip with the `gtmkit_shell_v2`
+	 * filter, which doubles as a kill-switch. When the shell is active it owns
+	 * in-app navigation, so the WP admin submenu collapses to the single
+	 * top-level entry and the standalone settings sub-pages are not registered.
+	 *
+	 * @return bool
+	 */
+	public static function is_shell_v2_active(): bool {
+		/**
+		 * Filters whether the capability-axis settings shell is the active
+		 * admin UI. Defaults to false (the legacy per-page UI).
+		 *
+		 * @param bool $active Whether the shell is active.
+		 */
+		return (bool) apply_filters( 'gtmkit_shell_v2', false );
+	}
+
+	/**
 	 * Adds the admin page to the menu.
 	 */
 	public function add_admin_page(): void {
+		// With the shell active the single top-level entry hosts every page, so
+		// the per-page submenu entries are redundant.
+		if ( self::is_shell_v2_active() ) {
+			return;
+		}
+
 		add_submenu_page(
 			$this->get_parent_slug(),
 			$this->get_page_title(),
