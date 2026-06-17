@@ -103,6 +103,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 #### Bugfixes:
 * The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
+* On the Post data settings, the Post title option showed the Post ID help text and the Post date option was mislabelled "Post data". Both now read correctly.
 
 #### Other:
 * New `gtmkit_option_value` filter runs on every option read, including unknown keys, so add-ons can resolve a value from an alternative source (for example a network-level override) without changing the core read path.
