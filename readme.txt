@@ -102,12 +102,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = Unreleased =
 
 #### New:
-* The settings screen now uses a redesigned, capability-based interface by default, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more. The previous layout stays available as a fallback: append ?gtmkit_shell=v1 to a settings URL for a single visit, or use the gtmkit_shell_v2 filter to switch a whole site back.
+* The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more. The previous per-page settings layout has been removed; the redesigned interface is the only settings UI.
 
 #### Bugfixes:
 * The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
 
 #### Other:
+* New `gtmkit_settings` filter lets add-ons add data to the settings screen's localized payload (such as license details) without rewriting the enqueued script.
 * New `gtmkit_option_value` filter runs on every option read, including unknown keys, so add-ons can resolve a value from an alternative source (for example a network-level override) without changing the core read path.
 
 = 2.15.0 =

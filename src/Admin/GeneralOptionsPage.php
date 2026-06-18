@@ -65,15 +65,6 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			[ $this, 'render' ],
 			'data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjOWVhM2E4IiBoZWlnaHQ9IjY0IiB2aWV3Qm94PSIwIDAgNDIgMjQiIHdpZHRoPSI2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMzguNTE2IDEuMjc5aC0yMi45MTRjLTEuMzU3IDAtMi41MDMtLjEtNC4yOTQgMS4zOTJsLTguNzE4IDYuODM2Yy0yLjExNCAxLjc2NS0yLjEyNSAzLjIxNyAwIDQuOTg2bDguNzE4IDYuODM2YzEuNjk5IDEuNDIgMi45MyAxLjM5MyA0LjI5NCAxLjM5M2g3LjI5NSAxNS42MTljMS4zNjQtLjAzMiAyLjUxLS45NTcgMi40ODQtMi4xMDR2LTE3LjI2N2MtLjAwNi0xLjE0Ni0xLjEyLTIuMDcyLTIuNDg0LTIuMDcyeiIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIC0xIDQyLjAwMDgwNiAyMy45OTk2MzkpIi8+PC9zdmc+'
 		);
-
-		add_submenu_page(
-			$this->get_parent_slug(),
-			$this->get_page_title(),
-			$this->get_menu_title(),
-			$this->get_capability(),
-			$this->get_menu_slug(),
-			[ $this, 'render' ]
-		);
 	}
 
 	/**
@@ -146,33 +137,45 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 * @param string $script_handle The script handle.
 	 */
 	public function localize_script( string $page_slug, string $script_handle ): void {
+		$settings = [
+			'rootId'             => 'gtmkit-settings',
+			'currentPage'        => $page_slug,
+			'version'            => GTMKIT_VERSION,
+			'root'               => \esc_url_raw( rest_url() ),
+			'nonce'              => \wp_create_nonce( 'wp_rest' ),
+			'pluginUrl'          => GTMKIT_URL,
+			'isPremium'          => ( new PremiumConditional() )->is_met(),
+			'isPremiumPlugin'    => ( new PremiumPluginConditional() )->is_met(),
+			'tutorials'          => $this->get_tutorials(),
+			'integrations'       => Integrations::get_integrations(),
+			'plugins'            => Integrations::get_plugins(),
+			'adminPageUrl'       => $this->util->get_admin_page_url(),
+			'templates'          => $this->util->get_data( '/get-template-assistant', 'gtmkit_templates' ),
+			'generatorUrl'       => $this->util->get_api_url( '/generate-template' ),
+			'opportunities'      => $this->get_upgrade_opportunities(),
+			'settings'           => $this->options->get_all_raw(),
+			'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
+			'user_roles'         => $this->get_user_roles(),
+			'notifications'      => $this->get_notifications(),
+			'consentAdminBadges' => $this->get_consent_admin_badges(),
+			'settingsRegistry'   => $this->get_settings_registry(),
+		];
+
+		/**
+		 * Filters the settings payload localised to the admin settings app.
+		 *
+		 * Add-ons append data the shell reads (for example the masked license
+		 * key and license status) by hooking this filter, instead of rewriting
+		 * the already-localised script.
+		 *
+		 * @param array<string, mixed> $settings The settings payload.
+		 */
+		$settings = (array) apply_filters( 'gtmkit_settings', $settings );
+
 		\wp_localize_script(
 			'gtmkit-' . $script_handle . '-script',
 			'gtmkitSettings',
-			[
-				'rootId'             => 'gtmkit-settings',
-				'currentPage'        => $page_slug,
-				'shellV2'            => self::is_shell_v2_active(),
-				'version'            => GTMKIT_VERSION,
-				'root'               => \esc_url_raw( rest_url() ),
-				'nonce'              => \wp_create_nonce( 'wp_rest' ),
-				'pluginUrl'          => GTMKIT_URL,
-				'isPremium'          => ( new PremiumConditional() )->is_met(),
-				'isPremiumPlugin'    => ( new PremiumPluginConditional() )->is_met(),
-				'tutorials'          => $this->get_tutorials(),
-				'integrations'       => Integrations::get_integrations(),
-				'plugins'            => IntegrationsOptionsPage::get_plugins(),
-				'adminPageUrl'       => $this->util->get_admin_page_url(),
-				'templates'          => $this->util->get_data( '/get-template-assistant', 'gtmkit_templates' ),
-				'generatorUrl'       => $this->util->get_api_url( '/generate-template' ),
-				'opportunities'      => $this->get_upgrade_opportunities(),
-				'settings'           => $this->options->get_all_raw(),
-				'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
-				'user_roles'         => $this->get_user_roles(),
-				'notifications'      => $this->get_notifications(),
-				'consentAdminBadges' => $this->get_consent_admin_badges(),
-				'settingsRegistry'   => $this->get_settings_registry(),
-			]
+			$settings
 		);
 	}
 

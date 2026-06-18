@@ -11,15 +11,12 @@ use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
-use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
-use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\Introductions\UI\Introductions_Integration;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\PluginAvailability;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Admin\Suggestions;
-use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
@@ -40,7 +37,6 @@ use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
 use TLA_Media\GTM_Kit\Integration\WooCommerceBlocks;
-use TLA_Media\GTM_Kit\Admin\UpgradesOptionsPage;
 
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
@@ -245,14 +241,9 @@ function gtmkit_admin_init(): void {
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
-	IntegrationsOptionsPage::register( $options, $util );
-	if ( ! ( new PremiumConditional() )->is_met() ) {
-		TemplatesOptionsPage::register( $options, $util );
-	} else {
+	if ( ( new PremiumConditional() )->is_met() ) {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
 	}
-	UpgradesOptionsPage::register( $options, $util );
-	HelpOptionsPage::register( $options, $util );
 	Introductions_Integration::register( $options, $util );
 
 	add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );
