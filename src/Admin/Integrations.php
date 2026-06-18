@@ -7,6 +7,10 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
+
 /**
  * Class for common integrations.
  */
@@ -44,5 +48,23 @@ final class Integrations {
 		];
 
 		return apply_filters( 'gtmkit_integrations_data', $integrations_data );
+	}
+
+	/**
+	 * Get the active state of the integration plugins.
+	 *
+	 * Routed through the Conditional classes so detection survives
+	 * renamed plugin files and mu-plugin installs.
+	 *
+	 * @return array<string, bool>
+	 */
+	public static function get_plugins(): array {
+		$plugins = [
+			'woocommerce' => ( new WooCommerceConditional() )->is_met(),
+			'cf7'         => ( new ContactForm7Conditional() )->is_met(),
+			'edd'         => ( new EasyDigitalDownloadsConditional() )->is_met(),
+		];
+
+		return apply_filters( 'gtmkit_integrations_plugins', $plugins );
 	}
 }

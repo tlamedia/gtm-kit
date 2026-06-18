@@ -85,65 +85,12 @@ abstract class AbstractOptionsPage {
 	abstract protected static function create_instance( Options $options, Util $util ): AbstractOptionsPage;
 
 	/**
-	 * Whether the capability-axis settings shell is the active admin UI.
-	 *
-	 * Defaults to the shell. Turn it off site-wide with the `gtmkit_shell_v2`
-	 * filter (`__return_false`), which doubles as a kill-switch. A
-	 * `?gtmkit_shell=v1` or `?gtmkit_shell=v2` request parameter overrides the
-	 * default for that request in either direction, a symmetric per-request
-	 * escape hatch for spot-checking or a quick rollback. When the shell is
-	 * active it owns in-app navigation, so the WP admin submenu collapses to the
-	 * single top-level entry and the standalone settings sub-pages are not
-	 * registered.
-	 *
-	 * @return bool
-	 */
-	public static function is_shell_v2_active(): bool {
-		// A ?gtmkit_shell=v1|v2 request parameter wins over the default, so the
-		// previous UI can be reached without changing site configuration. This
-		// is a read-only display preference, so no nonce check applies.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['gtmkit_shell'] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$requested = sanitize_key( wp_unslash( $_GET['gtmkit_shell'] ) );
-			if ( 'v1' === $requested ) {
-				return false;
-			}
-			if ( 'v2' === $requested ) {
-				return true;
-			}
-		}
-
-		/**
-		 * Filters whether the capability-axis settings shell is the active
-		 * admin UI. Defaults to true (the redesigned settings interface);
-		 * return false to fall back to the legacy per-page UI.
-		 *
-		 * @param bool $active Whether the shell is active.
-		 */
-		return (bool) apply_filters( 'gtmkit_shell_v2', true );
-	}
-
-	/**
 	 * Adds the admin page to the menu.
+	 *
+	 * The settings shell owns in-app navigation, so a single top-level entry
+	 * hosts every page; the concrete page registers that entry here.
 	 */
-	public function add_admin_page(): void {
-		// With the shell active the single top-level entry hosts every page, so
-		// the per-page submenu entries are redundant.
-		if ( self::is_shell_v2_active() ) {
-			return;
-		}
-
-		add_submenu_page(
-			$this->get_parent_slug(),
-			$this->get_page_title(),
-			$this->get_menu_title(),
-			$this->get_capability(),
-			$this->get_menu_slug(),
-			[ $this, 'render' ],
-			$this->get_position()
-		);
-	}
+	abstract public function add_admin_page(): void;
 
 	/**
 	 * Renders the admin page.
@@ -198,15 +145,6 @@ abstract class AbstractOptionsPage {
 	 * @return string
 	 */
 	abstract protected function get_parent_slug(): string;
-
-	/**
-	 * The position in the menu order this item should appear.
-	 *
-	 * @return int|null
-	 */
-	protected function get_position(): ?int {
-		return null;
-	}
 
 	/**
 	 * Enqueue admin page scripts and styles.
