@@ -1,0 +1,71 @@
+@import '../../../scss/_base.scss';
+@import '../../../scss/_tailwind-compiled.scss';
+
+//variables
+$prefixClass:'gtmkit';
+
+ $white:#fff;
+ $borderColor:#c3c4c7;
+ $textColor:#1d2327;
+
+.#{$prefixClass}{
+
+	p {
+		font-size: 14px;
+	}
+
+	&-settings-field-wrap{
+		background: $white;
+		border:1px solid  $borderColor;
+		padding: 20px;
+		margin-block-start: 2rem;
+
+		 .components{
+			&-base{
+				&-control{
+					&.components-toggle-control{
+						line-height: 1.5em;
+					}
+					&__label{
+						display: block;
+						font-weight: 600;
+						font-size: 13px;
+					}
+				}
+			}
+		 }
+
+		.gtmkit-text-center .components-text-control__input {
+			text-align: center;
+		}
+	}
+	&-notice{
+		margin: 0;
+		padding-right: 20px !important;
+		width: 300px;
+		.components-notice__content{
+			p{
+				margin: 0;
+			}
+		}
+	}
+	&-page-loader{
+
+		position : fixed !important;
+		top      : 50%;
+		left     : 50%;
+		transform: translate(-50%, -50%);
+		width    : 30px  !important;
+		height   : 30px !important;
+
+	}
+
+}
+
+body{
+	&.toplevel_page_gtm-kit-settings{
+		#wpfooter{
+			display: none;
+		}
+	}
+}
