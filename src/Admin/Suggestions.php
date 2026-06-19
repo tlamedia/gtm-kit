@@ -486,7 +486,7 @@ final class Suggestions {
 		}
 
 		if ( $debug_log ) {
-			$message .= ' ' . __( 'The debug log for "purchase" events is active.', 'gtm-kit' );
+			$message .= ' ' . __( 'The debug log for the purchase event and server-side webhooks is active.', 'gtm-kit' );
 		}
 
 		$url      = $this->util->get_admin_page_url() . 'general#/misc';

@@ -102,14 +102,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = Unreleased =
 
 #### New:
-* The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more. The previous per-page settings layout has been removed; the redesigned interface is the only settings UI.
+* The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.
 
 #### Bugfixes:
 * The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
 
 #### Other:
-* New `gtmkit_settings` filter lets add-ons add data to the settings screen's localized payload (such as license details) without rewriting the enqueued script.
-* New `gtmkit_option_value` filter runs on every option read, including unknown keys, so add-ons can resolve a value from an alternative source (for example a network-level override) without changing the core read path.
+* Clarified the Debug log setting description so it reflects that it also logs the server-side webhooks GTM Kit sends, not only the purchase event.
 
 = 2.15.0 =
 
