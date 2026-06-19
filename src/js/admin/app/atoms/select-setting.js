@@ -24,8 +24,21 @@ const SelectSetting = memo(
 		disabled = false,
 		help = '',
 		notSet = false,
+		valueType = 'string',
+		defaultValue,
 	} ) => {
 		const [ value, setValue ] = useSettingField( optionGroup, optionName );
+
+		// Fall back to the declared default for display when the option has
+		// never been saved, so the recommended choice shows as selected
+		// instead of a blank control. Display only: the stored value is left
+		// untouched until the user makes a change.
+		const effective =
+			value === undefined || value === null || value === ''
+				? defaultValue
+				: value;
+		const selected =
+			valueType === 'integer' ? parseInt( effective, 10 ) : effective;
 
 		const updatedOptions = notSet
 			? [ { label: __( '(not set)', 'gtm-kit' ), value: '' }, ...options ]
@@ -35,7 +48,7 @@ const SelectSetting = memo(
 			<>
 				<SelectControl
 					label={ title }
-					value={ value }
+					value={ selected }
 					options={ updatedOptions }
 					className={ className }
 					onChange={ setValue }

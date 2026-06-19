@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.15.0
+Stable tag: 2.16.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,6 +15,8 @@ Google Tag Manager and GA4 integration. Including WooCommerce data for Google An
 GTM Kit puts the Google Tag Manager container code on your website so that you don't need to touch any code. It also pushes data from WooCommerce, Easy Digital Downloads (EDD) and Contact Form 7 to the data layer for use with for Google Analytics 4, Facebook and other GTM tags.
 
 The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager. It is easy to use and doesn't require any coding, but it allows developers to customize the plugin as needed.
+
+The settings are organised around what you are trying to do (Setup, Events & data layer, Commerce, Consent & privacy, and Tools), so related options live together and the setting you need is quick to find.
 
 ## eCommerce events tracked with Google Analytics 4
 The following GA4 events are automatically included in the dataLayer:
@@ -68,10 +70,10 @@ You may specify which post data elements you wish to include in the dataLayer fo
 == Screenshots ==
 
 1. GTM Kit Dashboard
-2. Container settings: container code, server side GTM, and page exclusions
-3. Post data settings
-4. Google Consent Mode
-5. WooCommerce Integration
+2. Setup: container code, server-side GTM, and page exclusions
+3. Events & data layer: post data and GA4 events
+4. Consent & privacy: Google Consent Mode and CMP script attributes
+5. Commerce: WooCommerce and Easy Digital Downloads tracking
 
 == Installation ==
 
@@ -99,7 +101,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.16.0 =
+
+Release date: 2026-06-19
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
 
 #### New:
 * The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.

@@ -185,6 +185,8 @@ const Select = ( { field, disabled } ) => {
 			optionGroup={ group }
 			optionName={ name }
 			notSet={ field.notSet }
+			valueType={ field.valueType }
+			defaultValue={ field.defaultValue }
 			disabled={ disabled }
 		/>
 	);
