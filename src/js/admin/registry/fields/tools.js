@@ -49,7 +49,7 @@ export const TOOLS_FIELDS = [
 		control: 'toggle',
 		label: __( 'Debug log', 'gtm-kit' ),
 		description: __(
-			'Log the "purchase" event to the debug log.',
+			'Log the purchase event and the server-side webhooks GTM Kit sends to your tagging server.',
 			'gtm-kit'
 		),
 		notificationId: 'gtmkit-log-active',
