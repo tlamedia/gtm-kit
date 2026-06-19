@@ -1,0 +1,96 @@
+@import '../../../scss/_base.scss';
+@import '../../../scss/_tailwind-compiled.scss';
+
+// Toast animations (Phase 3 Optimization - 2026-01-27)
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.gtmkit-animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+//variables
+$prefixClass: 'gtmkit';
+
+.#{$prefixClass} {
+
+  #wpcontent {
+    padding-left: 0 !important;
+
+    *,
+    *::before,
+    *::after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  }
+
+  a {
+    font-size: 14px;
+  }
+
+  a:focus {
+    box-shadow: none;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .components-button {
+    &.is-primary {
+      background-color: var(--gtmkit-color-button);
+    }
+
+    .components-spinner {
+      margin: 0 0 0 1rem;
+    }
+  }
+
+  &-settings-field-wrap {
+    //background: $white;
+    //border:1px solid  $borderColor;
+    //padding: 20px;
+    //margin-block-start: 30px;
+
+    .components{
+      &-base{
+        &-control{
+
+          &.components-toggle-control{
+            line-height: 1.5em;
+          }
+          &__label{
+            font-size: 14px;
+            text-transform: none;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  .slide-enter, .slide-appear {
+    transform: translateY(100%);
+  }
+  .slide-enter-active, .slide-appear-active {
+    transform: translateY(0);
+    transition: transform 500ms ease-in-out;
+  }
+  .slide-exit {
+    transform: translateY(0);
+  }
+  .slide-exit-active {
+    transform: translateY(100%);
+    transition: transform 500ms ease-in-out;
+  }
+}
