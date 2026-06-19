@@ -1,9 +1,9 @@
 *** GTM Kit ***
 
-Unreleased
-* Changed: The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.
-* Changed: Clarified the Debug log setting description so it reflects that it also logs the server-side webhooks GTM Kit sends, not only the purchase event.
+2026-06-19 - version 2.16.0
+* Add: The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.
 * Fix: The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
+* Changed: Clarified the Debug log setting description so it reflects that it also logs the server-side webhooks GTM Kit sends, not only the purchase event.
 
 2026-06-12 - version 2.15.0
 * Fix: Security hardening. Links served to the settings interface from remote content (upgrade offers, templates, tutorials) and notifications are now validated before they are used for navigation.
