@@ -87,10 +87,22 @@ abstract class AbstractOptionsPage {
 	/**
 	 * Adds the admin page to the menu.
 	 *
-	 * The settings shell owns in-app navigation, so a single top-level entry
-	 * hosts every page; the concrete page registers that entry here.
+	 * The settings shell owns in-app navigation, so the concrete top-level page
+	 * overrides this to register a single menu entry. The default submenu
+	 * registration is kept concrete so add-ons that subclass this base against
+	 * an older core (and do not override it) keep loading without a fatal.
 	 */
-	abstract public function add_admin_page(): void;
+	public function add_admin_page(): void {
+		add_submenu_page(
+			$this->get_parent_slug(),
+			$this->get_page_title(),
+			$this->get_menu_title(),
+			$this->get_capability(),
+			$this->get_menu_slug(),
+			[ $this, 'render' ],
+			$this->get_position()
+		);
+	}
 
 	/**
 	 * Renders the admin page.
@@ -145,6 +157,15 @@ abstract class AbstractOptionsPage {
 	 * @return string
 	 */
 	abstract protected function get_parent_slug(): string;
+
+	/**
+	 * The position in the menu order this item should appear.
+	 *
+	 * @return int|null
+	 */
+	protected function get_position(): ?int {
+		return null;
+	}
 
 	/**
 	 * Enqueue admin page scripts and styles.
