@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.16.1\n"
+"Project-Id-Version: GTM Kit 2.16.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-23T09:18:47+00:00\n"
+"POT-Creation-Date: 2026-06-23T14:04:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -2656,53 +2656,58 @@ msgid "Add pattern +"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:157
+#: src/js/admin/app/shell/fields/event-deferral.js:159
+msgid "Event Deferral needs Consent Mode enabled to work. With Consent Mode off, GTM Kit emits no consent object, so deferred events have nothing to wait on and never release on a grant. Turn on Consent Mode (the Activate GCM settings toggle under Consent), or turn this feature off."
+msgstr ""
+
+#: assets/admin/settings.js:9
+#: src/js/admin/app/shell/fields/event-deferral.js:170
 msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:167
+#: src/js/admin/app/shell/fields/event-deferral.js:180
 msgid "Events to defer"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:168
+#: src/js/admin/app/shell/fields/event-deferral.js:181
 msgid "Checked events wait for consent. Unchecked events fire immediately."
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:209
-#: src/js/admin/app/shell/fields/event-deferral.js:218
+#: src/js/admin/app/shell/fields/event-deferral.js:222
+#: src/js/admin/app/shell/fields/event-deferral.js:231
 msgid "Seconds to wait"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:210
+#: src/js/admin/app/shell/fields/event-deferral.js:223
 msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:234
+#: src/js/admin/app/shell/fields/event-deferral.js:247
 msgid "On timeout"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:238
+#: src/js/admin/app/shell/fields/event-deferral.js:251
 msgid "Flush the queued events anyway"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:245
+#: src/js/admin/app/shell/fields/event-deferral.js:258
 msgid "Drop the queued events (never fire without consent)"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:287
+#: src/js/admin/app/shell/fields/event-deferral.js:300
 msgid "Required consent categories"
 msgstr ""
 
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:291
+#: src/js/admin/app/shell/fields/event-deferral.js:304
 msgid "Deferred events are released once these consent categories are granted."
 msgstr ""
 
