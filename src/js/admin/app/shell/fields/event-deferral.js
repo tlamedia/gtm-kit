@@ -91,6 +91,7 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
 	const [ stored, setValue ] = useSettingField( group, name );
 	const [ gatingMode ] = useSettingField( 'general', 'consent_gating_mode' );
+	const [ gcmEnabled ] = useSettingField( 'general', 'gcm_default_settings' );
 	const { meetsRequiredTier } = useFeatureFlags();
 	const lockedByTier = isTierLocked( field, meetsRequiredTier );
 
@@ -119,6 +120,7 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 
 	const expanded = ! disabled && config.enabled;
 	const strongBlock = gatingMode === 'strong_block';
+	const consentModeOff = ! gcmEnabled;
 
 	return (
 		<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-6">
@@ -151,6 +153,17 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 
 			{ expanded && (
 				<>
+					{ consentModeOff && (
+						<div className="gtmkit-rounded-md gtmkit-bg-brand-surface-subtle gtmkit-px-3.5 gtmkit-py-3">
+							<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-leading-[1.45] gtmkit-text-color-warning">
+								{ __(
+									'Event Deferral needs Consent Mode enabled to work. With Consent Mode off, GTM Kit emits no consent object, so deferred events have nothing to wait on and never release on a grant. Turn on Consent Mode (the Activate GCM settings toggle under Consent), or turn this feature off.',
+									'gtm-kit'
+								) }
+							</p>
+						</div>
+					) }
+
 					{ strongBlock && (
 						<div className="gtmkit-rounded-md gtmkit-bg-brand-surface-subtle gtmkit-px-3.5 gtmkit-py-3">
 							<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-leading-[1.45] gtmkit-text-info">

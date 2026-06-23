@@ -249,6 +249,39 @@ describe( 'event-deferral composite control', () => {
 		).not.toBeInTheDocument();
 	} );
 
+	it( 'warns when deferral is on but Consent Mode is off', () => {
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: true } },
+			general: { gcm_default_settings: false },
+		} );
+
+		expect(
+			screen.getByText( /needs Consent Mode enabled to work/ )
+		).toBeInTheDocument();
+	} );
+
+	it( 'hides the Consent Mode warning once Consent Mode is on', () => {
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: true } },
+			general: { gcm_default_settings: true },
+		} );
+
+		expect(
+			screen.queryByText( /needs Consent Mode enabled to work/ )
+		).not.toBeInTheDocument();
+	} );
+
+	it( 'does not warn about Consent Mode when deferral is off', () => {
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: false } },
+			general: { gcm_default_settings: false },
+		} );
+
+		expect(
+			screen.queryByText( /needs Consent Mode enabled to work/ )
+		).not.toBeInTheDocument();
+	} );
+
 	it( 'holds the control inert when disabled', () => {
 		renderControl( {
 			premium: { event_deferral_queue: { enabled: true } },
