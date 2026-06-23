@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.16.1
+Stable tag: 2.16.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -105,7 +105,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.16.1 =
+= 2.16.3 =
 
 Release date: 2026-06-23
 
