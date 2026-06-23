@@ -35,8 +35,12 @@ The following GA4 events are automatically included in the dataLayer:
 - purchase
 - refund **[Premium]**
 - order_paid **[Premium]**
+- order_processing **[Premium]**
+- order_completed **[Premium]**
+- order_refunded **[Premium]**
+- subscription_started **[Premium]**
 
-Unlock all features with [GTM Kit Woo Add-On](https://woocommerce.com/products/gtm-kit-woo-add-on/).
+Unlock all features with [GTM Kit Premium](https://gtmkit.com/).
 
 ### Easy Digital Downloads
 - view_item
