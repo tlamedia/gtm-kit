@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.16.0
+Stable tag: 2.16.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -101,7 +101,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.16.1 =
+
+Release date: 2026-06-23
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
+
+#### New:
+* The Event Deferral setting now warns when it is switched on while Consent Mode is off, because deferred events have no consent signal to wait on and never release in that state.
 
 #### Bugfixes:
 * The Commerce "Brand" selector now lists your product brand taxonomies again, instead of showing only "(not set)". The redesigned settings screen stopped loading the taxonomy and page lists, so the Brand selector (and other taxonomy- or page-based options) appeared empty regardless of how brands were configured.
@@ -125,7 +132,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 
 Release date: 2026-06-12
 
-Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2-15/).
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-15/).
 
 #### Bugfixes:
 * Security hardening: Links served to the settings interface from remote content (upgrade offers, templates, tutorials) and notifications are now validated before they are used for navigation.
@@ -137,7 +144,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/gtm-kit-2
 
 Release date: 2026-06-03
 
-A maintenance fix for the 2.14 line; see the [2.14 release post](https://gtmkit.com/gtm-kit-2-14/) for what 2.14 introduced.
+A maintenance fix for the 2.14 line; see the [2.14 release post](https://gtmkit.com/changelog/gtm-kit-2-14/) for what 2.14 introduced.
 
 #### Bugfixes:
 * WooCommerce block tracking now loads on block (FSE) themes where Cart, Checkout, Mini Cart, Product Collection, or Related Products are rendered from block templates and template parts. Previously the block tracking bundle could fail to load on these sites, so block ecommerce events never fired.
@@ -146,7 +153,7 @@ A maintenance fix for the 2.14 line; see the [2.14 release post](https://gtmkit.
 
 Release date: 2026-06-02
 
-Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-14/).
+Find out about what's new in our [release post](https://gtmkit.com/changelog/gtm-kit-2-14/).
 
 #### New:
 * New "Engagement events" settings section emits GA4 standard `login`, `sign_up`, `search`, and `generate_lead` events out of the box. Each event has its own toggle and defaults to on, so customers see the events the moment they upgrade.
@@ -166,7 +173,7 @@ Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-14/
 
 Release date: 2026-05-26
 
-A maintenance fix for the 2.13 line; see the [2.13 release post](https://gtmkit.com/gtm-kit-2-13/) for what 2.13 introduced.
+A maintenance fix for the 2.13 line; see the [2.13 release post](https://gtmkit.com/changelog/gtm-kit-2-13/) for what 2.13 introduced.
 
 #### Bugfixes:
 * The "Exclude pages from GTM" feature now also holds back the WooCommerce, Contact Form 7, and Easy Digital Downloads tracking scripts on excluded pages. Previously those add-on scripts could still load on an excluded page and fail, because the core GTM Kit runtime they rely on was withheld there.
@@ -175,7 +182,7 @@ A maintenance fix for the 2.13 line; see the [2.13 release post](https://gtmkit.
 
 Release date: 2026-05-26
 
-Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-13/).
+Find out about what's new in our [release post](https://gtmkit.com/changelog/gtm-kit-2-13/).
 
 #### New:
 * New "Exclude pages from GTM" section on the Container settings page lets you list URL patterns where GTM Kit should stay off. Useful for third-party checkout iframes, partner-hosted subpages, or in-app webview routes that have their own tracking.
@@ -184,23 +191,6 @@ Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-13/
 #### Other:
 * The existing `gtmkit_container_active` filter now receives the actual computed container-active value instead of a hardcoded `true`, so callbacks that return the value through unchanged automatically honor the new URL exclusion.
 * PHP-rendered initial dataLayer content is now emitted through the same client helper, so deferral works the same on full-page-cached and uncached pages.
-
-= 2.12.0 =
-
-Release date: 2026-05-19
-
-Find out about what's new in our [release post](https://gtmkit.com/gtm-kit-2-12/).
-
-#### New:
-* New welcome modal greets fresh installs on their first GTM Kit admin page and links to the documentation. Existing installs are not interrupted.
-* GTM Kit can now surface launch and upgrade announcements from gtmkit.com without a plugin release.
-
-#### Bugfixes:
-* Prevent a fatal error on WooCommerce shop and archive pages when another plugin (e.g. WP Grid Builder) re-runs the product loop without a current product in context. GTM Kit now skips its hidden product-data tag instead of crashing the page.
-* No more "headers already sent" PHP warning when running WP-CLI commands on sites that use the Cookie Keeper option.
-
-#### Other:
-* New `gtmkit_introductions` filter and `Introduction_Interface` contract let add-ons register their own announcement modals through a documented public API.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
