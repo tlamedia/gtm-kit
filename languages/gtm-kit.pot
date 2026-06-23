@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.16.0\n"
+"Project-Id-Version: GTM Kit 2.16.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-19T13:06:18+00:00\n"
+"POT-Creation-Date: 2026-06-23T09:18:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -44,23 +44,23 @@ msgstr ""
 msgid "Required by %s"
 msgstr ""
 
-#: src/Admin/AbstractOptionsPage.php:229
+#: src/Admin/AbstractOptionsPage.php:250
 #: src/Admin/SetupWizard.php:213
 msgid "Whoops, something's not working."
 msgstr ""
 
-#: src/Admin/AbstractOptionsPage.php:232
+#: src/Admin/AbstractOptionsPage.php:253
 #: src/Admin/SetupWizard.php:216
 msgid "It looks like something is preventing JavaScript from loading on your website. GTM Kit requires JavaScript in order to give you the best possible experience."
 msgstr ""
 
-#: src/Admin/AbstractOptionsPage.php:237
+#: src/Admin/AbstractOptionsPage.php:258
 #: src/Admin/SetupWizard.php:164
 #: src/Admin/SetupWizard.php:221
 msgid "Go back to the Dashboard"
 msgstr ""
 
-#: src/Admin/AbstractOptionsPage.php:276
+#: src/Admin/AbstractOptionsPage.php:297
 msgid "The plugin is installed and activated"
 msgstr ""
 
