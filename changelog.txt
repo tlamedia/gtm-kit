@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Fix: The Commerce "Brand" selector now lists your product brand taxonomies again, instead of showing only "(not set)". The redesigned settings screen stopped loading the taxonomy and page lists, so the Brand selector (and other taxonomy- or page-based options) appeared empty regardless of how brands were configured.
+
 2026-06-23 - version 2.16.0
 * Add: The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.
 * Fix: The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.

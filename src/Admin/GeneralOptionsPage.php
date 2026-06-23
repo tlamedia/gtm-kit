@@ -159,6 +159,8 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'notifications'      => $this->get_notifications(),
 			'consentAdminBadges' => $this->get_consent_admin_badges(),
 			'settingsRegistry'   => $this->get_settings_registry(),
+			'taxonomyOptions'    => $this->get_taxonomy_options(),
+			'pageOptions'        => $this->get_page_options(),
 		];
 
 		/**
@@ -253,6 +255,68 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 		}
 
 		return $normalised;
+	}
+
+	/**
+	 * Build the list of public, UI-visible custom taxonomies offered as
+	 * options for taxonomy-backed settings such as the WooCommerce brand
+	 * source. Built-in taxonomies are excluded so the list stays focused on
+	 * the taxonomies a store actually uses to classify products.
+	 *
+	 * @return array<int, array<string, string>>
+	 */
+	private function get_taxonomy_options(): array {
+		$taxonomies = get_taxonomies(
+			[
+				'show_ui'  => true,
+				'public'   => true,
+				'_builtin' => false,
+			],
+			'objects'
+		);
+
+		$taxonomy_options = [];
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( is_object( $taxonomy ) && property_exists( $taxonomy, 'label' ) && property_exists( $taxonomy, 'name' ) ) {
+				$taxonomy_options[] = [
+					'label' => $taxonomy->label,
+					'value' => $taxonomy->name,
+				];
+			}
+		}
+
+		return $taxonomy_options;
+	}
+
+	/**
+	 * Build the list of published pages offered as options for page-backed
+	 * settings.
+	 *
+	 * @return array<int, array<string, string>>
+	 */
+	private function get_page_options(): array {
+		$pages = get_pages(
+			[
+				'sort_column' => 'post_title',
+				'sort_order'  => 'ASC',
+			]
+		);
+
+		$page_options = [];
+
+		if ( is_array( $pages ) ) {
+			foreach ( $pages as $page ) {
+				if ( is_object( $page ) && property_exists( $page, 'post_title' ) && property_exists( $page, 'ID' ) ) {
+					$page_options[] = [
+						'label' => $page->post_title . ' (ID: ' . $page->ID . ')',
+						'value' => (string) $page->ID,
+					];
+				}
+			}
+		}
+
+		return $page_options;
 	}
 
 	/**
