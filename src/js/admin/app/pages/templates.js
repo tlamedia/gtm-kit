@@ -1,4 +1,3 @@
-/* global alert */
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, no-nested-ternary */
 /*WordPress*/
 import { __ } from '@wordpress/i18n';
@@ -48,6 +47,62 @@ const TEMPLATES_CONTEXT = {
 	},
 };
 
+/**
+ * Pull a human-readable reason out of a failed generator response.
+ *
+ * The generator answers a rejected request with a JSON body (a top-level
+ * message and/or per-field validation errors). Surface that instead of
+ * throwing it away, falling back to the HTTP status when the body is empty or
+ * not JSON.
+ *
+ * @param {Response} response The failed fetch response.
+ * @return {Promise<string>} A short detail string, or '' when nothing usable.
+ */
+const readErrorDetail = async ( response ) => {
+	let body = '';
+
+	try {
+		body = await response.text();
+	} catch ( error ) {
+		body = '';
+	}
+
+	if ( body ) {
+		try {
+			const data = JSON.parse( body );
+			const parts = [];
+
+			if ( data.message ) {
+				parts.push( data.message );
+			}
+
+			if ( data.errors && typeof data.errors === 'object' ) {
+				Object.values( data.errors ).forEach( ( messages ) => {
+					if ( Array.isArray( messages ) ) {
+						parts.push( ...messages );
+					} else if ( messages ) {
+						parts.push( messages );
+					}
+				} );
+			}
+
+			if ( parts.length ) {
+				return parts.join( ' ' );
+			}
+		} catch ( error ) {
+			// Not JSON; fall through to the status-based detail.
+		}
+	}
+
+	if ( response.status ) {
+		return `(HTTP ${ response.status }${
+			response.statusText ? ' ' + response.statusText : ''
+		})`;
+	}
+
+	return '';
+};
+
 const Templates = memo( ( { templateData } ) => {
 	const { useSettings } = useContext( SettingsDataContext );
 	const { useSiteData } = useContext( SiteDataContext );
@@ -71,6 +126,7 @@ const Templates = memo( ( { templateData } ) => {
 	const [ siteType, setSiteType ] = useState(
 		useSiteData.ecommerce ? 'ecommerce' : 'lead'
 	);
+	const [ generationError, setGenerationError ] = useState( '' );
 
 	// Initialize server container URL and ID when component mounts if server-side is detected
 	useEffect( () => {
@@ -176,6 +232,8 @@ const Templates = memo( ( { templateData } ) => {
 				usageContext,
 			};
 
+			setGenerationError( '' );
+
 			try {
 				const response = await fetch(
 					SettingsService.getGeneratorUrl(),
@@ -200,18 +258,35 @@ const Templates = memo( ( { templateData } ) => {
 					window.URL.revokeObjectURL( url );
 					document.body.removeChild( a );
 				} else {
-					// Handle error response
-					// eslint-disable-next-line no-alert
-					alert(
-						__(
-							'Error generating template. Please try again.',
-							'gtm-kit'
-						)
+					// Read the backend's actual reason instead of discarding it,
+					// so a rejected request surfaces what failed rather than a
+					// generic message.
+					const detail = await readErrorDetail( response );
+
+					// eslint-disable-next-line no-console
+					console.error(
+						'GTM Kit template generation failed:',
+						response.status,
+						response.statusText,
+						detail
+					);
+
+					const friendly = __(
+						'Error generating template. Please try again.',
+						'gtm-kit'
+					);
+					setGenerationError(
+						detail ? `${ friendly } ${ detail }` : friendly
 					);
 				}
 			} catch ( error ) {
-				// eslint-disable-next-line no-alert
-				alert(
+				// eslint-disable-next-line no-console
+				console.error(
+					'GTM Kit template generation request failed:',
+					error
+				);
+
+				setGenerationError(
 					__(
 						'Error generating template. Please check your connection and try again.',
 						'gtm-kit'
@@ -913,6 +988,15 @@ const Templates = memo( ( { templateData } ) => {
 										</Button>
 									) }
 								</div>
+
+								{ generationError && (
+									<div
+										role="alert"
+										className="gtmkit-mt-6 gtmkit-bg-red-50 gtmkit-border gtmkit-border-red-200 gtmkit-text-red-800 gtmkit-rounded-md gtmkit-px-6 gtmkit-py-4"
+									>
+										{ generationError }
+									</div>
+								) }
 
 								<p className="gtmkit-mt-12 gtmkit-mb-4">
 									{ __(
