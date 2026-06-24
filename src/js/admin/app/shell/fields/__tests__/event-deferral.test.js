@@ -29,13 +29,21 @@ jest.mock( '../../../../context/SettingsDataContext', () => {
 	return { SettingsDataContext: React.createContext( {} ) };
 } );
 
+let mockConsentBadges = [];
 jest.mock( '../../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getNonce: () => 'test-nonce',
 		getRestRoot: () => '/wp-json/',
+		getConsentAdminBadges: () => mockConsentBadges,
 	},
 } ) );
+
+const WP_CONSENT_API_BADGE = {
+	id: 'wp_consent_api',
+	message: 'WP Consent API is the active consent source.',
+	severity: 'info',
+};
 
 const FIELD = {
 	key: 'premium.event_deferral_queue',
@@ -85,6 +93,7 @@ const STORED = {
 
 beforeEach( () => {
 	mockMeetsTier = true;
+	mockConsentBadges = [];
 } );
 
 describe( 'event-deferral composite control', () => {
@@ -249,36 +258,66 @@ describe( 'event-deferral composite control', () => {
 		).not.toBeInTheDocument();
 	} );
 
-	it( 'warns when deferral is on but Consent Mode is off', () => {
+	it( 'warns when deferral is on with no GCM activation and no consent source', () => {
 		renderControl( {
 			premium: { event_deferral_queue: { enabled: true } },
 			general: { gcm_default_settings: false },
 		} );
 
 		expect(
-			screen.getByText( /needs Consent Mode enabled to work/ )
+			screen.getByText( /needs a consent source to release events/ )
 		).toBeInTheDocument();
 	} );
 
-	it( 'hides the Consent Mode warning once Consent Mode is on', () => {
+	it( 'hides the warning when the WP Consent API supplies the consent source', () => {
+		mockConsentBadges = [ WP_CONSENT_API_BADGE ];
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: true } },
+			general: { gcm_default_settings: false },
+		} );
+
+		expect(
+			screen.queryByText( /needs a consent source to release events/ )
+		).not.toBeInTheDocument();
+	} );
+
+	it( 'still warns when consent badges are present but none are the WP Consent API', () => {
+		mockConsentBadges = [
+			{
+				id: 'other_source',
+				message: 'Something else.',
+				severity: 'info',
+			},
+		];
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: true } },
+			general: { gcm_default_settings: false },
+		} );
+
+		expect(
+			screen.getByText( /needs a consent source to release events/ )
+		).toBeInTheDocument();
+	} );
+
+	it( 'hides the warning once GCM activation is on', () => {
 		renderControl( {
 			premium: { event_deferral_queue: { enabled: true } },
 			general: { gcm_default_settings: true },
 		} );
 
 		expect(
-			screen.queryByText( /needs Consent Mode enabled to work/ )
+			screen.queryByText( /needs a consent source to release events/ )
 		).not.toBeInTheDocument();
 	} );
 
-	it( 'does not warn about Consent Mode when deferral is off', () => {
+	it( 'does not warn about the consent source when deferral is off', () => {
 		renderControl( {
 			premium: { event_deferral_queue: { enabled: false } },
 			general: { gcm_default_settings: false },
 		} );
 
 		expect(
-			screen.queryByText( /needs Consent Mode enabled to work/ )
+			screen.queryByText( /needs a consent source to release events/ )
 		).not.toBeInTheDocument();
 	} );
 
