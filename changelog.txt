@@ -2,6 +2,7 @@
 
 Unreleased
 * Fix: When the Template Assistant cannot generate a container, the page now shows the reason reported by the server inline (and logs the full detail to the browser console), instead of a generic "Error generating template" message that hid what actually went wrong.
+* Changed: The Event Deferral setting no longer warns about Consent Mode when a consent platform supplies consent through the WP Consent API. The notice now appears only when neither Consent Mode nor the WP Consent API can release deferred events, and its wording names both consent sources instead of implying Consent Mode is required.
 
 2026-06-23 - version 2.16.3
 * Add: The Event Deferral setting now warns when it is switched on while Consent Mode is off, because deferred events have no consent signal to wait on and never release in that state.

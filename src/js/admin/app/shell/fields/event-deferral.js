@@ -11,6 +11,20 @@ import { useSettingField } from '../../../hooks/useSettingField';
 import { useFeatureFlags } from '../../../hooks/useFeatureFlags';
 import { parseKey } from '../../../registry/controls';
 import { isTierLocked } from '../../../registry/gating';
+import SettingsService from '../../../services/SettingsService';
+
+/**
+ * Whether a consent platform is publishing through the WP Consent API, derived
+ * from the consent admin badges the settings page already receives. When this
+ * source is present the deferral queue can read live consent without GTM Kit's
+ * own Consent Mode being on, so the "no consent source" warning must not fire.
+ *
+ * @return {boolean} True when a `wp_consent_api` consent badge is present.
+ */
+const hasWpConsentApiSource = () =>
+	SettingsService.getConsentAdminBadges().some(
+		( badge ) => badge.id === 'wp_consent_api'
+	);
 
 /**
  * Default config shape. Mirrors the engine's defaults so the control renders a
@@ -120,7 +134,7 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 
 	const expanded = ! disabled && config.enabled;
 	const strongBlock = gatingMode === 'strong_block';
-	const consentModeOff = ! gcmEnabled;
+	const noConsentSource = ! gcmEnabled && ! hasWpConsentApiSource();
 
 	return (
 		<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-6">
@@ -153,11 +167,11 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 
 			{ expanded && (
 				<>
-					{ consentModeOff && (
+					{ noConsentSource && (
 						<div className="gtmkit-rounded-md gtmkit-bg-brand-surface-subtle gtmkit-px-3.5 gtmkit-py-3">
 							<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-leading-[1.45] gtmkit-text-color-warning">
 								{ __(
-									'Event Deferral needs Consent Mode enabled to work. With Consent Mode off, GTM Kit emits no consent object, so deferred events have nothing to wait on and never release on a grant. Turn on Consent Mode (the Activate GCM settings toggle under Consent), or turn this feature off.',
+									'Event Deferral needs a consent source to release events. Either turn on Consent Mode (the Activate GCM settings toggle under Consent) so GTM Kit provides one, or use a consent platform that supports the WP Consent API. With neither available, deferred events only release on the timeout fallback; they never wait for a real consent grant.',
 									'gtm-kit'
 								) }
 							</p>

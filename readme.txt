@@ -110,6 +110,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 #### Bugfixes:
 * When the Template Assistant cannot generate a container, the page now shows the reason reported by the server inline (and logs the full detail to the browser console), instead of a generic "Error generating template" message that hid what actually went wrong.
 
+#### Other:
+* The Event Deferral setting no longer warns about Consent Mode when a consent platform supplies consent through the WP Consent API. The notice now appears only when neither Consent Mode nor the WP Consent API can release deferred events, and its wording names both consent sources instead of implying Consent Mode is required.
+
 = 2.16.3 =
 
 Release date: 2026-06-23
