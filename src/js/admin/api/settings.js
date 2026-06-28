@@ -99,3 +99,20 @@ export const deactivateLicense = () =>
 
 export const sendNotificationStatus = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/set-notification-status', 'POST', data, true );
+
+export const getWebhookPreviewStatus = () =>
+	handleApiFetch( 'gtmkit/v1/webhook/preview-status', 'GET', null, true );
+
+export const setWebhookPreviewToken = ( data ) =>
+	handleApiFetch( 'gtmkit/v1/webhook/preview-token', 'POST', data, true );
+
+export const clearWebhookPreviewToken = () =>
+	handleApiFetch(
+		'gtmkit/v1/webhook/preview-token/clear',
+		'POST',
+		null,
+		true
+	);
+
+export const sendWebhookPreviewTest = ( data ) =>
+	handleApiFetch( 'gtmkit/v1/webhook/preview-test', 'POST', data, true );
