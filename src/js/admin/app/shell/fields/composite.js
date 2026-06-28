@@ -6,6 +6,7 @@ import { useMemo } from '@wordpress/element';
 import Pill from './Pill';
 import RowLabel from './RowLabel';
 import ShellEventDeferral from './event-deferral';
+import SgtmPreviewTest from './sgtm-preview-test';
 import { BOX } from './controls';
 import { useSettingField } from '../../../hooks/useSettingField';
 import { parseKey, resolveItems } from '../../../registry/controls';
@@ -417,6 +418,7 @@ const SHELL_COMPOSITE_CONTROLS = {
 	'excluded-url-patterns': ShellExcludedUrlPatterns,
 	'checkbox-group': ShellCheckboxGroup,
 	'event-deferral': ShellEventDeferral,
+	'sgtm-preview-test': SgtmPreviewTest,
 };
 
 /**
