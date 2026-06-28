@@ -511,6 +511,12 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 												'gtm-kit'
 											) }
 										</label>
+										<p className="gtmkit-m-0 gtmkit-pl-6 gtmkit-text-xs gtmkit-text-text-secondary">
+											{ __(
+												'Replays the real order, but swaps its transaction ID for a synthetic one so the test conversion is easy to spot and is not counted against the real order in GA4 / Ads. Uncheck to send the order’s real transaction ID (only if your downstream tags are gated to Preview/debug traffic).',
+												'gtm-kit'
+											) }
+										</p>
 									</div>
 								) }
 							</div>
