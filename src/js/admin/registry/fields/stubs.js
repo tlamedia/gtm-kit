@@ -263,6 +263,19 @@ export const STUB_FIELDS = [
 		__( 'Product List (add_to_wishlist)', 'gtm-kit' )
 	),
 
+	// Setup: send a test webhook to the server container's sGTM Preview.
+	{
+		key: 'general.sgtm_preview_test',
+		capability: 'setup',
+		section: 'environment',
+		order: 30,
+		control: 'toggle',
+		label: __( 'Send a test webhook to sGTM Preview', 'gtm-kit' ),
+		tier: 'premium',
+		integration: null,
+		stub: true,
+	},
+
 	// Consent: hold ecommerce events until consent is granted.
 	{
 		key: 'premium.event_deferral_queue',
