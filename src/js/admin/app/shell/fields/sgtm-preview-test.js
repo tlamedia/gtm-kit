@@ -255,7 +255,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 				setResult( {
 					ok: false,
 					message:
-						response?.data ||
+						response?.data?.message ||
 						__(
 							'Paste your server container Preview token first.',
 							'gtm-kit'

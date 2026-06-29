@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.16.3\n"
+"Project-Id-Version: GTM Kit 2.16.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-23T14:04:43+00:00\n"
+"POT-Creation-Date: 2026-06-29T08:24:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -341,7 +341,7 @@ msgstr ""
 
 #: assets/admin/193.js:1
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: assets/admin/wizard.js:1
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:30
 #: src/js/admin/app/shell/DashboardPage.js:94
@@ -351,14 +351,14 @@ msgid "Help improve GTM Kit"
 msgstr ""
 
 #: assets/admin/193.js:1
-#: assets/admin/settings.js:19
+#: assets/admin/settings.js:34
 #: src/js/admin/app/organisms/share-anonymous-data.js:16
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:33
 msgid "GTM Kit is used together with a wide variety of server configurations and plugins. It is very helpful for us to know what some of these configurations are so we can test the most common configurations."
 msgstr ""
 
 #: assets/admin/193.js:1
-#: assets/admin/settings.js:19
+#: assets/admin/settings.js:34
 #: src/js/admin/app/organisms/share-anonymous-data.js:22
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:39
 msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
@@ -366,7 +366,7 @@ msgstr ""
 
 #: assets/admin/193.js:1
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:130
 #: src/js/admin/app/shell/DashboardPage.js:114
 #: src/js/admin/registry/fields/tools.js:67
@@ -583,153 +583,153 @@ msgid "Go to the dashboard"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:35
+#: src/js/admin/app/pages/templates.js:34
 msgid "About the assistant"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:36
+#: src/js/admin/app/pages/templates.js:35
 msgid "The assistant builds a ready-to-import GTM container from your setup, with tags, triggers and variables already wired to the data layer GTM Kit pushes. It is a starting point you import into Google Tag Manager, then review and publish yourself."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:41
+#: src/js/admin/app/pages/templates.js:40
 msgid "Read the import guide"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:44
+#: src/js/admin/app/pages/templates.js:43
 msgid "Generating a template never touches your live container. Nothing goes live until you import the file and publish it in Google Tag Manager."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:206
+#: src/js/admin/app/pages/templates.js:274
 msgid "Error generating template. Please try again."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:215
+#: src/js/admin/app/pages/templates.js:290
 msgid "Error generating template. Please check your connection and try again."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:248
-#: src/js/admin/app/pages/templates.js:280
+#: src/js/admin/app/pages/templates.js:323
+#: src/js/admin/app/pages/templates.js:355
 msgid "Template Assistant"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:283
+#: src/js/admin/app/pages/templates.js:358
 msgid "Generate a GTM container template from your setup"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:252
-#: src/js/admin/app/pages/templates.js:293
+#: src/js/admin/app/pages/templates.js:327
+#: src/js/admin/app/pages/templates.js:368
 msgid "Get your Google Tag Manager container template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:299
+#: src/js/admin/app/pages/templates.js:374
 msgid "GTM Kit is sending data to your container, but you still need to configure Tags, Triggers and Variables in GTM. The generator builds a template from your choices to import and deploy."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:308
+#: src/js/admin/app/pages/templates.js:383
 msgid "1. Configuration Type"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:309
+#: src/js/admin/app/pages/templates.js:384
 msgid "2. Requirements"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:310
+#: src/js/admin/app/pages/templates.js:385
 msgid "3. Configure"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:311
+#: src/js/admin/app/pages/templates.js:386
 msgid "4. Generate"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:343
+#: src/js/admin/app/pages/templates.js:418
 msgid "Configuration Type"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:348
+#: src/js/admin/app/pages/templates.js:423
 msgid "Select your site type:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:352
+#: src/js/admin/app/pages/templates.js:427
 msgid "Choose whether your site is primarily for e-commerce or lead generation."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:361
+#: src/js/admin/app/pages/templates.js:436
 msgid "E-commerce"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:368
-#: src/js/admin/app/pages/templates.js:389
+#: src/js/admin/app/pages/templates.js:443
+#: src/js/admin/app/pages/templates.js:464
 msgid "Recommended based on your setup"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:382
+#: src/js/admin/app/pages/templates.js:457
 msgid "Lead Generation"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:409
+#: src/js/admin/app/pages/templates.js:484
 msgid "Select your Google Tag Manager setup:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:413
+#: src/js/admin/app/pages/templates.js:488
 msgid "Choose the type of Google Tag Manager setup you are using."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:420
+#: src/js/admin/app/pages/templates.js:495
 msgid "Standard GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:429
+#: src/js/admin/app/pages/templates.js:504
 msgid "Server-side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:436
+#: src/js/admin/app/pages/templates.js:511
 msgid "It looks like you are using server-side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:457
+#: src/js/admin/app/pages/templates.js:532
 msgid "Continue to Service Selection"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:470
+#: src/js/admin/app/pages/templates.js:545
 msgid "Specify your tracking needs"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:476
+#: src/js/admin/app/pages/templates.js:551
 msgid "Select the services that you want to send tracking data to."
 msgstr ""
 
 #: assets/admin/854.js:1
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:23
-#: assets/admin/settings.js:26
-#: src/js/admin/app/pages/templates.js:544
+#: assets/admin/settings.js:38
+#: assets/admin/settings.js:41
+#: src/js/admin/app/pages/templates.js:619
 #: src/js/admin/app/shell/DashboardPage.js:37
 #: src/js/admin/app/shell/fields/FieldTags.js:68
 #: src/js/admin/app/shell/InfoList.js:126
@@ -739,134 +739,134 @@ msgid "Premium"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:559
+#: src/js/admin/app/pages/templates.js:634
 msgid "Requires sGTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:575
-#: src/js/admin/app/pages/templates.js:802
-#: src/js/admin/app/pages/templates.js:875
+#: src/js/admin/app/pages/templates.js:650
+#: src/js/admin/app/pages/templates.js:877
+#: src/js/admin/app/pages/templates.js:950
 msgid "Back"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:583
+#: src/js/admin/app/pages/templates.js:658
 msgid "Continue to Configuration"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:596
+#: src/js/admin/app/pages/templates.js:671
 msgid "Input your unique values"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:602
+#: src/js/admin/app/pages/templates.js:677
 msgid "These values are optional and you can edit them in your container at any time."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:611
+#: src/js/admin/app/pages/templates.js:686
 msgid "Server-side GTM Configuration"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:617
+#: src/js/admin/app/pages/templates.js:692
 msgid "Server Container URL"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:621
+#: src/js/admin/app/pages/templates.js:696
 msgid "Enter your server container URL"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:641
+#: src/js/admin/app/pages/templates.js:716
 msgid "Server Container ID"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:645
+#: src/js/admin/app/pages/templates.js:720
 msgid "GTM-XXXXX"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:649
+#: src/js/admin/app/pages/templates.js:724
 msgid "Enter your server-side GTM container ID (e.g., GTM-XXXXXX)"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:752
+#: src/js/admin/app/pages/templates.js:827
 msgid "No configuration required"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:808
+#: src/js/admin/app/pages/templates.js:883
 msgid "Continue to Generate"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:821
+#: src/js/admin/app/pages/templates.js:896
 msgid "Download and import the template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:827
+#: src/js/admin/app/pages/templates.js:902
 msgid "Review your configuration and generate the GTM template."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:836
+#: src/js/admin/app/pages/templates.js:911
 msgid "Google Tag Manager configuration:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:843
+#: src/js/admin/app/pages/templates.js:918
 msgid "Client-Side + Server-Side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:847
+#: src/js/admin/app/pages/templates.js:922
 msgid "Standard Client-Side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:854
+#: src/js/admin/app/pages/templates.js:929
 msgid "Selected Services:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:885
+#: src/js/admin/app/pages/templates.js:960
 msgid "Download Web Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:896
+#: src/js/admin/app/pages/templates.js:971
 msgid "Download Server Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:909
+#: src/js/admin/app/pages/templates.js:984
 msgid "Generate & Download Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:918
+#: src/js/admin/app/pages/templates.js:1002
 msgid "Please read the guide on how to use the import files and configure GTM."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:928
+#: src/js/admin/app/pages/templates.js:1012
 msgid "Read the guide"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:259
+#: src/js/admin/app/pages/templates.js:334
 msgid "Template service is currently unavailable"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:265
+#: src/js/admin/app/pages/templates.js:340
 msgid "The template service is not available at the moment. Please try again later."
 msgstr ""
 
@@ -987,8 +987,8 @@ msgid "An unexpected error occurred. Please try again."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:26
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:41
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/DashboardPage.js:339
 #: src/js/admin/app/shell/ShellApp.js:129
 #: src/js/admin/registry/capabilities.js:29
@@ -996,7 +996,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:143
 #: src/js/admin/registry/capabilities.js:36
 msgid "Setup"
@@ -1018,14 +1018,14 @@ msgid "Read the setup guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:154
 #: src/js/admin/registry/capabilities.js:55
 msgid "GTM Templates"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:170
 #: src/js/admin/registry/capabilities.js:62
 msgid "Events & data layer"
@@ -1047,7 +1047,7 @@ msgid "Read the events guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:182
 #: src/js/admin/registry/capabilities.js:84
 msgid "Commerce"
@@ -1069,7 +1069,7 @@ msgid "Read the commerce docs"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:194
 #: src/js/admin/registry/capabilities.js:106
 msgid "Consent & privacy"
@@ -1096,7 +1096,7 @@ msgid "GTM Kit wires up these signals but is not responsible for your privacy co
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:206
 #: src/js/admin/registry/capabilities.js:129
 msgid "Tools"
@@ -1118,8 +1118,8 @@ msgid "Read the troubleshooting guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:26
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:41
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/IntegrationConfig.js:31
 #: src/js/admin/app/shell/IntegrationsHub.js:95
 #: src/js/admin/app/shell/ShellApp.js:217
@@ -1128,7 +1128,7 @@ msgid "Integrations"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:325
 #: src/js/admin/app/shell/ShellApp.js:243
 #: src/js/admin/registry/capabilities.js:154
@@ -1136,7 +1136,7 @@ msgid "License"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:256
 #: src/js/admin/app/shell/SupportPage.js:100
 #: src/js/admin/registry/capabilities.js:160
@@ -2204,11 +2204,16 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:273
-msgid "Defer events until consent is granted"
+msgid "Send a test webhook to sGTM Preview"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:286
+msgid "Defer events until consent is granted"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/stubs.js:299
 msgid "Event Inspector"
 msgstr ""
 
@@ -2466,9 +2471,9 @@ msgid "(not set)"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:111
-#: src/js/admin/app/shell/fields/composite.js:237
+#: src/js/admin/app/shell/fields/composite.js:238
 msgid "No patterns configured. GTM Kit loads on every frontend page."
 msgstr ""
 
@@ -2485,44 +2490,44 @@ msgid "Mode"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:28
-#: src/js/admin/app/shell/fields/composite.js:175
+#: src/js/admin/app/shell/fields/composite.js:176
 msgid "Invalid regular expression."
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:181
-#: src/js/admin/app/shell/fields/composite.js:293
+#: src/js/admin/app/shell/fields/composite.js:294
 msgid "Invalid regular expression:"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:195
-#: src/js/admin/app/shell/fields/composite.js:315
+#: src/js/admin/app/shell/fields/composite.js:316
 msgid "Glob"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:199
-#: src/js/admin/app/shell/fields/composite.js:318
+#: src/js/admin/app/shell/fields/composite.js:319
 msgid "Regex"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:220
-#: src/js/admin/app/shell/fields/composite.js:326
+#: src/js/admin/app/shell/fields/composite.js:327
 msgid "Remove pattern"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:225
-#: src/js/admin/app/shell/fields/composite.js:328
+#: src/js/admin/app/shell/fields/composite.js:329
 msgid "Remove"
 msgstr ""
 
@@ -2532,9 +2537,9 @@ msgid "Add pattern"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/excluded-url-patterns-setting.js:242
-#: src/js/admin/app/shell/fields/composite.js:345
+#: src/js/admin/app/shell/fields/composite.js:346
 msgid "Maximum of 100 patterns reached."
 msgstr ""
 
@@ -2549,9 +2554,9 @@ msgid "Adds %s to GTM Kit scripts."
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/cmp-attributes-setting.js:139
-#: src/js/admin/app/shell/fields/composite.js:118
+#: src/js/admin/app/shell/fields/composite.js:119
 msgid "Custom attribute"
 msgstr ""
 
@@ -2571,9 +2576,9 @@ msgid "Value"
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
 #: src/js/admin/app/atoms/cmp-attributes-setting.js:169
-#: src/js/admin/app/shell/fields/composite.js:150
+#: src/js/admin/app/shell/fields/composite.js:151
 msgid "Resulting script tag attributes"
 msgstr ""
 
@@ -2623,7 +2628,7 @@ msgid "Custom"
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:24
 #: src/js/admin/app/shell/fields/StaleAddonNotice.js:10
 #: src/js/admin/app/shell/fields/UpsellSlot.js:9
 msgid "GTM Kit Premium"
@@ -2635,156 +2640,341 @@ msgstr ""
 msgid "Upgrade to %s to manage this setting here."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/composite.js:107
+#. translators: 1: minutes, 2: seconds.
+#: assets/admin/settings.js:12
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:61
+msgid "%1$dm %2$ds"
+msgstr ""
+
+#. translators: %d: seconds.
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:68
+msgid "%ds"
+msgstr ""
+
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/composite.js:108
 msgid "Adds"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/composite.js:109
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/composite.js:110
 msgid "to GTM Kit scripts."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/composite.js:119
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/composite.js:120
 msgid "Name and value added as an attribute. Leave the name empty to omit it."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/composite.js:341
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/composite.js:342
 msgid "Add pattern +"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:159
-msgid "Event Deferral needs Consent Mode enabled to work. With Consent Mode off, GTM Kit emits no consent object, so deferred events have nothing to wait on and never release on a grant. Turn on Consent Mode (the Activate GCM settings toggle under Consent), or turn this feature off."
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:173
+msgid "Event Deferral needs a consent source to release events. Either turn on Consent Mode (the Activate GCM settings toggle under Consent) so GTM Kit provides one, or use a consent platform that supports the WP Consent API. With neither available, deferred events only release on the timeout fallback; they never wait for a real consent grant."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:170
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:184
 msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:180
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:194
 msgid "Events to defer"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:181
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:195
 msgid "Checked events wait for consent. Unchecked events fire immediately."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:222
-#: src/js/admin/app/shell/fields/event-deferral.js:231
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:236
+#: src/js/admin/app/shell/fields/event-deferral.js:245
 msgid "Seconds to wait"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:223
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:237
 msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:247
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:261
 msgid "On timeout"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:251
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:265
 msgid "Flush the queued events anyway"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:258
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:272
 msgid "Drop the queued events (never fire without consent)"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:300
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:314
 msgid "Required consent categories"
 msgstr ""
 
-#: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/event-deferral.js:304
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/event-deferral.js:318
 msgid "Deferred events are released once these consent categories are granted."
 msgstr ""
 
-#: assets/admin/settings.js:9
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:143
+msgid "Could not load the preview status. Reload the page and try again."
+msgstr ""
+
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:309
+msgid "Loading…"
+msgstr ""
+
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:326
+msgid "Server container Preview token"
+msgstr ""
+
+#: assets/admin/settings.js:15
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:330
+msgid "Open your server container in Tag Manager, click Preview, and copy the token. It is per-session and expires."
+msgstr ""
+
+#. translators: %s: remaining time.
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:343
+msgid "expires in %s"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:358
+msgid "Clear"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:368
+msgid "Paste a fresh token to replace the stored one"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:372
+msgid "Paste your Preview token"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:388
+msgid "Event to test"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:412
+msgid "Payload source"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:431
+msgid "Synthetic sample event"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:459
+msgid "Replay a real order"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:467
+msgid "This event type cannot be replayed from an order. Use the synthetic sample."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:471
+msgid "Order replay needs WooCommerce active."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:484
+msgid "Order ID"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:509
+msgid "Use a synthetic transaction ID (recommended)"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:515
+msgid "Replays the real order, but swaps its transaction ID for a synthetic one so the test conversion is easy to spot and is not counted against the real order in GA4 / Ads. Uncheck to send the order’s real transaction ID (only if your downstream tags are gated to Preview/debug traffic)."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:527
+msgid "A valid token does more than show the event in Preview: the container processes it and fires your downstream tags. A test purchase can push a real (fake) conversion into GA4 and Google Ads unless those tags are gated to Preview/debug traffic."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:202
+msgid "Delivered."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:203
+msgid "The test could not be sent."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:216
+msgid "The test could not be sent. Check your connection and try again."
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:543
+msgid "Sending…"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:544
+msgid "Send test webhook to sGTM Preview"
+msgstr ""
+
+#: assets/admin/settings.js:18
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:551
+msgid "Paste a token to enable."
+msgstr ""
+
+#. translators: 1: HTTP status code, 2: message.
+#: assets/admin/settings.js:21
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:578
+msgid "HTTP %1$d — %2$s"
+msgstr ""
+
+#: assets/admin/settings.js:21
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:606
+msgid "Hide developer options"
+msgstr ""
+
+#: assets/admin/settings.js:21
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:610
+msgid "Developer options"
+msgstr ""
+
+#. translators: %s: remaining time.
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:620
+msgid "Live preview header is ON. It turns itself off in %s when the token expires."
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:259
+msgid "Paste your server container Preview token first."
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:270
+msgid "Could not update the live toggle."
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:656
+msgid "Attach the preview header to live webhook traffic"
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:663
+msgid "Live orders will appear in Preview while this is on. It is tied to the token and disarms automatically when the token expires, so it can never send a stale token that would make live webhooks fail. Use it only for short, supervised debugging."
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:681
+msgid "Hide filter snippet"
+msgstr ""
+
+#: assets/admin/settings.js:24
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:685
+msgid "Copy as filter snippet"
+msgstr ""
+
+#: assets/admin/settings.js:24
 #: src/js/admin/app/shell/fields/StaleAddonNotice.js:9
 msgid "GTM Kit Woo Add-On"
 msgstr ""
 
 #. translators: %s: the add-on plugin name to update.
-#: assets/admin/settings.js:10
+#: assets/admin/settings.js:25
 #: src/js/admin/app/shell/fields/StaleAddonNotice.js:33
 msgid "Update %s to its latest version to manage this setting here."
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: assets/admin/settings.js:13
+#: assets/admin/settings.js:28
 #: src/js/admin/app/molecules/plugin-inactive.js:14
 msgid "%s is not active"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: assets/admin/settings.js:16
+#: assets/admin/settings.js:31
 #: src/js/admin/app/molecules/plugin-inactive.js:23
 msgid "If you haven't installed and activated %s you must do that."
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: assets/admin/settings.js:19
+#: assets/admin/settings.js:34
 #: src/js/admin/app/molecules/plugin-inactive.js:40
 msgid "Install %s"
 msgstr ""
 
-#: assets/admin/settings.js:19
+#: assets/admin/settings.js:34
 #: src/js/admin/app/shell/Section.js:48
 msgid "Promotion"
 msgstr ""
 
-#: assets/admin/settings.js:19
+#: assets/admin/settings.js:34
 #: src/js/admin/app/shell/Section.js:60
 msgid "Warning"
 msgstr ""
 
 #. translators: 1: integration name, 2: setting count, 3: capability name.
-#: assets/admin/settings.js:20
+#: assets/admin/settings.js:35
 #: src/js/admin/app/shell/FilterNotices.js:25
 msgid "Filtered to %1$s — %2$d settings in %3$s. Universal capabilities (Setup, Consent) still apply and stay available."
 msgstr ""
 
 #. translators: 1: integration name, 2: capability name.
-#: assets/admin/settings.js:21
+#: assets/admin/settings.js:36
 #: src/js/admin/app/shell/FilterNotices.js:35
 msgid "Filtered to %1$s. No %1$s settings in %2$s — universal settings still apply and stay available."
 msgstr ""
 
 #. translators: 1: hidden integration name, 2: active filter name.
-#: assets/admin/settings.js:22
+#: assets/admin/settings.js:37
 #: src/js/admin/app/shell/FilterNotices.js:63
 msgid "%1$s settings hidden by the %2$s filter."
 msgstr ""
 
 #. translators: %s: GTM Kit plugin version.
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/CapabilityPage.js:53
 msgid "GTM Kit version %s"
 msgstr ""
 
-#: assets/admin/settings.js:23
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:38
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:29
 #: src/js/admin/app/shell/DashboardPage.js:104
 #: src/js/admin/app/shell/IntegrationsHub.js:20
 msgid "Active"
 msgstr ""
 
-#: assets/admin/settings.js:23
-#: assets/admin/settings.js:25
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:38
+#: assets/admin/settings.js:40
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:33
 #: src/js/admin/app/shell/IntegrationsHub.js:24
 #: src/js/admin/registry/dashboardData.js:34
@@ -2792,440 +2982,440 @@ msgstr ""
 msgid "Off"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:105
 msgid "Inactive"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:109
 msgid "Share anonymous data to help improve GTM Kit."
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:113
 msgid "Manage"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:158
 msgid "Dismiss"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:184
 msgid "Restore"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:241
 msgid "Needs attention"
 msgstr ""
 
-#: assets/admin/settings.js:23
+#: assets/admin/settings.js:38
 #: src/js/admin/app/shell/DashboardPage.js:268
 msgid "You're all caught up. Nothing needs attention right now."
 msgstr ""
 
 #. translators: %d: number of dismissed notifications.
-#: assets/admin/settings.js:24
+#: assets/admin/settings.js:39
 #: src/js/admin/app/shell/DashboardPage.js:289
 msgid "Hide dismissed notifications (%d)"
 msgstr ""
 
 #. translators: %d: number of dismissed notifications.
-#: assets/admin/settings.js:25
+#: assets/admin/settings.js:40
 #: src/js/admin/app/shell/DashboardPage.js:297
 msgid "Show dismissed notifications (%d)"
 msgstr ""
 
-#: assets/admin/settings.js:25
+#: assets/admin/settings.js:40
 #: src/js/admin/registry/dashboardData.js:27
 msgid "Container"
 msgstr ""
 
-#: assets/admin/settings.js:25
+#: assets/admin/settings.js:40
 #: src/js/admin/registry/dashboardData.js:28
 msgid "Not set"
 msgstr ""
 
-#: assets/admin/settings.js:25
+#: assets/admin/settings.js:40
 #: src/js/admin/registry/dashboardData.js:30
 msgid "Injected on all pages"
 msgstr ""
 
-#: assets/admin/settings.js:25
+#: assets/admin/settings.js:40
 #: src/js/admin/registry/dashboardData.js:33
 msgid "Consent Mode v2"
 msgstr ""
 
-#: assets/admin/settings.js:25
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:40
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/dashboardData.js:34
 #: src/js/admin/registry/dashboardData.js:47
 msgid "On"
 msgstr ""
 
 #. translators: %s: comma-separated region codes.
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/dashboardData.js:39
 msgid "Region: %s"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/dashboardData.js:42
 msgid "All regions"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/dashboardData.js:45
 msgid "Server-side"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/dashboardData.js:50
 msgid "Webhook queue available"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:342
 msgid "Overview of your GTM Kit setup"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:359
 msgid "Set up your GTM container"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:364
 msgid "Recommended next step"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:368
 msgid "GTM Kit is sending data to your container. Generate the Tags, Triggers and Variables you still need in Google Tag Manager."
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:378
 msgid "Open Template Assistant"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:389
 msgid "Resources"
 msgstr ""
 
-#: assets/admin/settings.js:26
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:41
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/DashboardPage.js:402
 #: src/js/admin/app/shell/DashboardPage.js:416
 #: src/js/admin/app/shell/SupportPage.js:223
 msgid "Read"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:408
 msgid "All tutorials"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/DashboardPage.js:409
 msgid "Browse the full guide library"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/integrationsData.js:26
 msgid "What you configure here"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/integrationsData.js:28
 msgid "This page is for enabling integrations and their basic plugin settings."
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/registry/integrationsData.js:32
 msgid "Tracking itself, which events fire and what goes into the data layer, is configured on the capability pages (Commerce, Events & data layer, Consent & privacy)."
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/IntegrationsHub.js:28
 msgid "Not installed"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/IntegrationsHub.js:73
 msgid "Configure"
 msgstr ""
 
-#: assets/admin/settings.js:26
+#: assets/admin/settings.js:41
 #: src/js/admin/app/shell/IntegrationsHub.js:98
 msgid "Enable integrations here. Their settings live on the capability pages."
 msgstr ""
 
 #. translators: %s: integration name.
-#: assets/admin/settings.js:27
+#: assets/admin/settings.js:42
 #: src/js/admin/app/shell/IntegrationConfig.js:51
 msgid "%s Integration"
 msgstr ""
 
 #. translators: %s: capability name.
-#: assets/admin/settings.js:28
+#: assets/admin/settings.js:43
 #: src/js/admin/app/shell/IntegrationConfig.js:89
 msgid "Reached from Integrations · settings live under %s"
 msgstr ""
 
 #. translators: %s: integration name.
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/IntegrationConfig.js:105
 msgid "Install and activate the %s plugin to configure this integration."
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:33
 msgid "Trouble activating?"
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:34
 msgid "Make sure the key is pasted in full (it starts with GTMK-) with no leading or trailing spaces, and that your server can reach the GTM Kit licensing server. If activation still fails, premium licence holders get priority email support and we can check it from our side."
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:39
 msgid "Contact premium support"
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:46
 msgid "Server-side webhooks & background queue"
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:47
 msgid "WooCommerce Subscriptions tracking"
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:48
 msgid "Event deferral until consent"
 msgstr ""
 
-#: assets/admin/settings.js:29
+#: assets/admin/settings.js:44
 #: src/js/admin/app/shell/LicensePage.js:49
 msgid "Order attribution & enhanced conversions"
 msgstr ""
 
 #. translators: %s: license renewal date.
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:69
 msgid "Renews %s"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:139
 msgid "License active"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:143
 msgid "Your GTM Kit Premium license is active and all premium features are enabled."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:151
 msgid "License key:"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:167
 msgid "Deactivate license"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:200
 msgid "Unlock GTM Kit Premium"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:205
 msgid "Upgrade"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:210
 msgid "Server-side tracking, the webhook queue, subscriptions and more."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:233
 msgid "Enter license key"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:234
 msgid "License key"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:244
 msgid "Activate license"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:256
 #: src/js/admin/app/shell/LicensePage.js:334
 msgid "Buy a license"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/LicensePage.js:265
 msgid "Go to my account"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:101
 msgid "Get help and contact us"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:106
 msgid "Premium support"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:107
 msgid "Premium subscribers get direct email support, usually a same-day reply on weekdays. Bugs, configuration questions, edge cases."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:114
 msgid "Contact support"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:118
 msgid "Get GTM Kit Premium"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:128
 msgid "Community support"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:129
 msgid "Free support in the WordPress.org support forum. Covers the plugin itself, not Google Tag Manager configuration."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:134
 msgid "WordPress support forum"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:139
 msgid "Bug reports"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:140
 msgid "Found a reproducible bug? Open an issue on GitHub with steps to reproduce and the plugin version. Public, searchable, faster to triage."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:145
 msgid "Report on GitHub"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:152
 msgid "Share system data with the GTM Kit support team"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:162
 msgid "If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:169
 #: src/js/admin/app/shell/SupportPage.js:175
 msgid "Support ticket"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:174
 msgid "FS-12345"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:189
 msgid "Send system data"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:203
 msgid "Documentation"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/SupportPage.js:207
 msgid "View all documentation"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:70
 msgid "Something went wrong"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:75
 msgid "An unexpected error occurred. Please try refreshing the page."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:103
 msgid "Try Again"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:110
 msgid "Reload Page"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:20
 #: src/js/admin/components/SectionErrorBoundary.js:21
 msgid "Section Error"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "The"
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:28
 msgid "This section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:30
+#: assets/admin/settings.js:45
 #: src/js/admin/app/shell/ShellApp.js:230
 msgid "Integration"
 msgstr ""
