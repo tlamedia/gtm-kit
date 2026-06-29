@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.16.3
+Stable tag: 2.16.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -105,7 +105,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.16.4 =
+
+Release date: 2026-06-29
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
 
 #### Bugfixes:
 * When the Template Assistant cannot generate a container, the page now shows the reason reported by the server inline (and logs the full detail to the browser console), instead of a generic "Error generating template" message that hid what actually went wrong.
@@ -181,29 +185,6 @@ Find out about what's new in our [release post](https://gtmkit.com/changelog/gtm
 * Raised the minimum WooCommerce version to 10.3 for the new block tracking integration. Sites on earlier WooCommerce continue to receive classic-template tracking unchanged.
 * Added Vitest and Playwright test harnesses covering the block tracking path, plus PHPUnit coverage for the block detection and Store API extension.
 * Prepare the settings and setup-wizard bootstrap for React 19, which WordPress will ship in a future release. No behaviour change under the current React 18.
-
-= 2.13.1 =
-
-Release date: 2026-05-26
-
-A maintenance fix for the 2.13 line; see the [2.13 release post](https://gtmkit.com/changelog/gtm-kit-2-13/) for what 2.13 introduced.
-
-#### Bugfixes:
-* The "Exclude pages from GTM" feature now also holds back the WooCommerce, Contact Form 7, and Easy Digital Downloads tracking scripts on excluded pages. Previously those add-on scripts could still load on an excluded page and fail, because the core GTM Kit runtime they rely on was withheld there.
-
-= 2.13.0 =
-
-Release date: 2026-05-26
-
-Find out about what's new in our [release post](https://gtmkit.com/changelog/gtm-kit-2-13/).
-
-#### New:
-* New "Exclude pages from GTM" section on the Container settings page lets you list URL patterns where GTM Kit should stay off. Useful for third-party checkout iframes, partner-hosted subpages, or in-app webview routes that have their own tracking.
-* New `window.gtmkit.events.push()` helper now sits in front of every GTM Kit event push, so an add-on can defer consent-sensitive events in the browser without server-side suppression.
-
-#### Other:
-* The existing `gtmkit_container_active` filter now receives the actual computed container-active value instead of a hardcoded `true`, so callbacks that return the value through unchanged automatically honor the new URL exclusion.
-* PHP-rendered initial dataLayer content is now emitted through the same client helper, so deferral works the same on full-page-cached and uncached pages.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).
