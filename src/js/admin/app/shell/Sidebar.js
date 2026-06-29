@@ -79,7 +79,7 @@ const BrandLockup = ( { isPremiumPlugin, hasValidLicense } ) => (
 				<span className="gtmkit-inline-flex gtmkit-items-center gtmkit-gap-1.5">
 					<span
 						aria-hidden="true"
-						className={ `gtmkit-h-[7px] gtmkit-w-[7px] gtmkit-rounded-full ${
+						className={ `gtmkit-h-[10px] gtmkit-w-[10px] gtmkit-rounded-full ${
 							hasValidLicense
 								? 'gtmkit-bg-tier-premium'
 								: 'gtmkit-bg-[#d63638]'
