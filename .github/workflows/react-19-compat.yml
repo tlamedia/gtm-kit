@@ -1,0 +1,67 @@
+name: React 19 compatibility
+
+# Forward-compatibility canary. WordPress is set to bundle React 19 in a
+# near-future core release; the admin settings app is React, so this job
+# re-runs the settings Jest suite with react / react-dom pinned to the
+# latest 19.x line while the shipped runtime stays on React 18.
+#
+# Advisory only: the job runs with continue-on-error so a React 19 break
+# surfaces in the logs without blocking merges. Promote it to a required
+# check once React 19 becomes the shipped baseline.
+
+on:
+  pull_request:
+    paths:
+      - 'src/js/admin/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.js'
+      - '.github/workflows/react-19-compat.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/js/admin/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.js'
+      - '.github/workflows/react-19-compat.yml'
+
+jobs:
+  jest-react-19:
+    name: Settings Jest under React 19
+    runs-on: ubuntu-24.04
+    # Non-blocking: report status without failing the PR while React 18 ships.
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Pin React 19 via npm overrides
+        # Track the latest 19.x release. react-dom is a direct dependency, so
+        # its declared range is widened alongside the override to avoid an
+        # EOVERRIDE conflict. @wordpress/element stays on its 6.x line.
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            const range = '^19.0.0';
+            p.dependencies['react-dom'] = range;
+            p.overrides = Object.assign({}, p.overrides, { react: range, 'react-dom': range });
+            fs.writeFileSync('package.json', JSON.stringify(p, null, '\t') + '\n');
+          "
+
+      - name: Install with React 19
+        run: npm install --no-audit --no-fund
+
+      - name: Report resolved React version
+        run: node -e "console.log('react', require('react/package.json').version); console.log('react-dom', require('react-dom/package.json').version); console.log('@wordpress/element', require('@wordpress/element/package.json').version);"
+
+      - name: Settings Jest suite
+        run: npm run test:settings

@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+Unreleased
+* Dev: Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
+
 2026-06-29 - version 2.16.4
 * Dev: The settings screen now ships an sGTM Preview test-send control that GTM Kit Premium registers into the Setup → Environment section, so Premium users can send a server-side webhook event to their server container's Preview/Debug panel.
 * Fix: When the Template Assistant cannot generate a container, the page now shows the reason reported by the server inline (and logs the full detail to the browser console), instead of a generic "Error generating template" message that hid what actually went wrong.

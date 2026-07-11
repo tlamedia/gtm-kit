@@ -105,6 +105,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= Unreleased =
+
+#### Other:
+* Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
+
 = 2.16.4 =
 
 Release date: 2026-06-29
