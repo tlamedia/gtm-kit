@@ -107,7 +107,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = Unreleased =
 
+#### New:
+* Sharing system data with the support team now starts a live sync session: while your ticket is open (at most 7 days), saving GTM Kit settings automatically sends the support team a fresh copy of the same data. The Support page shows an indicator while sync is active, and a Stop sharing button ends it immediately.
+
 #### Other:
+* New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
 * Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 
 = 2.16.4 =

@@ -1,7 +1,5 @@
 /**
  * TypeScript definitions for SettingsService
- *
- * @since Phase 2 Enhancement (2026-01-27)
  */
 
 import type { Tier } from '../constants/tiers';
@@ -30,6 +28,13 @@ export interface SettingsServiceData {
 	pageOptions?: PageOption[];
 	tutorials?: Tutorial[];
 	generatorUrl?: string;
+	supportSync?: SupportSyncState;
+}
+
+export interface SupportSyncState {
+	active: boolean;
+	ticket?: string;
+	until?: string;
 }
 
 export interface Settings {
@@ -146,6 +151,11 @@ declare class SettingsService {
 	 * Get site data
 	 */
 	getSiteData(): SiteData;
+
+	/**
+	 * Get the live support sync state
+	 */
+	getSupportSync(): SupportSyncState;
 
 	/**
 	 * Get install data (wizard only)

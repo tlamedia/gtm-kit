@@ -22,6 +22,7 @@ use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
@@ -71,6 +72,11 @@ function gtmkit_plugin_deactivation(): void {
 	}
 
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
+
+	// End any live support sync session; sharing is scoped to an active
+	// plugin and must not survive deactivation.
+	wp_clear_scheduled_hook( SupportSync::PUSH_HOOK );
+	delete_option( SupportSync::OPTION );
 
 	do_action( 'gtmkit_deactivate' );
 }
@@ -157,6 +163,10 @@ function gtmkit_frontend_init(): void {
 
 	( new AdminAPI( $options, $util ) )->rest_init();
 
+	// REST (settings saves) and cron (the scheduled push) requests run
+	// through this init path, so the support sync engine must hook here.
+	SupportSync::register( $options, $util );
+
 	$output_gate = Frontend::resolve_output_gate( $options );
 
 	if ( ! $options->get( 'general', 'just_the_container' ) ) {
@@ -241,6 +251,7 @@ function gtmkit_admin_init(): void {
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
+	SupportSync::register( $options, $util );
 	if ( ( new PremiumConditional() )->is_met() ) {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
 	}

@@ -14,8 +14,6 @@
  *
  * @typedef {import('./SettingsService').default} SettingsServiceType
  * @class SettingsService
- * @since Phase 1 Refactoring (2026-01-27)
- * @since Phase 2 Enhancement - Added TypeScript definitions (2026-01-27)
  */
 import { TIERS } from '../constants/tiers';
 
@@ -50,6 +48,19 @@ class SettingsService {
 	 */
 	getInstallData() {
 		return this.data.install_data || {};
+	}
+
+	/**
+	 * Get the live support sync state
+	 *
+	 * Populated server-side while a support sync session is active. Shaped
+	 * as `{ active: boolean, ticket?: string, until?: string }`.
+	 *
+	 * @return {Object} The support sync state.
+	 */
+	getSupportSync() {
+		const sync = this.data.supportSync;
+		return sync && typeof sync === 'object' ? sync : { active: false };
 	}
 
 	/**

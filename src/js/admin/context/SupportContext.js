@@ -4,20 +4,22 @@
  * Responsibilities:
  * - Support ticket ID management
  * - System data sending to support
+ * - Live support sync session state (indicator + stop-sharing action)
  *
  * @typedef {import('./types').SupportContextValue} SupportContextValue
- *
- * @since Phase 1 Refactoring (2026-01-27)
- * @since Phase 2 Enhancement - Added TypeScript definitions (2026-01-27)
  */
 
 /*WordPress*/
 import { createContext, useReducer } from '@wordpress/element';
 
 /*Inbuilt APIs*/
-import { sendSystemData as apiSendSystemData } from '../api/settings';
+import {
+	sendSystemData as apiSendSystemData,
+	stopSupportSync as apiStopSupportSync,
+} from '../api/settings';
 
 /*Services*/
+import SettingsService from '../services/SettingsService';
 import * as ActionTypes from '../constants/actionTypes';
 
 /**
@@ -30,6 +32,8 @@ const initialState = {
 	isSendingSystemData: false,
 	isSystemDataSent: false,
 	systemDataMessage: '',
+	supportSync: SettingsService.getSupportSync(),
+	isStoppingSupportSync: false,
 };
 
 const supportReducer = ( state, action ) => {
@@ -45,6 +49,20 @@ const supportReducer = ( state, action ) => {
 			newState.isSystemDataSent =
 				action.payload.isSystemDataSent || false;
 			newState.systemDataMessage = action.payload.systemDataMessage || '';
+			if ( action.payload.supportSync !== undefined ) {
+				newState.supportSync = action.payload.supportSync;
+			}
+			break;
+
+		case ActionTypes.STOP_SUPPORT_SYNC_BEFORE:
+			newState.isStoppingSupportSync = true;
+			break;
+
+		case ActionTypes.STOP_SUPPORT_SYNC:
+			newState.isStoppingSupportSync = false;
+			if ( action.payload.supportSync !== undefined ) {
+				newState.supportSync = action.payload.supportSync;
+			}
 			break;
 
 		case ActionTypes.UPDATE_STATE:
@@ -83,6 +101,9 @@ export const SupportProvider = ( { children } ) => {
 
 	/**
 	 * Send system data to support
+	 *
+	 * A successful share also starts the live sync session, which the
+	 * response reports back through `supportSync`.
 	 */
 	const sendSystemData = async () => {
 		dispatch( {
@@ -91,12 +112,19 @@ export const SupportProvider = ( { children } ) => {
 
 		try {
 			const response = await apiSendSystemData( state.supportTicket );
+			const data = response.data;
+			const message =
+				typeof data === 'string' ? data : data?.message || '';
 
 			dispatch( {
 				type: ActionTypes.SEND_SUPPORT_DATA,
 				payload: {
 					isSystemDataSent: response.success,
-					systemDataMessage: response.data,
+					systemDataMessage: message,
+					supportSync:
+						data && typeof data === 'object' && data.supportSync
+							? data.supportSync
+							: undefined,
 				},
 			} );
 		} catch ( error ) {
@@ -111,16 +139,50 @@ export const SupportProvider = ( { children } ) => {
 		}
 	};
 
+	/**
+	 * Stop the live support sync session
+	 */
+	const stopSupportSync = async () => {
+		dispatch( {
+			type: ActionTypes.STOP_SUPPORT_SYNC_BEFORE,
+		} );
+
+		try {
+			const response = await apiStopSupportSync();
+
+			dispatch( {
+				type: ActionTypes.STOP_SUPPORT_SYNC,
+				payload: {
+					supportSync: response.success
+						? response.data?.supportSync || { active: false }
+						: state.supportSync,
+				},
+			} );
+		} catch ( error ) {
+			// The session may still be active server-side, so keep the
+			// indicator visible; the customer can retry.
+			dispatch( {
+				type: ActionTypes.STOP_SUPPORT_SYNC,
+				payload: {
+					supportSync: state.supportSync,
+				},
+			} );
+		}
+	};
+
 	const value = {
 		// State
 		supportTicket: state.supportTicket,
 		isSendingSystemData: state.isSendingSystemData,
 		isSystemDataSent: state.isSystemDataSent,
 		systemDataMessage: state.systemDataMessage,
+		supportSync: state.supportSync,
+		isStoppingSupportSync: state.isStoppingSupportSync,
 
 		// Methods
 		updateSupportTicket,
 		sendSystemData,
+		stopSupportSync,
 
 		// Backward compatibility aliases
 		useSupportTicket: state.supportTicket,

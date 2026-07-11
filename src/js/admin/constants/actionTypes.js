@@ -3,8 +3,6 @@
  *
  * These constants replace magic strings throughout the reducer and context,
  * providing type safety and making refactoring easier.
- *
- * @since Phase 1 Refactoring (2026-01-27)
  */
 
 // Settings actions
@@ -16,6 +14,8 @@ export const UPDATE_STATE = 'UPDATE_STATE';
 // Support data actions
 export const SEND_SUPPORT_DATA_BEFORE = 'SEND_SUPPORT_DATA_BEFORE';
 export const SEND_SUPPORT_DATA = 'SEND_SUPPORT_DATA';
+export const STOP_SUPPORT_SYNC_BEFORE = 'STOP_SUPPORT_SYNC_BEFORE';
+export const STOP_SUPPORT_SYNC = 'STOP_SUPPORT_SYNC';
 
 // License actions
 export const SEND_LICENSE_KEY_BEFORE = 'SEND_LICENSE_KEY_BEFORE';

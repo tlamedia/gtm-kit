@@ -76,6 +76,7 @@ if ( $gtmkit_suite !== 'integration' ) {
 	// unit suite can reflect over signatures without booting WordPress.
 	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/stubs/wp-user.php';
 	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/stubs/wp-query.php';
+	require_once $gtmkit_plugin_dir . '/tests/phpunit/Unit/stubs/wp-error.php';
 
 	// Test helpers that aren't autoloaded (small subclasses of SUT
 	// classes used as test seams). PHPUnit's test files themselves are

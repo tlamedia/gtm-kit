@@ -1,10 +1,14 @@
 /**
  * TypeScript definitions for Context types
- *
- * @since Phase 2 Enhancement (2026-01-27)
  */
 
-import { Settings, Notifications, SiteData, UserRole } from '../services/SettingsService';
+import {
+	Settings,
+	Notifications,
+	SiteData,
+	SupportSyncState,
+	UserRole,
+} from '../services/SettingsService';
 import type { Tier } from '../constants/tiers';
 
 /**
@@ -74,10 +78,13 @@ export interface SupportContextValue {
 	isSendingSystemData: boolean;
 	isSystemDataSent: boolean;
 	systemDataMessage: string;
+	supportSync: SupportSyncState;
+	isStoppingSupportSync: boolean;
 
 	// Methods
 	updateSupportTicket: (val: string) => void;
 	sendSystemData: () => Promise<void>;
+	stopSupportSync: () => Promise<void>;
 
 	// Backward compatibility
 	useSupportTicket: string;

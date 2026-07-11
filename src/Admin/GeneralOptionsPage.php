@@ -9,6 +9,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
+use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 
@@ -155,6 +156,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'opportunities'      => $this->get_upgrade_opportunities(),
 			'settings'           => $this->options->get_all_raw(),
 			'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
+			'supportSync'        => ( new SupportSync( $this->options, $this->util ) )->get_client_state(),
 			'user_roles'         => $this->get_user_roles(),
 			'notifications'      => $this->get_notifications(),
 			'consentAdminBadges' => $this->get_consent_admin_badges(),

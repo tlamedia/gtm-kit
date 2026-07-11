@@ -91,6 +91,9 @@ export const updateSettings = ( data ) =>
 export const sendSystemData = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/send-support-data', 'POST', data, true );
 
+export const stopSupportSync = () =>
+	handleApiFetch( 'gtmkit/v1/stop-support-sync', 'POST', null, true );
+
 export const sendLicenseKey = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/send-license-key', 'POST', data, true );
 

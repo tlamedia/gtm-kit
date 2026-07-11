@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use TLA_Media\GTM_Kit\Options\Options;
@@ -75,6 +76,14 @@ final class AdminAPI {
 		);
 
 		$this->util->rest_api_server->register_rest_route(
+			'/stop-support-sync',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'stop_support_sync' ],
+			]
+		);
+
+		$this->util->rest_api_server->register_rest_route(
 			'/set-notification-status',
 			[
 				'methods'  => 'POST',
@@ -106,38 +115,73 @@ final class AdminAPI {
 	/**
 	 * Send Support Data
 	 *
+	 * A successful share also starts the live sync session, so later
+	 * settings saves keep the shared data current while the ticket stays
+	 * open.
+	 *
 	 * @return void
 	 */
 	public function send_support_data(): void {
-		$support_ticket = strtoupper( json_decode( file_get_contents( 'php://input' ), true ) );
+		$input          = json_decode( (string) file_get_contents( 'php://input' ), true );
+		$support_ticket = is_string( $input ) ? strtoupper( $input ) : '';
 
-		$match = preg_match( '/FS(\d+)-([A-Z0-9]+)/', $support_ticket, $matches );
+		if ( preg_match( '/FS(\d+)-([A-Z0-9]+)/', $support_ticket ) !== 1 ) {
+			wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
+		}
 
-		if ( $match === 1 ) {
+		$support_sync = new SupportSync( $this->options, $this->util );
 
-			$url = 'https://support.gtmkit.com/api/wporg/support/' . $support_ticket;
-
-			$body = [
-				'system_data' => wp_json_encode( $this->util->get_site_data( $this->options->get_all_raw(), false ) ),
-			];
-			$args = [
+		$response = wp_remote_request(
+			SupportSync::get_endpoint( $support_ticket ),
+			[
 				'method'  => 'PUT',
 				'headers' => [
 					'Content-Type' => 'application/json',
 				],
-				'body'    => wp_json_encode( $body ),
-			];
+				'body'    => wp_json_encode( $support_sync->build_request_body( SupportSync::SOURCE_MANUAL ) ),
+			]
+		);
 
-			$response = wp_remote_request( $url, $args );
-
-			if ( is_wp_error( $response ) ) {
-				wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
-			} else {
-				wp_send_json_success( __( 'Thank you! We have received the data.', 'gtm-kit' ) );
-			}
-		} else {
+		if ( is_wp_error( $response ) ) {
 			wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
 		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( $code >= 200 && $code < 300 && is_array( $body ) && ! empty( $body['success'] ) ) {
+			$support_sync->activate( $support_ticket );
+
+			wp_send_json_success(
+				[
+					'message'     => __( 'Thank you! We have received the data.', 'gtm-kit' ),
+					'supportSync' => $support_sync->get_client_state(),
+				]
+			);
+		}
+
+		if ( $code === 410 ) {
+			$support_sync->clear_marker_for_ticket( $support_ticket );
+			wp_send_json_error( __( 'This support ticket is closed. If you still need to share your system data, ask the support team for a new ticket.', 'gtm-kit' ) );
+		}
+
+		wp_send_json_error( __( 'The support ticket was not found. Please check that you have entered the correct ticket.', 'gtm-kit' ) );
+	}
+
+	/**
+	 * Stop the live support sync session.
+	 *
+	 * @return void
+	 */
+	public function stop_support_sync(): void {
+		$support_sync = new SupportSync( $this->options, $this->util );
+		$support_sync->clear_marker();
+
+		wp_send_json_success(
+			[
+				'supportSync' => $support_sync->get_client_state(),
+			]
+		);
 	}
 
 	/**

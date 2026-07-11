@@ -1,5 +1,5 @@
 /*WordPress*/
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useContext } from '@wordpress/element';
 import { Spinner } from '@wordpress/components';
 
@@ -38,6 +38,8 @@ const INPUT =
 	'gtmkit-h-[34px] gtmkit-w-[260px] gtmkit-rounded-sm gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-[10px] gtmkit-text-[13px] gtmkit-text-text-primary focus:gtmkit-border-brand-primary focus:gtmkit-outline-none';
 const BTN_PRIMARY =
 	'gtmkit-inline-flex gtmkit-items-center gtmkit-gap-1 gtmkit-rounded-sm gtmkit-bg-brand-primary gtmkit-px-4 gtmkit-py-[9px] gtmkit-text-[13px] gtmkit-font-medium gtmkit-text-white hover:gtmkit-opacity-90 disabled:gtmkit-opacity-50';
+const BTN_SECONDARY =
+	'gtmkit-inline-flex gtmkit-items-center gtmkit-gap-1 gtmkit-rounded-sm gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-4 gtmkit-py-[9px] gtmkit-text-[13px] gtmkit-font-medium gtmkit-text-text-primary hover:gtmkit-bg-brand-surface-subtle disabled:gtmkit-opacity-50';
 const CHANNEL_CARD =
 	'gtmkit-flex gtmkit-flex-col gtmkit-gap-3.5 gtmkit-rounded-xl gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-6 gtmkit-pb-[22px] gtmkit-pt-6';
 
@@ -88,11 +90,94 @@ const SupportPage = () => {
 		sendSystemData,
 		useIsSystemDataSent,
 		useSystemDataMessage,
+		supportSync,
+		isStoppingSupportSync,
+		stopSupportSync,
 	} = useContext( SupportContext );
 
 	const canSend = useSupportTicket.trim().toUpperCase().startsWith( 'FS' );
 	const tutorials = SettingsService.getTutorials();
 	const premiumActive = SettingsService.isPremiumPlugin();
+
+	let shareCardBody;
+	if ( supportSync?.active ) {
+		shareCardBody = (
+			<>
+				{ useIsSystemDataSent && useSystemDataMessage && (
+					<InfoNote>{ useSystemDataMessage }</InfoNote>
+				) }
+				<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-3 gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+					<span className="gtmkit-h-2 gtmkit-w-2 gtmkit-shrink-0 gtmkit-rounded-full gtmkit-bg-color-success" />
+					<p className="gtmkit-m-0 gtmkit-text-sm gtmkit-text-text-secondary">
+						{ sprintf(
+							/* translators: %1$s: the support ticket reference. %2$s: the localized end date of the sync session. */
+							__(
+								'System data syncs to support while ticket %1$s is open, until %2$s.',
+								'gtm-kit'
+							),
+							supportSync.ticket,
+							supportSync.until
+						) }
+					</p>
+				</div>
+				<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+					<button
+						type="button"
+						className={ BTN_SECONDARY }
+						onClick={ stopSupportSync }
+						disabled={ isStoppingSupportSync }
+					>
+						{ __( 'Stop sharing', 'gtm-kit' ) }
+						{ isStoppingSupportSync && <Spinner /> }
+					</button>
+				</div>
+			</>
+		);
+	} else if ( useIsSystemDataSent ) {
+		shareCardBody = <InfoNote>{ useSystemDataMessage }</InfoNote>;
+	} else {
+		shareCardBody = (
+			<>
+				<InfoNote>
+					{ __(
+						'If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below.',
+						'gtm-kit'
+					) }
+				</InfoNote>
+				<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-3.5 gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+					<span className="gtmkit-text-sm gtmkit-text-text-primary">
+						{ __( 'Support ticket', 'gtm-kit' ) }
+					</span>
+					<input
+						type="text"
+						value={ useSupportTicket }
+						placeholder={ __( 'FS-12345', 'gtm-kit' ) }
+						aria-label={ __( 'Support ticket', 'gtm-kit' ) }
+						className={ INPUT }
+						onChange={ ( e ) =>
+							updateSupportTicket( e.target.value )
+						}
+					/>
+				</div>
+				<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+					<button
+						type="button"
+						className={ BTN_PRIMARY }
+						onClick={ sendSystemData }
+						disabled={ ! canSend }
+					>
+						{ __( 'Send system data', 'gtm-kit' ) }
+						{ isSendingSystemData && <Spinner /> }
+					</button>
+					{ useSystemDataMessage && (
+						<p className="gtmkit-m-0 gtmkit-mt-2 gtmkit-text-xs gtmkit-text-[#b32d2e]">
+							{ useSystemDataMessage }
+						</p>
+					) }
+				</div>
+			</>
+		);
+	}
 
 	return (
 		<>
@@ -154,49 +239,7 @@ const SupportPage = () => {
 					'gtm-kit'
 				) }
 			>
-				{ useIsSystemDataSent ? (
-					<InfoNote>{ useSystemDataMessage }</InfoNote>
-				) : (
-					<>
-						<InfoNote>
-							{ __(
-								'If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below.',
-								'gtm-kit'
-							) }
-						</InfoNote>
-						<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-3.5 gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
-							<span className="gtmkit-text-sm gtmkit-text-text-primary">
-								{ __( 'Support ticket', 'gtm-kit' ) }
-							</span>
-							<input
-								type="text"
-								value={ useSupportTicket }
-								placeholder={ __( 'FS-12345', 'gtm-kit' ) }
-								aria-label={ __( 'Support ticket', 'gtm-kit' ) }
-								className={ INPUT }
-								onChange={ ( e ) =>
-									updateSupportTicket( e.target.value )
-								}
-							/>
-						</div>
-						<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
-							<button
-								type="button"
-								className={ BTN_PRIMARY }
-								onClick={ sendSystemData }
-								disabled={ ! canSend }
-							>
-								{ __( 'Send system data', 'gtm-kit' ) }
-								{ isSendingSystemData && <Spinner /> }
-							</button>
-							{ useSystemDataMessage && (
-								<p className="gtmkit-m-0 gtmkit-mt-2 gtmkit-text-xs gtmkit-text-[#b32d2e]">
-									{ useSystemDataMessage }
-								</p>
-							) }
-						</div>
-					</>
-				) }
+				{ shareCardBody }
 			</InfoCard>
 
 			<InfoCard
