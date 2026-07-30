@@ -259,30 +259,19 @@ describe( 'link resolution', () => {
 		} );
 	} );
 
-	it( 'sends the calculator, footer and generic wizard CTAs to pricing', () => {
-		[ 'cardCalculator', 'pagePricing', 'wizardGeneric' ].forEach(
-			( surface ) => {
-				expect( CTA_SURFACES[ surface ].target ).toBe(
-					'https://gtmkit.com/pricing/'
-				);
-			}
-		);
+	it( 'gives every surface a pricing fallback target', () => {
+		Object.values( CTA_SURFACES ).forEach( ( entry ) => {
+			expect( entry.target ).toBe( 'https://gtmkit.com/pricing/' );
+		} );
 	} );
 
-	it( 'sends every other CTA to the product page', () => {
-		[
-			'cardServerSide',
-			'cardPurchaseAccuracy',
-			'cardConsent',
-			'cardForms',
-			'cardDebug',
-			'wizardWoo',
-			'wizardConsent',
-		].forEach( ( surface ) => {
-			expect( CTA_SURFACES[ surface ].target ).toBe(
-				'https://gtmkit.com/product/gtm-kit-premium/'
-			);
-		} );
+	it( 'ignores the fallback target while a code is present', () => {
+		expect( premiumLink( 'cardServerSide' ) ).toBe(
+			'https://jump.gtmkit.com/link/8-01F58'
+		);
+		expect( premiumLink( 'cardServerSide' ) ).not.toBe(
+			CTA_SURFACES.cardServerSide.target
+		);
 	} );
 
 	it( 'has a minted short-link code for every surface', () => {
@@ -316,9 +305,7 @@ describe( 'link resolution', () => {
 		CTA_SURFACES.pagePricing.code = original;
 	} );
 
-	it( 'falls back to the product page for an unknown surface', () => {
-		expect( premiumLink( 'nope' ) ).toBe(
-			'https://gtmkit.com/product/gtm-kit-premium/'
-		);
+	it( 'falls back to pricing for an unknown surface', () => {
+		expect( premiumLink( 'nope' ) ).toBe( 'https://gtmkit.com/pricing/' );
 	} );
 } );

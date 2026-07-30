@@ -12,33 +12,40 @@
  *    references rather than conversion targets and are not part of the
  *    attribution model, so they are not shortened.
  *
- * Each surface carries the target its short link points at initially. Until a
- * code is minted, `premiumLink()` returns that target directly, so a call to
- * action always lands somewhere correct and only the attribution is missing.
+ * Each surface also carries a fallback target, used only if its short-link
+ * code is ever missing, so a call to action can never render a dead link.
  */
 
 const SHORT_LINK_BASE = 'https://jump.gtmkit.com/link/';
 
-const PRODUCT_URL = 'https://gtmkit.com/pricing/';
-const PRICING_URL = 'https://gtmkit.com/pricing/';
+/**
+ * Where a call to action lands if its short link is ever missing.
+ *
+ * Pricing suits every surface as a fallback: it is the page a reader who
+ * wanted any of these topics can act from.
+ */
+const FALLBACK_URL = 'https://gtmkit.com/pricing/';
 
 /**
- * Call-to-action surfaces: the short-link code and the destination that code
- * resolves to today. A `code` of `null` has not been minted yet.
+ * Call-to-action surfaces and their short-link codes.
+ *
+ * `target` is only a safety net for a surface whose code is missing. It is not
+ * where the link goes: a minted code always wins, and its destination is set
+ * on the short link itself, so a call to action can be repointed without a
+ * plugin release. The calculator card, for example, keeps its code and is
+ * retargeted to the business-case calculator when that page ships.
  */
 export const CTA_SURFACES = {
-	cardServerSide: { code: '8-01F58', target: PRODUCT_URL },
-	cardPurchaseAccuracy: { code: '9-10C87', target: PRODUCT_URL },
-	cardConsent: { code: '10-B66ED', target: PRODUCT_URL },
-	cardForms: { code: '11-010E5', target: PRODUCT_URL },
-	cardDebug: { code: '12-7E262', target: PRODUCT_URL },
-	// Retargets to the business-case calculator once that page ships; the
-	// change is made app-side, so no plugin release is involved.
-	cardCalculator: { code: '13-FDA99', target: PRICING_URL },
-	pagePricing: { code: '14-1C82F', target: PRICING_URL },
-	wizardWoo: { code: '15-D352B', target: PRODUCT_URL },
-	wizardConsent: { code: '16-8C659', target: PRODUCT_URL },
-	wizardGeneric: { code: '17-6ABCC', target: PRICING_URL },
+	cardServerSide: { code: '8-01F58', target: FALLBACK_URL },
+	cardPurchaseAccuracy: { code: '9-10C87', target: FALLBACK_URL },
+	cardConsent: { code: '10-B66ED', target: FALLBACK_URL },
+	cardForms: { code: '11-010E5', target: FALLBACK_URL },
+	cardDebug: { code: '12-7E262', target: FALLBACK_URL },
+	cardCalculator: { code: '13-FDA99', target: FALLBACK_URL },
+	pagePricing: { code: '14-1C82F', target: FALLBACK_URL },
+	wizardWoo: { code: '15-D352B', target: FALLBACK_URL },
+	wizardConsent: { code: '16-8C659', target: FALLBACK_URL },
+	wizardGeneric: { code: '17-6ABCC', target: FALLBACK_URL },
 };
 
 /**
@@ -50,7 +57,7 @@ export const CTA_SURFACES = {
 export const premiumLink = ( surface ) => {
 	const entry = CTA_SURFACES[ surface ];
 	if ( ! entry ) {
-		return PRODUCT_URL;
+		return FALLBACK_URL;
 	}
 	return entry.code ? `${ SHORT_LINK_BASE }${ entry.code }` : entry.target;
 };
