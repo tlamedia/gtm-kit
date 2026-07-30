@@ -1,6 +1,6 @@
 /*Inbuilt Components*/
 import { memo } from '@wordpress/element';
-import { getSteps } from '../utils/get-steps';
+import { getWizardSteps } from '../utils/get-steps';
 import Step from '../atoms/step';
 import { useLocation } from 'react-router-dom';
 
@@ -21,9 +21,10 @@ const WizardTimeline = memo( () => {
 		} );
 	};
 
-	const totalSteps = getSteps.length - 1 + getSteps[ 0 ].step;
+	const steps = getWizardSteps();
+	const totalSteps = steps.length - 1 + steps[ 0 ].step;
 
-	let currentStep = getCurrentStep( getSteps, {
+	let currentStep = getCurrentStep( steps, {
 		path: useLocation().pathname,
 	} );
 
@@ -42,7 +43,7 @@ const WizardTimeline = memo( () => {
 			className="gtmkit-mt-6 gtmkit-inset-0 gtmkit-mx-auto gtmkit-my-6 gtmkit-flex gtmkit-items-center gtmkit-max-w-xl"
 			aria-hidden="true"
 		>
-			{ getSteps.map( function ( item ) {
+			{ steps.map( function ( item ) {
 				return (
 					<Step
 						key={ item.step }

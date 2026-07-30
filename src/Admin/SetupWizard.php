@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Admin;
 
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use TLA_Media\GTM_Kit\Options\Options;
@@ -142,17 +144,43 @@ final class SetupWizard {
 			'gtmkit-wizard-script',
 			'gtmkitSettings',
 			[
-				'rootId'       => 'gtmkit-settings',
-				'currentPage'  => 'wizard',
-				'root'         => esc_url_raw( rest_url() ),
-				'nonce'        => wp_create_nonce( 'wp_rest' ),
-				'pluginUrl'    => GTMKIT_URL,
-				'adminPageUrl' => $this->util->get_admin_page_url(),
-				'settings'     => $this->options->get_all_raw(),
-				'site_data'    => $this->util->get_site_data( $this->options->get_all_raw() ),
-				'install_data' => ( new PluginDataImport() )->get_all(),
+				'rootId'          => 'gtmkit-settings',
+				'currentPage'     => 'wizard',
+				'root'            => esc_url_raw( rest_url() ),
+				'nonce'           => wp_create_nonce( 'wp_rest' ),
+				'pluginUrl'       => GTMKIT_URL,
+				'adminPageUrl'    => $this->util->get_admin_page_url(),
+				'isPremium'       => ( new PremiumConditional() )->is_met(),
+				'isPremiumPlugin' => ( new PremiumPluginConditional() )->is_met(),
+				'plugins'         => Integrations::get_plugins(),
+				'wpLocale'        => get_locale(),
+				'storeCountry'    => $this->get_store_country(),
+				'settings'        => $this->options->get_all_raw(),
+				'site_data'       => $this->util->get_site_data( $this->options->get_all_raw() ),
+				'install_data'    => ( new PluginDataImport() )->get_all(),
 			]
 		);
+	}
+
+	/**
+	 * Get the store's base country code.
+	 *
+	 * WooCommerce stores its base location as `COUNTRY:STATE`, so only the
+	 * country segment is returned. Empty when WooCommerce is not active or has
+	 * no base country configured.
+	 *
+	 * @return string A two-letter country code, or an empty string.
+	 */
+	private function get_store_country(): string {
+		if ( ! \function_exists( 'wc_get_base_location' ) ) {
+			return '';
+		}
+
+		$location = \wc_get_base_location();
+
+		return ( \is_array( $location ) && ! empty( $location['country'] ) )
+			? (string) $location['country']
+			: '';
 	}
 
 	/**

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 /*Inbuilt Context*/
 import { SettingsDataContext } from '../../context/SettingsDataContext';
 import ToggleSetting from '../atoms/toggle-setting';
+import { getNextStepPath } from '../utils/get-steps';
 
 const AutomaticUpdates = () => {
 	const {
@@ -56,7 +57,9 @@ const AutomaticUpdates = () => {
 					className="gtmkit-mx-auto gtmkit-rounded-md !gtmkit-py-6 !gtmkit-px-8 gtmkit-text-base disabled:!gtmkit-bg-color-button-disabled disabled:!gtmkit-text-color-grey"
 					onClick={ () => {
 						updateSettings();
-						navigate( '/getting-started', { replace: true } );
+						navigate( getNextStepPath( '/automatic-updates' ), {
+							replace: true,
+						} );
 					} }
 					disabled={ useIsPending }
 				>

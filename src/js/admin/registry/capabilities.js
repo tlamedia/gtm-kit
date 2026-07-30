@@ -8,6 +8,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { getRegisteredSections } from './bridge';
+import { isPremiumSurfaceVisible } from './premiumSurface';
 
 export const ZONES = {
 	CAPABILITY: 'capability',
@@ -148,6 +149,13 @@ export const CAPABILITIES = [
 		label: __( 'Integrations', 'gtm-kit' ),
 		order: 60,
 		zone: ZONES.CAPABILITY,
+	},
+	{
+		id: 'premium',
+		label: __( 'Premium', 'gtm-kit' ),
+		order: 95,
+		zone: ZONES.PLUGIN,
+		freeOnly: true,
 	},
 	{
 		id: 'license',
@@ -426,15 +434,28 @@ export const getCapability = ( id ) =>
 	CAPABILITIES.find( ( capability ) => capability.id === id );
 
 /**
- * Capabilities in a zone, ordered.
+ * Whether a capability is reachable on this install.
+ *
+ * A capability marked `freeOnly` is a Premium-marketing destination, so it
+ * exists only while no paid add-on is active.
+ *
+ * @param {Object} capability The capability definition.
+ * @return {boolean} True when the capability should be offered.
+ */
+export const isCapabilityAvailable = ( capability ) =>
+	! capability?.freeOnly || isPremiumSurfaceVisible();
+
+/**
+ * Capabilities in a zone, ordered, limited to those available on this install.
  *
  * @param {string} zone One of ZONES.
  * @return {Array} Ordered capability definitions in the zone.
  */
 export const getCapabilitiesByZone = ( zone ) =>
-	CAPABILITIES.filter( ( capability ) => capability.zone === zone ).sort(
-		( a, b ) => a.order - b.order
-	);
+	CAPABILITIES.filter(
+		( capability ) =>
+			capability.zone === zone && isCapabilityAvailable( capability )
+	).sort( ( a, b ) => a.order - b.order );
 
 /**
  * All sections, deduplicated by `${capability}/${id}` with last-wins

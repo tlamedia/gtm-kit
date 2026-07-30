@@ -8,11 +8,7 @@
 /** @type {import('tailwindcss').Config} */ // phpcs:ignore
 
 module.exports = {
-	content: [
-		'./src/**/*.js',
-		'../gtm-kit-settings/src/**/*.js',
-		'./src/**/*.php',
-	],
+	content: [ './src/**/*.js', './src/**/*.php' ],
 	theme: {
 		extend: {
 			colors: {

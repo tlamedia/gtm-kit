@@ -12,6 +12,7 @@ import { SlotFillProvider } from '@wordpress/components';
 import { PluginArea } from '@wordpress/plugins';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { LEGACY_ROUTES } from '../../registry/legacyRoutes';
+import { isPremiumSurfaceVisible } from '../../registry/premiumSurface';
 
 /*Inbuilt Components*/
 import Sidebar from './Sidebar';
@@ -33,6 +34,7 @@ import SettingsService from '../../services/SettingsService';
 
 /*Reused non-field shell pages and flows*/
 const GtmTemplates = lazy( () => import( '../pages/templates' ) );
+const PremiumPage = lazy( () => import( './PremiumPage' ) );
 
 /**
  * A capability route: renders the page entirely from the registry inside a
@@ -234,6 +236,26 @@ const ShellApp = () => {
 													>
 														<IntegrationConfig />
 													</SectionErrorBoundary>
+												}
+											/>
+											<Route
+												path="/premium"
+												element={
+													isPremiumSurfaceVisible() ? (
+														<SectionErrorBoundary
+															sectionName={ __(
+																'Premium',
+																'gtm-kit'
+															) }
+														>
+															<PremiumPage />
+														</SectionErrorBoundary>
+													) : (
+														<Navigate
+															replace
+															to="/dashboard"
+														/>
+													)
 												}
 											/>
 											<Route

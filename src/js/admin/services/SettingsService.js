@@ -180,6 +180,29 @@ class SettingsService {
 	}
 
 	/**
+	 * Get the full WordPress locale (for example `da_DK`).
+	 *
+	 * Distinct from `site_data.locale`, which carries only the language
+	 * segment. Localized on the setup wizard.
+	 *
+	 * @return {string} The locale, or an empty string.
+	 */
+	getWpLocale() {
+		return this.data.wpLocale || '';
+	}
+
+	/**
+	 * Get the store's base country code (for example `DK`).
+	 *
+	 * Empty when WooCommerce is not active or has no base country set.
+	 *
+	 * @return {string} A two-letter country code, or an empty string.
+	 */
+	getStoreCountry() {
+		return this.data.storeCountry || '';
+	}
+
+	/**
 	 * Get the integration metadata keyed by slug ({ title, option, description,
 	 * path, type }), used by the Integrations hub.
 	 *

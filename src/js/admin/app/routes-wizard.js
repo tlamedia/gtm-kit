@@ -18,6 +18,7 @@ import { SupportProvider } from '../context/SupportContext';
 import { SiteDataProvider } from '../context/SiteDataContext';
 import { ToastProvider, ToastContext } from '../context/ToastContext';
 import SettingsService from '../services/SettingsService';
+import { isWizardUpsellEnabled } from '../registry/premiumWizard';
 
 /*Router*/
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -41,6 +42,7 @@ const GettingStarted = lazy( () => import( './pages-wizard/getting-started' ) );
 const AutomaticUpdates = lazy( () =>
 	import( './pages-wizard/automatic-updates' )
 );
+const PremiumUpsell = lazy( () => import( './pages-wizard/premium' ) );
 
 const SettingRouters = () => {
 	const { useSettings } = useContext( SettingsDataContext );
@@ -118,6 +120,27 @@ const SettingRouters = () => {
 								>
 									<AutomaticUpdates />
 								</SectionErrorBoundary>
+							}
+						/>
+						<Route
+							exact
+							path={ '/premium' }
+							element={
+								isWizardUpsellEnabled() ? (
+									<SectionErrorBoundary
+										sectionName={ __(
+											'GTM Kit Premium',
+											'gtm-kit'
+										) }
+									>
+										<PremiumUpsell />
+									</SectionErrorBoundary>
+								) : (
+									<Navigate
+										replace
+										to={ '/getting-started' }
+									/>
+								)
 							}
 						/>
 						<Route

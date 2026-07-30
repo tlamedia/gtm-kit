@@ -1377,6 +1377,10 @@ video {
   border-bottom-width: 2px;
 }
 
+.gtmkit-border-l-2 {
+  border-left-width: 2px;
+}
+
 .gtmkit-border-l-\[3px\] {
   border-left-width: 3px;
 }
@@ -1833,6 +1837,10 @@ video {
   padding-bottom: 22px;
 }
 
+.gtmkit-pl-3 {
+  padding-left: 0.75rem;
+}
+
 .gtmkit-pl-5 {
   padding-left: 1.25rem;
 }
@@ -2224,6 +2232,22 @@ video {
   outline-offset: 2px;
 }
 
+.focus\:gtmkit-outline:focus {
+  outline-style: solid;
+}
+
+.focus\:gtmkit-outline-2:focus {
+  outline-width: 2px;
+}
+
+.focus\:gtmkit-outline-offset-2:focus {
+  outline-offset: 2px;
+}
+
+.focus\:gtmkit-outline-brand-primary:focus {
+  outline-color: var(--gtmkit-color-brand-primary);
+}
+
 .disabled\:\!gtmkit-bg-color-button-disabled:disabled {
   background-color: var(--gtmkit-button-disabled) !important;
 }
@@ -2239,6 +2263,18 @@ video {
 @media (min-width: 640px) {
   .sm\:gtmkit-grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:gtmkit-flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:gtmkit-items-center {
+    align-items: center;
+  }
+
+  .sm\:gtmkit-justify-between {
+    justify-content: space-between;
   }
 }
 
@@ -2263,6 +2299,10 @@ video {
     max-width: 36rem;
   }
 
+  .md\:gtmkit-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .md\:gtmkit-grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2271,6 +2311,12 @@ video {
 @media (min-width: 1024px) {
   .lg\:gtmkit-grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:gtmkit-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
