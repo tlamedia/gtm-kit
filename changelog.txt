@@ -8,6 +8,7 @@ Unreleased
 * Add: The setup wizard now includes a short step introducing GTM Kit Premium, worded for the site it is running on: order tracking for WooCommerce stores, consent handling for sites in the EU and EEA, and a general overview otherwise. The step is informational and one click continues past it.
 * Changed: The Premium page and the wizard step are hidden entirely when GTM Kit Woo or GTM Kit Premium is active, so paying customers see no upgrade prompts.
 * Dev: Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
+* Changed: Settings that need a paid add-on no longer show an upgrade link to customers who already have GTM Kit Woo or GTM Kit Premium. The setting itself still appears with its Premium label, so you can see what the product includes without being sold something you already own.
 
 2026-06-29 - version 2.16.4
 * Dev: The settings screen now ships an sGTM Preview test-send control that GTM Kit Premium registers into the Setup → Environment section, so Premium users can send a server-side webhook event to their server container's Preview/Debug panel.

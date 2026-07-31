@@ -25,6 +25,8 @@ jest.mock( '../../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		isPluginActive: () => false,
+		// Read by the locked-field upgrade link this control can render.
+		getActiveTier: () => 'free',
 	},
 } ) );
 

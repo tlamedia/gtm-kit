@@ -114,6 +114,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 #### Other:
 * The Premium page and the wizard step are hidden entirely when GTM Kit Woo or GTM Kit Premium is active, so paying customers see no upgrade prompts.
+* Settings that need a paid add-on no longer show an upgrade link to customers who already have GTM Kit Woo or GTM Kit Premium. The setting itself still appears with its Premium label, so you can see what the product includes without being sold something you already own.
 * New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
 * Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.

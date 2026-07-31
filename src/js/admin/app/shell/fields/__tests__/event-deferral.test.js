@@ -36,6 +36,9 @@ jest.mock( '../../../../services/SettingsService', () => ( {
 		getNonce: () => 'test-nonce',
 		getRestRoot: () => '/wp-json/',
 		getConsentAdminBadges: () => mockConsentBadges,
+		// The locked-field upgrade link renders for free-tier installs only,
+		// which is the audience these upsell assertions describe.
+		getActiveTier: () => 'free',
 	},
 } ) );
 
