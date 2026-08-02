@@ -1032,7 +1032,9 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$link_html = new \WP_HTML_Tag_Processor( $woocommerce_cart_item_remove_link );
 		$link_html->next_tag();
-		$link_html->set_attribute( 'data-gtmkit_product_data', esc_attr( wp_json_encode( $item_data ) ) );
+		// WP_HTML_Tag_Processor escapes the attribute value itself; pre-escaping
+		// here would double-encode the JSON and break JSON.parse() on the client.
+		$link_html->set_attribute( 'data-gtmkit_product_data', (string) wp_json_encode( $item_data ) );
 
 		return $link_html->get_updated_html();
 	}
