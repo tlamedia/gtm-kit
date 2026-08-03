@@ -34,13 +34,28 @@ on:
 
 jobs:
   test:
-    name: PHP ${{ matrix.php }} × WP ${{ matrix.wp }}
+    name: PHP ${{ matrix.php }} × WP ${{ matrix.wp }} × Woo ${{ matrix.wc }}
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         php: [ '7.4', '8.1', '8.2', '8.3', '8.4' ]
         wp: [ '6.9' ]
+        wc: [ 'latest' ]
+        include:
+          # Floor jobs, so the versions the plugin header promises are the
+          # versions actually exercised, at the lowest supported PHP.
+          #
+          # Oldest supported WooCommerce, on the current WordPress.
+          - php: '7.4'
+            wp: '6.9'
+            wc: '10.3.0'
+          # Oldest supported WordPress. Pinned to the WooCommerce floor
+          # rather than `latest`, because every WooCommerce from 10.9 on
+          # requires WordPress 6.9 and would refuse to activate here.
+          - php: '7.4'
+            wp: '6.8'
+            wc: '10.3.0'
 
     env:
       # Matrix values copied into env vars so shell `run:` blocks consume them
@@ -48,6 +63,7 @@ jobs:
       # safer pattern from the GitHub Actions injection guide.
       PHP_VERSION: ${{ matrix.php }}
       WP_VERSION: ${{ matrix.wp }}
+      WC_VERSION: ${{ matrix.wc }}
       WP_TESTS_DIR: /tmp/wordpress-tests-lib-${{ matrix.wp }}
       WP_CORE_DIR: /tmp/wordpress-${{ matrix.wp }}
       TMPDIR: /tmp
@@ -93,10 +109,10 @@ jobs:
       - name: npm ci
         run: npm ci --no-audit --no-fund
 
-      - name: Install WP test suite
-        # Pass `true` as the 6th arg so install-wp-tests.sh skips DB creation —
+      - name: Install WP and Woo test environment
+        # Pass `true` as the 7th arg so install-wp-tests.sh skips DB creation —
         # the mysql service container already provisioned `gtmkit_tests`.
-        run: bash bin/install-wp-tests.sh gtmkit_tests root root 127.0.0.1:3306 "$WP_VERSION" true
+        run: bash bin/install-wp-tests.sh gtmkit_tests root root 127.0.0.1:3306 "$WP_VERSION" "$WC_VERSION" true
 
       - name: Unit tests
         run: composer test:unit
@@ -115,6 +131,9 @@ jobs:
           set -o pipefail
           mkdir -p tests/_reports
           vendor/bin/phpunit --testsuite integration --coverage-text --coverage-clover tests/_reports/clover.xml | tee tests/_reports/coverage.txt
+
+      - name: Integration tests with WooCommerce
+        run: composer test:integration-woo
 
       - name: JS tests
         run: npm test

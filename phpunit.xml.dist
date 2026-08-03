@@ -21,6 +21,9 @@
         <testsuite name="integration">
             <directory suffix="Test.php">tests/phpunit/Integration</directory>
         </testsuite>
+        <testsuite name="integration-woo">
+            <directory suffix="Test.php">tests/phpunit/integration-woo</directory>
+        </testsuite>
     </testsuites>
     <coverage>
         <include>

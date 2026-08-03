@@ -1,6 +1,8 @@
 *** GTM Kit ***
 
 Unreleased
+* Dev: The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
+* Dev: The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.
 * Fix: Removing a product from the cart now sends the remove_from_cart event again. The product details attached to the cart's remove link were encoded twice, so the browser could not read them and the event was silently skipped on the classic cart page.
 * Dev: Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Add: Sharing system data with the support team now starts a live sync session: while your ticket is open (at most 7 days), saving GTM Kit settings automatically sends the support team a fresh copy of the same data. The Support page shows an indicator while sync is active, and a Stop sharing button ends it immediately.

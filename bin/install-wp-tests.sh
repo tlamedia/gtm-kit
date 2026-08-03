@@ -2,22 +2,31 @@
 #
 # install-wp-tests.sh
 # Downloads a WordPress core checkout + the wordpress-develop PHPUnit test
-# helpers, then creates the test database.
+# helpers, creates the test database, then installs WooCommerce into the
+# WP test install and downloads Woo's PHPUnit framework helpers.
 #
 # Adapted from the canonical WP-CLI scaffold script (which is itself adapted
-# from wordpress-develop's `bin/install-wp-tests.sh`). The only deviation is
-# per-version caching: each requested WP version lives in its own
-# `$TMPDIR/wordpress-$WP_VERSION` + `$TMPDIR/wordpress-tests-lib-$WP_VERSION`
-# pair, so matrix CI and local version-switching do not re-download.
+# from wordpress-develop's `bin/install-wp-tests.sh`). The deviations are:
+#
+#   - WC_VERSION positional arg (defaults to "latest").
+#   - install_woocommerce(): drops the Woo plugin into
+#     $WP_CORE_DIR/wp-content/plugins/woocommerce and grabs Woo's
+#     `tests/legacy/framework/helpers/*` into $WC_HELPERS_DIR. Both are
+#     cached under $TMPDIR/woocommerce-$WC_VERSION/ so switching versions
+#     across the matrix doesn't re-download.
 #
 # Usage:
-#   bin/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]
+#   bin/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [wc-version] [skip-database-creation]
 #
-# Example (local, DBngin MySQL 8.0 on port 3308, WP 6.9):
-#   bin/install-wp-tests.sh gtmkit_tests root '' 127.0.0.1:3308 6.9
+# Examples:
+#   # Local (DBngin MySQL 8.0 on port 3308, WP 6.9, latest Woo)
+#   bin/install-wp-tests.sh gtmkit_tests root '' 127.0.0.1:3308 6.9 latest
+#
+#   # CI (mysql service container; skip db creation)
+#   bin/install-wp-tests.sh gtmkit_tests root root 127.0.0.1:3306 6.9 latest true
 
 if [ $# -lt 3 ]; then
-	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]"
+	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [wc-version] [skip-database-creation]"
 	exit 1
 fi
 
@@ -26,7 +35,8 @@ DB_USER=$2
 DB_PASS=$3
 DB_HOST=${4-localhost}
 WP_VERSION=${5-latest}
-SKIP_DB_CREATE=${6-false}
+WC_VERSION=${6-latest}
+SKIP_DB_CREATE=${7-false}
 
 TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo "$TMPDIR" | sed -e "s/\/$//")
@@ -42,6 +52,17 @@ download() {
 		echo "Error: neither curl nor wget is available."
 		exit 1
 	fi
+}
+
+# Same as download() but fails (non-zero) on HTTP errors and removes the
+# partial file. Used for optional Woo helpers that may not exist at every
+# Woo tag — caller decides whether to abort or skip.
+download_strict() {
+	if curl -sfL "$1" -o "$2"; then
+		return 0
+	fi
+	rm -f "$2"
+	return 1
 }
 
 if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+\-(beta|RC)[0-9]+$ ]]; then
@@ -71,7 +92,10 @@ fi
 set -ex
 
 install_wp() {
-	if [ -d "$WP_CORE_DIR" ]; then
+	# Validate completeness, not just dir existence — a partial download
+	# leaves the dir in place but missing wp-settings.php, which trips
+	# the WP test bootstrap with an opaque "Failed to open stream" error.
+	if [ -d "$WP_CORE_DIR" ] && [ -f "$WP_CORE_DIR/wp-settings.php" ]; then
 		return
 	fi
 
@@ -182,6 +206,80 @@ install_db() {
 	fi
 }
 
+# Resolve "latest" to a concrete WC version via the wp.org plugin info API.
+# Concrete version is needed for caching ($TMPDIR/woocommerce-<version>) and
+# for downloading the matching framework helpers from the source repo at the
+# corresponding tag.
+resolve_wc_version() {
+	if [ "$WC_VERSION" != 'latest' ]; then
+		return
+	fi
+	download 'https://api.wordpress.org/plugins/info/1.0/woocommerce.json' "$TMPDIR/wc-latest.json"
+	WC_VERSION=$(grep -o '"version":"[^"]*' "$TMPDIR/wc-latest.json" | head -1 | sed 's/"version":"//')
+	if [ -z "$WC_VERSION" ]; then
+		echo "ERROR: failed to resolve latest WooCommerce version from wp.org plugin info API"
+		exit 1
+	fi
+}
+
+# Install WooCommerce into the WP test install + cache its PHPUnit framework
+# helpers. The wp.org plugin zip is the runtime plugin (no tests/); helpers
+# come from the woocommerce/woocommerce GitHub raw URLs.
+install_woocommerce() {
+	resolve_wc_version
+
+	WC_CACHE_DIR=$TMPDIR/woocommerce-$WC_VERSION
+	WC_HELPERS_DIR=$WC_CACHE_DIR/helpers
+	export WC_INSTALL_DIR=$WP_CORE_DIR/wp-content/plugins/woocommerce
+	export WC_HELPERS_DIR
+
+	# Download + unzip the plugin (cache once per WC version).
+	if [ ! -f "$WC_CACHE_DIR/woocommerce/woocommerce.php" ]; then
+		rm -rf "$WC_CACHE_DIR/woocommerce"
+		mkdir -p "$WC_CACHE_DIR"
+		download "https://downloads.wordpress.org/plugin/woocommerce.$WC_VERSION.zip" "$WC_CACHE_DIR/woocommerce.zip"
+		unzip -q "$WC_CACHE_DIR/woocommerce.zip" -d "$WC_CACHE_DIR"
+		rm "$WC_CACHE_DIR/woocommerce.zip"
+	fi
+
+	# Drop the plugin into this WP install (idempotent).
+	mkdir -p "$WP_CORE_DIR/wp-content/plugins"
+	if [ ! -f "$WC_INSTALL_DIR/woocommerce.php" ]; then
+		rm -rf "$WC_INSTALL_DIR"
+		cp -R "$WC_CACHE_DIR/woocommerce" "$WC_INSTALL_DIR"
+	fi
+
+	# Download Woo's PHPUnit framework helpers (cache once per WC version).
+	# These are NOT in the wp.org zip — pulled from the source repo at the
+	# matching tag. Some files only exist at certain tags; missing ones are
+	# skipped, the bootstrap loads what's present.
+	if [ ! -d "$WC_HELPERS_DIR" ]; then
+		mkdir -p "$WC_HELPERS_DIR"
+		local helper
+		for helper in \
+			class-wc-helper-product.php \
+			class-wc-helper-customer.php \
+			class-wc-helper-coupon.php \
+			class-wc-helper-shipping.php \
+			class-wc-helper-shipping-zones.php \
+			class-wc-helper-payment-token.php \
+			class-wc-helper-fee.php \
+			class-wc-helper-tax.php \
+			class-wc-helper-order.php; do
+			download_strict \
+				"https://raw.githubusercontent.com/woocommerce/woocommerce/$WC_VERSION/plugins/woocommerce/tests/legacy/framework/helpers/$helper" \
+				"$WC_HELPERS_DIR/$helper" \
+				|| echo "  skipped helper (not present at tag $WC_VERSION): $helper"
+		done
+	fi
+
+	# Mirror helpers into the WP install so the PHPUnit bootstrap can find
+	# them via ABSPATH (no env vars to plumb through). Idempotent.
+	mkdir -p "$WP_CORE_DIR/wc-test-helpers"
+	cp -R "$WC_HELPERS_DIR/." "$WP_CORE_DIR/wc-test-helpers/"
+}
+
 install_wp
 install_test_suite
 install_db
+install_woocommerce
