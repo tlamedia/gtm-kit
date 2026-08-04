@@ -109,6 +109,29 @@ if ( $instance_id > 0 ) {
 echo "Created E2E Test Zone\n";
 '
 
+log "Ensuring archive taxonomy terms exist and are assigned..."
+run_wp eval '
+$cat = get_term_by( "slug", "e2e-category", "product_cat" );
+if ( ! $cat ) {
+    $r   = wp_insert_term( "E2E Category", "product_cat", [ "slug" => "e2e-category" ] );
+    $cat = get_term( $r["term_id"], "product_cat" );
+    echo "Created E2E Category\n";
+}
+$tag = get_term_by( "slug", "e2e-tag", "product_tag" );
+if ( ! $tag ) {
+    $r   = wp_insert_term( "E2E Tag", "product_tag", [ "slug" => "e2e-tag" ] );
+    $tag = get_term( $r["term_id"], "product_tag" );
+    echo "Created E2E Tag\n";
+}
+foreach ( [ "BLOCK-PROD-001", "BLOCK-PROD-002" ] as $sku ) {
+    $id = wc_get_product_id_by_sku( $sku );
+    if ( $id ) {
+        wp_set_object_terms( $id, [ (int) $cat->term_id ], "product_cat", true );
+        wp_set_object_terms( $id, [ (int) $tag->term_id ], "product_tag", true );
+    }
+}
+'
+
 log "Creating the block storefront pages..."
 run_wp eval-file wp-content/plugins/gtm-kit/tests/e2e/blocks/fixtures/seed-pages.php
 

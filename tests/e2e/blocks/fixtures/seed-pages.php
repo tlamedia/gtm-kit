@@ -139,3 +139,21 @@ $paged_content = <<<HTML
 HTML;
 $paged_id = gtmkit_e2e_upsert_page( 'paged-collection', 'Paged Collection', $paged_content );
 echo "paged-collection id={$paged_id}\n";
+
+// A named collection alongside a full Cart block. With the Cart block on the
+// page, wc/store/cart registers eagerly and the cart-store subscriber diffs
+// every Store API mutation — the surface where a block product button click
+// and the cart diff can both report the same add. The Cart block markup is
+// borrowed from WooCommerce's own cart page so the fixture tracks whatever
+// inner-block structure the installed WooCommerce renders.
+$wc_cart_page = get_post( wc_get_page_id( 'cart' ) );
+$cart_block   = $wc_cart_page instanceof WP_Post && has_block( 'woocommerce/cart', $wc_cart_page )
+	? $wc_cart_page->post_content
+	: '<!-- wp:woocommerce/cart --><div class="wp-block-woocommerce-cart"></div><!-- /wp:woocommerce/cart -->';
+
+$cart_buttons_content =
+	gtmkit_e2e_collection_block( 'Cart Page Picks' ) . "\n" .
+	$cart_block;
+
+$cart_buttons_id = gtmkit_e2e_upsert_page( 'cart-with-buttons', 'Cart With Buttons', $cart_buttons_content );
+echo "cart-with-buttons id={$cart_buttons_id}\n";

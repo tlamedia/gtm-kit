@@ -74,3 +74,37 @@ export async function latestEvent(
 	const matches = ( await readEvents( page ) ).filter( ( e ) => e.event === name );
 	return matches[ matches.length - 1 ];
 }
+
+/**
+ * Wait until the count of an event has been stable for `quietMs`, then
+ * return it.
+ *
+ * The cart-store subscriber emits from the store diff after the Store API
+ * confirms a mutation, so a duplicate can arrive well after the first
+ * event. Counting immediately after the first event asserts "no
+ * duplicates" on a state where the duplicate cannot exist yet — this
+ * helper only returns once the count has stopped moving.
+ */
+export async function settledEventCount(
+	page: Page,
+	name: string,
+	quietMs = 2_000,
+	timeoutMs = 15_000
+): Promise< number > {
+	const deadline = Date.now() + timeoutMs;
+	let count = await countEvent( page, name );
+	let stableSince = Date.now();
+
+	while ( Date.now() < deadline ) {
+		await page.waitForTimeout( 250 );
+		const next = await countEvent( page, name );
+		if ( next !== count ) {
+			count = next;
+			stableSince = Date.now();
+		} else if ( Date.now() - stableSince >= quietMs ) {
+			return count;
+		}
+	}
+
+	return count;
+}
