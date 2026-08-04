@@ -1,6 +1,7 @@
 *** GTM Kit ***
 
 Unreleased
+* Fix: On block themes, product lists no longer report every view and every add to cart twice. WooCommerce runs the classic product-loop hooks inside its block templates so older plugins keep working, and GTM Kit was responding both there and through its own block tracking, which doubled view_item_list and add_to_cart on shop, category and tag pages. List names are unchanged, so existing reports stay comparable.
 * Changed: GTM Kit is now tested with WooCommerce 11.0. Shop, cart, checkout and purchase tracking were verified against the new release on both classic and block themes.
 * Dev: The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
 * Dev: The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.

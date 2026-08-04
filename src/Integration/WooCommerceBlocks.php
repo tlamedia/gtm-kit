@@ -570,8 +570,15 @@ final class WooCommerceBlocks {
 	 * item carrying a `post-{ID}` body class; the Single Product block stores
 	 * its product id in the block attributes. A hidden `gtmkit_block_product_data`
 	 * span is injected per product so the block bundle can read GA4 item data.
-	 * The carrier class is deliberately distinct from the classic script's
-	 * `gtmkit_product_data` so the two tracking paths never double-fire.
+	 *
+	 * WooCommerce re-fires the classic archive loop hooks inside these blocks
+	 * (see its ArchiveProductTemplatesCompatibility), which is how plugins with
+	 * only classic hooks keep working on block themes. GTM Kit has both paths,
+	 * so it would otherwise stamp every product twice and report every list
+	 * view and add-to-cart twice. The block path owns anything a block
+	 * rendered, because it is the only one that re-fires when a collection is
+	 * paginated or filtered without a page load, so the classic carrier is
+	 * stripped from the content this method claims.
 	 *
 	 * @hook render_block
 	 *
@@ -594,7 +601,9 @@ final class WooCommerceBlocks {
 
 		// Prefer a block name set in the editor (e.g. two Product Collection
 		// blocks named differently) so each list reports a distinct list name.
-		$list_name = $block['attrs']['metadata']['name'] ?? self::LIST_BLOCKS[ $block_name ];
+		$list_name = $block['attrs']['metadata']['name'] ?? $this->resolve_list_name( $block_name, $block );
+
+		$block_content = $this->strip_classic_product_data( $block_content );
 
 		$with_spans = (string) preg_replace_callback(
 			'/<li\b[^>]*\bclass="[^"]*\bpost-(\d+)\b[^"]*"[^>]*>/i',
@@ -622,6 +631,58 @@ final class WooCommerceBlocks {
 			$with_spans,
 			1
 		);
+	}
+
+	/**
+	 * Remove the classic loop's carrier spans from block-rendered content.
+	 *
+	 * Matches the classic carrier class exactly, so the block carrier
+	 * (`gtmkit_block_product_data`, which contains the classic class name as a
+	 * substring) is never touched.
+	 *
+	 * @param string $block_content The rendered block HTML.
+	 *
+	 * @return string
+	 */
+	private function strip_classic_product_data( string $block_content ): string {
+		return (string) preg_replace(
+			'#<span\b[^>]*\bclass="gtmkit_product_data"[^>]*>\s*</span>#i',
+			'',
+			$block_content
+		);
+	}
+
+	/**
+	 * Resolve the list name for a server-rendered block grid.
+	 *
+	 * A Product Collection that inherits the template query *is* the shop,
+	 * category or tag archive, so it reports the same list names the classic
+	 * loop reports on those routes. Curated collections keep the block's own
+	 * name. Without this, moving a store to a block theme would silently
+	 * rename its archive lists in GA4.
+	 *
+	 * @param string               $block_name The block name.
+	 * @param array<string, mixed> $block      The parsed block.
+	 *
+	 * @return string
+	 */
+	private function resolve_list_name( string $block_name, array $block ): string {
+
+		$inherits_query = ! empty( $block['attrs']['query']['inherit'] );
+
+		if ( 'woocommerce/product-collection' === $block_name && $inherits_query ) {
+			if ( $this->wc_route_matches( 'is_product_category' ) ) {
+				return __( 'Product Category', 'gtm-kit' );
+			}
+			if ( $this->wc_route_matches( 'is_product_tag' ) ) {
+				return __( 'Product Tag', 'gtm-kit' );
+			}
+			if ( $this->wc_route_matches( 'is_shop' ) || $this->wc_route_matches( 'is_product_taxonomy' ) ) {
+				return __( 'General Product List', 'gtm-kit' );
+			}
+		}
+
+		return self::LIST_BLOCKS[ $block_name ];
 	}
 
 	/**
