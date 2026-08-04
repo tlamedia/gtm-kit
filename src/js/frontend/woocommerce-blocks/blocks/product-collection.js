@@ -17,14 +17,21 @@
 
 import { EVENTS } from '../constants';
 import { pushEvent, parseItem, getCurrency, logError } from '../utils';
+import { recordClickAdd } from '../click-add-registry';
 
 const BLOCK_PRODUCT_DATA = '.gtmkit_block_product_data';
 const PRODUCT_ANCHOR = 'a';
-// Only the legacy AJAX add-to-cart button (`.add_to_cart_button`). The block
-// component button (`.wc-block-components-product-button__button`) routes the
-// add through the Store API, so the cart-store subscriber already emits
-// `add_to_cart` for it; matching it here too would double-count the event.
-const ADD_TO_CART_BUTTON = '.add_to_cart_button';
+// Both add-to-cart button flavours. This handler emits for both: it is the
+// only party that knows the list context, and on pages where the cart store
+// is absent or registers late it is the only party that fires at all. The
+// block component button's add also surfaces in the cart-store diff, so
+// those clicks are additionally recorded for the subscriber to subtract
+// (see click-add-registry.js). Note the block button ALSO carries the
+// legacy `.add_to_cart_button` class, so the two cannot be told apart by
+// the legacy class alone; the block component class is the discriminator.
+const ADD_TO_CART_BUTTON =
+	'.add_to_cart_button, .wc-block-components-product-button__button';
+const BLOCK_COMPONENT_BUTTON = '.wc-block-components-product-button__button';
 // Links that are not product links: the post-add "View cart" forward link.
 const NON_PRODUCT_LINK = '.added_to_cart, .wc-forward, .wc_forward';
 // Newer WooCommerce renders the Cart/Checkout cross-sells as a Product
@@ -195,11 +202,13 @@ export const createProductCollectionSubscriber = ( {
 		}
 	};
 
-	// Delegated add_to_cart for a collection's legacy AJAX add-to-cart button
-	// only. That path does not touch the block cart store, so the cart-store
-	// subscriber never sees it and the event is built from the rendered item
-	// data here. Block component buttons go through the Store API and are
-	// owned by the cart subscriber (see ADD_TO_CART_BUTTON above).
+	// Delegated add_to_cart for a collection's add-to-cart buttons. The
+	// event is emitted here for both button flavours, with the list name
+	// only this handler can resolve. A block component button's add also
+	// flows through the Store API into the cart-store diff, so those units
+	// are recorded for the cart subscriber to subtract — without that, the
+	// subscriber re-reports the same add (without list context) as soon as
+	// the cart confirms it.
 	const onAddToCart = ( event ) => {
 		try {
 			if ( ! event.target.closest ) {
@@ -221,6 +230,10 @@ export const createProductCollectionSubscriber = ( {
 				found.item.item_list_name = listName;
 			}
 			found.item.quantity = 1;
+
+			if ( button.matches( BLOCK_COMPONENT_BUTTON ) ) {
+				recordClickAdd( found.item.item_id ?? found.item.id, 1 );
+			}
 
 			pushEvent( EVENTS.ADD_TO_CART, {
 				ecommerce: {

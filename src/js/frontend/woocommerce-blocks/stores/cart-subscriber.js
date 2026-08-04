@@ -14,6 +14,7 @@
 
 import { CART_STORE } from '../constants';
 import { diffCartItems } from '../diff/cart-items-diff';
+import { claimClickAdd } from '../click-add-registry';
 import {
 	pushEvent,
 	getCurrency,
@@ -25,12 +26,31 @@ import {
 /**
  * Emit one ecommerce event per diff entry.
  *
+ * Adds subtract any units a block UI's click handler already reported
+ * for the item (see click-add-registry.js): a block product button's
+ * add reaches the cart diff too, and re-reporting it here would double
+ * the event. Units the click handler did not report (quantity steppers,
+ * cross-sells, a concurrent add from another surface) still emit.
+ *
  * @param {Array<{item: Object, quantity: number}>} entries Diff entries.
  * @param {string}                                  event   GA4 event name.
  */
 const emit = ( entries, event ) => {
 	for ( const entry of entries ) {
-		const value = Number( entry.item.price ?? 0 ) * entry.quantity;
+		let quantity = entry.quantity;
+
+		if ( event === 'add_to_cart' ) {
+			const alreadyReported = claimClickAdd(
+				entry.item.item_id ?? entry.item.id
+			);
+			quantity -= alreadyReported;
+			if ( quantity <= 0 ) {
+				continue;
+			}
+			entry.item.quantity = quantity;
+		}
+
+		const value = Number( entry.item.price ?? 0 ) * quantity;
 		pushEvent( event, {
 			ecommerce: {
 				currency: getCurrency(),

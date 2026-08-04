@@ -5,6 +5,10 @@
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createProductCollectionSubscriber } from '../../../src/js/frontend/woocommerce-blocks/blocks/product-collection.js';
+import {
+	claimClickAdd,
+	clearClickAdds,
+} from '../../../src/js/frontend/woocommerce-blocks/click-add-registry.js';
 import { installSeam } from './helpers.js';
 
 let observerCallback = null;
@@ -55,6 +59,7 @@ describe( 'product collection', () => {
 
 	beforeEach( () => {
 		seam = installSeam();
+		clearClickAdds();
 		observerCallback = null;
 		root = buildCollection( [ 1, 2 ] );
 		detach = createProductCollectionSubscriber( {
@@ -134,15 +139,25 @@ describe( 'product collection', () => {
 		expect( adds[ 0 ].ecommerce.value ).toBe( 10 );
 	} );
 
-	it( 'does not emit add_to_cart for a block component button (cart subscriber owns it)', () => {
-		// The block product button routes the add through the Store API, so
-		// the cart-store subscriber emits add_to_cart for it. This module must
-		// stay silent for that button or the event would be double-counted.
+	it( 'emits with the list name AND records the units for a block component button', () => {
+		// The block product button's add also flows through the Store API
+		// into the cart diff. This handler emits (it alone knows the list
+		// name, and on pages without a cart store it alone fires at all)
+		// and records the units so the cart subscriber subtracts them
+		// instead of re-reporting the add.
+		//
+		// The fixture carries WooCommerce's REAL class list: the block button
+		// also has the legacy `add_to_cart_button` class, which is exactly
+		// how a legacy-class-only guard double-fires in production while a
+		// single-class fixture stays green.
 		const li = document.querySelector(
 			'.wp-block-woocommerce-product-collection li'
 		);
 		const blockButton = document.createElement( 'button' );
-		blockButton.className = 'wc-block-components-product-button__button';
+		blockButton.className =
+			'wp-block-button__link wp-element-button ' +
+			'wc-block-components-product-button__button ' +
+			'add_to_cart_button ajax_add_to_cart product_type_simple';
 		blockButton.textContent = 'Add to cart';
 		li.appendChild( blockButton );
 
@@ -151,6 +166,23 @@ describe( 'product collection', () => {
 		);
 
 		const adds = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
-		expect( adds ).toHaveLength( 0 );
+		expect( adds ).toHaveLength( 1 );
+		expect( adds[ 0 ].ecommerce.items[ 0 ].item_list_name ).toBe(
+			'Product Collection'
+		);
+		expect( claimClickAdd( '1' ) ).toBe( 1 );
+	} );
+
+	it( 'does not record for a legacy-only button (its add never reaches the cart diff)', () => {
+		const addButton = document.querySelector(
+			'.wp-block-woocommerce-product-collection .add_to_cart_button'
+		);
+		addButton.dispatchEvent(
+			new window.MouseEvent( 'click', { bubbles: true } )
+		);
+
+		const adds = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
+		expect( adds ).toHaveLength( 1 );
+		expect( claimClickAdd( '1' ) ).toBe( 0 );
 	} );
 } );

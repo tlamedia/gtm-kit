@@ -5,6 +5,10 @@
 
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createCartSubscriber } from '../../../src/js/frontend/woocommerce-blocks/stores/cart-subscriber.js';
+import {
+	recordClickAdd,
+	clearClickAdds,
+} from '../../../src/js/frontend/woocommerce-blocks/click-add-registry.js';
 import { installSeam, fakeData, flushMicrotasks } from './helpers.js';
 
 const item = ( key, quantity ) => ( {
@@ -26,6 +30,7 @@ describe( 'cart subscriber', () => {
 
 	beforeEach( () => {
 		seam = installSeam();
+		clearClickAdds();
 		store = cartStore( [] );
 		data = fakeData( { 'wc/store/cart': store } );
 		createCartSubscriber( { select: data.select, subscribe: data.subscribe } );
@@ -99,5 +104,81 @@ describe( 'cart subscriber', () => {
 
 		expect( seam.events() ).toHaveLength( 1 );
 		expect( seam.events()[ 0 ].event ).toBe( 'add_to_cart' );
+	} );
+
+	it( 'suppresses the diff add a click handler already reported', async () => {
+		data.notify(); // baseline (empty)
+		await flushMicrotasks();
+
+		recordClickAdd( 'a', 1 );
+
+		setItems( [ item( 'a', 1 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		expect(
+			seam.events().filter( ( e ) => e.event === 'add_to_cart' )
+		).toHaveLength( 0 );
+
+		// A later add of the same item from another surface still emits:
+		// the registry entry was claimed by the first diff.
+		setItems( [ item( 'a', 2 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		const later = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
+		expect( later ).toHaveLength( 1 );
+		expect( later[ 0 ].ecommerce.items[ 0 ].quantity ).toBe( 1 );
+	} );
+
+	it( 'emits only the remainder when the diff carries more units than the click reported', async () => {
+		data.notify(); // baseline (empty)
+		await flushMicrotasks();
+
+		recordClickAdd( 'a', 1 );
+
+		// The diff arrives as +3 (e.g. a quantity stepper on top of the
+		// click): the click's one unit is subtracted, the rest emits.
+		setItems( [ item( 'a', 3 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		const adds = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
+		expect( adds ).toHaveLength( 1 );
+		expect( adds[ 0 ].ecommerce.items[ 0 ].quantity ).toBe( 2 );
+		expect( adds[ 0 ].ecommerce.value ).toBe( 20 );
+	} );
+
+	it( 'an add without a registry entry emits unchanged', async () => {
+		data.notify(); // baseline (empty)
+		await flushMicrotasks();
+
+		setItems( [ item( 'a', 1 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		const adds = seam.events().filter( ( e ) => e.event === 'add_to_cart' );
+		expect( adds ).toHaveLength( 1 );
+		expect( adds[ 0 ].ecommerce.items[ 0 ].quantity ).toBe( 1 );
+	} );
+
+	it( 'remove_from_cart is unaffected by the registry', async () => {
+		data.notify(); // baseline (empty)
+		await flushMicrotasks();
+
+		setItems( [ item( 'a', 1 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		recordClickAdd( 'a', 1 );
+
+		setItems( [] );
+		data.notify();
+		await flushMicrotasks();
+
+		const removes = seam
+			.events()
+			.filter( ( e ) => e.event === 'remove_from_cart' );
+		expect( removes ).toHaveLength( 1 );
 	} );
 } );
