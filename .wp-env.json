@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
-	"core": "WordPress/WordPress#6.8",
+	"core": "WordPress/WordPress#6.9",
 	"plugins": [
 		".",
-		"https://downloads.wordpress.org/plugin/woocommerce.10.7.0.zip",
+		"https://downloads.wordpress.org/plugin/woocommerce.11.0.0.zip",
 		"https://downloads.wordpress.org/plugin/wp-consent-api.2.0.1.zip"
 	],
 	"env": {
