@@ -112,19 +112,18 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * A new Premium page in the settings screen explains what GTM Kit Premium adds on top of the free plugin, covering server-side tracking, purchase accuracy, consent-safe measurement, forms and subscriptions, and debugging tools, with a link to the documentation behind each point. Cards are ordered to match your site, so a WooCommerce store sees the commerce topics first.
 * The setup wizard now includes a short step introducing GTM Kit Premium, worded for the site it is running on: order tracking for WooCommerce stores, consent handling for sites in the EU and EEA, and a general overview otherwise. The step is informational and one click continues past it.
 
-#### Other:
-* The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
-* The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.
-
 #### Bugfixes:
 * Removing a product from the cart now sends the remove_from_cart event again. The product details attached to the cart's remove link were encoded twice, so the browser could not read them and the event was silently skipped on the classic cart page.
 
 #### Other:
+* GTM Kit is now tested with WooCommerce 11.0. Shop, cart, checkout and purchase tracking were verified against the new release on both classic and block themes.
 * The Premium page and the wizard step are hidden entirely when GTM Kit Woo or GTM Kit Premium is active, so paying customers see no upgrade prompts.
 * Settings that need a paid add-on no longer show an upgrade link to customers who already have GTM Kit Woo or GTM Kit Premium. The setting itself still appears with its Premium label, so you can see what the product includes without being sold something you already own.
 * New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
 * Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
+* The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
+* The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.
 
 = 2.16.4 =
 
