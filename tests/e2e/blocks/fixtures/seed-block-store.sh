@@ -133,7 +133,10 @@ foreach ( [ "BLOCK-PROD-001", "BLOCK-PROD-002" ] as $sku ) {
 '
 
 log "Creating the block storefront pages..."
-run_wp eval-file wp-content/plugins/gtm-kit/tests/e2e/blocks/fixtures/seed-pages.php
+# wp-env mounts the plugin at wp-content/plugins/<basename of the repo
+# root>, which is not always "gtm-kit" (a CI checkout is named after the
+# repository), so derive the mounted path instead of hard-coding it.
+run_wp eval-file "wp-content/plugins/$(basename "$REPO_ROOT")/tests/e2e/blocks/fixtures/seed-pages.php"
 
 log "Refreshing permalinks..."
 run_wp rewrite structure '/%postname%/' --hard

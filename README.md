@@ -39,6 +39,8 @@ npm ci
 
 This repo holds the `gtm-kit` core plugin. Classes in `src/` use PSR-4 autoloading via Composer; the entry point is `gtm-kit.php`.
 
+This public repository mirrors released versions of GTM Kit. Day-to-day development happens in a private repository.
+
 ### Quality checks
 
 Run these before committing PHP changes:
@@ -55,7 +57,7 @@ Three harnesses ship here: PHPUnit unit (no WordPress boot), PHPUnit integration
 
 ## Contributing
 
-Found a bug or have a feature idea? [Open an issue](https://github.com/tlamedia/gtm-kit/issues?state=open). Pull requests are welcome.
+Found a bug or have a feature idea? Both are welcome as [issues on tlamedia/gtm-kit](https://github.com/tlamedia/gtm-kit/issues?state=open). This repository does not take direct pull requests; patches proposed in issues are integrated via the development repository and credited in the changelog.
 
 ## License
 

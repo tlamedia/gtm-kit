@@ -37,8 +37,17 @@ function assertPluginsActive(): void {
 	const list = wpCli( 'plugin', 'list', '--status=active', '--field=name' );
 	const active = list.split( /\s+/ ).filter( Boolean );
 
-	const required = [ 'gtm-kit', 'woocommerce' ];
-	const missing = required.filter( ( p ) => ! active.includes( p ) );
+	// GTM Kit's plugin slug equals the directory wp-env mounted it from,
+	// which is the repo root's basename and not always "gtm-kit" (a CI
+	// checkout is named after the repository). Detect the plugin by its
+	// runtime constant instead of a hard-coded slug.
+	const gtmKitActive =
+		wpCli( 'eval', 'echo defined( "GTMKIT_VERSION" ) ? 1 : 0;' ) === '1';
+
+	const missing = gtmKitActive ? [] : [ 'gtm-kit' ];
+	if ( ! active.includes( 'woocommerce' ) ) {
+		missing.push( 'woocommerce' );
+	}
 	if ( missing.length ) {
 		throw new Error(
 			`Required plugins not active in tests env: ${ missing.join( ', ' ) }. ` +
