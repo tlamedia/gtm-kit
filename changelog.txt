@@ -1,20 +1,18 @@
 *** GTM Kit ***
 
-Unreleased
+2026-08-05 - version 2.17.0
 * Fix: Adding a product from a block product grid on a page that also shows the cart or Mini Cart no longer reports add_to_cart twice. The event also keeps the name of the product list it came from, which was missing from the second, duplicate event.
 * Fix: On block themes, product lists no longer report every view and every add to cart twice. WooCommerce runs the classic product-loop hooks inside its block templates so older plugins keep working, and GTM Kit was responding both there and through its own block tracking, which doubled view_item_list and add_to_cart on shop, category and tag pages. List names are unchanged, so existing reports stay comparable.
 * Changed: GTM Kit is now tested with WooCommerce 11.0. Shop, cart, checkout and purchase tracking were verified against the new release on both classic and block themes.
-* Dev: The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
-* Dev: The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.
+* Dev: The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, and the suite runs against the oldest supported WordPress and WooCommerce versions as well as the newest. Faults in shop, cart and checkout tracking are caught before release instead of in the browser, and the compatibility stated in the plugin header is verified on every change rather than assumed.
 * Fix: Removing a product from the cart now sends the remove_from_cart event again. The product details attached to the cart's remove link were encoded twice, so the browser could not read them and the event was silently skipped on the classic cart page.
 * Dev: Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Add: Sharing system data with the support team now starts a live sync session: while your ticket is open (at most 7 days), saving GTM Kit settings automatically sends the support team a fresh copy of the same data. The Support page shows an indicator while sync is active, and a Stop sharing button ends it immediately.
 * Dev: New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
 * Add: A new Premium page in the settings screen explains what GTM Kit Premium adds on top of the free plugin, covering server-side tracking, purchase accuracy, consent-safe measurement, forms and subscriptions, and debugging tools, with a link to the documentation behind each point. Cards are ordered to match your site, so a WooCommerce store sees the commerce topics first.
 * Add: The setup wizard now includes a short step introducing GTM Kit Premium, worded for the site it is running on: order tracking for WooCommerce stores, consent handling for sites in the EU and EEA, and a general overview otherwise. The step is informational and one click continues past it.
-* Changed: The Premium page and the wizard step are hidden entirely when GTM Kit Woo or GTM Kit Premium is active, so paying customers see no upgrade prompts.
+* Changed: Customers who already have GTM Kit Woo or GTM Kit Premium no longer see upgrade prompts anywhere. The Premium page and the wizard step are hidden entirely, and settings that need a paid add-on no longer show an upgrade link. Those settings still appear with their Premium label, so you can see what the product includes without being sold something you already own.
 * Dev: Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
-* Changed: Settings that need a paid add-on no longer show an upgrade link to customers who already have GTM Kit Woo or GTM Kit Premium. The setting itself still appears with its Premium label, so you can see what the product includes without being sold something you already own.
 
 2026-06-29 - version 2.16.4
 * Dev: The settings screen now ships an sGTM Preview test-send control that GTM Kit Premium registers into the Setup → Environment section, so Premium users can send a server-side webhook event to their server container's Preview/Debug panel.

@@ -41,6 +41,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\PremiumPluginConditional' => $baseDir . '/src/Common/Conditionals/PremiumPluginConditional.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\WooCommerceConditional' => $baseDir . '/src/Common/Conditionals/WooCommerceConditional.php',
     'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => $baseDir . '/src/Common/RestAPIServer.php',
+    'TLA_Media\\GTM_Kit\\Common\\SupportSync' => $baseDir . '/src/Common/SupportSync.php',
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',
     'TLA_Media\\GTM_Kit\\Frontend\\ConsentSignalSourceRegistry' => $baseDir . '/src/Frontend/ConsentSignalSourceRegistry.php',

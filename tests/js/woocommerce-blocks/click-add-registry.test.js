@@ -44,14 +44,37 @@ describe( 'click-add registry', () => {
 		const t0 = 1_000_000;
 		recordClickAdd( 'prefix_123', 1, t0 );
 
-		expect( claimClickAdd( 'prefix_123', t0 + 301_000 ) ).toBe( 0 );
+		expect( claimClickAdd( 'prefix_123', 1, t0 + 301_000 ) ).toBe( 0 );
 	} );
 
 	it( 'keeps an entry within the TTL', () => {
 		const t0 = 1_000_000;
 		recordClickAdd( 'prefix_123', 1, t0 );
 
-		expect( claimClickAdd( 'prefix_123', t0 + 299_000 ) ).toBe( 1 );
+		expect( claimClickAdd( 'prefix_123', 1, t0 + 299_000 ) ).toBe( 1 );
+	} );
+
+	it( 'claims only the units being confirmed and keeps the surplus', () => {
+		recordClickAdd( 'prefix_123', 1 );
+		recordClickAdd( 'prefix_123', 1 );
+
+		expect( claimClickAdd( 'prefix_123', 1 ) ).toBe( 1 );
+		expect( claimClickAdd( 'prefix_123', 1 ) ).toBe( 1 );
+		expect( claimClickAdd( 'prefix_123', 1 ) ).toBe( 0 );
+	} );
+
+	it( 'caps a claim at the units actually recorded', () => {
+		recordClickAdd( 'prefix_123', 1 );
+
+		expect( claimClickAdd( 'prefix_123', 5 ) ).toBe( 1 );
+	} );
+
+	it( 'expires surplus units on the clock of the click that recorded them', () => {
+		const t0 = 1_000_000;
+		recordClickAdd( 'prefix_123', 2, t0 );
+
+		expect( claimClickAdd( 'prefix_123', 1, t0 + 1000 ) ).toBe( 1 );
+		expect( claimClickAdd( 'prefix_123', 1, t0 + 301_000 ) ).toBe( 0 );
 	} );
 
 	it( 'an expired entry does not inflate a fresh record', () => {
@@ -59,7 +82,7 @@ describe( 'click-add registry', () => {
 		recordClickAdd( 'prefix_123', 1, t0 );
 		recordClickAdd( 'prefix_123', 1, t0 + 301_000 );
 
-		expect( claimClickAdd( 'prefix_123', t0 + 301_000 ) ).toBe( 1 );
+		expect( claimClickAdd( 'prefix_123', 1, t0 + 301_000 ) ).toBe( 1 );
 	} );
 
 	it( 'ignores unusable ids and non-positive quantities', () => {

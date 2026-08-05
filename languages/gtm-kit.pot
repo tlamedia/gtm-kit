@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.16.4\n"
+"Project-Id-Version: GTM Kit 2.17.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-29T08:24:51+00:00\n"
+"POT-Creation-Date: 2026-08-05T06:27:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gtm-kit\n"
@@ -31,32 +31,32 @@ msgstr ""
 msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
 msgstr ""
 
-#: inc/main.php:93
+#: inc/main.php:99
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:94
+#: inc/main.php:100
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is GTM Kit Add-On.
-#: inc/main.php:112
+#: inc/main.php:118
 msgid "Required by %s"
 msgstr ""
 
 #: src/Admin/AbstractOptionsPage.php:250
-#: src/Admin/SetupWizard.php:213
+#: src/Admin/SetupWizard.php:241
 msgid "Whoops, something's not working."
 msgstr ""
 
 #: src/Admin/AbstractOptionsPage.php:253
-#: src/Admin/SetupWizard.php:216
+#: src/Admin/SetupWizard.php:244
 msgid "It looks like something is preventing JavaScript from loading on your website. GTM Kit requires JavaScript in order to give you the best possible experience."
 msgstr ""
 
 #: src/Admin/AbstractOptionsPage.php:258
-#: src/Admin/SetupWizard.php:164
-#: src/Admin/SetupWizard.php:221
+#: src/Admin/SetupWizard.php:192
+#: src/Admin/SetupWizard.php:249
 msgid "Go back to the Dashboard"
 msgstr ""
 
@@ -64,24 +64,29 @@ msgstr ""
 msgid "The plugin is installed and activated"
 msgstr ""
 
-#: src/Admin/AdminAPI.php:134
-#: src/Admin/AdminAPI.php:139
+#: src/Admin/AdminAPI.php:129
+#: src/Admin/AdminAPI.php:146
+#: src/Admin/AdminAPI.php:168
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:136
+#: src/Admin/AdminAPI.php:157
 msgid "Thank you! We have received the data."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:198
+#: src/Admin/AdminAPI.php:165
+msgid "This support ticket is closed. If you still need to share your system data, ask the support team for a new ticket."
+msgstr ""
+
+#: src/Admin/AdminAPI.php:242
 msgid "Invalid input data."
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:101
+#: src/Admin/GeneralOptionsPage.php:102
 msgid "General"
 msgstr ""
 
-#: src/Admin/GeneralOptionsPage.php:110
+#: src/Admin/GeneralOptionsPage.php:111
 msgid "General Settings"
 msgstr ""
 
@@ -171,7 +176,7 @@ msgstr ""
 #: src/Admin/Suggestions.php:423
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
-#: src/js/admin/app/pages-wizard/automatic-updates.js:27
+#: src/js/admin/app/pages-wizard/automatic-updates.js:28
 #: src/js/admin/registry/content/tools.js:16
 msgid "New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date."
 msgstr ""
@@ -293,6 +298,7 @@ msgstr ""
 
 #: src/Integration/WooCommerce.php:236
 #: src/Integration/WooCommerce.php:998
+#: src/Integration/WooCommerceBlocks.php:675
 msgid "Product Category"
 msgstr ""
 
@@ -310,6 +316,7 @@ msgstr ""
 
 #: src/Integration/WooCommerce.php:240
 #: src/Integration/WooCommerce.php:1000
+#: src/Integration/WooCommerceBlocks.php:678
 msgid "Product Tag"
 msgstr ""
 
@@ -332,6 +339,7 @@ msgstr ""
 #: src/Integration/WooCommerce.php:887
 #: src/Integration/WooCommerce.php:932
 #: src/Integration/WooCommerce.php:965
+#: src/Integration/WooCommerceBlocks.php:681
 msgid "General Product List"
 msgstr ""
 
@@ -345,8 +353,8 @@ msgstr ""
 #: assets/admin/wizard.js:1
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:30
 #: src/js/admin/app/shell/DashboardPage.js:94
-#: src/js/admin/app/utils/get-steps.js:21
-#: src/js/admin/registry/capabilities.js:317
+#: src/js/admin/app/utils/get-steps.js:28
+#: src/js/admin/registry/capabilities.js:325
 msgid "Help improve GTM Kit"
 msgstr ""
 
@@ -385,7 +393,7 @@ msgstr ""
 #: assets/admin/503.js:1
 #: assets/admin/896.js:1
 #: src/js/admin/app/organisms/register-container.js:79
-#: src/js/admin/app/pages-wizard/automatic-updates.js:63
+#: src/js/admin/app/pages-wizard/automatic-updates.js:66
 #: src/js/admin/app/pages-wizard/essential-settings.js:174
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:165
 msgid "Save and continue"
@@ -394,8 +402,8 @@ msgstr ""
 #: assets/admin/473.js:1
 #: assets/admin/wizard.js:1
 #: src/js/admin/app/pages-wizard/essential-settings.js:30
-#: src/js/admin/app/routes-wizard.js:86
-#: src/js/admin/app/utils/get-steps.js:15
+#: src/js/admin/app/routes-wizard.js:88
+#: src/js/admin/app/utils/get-steps.js:23
 msgid "Essential Settings"
 msgstr ""
 
@@ -534,6 +542,52 @@ msgstr ""
 msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
 msgstr ""
 
+#: assets/admin/569.js:1
+#: assets/admin/570.js:1
+#: src/js/admin/app/pages-wizard/premium.js:66
+#: src/js/admin/app/shell/PremiumPage.js:44
+msgid "Source"
+msgstr ""
+
+#: assets/admin/569.js:1
+#: assets/admin/settings.js:8
+#: assets/admin/settings.js:24
+#: assets/admin/wizard.js:1
+#: src/js/admin/app/routes-wizard.js:131
+#: src/js/admin/app/shell/fields/StaleAddonNotice.js:10
+#: src/js/admin/app/shell/fields/UpsellSlot.js:12
+#: src/js/admin/app/shell/PremiumPage.js:77
+#: src/js/admin/app/utils/get-steps.js:38
+msgid "GTM Kit Premium"
+msgstr ""
+
+#: assets/admin/569.js:1
+#: src/js/admin/app/shell/PremiumPage.js:78
+msgid "What Premium adds to the tracking you already have"
+msgstr ""
+
+#: assets/admin/569.js:1
+#: src/js/admin/app/shell/PremiumPage.js:92
+msgid "GTM Kit Premium comes with a 14-day money-back guarantee. If it does not fit your setup, ask for a refund within 14 days."
+msgstr ""
+
+#: assets/admin/569.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/app/shell/PremiumPage.js:103
+#: src/js/admin/registry/premiumWizard.js:259
+msgid "See pricing"
+msgstr ""
+
+#: assets/admin/570.js:1
+#: src/js/admin/app/pages-wizard/premium.js:90
+msgid "See what Premium adds"
+msgstr ""
+
+#: assets/admin/570.js:1
+#: src/js/admin/app/pages-wizard/premium.js:106
+msgid "Continue"
+msgstr ""
+
 #: assets/admin/771.js:1
 #: src/js/admin/app/pages-wizard/getting-started.js:11
 msgid "You are ready to use GTM Kit!"
@@ -552,8 +606,8 @@ msgstr ""
 #: assets/admin/771.js:1
 #: assets/admin/wizard.js:1
 #: src/js/admin/app/pages-wizard/getting-started.js:29
-#: src/js/admin/app/routes-wizard.js:128
-#: src/js/admin/app/utils/get-steps.js:33
+#: src/js/admin/app/routes-wizard.js:151
+#: src/js/admin/app/utils/get-steps.js:44
 msgid "Getting Started"
 msgstr ""
 
@@ -729,12 +783,15 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:38
 #: assets/admin/settings.js:41
+#: assets/admin/settings.js:46
 #: src/js/admin/app/pages/templates.js:619
 #: src/js/admin/app/shell/DashboardPage.js:37
 #: src/js/admin/app/shell/fields/FieldTags.js:68
 #: src/js/admin/app/shell/InfoList.js:126
 #: src/js/admin/app/shell/IntegrationsHub.js:55
+#: src/js/admin/app/shell/ShellApp.js:246
 #: src/js/admin/app/shell/Sidebar.js:89
+#: src/js/admin/registry/capabilities.js:155
 msgid "Premium"
 msgstr ""
 
@@ -873,30 +930,30 @@ msgstr ""
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
-#: src/js/admin/app/pages-wizard/automatic-updates.js:24
-#: src/js/admin/app/routes-wizard.js:114
-#: src/js/admin/app/utils/get-steps.js:27
-#: src/js/admin/registry/capabilities.js:310
+#: src/js/admin/app/pages-wizard/automatic-updates.js:25
+#: src/js/admin/app/routes-wizard.js:116
+#: src/js/admin/app/utils/get-steps.js:33
+#: src/js/admin/registry/capabilities.js:318
 msgid "Automatic Updates"
 msgstr ""
 
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
-#: src/js/admin/app/pages-wizard/automatic-updates.js:33
+#: src/js/admin/app/pages-wizard/automatic-updates.js:34
 #: src/js/admin/registry/content/tools.js:22
 msgid "You can, of course, manually update GTM Kit whenever it suits you, but we highly recommend that you regularly update your plugins and themes to the latest versions to keep your site secure."
 msgstr ""
 
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
-#: src/js/admin/app/pages-wizard/automatic-updates.js:41
+#: src/js/admin/app/pages-wizard/automatic-updates.js:42
 #: src/js/admin/registry/fields/tools.js:18
 msgid "Enable Automatic Updates"
 msgstr ""
 
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
-#: src/js/admin/app/pages-wizard/automatic-updates.js:42
+#: src/js/admin/app/pages-wizard/automatic-updates.js:43
 #: src/js/admin/registry/fields/tools.js:19
 msgid "Automatically update the GTM Kit plugin when new releases are available."
 msgstr ""
@@ -964,6 +1021,145 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:27
+msgid "Server-side tracking"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:28
+msgid "Send purchases and page data from your server to GA4, Meta CAPI and Google Ads instead of depending on the browser. Webhooks fire from the order itself, with per-site measurement IDs for shared server containers."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:32
+msgid "Safari caps the lifetime of any cookie set by JavaScript at 7 days, and at 24 hours when the visitor arrives from an ad click. Cookies set by your own server over HTTP are not capped."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:37
+msgid "See how server-side tracking works"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:43
+msgid "Purchase accuracy"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:44
+msgid "A stable event ID lets GA4 deduplicate the same purchase arriving from both the browser and the server. Refunds and order-status changes are sent as their own events, and order attribution is surfaced where you can act on it."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:48
+msgid "A payment gateway that redirects the customer away from your thank-you page never fires the browser-side purchase event. Sending it from both sides without deduplication counts the revenue twice."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:53
+msgid "See how purchase accuracy works"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:59
+msgid "Consent-safe measurement"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:60
+msgid "Events that occur before the visitor answers the banner are queued and replayed once consent is granted, rather than discarded. Webhooks are consent-gated server-side, and the WP Consent API is wired up for you."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:64
+msgid "Google Consent Mode requires the consent default to run before the container loads. When it does not, tags can initialise and fire with no consent instruction at all."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:69
+#: src/js/admin/registry/premiumWizard.js:239
+msgid "See how consent-safe measurement works"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:75
+msgid "Forms and subscriptions"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:76
+msgid "Gravity Forms submissions and WooCommerce Subscriptions renewals become tracked conversions, so lead generation and recurring revenue land in GA4 next to one-off orders."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:80
+msgid "A subscription renewal is charged in the background and never touches the checkout page, so browser-side tracking never sees it."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:85
+msgid "See form and subscription tracking"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:91
+msgid "Debug and QA"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:92
+msgid "Event Inspector records what GTM Kit actually pushed on a given request, and sGTM Preview test send fires a sample event straight into your server container."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:96
+msgid "Verify a tracking change without placing a real order and without waiting for GA4 to process the data."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:101
+msgid "See the debugging tools"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:107
+msgid "What is broken tracking costing you?"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:108
+msgid "Put your own order volume and traffic mix into the calculator and see what the gaps are worth on your site, before you decide anything."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumSurface.js:112
+msgid "Run the numbers"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: assets/admin/wizard.js:1
 #: src/js/admin/utils/errorHandler.js:36
 msgid "License validation failed. Please check your license key."
 msgstr ""
@@ -988,312 +1184,313 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:41
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/DashboardPage.js:339
-#: src/js/admin/app/shell/ShellApp.js:129
-#: src/js/admin/registry/capabilities.js:29
+#: src/js/admin/app/shell/ShellApp.js:131
+#: src/js/admin/registry/capabilities.js:30
 msgid "Dashboard"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:143
-#: src/js/admin/registry/capabilities.js:36
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:145
+#: src/js/admin/registry/capabilities.js:37
 msgid "Setup"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:37
+#: src/js/admin/registry/capabilities.js:38
 msgid "Container, delivery and environment"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:42
+#: src/js/admin/registry/capabilities.js:43
 msgid "Setup controls how the GTM container loads, the data layer name, server-side tagging, and which pages and roles are excluded from tracking."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:47
+#: src/js/admin/registry/capabilities.js:48
 msgid "Read the setup guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:154
-#: src/js/admin/registry/capabilities.js:55
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:156
+#: src/js/admin/registry/capabilities.js:56
 msgid "GTM Templates"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:170
-#: src/js/admin/registry/capabilities.js:62
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:172
+#: src/js/admin/registry/capabilities.js:63
 msgid "Events & data layer"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:63
+#: src/js/admin/registry/capabilities.js:64
 msgid "Post data, user data and engagement events"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:71
+#: src/js/admin/registry/capabilities.js:72
 msgid "These settings control the page and user data GTM Kit adds to the data layer, plus the standard GA4 events it fires automatically, so your tags always have consistent variables to build on."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:76
+#: src/js/admin/registry/capabilities.js:77
 msgid "Read the events guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:182
-#: src/js/admin/registry/capabilities.js:84
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:184
+#: src/js/admin/registry/capabilities.js:85
 msgid "Commerce"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:85
+#: src/js/admin/registry/capabilities.js:86
 msgid "WooCommerce and Easy Digital Downloads tracking"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:93
+#: src/js/admin/registry/capabilities.js:94
 msgid "Commerce tracking pushes view_item, add_to_cart, begin_checkout and purchase events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:98
+#: src/js/admin/registry/capabilities.js:99
 msgid "Read the commerce docs"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:194
-#: src/js/admin/registry/capabilities.js:106
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:196
+#: src/js/admin/registry/capabilities.js:107
 msgid "Consent & privacy"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:107
+#: src/js/admin/registry/capabilities.js:108
 msgid "Consent Mode, script gating and CMP integration"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:115
+#: src/js/admin/registry/capabilities.js:116
 msgid "You need a consent platform"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:116
+#: src/js/admin/registry/capabilities.js:117
 msgid "These settings control the consent signals GTM Kit sends to Google Tag Manager. They do not ask visitors for consent. You need a Consent Management Platform (CMP) to collect and store consent choices."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:120
+#: src/js/admin/registry/capabilities.js:121
 msgid "GTM Kit wires up these signals but is not responsible for your privacy compliance. Configuring consent correctly for your region is your responsibility: consult your own legal guidance."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:206
-#: src/js/admin/registry/capabilities.js:129
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:208
+#: src/js/admin/registry/capabilities.js:130
 msgid "Tools"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:130
+#: src/js/admin/registry/capabilities.js:131
 msgid "Updates, logging and diagnostics"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:135
+#: src/js/admin/registry/capabilities.js:136
 msgid "These tools help you keep GTM Kit healthy: control automatic updates, turn on logging when you need to debug, and choose whether to share anonymous usage data."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:140
+#: src/js/admin/registry/capabilities.js:141
 msgid "Read the troubleshooting guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:41
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/IntegrationConfig.js:31
 #: src/js/admin/app/shell/IntegrationsHub.js:95
-#: src/js/admin/app/shell/ShellApp.js:217
-#: src/js/admin/registry/capabilities.js:148
+#: src/js/admin/app/shell/ShellApp.js:219
+#: src/js/admin/registry/capabilities.js:149
 msgid "Integrations"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/LicensePage.js:325
-#: src/js/admin/app/shell/ShellApp.js:243
-#: src/js/admin/registry/capabilities.js:154
+#: src/js/admin/app/shell/ShellApp.js:265
+#: src/js/admin/registry/capabilities.js:162
 msgid "License"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:256
-#: src/js/admin/app/shell/SupportPage.js:100
-#: src/js/admin/registry/capabilities.js:160
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:278
+#: src/js/admin/app/shell/SupportPage.js:185
+#: src/js/admin/registry/capabilities.js:168
 msgid "Support"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:176
+#: src/js/admin/registry/capabilities.js:184
 msgid "General Container Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:183
+#: src/js/admin/registry/capabilities.js:191
 msgid "Exclude pages from GTM"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:190
+#: src/js/admin/registry/capabilities.js:198
 msgid "Server-side Tagging (sGTM)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:197
+#: src/js/admin/registry/capabilities.js:205
 msgid "Page Speed Optimization"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:204
+#: src/js/admin/registry/capabilities.js:212
 msgid "Google Tag Manager Environment"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:211
+#: src/js/admin/registry/capabilities.js:219
 msgid "Exclude User Roles"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:218
+#: src/js/admin/registry/capabilities.js:226
 msgid "Container Code Implementation"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:227
+#: src/js/admin/registry/capabilities.js:235
 msgid "Post Data Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:234
+#: src/js/admin/registry/capabilities.js:242
 msgid "User Data Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:241
+#: src/js/admin/registry/capabilities.js:249
 msgid "GA4 standard events"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:248
+#: src/js/admin/registry/capabilities.js:256
 #: src/js/admin/registry/integrations.js:18
 msgid "Contact Form 7"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:256
+#: src/js/admin/registry/capabilities.js:264
 msgid "WooCommerce: Page data"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:265
+#: src/js/admin/registry/capabilities.js:273
 msgid "Script gating"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:272
+#: src/js/admin/registry/capabilities.js:280
 #: src/js/admin/registry/fields/consent.js:58
 msgid "CMP script attributes"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:279
+#: src/js/admin/registry/capabilities.js:287
 msgid "Google Consent Mode Activation"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:286
+#: src/js/admin/registry/capabilities.js:294
 msgid "Google Consent Mode Default Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:294
+#: src/js/admin/registry/capabilities.js:302
 msgid "Event deferral"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:303
+#: src/js/admin/registry/capabilities.js:311
 msgid "Logging and debugging"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:326
+#: src/js/admin/registry/capabilities.js:334
 #: src/js/admin/registry/integrations.js:16
 msgid "WooCommerce"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:334
+#: src/js/admin/registry/capabilities.js:342
 msgid "WooCommerce: Basic Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:341
+#: src/js/admin/registry/capabilities.js:349
 msgid "WooCommerce: User Data"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:348
+#: src/js/admin/registry/capabilities.js:356
 msgid "WooCommerce: Event Customization"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:355
+#: src/js/admin/registry/capabilities.js:363
 msgid "WooCommerce: Webhooks for server-side tracking"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:365
+#: src/js/admin/registry/capabilities.js:373
 msgid "WooCommerce: Google Ads Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:372
+#: src/js/admin/registry/capabilities.js:380
 msgid "WooCommerce: Advanced Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:381
+#: src/js/admin/registry/capabilities.js:389
 msgid "WooCommerce: Custom CSS Selectors"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:389
+#: src/js/admin/registry/capabilities.js:397
 #: src/js/admin/registry/integrations.js:17
 msgid "Easy Digital Downloads"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:397
+#: src/js/admin/registry/capabilities.js:405
 msgid "Easy Digital Downloads: Basic Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:404
+#: src/js/admin/registry/capabilities.js:412
 msgid "Easy Digital Downloads: Google Ads Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:411
+#: src/js/admin/registry/capabilities.js:419
 msgid "Easy Digital Downloads: Advanced Settings"
 msgstr ""
 
@@ -2627,16 +2824,9 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: assets/admin/settings.js:8
-#: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/StaleAddonNotice.js:10
-#: src/js/admin/app/shell/fields/UpsellSlot.js:9
-msgid "GTM Kit Premium"
-msgstr ""
-
 #. translators: %s: the product that unlocks this setting.
 #: assets/admin/settings.js:9
-#: src/js/admin/app/shell/fields/UpsellSlot.js:31
+#: src/js/admin/app/shell/fields/UpsellSlot.js:45
 msgid "Upgrade to %s to manage this setting here."
 msgstr ""
 
@@ -3108,10 +3298,10 @@ msgid "Resources"
 msgstr ""
 
 #: assets/admin/settings.js:41
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/DashboardPage.js:402
 #: src/js/admin/app/shell/DashboardPage.js:416
-#: src/js/admin/app/shell/SupportPage.js:223
+#: src/js/admin/app/shell/SupportPage.js:266
 msgid "Read"
 msgstr ""
 
@@ -3275,155 +3465,211 @@ msgstr ""
 msgid "Go to my account"
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:101
-msgid "Get help and contact us"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:106
-msgid "Premium support"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:107
-msgid "Premium subscribers get direct email support, usually a same-day reply on weekdays. Bugs, configuration questions, edge cases."
-msgstr ""
-
-#: assets/admin/settings.js:45
+#. translators: %1$s: the support ticket reference. %2$s: the localized end date of the sync session.
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/SupportPage.js:114
-msgid "Contact support"
+msgid "System data syncs to support while ticket %1$s is open, until %2$s."
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:118
-msgid "Get GTM Kit Premium"
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:130
+msgid "Stop sharing"
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:128
-msgid "Community support"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:129
-msgid "Free support in the WordPress.org support forum. Covers the plugin itself, not Google Tag Manager configuration."
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:134
-msgid "WordPress support forum"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:139
-msgid "Bug reports"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:140
-msgid "Found a reproducible bug? Open an issue on GitHub with steps to reproduce and the plugin version. Public, searchable, faster to triage."
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:145
-msgid "Report on GitHub"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:152
-msgid "Share system data with the GTM Kit support team"
-msgstr ""
-
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:162
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:142
 msgid "If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below."
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:169
-#: src/js/admin/app/shell/SupportPage.js:175
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:149
+#: src/js/admin/app/shell/SupportPage.js:155
 msgid "Support ticket"
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:174
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:154
 msgid "FS-12345"
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:189
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:169
 msgid "Send system data"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:186
+msgid "Get help and contact us"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:191
+msgid "Premium support"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:192
+msgid "Premium subscribers get direct email support, usually a same-day reply on weekdays. Bugs, configuration questions, edge cases."
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:199
+msgid "Contact support"
+msgstr ""
+
+#: assets/admin/settings.js:46
 #: src/js/admin/app/shell/SupportPage.js:203
+msgid "Get GTM Kit Premium"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:213
+msgid "Community support"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:214
+msgid "Free support in the WordPress.org support forum. Covers the plugin itself, not Google Tag Manager configuration."
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:219
+msgid "WordPress support forum"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:224
+msgid "Bug reports"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:225
+msgid "Found a reproducible bug? Open an issue on GitHub with steps to reproduce and the plugin version. Public, searchable, faster to triage."
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:230
+msgid "Report on GitHub"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:237
+msgid "Share system data with the GTM Kit support team"
+msgstr ""
+
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:246
 msgid "Documentation"
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/SupportPage.js:207
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/SupportPage.js:250
 msgid "View all documentation"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:70
 msgid "Something went wrong"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:75
 msgid "An unexpected error occurred. Please try refreshing the page."
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:103
 msgid "Try Again"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:110
 msgid "Reload Page"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:20
 #: src/js/admin/components/SectionErrorBoundary.js:21
 msgid "Section Error"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "The"
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:45
+#: assets/admin/settings.js:46
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:28
 msgid "This section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:45
-#: src/js/admin/app/shell/ShellApp.js:230
+#: assets/admin/settings.js:46
+#: src/js/admin/app/shell/ShellApp.js:232
 msgid "Integration"
 msgstr ""
 
 #: assets/admin/wizard.js:1
-#: src/js/admin/app/routes-wizard.js:75
-#: src/js/admin/app/utils/get-steps.js:9
+#: src/js/admin/app/routes-wizard.js:77
+#: src/js/admin/app/utils/get-steps.js:18
 msgid "Welcome"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:204
+msgid "Make sure every order reaches GA4"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:206
+msgid "GTM Kit tracks your WooCommerce purchases from the browser. When a payment gateway redirects the customer away from your thank-you page, or the browser blocks the request, that order is never measured."
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:210
+msgid "GTM Kit Premium sends purchases from your server as well, matched by a stable event ID so nothing is counted twice, and adds refund and order-status events."
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:218
+msgid "See what Premium adds for stores"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:225
+msgid "Keep measuring around the consent banner"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:227
+msgid "Events that happen before a visitor answers your consent banner are usually dropped rather than delayed, so the start of the visit is lost even when consent is granted a moment later."
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:231
+msgid "GTM Kit Premium queues those events and replays them once consent arrives, gates server-side webhooks on consent, and integrates with the WP Consent API."
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:244
+msgid "What GTM Kit Premium adds"
+msgstr ""
+
+#: assets/admin/wizard.js:1
+#: src/js/admin/registry/premiumWizard.js:246
+msgid "GTM Kit covers the standard GA4 events on your site. Premium is for the cases the browser cannot handle on its own."
 msgstr ""
 
 #: assets/admin/wizard.js:1
@@ -3432,7 +3678,7 @@ msgid "Go to the dashboard."
 msgstr ""
 
 #: assets/admin/wizard.js:1
-#: src/js/admin/app/routes-wizard.js:100
+#: src/js/admin/app/routes-wizard.js:102
 msgid "Share Anonymous Data"
 msgstr ""
 

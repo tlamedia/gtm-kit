@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.8
 Tested up to: 7.0
-Stable tag: 2.16.4
+Stable tag: 2.17.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -105,7 +105,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 2.17.0 =
+
+Release date: 2026-08-05
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-17/).
 
 #### New:
 * Sharing system data with the support team now starts a live sync session: while your ticket is open (at most 7 days), saving GTM Kit settings automatically sends the support team a fresh copy of the same data. The Support page shows an indicator while sync is active, and a Stop sharing button ends it immediately.
@@ -119,13 +123,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 #### Other:
 * GTM Kit is now tested with WooCommerce 11.0. Shop, cart, checkout and purchase tracking were verified against the new release on both classic and block themes.
-* The Premium page and the wizard step are hidden entirely when GTM Kit Woo or GTM Kit Premium is active, so paying customers see no upgrade prompts.
-* Settings that need a paid add-on no longer show an upgrade link to customers who already have GTM Kit Woo or GTM Kit Premium. The setting itself still appears with its Premium label, so you can see what the product includes without being sold something you already own.
+* Customers who already have GTM Kit Woo or GTM Kit Premium no longer see upgrade prompts anywhere. The Premium page and the wizard step are hidden entirely, and settings that need a paid add-on no longer show an upgrade link. Those settings still appear with their Premium label, so you can see what the product includes without being sold something you already own.
 * New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
 * Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
-* The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, so faults in the shop, cart and checkout tracking are caught before release instead of in the browser.
-* The automated test suite now also runs against the oldest supported WordPress and WooCommerce versions, not just the newest, so the compatibility stated in the plugin header is verified on every change rather than assumed.
+* The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, and the suite runs against the oldest supported WordPress and WooCommerce versions as well as the newest. Faults in shop, cart and checkout tracking are caught before release instead of in the browser, and the compatibility stated in the plugin header is verified on every change rather than assumed.
 
 = 2.16.4 =
 
@@ -166,47 +168,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 
 #### Other:
 * Clarified the Debug log setting description so it reflects that it also logs the server-side webhooks GTM Kit sends, not only the purchase event.
-
-= 2.15.0 =
-
-Release date: 2026-06-12
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-15/).
-
-#### Bugfixes:
-* Security hardening: Links served to the settings interface from remote content (upgrade offers, templates, tutorials) and notifications are now validated before they are used for navigation.
-
-#### Other:
-* New `gtmkit_settings_registry` filter lets add-ons register their settings fields with the GTM Kit settings screen at runtime. The settings screen now exposes its field registry and related metadata, preparing for GTM Kit's new settings interface.
-
-= 2.14.1 =
-
-Release date: 2026-06-03
-
-A maintenance fix for the 2.14 line; see the [2.14 release post](https://gtmkit.com/changelog/gtm-kit-2-14/) for what 2.14 introduced.
-
-#### Bugfixes:
-* WooCommerce block tracking now loads on block (FSE) themes where Cart, Checkout, Mini Cart, Product Collection, or Related Products are rendered from block templates and template parts. Previously the block tracking bundle could fail to load on these sites, so block ecommerce events never fired.
-
-= 2.14.0 =
-
-Release date: 2026-06-02
-
-Find out about what's new in our [release post](https://gtmkit.com/changelog/gtm-kit-2-14/).
-
-#### New:
-* New "Engagement events" settings section emits GA4 standard `login`, `sign_up`, `search`, and `generate_lead` events out of the box. Each event has its own toggle and defaults to on, so customers see the events the moment they upgrade.
-* Rebuilt WooCommerce block tracking on stable data-store APIs. Cart, Checkout, Mini Cart, All Products, Product Collection, Single Product, Related Products, the Cart block cross-sells, and product filter blocks now all emit ecommerce events end to end, including add_to_cart and view_cart from the Mini Cart, list and select tracking for the All Products grid and cart cross-sells, and view_item_list re-fires when a filter or pagination control updates a Product Collection.
-
-#### Bugfixes:
-* The Contact Form 7 integration now loads reliably on form pages when "Load JavaScript" is set to the recommended "Only on pages where the Contact Form 7 script is registered" mode, even when a performance plugin (e.g. WP Rocket) defers Contact Form 7's own scripts until shortcode render. Previously the integration could be skipped on legitimate form pages and `gtmkit.CF7MailSent` would not fire.
-
-#### Other:
-* New developer filters let extensions tag the method, normalise the search term, assign a lead value, rename the handoff cookie, veto any event, or opt custom search templates into the `search` event.
-* New `gtmkit_blocks_supported` filter lets developers add custom block names to the list that loads GTM Kit's block tracking.
-* Raised the minimum WooCommerce version to 10.3 for the new block tracking integration. Sites on earlier WooCommerce continue to receive classic-template tracking unchanged.
-* Added Vitest and Playwright test harnesses covering the block tracking path, plus PHPUnit coverage for the block detection and Store API extension.
-* Prepare the settings and setup-wizard bootstrap for React 19, which WordPress will ship in a future release. No behaviour change under the current React 18.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

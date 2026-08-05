@@ -181,4 +181,23 @@ describe( 'cart subscriber', () => {
 			.filter( ( e ) => e.event === 'remove_from_cart' );
 		expect( removes ).toHaveLength( 1 );
 	} );
+
+	it( 'suppresses a click-reported add across cart diffs that confirm it one unit at a time', async () => {
+		data.notify(); // baseline (empty)
+		await flushMicrotasks();
+
+		// The click handler already emitted both adds itself.
+		recordClickAdd( 'a', 1 );
+		recordClickAdd( 'a', 1 );
+
+		setItems( [ item( 'a', 1 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		setItems( [ item( 'a', 2 ) ] );
+		data.notify();
+		await flushMicrotasks();
+
+		expect( seam.events() ).toHaveLength( 0 );
+	} );
 } );

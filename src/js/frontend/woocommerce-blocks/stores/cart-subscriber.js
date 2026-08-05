@@ -41,7 +41,8 @@ const emit = ( entries, event ) => {
 
 		if ( event === 'add_to_cart' ) {
 			const alreadyReported = claimClickAdd(
-				entry.item.item_id ?? entry.item.id
+				entry.item.item_id ?? entry.item.id,
+				quantity
 			);
 			quantity -= alreadyReported;
 			if ( quantity <= 0 ) {

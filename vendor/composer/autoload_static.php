@@ -56,6 +56,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\PremiumPluginConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/PremiumPluginConditional.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\WooCommerceConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/WooCommerceConditional.php',
         'TLA_Media\\GTM_Kit\\Common\\RestAPIServer' => __DIR__ . '/../..' . '/src/Common/RestAPIServer.php',
+        'TLA_Media\\GTM_Kit\\Common\\SupportSync' => __DIR__ . '/../..' . '/src/Common/SupportSync.php',
         'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',
         'TLA_Media\\GTM_Kit\\Frontend\\ConsentSignalSourceRegistry' => __DIR__ . '/../..' . '/src/Frontend/ConsentSignalSourceRegistry.php',

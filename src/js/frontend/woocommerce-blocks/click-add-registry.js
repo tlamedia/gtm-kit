@@ -57,26 +57,50 @@ export const recordClickAdd = ( itemId, quantity = 1, now = Date.now() ) => {
 };
 
 /**
- * Claim the units already emitted for an item, removing the entry.
+ * Claim up to `units` of the units already emitted for an item.
  *
- * @param {string|number} itemId The GA4 item id.
- * @param {number}        [now]  Clock override for tests.
+ * Only the units the caller can account for are taken; any surplus stays
+ * recorded for a later claim. The cart confirms a burst of clicks one diff
+ * at a time as often as it confirms them together, and a claim that took
+ * the whole entry would leave the following diffs with nothing to subtract
+ * and re-report the add.
+ *
+ * @param {string|number} itemId  The GA4 item id.
+ * @param {number}        [units] Units being confirmed; defaults to all recorded.
+ * @param {number}        [now]   Clock override for tests.
  * @return {number} Units a click handler already reported (0 when none).
  */
-export const claimClickAdd = ( itemId, now = Date.now() ) => {
+export const claimClickAdd = (
+	itemId,
+	units = Number.POSITIVE_INFINITY,
+	now = Date.now()
+) => {
 	const key = keyFor( itemId );
 	const entry = pending.get( key );
 	if ( ! entry ) {
 		return 0;
 	}
 
-	pending.delete( key );
-
 	if ( now - entry.recordedAt > TTL_MS ) {
+		pending.delete( key );
 		return 0;
 	}
 
-	return entry.quantity;
+	const claimed = Math.min( entry.quantity, Math.max( 0, units ) );
+	const remaining = entry.quantity - claimed;
+
+	if ( remaining > 0 ) {
+		// Keep the original timestamp: the surplus expires on the clock of
+		// the click that recorded it, not of the claim that left it behind.
+		pending.set( key, {
+			quantity: remaining,
+			recordedAt: entry.recordedAt,
+		} );
+	} else {
+		pending.delete( key );
+	}
+
+	return claimed;
 };
 
 /**
