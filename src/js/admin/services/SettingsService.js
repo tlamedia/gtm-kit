@@ -361,6 +361,33 @@ class SettingsService {
 	}
 
 	/**
+	 * Get what WordPress reports about this site, as the frontend resolved it.
+	 *
+	 * Comes from the same PHP resolver the container output gate calls, so
+	 * the settings readout and the live behaviour cannot disagree. `type` is
+	 * one of `production`, `staging`, `development` or `local`.
+	 *
+	 * @return {{type: string, isProduction: boolean, suppressesContainer: boolean}} The site's reported state.
+	 */
+	getSiteEnvironment() {
+		const state = this.data.siteEnvironment;
+
+		if ( ! state || typeof state !== 'object' ) {
+			return {
+				type: 'production',
+				isProduction: true,
+				suppressesContainer: false,
+			};
+		}
+
+		return {
+			type: state.type || 'production',
+			isProduction: !! state.isProduction,
+			suppressesContainer: !! state.suppressesContainer,
+		};
+	}
+
+	/**
 	 * Get raw data by key (discouraged - use specific methods instead)
 	 *
 	 * This method provides raw access to window.gtmkitSettings for edge cases.

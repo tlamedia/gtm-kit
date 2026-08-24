@@ -822,6 +822,16 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Add-to-cart tracing on single product.
 	 *
+	 * The payload rides a hidden span rather than a form field. WooCommerce's
+	 * Add to Cart + Options block scans everything third parties print into
+	 * the add-to-cart hooks and, on finding an input, select, textarea, button
+	 * or form tag, falls back to a plain HTML POST form. That costs the
+	 * shopper the in-place add and a full page reload, so this markup must
+	 * stay clear of those five tags.
+	 *
+	 * The class is deliberately distinct from the product-list carrier so the
+	 * page-wide list sweep cannot fold a product page into an impression.
+	 *
 	 * @hook woocommerce_after_add_to_cart_button
 	 *
 	 * @return void
@@ -835,7 +845,11 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$item_data = $this->get_item_data( $product );
 
-		echo '<input type="hidden" name="gtmkit_product_data' . '" value="' . esc_attr( json_encode( $item_data ) ) . '" />' . "\n"; // phpcs:ignore
+		printf(
+			'<span class="gtmkit_single_product_data" style="display:none; visibility:hidden;" data-gtmkit_product_id="%s" data-gtmkit_product_data="%s"></span>' . "\n",
+			esc_attr( (string) $product->get_id() ),
+			esc_attr( (string) wp_json_encode( $item_data ) )
+		);
 	}
 
 	/**

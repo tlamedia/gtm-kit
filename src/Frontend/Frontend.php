@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
+use TLA_Media\GTM_Kit\Common\SiteEnvironment;
 use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionSchema;
 
@@ -44,6 +45,27 @@ final class Frontend {
 	protected EventDeferralGate $event_deferral_gate;
 
 	/**
+	 * The output gate this instance was registered with.
+	 *
+	 * Null until {@see Frontend::register()} resolves it, so a console
+	 * message never has to re-run the gate and risk a different answer.
+	 *
+	 * @var array{url_excluded: bool, container_active: bool, environment_suppressed?: bool}|null
+	 */
+	protected ?array $output_gate = null;
+
+	/**
+	 * Whether this instance has already written the noscript iframe.
+	 *
+	 * A theme that fires its footer hook more than once would otherwise run
+	 * the callback again and put a second iframe on the page, which Google
+	 * Tag Manager counts as a second container load.
+	 *
+	 * @var bool
+	 */
+	protected bool $body_script_printed = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * The registry and deferral gate default to fresh instances when
@@ -69,25 +91,32 @@ final class Frontend {
 	/**
 	 * Resolve the per-request output gate.
 	 *
-	 * Computes the URL-exclusion state and the resulting container-active
-	 * value, applying the `gtmkit_container_active` filter exactly once so
-	 * the same decision can gate both the core runtime here and the
-	 * integration enqueues in `gtmkit_frontend_init()`.
+	 * Computes the URL-exclusion state, whether the site reports itself as
+	 * somewhere the container should not load, and the resulting
+	 * container-active value, applying the `gtmkit_container_active` filter
+	 * exactly once so the same decision can gate both the core runtime here
+	 * and the integration enqueues in `gtmkit_frontend_init()`.
+	 *
+	 * The site's own report is folded into the base value before the filter
+	 * runs, so a site that deliberately measures a non-production install
+	 * can still force output back on from code.
 	 *
 	 * @param Options $options An instance of Options.
-	 * @return array{url_excluded: bool, container_active: bool}
+	 * @return array{url_excluded: bool, container_active: bool, environment_suppressed: bool}
 	 */
 	public static function resolve_output_gate( Options $options ): array {
-		$url_excluded     = UrlExclusion::is_excluded(
+		$url_excluded           = UrlExclusion::is_excluded(
 			UrlExclusion::current_request_path(),
 			$options->get( 'general', 'excluded_url_patterns' )
 		);
-		$base_active      = ( $options->get( 'general', 'container_active' ) && ! $url_excluded );
-		$container_active = (bool) apply_filters( 'gtmkit_container_active', $base_active );
+		$environment_suppressed = SiteEnvironment::suppresses_container( $options );
+		$base_active            = ( $options->get( 'general', 'container_active' ) && ! $url_excluded && ! $environment_suppressed );
+		$container_active       = (bool) apply_filters( 'gtmkit_container_active', $base_active );
 
 		return [
-			'url_excluded'     => $url_excluded,
-			'container_active' => $container_active,
+			'url_excluded'           => $url_excluded,
+			'container_active'       => $container_active,
+			'environment_suppressed' => $environment_suppressed,
 		];
 	}
 
@@ -99,7 +128,7 @@ final class Frontend {
 	 * true, the core runtime and every integration enqueue must be skipped
 	 * so dependent scripts never reference a runtime that was never loaded.
 	 *
-	 * @param array{url_excluded: bool, container_active: bool} $gate Resolved output gate.
+	 * @param array{url_excluded: bool, container_active: bool, environment_suppressed?: bool} $gate Resolved output gate.
 	 * @return bool
 	 */
 	public static function is_output_suppressed( array $gate ): bool {
@@ -109,14 +138,15 @@ final class Frontend {
 	/**
 	 * Register frontend
 	 *
-	 * @param Options                                                $options An instance of Options.
-	 * @param array{url_excluded: bool, container_active: bool}|null $gate    Pre-resolved output gate; resolved here when null.
+	 * @param Options                                                                               $options An instance of Options.
+	 * @param array{url_excluded: bool, container_active: bool, environment_suppressed?: bool}|null $gate    Pre-resolved output gate; resolved here when null.
 	 */
 	public static function register( Options $options, ?array $gate = null ): void {
 		$page                    = new Frontend( $options );
 		$gate                    = $gate ?? self::resolve_output_gate( $options );
+		$page->output_gate       = $gate;
 		$container_active        = $gate['container_active'];
-		$noscript_implementation = $options->get( 'general', 'noscript_implementation' );
+		$noscript_implementation = (int) $options->get( 'general', 'noscript_implementation' );
 
 		// On an excluded URL with no filter override, withhold every enqueue
 		// path together: head loader, noscript iframe, the dependent
@@ -145,10 +175,15 @@ final class Frontend {
 			add_action( 'wp_enqueue_scripts', [ $page, 'enqueue_delay_js_script' ] );
 		}
 
-		if ( $noscript_implementation === '0' && $container_active ) {
+		// The iframe is container output like any other, so it answers to the
+		// same gates as the header script. Without the role check an excluded
+		// user browsing with JavaScript switched off would still be counted.
+		$noscript_allowed = ( $container_active && $page->is_user_allowed() );
+
+		if ( 0 === $noscript_implementation && $noscript_allowed ) {
 			add_action( 'wp_body_open', [ $page, 'get_body_script' ] );
-		} elseif ( $noscript_implementation === '1' && $container_active ) {
-			add_action( 'body_footer', [ $page, 'get_body_script' ] );
+		} elseif ( 1 === $noscript_implementation && $noscript_allowed ) {
+			add_action( 'wp_footer', [ $page, 'get_body_script' ] );
 		}
 
 		add_filter( 'wp_resource_hints', [ $page, 'dns_prefetch' ], 10, 2 );
@@ -360,8 +395,8 @@ final class Frontend {
 		// Route through the client push helper so deferral happens in the
 		// browser. Server-side suppression would freeze the decision into
 		// the cached HTML and drop the event for every visitor.
-		$script  = 'const gtmkit_dataLayer_content = ' . wp_json_encode( $datalayer_data ) . ";\n";
-		$script .= 'window.gtmkit.events.push( gtmkit_dataLayer_content, ' . wp_json_encode( $this->datalayer_name ) . ' );' . "\n";
+		// Passing the payload inline avoids a top-level `const`, which would create a global lexical binding that throws a SyntaxError if an optimizer duplicates or concatenates this inline block.
+		$script = 'window.gtmkit.events.push( ' . wp_json_encode( $datalayer_data ) . ', ' . wp_json_encode( $this->datalayer_name ) . ' );' . "\n";
 
 		// Ask the script registry whether `gtmkit-container` was actually registered earlier in this request rather than re-evaluating the gate predicate, which can disagree with the earlier evaluation if a `gtmkit_container_active` filter callback was added between `register()` and `wp_enqueue_scripts`.
 		$dependency = wp_script_is( 'gtmkit-container', 'registered' ) ? [ 'gtmkit-container' ] : [ 'gtmkit' ];
@@ -599,24 +634,61 @@ final class Frontend {
 	 * The Google Tag Manager noscript
 	 */
 	public function get_body_script(): void {
+		if ( $this->body_script_printed ) {
+			return;
+		}
+
 		$domain = $this->options->get( 'general', 'sgtm_domain' ) ? $this->options->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 		$gtm_id = $this->options->get( 'general', 'gtm_id' );
 		if ( empty( $gtm_id ) ) {
 			return;
 		}
 
+		$this->body_script_printed = true;
+
 		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
 	}
 
 	/**
-	 * Console warning
+	 * Console warning naming why the container was left out of this page.
+	 *
+	 * A developer looking at a page with no container needs the reason, not
+	 * only the fact, so the message says which of the three applies: the site
+	 * reports itself as somewhere the container does not belong, the current
+	 * user's role is excluded, or container output is simply switched off.
 	 */
 	public function container_disabled(): void {
-		echo '<script>console.warn("[GTM Kit] Google Tag Manager container is disabled.");</script>';
+
+		if ( $this->is_environment_suppressed() ) {
+			echo '<script>console.warn("[GTM Kit] Google Tag Manager container is not loaded because WordPress reports this site as '
+				. esc_js( SiteEnvironment::get_type() )
+				. '. The data layer is still built. Switch on \"Load the container on staging and test sites\" in the GTM Kit container settings to load it here too.");</script>';
+		} else {
+			echo '<script>console.warn("[GTM Kit] Google Tag Manager container is disabled.");</script>';
+		}
 
 		if ( ! $this->is_user_allowed() ) {
 			echo '<script>console.warn("[GTM Kit] The current user role is excluded from tracking.");</script>';
 		}
+	}
+
+	/**
+	 * Whether this request's container was withheld because of what the site reports.
+	 *
+	 * Reads the gate `register()` resolved so the message cannot contradict
+	 * the decision that produced it. A directly constructed instance has no
+	 * gate, so it asks the same resolver the gate itself calls.
+	 *
+	 * @return bool
+	 */
+	private function is_environment_suppressed(): bool {
+
+		if ( null !== $this->output_gate ) {
+			return ! empty( $this->output_gate['environment_suppressed'] )
+				&& ! $this->output_gate['container_active'];
+		}
+
+		return SiteEnvironment::suppresses_container( $this->options );
 	}
 
 	/**
@@ -692,15 +764,9 @@ final class Frontend {
 	 * @param Options $options An instance of Options.
 	 */
 	public static function will_register_container( Options $options ): bool {
-		$url_excluded = UrlExclusion::is_excluded(
-			UrlExclusion::current_request_path(),
-			$options->get( 'general', 'excluded_url_patterns' )
-		);
+		$gate = self::resolve_output_gate( $options );
 
-		$base_active      = $options->get( 'general', 'container_active' ) && ! $url_excluded;
-		$container_active = (bool) apply_filters( 'gtmkit_container_active', $base_active );
-
-		if ( ! $container_active ) {
+		if ( ! $gate['container_active'] ) {
 			return false;
 		}
 

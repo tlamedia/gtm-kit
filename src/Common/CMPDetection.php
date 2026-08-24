@@ -40,6 +40,33 @@ final class CMPDetection {
 	];
 
 	/**
+	 * Display names for the consent platforms this class recognises.
+	 *
+	 * @var array<string, string>
+	 */
+	private const DISPLAY_NAMES = [
+		'cookiebot' => 'Cookiebot',
+		'iubenda'   => 'Iubenda',
+		'cookieyes' => 'CookieYes',
+	];
+
+	/**
+	 * Resolve a detected CMP to the name its users know it by.
+	 *
+	 * @param string|null $slug A slug returned by {@see self::detect_active_cmp()}.
+	 *
+	 * @return string The display name, or an empty string when nothing was detected.
+	 */
+	public static function get_display_name( ?string $slug ): string {
+
+		if ( $slug === null || $slug === '' ) {
+			return '';
+		}
+
+		return self::DISPLAY_NAMES[ $slug ] ?? $slug;
+	}
+
+	/**
 	 * Detect the first matching active CMP plugin, if any.
 	 *
 	 * Iteration follows the canonical order Cookiebot → Iubenda →

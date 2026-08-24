@@ -110,7 +110,6 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 	const [ orderId, setOrderId ] = useState( '' );
 	const [ syntheticTxn, setSyntheticTxn ] = useState( true );
 
-	const [ advancedOpen, setAdvancedOpen ] = useState( false );
 	const [ busy, setBusy ] = useState( false );
 	const [ result, setResult ] = useState( null );
 	const [ showSnippet, setShowSnippet ] = useState( false );
@@ -592,108 +591,82 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 								</div>
 							) }
 
-							{ /* Advanced: live-traffic toggle + filter snippet */ }
-							<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-pt-4">
+							{ /* Live traffic */ }
+							<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-4 gtmkit-border-t gtmkit-border-border-default gtmkit-pt-4">
+								{ status.live_attach && (
+									<div className="gtmkit-rounded-md gtmkit-bg-red-50 gtmkit-px-3.5 gtmkit-py-3">
+										<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-font-medium gtmkit-text-red-700">
+											{ sprintf(
+												// translators: %s: remaining time.
+												__(
+													'Live preview header is ON. It turns itself off in %s when the token expires.',
+													'gtm-kit'
+												),
+												formatRemaining(
+													status.expires_in
+												)
+											) }
+										</p>
+									</div>
+								) }
+								<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2">
+									<label
+										htmlFor="gtmkit-preview-live-attach"
+										className="gtmkit-flex gtmkit-items-start gtmkit-gap-2 gtmkit-text-[13px] gtmkit-text-text-primary"
+									>
+										<input
+											id="gtmkit-preview-live-attach"
+											type="checkbox"
+											className="gtmkit-mt-0.5"
+											checked={ status.live_attach }
+											disabled={
+												controlsDisabled ||
+												( ! status.armed &&
+													token.trim() === '' )
+											}
+											onChange={ ( e ) =>
+												toggleLiveAttach(
+													e.target.checked
+												)
+											}
+										/>
+										<span>
+											{ __(
+												'Attach the preview header to live webhook traffic',
+												'gtm-kit'
+											) }
+										</span>
+									</label>
+									<p className="gtmkit-m-0 gtmkit-pl-6 gtmkit-text-xs gtmkit-text-text-secondary">
+										{ __(
+											'Live orders will appear in Preview while this is on. It is tied to the token and disarms automatically when the token expires, so it can never send a stale token that would make live webhooks fail. Use it only for short, supervised debugging.',
+											'gtm-kit'
+										) }
+									</p>
+								</div>
+							</div>
+
+							{ /* Developer-only: filter snippet */ }
+							<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2 gtmkit-border-t gtmkit-border-border-default gtmkit-pt-4">
 								<button
 									type="button"
 									className={ LINK_BTN }
 									onClick={ () =>
-										setAdvancedOpen( ! advancedOpen )
+										setShowSnippet( ! showSnippet )
 									}
-									aria-expanded={ advancedOpen }
+									aria-expanded={ showSnippet }
 								>
-									{ advancedOpen
-										? __(
-												'Hide developer options',
+									{ showSnippet
+										? __( 'Hide filter snippet', 'gtm-kit' )
+										: __(
+												'Copy as filter snippet',
 												'gtm-kit'
-										  )
-										: __( 'Developer options', 'gtm-kit' ) }
+										  ) }
 								</button>
-
-								{ advancedOpen && (
-									<div className="gtmkit-mt-4 gtmkit-flex gtmkit-flex-col gtmkit-gap-4">
-										{ status.live_attach && (
-											<div className="gtmkit-rounded-md gtmkit-bg-red-50 gtmkit-px-3.5 gtmkit-py-3">
-												<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-font-medium gtmkit-text-red-700">
-													{ sprintf(
-														// translators: %s: remaining time.
-														__(
-															'Live preview header is ON. It turns itself off in %s when the token expires.',
-															'gtm-kit'
-														),
-														formatRemaining(
-															status.expires_in
-														)
-													) }
-												</p>
-											</div>
-										) }
-										<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2">
-											<label
-												htmlFor="gtmkit-preview-live-attach"
-												className="gtmkit-flex gtmkit-items-start gtmkit-gap-2 gtmkit-text-[13px] gtmkit-text-text-primary"
-											>
-												<input
-													id="gtmkit-preview-live-attach"
-													type="checkbox"
-													className="gtmkit-mt-0.5"
-													checked={
-														status.live_attach
-													}
-													disabled={
-														controlsDisabled ||
-														( ! status.armed &&
-															token.trim() ===
-																'' )
-													}
-													onChange={ ( e ) =>
-														toggleLiveAttach(
-															e.target.checked
-														)
-													}
-												/>
-												<span>
-													{ __(
-														'Attach the preview header to live webhook traffic',
-														'gtm-kit'
-													) }
-												</span>
-											</label>
-											<p className="gtmkit-m-0 gtmkit-pl-6 gtmkit-text-xs gtmkit-text-text-secondary">
-												{ __(
-													'Live orders will appear in Preview while this is on. It is tied to the token and disarms automatically when the token expires, so it can never send a stale token that would make live webhooks fail. Use it only for short, supervised debugging.',
-													'gtm-kit'
-												) }
-											</p>
-										</div>
-
-										<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2">
-											<button
-												type="button"
-												className={ LINK_BTN }
-												onClick={ () =>
-													setShowSnippet(
-														! showSnippet
-													)
-												}
-											>
-												{ showSnippet
-													? __(
-															'Hide filter snippet',
-															'gtm-kit'
-													  )
-													: __(
-															'Copy as filter snippet',
-															'gtm-kit'
-													  ) }
-											</button>
-											{ showSnippet && (
-												<pre className="gtmkit-max-h-60 gtmkit-overflow-auto gtmkit-whitespace-pre-wrap gtmkit-rounded gtmkit-bg-brand-surface-subtle gtmkit-p-3 gtmkit-text-[11px] gtmkit-text-text-secondary">
-													{ filterSnippet }
-												</pre>
-											) }
-										</div>
-									</div>
+								{ showSnippet && (
+									<pre className="gtmkit-max-h-60 gtmkit-overflow-auto gtmkit-whitespace-pre-wrap gtmkit-rounded gtmkit-bg-brand-surface-subtle gtmkit-p-3 gtmkit-text-[11px] gtmkit-text-text-secondary">
+										{ filterSnippet }
+									</pre>
 								) }
 							</div>
 						</>

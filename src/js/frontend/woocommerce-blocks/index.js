@@ -20,6 +20,7 @@ import { initAllProducts } from './blocks/all-products';
 import { createProductCollectionSubscriber } from './blocks/product-collection';
 import { createRelatedProductsSubscriber } from './blocks/related-products';
 import { initSingleProductBlock } from './blocks/single-product-block';
+import { createAddToCartWithOptionsSubscriber } from './blocks/add-to-cart-with-options';
 import { createProductSearchSubscriber } from './blocks/product-search';
 import { logError } from './utils';
 
@@ -90,6 +91,14 @@ export const boot = () => {
 			document.querySelector( '.wp-block-woocommerce-single-product' )
 		) {
 			initSingleProductBlock();
+		}
+
+		// The block keeps the in-place add unless a third party forces it
+		// back to a posting `form.cart`, which the classic script reports
+		// instead. Mount on the block's presence and let the subscriber
+		// key on the Interactivity binding to tell the two apart.
+		if ( document.querySelector( '.wc-block-add-to-cart-with-options' ) ) {
+			createAddToCartWithOptionsSubscriber();
 		}
 
 		if ( document.querySelector( '.wc-block-product-search' ) ) {

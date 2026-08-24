@@ -314,6 +314,13 @@ export const SECTIONS = [
 	},
 	{
 		capability: 'tools',
+		id: 'import',
+		label: __( 'Import settings', 'gtm-kit' ),
+		order: 15,
+		layout: LAYOUTS.SINGLE,
+	},
+	{
+		capability: 'tools',
 		id: 'updates',
 		label: __( 'Automatic Updates', 'gtm-kit' ),
 		order: 20,

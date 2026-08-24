@@ -169,6 +169,11 @@ final class OptionSchema {
 				'type'     => 'boolean',
 				'constant' => 'GTMKIT_CONTAINER_ACTIVE',
 			],
+			'load_on_non_production'                 => [
+				'default'  => false,
+				'type'     => 'boolean',
+				'constant' => 'GTMKIT_LOAD_ON_NON_PRODUCTION',
+			],
 			'excluded_url_patterns'                  => [
 				'default'  => [],
 				'type'     => 'array',

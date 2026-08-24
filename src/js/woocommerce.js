@@ -3,6 +3,36 @@ function gtmkitLoad() {
 
 	let selectedProductVariationData;
 
+	/**
+	 * Read the single-product item payload from a scope element.
+	 *
+	 * The payload ships as a hidden span. Pages cached by an older version
+	 * still carry the previous hidden input, so that is kept as a fallback
+	 * until those caches expire.
+	 *
+	 * @param {Element} scope The element to search within.
+	 * @return {Object|null} The item data, or null when no carrier is present.
+	 */
+	function getSingleProductData(scope) {
+		if (!scope) {
+			return null;
+		}
+
+		const span = scope.querySelector('.gtmkit_single_product_data');
+
+		if (span) {
+			return JSON.parse(span.getAttribute('data-gtmkit_product_data'));
+		}
+
+		const input = scope.querySelector('[name=gtmkit_product_data]');
+
+		if (input && input.value) {
+			return JSON.parse(input.value);
+		}
+
+		return null;
+	}
+
 	const productBlockIndex = {
 		'wp-block-handpicked-products': 1,
 		'wp-block-product-best-sellers': 1,
@@ -237,10 +267,11 @@ function gtmkitLoad() {
 				},
 			}, datalayerName);
 		} else {
-			const itemData = JSON.parse(
-				formCartElement.querySelector('[name=gtmkit_product_data]') &&
-				formCartElement.querySelector('[name=gtmkit_product_data]').value
-			);
+			const itemData = getSingleProductData(formCartElement);
+
+			if (!itemData) {
+				return true;
+			}
 
 			const quantityElement = formCartElement.querySelector('[name=quantity]');
 			itemData.quantity = ( quantityElement && quantityElement.value ) || 1;
@@ -336,17 +367,11 @@ function gtmkitLoad() {
 		if ('undefined' === typeof productVariation) return;
 
 		const variationsForm = event.target;
-		const gtmkitElement = variationsForm.querySelector(
-			'[name=gtmkit_product_data]'
-		);
 
-		// Check if the gtmkit_product_data exists and bail early if it doesn't
-		if (!gtmkitElement) return;
+		// Bail early when the product page carries no item payload.
+		const productVariationData = getSingleProductData(variationsForm);
 
-		const productVariationData = JSON.parse(
-			variationsForm.querySelector('[name=gtmkit_product_data]') &&
-			variationsForm.querySelector('[name=gtmkit_product_data]').value
-		);
+		if (!productVariationData) return;
 
 		productVariationData.id = productVariationData.item_id =
 			window.gtmkit_settings.wc.pid_prefix +

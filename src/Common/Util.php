@@ -333,7 +333,7 @@ final class Util {
 	 * @return string
 	 */
 	public function get_plugin_version(): string {
-		return ( \wp_get_environment_type() === 'local' ) ? time() : GTMKIT_VERSION;
+		return ( SiteEnvironment::get_type() === 'local' ) ? time() : GTMKIT_VERSION;
 	}
 
 	/**

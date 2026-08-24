@@ -16,12 +16,15 @@ use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\PluginAvailability;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
+use TLA_Media\GTM_Kit\Admin\SiteHealth;
+use TLA_Media\GTM_Kit\Admin\SnippetScanSiteHealth;
 use TLA_Media\GTM_Kit\Admin\Suggestions;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
+use TLA_Media\GTM_Kit\Common\SnippetScan;
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
@@ -72,6 +75,8 @@ function gtmkit_plugin_deactivation(): void {
 	}
 
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
+
+	SnippetScan::clear_scheduled_event();
 
 	// End any live support sync session; sharing is scoped to an active
 	// plugin and must not survive deactivation.
@@ -167,6 +172,12 @@ function gtmkit_frontend_init(): void {
 	// through this init path, so the support sync engine must hook here.
 	SupportSync::register( $options, $util );
 
+	// WP-Cron runs through this init path rather than the admin one, so the
+	// scheduled tracking scan has to be able to attach here. The engine
+	// itself refuses to attach on anything but an admin or cron request, so
+	// a visitor request registers nothing.
+	SnippetScan::register( $options );
+
 	$output_gate = Frontend::resolve_output_gate( $options );
 
 	if ( ! $options->get( 'general', 'just_the_container' ) ) {
@@ -244,13 +255,17 @@ function gtmkit_admin_init(): void {
 	$plugin_availability = new PluginAvailability();
 
 	$notifications_handler = NotificationsHandler::get();
+	$snippet_scan          = new SnippetScan( $options );
 
 	AutomaticUpdates::register( $options );
-	Suggestions::register( $notifications_handler, $plugin_availability, $options, $util );
+	Suggestions::register( $notifications_handler, $plugin_availability, $options, $util, $snippet_scan );
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
+	SiteHealth::register( $options, $util );
+	SnippetScan::register( $options );
+	SnippetScanSiteHealth::register( $snippet_scan, $options );
 	SupportSync::register( $options, $util );
 	if ( ( new PremiumConditional() )->is_met() ) {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );

@@ -39,6 +39,20 @@ export const SETUP_FIELDS = [
 		notificationId: 'gtmkit-container-injection',
 	},
 	{
+		key: 'general.load_on_non_production',
+		capability: 'setup',
+		section: 'container',
+		order: 25,
+		control: 'toggle',
+		label: __( 'Load the container on staging and test sites', 'gtm-kit' ),
+		description: __(
+			'When WordPress reports this site as staging, development or local, GTM Kit leaves the container out so a copy of your site cannot send traffic to your analytics and advertising audiences. Switch this on if you deliberately measure this site.',
+			'gtm-kit'
+		),
+		tier: 'free',
+		integration: null,
+	},
+	{
 		key: 'general.just_the_container',
 		capability: 'setup',
 		section: 'container',

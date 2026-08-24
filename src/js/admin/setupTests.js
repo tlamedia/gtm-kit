@@ -9,6 +9,22 @@
 require( '@testing-library/jest-dom' );
 
 /**
+ * Provide TextEncoder and TextDecoder.
+ *
+ * jsdom leaves these globals undefined even though Node and every real browser
+ * expose them, and react-router reads TextEncoder at module scope, so importing
+ * anything from react-router-dom throws before a test can run.
+ */
+const { TextEncoder, TextDecoder } = require( 'node:util' );
+
+if ( ! global.TextEncoder ) {
+	global.TextEncoder = TextEncoder;
+}
+if ( ! global.TextDecoder ) {
+	global.TextDecoder = TextDecoder;
+}
+
+/**
  * Mock window.gtmkitSettings
  *
  * This global object is normally provided by PHP via wp_localize_script.

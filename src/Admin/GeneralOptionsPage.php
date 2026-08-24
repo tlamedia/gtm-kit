@@ -9,8 +9,10 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
+use TLA_Media\GTM_Kit\Common\SiteEnvironment;
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use TLA_Media\GTM_Kit\Options\Options;
 
 /**
@@ -156,6 +158,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'opportunities'      => $this->get_upgrade_opportunities(),
 			'settings'           => $this->options->get_all_raw(),
 			'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
+			'siteEnvironment'    => $this->get_site_environment_state(),
 			'supportSync'        => ( new SupportSync( $this->options, $this->util ) )->get_client_state(),
 			'user_roles'         => $this->get_user_roles(),
 			'notifications'      => $this->get_notifications(),
@@ -163,6 +166,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'settingsRegistry'   => $this->get_settings_registry(),
 			'taxonomyOptions'    => $this->get_taxonomy_options(),
 			'pageOptions'        => $this->get_page_options(),
+			'install_data'       => ( new PluginDataImport() )->get_all(),
 		];
 
 		/**
@@ -217,6 +221,22 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'schemaVersion' => self::SETTINGS_REGISTRY_SCHEMA_VERSION,
 			'fields'        => $fields,
 			'sections'      => $sections,
+		];
+	}
+
+	/**
+	 * What the site reports about itself, for the readout on the container settings.
+	 *
+	 * Resolved through {@see SiteEnvironment}, the same code the runtime gate
+	 * calls, so the readout can never claim something the frontend does not do.
+	 *
+	 * @return array{type: string, isProduction: bool, suppressesContainer: bool}
+	 */
+	private function get_site_environment_state(): array {
+		return [
+			'type'                => SiteEnvironment::get_type(),
+			'isProduction'        => SiteEnvironment::is_production(),
+			'suppressesContainer' => SiteEnvironment::suppresses_container( $this->options ),
 		];
 	}
 

@@ -7,10 +7,6 @@ import {
 } from '../dashboardData';
 import SettingsService from '../../services/SettingsService';
 
-const setBridge = ( data ) => {
-	SettingsService.data = data;
-};
-
 afterEach( () => {
 	SettingsService.data = {};
 } );
@@ -97,27 +93,68 @@ describe( 'getDashboardNotifications', () => {
 		expect( row.title ).toBe( 'Automatic Updates' );
 	} );
 
-	it( 'extracts the inline link as the action and removes it from the description', () => {
+	it( 'extracts the trailing link as an action and removes it from the description', () => {
 		const [ row ] = getDashboardNotifications( {
 			notice: { active: [ notice ] },
 		} );
-		expect( row.action ).toEqual( {
-			label: 'Go to settings',
-			href: 'https://example.test/wp-admin/admin.php?page=gtmkit_general#/misc',
-		} );
+		expect( row.actions ).toEqual( [
+			{
+				label: 'Go to settings',
+				href: 'https://example.test/wp-admin/admin.php?page=gtmkit_general#/misc',
+			},
+		] );
 		expect( row.description ).toBe(
 			'We recommend enabling automatic updates.'
 		);
 		expect( row.description ).not.toContain( 'Go to settings' );
 	} );
 
-	it( 'leaves the action null when the message has no link', () => {
+	it( 'keeps every link clickable when a message offers more than one', () => {
+		const [ row ] = getDashboardNotifications( {
+			notice: {
+				active: [
+					{
+						id: 'gtmkit-two-links',
+						header: 'Breaking change:',
+						message:
+							'You need either add-on. <a href="https://example.test/wp-admin/admin.php?page=gtmkit_upgrades">Get the add-on</a> <a href="https://example.test/free">Get the free plugin</a>',
+					},
+				],
+			},
+		} );
+
+		expect( row.actions ).toHaveLength( 2 );
+		expect( row.actions[ 0 ].label ).toBe( 'Get the add-on' );
+		expect( row.actions[ 1 ].label ).toBe( 'Get the free plugin' );
+		// Neither link may survive as unclickable words in the description.
+		expect( row.description ).toBe( 'You need either add-on.' );
+	} );
+
+	it( 'leaves the actions empty when the message has no link', () => {
 		const [ row ] = getDashboardNotifications( {
 			problem: { active: [ problem ] },
 		} );
-		expect( row.action ).toBeNull();
+		expect( row.actions ).toEqual( [] );
 		expect( row.description ).toBe(
 			'Your container is not being injected.'
 		);
+	} );
+
+	it( 'drops a link whose target is rejected as unsafe', () => {
+		const [ row ] = getDashboardNotifications( {
+			notice: {
+				active: [
+					{
+						id: 'gtmkit-unsafe-link',
+						header: 'Heads up:',
+						message:
+							'Something happened. <a href="javascript:alert(1)">Do the thing</a>',
+					},
+				],
+			},
+		} );
+
+		expect( row.actions ).toEqual( [] );
+		expect( row.description ).toBe( 'Something happened.' );
 	} );
 } );

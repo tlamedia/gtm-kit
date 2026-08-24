@@ -60,7 +60,6 @@ const ImportSettings = () => {
 						className="gtmkit-mx-auto gtmkit-rounded-md !gtmkit-py-6 !gtmkit-px-8 gtmkit-text-base"
 						onClick={ () => {
 							importSettings(
-								importOption,
 								useInstallData.import_data[ importOption ]
 							);
 							setShowContent( false );

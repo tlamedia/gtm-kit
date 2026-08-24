@@ -13,6 +13,11 @@ export const SETUP_CONTENT = {
 	'setup/container': {
 		inline: [
 			{
+				type: 'component',
+				order: 24,
+				component: 'site-kind-status',
+			},
+			{
 				type: 'prose',
 				order: 5,
 				nodes: [

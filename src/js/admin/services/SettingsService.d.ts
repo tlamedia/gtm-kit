@@ -29,6 +29,13 @@ export interface SettingsServiceData {
 	tutorials?: Tutorial[];
 	generatorUrl?: string;
 	supportSync?: SupportSyncState;
+	siteEnvironment?: SiteEnvironmentState;
+}
+
+export interface SiteEnvironmentState {
+	type: string;
+	isProduction: boolean;
+	suppressesContainer: boolean;
 }
 
 export interface SupportSyncState {
@@ -271,6 +278,11 @@ declare class SettingsService {
 	 * Get generator URL for template generation
 	 */
 	getGeneratorUrl(): string;
+
+	/**
+	 * Get what WordPress reports about this site, as the frontend resolved it
+	 */
+	getSiteEnvironment(): SiteEnvironmentState;
 
 	/**
 	 * Get raw data by key (discouraged - use specific methods instead)

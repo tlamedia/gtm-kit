@@ -9,7 +9,6 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
-use TLA_Media\GTM_Kit\Installation\PluginDataImport;
 use TLA_Media\GTM_Kit\Options\Options;
 use WP_Error;
 

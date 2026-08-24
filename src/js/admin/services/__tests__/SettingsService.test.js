@@ -325,6 +325,34 @@ describe( 'SettingsService', () => {
 		} );
 	} );
 
+	describe( 'getSiteEnvironment', () => {
+		it( 'should return what the server reported', () => {
+			window.gtmkitSettings.siteEnvironment = {
+				type: 'staging',
+				isProduction: false,
+				suppressesContainer: true,
+			};
+			SettingsService.data = window.gtmkitSettings;
+
+			expect( SettingsService.getSiteEnvironment() ).toEqual( {
+				type: 'staging',
+				isProduction: false,
+				suppressesContainer: true,
+			} );
+		} );
+
+		it( 'should assume a production site when the server sent nothing', () => {
+			delete window.gtmkitSettings.siteEnvironment;
+			SettingsService.data = window.gtmkitSettings;
+
+			expect( SettingsService.getSiteEnvironment() ).toEqual( {
+				type: 'production',
+				isProduction: true,
+				suppressesContainer: false,
+			} );
+		} );
+	} );
+
 	describe( 'getRaw', () => {
 		it( 'should return raw value for any key', () => {
 			expect( SettingsService.getRaw( 'currentPage' ) ).toBe( 'general' );

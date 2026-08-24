@@ -8,6 +8,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 
 import { safeHref } from '../utils/safeUrl';
+import SettingsService from '../services/SettingsService';
 
 const on = ( value ) => value === true || value === 1 || value === '1';
 
@@ -22,12 +23,28 @@ export const getDashboardMetrics = ( settings ) => {
 	const region = Array.isArray( g.gcm_region ) ? g.gcm_region : [];
 	const consentOn = on( g.gcm_default_settings );
 
+	// A site WordPress reports as staging, development or local gets no
+	// container unless it asked for one, so the card must not claim otherwise
+	// while the notice beside it explains the opposite.
+	const siteKind = SettingsService.getSiteEnvironment();
+	const withheld =
+		! siteKind.isProduction && ! on( g.load_on_non_production );
+
 	return [
 		{
 			label: __( 'Container', 'gtm-kit' ),
 			value: g.gtm_id || __( 'Not set', 'gtm-kit' ),
-			badge: g.gtm_id && on( g.container_active ) ? 'active' : 'off',
-			subtitle: __( 'Injected on all pages', 'gtm-kit' ),
+			badge:
+				g.gtm_id && on( g.container_active ) && ! withheld
+					? 'active'
+					: 'off',
+			subtitle: withheld
+				? sprintf(
+						/* translators: %s: the kind of site WordPress reports, for example "staging". */
+						__( 'Not loaded while this site is %s', 'gtm-kit' ),
+						siteKind.type
+				  )
+				: __( 'Injected on all pages', 'gtm-kit' ),
 		},
 		{
 			label: __( 'Consent Mode v2', 'gtm-kit' ),
@@ -53,13 +70,15 @@ export const getDashboardMetrics = ( settings ) => {
 };
 
 /**
- * Parse a raw notification ({ id, header, message }) into a clean row. The
- * message may carry an inline action link, which becomes the row's action; the
- * remaining text becomes the description.
+ * Parse a raw notification ({ id, header, message }) into a clean row. Every
+ * link the message carries becomes one of the row's actions; the remaining text
+ * becomes the description. A message with more than one destination therefore
+ * keeps all of them clickable, rather than silently flattening the extras into
+ * unclickable words.
  *
  * @param {Object} raw      Raw notification from the bridge.
  * @param {string} severity Row severity ('error' or 'warning').
- * @return {Object} A row ({ id, severity, title, description, action }).
+ * @return {Object} A row ({ id, severity, title, description, actions }).
  */
 const parseNotification = ( raw, severity ) => {
 	const doc = new DOMParser().parseFromString(
@@ -67,15 +86,16 @@ const parseNotification = ( raw, severity ) => {
 		'text/html'
 	);
 
-	const anchor = doc.querySelector( 'a' );
-	let action = null;
-	if ( anchor ) {
-		action = {
-			label: anchor.textContent.trim(),
-			href: safeHref( anchor.getAttribute( 'href' ) ),
-		};
-		anchor.remove();
-	}
+	const actions = [ ...doc.querySelectorAll( 'a' ) ]
+		.map( ( anchor ) => {
+			const action = {
+				label: anchor.textContent.trim(),
+				href: safeHref( anchor.getAttribute( 'href' ) ),
+			};
+			anchor.remove();
+			return action;
+		} )
+		.filter( ( action ) => action.label && action.href );
 
 	return {
 		id: raw.id,
@@ -84,7 +104,7 @@ const parseNotification = ( raw, severity ) => {
 		description: ( doc.body.textContent || '' )
 			.replace( /\s+/g, ' ' )
 			.trim(),
-		action,
+		actions,
 	};
 };
 

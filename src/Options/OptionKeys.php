@@ -20,6 +20,7 @@ final class OptionKeys {
 	public const GENERAL_SCRIPT_IMPLEMENTATION   = 'general.script_implementation';
 	public const GENERAL_NOSCRIPT_IMPLEMENTATION = 'general.noscript_implementation';
 	public const GENERAL_CONTAINER_ACTIVE        = 'general.container_active';
+	public const GENERAL_LOAD_ON_NON_PRODUCTION  = 'general.load_on_non_production';
 	public const GENERAL_EXCLUDED_URL_PATTERNS   = 'general.excluded_url_patterns';
 	public const GENERAL_SGTM_DOMAIN             = 'general.sgtm_domain';
 	public const GENERAL_CONSOLE_LOG             = 'general.console_log';

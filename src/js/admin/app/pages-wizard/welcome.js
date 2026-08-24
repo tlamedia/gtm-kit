@@ -11,7 +11,6 @@ import ImportSettings from '../organisms/import-settings';
 
 const Welcome = () => {
 	const { useInstallData } = useContext( SiteDataContext );
-	const { firstInstall } = useInstallData;
 	const { importAvailable } = useInstallData;
 
 	return (
@@ -29,11 +28,7 @@ const Welcome = () => {
 				</p>
 			</div>
 
-			{ firstInstall && importAvailable ? (
-				<ImportSettings />
-			) : (
-				<RegisterContainer />
-			) }
+			{ importAvailable ? <ImportSettings /> : <RegisterContainer /> }
 		</div>
 	);
 };

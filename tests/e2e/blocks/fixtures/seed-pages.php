@@ -109,6 +109,21 @@ $single_content =
 $single_id = gtmkit_e2e_upsert_page( 'single-product-block', 'Single Product Block', $single_content );
 echo "single-product-block id={$single_id}\n";
 
+// Add to Cart + Options block, nested in a Single Product block so it
+// inherits the product context a block product template would give it.
+// WooCommerce drops this block into a plain HTML POST form as soon as a
+// third party prints a form element into the add-to-cart hooks, which costs
+// the shopper the in-place add.
+$atc_content =
+	"<!-- wp:woocommerce/single-product {\"productId\":{$product_id}} -->\n" .
+	'<div class="wp-block-woocommerce-single-product">' . "\n" .
+	'<!-- wp:woocommerce/add-to-cart-with-options /-->' . "\n" .
+	'</div>' . "\n" .
+	'<!-- /wp:woocommerce/single-product -->';
+
+$atc_id = gtmkit_e2e_upsert_page( 'add-to-cart-block', 'Add To Cart Block', $atc_content );
+echo "add-to-cart-block id={$atc_id}\n";
+
 // Legacy product grid (Hand-picked Products): server-rendered, tracked by
 // the classic path via the .gtmkit_product_data carrier. Represents the
 // whole legacy grid family (On Sale, Newest, Best Sellers, etc.).

@@ -2,9 +2,9 @@
 Contributors: tlamedia, torbenlundsgaard, gtmkit
 Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
-Requires at least: 6.8
-Tested up to: 7.0
-Stable tag: 2.17.0
+Requires at least: 6.9
+Tested up to: 7.1
+Stable tag: 2.18.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,16 @@ GTM Kit puts the Google Tag Manager container code on your website so that you d
 The goal of GTM Kit is to provide a flexible tool for generating the data layer for Google Tag Manager. It is easy to use and doesn't require any coding, but it allows developers to customize the plugin as needed.
 
 The settings are organised around what you are trying to do (Setup, Events & data layer, Commerce, Consent & privacy, and Tools), so related options live together and the setting you need is quick to find.
+
+## Know when your tracking breaks
+
+Tracking fails quietly. A caching plugin strips the container out of the page, a second plugin loads it a second time, a staging copy reports into your live property, and nothing on the settings screen says so.
+
+GTM Kit checks one of your own pages once a day, the way a visitor receives it, and tells you when nothing on your site is loading your container, or when your pages load tracking twice. Where it recognises the plugin or tool adding the second copy, it names it.
+
+Two checks in WordPress's own Site Health screen report whether your container is set up and reaching your pages, and whether consent is configured. A GTM Kit section on the Info tab lists your whole configuration on one screen and copies it into a support request with one click.
+
+On sites WordPress reports as staging, development or local, GTM Kit leaves the container out, so test traffic never reaches your live analytics. The data layer is still built there, and a setting loads the container anyway when you are measuring a test site on purpose.
 
 ## eCommerce events tracked with Google Analytics 4
 The following GA4 events are automatically included in the dataLayer:
@@ -57,6 +67,12 @@ You may enter a custom domain name if you are using a custom server side GTM (sG
 
 You can also exclude specific pages from GTM entirely. Add URL patterns on the Container settings page and GTM Kit holds back the container, the noscript fallback, and its data layer scripts on matching pages. Useful for third-party checkout iframes, partner-hosted subpages, and in-app webview routes that run their own tracking. Glob patterns are supported by default, with optional regex for advanced matching.
 
+## Moving from another Google Tag Manager plugin
+
+GTM Kit imports settings from Google Tag Manager for WordPress, Google Tag Manager for WooCommerce, Metronet Tag Manager and other GTM plugins, at any time, from the Tools page. Your container ID, data layer variables, Consent Mode defaults, excluded user roles and container environment come across in one step.
+
+Before anything is written you see exactly which of your settings will be replaced, and only settings the other plugin actually configured are touched.
+
 ## Post data
 
 You may specify which post data elements you wish to include in the dataLayer for use in Google Tag Manager.
@@ -78,6 +94,8 @@ You may specify which post data elements you wish to include in the dataLayer fo
 3. Events & data layer: post data and GA4 events
 4. Consent & privacy: Google Consent Mode and CMP script attributes
 5. Commerce: WooCommerce and Easy Digital Downloads tracking
+6. Tools: import settings from another Google Tag Manager plugin
+7. Site Health: GTM Kit's container and consent checks
 
 == Installation ==
 
@@ -105,6 +123,27 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.18.0 =
+
+Release date: 2026-08-24
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-18/).
+
+#### New:
+* GTM Kit now checks one of your pages once a day and tells you when nothing on your site is loading your container, or when your pages load tracking twice.
+* GTM Kit now reports on itself in WordPress's Site Health, with checks for your container, your consent setup, and what the daily page check found.
+* GTM Kit no longer loads your container on sites WordPress reports as staging, development or local, so test traffic stays out of your analytics.
+* You can now import settings from another Google Tag Manager plugin at any time from the Tools page, not only during setup.
+
+#### Bugfixes:
+* The fallback for visitors who have JavaScript turned off is now added to your pages. It was missing on every placement setting, and you can switch it off under "Container code noscript implementation".
+* On a block theme, adding a product to the cart from the product page no longer reloads the page.
+* Importing settings during the setup wizard works again, reads the right customer data setting, and no longer produces an unusable container ID on sites with more than one container.
+
+#### Other:
+* The footer fallback now sits at the standard WordPress footer position. If you added a body_footer hook to your theme to make that option work, you no longer need it.
+* GTM Kit now requires WordPress 6.9 or later, and is tested with WordPress 7.1.
+
 = 2.17.0 =
 
 Release date: 2026-08-05
@@ -128,46 +167,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 * Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
 * Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
 * The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, and the suite runs against the oldest supported WordPress and WooCommerce versions as well as the newest. Faults in shop, cart and checkout tracking are caught before release instead of in the browser, and the compatibility stated in the plugin header is verified on every change rather than assumed.
-
-= 2.16.4 =
-
-Release date: 2026-06-29
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
-
-#### Bugfixes:
-* When the Template Assistant cannot generate a container, the page now shows the reason reported by the server inline (and logs the full detail to the browser console), instead of a generic "Error generating template" message that hid what actually went wrong.
-
-#### Other:
-* The settings screen now ships an sGTM Preview test-send control that GTM Kit Premium registers into the Setup → Environment section, so Premium users can send a server-side webhook event to their server container's Preview/Debug panel.
-* The Event Deferral setting no longer warns about Consent Mode when a consent platform supplies consent through the WP Consent API. The notice now appears only when neither Consent Mode nor the WP Consent API can release deferred events, and its wording names both consent sources instead of implying Consent Mode is required.
-
-= 2.16.3 =
-
-Release date: 2026-06-23
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
-
-#### New:
-* The Event Deferral setting now warns when it is switched on while Consent Mode is off, because deferred events have no consent signal to wait on and never release in that state.
-
-#### Bugfixes:
-* The Commerce "Brand" selector now lists your product brand taxonomies again, instead of showing only "(not set)". The redesigned settings screen stopped loading the taxonomy and page lists, so the Brand selector (and other taxonomy- or page-based options) appeared empty regardless of how brands were configured.
-
-= 2.16.0 =
-
-Release date: 2026-06-23
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-16/).
-
-#### New:
-* The settings screen now uses a redesigned, capability-based interface, organising everything into Setup, Events & data layer, Commerce, Consent & privacy, Tools and more.
-
-#### Bugfixes:
-* The Contact Form 7 "Load JavaScript" setting now shows the recommended choice as selected when the setting has never been saved.
-
-#### Other:
-* Clarified the Debug log setting description so it reflects that it also logs the server-side webhooks GTM Kit sends, not only the purchase event.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

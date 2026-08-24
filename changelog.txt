@@ -1,5 +1,16 @@
 *** GTM Kit ***
 
+2026-08-24 - version 2.18.0
+* Add: GTM Kit now checks one of your pages once a day and tells you when nothing on your site is loading your container, or when your pages load tracking twice.
+* Add: GTM Kit now reports on itself in WordPress's Site Health, with checks for your container, your consent setup, and what the daily page check found.
+* Add: GTM Kit no longer loads your container on sites WordPress reports as staging, development or local, so test traffic stays out of your analytics.
+* Add: You can now import settings from another Google Tag Manager plugin at any time from the Tools page, not only during setup.
+* Fix: The fallback for visitors who have JavaScript turned off is now added to your pages. It was missing on every placement setting, and you can switch it off under "Container code noscript implementation".
+* Fix: On a block theme, adding a product to the cart from the product page no longer reloads the page.
+* Fix: Importing settings during the setup wizard works again, reads the right customer data setting, and no longer produces an unusable container ID on sites with more than one container.
+* Changed: The footer fallback now sits at the standard WordPress footer position. If you added a body_footer hook to your theme to make that option work, you no longer need it.
+* Changed: GTM Kit now requires WordPress 6.9 or later, and is tested with WordPress 7.1.
+
 2026-08-05 - version 2.17.0
 * Fix: Adding a product from a block product grid on a page that also shows the cart or Mini Cart no longer reports add_to_cart twice. The event also keeps the name of the product list it came from, which was missing from the second, duplicate event.
 * Fix: On block themes, product lists no longer report every view and every add to cart twice. WooCommerce runs the classic product-loop hooks inside its block templates so older plugins keep working, and GTM Kit was responding both there and through its own block tracking, which doubled view_item_list and add_to_cart on shop, category and tag pages. List names are unchanged, so existing reports stay comparable.

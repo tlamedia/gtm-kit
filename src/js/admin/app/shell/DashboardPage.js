@@ -145,11 +145,15 @@ const HealthRow = ( { notification, onDismiss } ) => (
 			</div>
 		</div>
 		<div className="gtmkit-flex gtmkit-shrink-0 gtmkit-items-center gtmkit-gap-3.5">
-			{ notification.action?.href && (
-				<a href={ notification.action.href } className={ BRAND_ACTION }>
-					{ notification.action.label } →
+			{ ( notification.actions || [] ).map( ( action ) => (
+				<a
+					key={ action.href + action.label }
+					href={ action.href }
+					className={ BRAND_ACTION }
+				>
+					{ action.label } →
 				</a>
-			) }
+			) ) }
 			<button
 				type="button"
 				onClick={ () => onDismiss( notification ) }

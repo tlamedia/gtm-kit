@@ -11,7 +11,7 @@
  * Covers:
  *
  *  - empty pattern list → container + dependent scripts register and the
- *    wp_body_open / body_footer noscript callbacks attach.
+ *    wp_body_open noscript callback attaches.
  *  - configured pattern matches the current request → none of those
  *    callbacks attach, no scripts register.
  *  - `gtmkit_container_active` filter forces the container back on → the
@@ -65,12 +65,11 @@ final class UrlExclusionGateTest extends WP_UnitTestCase {
 		// Frontend::register() compares with `=== '0'` to enable the
 		// wp_body_open noscript branch, so the string form is what the React
 		// admin app effectively persists for this radio setting.
-		$options->set_option( 'general', 'noscript_implementation', '0' );
+		$options->set_option( 'general', 'noscript_implementation', 0 );
 
 		remove_all_actions( 'wp_enqueue_scripts' );
 		remove_all_actions( 'wp_body_open' );
 		remove_all_actions( 'wp_head' );
-		remove_all_actions( 'body_footer' );
 	}
 
 	/**
