@@ -646,7 +646,21 @@ final class Frontend {
 
 		$this->body_script_printed = true;
 
-		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( $gtm_id ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
+		// A site on a Dev or QA container environment would otherwise get a
+		// fallback pointing at the live container while its script loader
+		// points at the environment. The condition matches get_gtm_script()
+		// exactly: both values, or neither.
+		$gtm_auth    = (string) $this->options->get( 'general', 'gtm_auth' );
+		$gtm_preview = (string) $this->options->get( 'general', 'gtm_preview' );
+		$environment = '';
+
+		if ( ! empty( $gtm_auth ) && ! empty( $gtm_preview ) ) {
+			$environment = '&gtm_auth=' . rawurlencode( $gtm_auth )
+				. '&gtm_preview=' . rawurlencode( $gtm_preview )
+				. '&gtm_cookies_win=x';
+		}
+
+		echo '<noscript><iframe src="https://' . esc_attr( $domain ) . '/ns.html?id=' . esc_attr( rawurlencode( $gtm_id ) ) . esc_attr( $environment ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
 	}
 
 	/**

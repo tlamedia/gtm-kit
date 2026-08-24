@@ -363,6 +363,106 @@ final class FrontendNoscriptIframeTest extends TestCase {
 	}
 
 	/**
+	 * With no environment configured the URL is unchanged.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::get_body_script
+	 */
+	public function test_no_environment_leaves_the_iframe_url_alone(): void {
+		$output = $this->body_script_output( $this->options() );
+
+		$this->assertStringContainsString( 'ns.html?id=GTM-TEST123"', $output );
+		$this->assertStringNotContainsString( 'gtm_auth', $output );
+		$this->assertStringNotContainsString( 'gtm_preview', $output );
+		$this->assertStringNotContainsString( 'gtm_cookies_win', $output );
+	}
+
+	/**
+	 * A configured environment reaches the iframe too.
+	 *
+	 * The script loader has always appended these, so without them a site on
+	 * a Dev or QA environment gets a fallback pointing at the live container
+	 * while the rest of its setup points at the environment.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::get_body_script
+	 */
+	public function test_a_configured_environment_reaches_the_iframe(): void {
+		$output = $this->body_script_output(
+			$this->options(
+				[
+					'gtm_auth'    => 'AUTH_VALUE',
+					'gtm_preview' => 'env-12',
+				]
+			)
+		);
+
+		$this->assertStringContainsString(
+			'ns.html?id=GTM-TEST123&gtm_auth=AUTH_VALUE&gtm_preview=env-12&gtm_cookies_win=x"',
+			$output
+		);
+	}
+
+	/**
+	 * Environment values are encoded for a query string.
+	 *
+	 * `esc_attr` alone would leave a value that breaks out of the parameter.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::get_body_script
+	 */
+	public function test_environment_values_are_url_encoded(): void {
+		$output = $this->body_script_output(
+			$this->options(
+				[
+					'gtm_auth'    => 'a b&c=d',
+					'gtm_preview' => 'env/12',
+				]
+			)
+		);
+
+		$this->assertStringContainsString( 'gtm_auth=a%20b%26c%3Dd', $output );
+		$this->assertStringContainsString( 'gtm_preview=env%2F12', $output );
+	}
+
+	/**
+	 * One value on its own is not an environment.
+	 *
+	 * The condition mirrors get_gtm_script(): both values, or neither. A
+	 * half-configured environment must not reach the iframe when it does not
+	 * reach the loader.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::get_body_script
+	 *
+	 * @dataProvider data_half_configured_environments
+	 *
+	 * @param array<string, mixed> $general The stored general options.
+	 */
+	public function test_a_half_configured_environment_is_ignored( array $general ): void {
+		$output = $this->body_script_output( $this->options( $general ) );
+
+		$this->assertStringContainsString( 'ns.html?id=GTM-TEST123"', $output );
+		$this->assertStringNotContainsString( 'gtm_auth', $output );
+		$this->assertStringNotContainsString( 'gtm_preview', $output );
+		$this->assertStringNotContainsString( 'gtm_cookies_win', $output );
+	}
+
+	/**
+	 * Environments with only one of the two values stored.
+	 *
+	 * @return array<string, array{array<string, mixed>}>
+	 */
+	public function data_half_configured_environments(): array {
+		return [
+			'only gtm_auth'           => [ [ 'gtm_auth' => 'AUTH_VALUE' ] ],
+			'only gtm_preview'        => [ [ 'gtm_preview' => 'env-12' ] ],
+			'auth set, preview empty' => [
+				[
+					'gtm_auth'    => 'AUTH_VALUE',
+					'gtm_preview' => '',
+				],
+			],
+		];
+	}
+
+	/**
 	 * A switched-off container places no iframe, whatever the placement is.
 	 *
 	 * The switch is enforced at registration: no hook is added, so neither

@@ -162,7 +162,9 @@ final class OptionSchema {
 			'noscript_implementation'                => [
 				'default'  => 0,
 				'type'     => 'integer',
-				'validate' => [ self::class, 'validate_in_range', 0, 2 ],
+				// Four placements are offered and labelled: after the opening
+				// body tag, the footer, a manual template call, and off.
+				'validate' => [ self::class, 'validate_in_range', 0, 3 ],
 			],
 			'container_active'                       => [
 				'default'  => true,

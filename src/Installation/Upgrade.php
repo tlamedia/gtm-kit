@@ -8,6 +8,7 @@
 namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
+use TLA_Media\GTM_Kit\Common\SnippetScan;
 use TLA_Media\GTM_Kit\Options\Options;
 
 /**
@@ -50,16 +51,17 @@ final class Upgrade {
 	protected function get_upgrades(): array {
 
 		$available_upgrades = [
-			'1.11'  => 'v111_upgrade',
-			'1.14'  => 'v114_upgrade',
-			'1.15'  => 'v115_upgrade',
-			'1.20'  => 'v120_upgrade',
-			'1.22'  => 'v122_upgrade',
-			'2.2'   => 'v22_upgrade',
-			'2.4'   => 'v24_upgrade',
-			'2.7'   => 'v27_upgrade',
-			'2.8.0' => 'v280_upgrade',
-			'2.10'  => 'v210_upgrade',
+			'1.11'   => 'v111_upgrade',
+			'1.14'   => 'v114_upgrade',
+			'1.15'   => 'v115_upgrade',
+			'1.20'   => 'v120_upgrade',
+			'1.22'   => 'v122_upgrade',
+			'2.2'    => 'v22_upgrade',
+			'2.4'    => 'v24_upgrade',
+			'2.7'    => 'v27_upgrade',
+			'2.8.0'  => 'v280_upgrade',
+			'2.10'   => 'v210_upgrade',
+			'2.18.1' => 'v2181_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -277,5 +279,19 @@ final class Upgrade {
 		];
 
 		$this->options->set( $values, false, false );
+	}
+
+	/**
+	 * Upgrade routine for v2.18.1
+	 *
+	 * 2.18.0 armed the daily scan as a one-shot Action Scheduler action, which
+	 * fires once and leaves no successor. The scheduler only arms a recurrence
+	 * when nothing is pending, so a site still carrying that one-shot would run
+	 * one more cycle of the old behaviour before the fix took hold. Cancelling
+	 * it here lets the recurrence arm on this same request, since this runs on
+	 * `plugins_loaded` and the scan schedules itself on `admin_init`.
+	 */
+	protected function v2181_upgrade(): void {
+		SnippetScan::clear_scheduled_event();
 	}
 }

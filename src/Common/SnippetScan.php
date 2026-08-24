@@ -268,16 +268,23 @@ final class SnippetScan {
 	 */
 	public function schedule_daily_event(): void {
 
+		// Both branches describe the same daily recurrence from the same
+		// starting point. A single action would fire once and leave nothing
+		// behind: this method only runs on admin_init, so a store nobody logs
+		// into would stop scanning while Site Health and the dashboard still
+		// presented the last result as current.
+		$first_run = strtotime( 'midnight' );
+
 		if ( class_exists( 'ActionScheduler' ) ) {
 			if ( ! as_next_scheduled_action( self::SCAN_HOOK ) ) {
-				as_schedule_single_action( strtotime( 'midnight +25 hours' ), self::SCAN_HOOK, [], self::SCHEDULER_GROUP );
+				as_schedule_recurring_action( $first_run, DAY_IN_SECONDS, self::SCAN_HOOK, [], self::SCHEDULER_GROUP );
 			}
 
 			return;
 		}
 
 		if ( ! wp_next_scheduled( self::SCAN_HOOK ) ) {
-			wp_schedule_event( strtotime( 'midnight' ), 'daily', self::SCAN_HOOK );
+			wp_schedule_event( $first_run, 'daily', self::SCAN_HOOK );
 		}
 	}
 

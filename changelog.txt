@@ -1,5 +1,9 @@
 *** GTM Kit ***
 
+2026-08-24 - version 2.18.1
+* Fix: The daily check of your pages now keeps running on schedule on WooCommerce sites. It could previously stop after one run until an administrator next opened wp-admin.
+* Fix: On a site using a Google Tag Manager environment, the fallback for visitors without JavaScript pointed at your live container instead of the environment. It now matches the rest of your setup.
+
 2026-08-24 - version 2.18.0
 * Add: GTM Kit now checks one of your pages once a day and tells you when nothing on your site is loading your container, or when your pages load tracking twice.
 * Add: GTM Kit now reports on itself in WordPress's Site Health, with checks for your container, your consent setup, and what the daily page check found.

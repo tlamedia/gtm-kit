@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.18.0
+Stable tag: 2.18.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -122,6 +122,16 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/gtm-kit)
 
 == Changelog ==
+
+= 2.18.1 =
+
+Release date: 2026-08-24
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-18/).
+
+#### Bugfixes:
+* The daily check of your pages now keeps running on schedule on WooCommerce sites. It could previously stop after one run until an administrator next opened wp-admin.
+* On a site using a Google Tag Manager environment, the fallback for visitors without JavaScript pointed at your live container instead of the environment. It now matches the rest of your setup.
 
 = 2.18.0 =
 
