@@ -10,6 +10,7 @@ import SgtmPreviewTest from './sgtm-preview-test';
 import { BOX } from './controls';
 import { useSettingField } from '../../../hooks/useSettingField';
 import { parseKey, resolveItems } from '../../../registry/controls';
+import { NO_AUTOFILL } from '../../../constants/autofill';
 
 const LINK =
 	'gtmkit-text-sm gtmkit-font-medium gtmkit-text-brand-primary hover:gtmkit-underline disabled:gtmkit-opacity-50';
@@ -125,6 +126,7 @@ const ShellCmpAttributes = ( { field, disabled } ) => {
 				<div className="gtmkit-flex gtmkit-gap-2">
 					<input
 						type="text"
+						{ ...NO_AUTOFILL }
 						className={ `${ BOX } gtmkit-w-[150px]` }
 						placeholder="data-my-cmp"
 						value={ cmp.custom.name }
@@ -135,6 +137,7 @@ const ShellCmpAttributes = ( { field, disabled } ) => {
 					/>
 					<input
 						type="text"
+						{ ...NO_AUTOFILL }
 						className={ `${ BOX } gtmkit-w-[110px]` }
 						placeholder="ignore"
 						value={ cmp.custom.value }
@@ -260,6 +263,7 @@ const ShellExcludedUrlPatterns = ( { field, disabled } ) => {
 							<div className="gtmkit-flex-1">
 								<input
 									type="text"
+									{ ...NO_AUTOFILL }
 									className={ `${ BOX } gtmkit-w-full` }
 									value={ pattern }
 									maxLength={ PATTERN_MAX_LENGTH }

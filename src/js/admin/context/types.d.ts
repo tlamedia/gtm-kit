@@ -77,6 +77,8 @@ export interface SupportContextValue {
 	supportTicket: string;
 	isSendingSystemData: boolean;
 	isSystemDataSent: boolean;
+	/** Sending did not work: the request failed, or the support server was unreachable */
+	isSystemDataFailed: boolean;
 	systemDataMessage: string;
 	supportSync: SupportSyncState;
 	isStoppingSupportSync: boolean;
@@ -91,6 +93,7 @@ export interface SupportContextValue {
 	useIsSendingSystemData: boolean;
 	useIsSystemDataSent: boolean;
 	useSystemDataMessage: string;
+	useIsSystemDataFailed: boolean;
 }
 
 /**

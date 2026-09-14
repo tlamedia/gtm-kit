@@ -35,7 +35,9 @@ if ( ! file_exists( $gtmkit_plugin_dir . '/vendor/autoload.php' ) ) {
 	exit( 1 );
 }
 
-$gtmkit_suite = 'unit';
+// A test run in a separate process gets no `--testsuite` argument, so the
+// suite also travels in the environment, which that process inherits.
+$gtmkit_suite = getenv( 'GTMKIT_TEST_SUITE' ) ? getenv( 'GTMKIT_TEST_SUITE' ) : 'unit';
 foreach ( $_SERVER['argv'] ?? [] as $gtmkit_argv_index => $gtmkit_argv_value ) {
 	if ( $gtmkit_argv_value === '--testsuite' && isset( $_SERVER['argv'][ $gtmkit_argv_index + 1 ] ) ) {
 		$gtmkit_suite = $_SERVER['argv'][ $gtmkit_argv_index + 1 ];
@@ -46,6 +48,8 @@ foreach ( $_SERVER['argv'] ?? [] as $gtmkit_argv_index => $gtmkit_argv_value ) {
 		break;
 	}
 }
+// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- Test harness only: hands the resolved suite to isolated test processes; no plugin runtime configuration is changed.
+putenv( 'GTMKIT_TEST_SUITE=' . $gtmkit_suite );
 
 require_once $gtmkit_plugin_dir . '/vendor/autoload.php';
 

@@ -1,12 +1,13 @@
 /*WordPress*/
 import { __, sprintf } from '@wordpress/i18n';
-import { useContext } from '@wordpress/element';
+import { useContext, useEffect, useRef, useState } from '@wordpress/element';
 import { Spinner } from '@wordpress/components';
 
 /*Context / services / components*/
 import { SupportContext } from '../../context/SupportContext';
 import SettingsService from '../../services/SettingsService';
 import { safeHref } from '../../utils/safeUrl';
+import { NO_AUTOFILL } from '../../constants/autofill';
 import {
 	InfoCard,
 	InfoRow,
@@ -40,6 +41,8 @@ const BTN_PRIMARY =
 	'gtmkit-inline-flex gtmkit-items-center gtmkit-gap-1 gtmkit-rounded-sm gtmkit-bg-brand-primary gtmkit-px-4 gtmkit-py-[9px] gtmkit-text-[13px] gtmkit-font-medium gtmkit-text-white hover:gtmkit-opacity-90 disabled:gtmkit-opacity-50';
 const BTN_SECONDARY =
 	'gtmkit-inline-flex gtmkit-items-center gtmkit-gap-1 gtmkit-rounded-sm gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-4 gtmkit-py-[9px] gtmkit-text-[13px] gtmkit-font-medium gtmkit-text-text-primary hover:gtmkit-bg-brand-surface-subtle disabled:gtmkit-opacity-50';
+// A send still running after this long is treated as not working.
+const SLOW_SEND_MS = 15000;
 const CHANNEL_CARD =
 	'gtmkit-flex gtmkit-flex-col gtmkit-gap-3.5 gtmkit-rounded-xl gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-6 gtmkit-pb-[22px] gtmkit-pt-6';
 
@@ -77,6 +80,87 @@ const ChannelCard = ( { title, description, action, premium } ) => (
 );
 
 /**
+ * The manual route for system data: the same payload the Send button sends,
+ * rendered into the page by the server, to copy or download once sending has
+ * failed or stalled. Nothing here makes a request.
+ *
+ * @param {Object} props          Component props.
+ * @param {string} props.json     The system data, exactly as it would be sent.
+ * @param {string} props.filename The download's file name.
+ * @return {JSX.Element} The card.
+ */
+const ManualExportCard = ( { json, filename } ) => {
+	const textareaRef = useRef( null );
+	const [ isCopied, setIsCopied ] = useState( false );
+
+	const copy = async () => {
+		try {
+			await window.navigator.clipboard.writeText( json );
+			setIsCopied( true );
+		} catch {
+			// The Clipboard API is missing on an admin served over plain
+			// HTTP, so fall back to copying the selected text. If that fails
+			// too, the text stays selected for the user to copy by hand.
+			textareaRef.current.select();
+			setIsCopied( document.execCommand( 'copy' ) );
+		}
+	};
+
+	const download = () => {
+		const url = window.URL.createObjectURL(
+			new window.Blob( [ json ], { type: 'application/json' } )
+		);
+		const link = document.createElement( 'a' );
+		link.href = url;
+		link.download = filename;
+		document.body.appendChild( link );
+		link.click();
+		link.remove();
+		window.URL.revokeObjectURL( url );
+	};
+
+	return (
+		<InfoCard title={ __( 'Send system data manually', 'gtm-kit' ) }>
+			<InfoNote>
+				{ __(
+					'Sending your system data is not working from this site. Copy it here or download it as a file, and email it to the GTM Kit support team instead. It contains your GTM Kit settings, so send it only to the support team and never post it anywhere public.',
+					'gtm-kit'
+				) }
+			</InfoNote>
+			<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+				<textarea
+					ref={ textareaRef }
+					readOnly
+					rows={ 5 }
+					value={ json }
+					aria-label={ __( 'System data', 'gtm-kit' ) }
+					onFocus={ ( e ) => e.target.select() }
+					className="gtmkit-w-full gtmkit-rounded-sm gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-p-2 gtmkit-font-mono gtmkit-text-xs gtmkit-text-text-primary"
+				/>
+			</div>
+			<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-3 gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
+				<button
+					type="button"
+					className={ BTN_SECONDARY }
+					onClick={ copy }
+				>
+					{ isCopied
+						? __( 'Copied', 'gtm-kit' )
+						: __( 'Copy system data', 'gtm-kit' ) }
+				</button>
+				<button
+					type="button"
+					className={ BTN_SECONDARY }
+					onClick={ download }
+				>
+					{ __( 'Download as a file', 'gtm-kit' ) }
+				</button>
+			</div>
+		</InfoCard>
+	);
+};
+
+/**
  * Support page: support channels, the system-data sharing flow and the
  * documentation library.
  *
@@ -90,6 +174,7 @@ const SupportPage = () => {
 		sendSystemData,
 		useIsSystemDataSent,
 		useSystemDataMessage,
+		useIsSystemDataFailed,
 		supportSync,
 		isStoppingSupportSync,
 		stopSupportSync,
@@ -98,6 +183,24 @@ const SupportPage = () => {
 	const canSend = useSupportTicket.trim().toUpperCase().startsWith( 'FS' );
 	const tutorials = SettingsService.getTutorials();
 	const premiumActive = SettingsService.isPremiumPlugin();
+	const supportExport = SettingsService.getSupportExport();
+	const [ isSendSlow, setIsSendSlow ] = useState( false );
+
+	useEffect( () => {
+		setIsSendSlow( false );
+
+		if ( ! isSendingSystemData ) {
+			return undefined;
+		}
+
+		const timer = setTimeout( () => setIsSendSlow( true ), SLOW_SEND_MS );
+		return () => clearTimeout( timer );
+	}, [ isSendingSystemData ] );
+
+	// The server only provides the export to Premium, and the page offers it
+	// only once sending has failed or stalled.
+	const showManualExport =
+		supportExport !== null && ( useIsSystemDataFailed || isSendSlow );
 
 	let shareCardBody;
 	if ( supportSync?.active ) {
@@ -150,6 +253,7 @@ const SupportPage = () => {
 					</span>
 					<input
 						type="text"
+						{ ...NO_AUTOFILL }
 						value={ useSupportTicket }
 						placeholder={ __( 'FS-12345', 'gtm-kit' ) }
 						aria-label={ __( 'Support ticket', 'gtm-kit' ) }
@@ -172,6 +276,11 @@ const SupportPage = () => {
 					{ useSystemDataMessage && (
 						<p className="gtmkit-m-0 gtmkit-mt-2 gtmkit-text-xs gtmkit-text-[#b32d2e]">
 							{ useSystemDataMessage }
+							{ showManualExport &&
+								` ${ __(
+									'You can send your system data manually instead, below.',
+									'gtm-kit'
+								) }` }
 						</p>
 					) }
 				</div>
@@ -241,6 +350,13 @@ const SupportPage = () => {
 			>
 				{ shareCardBody }
 			</InfoCard>
+
+			{ showManualExport && (
+				<ManualExportCard
+					json={ supportExport.json }
+					filename={ supportExport.filename }
+				/>
+			) }
 
 			<InfoCard
 				title={ __( 'Documentation', 'gtm-kit' ) }

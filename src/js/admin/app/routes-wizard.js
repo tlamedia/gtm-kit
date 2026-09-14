@@ -46,7 +46,7 @@ const PremiumUpsell = lazy( () => import( './pages-wizard/premium' ) );
 
 const SettingRouters = () => {
 	const { useSettings } = useContext( SettingsDataContext );
-	const { toasts } = useContext( ToastContext );
+	const { toasts, removeToast } = useContext( ToastContext );
 
 	if ( ! Object.keys( useSettings ).length ) {
 		return (
@@ -166,7 +166,7 @@ const SettingRouters = () => {
 				</Suspense>
 			</main>
 			<Footer />
-			<ToastContainer toasts={ toasts } />
+			<ToastContainer toasts={ toasts } onDismiss={ removeToast } />
 		</>
 	);
 };

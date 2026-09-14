@@ -41,6 +41,20 @@ final class SupportSyncTest extends TestCase {
 	private $last_autoload_flag;
 
 	/**
+	 * The drop-ins the stubbed `get_dropins` reports.
+	 *
+	 * @var array<string, array<string, string>>
+	 */
+	private array $drop_ins = [];
+
+	/**
+	 * What the stubbed `wp_using_ext_object_cache` reports.
+	 *
+	 * @var bool
+	 */
+	private bool $ext_object_cache = false;
+
+	/**
 	 * System under test.
 	 *
 	 * @var SupportSync
@@ -218,6 +232,8 @@ final class SupportSyncTest extends TestCase {
 		Functions\when( 'get_locale' )->justReturn( 'en_US' );
 		Functions\when( 'is_multisite' )->justReturn( false );
 		Functions\when( 'site_url' )->justReturn( 'https://example.test' );
+		Functions\when( 'get_dropins' )->alias( fn() => $this->drop_ins );
+		Functions\when( 'wp_using_ext_object_cache' )->alias( fn() => $this->ext_object_cache );
 	}
 
 	/**
@@ -629,6 +645,80 @@ final class SupportSyncTest extends TestCase {
 			$auto['system_data'],
 			'The payload is exactly the site data the manual share sends.'
 		);
+	}
+
+	/**
+	 * The export is the request body a share sends, byte for byte, apart
+	 * from its source label, and producing it makes no request of any kind.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\SupportSync::get_export
+	 */
+	public function test_export_is_the_share_body_without_any_request(): void {
+		$this->stub_site_data_functions();
+
+		Functions\when( 'home_url' )->justReturn( 'https://shop.example.test/' );
+		Functions\when( 'wp_parse_url' )->alias( 'parse_url' );
+		Functions\when( 'sanitize_file_name' )->returnArg();
+		Functions\when( 'wp_date' )->justReturn( '2026-09-11' );
+
+		foreach ( [ 'wp_remote_request', 'wp_remote_get', 'wp_remote_post', 'rest_url', 'rest_do_request' ] as $request_function ) {
+			Functions\expect( $request_function )->never();
+		}
+
+		$export = $this->support_sync->get_export();
+
+		$this->assertSame(
+			json_encode( $this->support_sync->build_request_body( SupportSync::SOURCE_AUTO ) ), // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode -- Mirrors the stubbed wp_json_encode alias for a byte comparison.
+			str_replace( '"source":"export"', '"source":"auto"', $export['json'] ),
+			'Apart from its source label, the export is byte-identical to what an automatic push sends.'
+		);
+		$this->assertSame( 'export', json_decode( $export['json'], true )['source'] );
+		$this->assertSame( 'gtmkit-system-data-shop.example.test-2026-09-11.json', $export['filename'] );
+	}
+
+	/**
+	 * The support payload reports the object cache, and reports a drop-in
+	 * separately from whether its cache is actually in use.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\Util::get_site_data
+	 */
+	public function test_support_payload_reports_the_object_cache(): void {
+		$this->stub_site_data_functions();
+
+		$read_object_cache = function (): array {
+			$body        = $this->support_sync->build_request_body( SupportSync::SOURCE_MANUAL );
+			$system_data = json_decode( $body['system_data'], true );
+
+			return $system_data['support_data']['object_cache'];
+		};
+
+		$this->assertSame(
+			[
+				'persistent' => false,
+				'drop_in'    => null,
+			],
+			$read_object_cache()
+		);
+
+		$this->drop_ins = [
+			'object-cache.php' => [
+				'Name'    => 'Redis Object Cache Drop-In',
+				'Version' => '2.5.4',
+			],
+		];
+
+		$this->assertSame(
+			[
+				'persistent' => false,
+				'drop_in'    => 'Redis Object Cache Drop-In 2.5.4',
+			],
+			$read_object_cache(),
+			'A drop-in whose cache is unavailable is still named.'
+		);
+
+		$this->ext_object_cache = true;
+
+		$this->assertTrue( $read_object_cache()['persistent'] );
 	}
 
 	/**

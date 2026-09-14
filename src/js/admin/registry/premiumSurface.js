@@ -42,7 +42,7 @@ export const PREMIUM_CARDS = [
 		link: 'cardPurchaseAccuracy',
 		title: __( 'Purchase accuracy', 'gtm-kit' ),
 		body: __(
-			'A payment gateway that redirects the customer away from your thank-you page never fires the browser purchase event, so the sale goes unrecorded. Sending it from the server recovers it. A stable event ID keeps Meta, TikTok and other Conversions API destinations from counting a recovered purchase twice, refunds and order-status changes are sent as their own events, and order attribution is surfaced where you can act on it.',
+			"A payment gateway that redirects the customer away from your thank-you page never fires the browser 'purchase' event, so the sale goes unrecorded. Sending it from the server recovers it. A stable event ID keeps Meta, TikTok and other Conversions API destinations from counting a recovered purchase twice, refunds and order-status changes are sent as their own events, and order attribution is surfaced where you can act on it.",
 			'gtm-kit'
 		),
 		claim: __(

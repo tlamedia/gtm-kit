@@ -31,6 +31,7 @@ const initialState = {
 	supportTicket: '',
 	isSendingSystemData: false,
 	isSystemDataSent: false,
+	isSystemDataFailed: false,
 	systemDataMessage: '',
 	supportSync: SettingsService.getSupportSync(),
 	isStoppingSupportSync: false,
@@ -48,6 +49,8 @@ const supportReducer = ( state, action ) => {
 			newState.isSendingSystemData = false;
 			newState.isSystemDataSent =
 				action.payload.isSystemDataSent || false;
+			newState.isSystemDataFailed =
+				action.payload.isSystemDataFailed || false;
 			newState.systemDataMessage = action.payload.systemDataMessage || '';
 			if ( action.payload.supportSync !== undefined ) {
 				newState.supportSync = action.payload.supportSync;
@@ -120,6 +123,10 @@ export const SupportProvider = ( { children } ) => {
 				type: ActionTypes.SEND_SUPPORT_DATA,
 				payload: {
 					isSystemDataSent: response.success,
+					// The server could not reach the support server, as
+					// opposed to refusing the ticket.
+					isSystemDataFailed:
+						! response.success && data?.reason === 'unreachable',
 					systemDataMessage: message,
 					supportSync:
 						data && typeof data === 'object' && data.supportSync
@@ -132,6 +139,7 @@ export const SupportProvider = ( { children } ) => {
 				type: ActionTypes.SEND_SUPPORT_DATA,
 				payload: {
 					isSystemDataSent: false,
+					isSystemDataFailed: true,
 					systemDataMessage:
 						error.message || 'Failed to send system data',
 				},
@@ -189,6 +197,7 @@ export const SupportProvider = ( { children } ) => {
 		useIsSendingSystemData: state.isSendingSystemData,
 		useIsSystemDataSent: state.isSystemDataSent,
 		useSystemDataMessage: state.systemDataMessage,
+		useIsSystemDataFailed: state.isSystemDataFailed,
 	};
 
 	return (

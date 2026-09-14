@@ -13,6 +13,7 @@ export declare const OPTION_GROUPS: {
 export declare const GENERAL_OPTIONS: {
 	readonly GTM_ID: 'gtm_id';
 	readonly CONTAINER_ACTIVE: 'container_active';
+	readonly GOOGLE_TAG_GATEWAY: 'google_tag_gateway';
 	readonly SGTM_DOMAIN: 'sgtm_domain';
 	readonly SGTM_CONTAINER_IDENTIFIER: 'sgtm_container_identifier';
 	readonly SGTM_COOKIE_KEEPER: 'sgtm_cookie_keeper';

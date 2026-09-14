@@ -5,13 +5,15 @@ import { __ } from '@wordpress/i18n';
  * not rendered.
  *
  * @param {{ provider: string, id: string }} props
- * @return {JSX.Element|null}
+ * @return {JSX.Element|null} The embedded video, or null for an unsupported provider or a missing id.
  */
 const Video = ( { provider, id } ) => {
 	if ( provider !== 'youtube' || typeof id !== 'string' || id === '' ) {
 		return null;
 	}
-	const src = `https://www.youtube-nocookie.com/embed/${ encodeURIComponent( id ) }`;
+	const src = `https://www.youtube-nocookie.com/embed/${ encodeURIComponent(
+		id
+	) }`;
 	return (
 		<div
 			style={ {

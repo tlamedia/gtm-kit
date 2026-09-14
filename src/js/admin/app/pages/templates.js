@@ -24,6 +24,7 @@ import { SiteDataContext } from '../../context/SiteDataContext';
 import { LicenseContext } from '../../context/LicenseContext';
 import { getAdminLink } from '../utils/get-admin-link';
 import SettingsService from '../../services/SettingsService';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 /**
  * Wide-viewport context pane for the Template Assistant: what the generator
@@ -689,6 +690,7 @@ const Templates = memo( ( { templateData } ) => {
 												) }
 											</h4>
 											<TextControl
+												{ ...NO_AUTOFILL }
 												label={ __(
 													'Server Container URL',
 													'gtm-kit'
@@ -713,6 +715,7 @@ const Templates = memo( ( { templateData } ) => {
 												}
 											/>
 											<TextControl
+												{ ...NO_AUTOFILL }
 												label={ __(
 													'Server Container ID',
 													'gtm-kit'
@@ -835,6 +838,7 @@ const Templates = memo( ( { templateData } ) => {
 															( field ) => (
 																<TextControl
 																	key={ `${ service.id }-${ field.key }` }
+																	{ ...NO_AUTOFILL }
 																	label={
 																		field.label
 																	}

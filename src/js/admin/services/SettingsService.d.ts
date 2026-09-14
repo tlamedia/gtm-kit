@@ -29,7 +29,13 @@ export interface SettingsServiceData {
 	tutorials?: Tutorial[];
 	generatorUrl?: string;
 	supportSync?: SupportSyncState;
+	supportExport?: SupportExport;
 	siteEnvironment?: SiteEnvironmentState;
+}
+
+export interface SupportExport {
+	json: string;
+	filename: string;
 }
 
 export interface SiteEnvironmentState {
@@ -163,6 +169,11 @@ declare class SettingsService {
 	 * Get the live support sync state
 	 */
 	getSupportSync(): SupportSyncState;
+
+	/**
+	 * Get the system data export rendered into the page
+	 */
+	getSupportExport(): SupportExport | null;
 
 	/**
 	 * Get install data (wizard only)

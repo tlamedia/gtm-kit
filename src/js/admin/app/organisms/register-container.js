@@ -5,6 +5,7 @@ import { SettingsDataContext } from '../../context/SettingsDataContext';
 import { useNavigate } from 'react-router-dom';
 import GtmIdHelpPopup from '../atoms/gtm-id-help-popup';
 import { validateGtmId, normalizeGtmId } from '../../utils/gtm-validation';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 const RegisterContainer = () => {
 	const {
@@ -21,6 +22,7 @@ const RegisterContainer = () => {
 				<div className="">
 					<div className="gtmkit-settings-field-wrap gtmkit-w-full !gtmkit-px-8 ">
 						<TextControl
+							{ ...NO_AUTOFILL }
 							label={ __( 'Container ID', 'gtm-kit' ) }
 							placeholder={ __(
 								'Enter Container ID',

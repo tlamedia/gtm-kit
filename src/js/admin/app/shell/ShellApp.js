@@ -72,7 +72,7 @@ const LegacyRedirect = ( { to } ) => {
  */
 const ShellApp = () => {
 	const { useSettings } = useContext( SettingsDataContext );
-	const { toasts } = useContext( ToastContext );
+	const { toasts, removeToast } = useContext( ToastContext );
 	const [ query, setQuery ] = useState( '' );
 	const { pathname } = useLocation();
 
@@ -315,7 +315,7 @@ const ShellApp = () => {
 				</div>
 			</FilterProvider>
 			<PluginArea />
-			<ToastContainer toasts={ toasts } />
+			<ToastContainer toasts={ toasts } onDismiss={ removeToast } />
 		</SlotFillProvider>
 	);
 };

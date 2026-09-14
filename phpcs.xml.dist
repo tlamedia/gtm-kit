@@ -38,6 +38,12 @@
 	     /tests/manual/*). -->
 	<exclude-pattern>/tests/e2e/*</exclude-pattern>
 
+	<!-- Exclude the vendored Google tag gateway proxy. It is Google-authored
+	     Apache-2.0 code kept byte-identical to upstream so it can be re-synced,
+	     and it deliberately runs in isolation without the WordPress bootstrap,
+	     so the WordPress ruleset does not apply to it. -->
+	<exclude-pattern>/gtg/*</exclude-pattern>
+
 	<!-- Strip the file paths down to the relevant bit. -->
 	<arg name="basepath" value="."/>
 

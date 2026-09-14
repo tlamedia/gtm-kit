@@ -501,7 +501,14 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // phpcs:ignore
 
-		if ( $order->get_order_key() !== $order_key ) {
+		if ( ! hash_equals( $order->get_order_key(), (string) $order_key ) ) {
+			return $data_layer;
+		}
+
+		// WooCommerce renders this page without any order details to a visitor
+		// it cannot tie to the order. Returning before the tracking flag is
+		// stamped is what keeps the real customer's later visit trackable.
+		if ( ! $this->visitor_may_view_order( $order ) ) {
 			return $data_layer;
 		}
 
@@ -535,13 +542,82 @@ final class WooCommerce extends AbstractEcommerce {
 		$data_layer = $this->get_purchase_event( $order, $data_layer );
 
 		if ( $this->options->get( 'integrations', 'woocommerce_include_customer_data' ) ) {
-			$data_layer = $this->include_customer_data( $data_layer, $order_value );
+			$data_layer = $this->include_customer_data( $data_layer, $order, $order_value );
 		}
 
 		$order->add_meta_data( '_gtmkit_order_tracked', '1' );
 		$order->save();
 
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
+	}
+
+	/**
+	 * Whether WooCommerce would show this order to whoever is viewing the page.
+	 *
+	 * Mirrors the two checks WooCommerce applies on the order-received endpoint
+	 * after the order key matches, in the order it applies them: a registered
+	 * customer's order is only shown to that customer, and a guest order is only
+	 * shown to a visitor the store can identify. Reading WooCommerce's own
+	 * filter rather than hardcoding the rule means a store that deliberately
+	 * relaxes the requirement keeps its tracking, with nothing to configure.
+	 *
+	 * @param WC_Order $order The order being viewed.
+	 *
+	 * @return bool
+	 */
+	private function visitor_may_view_order( WC_Order $order ): bool {
+
+		$verify_known_shoppers = (bool) apply_filters( 'woocommerce_order_received_verify_known_shoppers', true );
+		$order_customer_id     = $order->get_customer_id();
+
+		if ( $verify_known_shoppers && $order_customer_id && get_current_user_id() !== $order_customer_id ) {
+			return false;
+		}
+
+		return ! $this->guest_should_verify_email( $order );
+	}
+
+	/**
+	 * Whether WooCommerce would ask this visitor to verify the order's email.
+	 *
+	 * WooCommerce's own wrapper for this is private, so the nonce handling it
+	 * performs on a submitted verification form is repeated here before the
+	 * shared helper is consulted.
+	 *
+	 * @param WC_Order $order The order being viewed.
+	 *
+	 * @return bool
+	 */
+	private function guest_should_verify_email( WC_Order $order ): bool {
+
+		$verifier = [ '\Automattic\WooCommerce\Internal\Utilities\Users', 'should_user_verify_order_email' ];
+
+		// The helper lives in WooCommerce's `Internal` namespace and is not
+		// part of its public API, so it may move or disappear between
+		// releases. Should that happen, the known-shopper check above still
+		// stands and guest orders are reported as they were before.
+		if ( ! is_callable( $verifier ) ) {
+			return false;
+		}
+
+		// The classic confirmation template names the verification nonce
+		// `check_submission`; the block template posts the same nonce as
+		// `_wpnonce`. A guest verifying on either one must be recognised.
+		$supplied_email = null;
+		$nonce          = '';
+
+		foreach ( [ 'check_submission', '_wpnonce' ] as $nonce_field ) {
+			if ( isset( $_POST[ $nonce_field ] ) && is_string( $_POST[ $nonce_field ] ) ) {
+				$nonce = sanitize_text_field( wp_unslash( $_POST[ $nonce_field ] ) );
+				break;
+			}
+		}
+
+		if ( '' !== $nonce && wp_verify_nonce( $nonce, 'wc_verify_email' ) && isset( $_POST['email'] ) && is_string( $_POST['email'] ) ) {
+			$supplied_email = sanitize_email( wp_unslash( $_POST['email'] ) );
+		}
+
+		return (bool) call_user_func( $verifier, $order->get_id(), $supplied_email, 'order-received' );
 	}
 
 	/**
@@ -1067,69 +1143,79 @@ final class WooCommerce extends AbstractEcommerce {
 	/**
 	 * Include customer data
 	 *
+	 * Every field describes the shopper who placed the order and is read off
+	 * the order itself. The browsing session is not consulted: on the
+	 * order-received page it belongs to whoever opened the link, who is not
+	 * necessarily the purchaser.
+	 *
 	 * @param array<string, mixed> $data_layer The datalayer content.
+	 * @param WC_Order             $order The order.
 	 * @param mixed                $order_value Order value.
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function include_customer_data( array $data_layer, $order_value ): array {
+	public function include_customer_data( array $data_layer, WC_Order $order, $order_value ): array {
 
-		if ( is_user_logged_in() ) {
+		$customer_id = $order->get_customer_id();
+		$wc_customer = null;
+		$order_count = 1;
+		$total_spent = $order_value;
+
+		if ( $customer_id ) {
 			try {
-				$wc_customer = new WC_Customer( WC()->customer->get_id() );
+				$wc_customer = new WC_Customer( $customer_id );
 				$order_count = $wc_customer->get_order_count();
 				$total_spent = $wc_customer->get_total_spent();
 			} catch ( Exception $e ) {
-				$wc_customer = WC()->customer;
-				$order_count = 1;
-				$total_spent = $order_value;
+				// An account that has since been deleted leaves no lifetime
+				// figures to report; the order's own values stand in, as they
+				// already do for a guest purchase.
+				$wc_customer = null;
 			}
-		} else {
-			$wc_customer = WC()->customer;
-			$order_count = 1;
-			$total_spent = $order_value;
 		}
 
-		$data_layer['ecommerce']['customer']['id'] = $wc_customer->get_id();
+		$billing_email = $order->get_billing_email();
+
+		$data_layer['ecommerce']['customer']['id'] = $customer_id;
 
 		$data_layer['ecommerce']['customer']['order_count'] = $order_count;
-		$data_layer['ecommerce']['customer']['total_spent'] = round( $total_spent, 2 );
+		$data_layer['ecommerce']['customer']['total_spent'] = round( (float) $total_spent, 2 );
 
-		$data_layer['ecommerce']['customer']['first_name'] = $wc_customer->get_first_name();
-		$data_layer['ecommerce']['customer']['last_name']  = $wc_customer->get_last_name();
+		$data_layer['ecommerce']['customer']['first_name'] = ( $wc_customer instanceof WC_Customer ) ? $wc_customer->get_first_name() : $order->get_billing_first_name();
+		$data_layer['ecommerce']['customer']['last_name']  = ( $wc_customer instanceof WC_Customer ) ? $wc_customer->get_last_name() : $order->get_billing_last_name();
 
-		$data_layer['ecommerce']['customer']['billing_first_name'] = $wc_customer->get_billing_first_name();
-		$data_layer['ecommerce']['customer']['billing_last_name']  = $wc_customer->get_billing_last_name();
-		$data_layer['ecommerce']['customer']['billing_company']    = $wc_customer->get_billing_company();
-		$data_layer['ecommerce']['customer']['billing_address_1']  = $wc_customer->get_billing_address_1();
-		$data_layer['ecommerce']['customer']['billing_address_2']  = $wc_customer->get_billing_address_2();
-		$data_layer['ecommerce']['customer']['billing_city']       = $wc_customer->get_billing_city();
-		$data_layer['ecommerce']['customer']['billing_postcode']   = $wc_customer->get_billing_postcode();
-		$data_layer['ecommerce']['customer']['billing_country']    = $wc_customer->get_billing_country();
-		$data_layer['ecommerce']['customer']['billing_state']      = $wc_customer->get_billing_state();
-		$data_layer['ecommerce']['customer']['billing_email']      = $wc_customer->get_billing_email();
-		$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $wc_customer->get_billing_email() ) ? hash( 'sha256', $wc_customer->get_billing_email() ) : '';
-		$data_layer['ecommerce']['customer']['billing_phone']      = $wc_customer->get_billing_phone();
+		$data_layer['ecommerce']['customer']['billing_first_name'] = $order->get_billing_first_name();
+		$data_layer['ecommerce']['customer']['billing_last_name']  = $order->get_billing_last_name();
+		$data_layer['ecommerce']['customer']['billing_company']    = $order->get_billing_company();
+		$data_layer['ecommerce']['customer']['billing_address_1']  = $order->get_billing_address_1();
+		$data_layer['ecommerce']['customer']['billing_address_2']  = $order->get_billing_address_2();
+		$data_layer['ecommerce']['customer']['billing_city']       = $order->get_billing_city();
+		$data_layer['ecommerce']['customer']['billing_postcode']   = $order->get_billing_postcode();
+		$data_layer['ecommerce']['customer']['billing_country']    = $order->get_billing_country();
+		$data_layer['ecommerce']['customer']['billing_state']      = $order->get_billing_state();
+		$data_layer['ecommerce']['customer']['billing_email']      = $billing_email;
+		$data_layer['ecommerce']['customer']['billing_email_hash'] = ( $billing_email ) ? hash( 'sha256', $billing_email ) : '';
+		$data_layer['ecommerce']['customer']['billing_phone']      = $order->get_billing_phone();
 
-		$data_layer['ecommerce']['customer']['shipping_firstName'] = $wc_customer->get_shipping_first_name();
-		$data_layer['ecommerce']['customer']['shipping_lastName']  = $wc_customer->get_shipping_last_name();
-		$data_layer['ecommerce']['customer']['shipping_company']   = $wc_customer->get_shipping_company();
-		$data_layer['ecommerce']['customer']['shipping_address_1'] = $wc_customer->get_shipping_address_1();
-		$data_layer['ecommerce']['customer']['shipping_address_2'] = $wc_customer->get_shipping_address_2();
-		$data_layer['ecommerce']['customer']['shipping_city']      = $wc_customer->get_shipping_city();
-		$data_layer['ecommerce']['customer']['shipping_postcode']  = $wc_customer->get_shipping_postcode();
-		$data_layer['ecommerce']['customer']['shipping_country']   = $wc_customer->get_shipping_country();
-		$data_layer['ecommerce']['customer']['shipping_state']     = $wc_customer->get_shipping_state();
+		$data_layer['ecommerce']['customer']['shipping_firstName'] = $order->get_shipping_first_name();
+		$data_layer['ecommerce']['customer']['shipping_lastName']  = $order->get_shipping_last_name();
+		$data_layer['ecommerce']['customer']['shipping_company']   = $order->get_shipping_company();
+		$data_layer['ecommerce']['customer']['shipping_address_1'] = $order->get_shipping_address_1();
+		$data_layer['ecommerce']['customer']['shipping_address_2'] = $order->get_shipping_address_2();
+		$data_layer['ecommerce']['customer']['shipping_city']      = $order->get_shipping_city();
+		$data_layer['ecommerce']['customer']['shipping_postcode']  = $order->get_shipping_postcode();
+		$data_layer['ecommerce']['customer']['shipping_country']   = $order->get_shipping_country();
+		$data_layer['ecommerce']['customer']['shipping_state']     = $order->get_shipping_state();
 
-		$data_layer['user_data']['sha256_email_address']         = $this->util->normalize_and_hash_email_address( 'sha256', $wc_customer->get_billing_email() );
-		$data_layer['user_data']['sha256_phone_number']          = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_phone(), true );
-		$data_layer['user_data']['address']['sha256_first_name'] = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_first_name(), false );
-		$data_layer['user_data']['address']['sha256_last_name']  = $this->util->normalize_and_hash( 'sha256', $wc_customer->get_billing_last_name(), false );
-		$data_layer['user_data']['address']['street']            = $wc_customer->get_billing_address_1();
-		$data_layer['user_data']['address']['city']              = $wc_customer->get_billing_city();
-		$data_layer['user_data']['address']['region']            = $wc_customer->get_billing_state();
-		$data_layer['user_data']['address']['postal_code']       = $wc_customer->get_billing_postcode();
-		$data_layer['user_data']['address']['country']           = $wc_customer->get_billing_country();
+		$data_layer['user_data']['sha256_email_address']         = $this->util->normalize_and_hash_email_address( 'sha256', $billing_email );
+		$data_layer['user_data']['sha256_phone_number']          = $this->util->normalize_and_hash( 'sha256', $order->get_billing_phone(), true );
+		$data_layer['user_data']['address']['sha256_first_name'] = $this->util->normalize_and_hash( 'sha256', $order->get_billing_first_name(), false );
+		$data_layer['user_data']['address']['sha256_last_name']  = $this->util->normalize_and_hash( 'sha256', $order->get_billing_last_name(), false );
+		$data_layer['user_data']['address']['street']            = $order->get_billing_address_1();
+		$data_layer['user_data']['address']['city']              = $order->get_billing_city();
+		$data_layer['user_data']['address']['region']            = $order->get_billing_state();
+		$data_layer['user_data']['address']['postal_code']       = $order->get_billing_postcode();
+		$data_layer['user_data']['address']['country']           = $order->get_billing_country();
 
 		return $data_layer;
 	}

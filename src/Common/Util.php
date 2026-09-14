@@ -133,6 +133,7 @@ final class Util {
 			}
 			$data['support_data']['purchase_event_recorded'] = $purchase_event_recorded;
 			$data['support_data']['site_url']                = site_url();
+			$data['support_data']['object_cache']            = $this->get_object_cache_data();
 			if ( function_exists( 'WC' ) ) {
 				$data['support_data']['pages'] = WooCommerce::instance()->get_pages_property( [] )['pages'];
 			}
@@ -538,6 +539,33 @@ final class Util {
 	 */
 	private function get_admin_url(): string {
 		return is_network_admin() ? network_admin_url() : admin_url();
+	}
+
+	/**
+	 * Describe the site's object cache for support.
+	 *
+	 * A persistent object cache can serve stale option values, which is easy
+	 * to miss in a plain list of active plugins. Both parts are reported
+	 * because they can disagree: a drop-in can be installed while its cache
+	 * server is unavailable and WordPress has fallen back to its own cache.
+	 *
+	 * @return array{persistent: bool, drop_in: string|null} Whether a persistent object cache is in use, and the name and version of the drop-in installed for it.
+	 */
+	private function get_object_cache_data(): array {
+		self::load_plugin_api();
+
+		$drop_ins = get_dropins();
+		$drop_in  = null;
+
+		if ( isset( $drop_ins['object-cache.php'] ) ) {
+			$name    = trim( ( $drop_ins['object-cache.php']['Name'] ?? '' ) . ' ' . ( $drop_ins['object-cache.php']['Version'] ?? '' ) );
+			$drop_in = ( '' !== $name ) ? $name : 'object-cache.php';
+		}
+
+		return [
+			'persistent' => (bool) wp_using_ext_object_cache(),
+			'drop_in'    => $drop_in,
+		];
 	}
 
 	/**

@@ -20,6 +20,7 @@ jest.mock( '../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSupportSync: () => ( { active: false } ),
+		getSupportExport: () => null,
 		getTutorials: () => [],
 		getOpportunities: () => ( {} ),
 		isPremiumPlugin: () => false,

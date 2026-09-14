@@ -4,7 +4,7 @@
  * input is empty or invalid.
  *
  * @param {Array<{ id: string, priority: number }>|undefined} intros
- * @return {{ id: string, priority: number }|null}
+ * @return {{ id: string, priority: number }|null} The highest-priority introduction, or null when there is none.
  */
 export function pickHighestPriority( intros ) {
 	if ( ! Array.isArray( intros ) || intros.length === 0 ) {

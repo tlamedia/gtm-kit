@@ -104,7 +104,7 @@ export const COMMERCE_FIELDS = [
 		10,
 		__( 'Include customer data', 'gtm-kit' ),
 		__(
-			'Enable this option to include customer data in the data layer on the "purchase" event.',
+			"Enable this option to include customer data in the data layer on the 'purchase' event.",
 			'gtm-kit'
 		)
 	),
@@ -116,26 +116,26 @@ export const COMMERCE_FIELDS = [
 		section: 'woo-events',
 		order: 10,
 		control: 'radio',
-		label: __( 'view_item_list (with product filter)', 'gtm-kit' ),
+		label: __( "'view_item_list' (with product filter)", 'gtm-kit' ),
 		valueType: 'integer',
 		options: [
 			{
 				label: __(
-					'Push view_item_list when the list is updated using a product filter.',
+					"Push 'view_item_list' when the list is updated using a product filter.",
 					'gtm-kit'
 				),
 				value: 0,
 			},
 			{
 				label: __(
-					'Only push view_item_list once per page for each list.',
+					"Only push 'view_item_list' once per page for each list.",
 					'gtm-kit'
 				),
 				value: 1,
 			},
 		],
 		help: __(
-			'Do you want to push the view_item_list event if the list is updated using a filter or just once per page view?',
+			"Do you want to push the 'view_item_list' event if the list is updated using a filter or just once per page view?",
 			'gtm-kit'
 		),
 		tier: 'free',
@@ -148,33 +148,33 @@ export const COMMERCE_FIELDS = [
 		section: 'woo-events',
 		order: 20,
 		control: 'radio',
-		label: __( 'view_item (variable product)', 'gtm-kit' ),
+		label: __( "'view_item' (variable product)", 'gtm-kit' ),
 		valueType: 'integer',
 		options: [
 			{
 				label: __(
-					'Only push view_item on the master product',
+					"Only push 'view_item' on the master product",
 					'gtm-kit'
 				),
 				value: 0,
 			},
 			{
 				label: __(
-					'Push view_item on master and variation products (higher number of views).',
+					"Push 'view_item' on master and variation products (higher number of views).",
 					'gtm-kit'
 				),
 				value: 1,
 			},
 			{
 				label: __(
-					'Only push view_item on variation products.',
+					"Only push 'view_item' on variation products.",
 					'gtm-kit'
 				),
 				value: 2,
 			},
 		],
 		help: __(
-			'When do you want to fire the "view_item" event on variable products?',
+			"When do you want to fire the 'view_item' event on variable products?",
 			'gtm-kit'
 		),
 		tier: 'free',
@@ -187,7 +187,7 @@ export const COMMERCE_FIELDS = [
 		section: 'woo-events',
 		order: 30,
 		control: 'radio',
-		label: __( 'add_shipping_info', 'gtm-kit' ),
+		label: __( "'add_shipping_info'", 'gtm-kit' ),
 		valueType: 'integer',
 		options: [
 			{
@@ -213,7 +213,7 @@ export const COMMERCE_FIELDS = [
 			},
 		],
 		help: __(
-			'When do you want to fire the "add_shipping_info" event?',
+			"When do you want to fire the 'add_shipping_info' event?",
 			'gtm-kit'
 		),
 		tier: 'free',
@@ -226,7 +226,7 @@ export const COMMERCE_FIELDS = [
 		section: 'woo-events',
 		order: 40,
 		control: 'radio',
-		label: __( 'add_payment_info', 'gtm-kit' ),
+		label: __( "'add_payment_info'", 'gtm-kit' ),
 		valueType: 'integer',
 		options: [
 			{
@@ -249,7 +249,7 @@ export const COMMERCE_FIELDS = [
 			},
 		],
 		help: __(
-			'When do you want to fire the "add_payment_info" event?',
+			"When do you want to fire the 'add_payment_info' event?",
 			'gtm-kit'
 		),
 		tier: 'free',
@@ -406,7 +406,7 @@ export const COMMERCE_FIELDS = [
 		30,
 		__( 'Include customer data', 'gtm-kit' ),
 		__(
-			'Enable this option to include customer data in the data layer on the "purchase" event.',
+			"Enable this option to include customer data in the data layer on the 'purchase' event.",
 			'gtm-kit'
 		)
 	),

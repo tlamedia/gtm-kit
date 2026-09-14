@@ -63,7 +63,22 @@ final class CMPDetection {
 			return '';
 		}
 
-		return self::DISPLAY_NAMES[ $slug ] ?? $slug;
+		$name = self::DISPLAY_NAMES[ $slug ] ?? $slug;
+
+		/**
+		 * Filters the name a consent platform is shown under.
+		 *
+		 * Pair it with `gtmkit_active_cmp` when declaring a platform GTM Kit
+		 * does not recognise, so Site Health names it the way its users know
+		 * it instead of showing the raw slug. An empty return keeps the
+		 * default name, so a detected platform is never shown without one.
+		 *
+		 * @param string $name The display name. The slug itself for a platform GTM Kit does not recognise.
+		 * @param string $slug The consent platform slug.
+		 */
+		$filtered = apply_filters( 'gtmkit_cmp_display_name', $name, $slug );
+
+		return ( is_string( $filtered ) && $filtered !== '' ) ? $filtered : $name;
 	}
 
 	/**
@@ -73,20 +88,37 @@ final class CMPDetection {
 	 * CookieYes; sites running more than one CMP plugin (rare and
 	 * misconfigured) get the first match for a deterministic fallback.
 	 *
-	 * @return string|null One of `cookiebot`, `iubenda`, `cookieyes`, or
-	 *     null when no known CMP plugin is active.
+	 * @return string|null One of `cookiebot`, `iubenda`, `cookieyes`, a slug
+	 *     declared through the `gtmkit_active_cmp` filter, or null when no
+	 *     consent platform is active.
 	 */
 	public static function detect_active_cmp(): ?string {
 		Util::load_plugin_api();
 
+		$detected = null;
+
 		foreach ( self::PLUGIN_FILES as $slug => $plugin_files ) {
 			foreach ( $plugin_files as $plugin_file ) {
 				if ( is_plugin_active( $plugin_file ) ) {
-					return $slug;
+					$detected = $slug;
+					break 2;
 				}
 			}
 		}
 
-		return null;
+		/**
+		 * Filters the consent platform GTM Kit treats as active.
+		 *
+		 * Detection only sees consent platforms installed as plugins. A site
+		 * whose platform is loaded by the theme, a code snippet or a tag can
+		 * declare it here, so Site Health and the dashboard notices stop
+		 * reporting consent as unconfigured. Return null or an empty string
+		 * for no consent platform.
+		 *
+		 * @param string|null $detected The detected slug, or null when none was detected.
+		 */
+		$filtered = apply_filters( 'gtmkit_active_cmp', $detected );
+
+		return ( is_string( $filtered ) && $filtered !== '' ) ? $filtered : null;
 	}
 }

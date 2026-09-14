@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.18.1
+Stable tag: 2.19.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,7 +24,7 @@ Tracking fails quietly. A caching plugin strips the container out of the page, a
 
 GTM Kit checks one of your own pages once a day, the way a visitor receives it, and tells you when nothing on your site is loading your container, or when your pages load tracking twice. Where it recognises the plugin or tool adding the second copy, it names it.
 
-Two checks in WordPress's own Site Health screen report whether your container is set up and reaching your pages, and whether consent is configured. A GTM Kit section on the Info tab lists your whole configuration on one screen and copies it into a support request with one click.
+WordPress's own Site Health screen reports on GTM Kit directly: whether your container is set up and reaching your pages, whether consent is configured, whether GTM Kit's settings can be saved at all, and, if you serve the Google tag from your own domain, whether that is still working. A GTM Kit section on the Info tab lists your whole configuration on one screen and copies it into a support request with one click.
 
 On sites WordPress reports as staging, development or local, GTM Kit leaves the container out, so test traffic never reaches your live analytics. The data layer is still built there, and a setting loads the container anyway when you are measuring a test site on purpose.
 
@@ -58,6 +58,14 @@ Unlock all features with [GTM Kit Premium](https://gtmkit.com/).
 - begin_checkout
 - purchase
 
+
+## Serve the Google tag from your own domain
+
+Ad blockers and browser tracking restrictions treat a script loaded from Google differently from one loaded by your own site. GTM Kit can serve the Google tag from your own domain instead, so more of your measurement survives the trip.
+
+Before you can switch it on, GTM Kit checks that your server can reach Google and that the address it would serve the tag from is actually reachable, and it repeats both checks once a day afterwards. If either stops working, GTM Kit goes back to loading the container the standard way and tells you, so your tracking never stops without warning.
+
+It is off by default, and it is an alternative to pointing GTM Kit at your own server-side container domain rather than something you run alongside one.
 
 ## Flexible container implementation
 
@@ -95,7 +103,7 @@ You may specify which post data elements you wish to include in the dataLayer fo
 4. Consent & privacy: Google Consent Mode and CMP script attributes
 5. Commerce: WooCommerce and Easy Digital Downloads tracking
 6. Tools: import settings from another Google Tag Manager plugin
-7. Site Health: GTM Kit's container and consent checks
+7. Site Health: GTM Kit's checks for the container, consent, settings and tag serving
 
 == Installation ==
 
@@ -122,6 +130,31 @@ Yes! Pagespeed is one of our main focus points, and we strive to make the plugin
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/gtm-kit)
 
 == Changelog ==
+
+= 2.19.0 =
+
+Release date: 2026-09-14
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-19/).
+
+#### New:
+* When Google for WooCommerce adds a Google tag beside your container, GTM Kit now names it as the source instead of saying it could not tell.
+* Site Health now checks that GTM Kit's settings can be saved, and shows the error it got back when they cannot.
+* When sending your system data from the Support screen cannot get through, the screen now says so instead of claiming your ticket was not found. With GTM Kit Premium you can then copy the data or download it to email instead.
+* You can now serve the Google tag from your own domain, so ad blockers and browser tracking restrictions interfere less with your measurement. If it stops working, GTM Kit falls back to the standard loader and tells you. It is off by default, and an alternative to your own sGTM container domain.
+* GTM Kit now points out setups that leave data unmeasured, such as a WooCommerce store with its ecommerce events switched off. At most one such notice appears at a time, and dismissing it keeps it away for 90 days.
+
+#### Bugfixes:
+* A Google tag loading beside your container is no longer reported as duplicate tracking in the dashboard. It is now a notice, since the tag is only counted twice when it also fires inside your container. Two containers, or the same container loaded twice, are still reported as problems.
+* When settings will not save, the settings screen now tells you why instead of quietly showing your old values again. It names any rejected setting, and on a site with a persistent object cache it names the cache as the likely cause.
+* Password managers no longer fill in GTM Kit's settings fields. A filled-in value could previously be saved without you typing it, and came back after you removed it.
+* Event names such as purchase and add_to_cart can no longer be renamed by translations in the settings screens, where they disagreed with the events GTM Kit actually sends.
+* The order confirmation page now sends purchase data only to visitors WooCommerce or Easy Digital Downloads would show the order to. Anyone opening a shared or guessed link previously received the order contents, its value and the shopper's details. The buyer's own visit still reports the purchase.
+
+#### Other:
+* New `gtmkit_active_cmp` and `gtmkit_cmp_display_name` filters let a site declare a consent platform GTM Kit cannot detect, such as one loaded by the theme or a code snippet, so Site Health stops reporting consent as unconfigured.
+* The customer details sent with a purchase now come from the order itself, so they describe the buyer rather than whoever opened the confirmation page.
+* `WooCommerce::include_customer_data()` now takes the order as its second argument, before the order value, and reads every customer field from it. Code that calls this method directly must pass the order.
 
 = 2.18.1 =
 
@@ -153,30 +186,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 #### Other:
 * The footer fallback now sits at the standard WordPress footer position. If you added a body_footer hook to your theme to make that option work, you no longer need it.
 * GTM Kit now requires WordPress 6.9 or later, and is tested with WordPress 7.1.
-
-= 2.17.0 =
-
-Release date: 2026-08-05
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-17/).
-
-#### New:
-* Sharing system data with the support team now starts a live sync session: while your ticket is open (at most 7 days), saving GTM Kit settings automatically sends the support team a fresh copy of the same data. The Support page shows an indicator while sync is active, and a Stop sharing button ends it immediately.
-* A new Premium page in the settings screen explains what GTM Kit Premium adds on top of the free plugin, covering server-side tracking, purchase accuracy, consent-safe measurement, forms and subscriptions, and debugging tools, with a link to the documentation behind each point. Cards are ordered to match your site, so a WooCommerce store sees the commerce topics first.
-* The setup wizard now includes a short step introducing GTM Kit Premium, worded for the site it is running on: order tracking for WooCommerce stores, consent handling for sites in the EU and EEA, and a general overview otherwise. The step is informational and one click continues past it.
-
-#### Bugfixes:
-* Adding a product from a block product grid on a page that also shows the cart or Mini Cart no longer reports add_to_cart twice. The event also keeps the name of the product list it came from, which was missing from the second, duplicate event.
-* On block themes, product lists no longer report every view and every add to cart twice. WooCommerce runs the classic product-loop hooks inside its block templates so older plugins keep working, and GTM Kit was responding both there and through its own block tracking, which doubled view_item_list and add_to_cart on shop, category and tag pages. List names are unchanged, so existing reports stay comparable.
-* Removing a product from the cart now sends the remove_from_cart event again. The product details attached to the cart's remove link were encoded twice, so the browser could not read them and the event was silently skipped on the classic cart page.
-
-#### Other:
-* GTM Kit is now tested with WooCommerce 11.0. Shop, cart, checkout and purchase tracking were verified against the new release on both classic and block themes.
-* Customers who already have GTM Kit Woo or GTM Kit Premium no longer see upgrade prompts anywhere. The Premium page and the wizard step are hidden entirely, and settings that need a paid add-on no longer show an upgrade link. Those settings still appear with their Premium label, so you can see what the product includes without being sold something you already own.
-* New `gtmkit_support_sync_config` filter lets developers tune the support sync timings (coalesce delay, session cap, and status-check interval).
-* Added a non-blocking continuous-integration check that runs the settings-app test suite against React 19, so the admin interface is verified ahead of WordPress bundling React 19 in a future core release.
-* Building the settings screen now regenerates the compiled Tailwind stylesheet automatically, so new interface styling can no longer be silently missing from a build.
-* The plugin's WooCommerce integration is now covered by an automated test suite that runs against a real WooCommerce install, and the suite runs against the oldest supported WordPress and WooCommerce versions as well as the newest. Faults in shop, cart and checkout tracking are caught before release instead of in the browser, and the compatibility stated in the plugin header is verified on every change rather than assumed.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

@@ -14,7 +14,13 @@
  */
 
 /*WordPress*/
-import { createContext, useReducer, useEffect } from '@wordpress/element';
+import {
+	createContext,
+	useContext,
+	useReducer,
+	useEffect,
+	useRef,
+} from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /*Library*/
@@ -29,6 +35,9 @@ import * as ActionTypes from '../constants/actionTypes';
 
 /*Utils*/
 import { getUserFriendlyMessage } from '../utils/errorHandler';
+
+/*Context*/
+import { ToastContext } from './ToastContext';
 
 /**
  * @type {import('react').Context<SettingsDataContextValue>}
@@ -110,6 +119,9 @@ const settingsReducer = ( state, action ) => {
 			if ( action.payload.canSave !== undefined ) {
 				newState.canSave = action.payload.canSave;
 			}
+			if ( action.payload.isPending !== undefined ) {
+				newState.isPending = action.payload.isPending;
+			}
 			if ( action.payload.notice !== undefined ) {
 				newState.notice = action.payload.notice;
 			}
@@ -127,6 +139,7 @@ const settingsReducer = ( state, action ) => {
 
 export const SettingsDataProvider = ( { children } ) => {
 	const [ state, dispatch ] = useReducer( settingsReducer, initialState );
+	const toast = useContext( ToastContext );
 
 	/**
 	 * Fetch settings from service on mount
@@ -143,10 +156,21 @@ export const SettingsDataProvider = ( { children } ) => {
 		} );
 	};
 
+	// The toast of the last failed save, while it is still on screen.
+	const saveErrorToast = useRef( null );
+
 	/**
 	 * Update settings via API
 	 */
 	const updateSettings = async () => {
+		// A new attempt answers whatever the last failure asked for, so that
+		// message goes. Left up, it would contradict a save that now succeeds,
+		// which is signalled only by the button, and failures would pile up.
+		if ( saveErrorToast.current !== null ) {
+			toast?.removeToast?.( saveErrorToast.current );
+			saveErrorToast.current = null;
+		}
+
 		dispatch( {
 			type: ActionTypes.UPDATE_SETTINGS_BEFORE,
 		} );
@@ -175,6 +199,11 @@ export const SettingsDataProvider = ( { children } ) => {
 					notice: errorMessage,
 				},
 			} );
+
+			// The settings screen shows the outcome of a save only through a
+			// toast. A failed save stays up until dismissed, because it can
+			// ask the user to do something before saving again.
+			saveErrorToast.current = toast?.error( errorMessage, 0 ) ?? null;
 		}
 	};
 

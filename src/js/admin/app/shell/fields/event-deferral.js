@@ -12,6 +12,7 @@ import { useFeatureFlags } from '../../../hooks/useFeatureFlags';
 import { parseKey } from '../../../registry/controls';
 import { isTierLocked } from '../../../registry/gating';
 import SettingsService from '../../../services/SettingsService';
+import { NO_AUTOFILL } from '../../../constants/autofill';
 
 /**
  * Whether a consent platform is publishing through the WP Consent API, derived
@@ -241,6 +242,7 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 						/>
 						<input
 							type="number"
+							{ ...NO_AUTOFILL }
 							className={ `${ BOX } gtmkit-w-[120px]` }
 							aria-label={ __( 'Seconds to wait', 'gtm-kit' ) }
 							min={ TIMEOUT_MIN_S }

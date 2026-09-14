@@ -8,6 +8,7 @@ import { useSettingField } from '../../../hooks/useSettingField';
 import { useNotification } from '../../../hooks/useNotification';
 import { parseKey, resolveOptions } from '../../../registry/controls';
 import { getTransform } from '../../../registry/transforms';
+import { NO_AUTOFILL } from '../../../constants/autofill';
 
 export const BOX =
 	'gtmkit-h-[36px] gtmkit-border gtmkit-border-border-default gtmkit-rounded-md gtmkit-bg-white gtmkit-px-3 gtmkit-text-[13px] gtmkit-text-text-primary focus:gtmkit-border-brand-primary focus:gtmkit-outline-none disabled:gtmkit-opacity-50';
@@ -58,6 +59,7 @@ const ShellText = ( { field, disabled } ) => {
 	return (
 		<input
 			type="text"
+			{ ...NO_AUTOFILL }
 			value={ value ?? '' }
 			placeholder={ field.placeholder }
 			disabled={ disabled }
@@ -95,6 +97,7 @@ const ShellNumber = ( { field, disabled } ) => {
 	return (
 		<input
 			type="number"
+			{ ...NO_AUTOFILL }
 			value={ value ?? '' }
 			placeholder={ field.placeholder }
 			min={ field.min }
@@ -171,6 +174,7 @@ const ShellRegionCodes = ( { field, disabled } ) => {
 	return (
 		<input
 			type="text"
+			{ ...NO_AUTOFILL }
 			value={ text }
 			placeholder={ field.placeholder }
 			disabled={ disabled }

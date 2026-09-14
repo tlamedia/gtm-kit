@@ -56,6 +56,13 @@ final class SupportSync {
 	public const SOURCE_AUTO = 'auto';
 
 	/**
+	 * Source label for the copy the customer copies or downloads from the Support page.
+	 *
+	 * @var string
+	 */
+	public const SOURCE_EXPORT = 'export';
+
+	/**
 	 * Seconds to wait before pushing, so bursts of saves coalesce into one push.
 	 *
 	 * @var int
@@ -361,6 +368,24 @@ final class SupportSync {
 		return [
 			'system_data' => wp_json_encode( $this->util->get_site_data( $this->options->get_all_raw(), false ) ),
 			'source'      => $source,
+		];
+	}
+
+	/**
+	 * Get the system data as a file the customer can hand to support themselves.
+	 *
+	 * The manual route for when sharing fails: the settings app receives
+	 * this with the page, so it needs no request of its own. The JSON is the
+	 * exact request body a share sends, with the export source label.
+	 *
+	 * @return array{json: string, filename: string}
+	 */
+	public function get_export(): array {
+		$host = (string) wp_parse_url( home_url(), PHP_URL_HOST );
+
+		return [
+			'json'     => (string) wp_json_encode( $this->build_request_body( self::SOURCE_EXPORT ) ),
+			'filename' => sanitize_file_name( 'gtmkit-system-data-' . $host . '-' . wp_date( 'Y-m-d' ) . '.json' ),
 		];
 	}
 

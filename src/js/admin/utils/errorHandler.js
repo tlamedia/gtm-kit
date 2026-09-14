@@ -46,6 +46,16 @@ export const getUserFriendlyMessage = ( error ) => {
 		);
 	}
 
+	// A save that did not stick is explained by the server, which knows the
+	// likely cause and what to do about it.
+	if (
+		error instanceof APIError &&
+		error.response?.code === 'gtmkit_save_not_kept' &&
+		error.message
+	) {
+		return error.message;
+	}
+
 	if ( error instanceof APIError ) {
 		return __( 'Server error. Please try again later.', 'gtm-kit' );
 	}

@@ -2,23 +2,24 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.18.1\n"
+"Project-Id-Version: GTM Kit 2.19.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-24T11:27:51+00:00\n"
+"POT-Creation-Date: 2026-09-14T07:49:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gtm-kit\n"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
+#: gtm-kit.php
 #: src/Admin/MetaBox.php:64
-#: src/Admin/SiteHealth.php:188
-#: src/Admin/SiteHealth.php:652
+#: src/Admin/SiteHealth.php:390
+#: src/Admin/SiteHealth.php:854
 #: assets/admin/wizard.js:1
 #: src/js/admin/app/organisms/header-onbarding.js:14
 msgid "GTM Kit"
@@ -26,23 +27,26 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: gtm-kit.php
 msgid "https://gtmkit.com/"
 msgstr ""
 
 #. Description of the plugin
+#: gtm-kit.php
 msgid "Google Tag Manager implementation focusing on flexibility and pagespeed."
 msgstr ""
 
-#: inc/main.php:104
+#: inc/main.php:108
 msgid "Go to GTM Kit Settings page"
 msgstr ""
 
-#: inc/main.php:105
+#: inc/main.php:109
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is GTM Kit Add-On.
-#: inc/main.php:123
+#: inc/main.php:127
+#, php-format
 msgid "Required by %s"
 msgstr ""
 
@@ -66,21 +70,73 @@ msgstr ""
 msgid "The plugin is installed and activated"
 msgstr ""
 
-#: src/Admin/AdminAPI.php:128
-#: src/Admin/AdminAPI.php:145
-#: src/Admin/AdminAPI.php:167
+#: src/Admin/AdminAPI.php:177
+msgid "Your changes were not saved, because the Google tag gateway cannot be switched on while a custom server-side tagging domain is set. Clear the domain or leave the gateway off, then save again."
+msgstr ""
+
+#: src/Admin/AdminAPI.php:180
+msgid "Your changes were not saved, because the Google tag gateway cannot be switched on: your server could not connect to the gateway service. Some hosts block outgoing connections. Ask your host to allow outgoing HTTPS connections, or leave the gateway off, then save again."
+msgstr ""
+
+#: src/Admin/AdminAPI.php:183
+msgid "Your changes were not saved, because the Google tag gateway cannot be switched on: the address that serves the Google tag from your own domain did not serve your container. Check that the container is published in Google Tag Manager, and that your host, firewall or security plugin does not block this address, or leave the gateway off, then save again."
+msgstr ""
+
+#: src/Admin/AdminAPI.php:277
+msgid "wrong type of value"
+msgstr ""
+
+#: src/Admin/AdminAPI.php:278
+msgid "value not accepted"
+msgstr ""
+
+#. translators: 1: the name of a setting, 2: why its value was rejected.
+#: src/Admin/AdminAPI.php:281
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#. translators: 1: a number of settings, 2: the settings, each with the reason its value was rejected.
+#: src/Admin/AdminAPI.php:291
+#, php-format
+msgid "Your changes were not saved, because %1$d setting has a value GTM Kit cannot accept: %2$s. Correct it and save again."
+msgid_plural "Your changes were not saved, because %1$d settings have values GTM Kit cannot accept: %2$s. Correct them and save again."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d is a number of settings.
+#: src/Admin/AdminAPI.php:355
+#, php-format
+msgid "Your changes were sent, but %d setting still reads back with its old value. Your site uses a persistent object cache, which is most likely serving an outdated copy of the settings. Flush the object cache, from your caching plugin or your host's control panel, then save again."
+msgid_plural "Your changes were sent, but %d settings still read back with their old values. Your site uses a persistent object cache, which is most likely serving an outdated copy of the settings. Flush the object cache, from your caching plugin or your host's control panel, then save again."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d is a number of settings.
+#: src/Admin/AdminAPI.php:367
+#, php-format
+msgid "Your changes were sent, but %d setting still reads back with its old value, so the database most likely did not keep the change. Ask your host to check the database error log, then save again."
+msgid_plural "Your changes were sent, but %d settings still read back with their old values, so the database most likely did not keep the change. Ask your host to check the database error log, then save again."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/AdminAPI.php:391
 msgid "The support ticket was not found. Please check that you have entered the correct ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:156
+#: src/Admin/AdminAPI.php:419
+msgid "Your site could not reach the GTM Kit support server, so your system data was not sent."
+msgstr ""
+
+#: src/Admin/AdminAPI.php:433
 msgid "Thank you! We have received the data."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:164
+#: src/Admin/AdminAPI.php:441
 msgid "This support ticket is closed. If you still need to share your system data, ask the support team for a new ticket."
 msgstr ""
 
-#: src/Admin/AdminAPI.php:241
+#: src/Admin/AdminAPI.php:553
 msgid "Invalid input data."
 msgstr ""
 
@@ -90,6 +146,83 @@ msgstr ""
 
 #: src/Admin/GeneralOptionsPage.php:113
 msgid "General Settings"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewayNotice.php:119
+msgid "You have switched on serving the Google tag from your own domain, but it is not currently working on this site, so GTM Kit has gone back to loading the container the standard way. Your tracking is still running."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewayNotice.php:120
+msgid "Site Health shows which of the two checks is failing and what to ask your host."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewayNotice.php:121
+msgid "Open Site Health"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewayNotice.php:125
+msgid "The Google tag is not being served from your domain"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:77
+msgid "Google tag gateway connection"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:84
+msgid "Google tag gateway address"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:111
+msgid "Your server can reach the Google tag gateway"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:113
+msgid "Your server can open a connection to the tag gateway, which is what lets it pass measurement on to Google."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:119
+msgid "Your server cannot reach the Google tag gateway"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:121
+msgid "Your server could not open a connection to the tag gateway. Some hosts block outgoing connections from the website, which stops the gateway from passing measurement on to Google."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:122
+msgid "Until this is resolved, GTM Kit is loading the container the standard way, so your tracking is still running. Ask your host to allow outgoing HTTPS connections from your site."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:123
+#: src/Admin/GoogleTagGatewaySiteHealth.php:157
+msgid "About the Google tag gateway"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:145
+msgid "Your gateway address is reachable"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:147
+msgid "The address that serves the Google tag from your own domain is answering as expected."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:153
+msgid "Your gateway address is not reachable"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:155
+msgid "The address that serves the Google tag from your own domain did not answer. Some hosts block this kind of address for security reasons."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:156
+msgid "Until this is resolved, GTM Kit is loading the container the standard way, so your tracking is still running. If your site uses a page cache or a firewall, this address also needs to be excluded from caching."
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:173
+msgid "The Google tag gateway has not been checked yet"
+msgstr ""
+
+#: src/Admin/GoogleTagGatewaySiteHealth.php:175
+msgid "GTM Kit checks once a day that the Google tag can be served from your own domain. That check has not run yet on this site."
 msgstr ""
 
 #: src/Admin/Integrations.php:30
@@ -122,335 +255,415 @@ msgstr ""
 
 #. translators: %1$s = opening strong tag, %2$s = closing strong tag.
 #: src/Admin/MetaBox.php:95
+#, php-format
 msgid "%1$sNote:%2$s This will only be applied if page type has been activated in the global settings of GTM Kit."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:134
+#: src/Admin/SiteHealth.php:161
 msgid "Google Tag Manager container"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:138
+#: src/Admin/SiteHealth.php:165
 msgid "Consent configuration"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:189
+#: src/Admin/SiteHealth.php:208
+msgid "GTM Kit settings API"
+msgstr ""
+
+#: src/Admin/SiteHealth.php:248
+msgid "This check sends a request from your server to itself. Your browser reaches the site by a different route, through any firewall or proxy in front of it, and those can treat the two requests differently."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:250
+msgid "The settings screen saves through this API, so saving settings is likely to fail too."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:259
+msgid "GTM Kit's settings API did not respond"
+msgstr ""
+
+#. translators: %d is a number of seconds.
+#: src/Admin/SiteHealth.php:263
+#, php-format
+msgid "A request to GTM Kit's settings API got no response within %d seconds. Something between your server and WordPress is holding the request without answering it."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:272
+msgid "GTM Kit's settings API could not be reached"
+msgstr ""
+
+#. translators: %s is the error message reported for the failed request.
+#: src/Admin/SiteHealth.php:276
+#, php-format
+msgid "A request to GTM Kit's settings API failed before any answer came back: %s"
+msgstr ""
+
+#. translators: %s is an HTTP status code, for example 403.
+#: src/Admin/SiteHealth.php:289
+#, php-format
+msgid "A request to GTM Kit's settings API was answered with HTTP status %s instead of GTM Kit's response."
+msgstr ""
+
+#. translators: %s is the error code WordPress returned, for example rest_forbidden.
+#: src/Admin/SiteHealth.php:296
+#, php-format
+msgid "WordPress gave the reason as %s."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:303
+msgid "GTM Kit's settings API returned an error"
+msgstr ""
+
+#: src/Admin/SiteHealth.php:312
+msgid "GTM Kit's settings API returned an unexpected response"
+msgstr ""
+
+#. translators: %s is an HTTP status code, for example 200.
+#: src/Admin/SiteHealth.php:316
+#, php-format
+msgid "A request to GTM Kit's settings API was answered with HTTP status %s, but the answer did not come from GTM Kit. A firewall challenge page, a cached page or another plugin rewriting the response can cause this."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:325
+msgid "GTM Kit's settings API is reachable"
+msgstr ""
+
+#: src/Admin/SiteHealth.php:327
+msgid "GTM Kit's settings API answered a request signed in as you, the same way the settings screen saves."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:329
+msgid "If the settings screen still does not save, the cause is on the route your browser takes, or after the request is answered."
+msgstr ""
+
+#: src/Admin/SiteHealth.php:391
 msgid "The GTM Kit configuration of this site. Copy this section into a support request to save a round of questions."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:216
+#: src/Admin/SiteHealth.php:418
 #: assets/admin/settings.js:46
 #: src/js/admin/registry/dashboardData.js:36
 msgid "Not set"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:217
+#: src/Admin/SiteHealth.php:419
 msgid "None"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:221
+#: src/Admin/SiteHealth.php:423
 msgid "Plugin version"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:225
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/register-container.js:24
+#: src/Admin/SiteHealth.php:427
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/register-container.js:26
 msgid "Container ID"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:229
+#: src/Admin/SiteHealth.php:431
 msgid "Container added to pages by GTM Kit"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:233
+#: src/Admin/SiteHealth.php:435
 msgid "Container code implementation"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:237
+#: src/Admin/SiteHealth.php:439
 msgid "Noscript implementation"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:244
+#: src/Admin/SiteHealth.php:446
 msgid "Server container domain"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:250
+#: src/Admin/SiteHealth.php:452
 msgid "Container environment"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:252
+#: src/Admin/SiteHealth.php:454
 msgid "Configured"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:253
+#: src/Admin/SiteHealth.php:455
 msgid "Not configured"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:258
+#: src/Admin/SiteHealth.php:460
 msgid "Environment authentication token"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:266
+#: src/Admin/SiteHealth.php:468
 msgid "Environment preview ID"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:276
+#: src/Admin/SiteHealth.php:478
 msgid "Consent Mode defaults"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:278
+#: src/Admin/SiteHealth.php:480
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:279
-#: src/Admin/SiteHealth.php:387
+#: src/Admin/SiteHealth.php:481
+#: src/Admin/SiteHealth.php:589
 msgid "Disabled"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:283
+#: src/Admin/SiteHealth.php:485
 msgid "Consent gating mode"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:288
+#: src/Admin/SiteHealth.php:490
 msgid "Detected consent platform"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:289
-#: src/Admin/SiteHealth.php:315
-#: src/Admin/SiteHealth.php:320
+#: src/Admin/SiteHealth.php:491
+#: src/Admin/SiteHealth.php:517
+#: src/Admin/SiteHealth.php:522
 msgid "None detected"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:293
+#: src/Admin/SiteHealth.php:495
 msgid "Excluded URL patterns"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:298
+#: src/Admin/SiteHealth.php:500
 msgid "Excluded user roles"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:309
+#: src/Admin/SiteHealth.php:511
 msgid "GTM Kit add-ons"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:314
+#: src/Admin/SiteHealth.php:516
 msgid "Ecommerce plugins"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:319
+#: src/Admin/SiteHealth.php:521
 msgid "Form plugins"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:324
+#: src/Admin/SiteHealth.php:526
 msgid "Environment type"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:329
+#: src/Admin/SiteHealth.php:531
 msgid "Multisite"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:330
-#: src/Admin/SiteHealth.php:359
-#: src/Common/Util.php:200
+#: src/Admin/SiteHealth.php:532
+#: src/Admin/SiteHealth.php:561
+#: src/Common/Util.php:201
 #: assets/admin/193.js:1
-#: assets/admin/545.js:1
+#: assets/admin/707.js:1
 #: src/js/admin/app/organisms/import-settings.js:69
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:84
 msgid "Yes"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:330
-#: src/Admin/SiteHealth.php:344
-#: src/Common/Util.php:200
+#: src/Admin/SiteHealth.php:532
+#: src/Admin/SiteHealth.php:546
+#: src/Common/Util.php:201
 #: assets/admin/193.js:1
-#: assets/admin/545.js:1
+#: assets/admin/707.js:1
 #: src/js/admin/app/organisms/import-settings.js:82
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:85
 msgid "No"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:348
+#: src/Admin/SiteHealth.php:550
 msgid "No, switched off by a filter"
 msgstr ""
 
 #. translators: %s is the kind of site WordPress reports, for example "staging".
-#: src/Admin/SiteHealth.php:354
+#: src/Admin/SiteHealth.php:556
+#, php-format
 msgid "No, WordPress reports this site as %s"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:370
+#: src/Admin/SiteHealth.php:572
 msgid "Load when the browser is idle"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:373
+#: src/Admin/SiteHealth.php:575
 msgid "Standard"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:384
+#: src/Admin/SiteHealth.php:586
 msgid "After the opening body tag"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:385
+#: src/Admin/SiteHealth.php:587
 msgid "Page footer"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:386
+#: src/Admin/SiteHealth.php:588
 msgid "Custom, inserted from the theme"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:403
+#: src/Admin/SiteHealth.php:605
 msgid "Always load"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:404
+#: src/Admin/SiteHealth.php:606
 msgid "Weak block"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:405
+#: src/Admin/SiteHealth.php:607
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/consent.js:45
 msgid "Strong block"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:456
-#: src/Admin/Suggestions.php:620
+#: src/Admin/SiteHealth.php:658
+#: src/Admin/Suggestions.php:1000
 msgid "Go to the container settings"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:465
+#: src/Admin/SiteHealth.php:667
 msgid "Your container is left out of this site on purpose"
 msgstr ""
 
 #. translators: %1$s is the Google Tag Manager container ID, %2$s is the kind of site WordPress reports, for example "staging".
-#: src/Admin/SiteHealth.php:469
+#: src/Admin/SiteHealth.php:671
+#, php-format
 msgid "Container %1$s is saved, but WordPress reports this site as %2$s, so GTM Kit leaves the container out of its pages and traffic from here stays out of your analytics and advertising audiences."
 msgstr ""
 
 #. translators: %s is the name of the setting, in quotation marks.
-#: src/Admin/SiteHealth.php:475
+#: src/Admin/SiteHealth.php:677
+#, php-format
 msgid "The data layer is still built, so you can see what a live site would send. If you measure this site on purpose, switch on %s."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:476
+#: src/Admin/SiteHealth.php:678
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:47
 msgid "Load the container on staging and test sites"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:485
+#: src/Admin/SiteHealth.php:687
 msgid "GTM Kit loads your Google Tag Manager container"
 msgstr ""
 
 #. translators: %s is the Google Tag Manager container ID.
-#: src/Admin/SiteHealth.php:489
+#: src/Admin/SiteHealth.php:691
+#, php-format
 msgid "Container %s is saved and GTM Kit adds its snippet to your pages."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:492
+#: src/Admin/SiteHealth.php:694
 msgid "What the container does once it loads, such as which tags fire and how consent reaches them, is beyond what this screen can see. The Tracking Health Check loads one of your pages and reports on that."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:493
+#: src/Admin/SiteHealth.php:695
 msgid "Run the Tracking Health Check"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:500
+#: src/Admin/SiteHealth.php:702
 msgid "No Google Tag Manager container ID is saved"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:502
+#: src/Admin/SiteHealth.php:704
 msgid "GTM Kit has no container ID to work with, so nothing is measured on this site. Add the ID of your Google Tag Manager container to start collecting data."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:507
+#: src/Admin/SiteHealth.php:709
 msgid "Read how to set up your container"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:510
+#: src/Admin/SiteHealth.php:712
 msgid "GTM Kit does not add the container to your pages"
 msgstr ""
 
 #. translators: %1$s is the Google Tag Manager container ID, %2$s is the name of the setting, in quotation marks.
-#: src/Admin/SiteHealth.php:516
+#: src/Admin/SiteHealth.php:718
+#, php-format
 msgid "Container %1$s is saved, but the %2$s setting is switched off, so GTM Kit does not output the container snippet."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:518
+#: src/Admin/SiteHealth.php:720
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:32
 msgid "Inject Container Code"
 msgstr ""
 
 #. translators: %1$s is the Google Tag Manager container ID, %2$s is a filter name.
-#: src/Admin/SiteHealth.php:523
+#: src/Admin/SiteHealth.php:725
+#, php-format
 msgid "Container %1$s is saved, but custom code on this site switches container output off through the %2$s filter, so GTM Kit does not output the container snippet."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:529
+#: src/Admin/SiteHealth.php:731
 msgid "That is a valid setup when something else loads the container for you, for example a consent platform, a caching plugin or your theme. If nothing else loads it, switch container output back on."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:534
+#: src/Admin/SiteHealth.php:736
 msgid "Read when switching container output off makes sense"
 msgstr ""
 
 #. translators: %s is the WordPress environment type, for example "local" or "development".
-#: src/Admin/SiteHealth.php:546
+#: src/Admin/SiteHealth.php:748
+#, php-format
 msgid "This site reports its environment type as %s, where an unfinished measurement setup is normal."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:572
+#: src/Admin/SiteHealth.php:774
 msgid "Go to the consent settings"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:578
-#: src/Admin/SiteHealth.php:591
-#: src/Admin/SiteHealth.php:600
+#: src/Admin/SiteHealth.php:780
+#: src/Admin/SiteHealth.php:793
+#: src/Admin/SiteHealth.php:802
 msgid "Consent is configured"
 msgstr ""
 
 #. translators: %s is the name of the detected consent platform.
-#: src/Admin/SiteHealth.php:582
+#: src/Admin/SiteHealth.php:784
+#, php-format
 msgid "GTM Kit sets Consent Mode defaults before your container loads, and %s is active to collect and update the visitor's choice."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:593
+#: src/Admin/SiteHealth.php:795
 msgid "GTM Kit sets Consent Mode defaults before your container loads, so Google tags know what they may do until the visitor makes a choice."
 msgstr ""
 
 #. translators: %s is the name of the detected consent platform.
-#: src/Admin/SiteHealth.php:604
+#: src/Admin/SiteHealth.php:806
+#, php-format
 msgid "%s is active on this site and owns consent, so GTM Kit leaves the Consent Mode defaults to it."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:607
+#: src/Admin/SiteHealth.php:809
 msgid "If your consent platform does not set the defaults itself, you can switch on GTM Kit's Consent Mode defaults instead."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:611
+#: src/Admin/SiteHealth.php:813
 msgid "Read how GTM Kit works alongside a consent platform"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:618
+#: src/Admin/SiteHealth.php:820
 msgid "Consent is not configured"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:620
+#: src/Admin/SiteHealth.php:822
 msgid "GTM Kit's Consent Mode defaults are switched off and no supported consent platform was found. Without defaults, Google tags start out with no instructions about what they may store, which is a problem wherever consent is required before measurement."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:621
+#: src/Admin/SiteHealth.php:823
 msgid "Switch on the Consent Mode defaults and set each category to what should apply before the visitor answers, or run a consent platform that sets them for you."
 msgstr ""
 
-#: src/Admin/SiteHealth.php:626
+#: src/Admin/SiteHealth.php:828
 msgid "Read how to switch on the Consent Mode defaults"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:631
+#: src/Admin/SiteHealth.php:833
 msgid "Read why the defaults must run before the container"
 msgstr ""
 
-#: src/Admin/SiteHealth.php:700
+#: src/Admin/SiteHealth.php:902
 msgid "(opens in a new tab)"
 msgstr ""
 
@@ -472,6 +685,7 @@ msgstr ""
 
 #. translators: %s is the scanned URL, as a link.
 #: src/Admin/SnippetScanSiteHealth.php:150
+#, php-format
 msgid "A request for %s returned a page with one tracking implementation in it."
 msgstr ""
 
@@ -485,6 +699,7 @@ msgstr ""
 
 #. translators: %s is a comma-separated list of Google Tag Manager container IDs.
 #: src/Admin/SnippetScanSiteHealth.php:163
+#, php-format
 msgid "Two or more Google Tag Manager containers are present: %s. Each fires its own tags, so page views, events and purchases are counted more than once and every report built on them is inflated."
 msgstr ""
 
@@ -502,6 +717,7 @@ msgstr ""
 
 #. translators: %s is a Google Tag Manager container ID.
 #: src/Admin/SnippetScanSiteHealth.php:177
+#, php-format
 msgid "Container %s is loaded by more than one script on the same page. Everything it measures, purchases included, is counted twice."
 msgstr ""
 
@@ -509,185 +725,258 @@ msgstr ""
 msgid "One Google Tag Manager container is loaded by more than one script on the same page. Everything it measures, purchases included, is counted twice."
 msgstr ""
 
-#. translators: %s is the name of a plugin or tool that also adds tracking code.
-#: src/Admin/SnippetScanSiteHealth.php:188
-msgid "The extra tracking code appears to come from %s. Remove the container from there and leave GTM Kit as the single place your site loads it."
-msgstr ""
-
-#: src/Admin/SnippetScanSiteHealth.php:191
+#: src/Admin/SnippetScanSiteHealth.php:185
 msgid "GTM Kit could not tell what adds the extra tracking code. Your theme's header template and any plugin that inserts code into the page head are the usual places to look."
 msgstr ""
 
+#. translators: %s is the name of a plugin or tool that adds a Google tag.
+#: src/Admin/SnippetScanSiteHealth.php:191
+#, php-format
+msgid "The Google tag appears to come from %s. Check that the same tag does not also fire inside your container."
+msgstr ""
+
+#. translators: %s is the name of a plugin or tool that also adds tracking code.
+#: src/Admin/SnippetScanSiteHealth.php:197
+#, php-format
+msgid "The extra tracking code appears to come from %s. Remove the container from there and leave GTM Kit as the single place your site loads it."
+msgstr ""
+
 #. translators: %s is the scanned URL, as a link.
-#: src/Admin/SnippetScanSiteHealth.php:218
+#: src/Admin/SnippetScanSiteHealth.php:228
+#, php-format
 msgid "A request for %s returned a page with no Google Tag Manager container and no Google tag in it."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:225
+#: src/Admin/SnippetScanSiteHealth.php:235
 msgid "Your pages carry no container, as intended"
 msgstr ""
 
 #. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
-#: src/Admin/SnippetScanSiteHealth.php:230
+#: src/Admin/SnippetScanSiteHealth.php:240
+#, php-format
 msgid "That is what to expect on this site: WordPress reports it as %s, so GTM Kit leaves the container out and traffic from here stays out of your analytics and advertising audiences."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:240
+#: src/Admin/SnippetScanSiteHealth.php:250
 msgid "Your consent platform loads your container"
 msgstr ""
 
 #. translators: %s is the name of the detected consent platform.
-#: src/Admin/SnippetScanSiteHealth.php:245
+#: src/Admin/SnippetScanSiteHealth.php:255
+#, php-format
 msgid "That is what to expect on this site: %s is active, and a consent platform loads the container in the browser after the visitor has answered, which a check of the page your server sends cannot see."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:255
+#: src/Admin/SnippetScanSiteHealth.php:265
 msgid "Your container is missing from your pages"
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:258
+#: src/Admin/SnippetScanSiteHealth.php:268
 msgid "GTM Kit is set up to add the container to your pages, so something is removing it again. An optimisation or caching plugin that strips inline scripts, or a page cache holding a copy from before the container was switched on, are the usual causes."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:259
+#: src/Admin/SnippetScanSiteHealth.php:269
 msgid "Clear your caches and check the page again. If the container is still missing, switch off script optimisation for GTM Kit's code."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:266
+#: src/Admin/SnippetScanSiteHealth.php:276
 msgid "Nothing on your pages is measuring this site"
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:269
+#: src/Admin/SnippetScanSiteHealth.php:279
 msgid "GTM Kit is not adding the container, and nothing else in the page is loading one either, so this site is collecting no data. Switch container output back on, unless something that this check cannot see loads the container for you."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:288
+#: src/Admin/SnippetScanSiteHealth.php:298
 msgid "The request never reached your site. A server that cannot open a connection to itself blocks this check, and blocks WordPress features that rely on the same kind of request."
 msgstr ""
 
 #. translators: %s is an HTTP status code, for example 503.
-#: src/Admin/SnippetScanSiteHealth.php:294
+#: src/Admin/SnippetScanSiteHealth.php:304
+#, php-format
 msgid "The page answered with status %s instead of a normal page."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:300
+#: src/Admin/SnippetScanSiteHealth.php:310
 msgid "That page matches one of your URL exclusion patterns, so GTM Kit adds nothing to it by design and checking it would prove nothing. Point the check at another page to get an answer."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:304
+#: src/Admin/SnippetScanSiteHealth.php:314
 msgid "The response was not an HTML page."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:308
+#: src/Admin/SnippetScanSiteHealth.php:318
 msgid "The response was empty."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:312
+#: src/Admin/SnippetScanSiteHealth.php:322
 msgid "The response stopped part way through, so a container further down the page would have been missed."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:316
+#: src/Admin/SnippetScanSiteHealth.php:326
 msgid "The request did not complete."
 msgstr ""
 
 #. translators: %s is the URL that would have been checked, as a link.
-#: src/Admin/SnippetScanSiteHealth.php:325
+#: src/Admin/SnippetScanSiteHealth.php:335
+#, php-format
 msgid "GTM Kit did not check %s, so it cannot say whether your pages load tracking."
 msgstr ""
 
 #. translators: %s is the scanned URL, as a link.
-#: src/Admin/SnippetScanSiteHealth.php:330
+#: src/Admin/SnippetScanSiteHealth.php:340
+#, php-format
 msgid "GTM Kit requested %s and could not read the result, so it cannot say whether your pages load tracking."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:336
+#: src/Admin/SnippetScanSiteHealth.php:346
 msgid "Your pages could not be checked"
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:366
+#: src/Admin/SnippetScanSiteHealth.php:376
 msgid "A container with no ID in the page"
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:374
+#: src/Admin/SnippetScanSiteHealth.php:384
 msgid "What was found:"
 msgstr ""
 
 #. translators: %s is a human-readable time difference, for example "3 hours".
-#: src/Admin/SnippetScanSiteHealth.php:415
+#: src/Admin/SnippetScanSiteHealth.php:425
+#, php-format
 msgid "Last checked %s ago."
 msgstr ""
 
-#: src/Admin/SnippetScanSiteHealth.php:425
+#: src/Admin/SnippetScanSiteHealth.php:435
 msgid "Check my pages again"
 msgstr ""
 
+#. translators: %s is the number of published products in the store.
+#: src/Admin/Suggestions.php:688
+#, php-format
+msgid "Your WooCommerce store has %s published product, but GTM Kit's WooCommerce integration is switched off, so purchases, add-to-carts and checkouts aren't reaching your data layer."
+msgid_plural "Your WooCommerce store has %s published products, but GTM Kit's WooCommerce integration is switched off, so purchases, add-to-carts and checkouts aren't reaching your data layer."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/Suggestions.php:699
+msgid "Turn on the WooCommerce integration"
+msgstr ""
+
+#: src/Admin/Suggestions.php:704
+msgid "See what GTM Kit Premium adds"
+msgstr ""
+
+#: src/Admin/Suggestions.php:710
+msgid "Ecommerce events are switched off:"
+msgstr ""
+
+#. translators: %s is the site's own tagging server domain.
+#: src/Admin/Suggestions.php:725
+#, php-format
+msgid "This site sends its tagging through %s, but the 'purchase' event still depends on the browser reaching your order confirmation page."
+msgstr ""
+
+#: src/Admin/Suggestions.php:729
+msgid "GTM Kit Premium reports purchases from your server, so an order counts once WooCommerce has it, whether or not the browser comes back."
+msgstr ""
+
+#: src/Admin/Suggestions.php:733
+msgid "See how server-side purchases work"
+msgstr ""
+
+#: src/Admin/Suggestions.php:739
+msgid "Server-side tagging:"
+msgstr ""
+
+#: src/Admin/Suggestions.php:752
+msgid "GTM Kit is set to output your container and nothing else, so it generates none of its own events: page and post data, engagement events such as login, sign-up and search, and ecommerce tracking are all switched off."
+msgstr ""
+
+#: src/Admin/Suggestions.php:754
+msgid "If your container is fed from somewhere else, this is working as you set it up and you can dismiss this notice."
+msgstr ""
+
+#: src/Admin/Suggestions.php:758
+msgid "See what GTM Kit can add"
+msgstr ""
+
+#: src/Admin/Suggestions.php:764
+msgid "Only the container is loaded:"
+msgstr ""
+
 #. translators: %1$s is the name of the plugin and %2$s is the name of the theme.
-#: src/Admin/Suggestions.php:417
+#: src/Admin/Suggestions.php:797
+#, php-format
 msgid "It seems that you have installed the %1$s plugin and %1$s theme."
 msgstr ""
 
 #. translators: %1$s is the name of the plugin.
-#: src/Admin/Suggestions.php:424
+#: src/Admin/Suggestions.php:804
+#, php-format
 msgid "It seems that you have installed the %1$s plugin."
 msgstr ""
 
 #. translators: %1$s is the name of the theme.
-#: src/Admin/Suggestions.php:431
+#: src/Admin/Suggestions.php:811
+#, php-format
 msgid "It seems that you have installed the %1$s theme."
 msgstr ""
 
-#: src/Admin/Suggestions.php:437
-msgid "With the GTM Kit Woo Add-On, you can track the add_to_wishlist event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior."
+#: src/Admin/Suggestions.php:817
+msgid "With the GTM Kit Woo Add-On, you can track the 'add_to_wishlist' event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior."
 msgstr ""
 
-#: src/Admin/Suggestions.php:440
-#: src/Admin/Suggestions.php:563
+#: src/Admin/Suggestions.php:820
+#: src/Admin/Suggestions.php:943
 msgid "Get the GTM Kit Woo Add-On"
 msgstr ""
 
-#: src/Admin/Suggestions.php:446
+#: src/Admin/Suggestions.php:826
 msgid "Upgrade:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:479
+#: src/Admin/Suggestions.php:859
 msgid "It appears that you are not currently using a supported SEO plugin. By installing either WordPress SEO or Rank Math, you can assign a primary category to each product. This primary category will then be used in the data layer if the product is associated with multiple categories."
 msgstr ""
 
-#: src/Admin/Suggestions.php:484
+#: src/Admin/Suggestions.php:864
 msgid "Plugin suggestion:"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: src/Admin/Suggestions.php:502
+#: src/Admin/Suggestions.php:882
+#, php-format
 msgid "It seems that you have installed the Google Tag Manager plugin called %1$s. Running two different GTM plugins simultaneously can lead to unexpected results, significantly impact data accuracy, and slow down page speed. Please consider deactivating %2$s unless you have carefully considered and addressed the potential challenges."
 msgstr ""
 
-#: src/Admin/Suggestions.php:516
+#: src/Admin/Suggestions.php:896
 msgid "Possible Conflict:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:540
+#: src/Admin/Suggestions.php:920
 msgid "Before you deactivate it, you can copy its configuration into GTM Kit."
 msgstr ""
 
 #. translators: %s is the name of the conflicting plugin.
-#: src/Admin/Suggestions.php:545
+#: src/Admin/Suggestions.php:925
+#, php-format
 msgid "Import settings from %s"
 msgstr ""
 
-#: src/Admin/Suggestions.php:560
-msgid "Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking it you need either the GTM Kit Woo Add-On, or the free Grandfathered Wishlist Functionality plugin."
+#: src/Admin/Suggestions.php:940
+msgid "Starting with GTM Kit version 2.0, the 'add_to_wishlist' event is no longer supported in the free version of GTM Kit. To continue tracking it you need either the GTM Kit Woo Add-On, or the free Grandfathered Wishlist Functionality plugin."
 msgstr ""
 
-#: src/Admin/Suggestions.php:567
+#: src/Admin/Suggestions.php:947
 msgid "Get the free plugin"
 msgstr ""
 
-#: src/Admin/Suggestions.php:573
+#: src/Admin/Suggestions.php:953
 msgid "Breaking change:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:587
+#: src/Admin/Suggestions.php:967
 #: assets/admin/896.js:1
 #: assets/admin/settings.js:1
 #: src/js/admin/app/pages-wizard/automatic-updates.js:28
@@ -695,124 +984,135 @@ msgstr ""
 msgid "New releases of GTM Kit may contain important updates to comply with changes in Google Tag Manager or analytics in general. We recommend enabling automatic plugin updates for GTM Kit to ensure it is always up to date."
 msgstr ""
 
-#: src/Admin/Suggestions.php:591
-#: src/Admin/Suggestions.php:701
-#: src/Admin/Suggestions.php:850
+#: src/Admin/Suggestions.php:971
+#: src/Admin/Suggestions.php:1081
+#: src/Admin/Suggestions.php:1240
 msgid "Go to settings"
 msgstr ""
 
-#: src/Admin/Suggestions.php:597
+#: src/Admin/Suggestions.php:977
 msgid "Automatic Updates:"
 msgstr ""
 
 #. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
-#: src/Admin/Suggestions.php:612
+#: src/Admin/Suggestions.php:992
+#, php-format
 msgid "WordPress reports this site as %s, so GTM Kit leaves your Google Tag Manager container out of its pages and traffic from here stays out of your analytics and advertising audiences. The data layer is still built, so you can see what a live site would send."
 msgstr ""
 
-#: src/Admin/Suggestions.php:616
+#: src/Admin/Suggestions.php:996
 msgid "If you measure this site on purpose, you can load the container here as well."
 msgstr ""
 
-#: src/Admin/Suggestions.php:626
+#: src/Admin/Suggestions.php:1006
 msgid "Container not loaded here:"
 msgstr ""
 
-#: src/Admin/Suggestions.php:639
+#: src/Admin/Suggestions.php:1019
 msgid "The address of this site reads like a test or staging copy, but WordPress has not been told what kind of site this is and treats it as the real one. GTM Kit therefore loads your Google Tag Manager container here, and anything done on this site is measured together with your real traffic."
 msgstr ""
 
 #. translators: %s is the name of a PHP constant, wrapped in code tags.
-#: src/Admin/Suggestions.php:643
+#: src/Admin/Suggestions.php:1023
+#, php-format
 msgid "If this is a copy, set %s in wp-config.php and GTM Kit will leave the container out by itself."
 msgstr ""
 
-#: src/Admin/Suggestions.php:649
+#: src/Admin/Suggestions.php:1029
 msgid "Read how to declare it"
 msgstr ""
 
-#: src/Admin/Suggestions.php:655
+#: src/Admin/Suggestions.php:1035
 msgid "Is this a copy of your site?"
 msgstr ""
 
-#: src/Admin/Suggestions.php:670
+#: src/Admin/Suggestions.php:1050
 msgid "The Google Tag Manager container is not injected."
 msgstr ""
 
-#: src/Admin/Suggestions.php:673
+#: src/Admin/Suggestions.php:1053
 msgid "The \"Inject Container Code\" option is not enabled."
 msgstr ""
 
-#: src/Admin/Suggestions.php:677
+#: src/Admin/Suggestions.php:1057
 msgid "The \"GTM Container ID\" value is empty."
 msgstr ""
 
-#: src/Admin/Suggestions.php:707
+#: src/Admin/Suggestions.php:1087
 msgid "GTM Container Injection:"
 msgstr ""
 
+#: src/Admin/Suggestions.php:1110
+msgid "Duplicate tracking:"
+msgstr ""
+
 #. translators: %s is a comma-separated list of Google Tag Manager container IDs.
-#: src/Admin/Suggestions.php:729
+#: src/Admin/Suggestions.php:1117
+#, php-format
 msgid "Your pages load more than one Google Tag Manager container: %s. Each container fires its own tags, so the same page views, events and purchases are counted more than once."
 msgstr ""
 
-#: src/Admin/Suggestions.php:735
+#: src/Admin/Suggestions.php:1123
 msgid "Your pages load a Google tag directly as well as your Google Tag Manager container. If the same tag also fires inside the container, its data is collected twice."
 msgstr ""
 
+#: src/Admin/Suggestions.php:1124
+msgid "Tracking setup:"
+msgstr ""
+
 #. translators: %s is a Google Tag Manager container ID.
-#: src/Admin/Suggestions.php:743
+#: src/Admin/Suggestions.php:1133
+#, php-format
 msgid "Your pages load the Google Tag Manager container %s more than once. Everything the container measures, purchases included, is counted twice."
 msgstr ""
 
-#: src/Admin/Suggestions.php:746
+#: src/Admin/Suggestions.php:1136
 msgid "Your pages load a Google Tag Manager container more than once. Everything the container measures, purchases included, is counted twice."
 msgstr ""
 
 #. translators: %s is the name of a plugin or tool that also adds tracking code.
-#: src/Admin/Suggestions.php:754
+#: src/Admin/Suggestions.php:1144
+#, php-format
 msgid "The extra tracking code appears to come from %s."
 msgstr ""
 
-#: src/Admin/Suggestions.php:757
+#: src/Admin/Suggestions.php:1147
 msgid "GTM Kit could not tell what adds the extra tracking code. Your theme and any plugin that inserts code into the page header are the usual places to look."
 msgstr ""
 
-#: src/Admin/Suggestions.php:762
+#: src/Admin/Suggestions.php:1152
 msgid "See the details in Site Health"
 msgstr ""
 
-#: src/Admin/Suggestions.php:768
-msgid "Duplicate tracking:"
-msgstr ""
-
 #. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
-#: src/Admin/Suggestions.php:809
+#: src/Admin/Suggestions.php:1199
+#, php-format
 msgid "A check of your site found no container in the page your server sends, which is what to expect while WordPress reports this site as %s."
 msgstr ""
 
 #. translators: %s is the name of the detected consent platform, for example "Cookiebot".
-#: src/Admin/Suggestions.php:819
+#: src/Admin/Suggestions.php:1209
+#, php-format
 msgid "A check of your site found no container in the page your server sends, which is what to expect when %s loads it in the browser instead."
 msgstr ""
 
-#: src/Admin/Suggestions.php:824
+#: src/Admin/Suggestions.php:1214
 msgid "A check of your site found no Google Tag Manager container in the page your server sends, and no consent platform that would load one later, so nothing appears to be measuring this site."
 msgstr ""
 
-#: src/Admin/Suggestions.php:838
+#: src/Admin/Suggestions.php:1228
 msgid "Debug logging should not be active in production environments longer than necessary as it affects performance."
 msgstr ""
 
-#: src/Admin/Suggestions.php:841
+#: src/Admin/Suggestions.php:1231
 msgid "The browser console log is active."
 msgstr ""
 
-#: src/Admin/Suggestions.php:845
-msgid "The debug log for the purchase event and server-side webhooks is active."
+#: src/Admin/Suggestions.php:1235
+msgid "The debug log for the 'purchase' event and server-side webhooks is active."
 msgstr ""
 
-#: src/Admin/Suggestions.php:856
+#: src/Admin/Suggestions.php:1246
 msgid "Logging and debugging:"
 msgstr ""
 
@@ -820,43 +1120,43 @@ msgstr ""
 msgid "Only authenticated users can access endpoint."
 msgstr ""
 
-#: src/Common/Util.php:184
+#: src/Common/Util.php:185
 msgid "Server type:"
 msgstr ""
 
-#: src/Common/Util.php:189
+#: src/Common/Util.php:190
 msgid "PHP version number:"
 msgstr ""
 
-#: src/Common/Util.php:194
+#: src/Common/Util.php:195
 msgid "WordPress version number:"
 msgstr ""
 
-#: src/Common/Util.php:199
+#: src/Common/Util.php:200
 msgid "WordPress multisite:"
 msgstr ""
 
-#: src/Common/Util.php:204
+#: src/Common/Util.php:205
 msgid "Current theme:"
 msgstr ""
 
-#: src/Common/Util.php:211
+#: src/Common/Util.php:212
 msgid "Current site language:"
 msgstr ""
 
-#: src/Common/Util.php:216
+#: src/Common/Util.php:217
 msgid "Active plugins:"
 msgstr ""
 
-#: src/Common/Util.php:217
+#: src/Common/Util.php:218
 msgid "Plugin name and version of all active plugins"
 msgstr ""
 
-#: src/Common/Util.php:221
+#: src/Common/Util.php:222
 msgid "Anonymized GTM Kit settings:"
 msgstr ""
 
-#: src/Common/Util.php:222
+#: src/Common/Util.php:223
 msgid "Which GTM Kit settings are active"
 msgstr ""
 
@@ -874,7 +1174,7 @@ msgid "Best Sellers"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:236
-#: src/Integration/WooCommerce.php:1012
+#: src/Integration/WooCommerce.php:1088
 #: src/Integration/WooCommerceBlocks.php:675
 msgid "Product Category"
 msgstr ""
@@ -892,7 +1192,7 @@ msgid "Products By Attribute"
 msgstr ""
 
 #: src/Integration/WooCommerce.php:240
-#: src/Integration/WooCommerce.php:1014
+#: src/Integration/WooCommerce.php:1090
 #: src/Integration/WooCommerceBlocks.php:678
 msgid "Product Tag"
 msgstr ""
@@ -905,17 +1205,17 @@ msgstr ""
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:867
+#: src/Integration/WooCommerce.php:943
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:901
+#: src/Integration/WooCommerce.php:977
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:901
-#: src/Integration/WooCommerce.php:946
-#: src/Integration/WooCommerce.php:979
+#: src/Integration/WooCommerce.php:977
+#: src/Integration/WooCommerce.php:1022
+#: src/Integration/WooCommerce.php:1055
 #: src/Integration/WooCommerceBlocks.php:681
 msgid "General Product List"
 msgstr ""
@@ -931,7 +1231,7 @@ msgstr ""
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:30
 #: src/js/admin/app/shell/DashboardPage.js:94
 #: src/js/admin/app/utils/get-steps.js:28
-#: src/js/admin/registry/capabilities.js:332
+#: src/js/admin/registry/capabilities.js:339
 msgid "Help improve GTM Kit"
 msgstr ""
 
@@ -967,9 +1267,9 @@ msgstr ""
 
 #: assets/admin/193.js:1
 #: assets/admin/473.js:1
-#: assets/admin/545.js:1
+#: assets/admin/707.js:1
 #: assets/admin/896.js:1
-#: src/js/admin/app/organisms/register-container.js:79
+#: src/js/admin/app/organisms/register-container.js:81
 #: src/js/admin/app/pages-wizard/automatic-updates.js:66
 #: src/js/admin/app/pages-wizard/essential-settings.js:174
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:165
@@ -1030,92 +1330,6 @@ msgstr ""
 msgid "Would you like to track e-commerce data from Easy Digital Downloads?"
 msgstr ""
 
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/gtm-id-help-popup.js:22
-msgid "Help finding GTM Container ID"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/gtm-id-help-popup.js:33
-msgid "Where to find your GTM Container ID"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/gtm-id-help-popup.js:39
-msgid "You can find your GTM Container ID in Google Tag Manager at the top of your workspace. It looks like GTM-XXXXXXX."
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/gtm-id-help-popup.js:46
-msgid "GTM Container ID location in Google Tag Manager"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/gtm-id-help-popup.js:59
-msgid "Open Google Tag Manager"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/register-container.js:25
-msgid "Enter Container ID"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:8
-#: src/js/admin/app/organisms/register-container.js:53
-#: src/js/admin/registry/controls/index.js:51
-msgid "Find your Container ID in Google Tag Manager"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/register-container.js:89
-msgid "Find your GTM container ID on"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/register-container.js:101
-msgid "It should look something like this:"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/import-settings.js:31
-msgid "Would you like to import plugin settings?"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/import-settings.js:37
-msgid "We have found the configuration of other plugins in the database."
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/organisms/import-settings.js:42
-msgid "Would you like to import your settings to GTM Kit?"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:37
-#: src/js/admin/app/organisms/import-plugin-settings.js:235
-#: src/js/admin/app/organisms/import-settings.js:48
-msgid "Select the plugin you want to import settings from."
-msgstr ""
-
-#: assets/admin/545.js:1
-#: src/js/admin/app/pages-wizard/welcome.js:19
-msgid "You've successfully installed GTM Kit!"
-msgstr ""
-
-#: assets/admin/545.js:1
-#: assets/admin/settings.js:1
-#: src/js/admin/app/pages-wizard/welcome.js:24
-#: src/js/admin/registry/content/setup.js:27
-msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
-msgstr ""
-
 #: assets/admin/569.js:1
 #: assets/admin/570.js:1
 #: src/js/admin/app/pages-wizard/premium.js:66
@@ -1162,6 +1376,92 @@ msgstr ""
 #: src/js/admin/app/organisms/import-plugin-settings.js:248
 #: src/js/admin/app/pages-wizard/premium.js:106
 msgid "Continue"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/atoms/gtm-id-help-popup.js:22
+msgid "Help finding GTM Container ID"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/atoms/gtm-id-help-popup.js:33
+msgid "Where to find your GTM Container ID"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/atoms/gtm-id-help-popup.js:39
+msgid "You can find your GTM Container ID in Google Tag Manager at the top of your workspace. It looks like GTM-XXXXXXX."
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/atoms/gtm-id-help-popup.js:46
+msgid "GTM Container ID location in Google Tag Manager"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/atoms/gtm-id-help-popup.js:59
+msgid "Open Google Tag Manager"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/register-container.js:27
+msgid "Enter Container ID"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:8
+#: src/js/admin/app/organisms/register-container.js:55
+#: src/js/admin/registry/controls/index.js:51
+msgid "Find your Container ID in Google Tag Manager"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/register-container.js:91
+msgid "Find your GTM container ID on"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/register-container.js:103
+msgid "It should look something like this:"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/import-settings.js:31
+msgid "Would you like to import plugin settings?"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/import-settings.js:37
+msgid "We have found the configuration of other plugins in the database."
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/organisms/import-settings.js:42
+msgid "Would you like to import your settings to GTM Kit?"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:37
+#: src/js/admin/app/organisms/import-plugin-settings.js:235
+#: src/js/admin/app/organisms/import-settings.js:48
+msgid "Select the plugin you want to import settings from."
+msgstr ""
+
+#: assets/admin/707.js:1
+#: src/js/admin/app/pages-wizard/welcome.js:19
+msgid "You've successfully installed GTM Kit!"
+msgstr ""
+
+#: assets/admin/707.js:1
+#: assets/admin/settings.js:1
+#: src/js/admin/app/pages-wizard/welcome.js:24
+#: src/js/admin/registry/content/setup.js:27
+msgid "To start collecting data with Google Tag manager you must register the Container ID of your Google Tag Manager container."
 msgstr ""
 
 #: assets/admin/771.js:1
@@ -1213,145 +1513,145 @@ msgid "Go to the dashboard"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:34
+#: src/js/admin/app/pages/templates.js:35
 msgid "About the assistant"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:35
+#: src/js/admin/app/pages/templates.js:36
 msgid "The assistant builds a ready-to-import GTM container from your setup, with tags, triggers and variables already wired to the data layer GTM Kit pushes. It is a starting point you import into Google Tag Manager, then review and publish yourself."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:40
+#: src/js/admin/app/pages/templates.js:41
 msgid "Read the import guide"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:43
+#: src/js/admin/app/pages/templates.js:44
 msgid "Generating a template never touches your live container. Nothing goes live until you import the file and publish it in Google Tag Manager."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:274
+#: src/js/admin/app/pages/templates.js:275
 msgid "Error generating template. Please try again."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:290
+#: src/js/admin/app/pages/templates.js:291
 msgid "Error generating template. Please check your connection and try again."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:323
-#: src/js/admin/app/pages/templates.js:355
+#: src/js/admin/app/pages/templates.js:324
+#: src/js/admin/app/pages/templates.js:356
 msgid "Template Assistant"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:358
+#: src/js/admin/app/pages/templates.js:359
 msgid "Generate a GTM container template from your setup"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:327
-#: src/js/admin/app/pages/templates.js:368
+#: src/js/admin/app/pages/templates.js:328
+#: src/js/admin/app/pages/templates.js:369
 msgid "Get your Google Tag Manager container template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:374
+#: src/js/admin/app/pages/templates.js:375
 msgid "GTM Kit is sending data to your container, but you still need to configure Tags, Triggers and Variables in GTM. The generator builds a template from your choices to import and deploy."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:383
+#: src/js/admin/app/pages/templates.js:384
 msgid "1. Configuration Type"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:384
+#: src/js/admin/app/pages/templates.js:385
 msgid "2. Requirements"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:385
+#: src/js/admin/app/pages/templates.js:386
 msgid "3. Configure"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:386
+#: src/js/admin/app/pages/templates.js:387
 msgid "4. Generate"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:418
+#: src/js/admin/app/pages/templates.js:419
 msgid "Configuration Type"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:423
+#: src/js/admin/app/pages/templates.js:424
 msgid "Select your site type:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:427
+#: src/js/admin/app/pages/templates.js:428
 msgid "Choose whether your site is primarily for e-commerce or lead generation."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:436
+#: src/js/admin/app/pages/templates.js:437
 msgid "E-commerce"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:443
-#: src/js/admin/app/pages/templates.js:464
+#: src/js/admin/app/pages/templates.js:444
+#: src/js/admin/app/pages/templates.js:465
 msgid "Recommended based on your setup"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:457
+#: src/js/admin/app/pages/templates.js:458
 msgid "Lead Generation"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:484
+#: src/js/admin/app/pages/templates.js:485
 msgid "Select your Google Tag Manager setup:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:488
+#: src/js/admin/app/pages/templates.js:489
 msgid "Choose the type of Google Tag Manager setup you are using."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:495
+#: src/js/admin/app/pages/templates.js:496
 msgid "Standard GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:504
+#: src/js/admin/app/pages/templates.js:505
 msgid "Server-side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:511
+#: src/js/admin/app/pages/templates.js:512
 msgid "It looks like you are using server-side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:532
+#: src/js/admin/app/pages/templates.js:533
 msgid "Continue to Service Selection"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:545
+#: src/js/admin/app/pages/templates.js:546
 msgid "Specify your tracking needs"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:551
+#: src/js/admin/app/pages/templates.js:552
 msgid "Select the services that you want to send tracking data to."
 msgstr ""
 
@@ -1360,7 +1660,7 @@ msgstr ""
 #: assets/admin/settings.js:44
 #: assets/admin/settings.js:48
 #: assets/admin/settings.js:53
-#: src/js/admin/app/pages/templates.js:619
+#: src/js/admin/app/pages/templates.js:620
 #: src/js/admin/app/shell/DashboardPage.js:37
 #: src/js/admin/app/shell/fields/FieldTags.js:68
 #: src/js/admin/app/shell/InfoList.js:126
@@ -1372,134 +1672,134 @@ msgid "Premium"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:634
+#: src/js/admin/app/pages/templates.js:635
 msgid "Requires sGTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:650
-#: src/js/admin/app/pages/templates.js:877
-#: src/js/admin/app/pages/templates.js:950
+#: src/js/admin/app/pages/templates.js:651
+#: src/js/admin/app/pages/templates.js:881
+#: src/js/admin/app/pages/templates.js:954
 msgid "Back"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:658
+#: src/js/admin/app/pages/templates.js:659
 msgid "Continue to Configuration"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:671
+#: src/js/admin/app/pages/templates.js:672
 msgid "Input your unique values"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:677
+#: src/js/admin/app/pages/templates.js:678
 msgid "These values are optional and you can edit them in your container at any time."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:686
+#: src/js/admin/app/pages/templates.js:687
 msgid "Server-side GTM Configuration"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:692
+#: src/js/admin/app/pages/templates.js:694
 msgid "Server Container URL"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:696
+#: src/js/admin/app/pages/templates.js:698
 msgid "Enter your server container URL"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:716
+#: src/js/admin/app/pages/templates.js:719
 msgid "Server Container ID"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:720
+#: src/js/admin/app/pages/templates.js:723
 msgid "GTM-XXXXX"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:724
+#: src/js/admin/app/pages/templates.js:727
 msgid "Enter your server-side GTM container ID (e.g., GTM-XXXXXX)"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:827
+#: src/js/admin/app/pages/templates.js:830
 msgid "No configuration required"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:883
+#: src/js/admin/app/pages/templates.js:887
 msgid "Continue to Generate"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:896
+#: src/js/admin/app/pages/templates.js:900
 msgid "Download and import the template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:902
+#: src/js/admin/app/pages/templates.js:906
 msgid "Review your configuration and generate the GTM template."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:911
+#: src/js/admin/app/pages/templates.js:915
 msgid "Google Tag Manager configuration:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:918
+#: src/js/admin/app/pages/templates.js:922
 msgid "Client-Side + Server-Side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:922
+#: src/js/admin/app/pages/templates.js:926
 msgid "Standard Client-Side GTM"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:929
+#: src/js/admin/app/pages/templates.js:933
 msgid "Selected Services:"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:960
+#: src/js/admin/app/pages/templates.js:964
 msgid "Download Web Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:971
+#: src/js/admin/app/pages/templates.js:975
 msgid "Download Server Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:984
+#: src/js/admin/app/pages/templates.js:988
 msgid "Generate & Download Template"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:1002
+#: src/js/admin/app/pages/templates.js:1006
 msgid "Please read the guide on how to use the import files and configure GTM."
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:1012
+#: src/js/admin/app/pages/templates.js:1016
 msgid "Read the guide"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:334
+#: src/js/admin/app/pages/templates.js:335
 msgid "Template service is currently unavailable"
 msgstr ""
 
 #: assets/admin/854.js:1
-#: src/js/admin/app/pages/templates.js:340
+#: src/js/admin/app/pages/templates.js:341
 msgid "The template service is not available at the moment. Please try again later."
 msgstr ""
 
@@ -1509,7 +1809,7 @@ msgstr ""
 #: src/js/admin/app/pages-wizard/automatic-updates.js:25
 #: src/js/admin/app/routes-wizard.js:116
 #: src/js/admin/app/utils/get-steps.js:33
-#: src/js/admin/registry/capabilities.js:325
+#: src/js/admin/registry/capabilities.js:332
 msgid "Automatic Updates"
 msgstr ""
 
@@ -1535,7 +1835,7 @@ msgid "Automatically update the GTM Kit plugin when new releases are available."
 msgstr ""
 
 #: assets/admin/introductions.js:1
-#: src/js/admin/introductions/blocks/Video.jsx:27
+#: src/js/admin/introductions/blocks/Video.jsx:29
 msgid "Video"
 msgstr ""
 
@@ -1550,7 +1850,7 @@ msgid "This introduction does not have a registered component yet."
 msgstr ""
 
 #: assets/admin/introductions.js:1
-#: src/js/admin/introductions/IntroductionsModal.jsx:121
+#: src/js/admin/introductions/IntroductionsModal.jsx:123
 msgid "Close"
 msgstr ""
 
@@ -1591,7 +1891,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
-#: src/js/admin/context/SettingsDataContext.js:99
+#: src/js/admin/context/SettingsDataContext.js:108
 msgid "Settings saved successfully."
 msgstr ""
 
@@ -1628,7 +1928,7 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
 #: src/js/admin/registry/premiumSurface.js:44
-msgid "A payment gateway that redirects the customer away from your thank-you page never fires the browser purchase event, so the sale goes unrecorded. Sending it from the server recovers it. A stable event ID keeps Meta, TikTok and other Conversions API destinations from counting a recovered purchase twice, refunds and order-status changes are sent as their own events, and order attribution is surfaced where you can act on it."
+msgid "A payment gateway that redirects the customer away from your thank-you page never fires the browser 'purchase' event, so the sale goes unrecorded. Sending it from the server recovers it. A stable event ID keeps Meta, TikTok and other Conversions API destinations from counting a recovered purchase twice, refunds and order-status changes are sent as their own events, and order attribution is surfaced where you can act on it."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1748,13 +2048,13 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
-#: src/js/admin/utils/errorHandler.js:50
+#: src/js/admin/utils/errorHandler.js:60
 msgid "Server error. Please try again later."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/wizard.js:1
-#: src/js/admin/utils/errorHandler.js:53
+#: src/js/admin/utils/errorHandler.js:63
 msgid "An unexpected error occurred. Please try again."
 msgstr ""
 
@@ -1832,7 +2132,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:94
-msgid "Commerce tracking pushes view_item, add_to_cart, begin_checkout and purchase events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads."
+msgid "Commerce tracking pushes 'view_item', 'add_to_cart', 'begin_checkout' and 'purchase' events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -1902,7 +2202,7 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:52
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/LicensePage.js:325
+#: src/js/admin/app/shell/LicensePage.js:327
 #: src/js/admin/app/shell/ShellApp.js:265
 #: src/js/admin/registry/capabilities.js:162
 msgid "License"
@@ -1911,7 +2211,7 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:53
 #: src/js/admin/app/shell/ShellApp.js:278
-#: src/js/admin/app/shell/SupportPage.js:185
+#: src/js/admin/app/shell/SupportPage.js:294
 #: src/js/admin/registry/capabilities.js:168
 msgid "Support"
 msgstr ""
@@ -1928,150 +2228,155 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:198
-msgid "Server-side Tagging (sGTM)"
+msgid "Google tag gateway"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:205
-msgid "Page Speed Optimization"
+msgid "Server-side Tagging (sGTM)"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:212
-msgid "Google Tag Manager Environment"
+msgid "Page Speed Optimization"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:219
-msgid "Exclude User Roles"
+msgid "Google Tag Manager Environment"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/capabilities.js:226
+msgid "Exclude User Roles"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/capabilities.js:233
 msgid "Container Code Implementation"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:235
+#: src/js/admin/registry/capabilities.js:242
 msgid "Post Data Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:242
+#: src/js/admin/registry/capabilities.js:249
 msgid "User Data Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:249
+#: src/js/admin/registry/capabilities.js:256
 msgid "GA4 standard events"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:256
+#: src/js/admin/registry/capabilities.js:263
 #: src/js/admin/registry/integrations.js:18
 msgid "Contact Form 7"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:264
+#: src/js/admin/registry/capabilities.js:271
 msgid "WooCommerce: Page data"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:273
+#: src/js/admin/registry/capabilities.js:280
 msgid "Script gating"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:280
+#: src/js/admin/registry/capabilities.js:287
 #: src/js/admin/registry/fields/consent.js:58
 msgid "CMP script attributes"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:287
+#: src/js/admin/registry/capabilities.js:294
 msgid "Google Consent Mode Activation"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:294
+#: src/js/admin/registry/capabilities.js:301
 msgid "Google Consent Mode Default Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:302
+#: src/js/admin/registry/capabilities.js:309
 msgid "Event deferral"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:311
+#: src/js/admin/registry/capabilities.js:318
 msgid "Logging and debugging"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:318
+#: src/js/admin/registry/capabilities.js:325
 msgid "Import settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:341
+#: src/js/admin/registry/capabilities.js:348
 #: src/js/admin/registry/integrations.js:16
 msgid "WooCommerce"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:349
+#: src/js/admin/registry/capabilities.js:356
 msgid "WooCommerce: Basic Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:356
+#: src/js/admin/registry/capabilities.js:363
 msgid "WooCommerce: User Data"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:363
+#: src/js/admin/registry/capabilities.js:370
 msgid "WooCommerce: Event Customization"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:370
+#: src/js/admin/registry/capabilities.js:377
 msgid "WooCommerce: Webhooks for server-side tracking"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:380
+#: src/js/admin/registry/capabilities.js:387
 msgid "WooCommerce: Google Ads Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:387
+#: src/js/admin/registry/capabilities.js:394
 msgid "WooCommerce: Advanced Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:396
+#: src/js/admin/registry/capabilities.js:403
 msgid "WooCommerce: Custom CSS Selectors"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:404
+#: src/js/admin/registry/capabilities.js:411
 #: src/js/admin/registry/integrations.js:17
 msgid "Easy Digital Downloads"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:412
+#: src/js/admin/registry/capabilities.js:419
 msgid "Easy Digital Downloads: Basic Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:419
+#: src/js/admin/registry/capabilities.js:426
 msgid "Easy Digital Downloads: Google Ads Settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/capabilities.js:426
+#: src/js/admin/registry/capabilities.js:433
 msgid "Easy Digital Downloads: Advanced Settings"
 msgstr ""
 
@@ -2122,141 +2427,156 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:108
-msgid "sGTM Container Domain:"
+msgid "Serve the Google tag from this site"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:109
+msgid "Loads the Google tag from your own domain instead of from Google, so ad blockers and browser tracking restrictions interfere with it less. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards. Not available while an sGTM container domain is set, because that already serves the tag from a domain you control."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:127
+msgid "sGTM Container Domain:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:128
 msgid "Enter domain"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:110
+#: src/js/admin/registry/fields/setup.js:129
 msgid "Enter your custom domain name if you are using a custom server side GTM container for tracking."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:123
+#: src/js/admin/registry/fields/setup.js:133
+msgid "Not available while the Google tag gateway is switched on, because that already serves the tag from your own domain. Use one or the other."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:149
 msgid "sGTM container identifier:"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:124
+#: src/js/admin/registry/fields/setup.js:150
 msgid "Enter loader name"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:125
+#: src/js/admin/registry/fields/setup.js:151
 msgid "Only use if you are using a custom loader."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:135
+#: src/js/admin/registry/fields/setup.js:164
 msgid "Cookie Keeper (for Stape users only)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:136
+#: src/js/admin/registry/fields/setup.js:165
 msgid "Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:157
-msgid "load_delayed_js event"
-msgstr ""
-
-#: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:158
-msgid "Setting this to On will push the event 'load_delayed_js' on page load."
-msgstr ""
-
-#: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:173
-msgid "gtm_auth:"
-msgstr ""
-
-#: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:174
-msgid "Enter gtm_auth code"
-msgstr ""
-
-#: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:175
-msgid "Enter the gtm_auth code for your GTM environment."
+#: src/js/admin/registry/fields/setup.js:187
+msgid "'load_delayed_js' event"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:188
-msgid "gtm_preview:"
+msgid "Setting this to On will push the event 'load_delayed_js' on page load."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:189
-msgid "Enter gtm_preview code"
+#: src/js/admin/registry/fields/setup.js:203
+msgid "gtm_auth:"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:190
-msgid "Enter the gtm_preview code for your GTM environment."
+#: src/js/admin/registry/fields/setup.js:204
+msgid "Enter gtm_auth code"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/setup.js:205
+msgid "Enter the gtm_auth code for your GTM environment."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:218
+msgid "gtm_preview:"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:219
+msgid "Enter gtm_preview code"
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:220
+msgid "Enter the gtm_preview code for your GTM environment."
+msgstr ""
+
+#: assets/admin/settings.js:1
+#: src/js/admin/registry/fields/setup.js:235
 msgid "Exclude user roles"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:206
+#: src/js/admin/registry/fields/setup.js:236
 msgid "Select the roles that you want to exclude from tracking."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:222
+#: src/js/admin/registry/fields/setup.js:252
 msgid "Container code implementation:"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:226
+#: src/js/admin/registry/fields/setup.js:256
 msgid "Standard implementation as recommended by Google (no delay)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:233
+#: src/js/admin/registry/fields/setup.js:263
 msgid "Load container when the browser is idle (requestIdleCallback)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:240
+#: src/js/admin/registry/fields/setup.js:270
 msgid "Depending on how you use Google Tag Manager you can delay the loading of the container script until the browser is idle."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:253
+#: src/js/admin/registry/fields/setup.js:283
 msgid "Container code noscript implementation:"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:257
+#: src/js/admin/registry/fields/setup.js:287
 msgid "Just after the opening <body> tag"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:261
+#: src/js/admin/registry/fields/setup.js:291
 msgid "Footer of the page (not recommended by Google)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:268
+#: src/js/admin/registry/fields/setup.js:298
 msgid "Custom (insert function in your template)"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:275
+#: src/js/admin/registry/fields/setup.js:305
 msgid "Disable <noscript> implementation"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/setup.js:279
+#: src/js/admin/registry/fields/setup.js:309
 msgid "The preferred method to implement the <noscript> container code is just after the opening <body> tag. This requires that your theme uses the \"body_open\" hook. If your theme does not support this the script can be injected in the footer or you can use the function below."
 msgstr ""
 
@@ -2382,7 +2702,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/events.js:123
-msgid "Fires `login` on successful WordPress and WooCommerce account logins."
+msgid "Fires 'login' on successful WordPress and WooCommerce account logins."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2392,7 +2712,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/events.js:133
-msgid "Fires `sign_up` on new account registrations, including accounts created during WooCommerce checkout."
+msgid "Fires 'sign_up' on new account registrations, including accounts created during WooCommerce checkout."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2402,7 +2722,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/events.js:143
-msgid "Fires `search` on WordPress and WooCommerce product search results pages."
+msgid "Fires 'search' on WordPress and WooCommerce product search results pages."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2412,7 +2732,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/events.js:153
-msgid "Fires `generate_lead` alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled."
+msgid "Fires 'generate_lead' alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2597,7 +2917,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/tools.js:51
-msgid "Log the purchase event and the server-side webhooks GTM Kit sends to your tagging server."
+msgid "Log the 'purchase' event and the server-side webhooks GTM Kit sends to your tagging server."
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2654,57 +2974,57 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:106
 #: src/js/admin/registry/fields/commerce.js:408
-msgid "Enable this option to include customer data in the data layer on the \"purchase\" event."
+msgid "Enable this option to include customer data in the data layer on the 'purchase' event."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:119
-msgid "view_item_list (with product filter)"
+msgid "'view_item_list' (with product filter)"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:123
-msgid "Push view_item_list when the list is updated using a product filter."
+msgid "Push 'view_item_list' when the list is updated using a product filter."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:130
-msgid "Only push view_item_list once per page for each list."
+msgid "Only push 'view_item_list' once per page for each list."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:137
-msgid "Do you want to push the view_item_list event if the list is updated using a filter or just once per page view?"
+msgid "Do you want to push the 'view_item_list' event if the list is updated using a filter or just once per page view?"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:151
-msgid "view_item (variable product)"
+msgid "'view_item' (variable product)"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:155
-msgid "Only push view_item on the master product"
+msgid "Only push 'view_item' on the master product"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:162
-msgid "Push view_item on master and variation products (higher number of views)."
+msgid "Push 'view_item' on master and variation products (higher number of views)."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:169
-msgid "Only push view_item on variation products."
+msgid "Only push 'view_item' on variation products."
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:176
-msgid "When do you want to fire the \"view_item\" event on variable products?"
+msgid "When do you want to fire the 'view_item' event on variable products?"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:190
-msgid "add_shipping_info"
+msgid "'add_shipping_info'"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2725,12 +3045,12 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:215
-msgid "When do you want to fire the \"add_shipping_info\" event?"
+msgid "When do you want to fire the 'add_shipping_info' event?"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:229
-msgid "add_payment_info"
+msgid "'add_payment_info'"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2745,7 +3065,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/commerce.js:251
-msgid "When do you want to fire the \"add_payment_info\" event?"
+msgid "When do you want to fire the 'add_payment_info' event?"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2847,7 +3167,7 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:62
-msgid "Send the purchase event server-side"
+msgid "Send the 'purchase' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
@@ -2867,126 +3187,126 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:92
-msgid "Send the order_paid event server-side"
+msgid "Send the 'order_paid' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:99
-msgid "Send the refund event server-side"
+msgid "Send the 'refund' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:106
-msgid "Send the order_processing event server-side"
+msgid "Send the 'order_processing' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:113
-msgid "Send the order_completed event server-side"
+msgid "Send the 'order_completed' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:120
-msgid "Send the order_refunded event server-side"
+msgid "Send the 'order_refunded' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:127
-msgid "Send the subscription_started event server-side"
+msgid "Send the 'subscription_started' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:135
-msgid "Send the subscription_renewed event server-side"
+msgid "Send the 'subscription_renewed' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:143
-msgid "Send the subscription_cancelled event server-side"
+msgid "Send the 'subscription_cancelled' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:151
-msgid "Send the subscription_expired event server-side"
+msgid "Send the 'subscription_expired' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: src/js/admin/registry/fields/stubs.js:159
-msgid "Send the subscription_reactivated event server-side"
+msgid "Send the 'subscription_reactivated' event server-side"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:170
+#: src/js/admin/registry/fields/stubs.js:173
 msgid "Consent gating of webhooks"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:177
+#: src/js/admin/registry/fields/stubs.js:180
 msgid "Off: send webhooks regardless of the consent given at checkout."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:184
+#: src/js/admin/registry/fields/stubs.js:187
 msgid "Suppress: strip identifiers the customer did not consent to, and do not send the webhook at all when both marketing and analytics consent were denied."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:191
+#: src/js/admin/registry/fields/stubs.js:194
 msgid "Anonymize: strip identifiers the customer did not consent to, but always send the webhook so aggregate conversion data is preserved."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:205
+#: src/js/admin/registry/fields/stubs.js:208
 msgid "Unknown consent"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:212
+#: src/js/admin/registry/fields/stubs.js:215
 msgid "Treat unknown consent as granted and send the webhook unchanged."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:219
+#: src/js/admin/registry/fields/stubs.js:222
 msgid "Treat unknown consent as denied."
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:232
-msgid "Disable the frontend purchase event"
+#: src/js/admin/registry/fields/stubs.js:235
+msgid "Disable the frontend 'purchase' event"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:239
-msgid "Disable the frontend subscription_started event"
+#: src/js/admin/registry/fields/stubs.js:242
+msgid "Disable the frontend 'subscription_started' event"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:249
-msgid "Single Product (add_to_wishlist)"
+#: src/js/admin/registry/fields/stubs.js:252
+msgid "Single Product ('add_to_wishlist')"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:256
-msgid "Product List (select_item)"
+#: src/js/admin/registry/fields/stubs.js:259
+msgid "Product List ('select_item')"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:263
-msgid "Product List (add_to_wishlist)"
+#: src/js/admin/registry/fields/stubs.js:266
+msgid "Product List ('add_to_wishlist')"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:273
+#: src/js/admin/registry/fields/stubs.js:276
 msgid "Send a test webhook to sGTM Preview"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:286
+#: src/js/admin/registry/fields/stubs.js:289
 msgid "Defer events until consent is granted"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/registry/fields/stubs.js:299
+#: src/js/admin/registry/fields/stubs.js:302
 msgid "Event Inspector"
 msgstr ""
 
@@ -3210,17 +3530,17 @@ msgid "All integrations"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/app/shell/TopBar.js:25
+#: src/js/admin/app/shell/TopBar.js:27
 msgid "Search all settings…"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/app/shell/TopBar.js:26
+#: src/js/admin/app/shell/TopBar.js:28
 msgid "Search all settings"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: src/js/admin/app/shell/TopBar.js:32
+#: src/js/admin/app/shell/TopBar.js:34
 msgid "Save changes"
 msgstr ""
 
@@ -3232,6 +3552,7 @@ msgstr ""
 #. translators: %s: search query.
 #: assets/admin/settings.js:2
 #: src/js/admin/app/shell/SearchResults.js:83
+#, js-format
 msgid "Results for “%s”"
 msgstr ""
 
@@ -3244,80 +3565,80 @@ msgstr ""
 #: assets/admin/settings.js:8
 #: src/js/admin/app/atoms/page-select-setting.js:49
 #: src/js/admin/app/atoms/select-setting.js:44
-#: src/js/admin/app/shell/fields/controls.js:140
+#: src/js/admin/app/shell/fields/controls.js:143
 msgid "(not set)"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:111
-#: src/js/admin/app/shell/fields/composite.js:238
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:112
+#: src/js/admin/app/shell/fields/composite.js:241
 msgid "No patterns configured. GTM Kit loads on every frontend page."
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:124
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:147
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:125
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:149
 msgid "Pattern"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:127
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:190
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:128
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:192
 msgid "Mode"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:28
-#: src/js/admin/app/shell/fields/composite.js:176
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:29
+#: src/js/admin/app/shell/fields/composite.js:179
 msgid "Invalid regular expression."
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:181
-#: src/js/admin/app/shell/fields/composite.js:294
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:183
+#: src/js/admin/app/shell/fields/composite.js:298
 msgid "Invalid regular expression:"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:195
-#: src/js/admin/app/shell/fields/composite.js:316
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:197
+#: src/js/admin/app/shell/fields/composite.js:320
 msgid "Glob"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:199
-#: src/js/admin/app/shell/fields/composite.js:319
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:201
+#: src/js/admin/app/shell/fields/composite.js:323
 msgid "Regex"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:220
-#: src/js/admin/app/shell/fields/composite.js:327
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:222
+#: src/js/admin/app/shell/fields/composite.js:331
 msgid "Remove pattern"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:225
-#: src/js/admin/app/shell/fields/composite.js:329
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:227
+#: src/js/admin/app/shell/fields/composite.js:333
 msgid "Remove"
 msgstr ""
 
 #: assets/admin/settings.js:2
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:238
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:240
 msgid "Add pattern"
 msgstr ""
 
 #: assets/admin/settings.js:2
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:242
-#: src/js/admin/app/shell/fields/composite.js:346
+#: src/js/admin/app/atoms/excluded-url-patterns-setting.js:244
+#: src/js/admin/app/shell/fields/composite.js:350
 msgid "Maximum of 100 patterns reached."
 msgstr ""
 
@@ -3325,38 +3646,39 @@ msgstr ""
 #: assets/admin/settings.js:4
 #: assets/admin/settings.js:6
 #: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:21
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:28
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:35
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:22
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:29
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:36
+#, js-format
 msgid "Adds %s to GTM Kit scripts."
 msgstr ""
 
 #: assets/admin/settings.js:8
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:139
-#: src/js/admin/app/shell/fields/composite.js:119
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:140
+#: src/js/admin/app/shell/fields/composite.js:120
 msgid "Custom attribute"
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:142
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:143
 msgid "Use this to add an attribute that is not in the list above. Names accept letters, digits, underscore, and dash; everything else is stripped on save. Leave the name empty to omit the attribute."
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:149
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:151
 msgid "Name"
 msgstr ""
 
 #: assets/admin/settings.js:8
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:158
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:161
 msgid "Value"
 msgstr ""
 
 #: assets/admin/settings.js:8
 #: assets/admin/settings.js:15
-#: src/js/admin/app/atoms/cmp-attributes-setting.js:169
-#: src/js/admin/app/shell/fields/composite.js:151
+#: src/js/admin/app/atoms/cmp-attributes-setting.js:172
+#: src/js/admin/app/shell/fields/composite.js:154
 msgid "Resulting script tag attributes"
 msgstr ""
 
@@ -3408,257 +3730,263 @@ msgstr ""
 #. translators: %s: the product that unlocks this setting.
 #: assets/admin/settings.js:9
 #: src/js/admin/app/shell/fields/UpsellSlot.js:45
+#, js-format
 msgid "Upgrade to %s to manage this setting here."
 msgstr ""
 
 #. translators: 1: minutes, 2: seconds.
 #: assets/admin/settings.js:12
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:61
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:62
+#, js-format
 msgid "%1$dm %2$ds"
 msgstr ""
 
 #. translators: %d: seconds.
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:68
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:69
+#, js-format
 msgid "%ds"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/composite.js:108
+#: src/js/admin/app/shell/fields/composite.js:109
 msgid "Adds"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/composite.js:110
+#: src/js/admin/app/shell/fields/composite.js:111
 msgid "to GTM Kit scripts."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/composite.js:120
+#: src/js/admin/app/shell/fields/composite.js:121
 msgid "Name and value added as an attribute. Leave the name empty to omit it."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/composite.js:342
+#: src/js/admin/app/shell/fields/composite.js:346
 msgid "Add pattern +"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:173
+#: src/js/admin/app/shell/fields/event-deferral.js:174
 msgid "Event Deferral needs a consent source to release events. Either turn on Consent Mode (the Activate GCM settings toggle under Consent) so GTM Kit provides one, or use a consent platform that supports the WP Consent API. With neither available, deferred events only release on the timeout fallback; they never wait for a real consent grant."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:184
+#: src/js/admin/app/shell/fields/event-deferral.js:185
 msgid "Strong-block gating mode holds the whole container back until consent, so per-event deferral stays inert while that mode is active."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:194
+#: src/js/admin/app/shell/fields/event-deferral.js:195
 msgid "Events to defer"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:195
+#: src/js/admin/app/shell/fields/event-deferral.js:196
 msgid "Checked events wait for consent. Unchecked events fire immediately."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:236
-#: src/js/admin/app/shell/fields/event-deferral.js:245
+#: src/js/admin/app/shell/fields/event-deferral.js:237
+#: src/js/admin/app/shell/fields/event-deferral.js:247
 msgid "Seconds to wait"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:237
+#: src/js/admin/app/shell/fields/event-deferral.js:238
 msgid "How long the queue waits for consent before the timeout fallback runs. 1 to 30 seconds."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:261
+#: src/js/admin/app/shell/fields/event-deferral.js:263
 msgid "On timeout"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:265
+#: src/js/admin/app/shell/fields/event-deferral.js:267
 msgid "Flush the queued events anyway"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:272
+#: src/js/admin/app/shell/fields/event-deferral.js:274
 msgid "Drop the queued events (never fire without consent)"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:314
+#: src/js/admin/app/shell/fields/event-deferral.js:316
 msgid "Required consent categories"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/event-deferral.js:318
+#: src/js/admin/app/shell/fields/event-deferral.js:320
 msgid "Deferred events are released once these consent categories are granted."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:142
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:143
 msgid "Could not load the preview status. Reload the page and try again."
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:308
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:309
 msgid "Loading…"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:325
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:326
 msgid "Server container Preview token"
 msgstr ""
 
 #: assets/admin/settings.js:15
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:329
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:330
 msgid "Open your server container in Tag Manager, click Preview, and copy the token. It is per-session and expires."
 msgstr ""
 
 #. translators: %s: remaining time.
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:342
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:343
+#, js-format
 msgid "expires in %s"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:357
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:358
 msgid "Clear"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:367
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:368
 msgid "Paste a fresh token to replace the stored one"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:371
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:372
 msgid "Paste your Preview token"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:387
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:388
 msgid "Event to test"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:411
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:412
 msgid "Payload source"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:430
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:431
 msgid "Synthetic sample event"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:458
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:459
 msgid "Replay a real order"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:466
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:467
 msgid "This event type cannot be replayed from an order. Use the synthetic sample."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:470
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:471
 msgid "Order replay needs WooCommerce active."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:483
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:485
 msgid "Order ID"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:508
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:510
 msgid "Use a synthetic transaction ID (recommended)"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:514
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:516
 msgid "Replays the real order, but swaps its transaction ID for a synthetic one so the test conversion is easy to spot and is not counted against the real order in GA4 / Ads. Uncheck to send the order’s real transaction ID (only if your downstream tags are gated to Preview/debug traffic)."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:526
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:528
 msgid "A valid token does more than show the event in Preview: the container processes it and fires your downstream tags. A test purchase can push a real (fake) conversion into GA4 and Google Ads unless those tags are gated to Preview/debug traffic."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:201
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:202
 msgid "Delivered."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:202
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:203
 msgid "The test could not be sent."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:215
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:216
 msgid "The test could not be sent. Check your connection and try again."
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:542
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:544
 msgid "Sending…"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:543
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:545
 msgid "Send test webhook to sGTM Preview"
 msgstr ""
 
 #: assets/admin/settings.js:18
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:550
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:552
 msgid "Paste a token to enable."
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: message.
 #: assets/admin/settings.js:21
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:577
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:579
+#, js-format
 msgid "HTTP %1$d — %2$s"
 msgstr ""
 
 #. translators: %s: remaining time.
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:601
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:603
+#, js-format
 msgid "Live preview header is ON. It turns itself off in %s when the token expires."
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:258
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:259
 msgid "Paste your server container Preview token first."
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:269
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:270
 msgid "Could not update the live toggle."
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:634
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:636
 msgid "Attach the preview header to live webhook traffic"
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:641
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:643
 msgid "Live orders will appear in Preview while this is on. It is tied to the token and disarms automatically when the token expires, so it can never send a stale token that would make live webhooks fail. Use it only for short, supervised debugging."
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:660
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:662
 msgid "Hide filter snippet"
 msgstr ""
 
 #: assets/admin/settings.js:24
-#: src/js/admin/app/shell/fields/sgtm-preview-test.js:661
+#: src/js/admin/app/shell/fields/sgtm-preview-test.js:663
 msgid "Copy as filter snippet"
 msgstr ""
 
@@ -3670,24 +3998,28 @@ msgstr ""
 #. translators: %s: the add-on plugin name to update.
 #: assets/admin/settings.js:25
 #: src/js/admin/app/shell/fields/StaleAddonNotice.js:33
+#, js-format
 msgid "Update %s to its latest version to manage this setting here."
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 #: assets/admin/settings.js:28
 #: src/js/admin/app/molecules/plugin-inactive.js:14
+#, js-format
 msgid "%s is not active"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 #: assets/admin/settings.js:31
 #: src/js/admin/app/molecules/plugin-inactive.js:23
+#, js-format
 msgid "If you haven't installed and activated %s you must do that."
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 #: assets/admin/settings.js:34
 #: src/js/admin/app/molecules/plugin-inactive.js:40
+#, js-format
 msgid "Install %s"
 msgstr ""
 
@@ -3704,6 +4036,7 @@ msgstr ""
 #. translators: %s: name of the plugin the settings were imported from.
 #: assets/admin/settings.js:35
 #: src/js/admin/app/organisms/import-plugin-settings.js:145
+#, js-format
 msgid "Settings imported from %s."
 msgstr ""
 
@@ -3715,6 +4048,7 @@ msgstr ""
 #. translators: %s: name of the plugin the settings are imported from.
 #: assets/admin/settings.js:36
 #: src/js/admin/app/organisms/import-plugin-settings.js:165
+#, js-format
 msgid "Importing from %s replaces your current GTM Kit settings with the ones below. This cannot be undone."
 msgstr ""
 
@@ -3731,6 +4065,7 @@ msgstr ""
 #. translators: %d: number of additional containers found.
 #: assets/admin/settings.js:37
 #: src/js/admin/app/organisms/import-plugin-settings.js:200
+#, js-format
 msgid "%d additional container was found and will not be imported. GTM Kit uses one container."
 msgid_plural "%d additional containers were found and will not be imported. GTM Kit uses one container."
 msgstr[0] ""
@@ -3754,6 +4089,7 @@ msgstr ""
 #. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
 #: assets/admin/settings.js:40
 #: src/js/admin/registry/blocks/components.js:80
+#, js-format
 msgid "WordPress reports this site as %s."
 msgstr ""
 
@@ -3785,24 +4121,28 @@ msgstr ""
 #. translators: 1: integration name, 2: setting count, 3: capability name.
 #: assets/admin/settings.js:41
 #: src/js/admin/app/shell/FilterNotices.js:25
+#, js-format
 msgid "Filtered to %1$s — %2$d settings in %3$s. Universal capabilities (Setup, Consent) still apply and stay available."
 msgstr ""
 
 #. translators: 1: integration name, 2: capability name.
 #: assets/admin/settings.js:42
 #: src/js/admin/app/shell/FilterNotices.js:35
+#, js-format
 msgid "Filtered to %1$s. No %1$s settings in %2$s — universal settings still apply and stay available."
 msgstr ""
 
 #. translators: 1: hidden integration name, 2: active filter name.
 #: assets/admin/settings.js:43
 #: src/js/admin/app/shell/FilterNotices.js:63
+#, js-format
 msgid "%1$s settings hidden by the %2$s filter."
 msgstr ""
 
 #. translators: %s: GTM Kit plugin version.
 #: assets/admin/settings.js:44
 #: src/js/admin/app/shell/CapabilityPage.js:53
+#, js-format
 msgid "GTM Kit version %s"
 msgstr ""
 
@@ -3862,12 +4202,14 @@ msgstr ""
 #. translators: %d: number of dismissed notifications.
 #: assets/admin/settings.js:45
 #: src/js/admin/app/shell/DashboardPage.js:293
+#, js-format
 msgid "Hide dismissed notifications (%d)"
 msgstr ""
 
 #. translators: %d: number of dismissed notifications.
 #: assets/admin/settings.js:46
 #: src/js/admin/app/shell/DashboardPage.js:301
+#, js-format
 msgid "Show dismissed notifications (%d)"
 msgstr ""
 
@@ -3879,6 +4221,7 @@ msgstr ""
 #. translators: %s: the kind of site WordPress reports, for example "staging".
 #: assets/admin/settings.js:47
 #: src/js/admin/registry/dashboardData.js:44
+#, js-format
 msgid "Not loaded while this site is %s"
 msgstr ""
 
@@ -3902,6 +4245,7 @@ msgstr ""
 #. translators: %s: comma-separated region codes.
 #: assets/admin/settings.js:48
 #: src/js/admin/registry/dashboardData.js:56
+#, js-format
 msgid "Region: %s"
 msgstr ""
 
@@ -3954,7 +4298,7 @@ msgstr ""
 #: assets/admin/settings.js:53
 #: src/js/admin/app/shell/DashboardPage.js:406
 #: src/js/admin/app/shell/DashboardPage.js:420
-#: src/js/admin/app/shell/SupportPage.js:266
+#: src/js/admin/app/shell/SupportPage.js:382
 msgid "Read"
 msgstr ""
 
@@ -4001,222 +4345,262 @@ msgstr ""
 #. translators: %s: integration name.
 #: assets/admin/settings.js:49
 #: src/js/admin/app/shell/IntegrationConfig.js:51
+#, js-format
 msgid "%s Integration"
 msgstr ""
 
 #. translators: %s: capability name.
 #: assets/admin/settings.js:50
 #: src/js/admin/app/shell/IntegrationConfig.js:89
+#, js-format
 msgid "Reached from Integrations · settings live under %s"
 msgstr ""
 
 #. translators: %s: integration name.
 #: assets/admin/settings.js:51
 #: src/js/admin/app/shell/IntegrationConfig.js:105
+#, js-format
 msgid "Install and activate the %s plugin to configure this integration."
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:33
+#: src/js/admin/app/shell/LicensePage.js:34
 msgid "Trouble activating?"
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:34
+#: src/js/admin/app/shell/LicensePage.js:35
 msgid "Make sure the key is pasted in full (it starts with GTMK-) with no leading or trailing spaces, and that your server can reach the GTM Kit licensing server. If activation still fails, premium licence holders get priority email support and we can check it from our side."
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:39
+#: src/js/admin/app/shell/LicensePage.js:40
 msgid "Contact premium support"
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:46
+#: src/js/admin/app/shell/LicensePage.js:47
 msgid "Server-side webhooks & background queue"
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:47
+#: src/js/admin/app/shell/LicensePage.js:48
 msgid "WooCommerce Subscriptions tracking"
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:48
+#: src/js/admin/app/shell/LicensePage.js:49
 msgid "Event deferral until consent"
 msgstr ""
 
 #: assets/admin/settings.js:51
-#: src/js/admin/app/shell/LicensePage.js:49
+#: src/js/admin/app/shell/LicensePage.js:50
 msgid "Order attribution & enhanced conversions"
 msgstr ""
 
 #. translators: %s: license renewal date.
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:69
+#: src/js/admin/app/shell/LicensePage.js:70
+#, js-format
 msgid "Renews %s"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:139
+#: src/js/admin/app/shell/LicensePage.js:140
 msgid "License active"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:143
+#: src/js/admin/app/shell/LicensePage.js:144
 msgid "Your GTM Kit Premium license is active and all premium features are enabled."
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:151
+#: src/js/admin/app/shell/LicensePage.js:152
 msgid "License key:"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:167
+#: src/js/admin/app/shell/LicensePage.js:168
 msgid "Deactivate license"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:200
+#: src/js/admin/app/shell/LicensePage.js:201
 msgid "Unlock GTM Kit Premium"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:205
+#: src/js/admin/app/shell/LicensePage.js:206
 msgid "Upgrade"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:210
+#: src/js/admin/app/shell/LicensePage.js:211
 msgid "Server-side tracking, the webhook queue, subscriptions and more."
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:233
+#: src/js/admin/app/shell/LicensePage.js:235
 msgid "Enter license key"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:234
+#: src/js/admin/app/shell/LicensePage.js:236
 msgid "License key"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:244
+#: src/js/admin/app/shell/LicensePage.js:246
 msgid "Activate license"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:256
-#: src/js/admin/app/shell/LicensePage.js:334
+#: src/js/admin/app/shell/LicensePage.js:258
+#: src/js/admin/app/shell/LicensePage.js:336
 msgid "Buy a license"
 msgstr ""
 
 #: assets/admin/settings.js:52
-#: src/js/admin/app/shell/LicensePage.js:265
+#: src/js/admin/app/shell/LicensePage.js:267
 msgid "Go to my account"
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:123
+msgid "Send system data manually"
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:125
+msgid "Sending your system data is not working from this site. Copy it here or download it as a file, and email it to the GTM Kit support team instead. It contains your GTM Kit settings, so send it only to the support team and never post it anywhere public."
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:136
+msgid "System data"
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:148
+msgid "Copied"
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:149
+msgid "Copy system data"
+msgstr ""
+
+#: assets/admin/settings.js:52
+#: src/js/admin/app/shell/SupportPage.js:156
+msgid "Download as a file"
 msgstr ""
 
 #. translators: %1$s: the support ticket reference. %2$s: the localized end date of the sync session.
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:114
+#: src/js/admin/app/shell/SupportPage.js:217
+#, js-format
 msgid "System data syncs to support while ticket %1$s is open, until %2$s."
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:130
+#: src/js/admin/app/shell/SupportPage.js:233
 msgid "Stop sharing"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:142
+#: src/js/admin/app/shell/SupportPage.js:245
 msgid "If you have contacted support you may have been asked to share your system data. Enter the support ticket you have been given below."
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:149
-#: src/js/admin/app/shell/SupportPage.js:155
+#: src/js/admin/app/shell/SupportPage.js:252
+#: src/js/admin/app/shell/SupportPage.js:259
 msgid "Support ticket"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:154
+#: src/js/admin/app/shell/SupportPage.js:258
 msgid "FS-12345"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:169
+#: src/js/admin/app/shell/SupportPage.js:273
 msgid "Send system data"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:186
+#: src/js/admin/app/shell/SupportPage.js:280
+msgid "You can send your system data manually instead, below."
+msgstr ""
+
+#: assets/admin/settings.js:53
+#: src/js/admin/app/shell/SupportPage.js:295
 msgid "Get help and contact us"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:191
+#: src/js/admin/app/shell/SupportPage.js:300
 msgid "Premium support"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:192
+#: src/js/admin/app/shell/SupportPage.js:301
 msgid "Premium subscribers get direct email support, usually a same-day reply on weekdays. Bugs, configuration questions, edge cases."
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:199
+#: src/js/admin/app/shell/SupportPage.js:308
 msgid "Contact support"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:203
+#: src/js/admin/app/shell/SupportPage.js:312
 msgid "Get GTM Kit Premium"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:213
+#: src/js/admin/app/shell/SupportPage.js:322
 msgid "Community support"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:214
+#: src/js/admin/app/shell/SupportPage.js:323
 msgid "Free support in the WordPress.org support forum. Covers the plugin itself, not Google Tag Manager configuration."
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:219
+#: src/js/admin/app/shell/SupportPage.js:328
 msgid "WordPress support forum"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:224
+#: src/js/admin/app/shell/SupportPage.js:333
 msgid "Bug reports"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:225
+#: src/js/admin/app/shell/SupportPage.js:334
 msgid "Found a reproducible bug? Open an issue on GitHub with steps to reproduce and the plugin version. Public, searchable, faster to triage."
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:230
+#: src/js/admin/app/shell/SupportPage.js:339
 msgid "Report on GitHub"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:237
+#: src/js/admin/app/shell/SupportPage.js:346
 msgid "Share system data with the GTM Kit support team"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:246
+#: src/js/admin/app/shell/SupportPage.js:362
 msgid "Documentation"
 msgstr ""
 
 #: assets/admin/settings.js:53
-#: src/js/admin/app/shell/SupportPage.js:250
+#: src/js/admin/app/shell/SupportPage.js:366
 msgid "View all documentation"
 msgstr ""
 

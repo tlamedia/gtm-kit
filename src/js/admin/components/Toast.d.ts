@@ -37,6 +37,8 @@ export interface ToastObject extends ToastProps {
 export interface ToastContainerProps {
 	/** Array of toast objects */
 	toasts?: ToastObject[];
+	/** Dismiss a toast by id; without it, toasts carry no close control */
+	onDismiss?: ( id: string | number ) => void;
 }
 
 /**

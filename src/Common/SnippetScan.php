@@ -195,6 +195,28 @@ final class SnippetScan {
 	];
 
 	/**
+	 * Plugins that load a Google tag of their own, keyed by plugin file.
+	 *
+	 * These are not Tag Manager conflicts, so they stay out of the conflicting
+	 * plugins list. They are consulted only to name the source of a Google tag
+	 * found beside the container, where the tag may be injected inline without
+	 * leaving the plugin's name anywhere in the page.
+	 *
+	 * Being active is not enough: a plugin can be active without outputting
+	 * its tag, for example before it is connected to an account. Each entry
+	 * therefore also carries a marker its own tag output always contains, and
+	 * the plugin is named only when both hold.
+	 *
+	 * @var array<string, array<string, string>>
+	 */
+	private const GTAG_SOURCES = [
+		'google-listings-and-ads/google-listings-and-ads.php' => [
+			'pattern' => '~["\']groups["\']\s*:\s*["\']GLA["\']~',
+			'name'    => 'Google for WooCommerce',
+		],
+	];
+
+	/**
 	 * Seconds to wait for the sample page.
 	 *
 	 * @var int
@@ -642,7 +664,7 @@ final class SnippetScan {
 		return [
 			'type'       => $type,
 			'containers' => array_values( $containers ),
-			'culprit'    => $this->identify_culprit( $body ),
+			'culprit'    => $this->identify_culprit( $body, $type ),
 		];
 	}
 
@@ -650,17 +672,21 @@ final class SnippetScan {
 	 * Name what is adding the second implementation, if it can be named.
 	 *
 	 * Active plugins come first: a plugin that is demonstrably running is a
-	 * stronger answer than a string that happens to appear in the HTML. The
-	 * shipped signature list then covers the tools that add tracking code
-	 * without being plugins GTM Kit tracks by name, above all theme hardcodes
-	 * and code-snippet plugins. When neither answers, the finding is reported
-	 * without a name rather than with a guess.
+	 * stronger answer than a string that happens to appear in the HTML. For a
+	 * Google tag beside the container, plugins known to load a Google tag of
+	 * their own are checked next, and named only when their own tag is in the
+	 * page; they never add a container, so they cannot explain the other two
+	 * findings. The shipped signature list then covers
+	 * the tools that add tracking code without being plugins GTM Kit tracks by
+	 * name, above all theme hardcodes and code-snippet plugins. When nothing
+	 * answers, the finding is reported without a name rather than with a guess.
 	 *
 	 * @param string $body The response body.
+	 * @param string $type The duplicate finding, one of the DUPLICATE_* constants.
 	 *
 	 * @return string The name, or an empty string.
 	 */
-	private function identify_culprit( string $body ): string {
+	private function identify_culprit( string $body, string $type ): string {
 
 		Util::load_plugin_api();
 
@@ -670,6 +696,14 @@ final class SnippetScan {
 		foreach ( $availability->get_plugins( 'conflicting' ) as $plugin ) {
 			if ( $availability->is_active( $plugin ) ) {
 				return (string) $plugin['name'];
+			}
+		}
+
+		if ( $type === self::DUPLICATE_GTAG ) {
+			foreach ( self::GTAG_SOURCES as $plugin_file => $source ) {
+				if ( is_plugin_active( $plugin_file ) && preg_match( $source['pattern'], $body ) === 1 ) {
+					return $source['name'];
+				}
 			}
 		}
 

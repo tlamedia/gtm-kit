@@ -3,7 +3,7 @@
  * heading so the modal's labelling div can act as the dialog title.
  *
  * @param {{ text: string }} props
- * @return {JSX.Element|null}
+ * @return {JSX.Element|null} The heading, or null when there is no text.
  */
 const Heading = ( { text } ) => {
 	if ( typeof text !== 'string' || text === '' ) {

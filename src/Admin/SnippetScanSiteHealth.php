@@ -181,15 +181,25 @@ final class SnippetScanSiteHealth {
 			) . '</p>';
 		}
 
-		$description .= '<p>' . (
-			( $culprit !== '' )
-			? sprintf(
+		if ( $culprit === '' ) {
+			$culprit_sentence = esc_html__( 'GTM Kit could not tell what adds the extra tracking code. Your theme\'s header template and any plugin that inserts code into the page head are the usual places to look.', 'gtm-kit' );
+		} elseif ( $type === SnippetScan::DUPLICATE_GTAG ) {
+			// A source of a Google tag adds no container, so there is no
+			// container to remove from it.
+			$culprit_sentence = sprintf(
+				/* translators: %s is the name of a plugin or tool that adds a Google tag. */
+				esc_html__( 'The Google tag appears to come from %s. Check that the same tag does not also fire inside your container.', 'gtm-kit' ),
+				'<strong>' . esc_html( $culprit ) . '</strong>'
+			);
+		} else {
+			$culprit_sentence = sprintf(
 				/* translators: %s is the name of a plugin or tool that also adds tracking code. */
 				esc_html__( 'The extra tracking code appears to come from %s. Remove the container from there and leave GTM Kit as the single place your site loads it.', 'gtm-kit' ),
 				'<strong>' . esc_html( $culprit ) . '</strong>'
-			)
-			: esc_html__( 'GTM Kit could not tell what adds the extra tracking code. Your theme\'s header template and any plugin that inserts code into the page head are the usual places to look.', 'gtm-kit' )
-		) . '</p>';
+			);
+		}
+
+		$description .= '<p>' . $culprit_sentence . '</p>';
 
 		$description .= $this->implementation_list( $result );
 

@@ -140,6 +140,9 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 	 * @param string $script_handle The script handle.
 	 */
 	public function localize_script( string $page_slug, string $script_handle ): void {
+		$support_sync      = new SupportSync( $this->options, $this->util );
+		$is_premium_plugin = ( new PremiumPluginConditional() )->is_met();
+
 		$settings = [
 			'rootId'             => 'gtmkit-settings',
 			'currentPage'        => $page_slug,
@@ -148,7 +151,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'nonce'              => \wp_create_nonce( 'wp_rest' ),
 			'pluginUrl'          => GTMKIT_URL,
 			'isPremium'          => ( new PremiumConditional() )->is_met(),
-			'isPremiumPlugin'    => ( new PremiumPluginConditional() )->is_met(),
+			'isPremiumPlugin'    => $is_premium_plugin,
 			'tutorials'          => $this->get_tutorials(),
 			'integrations'       => Integrations::get_integrations(),
 			'plugins'            => Integrations::get_plugins(),
@@ -159,7 +162,13 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'settings'           => $this->options->get_all_raw(),
 			'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
 			'siteEnvironment'    => $this->get_site_environment_state(),
-			'supportSync'        => ( new SupportSync( $this->options, $this->util ) )->get_client_state(),
+			'supportSync'        => $support_sync->get_client_state(),
+			// Premium only: the export goes to the support team by email, and
+			// a free user's route to help is the public forum, where this
+			// data must never be posted. Nested, because wp_localize_script()
+			// entity-decodes top-level strings, which would alter the JSON
+			// the customer hands over.
+			'supportExport'      => $is_premium_plugin ? $support_sync->get_export() : null,
 			'user_roles'         => $this->get_user_roles(),
 			'notifications'      => $this->get_notifications(),
 			'consentAdminBadges' => $this->get_consent_admin_badges(),

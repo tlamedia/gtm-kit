@@ -92,7 +92,7 @@ export const CAPABILITIES = [
 		context: {
 			about: {
 				text: __(
-					'Commerce tracking pushes view_item, add_to_cart, begin_checkout and purchase events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads.',
+					"Commerce tracking pushes 'view_item', 'add_to_cart', 'begin_checkout' and 'purchase' events to the data layer for WooCommerce and EDD, ready for GA4 and Google Ads.",
 					'gtm-kit'
 				),
 				link: {
@@ -190,6 +190,13 @@ export const SECTIONS = [
 		id: 'exclude-pages',
 		label: __( 'Exclude pages from GTM', 'gtm-kit' ),
 		order: 20,
+		layout: LAYOUTS.TWO_COLUMN,
+	},
+	{
+		capability: 'setup',
+		id: 'google-tag-gateway',
+		label: __( 'Google tag gateway', 'gtm-kit' ),
+		order: 25,
 		layout: LAYOUTS.TWO_COLUMN,
 	},
 	{

@@ -13,7 +13,7 @@ import { registerComponent } from './componentRegistry';
 
 import Welcome from './components/Welcome.jsx';
 
-const MOUNT_ID  = 'gtmkit-introductions-root';
+const MOUNT_ID = 'gtmkit-introductions-root';
 const READY_TAG = 'gtmkit.introductions.ready';
 
 /**
@@ -26,10 +26,12 @@ const READY_TAG = 'gtmkit.introductions.ready';
  * race.
  */
 function installPublicApi() {
-	window.gtmkit               = window.gtmkit || {};
+	window.gtmkit = window.gtmkit || {};
 	window.gtmkit.introductions = window.gtmkit.introductions || {};
 
-	const pending = Array.isArray( window.gtmkit.introductions._pendingRegistrations )
+	const pending = Array.isArray(
+		window.gtmkit.introductions._pendingRegistrations
+	)
 		? window.gtmkit.introductions._pendingRegistrations
 		: [];
 
@@ -57,7 +59,9 @@ function boot() {
 	}
 
 	const payload = window.gtmkitIntroductions || {};
-	const intros  = Array.isArray( payload.introductions ) ? payload.introductions : [];
+	const intros = Array.isArray( payload.introductions )
+		? payload.introductions
+		: [];
 	if ( intros.length === 0 ) {
 		return;
 	}

@@ -8,6 +8,7 @@ import { LicenseContext } from '../../context/LicenseContext';
 import SettingsService from '../../services/SettingsService';
 import { safeHref } from '../../utils/safeUrl';
 import ContextPane from './ContextPane';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 const CARD =
 	'gtmkit-rounded-md gtmkit-border gtmkit-border-border-default gtmkit-bg-white';
@@ -229,6 +230,7 @@ const UnlicensedCard = ( {
 				<>
 					<input
 						type="text"
+						{ ...NO_AUTOFILL }
 						value={ licenseKey }
 						placeholder={ __( 'Enter license key', 'gtm-kit' ) }
 						aria-label={ __( 'License key', 'gtm-kit' ) }

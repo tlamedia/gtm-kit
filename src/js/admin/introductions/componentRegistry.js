@@ -14,7 +14,7 @@ const registry = new Map();
 /**
  * Register a component for an intro id.
  *
- * @param {string}                id        Intro id.
+ * @param {string}                        id        Intro id.
  * @param {import('react').ComponentType} Component A React component.
  */
 export function registerComponent( id, Component ) {

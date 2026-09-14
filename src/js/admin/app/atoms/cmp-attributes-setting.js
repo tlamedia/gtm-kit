@@ -5,6 +5,7 @@ import { BaseControl, TextControl, ToggleControl } from '@wordpress/components';
 
 /*Custom Hooks*/
 import { useSettingField } from '../../hooks/useSettingField';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 const CMP_ATTRIBUTES_DEFAULT = {
 	cookiebot: false,
@@ -146,6 +147,7 @@ const CmpAttributesSetting = memo(
 				</p>
 				<div className="gtmkit-flex gtmkit-gap-4">
 					<TextControl
+						{ ...NO_AUTOFILL }
 						label={ __( 'Name', 'gtm-kit' ) }
 						value={ cmpAttributes.custom.name }
 						onChange={ ( next ) =>
@@ -155,6 +157,7 @@ const CmpAttributesSetting = memo(
 						disabled={ disabled }
 					/>
 					<TextControl
+						{ ...NO_AUTOFILL }
 						label={ __( 'Value', 'gtm-kit' ) }
 						value={ cmpAttributes.custom.value }
 						onChange={ ( next ) =>

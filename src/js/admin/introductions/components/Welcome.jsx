@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
  * modal renders.
  *
  * @param {{ onDismiss: () => void }} props
- * @return {JSX.Element}
+ * @return {JSX.Element} The welcome introduction.
  */
 const Welcome = ( { onDismiss } ) => (
 	<div>

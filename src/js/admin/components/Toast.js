@@ -8,7 +8,7 @@
  */
 
 import { memo } from '@wordpress/element';
-import { Icon, check, info, warning, closeSmall } from '@wordpress/icons';
+import { Icon, check, info, caution, closeSmall } from '@wordpress/icons';
 import { Spinner } from '@wordpress/components';
 import classNames from 'classnames';
 
@@ -34,7 +34,7 @@ export const Toast = memo(
 				case 'success':
 					return <Icon icon={ check } />;
 				case 'error':
-					return <Icon icon={ warning } />;
+					return <Icon icon={ caution } />;
 				case 'loading':
 					return <Spinner />;
 				default:
@@ -55,7 +55,10 @@ export const Toast = memo(
 		};
 
 		return (
-			<div className={ classNames( baseClasses, typeClasses[ type ] ) }>
+			<div
+				className={ classNames( baseClasses, typeClasses[ type ] ) }
+				role={ type === 'error' ? 'alert' : 'status' }
+			>
 				<div className="gtmkit-flex-shrink-0">{ getIcon() }</div>
 				<div className="gtmkit-flex-grow gtmkit-text-sm gtmkit-font-medium">
 					{ message }
@@ -81,11 +84,12 @@ Toast.displayName = 'Toast';
  *
  * Manages multiple toast notifications with stacking.
  *
- * @param {Object} props        Component props
- * @param {Array}  props.toasts Array of toast objects
+ * @param {Object}   props             Component props
+ * @param {Array}    props.toasts      Array of toast objects
+ * @param {Function} [props.onDismiss] Dismiss a toast by id; without it, toasts carry no close control
  * @return {JSX.Element} Toast container
  */
-export const ToastContainer = memo( ( { toasts = [] } ) => {
+export const ToastContainer = memo( ( { toasts = [], onDismiss = null } ) => {
 	if ( ! toasts.length ) {
 		return null;
 	}
@@ -98,7 +102,12 @@ export const ToastContainer = memo( ( { toasts = [] } ) => {
 						key={ toast.id }
 						className="gtmkit-pointer-events-auto"
 					>
-						<Toast { ...toast } />
+						<Toast
+							{ ...toast }
+							onClose={
+								onDismiss ? () => onDismiss( toast.id ) : null
+							}
+						/>
 					</div>
 				) ) }
 			</div>

@@ -1,5 +1,20 @@
 *** GTM Kit ***
 
+2026-09-14 - version 2.19.0
+* Fix: A Google tag loading beside your container is no longer reported as duplicate tracking in the dashboard. It is now a notice, since the tag is only counted twice when it also fires inside your container. Two containers, or the same container loaded twice, are still reported as problems.
+* Fix: When settings will not save, the settings screen now tells you why instead of quietly showing your old values again. It names any rejected setting, and on a site with a persistent object cache it names the cache as the likely cause.
+* Fix: Password managers no longer fill in GTM Kit's settings fields. A filled-in value could previously be saved without you typing it, and came back after you removed it.
+* Add: Site Health now checks that GTM Kit's settings can be saved, and shows the error it got back when they cannot.
+* Add: When Google for WooCommerce adds a Google tag beside your container, GTM Kit now names it as the source instead of saying it could not tell.
+* Add: When sending your system data from the Support screen cannot get through, the screen now says so instead of claiming your ticket was not found. With GTM Kit Premium you can then copy the data or download it to email instead.
+* Add: You can now serve the Google tag from your own domain, so ad blockers and browser tracking restrictions interfere less with your measurement. If it stops working, GTM Kit falls back to the standard loader and tells you. It is off by default, and an alternative to your own sGTM container domain.
+* Fix: Event names such as purchase and add_to_cart can no longer be renamed by translations in the settings screens, where they disagreed with the events GTM Kit actually sends.
+* Dev: New `gtmkit_active_cmp` and `gtmkit_cmp_display_name` filters let a site declare a consent platform GTM Kit cannot detect, such as one loaded by the theme or a code snippet, so Site Health stops reporting consent as unconfigured.
+* Add: GTM Kit now points out setups that leave data unmeasured, such as a WooCommerce store with its ecommerce events switched off. At most one such notice appears at a time, and dismissing it keeps it away for 90 days.
+* Fix: The order confirmation page now sends purchase data only to visitors WooCommerce or Easy Digital Downloads would show the order to. Anyone opening a shared or guessed link previously received the order contents, its value and the shopper's details. The buyer's own visit still reports the purchase.
+* Changed: The customer details sent with a purchase now come from the order itself, so they describe the buyer rather than whoever opened the confirmation page.
+* Dev: `WooCommerce::include_customer_data()` now takes the order as its second argument, before the order value, and reads every customer field from it. Code that calls this method directly must pass the order.
+
 2026-08-24 - version 2.18.1
 * Fix: The daily check of your pages now keeps running on schedule on WooCommerce sites. It could previously stop after one run until an administrator next opened wp-admin.
 * Fix: On a site using a Google Tag Manager environment, the fallback for visitors without JavaScript pointed at your live container instead of the environment. It now matches the rest of your setup.

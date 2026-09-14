@@ -187,6 +187,10 @@ final class OptionSchema {
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_domain' ],
 			],
+			'google_tag_gateway'                     => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
 			'console_log'                            => [
 				'default'  => false,
 				'type'     => 'boolean',

@@ -39,6 +39,80 @@ final class Suggestions {
 	];
 
 	/**
+	 * Notice for a WooCommerce store that is not reporting its ecommerce events.
+	 *
+	 * @var string
+	 */
+	private const UPGRADE_NOTICE_WOO_ECOMMERCE = 'gtmkit-upgrade-woo-ecommerce';
+
+	/**
+	 * Notice for a site tagging server-side without server-side purchases.
+	 *
+	 * @var string
+	 */
+	private const UPGRADE_NOTICE_SERVER_SIDE = 'gtmkit-upgrade-server-side';
+
+	/**
+	 * Notice for a site that only lets GTM Kit output the container.
+	 *
+	 * @var string
+	 */
+	private const UPGRADE_NOTICE_CONTAINER_ONLY = 'gtmkit-upgrade-container-only';
+
+	/**
+	 * The contextual upgrade notices, most to least worth showing.
+	 *
+	 * Only ever one of these is raised at a time. A site can match more than
+	 * one of them, and answering the same suggestion three times over is how a
+	 * useful notice turns into noise, so the first match wins and the rest stay
+	 * silent until the site no longer matches it.
+	 *
+	 * @var array<int, string>
+	 */
+	private const UPGRADE_NOTICE_ORDER = [
+		self::UPGRADE_NOTICE_WOO_ECOMMERCE,
+		self::UPGRADE_NOTICE_SERVER_SIDE,
+		self::UPGRADE_NOTICE_CONTAINER_ONLY,
+	];
+
+	/**
+	 * Where each contextual upgrade notice's call to action goes.
+	 *
+	 * One short link per notice, so each is attributable on its own rather than
+	 * sharing a link with another surface: which of these three a reader acted
+	 * on is answerable from the link alone. Where a link lands is set on the
+	 * link itself, so a call to action can be repointed without shipping a
+	 * release, and this file never needs to know the destination.
+	 *
+	 * @var array<string, string>
+	 */
+	private const UPGRADE_NOTICE_LINKS = [
+		self::UPGRADE_NOTICE_WOO_ECOMMERCE  => 'https://jump.gtmkit.com/link/21-D190B',
+		self::UPGRADE_NOTICE_SERVER_SIDE    => 'https://jump.gtmkit.com/link/22-62FD8',
+		self::UPGRADE_NOTICE_CONTAINER_ONLY => 'https://jump.gtmkit.com/link/23-F490A',
+	];
+
+	/**
+	 * The contextual upgrade notice this request raises, if any.
+	 *
+	 * Resolved once and reused: each notice asks for the winner, and the
+	 * question costs an option read and a product count.
+	 *
+	 * @var string|null
+	 */
+	private ?string $active_upgrade_notice = null;
+
+	/**
+	 * Whether the active contextual upgrade notice has been resolved yet.
+	 *
+	 * Separate from the value itself because "no notice applies" is a real
+	 * answer worth caching.
+	 *
+	 * @var bool
+	 */
+	private bool $upgrade_notice_resolved = false;
+
+	/**
 	 * An instance of PluginAvailability.
 	 *
 	 * @var PluginAvailability
@@ -115,6 +189,9 @@ final class Suggestions {
 		add_action( 'admin_init', [ $page, 'suggest_container_injection' ] );
 		add_action( 'admin_init', [ $page, 'suggest_duplicate_tracking' ] );
 		add_action( 'admin_init', [ $page, 'suggest_log_deactivation' ] );
+		add_action( 'admin_init', [ $page, 'suggest_woo_ecommerce_upgrade' ] );
+		add_action( 'admin_init', [ $page, 'suggest_server_side_upgrade' ] );
+		add_action( 'admin_init', [ $page, 'suggest_container_only_upgrade' ] );
 	}
 
 	/**
@@ -400,6 +477,309 @@ final class Suggestions {
 	}
 
 	/**
+	 * Point out that a store's ecommerce events are not being reported.
+	 *
+	 * @return void
+	 */
+	public function suggest_woo_ecommerce_upgrade(): void {
+		$this->raise_upgrade_notice( self::UPGRADE_NOTICE_WOO_ECOMMERCE );
+	}
+
+	/**
+	 * Point out what a server-side setup still leaves to the browser.
+	 *
+	 * @return void
+	 */
+	public function suggest_server_side_upgrade(): void {
+		$this->raise_upgrade_notice( self::UPGRADE_NOTICE_SERVER_SIDE );
+	}
+
+	/**
+	 * Point out what a container-only setup gives up.
+	 *
+	 * @return void
+	 */
+	public function suggest_container_only_upgrade(): void {
+		$this->raise_upgrade_notice( self::UPGRADE_NOTICE_CONTAINER_ONLY );
+	}
+
+	/**
+	 * Raise one contextual upgrade notice, or take it away again.
+	 *
+	 * @param string $notification_id The notice to raise.
+	 *
+	 * @return void
+	 */
+	private function raise_upgrade_notice( string $notification_id ): void {
+
+		if ( $this->get_active_upgrade_notice() !== $notification_id ) {
+			$this->notifications_handler->remove_notification_by_id( $notification_id );
+			return;
+		}
+
+		$notification = $this->get_upgrade_notification( $notification_id );
+
+		// The cooldown is the only thing that decides whether this notice is
+		// being held back, so any dismissal the notifications system is still
+		// holding is left over from the dismissal that started the cooldown and
+		// has to go with it. Without this the notice comes back from its
+		// cooldown already marked dismissed, and stays invisible for good: once
+		// it is being raised again nothing removes it, and removal is the only
+		// thing that would have cleared the stale record.
+		$this->notifications_handler->clear_dismissal( $notification );
+
+		$this->notifications_handler->add_notification( $notification );
+	}
+
+	/**
+	 * Decide which contextual upgrade notice this site should see, if any.
+	 *
+	 * The site is matched against the notices in order and the first match
+	 * wins, so a site that matches several is told the most useful thing once
+	 * rather than three things at once. A win that was dismissed recently is
+	 * not passed on to the next notice either: the answer to "not now" is
+	 * silence, not a different suggestion on the same subject.
+	 *
+	 * @return string|null The notice to show, or null when none applies.
+	 */
+	private function get_active_upgrade_notice(): ?string {
+
+		if ( $this->upgrade_notice_resolved ) {
+			return $this->active_upgrade_notice;
+		}
+
+		$this->upgrade_notice_resolved = true;
+		$this->active_upgrade_notice   = null;
+
+		if ( ( new PremiumConditional() )->is_met() ) {
+			return null;
+		}
+
+		foreach ( self::UPGRADE_NOTICE_ORDER as $notification_id ) {
+			if ( ! $this->upgrade_notice_applies( $notification_id ) ) {
+				continue;
+			}
+
+			if ( ! PremiumTriggerCooldown::is_within_cooldown( $notification_id ) ) {
+				$this->active_upgrade_notice = $notification_id;
+			}
+
+			return $this->active_upgrade_notice;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Whether a site is in the situation one contextual upgrade notice is about.
+	 *
+	 * @param string $notification_id The notice to test the site against.
+	 *
+	 * @return bool True when the notice describes this site.
+	 */
+	private function upgrade_notice_applies( string $notification_id ): bool {
+
+		switch ( $notification_id ) {
+			case self::UPGRADE_NOTICE_WOO_ECOMMERCE:
+				// A store with nothing in it is not missing any ecommerce
+				// events, and the notice counts its products out loud, so it
+				// stays away until there is something to count.
+				return ( new WooCommerceConditional() )->is_met()
+					&& ! $this->options->get( 'integrations', 'woocommerce_integration' )
+					&& $this->get_published_product_count() > 0;
+
+			case self::UPGRADE_NOTICE_SERVER_SIDE:
+				// The notice is about WooCommerce orders, so a site without a
+				// store has nothing it describes, whatever domain it tags from.
+				return ( new WooCommerceConditional() )->is_met()
+					&& $this->get_tagging_server_domain() !== '';
+
+			case self::UPGRADE_NOTICE_CONTAINER_ONLY:
+				return (bool) $this->options->get( 'general', 'just_the_container' );
+
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * The domain this site sends its tagging through, when it is its own.
+	 *
+	 * An empty setting and Google's own domain both mean the same thing: the
+	 * site is not tagging server-side, so there is nothing for the notice to
+	 * be true about.
+	 *
+	 * @return string The tagging server domain, or an empty string.
+	 */
+	private function get_tagging_server_domain(): string {
+
+		$domain = trim( (string) $this->options->get( 'general', 'sgtm_domain' ) );
+
+		return ( $domain === 'www.googletagmanager.com' ) ? '' : $domain;
+	}
+
+	/**
+	 * Count the products a store has published.
+	 *
+	 * Counted at the moment the notice is written rather than stored, so the
+	 * number a site owner reads is the number the site has. WordPress caches
+	 * the count itself, so asking on each admin request is a cache read on a
+	 * site with an object cache and a single counting query without one.
+	 *
+	 * @return int The number of published products.
+	 */
+	private function get_published_product_count(): int {
+
+		$counts = \wp_count_posts( 'product' );
+
+		if ( ! is_object( $counts ) || ! isset( $counts->publish ) ) {
+			return 0;
+		}
+
+		return (int) $counts->publish;
+	}
+
+	/**
+	 * Where a contextual upgrade notice's call to action goes.
+	 *
+	 * @param string $notification_id The notice the link belongs to.
+	 *
+	 * @return string The notice's destination.
+	 */
+	private function upgrade_notice_link( string $notification_id ): string {
+		return self::UPGRADE_NOTICE_LINKS[ $notification_id ] ?? 'https://gtmkit.com/pricing/';
+	}
+
+	/**
+	 * Build one contextual upgrade notification.
+	 *
+	 * @param string $notification_id The notice to build.
+	 *
+	 * @return Notification The notification.
+	 */
+	private function get_upgrade_notification( string $notification_id ): Notification {
+
+		switch ( $notification_id ) {
+			case self::UPGRADE_NOTICE_SERVER_SIDE:
+				return $this->get_server_side_upgrade_notification( $notification_id );
+
+			case self::UPGRADE_NOTICE_CONTAINER_ONLY:
+				return $this->get_container_only_upgrade_notification( $notification_id );
+
+			case self::UPGRADE_NOTICE_WOO_ECOMMERCE:
+			default:
+				return $this->get_woo_ecommerce_upgrade_notification( $notification_id );
+		}
+	}
+
+	/**
+	 * Build the notification for a store whose ecommerce events are switched off.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification.
+	 */
+	protected function get_woo_ecommerce_upgrade_notification( string $notification_id ): Notification {
+
+		$products = $this->get_published_product_count();
+
+		$message = sprintf(
+			/* translators: %s is the number of published products in the store. */
+			_n(
+				'Your WooCommerce store has %s published product, but GTM Kit\'s WooCommerce integration is switched off, so purchases, add-to-carts and checkouts aren\'t reaching your data layer.',
+				'Your WooCommerce store has %s published products, but GTM Kit\'s WooCommerce integration is switched off, so purchases, add-to-carts and checkouts aren\'t reaching your data layer.',
+				$products,
+				'gtm-kit'
+			),
+			\number_format_i18n( $products )
+		);
+
+		$message .= ' ' . $this->action_link(
+			$this->util->get_admin_page_url() . 'general#/commerce?focus=woocommerce',
+			__( 'Turn on the WooCommerce integration', 'gtm-kit' )
+		);
+
+		$message .= ' ' . $this->action_link(
+			$this->upgrade_notice_link( $notification_id ),
+			__( 'See what GTM Kit Premium adds', 'gtm-kit' )
+		);
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Ecommerce events are switched off:', 'gtm-kit' )
+		);
+	}
+
+	/**
+	 * Build the notification for a site tagging server-side.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification.
+	 */
+	protected function get_server_side_upgrade_notification( string $notification_id ): Notification {
+
+		$message = sprintf(
+			/* translators: %s is the site's own tagging server domain. */
+			__( "This site sends its tagging through %s, but the 'purchase' event still depends on the browser reaching your order confirmation page.", 'gtm-kit' ),
+			'<strong>' . esc_html( $this->get_tagging_server_domain() ) . '</strong>'
+		);
+
+		$message .= ' ' . __( 'GTM Kit Premium reports purchases from your server, so an order counts once WooCommerce has it, whether or not the browser comes back.', 'gtm-kit' );
+
+		$message .= ' ' . $this->action_link(
+			$this->upgrade_notice_link( $notification_id ),
+			__( 'See how server-side purchases work', 'gtm-kit' )
+		);
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Server-side tagging:', 'gtm-kit' )
+		);
+	}
+
+	/**
+	 * Build the notification for a site that loads the container only.
+	 *
+	 * @param string $notification_id The id of the notification to be created.
+	 *
+	 * @return Notification The notification.
+	 */
+	protected function get_container_only_upgrade_notification( string $notification_id ): Notification {
+
+		$message = __( 'GTM Kit is set to output your container and nothing else, so it generates none of its own events: page and post data, engagement events such as login, sign-up and search, and ecommerce tracking are all switched off.', 'gtm-kit' );
+
+		$message .= ' ' . __( 'If your container is fed from somewhere else, this is working as you set it up and you can dismiss this notice.', 'gtm-kit' );
+
+		$message .= ' ' . $this->action_link(
+			$this->upgrade_notice_link( $notification_id ),
+			__( 'See what GTM Kit can add', 'gtm-kit' )
+		);
+
+		return $this->new_notification(
+			$notification_id,
+			$message,
+			__( 'Only the container is loaded:', 'gtm-kit' )
+		);
+	}
+
+	/**
+	 * Whether a notification is one of the contextual upgrade notices.
+	 *
+	 * Their dismissals are kept outside the notifications system, so the
+	 * dismissal route has to be able to tell them apart from the rest.
+	 *
+	 * @param string $notification_id The id of the dismissed notification.
+	 *
+	 * @return bool True when the notice keeps its own dismissal record.
+	 */
+	public static function is_upgrade_notice( string $notification_id ): bool {
+		return in_array( $notification_id, self::UPGRADE_NOTICE_ORDER, true );
+	}
+
+	/**
 	 * Build premium plugin notification.
 	 *
 	 * @param string                $notification_id The id of the notification to be created.
@@ -434,7 +814,7 @@ final class Suggestions {
 			) . ' ';
 		}
 
-		$message .= __( 'With the GTM Kit Woo Add-On, you can track the add_to_wishlist event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior.', 'gtm-kit' );
+		$message .= __( "With the GTM Kit Woo Add-On, you can track the 'add_to_wishlist' event and leverage server-side tracking for enhanced accuracy and deeper insights into customer behavior.", 'gtm-kit' );
 		$message .= ' ' . $this->action_link(
 			$this->util->get_admin_page_url() . 'upgrades',
 			__( 'Get the GTM Kit Woo Add-On', 'gtm-kit' )
@@ -557,7 +937,7 @@ final class Suggestions {
 	 */
 	protected function get_gf_wishlist_plugin_notification( string $notification_id ): Notification {
 
-		$message  = __( 'Starting with GTM Kit version 2.0, the add_to_wishlist event is no longer supported in the free version of GTM Kit. To continue tracking it you need either the GTM Kit Woo Add-On, or the free Grandfathered Wishlist Functionality plugin.', 'gtm-kit' );
+		$message  = __( "Starting with GTM Kit version 2.0, the 'add_to_wishlist' event is no longer supported in the free version of GTM Kit. To continue tracking it you need either the GTM Kit Woo Add-On, or the free Grandfathered Wishlist Functionality plugin.", 'gtm-kit' );
 		$message .= ' ' . $this->action_link(
 			$this->util->get_admin_page_url() . 'upgrades',
 			__( 'Get the GTM Kit Woo Add-On', 'gtm-kit' )
@@ -712,6 +1092,12 @@ final class Suggestions {
 	/**
 	 * Build the notification for a page that loads tracking more than once.
 	 *
+	 * A second container and a repeated container are established double
+	 * counting, so they are problems. A Google tag beside the container is
+	 * only a duplicate when the same tag also fires inside the container,
+	 * which the scan cannot see, so it is raised as a notice that does not
+	 * claim duplication.
+	 *
 	 * @param string               $notification_id The id of the notification to be created.
 	 * @param array<string, mixed> $duplicate The duplicate finding from the scan.
 	 *
@@ -721,6 +1107,8 @@ final class Suggestions {
 
 		$containers = array_map( 'strval', (array) $duplicate['containers'] );
 		$culprit    = (string) $duplicate['culprit'];
+		$header     = __( 'Duplicate tracking:', 'gtm-kit' );
+		$type       = Notification::PROBLEM;
 
 		switch ( (string) $duplicate['type'] ) {
 			case SnippetScan::DUPLICATE_CONTAINERS:
@@ -733,6 +1121,8 @@ final class Suggestions {
 
 			case SnippetScan::DUPLICATE_GTAG:
 				$message = __( 'Your pages load a Google tag directly as well as your Google Tag Manager container. If the same tag also fires inside the container, its data is collected twice.', 'gtm-kit' );
+				$header  = __( 'Tracking setup:', 'gtm-kit' );
+				$type    = Notification::NOTICE;
 				break;
 
 			case SnippetScan::DUPLICATE_REPEATED:
@@ -765,8 +1155,8 @@ final class Suggestions {
 		return $this->new_notification(
 			$notification_id,
 			$message,
-			__( 'Duplicate tracking:', 'gtm-kit' ),
-			Notification::PROBLEM
+			$header,
+			$type
 		);
 	}
 
@@ -842,7 +1232,7 @@ final class Suggestions {
 		}
 
 		if ( $debug_log ) {
-			$message .= ' ' . __( 'The debug log for the purchase event and server-side webhooks is active.', 'gtm-kit' );
+			$message .= ' ' . __( "The debug log for the 'purchase' event and server-side webhooks is active.", 'gtm-kit' );
 		}
 
 		$message .= ' ' . $this->action_link(

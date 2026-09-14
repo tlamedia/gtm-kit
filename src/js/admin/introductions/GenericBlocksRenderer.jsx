@@ -17,7 +17,7 @@ import Video from './blocks/Video.jsx';
  *   blocks: Array<Record<string, unknown>>,
  *   onDismiss: () => void
  * }} props
- * @return {JSX.Element}
+ * @return {JSX.Element} The rendered blocks, with any calls to action in one row at the end.
  */
 const GenericBlocksRenderer = ( { blocks, onDismiss } ) => {
 	if ( ! Array.isArray( blocks ) ) {
@@ -25,7 +25,7 @@ const GenericBlocksRenderer = ( { blocks, onDismiss } ) => {
 	}
 
 	const contentBlocks = [];
-	const ctaBlocks     = [];
+	const ctaBlocks = [];
 
 	blocks.forEach( ( block, index ) => {
 		if ( ! block || typeof block !== 'object' ) {
@@ -71,7 +71,13 @@ function renderBlock( block, index, onDismiss ) {
 				/>
 			);
 		case 'video':
-			return <Video key={ index } provider={ block.provider } id={ block.id } />;
+			return (
+				<Video
+					key={ index }
+					provider={ block.provider }
+					id={ block.id }
+				/>
+			);
 		case 'cta':
 			return (
 				<CTA

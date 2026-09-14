@@ -4,6 +4,7 @@ import { memo, useState, useEffect } from '@wordpress/element';
 
 /*Custom Hooks*/
 import { useSettingField } from '../../hooks/useSettingField';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 /**
  * Freeform comma-separated input for Consent Mode v2 region codes.
@@ -45,6 +46,7 @@ const RegionCodesSetting = memo(
 
 		return (
 			<TextControl
+				{ ...NO_AUTOFILL }
 				label={ title }
 				placeholder={ placeholder }
 				help={ help }

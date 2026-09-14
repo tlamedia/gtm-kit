@@ -121,7 +121,7 @@ export const EVENTS_FIELDS = [
 		10,
 		__( 'Login', 'gtm-kit' ),
 		__(
-			'Fires `login` on successful WordPress and WooCommerce account logins.',
+			"Fires 'login' on successful WordPress and WooCommerce account logins.",
 			'gtm-kit'
 		)
 	),
@@ -131,7 +131,7 @@ export const EVENTS_FIELDS = [
 		20,
 		__( 'Sign-up', 'gtm-kit' ),
 		__(
-			'Fires `sign_up` on new account registrations, including accounts created during WooCommerce checkout.',
+			"Fires 'sign_up' on new account registrations, including accounts created during WooCommerce checkout.",
 			'gtm-kit'
 		)
 	),
@@ -141,7 +141,7 @@ export const EVENTS_FIELDS = [
 		30,
 		__( 'Search', 'gtm-kit' ),
 		__(
-			'Fires `search` on WordPress and WooCommerce product search results pages.',
+			"Fires 'search' on WordPress and WooCommerce product search results pages.",
 			'gtm-kit'
 		)
 	),
@@ -151,7 +151,7 @@ export const EVENTS_FIELDS = [
 		40,
 		__( 'Generate lead (CF7)', 'gtm-kit' ),
 		__(
-			'Fires `generate_lead` alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled.',
+			"Fires 'generate_lead' alongside the existing CF7 form event on successful Contact Form 7 submissions. Requires the Contact Form 7 integration to be enabled.",
 			'gtm-kit'
 		),
 		{

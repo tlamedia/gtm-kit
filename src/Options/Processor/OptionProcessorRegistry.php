@@ -38,6 +38,7 @@ final class OptionProcessorRegistry {
 	private function register_defaults(): void {
 		$this->register( OptionKeys::GENERAL_GTM_ID, new GTMIdProcessor() );
 		$this->register( OptionKeys::GENERAL_SGTM_DOMAIN, new DomainProcessor() );
+		$this->register( OptionKeys::GENERAL_GOOGLE_TAG_GATEWAY, new GoogleTagGatewayProcessor() );
 		$this->register( OptionKeys::GENERAL_GCM_REGION, new RegionCodesProcessor() );
 		$this->register( OptionKeys::GENERAL_EXCLUDED_URL_PATTERNS, new ExcludedUrlPatternsProcessor() );
 		$this->register( OptionKeys::MISC_AUTO_UPDATE, new AutoUpdateProcessor() );
@@ -67,13 +68,19 @@ final class OptionProcessorRegistry {
 	/**
 	 * Process value if processor exists
 	 *
-	 * @param string $option_key Full option key.
-	 * @param mixed  $value New value.
-	 * @param mixed  $old_value Previous value.
+	 * @param string               $option_key Full option key.
+	 * @param mixed                $value New value.
+	 * @param mixed                $old_value Previous value.
+	 * @param array<string, mixed> $options The options being saved, for processors that judge a value against them.
 	 * @return mixed Processed value.
 	 */
-	public function process( string $option_key, $value, $old_value ) {
+	public function process( string $option_key, $value, $old_value, array $options = [] ) {
 		$processor = $this->get( $option_key );
+
+		if ( $processor instanceof OptionsAwareProcessorInterface ) {
+			return $processor->process_with_options( $value, $old_value, $options );
+		}
+
 		return $processor ? $processor->process( $value, $old_value ) : $value;
 	}
 

@@ -340,7 +340,187 @@ final class SiteHealthTest extends TestCase {
 
 		$this->assertArrayHasKey( 'gtmkit_container', $tests['direct'] );
 		$this->assertArrayHasKey( 'gtmkit_consent', $tests['direct'] );
-		$this->assertArrayNotHasKey( 'async', $tests );
+		$this->assertArrayNotHasKey( SiteHealth::REST_API_TEST_ID, $tests['direct'] );
+	}
+
+	/**
+	 * The settings API check is queued asynchronously over admin-ajax and
+	 * stays out of the weekly cron check.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::add_status_tests
+	 */
+	public function test_rest_api_check_is_registered_as_an_async_ajax_test(): void {
+		$tests = $this->site_health()->add_status_tests( [] );
+
+		$test = $tests['async'][ SiteHealth::REST_API_TEST_ID ];
+
+		$this->assertSame( SiteHealth::REST_API_TEST_ACTION, $test['test'] );
+		$this->assertFalse( $test['has_rest'] );
+		$this->assertTrue( $test['skip_cron'] );
+		$this->assertArrayNotHasKey( 'async_direct_test', $test );
+		$this->assertStringNotContainsString( '_', $test['test'], 'Core rewrites only the first underscore of the action, so the action must carry none.' );
+	}
+
+	/**
+	 * An add-on test cannot land in the async group through the filter.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::add_status_tests
+	 */
+	public function test_filtered_tests_stay_direct(): void {
+		$site_health = $this->site_health();
+
+		Filters\expectApplied( 'gtmkit_site_health_tests' )->andReturnUsing(
+			static function ( array $tests ) {
+				$tests['gtmkit_addon'] = [
+					'label' => 'Add-on test',
+					'test'  => '__return_true',
+				];
+
+				return $tests;
+			}
+		);
+
+		$tests = $site_health->add_status_tests( [] );
+
+		$this->assertSame( [ SiteHealth::REST_API_TEST_ID ], array_keys( $tests['async'] ) );
+	}
+
+	/**
+	 * The request the check sends, captured by the stubbed `wp_remote_post`.
+	 *
+	 * @var array<string, mixed>
+	 */
+	private array $loopback = [];
+
+	/**
+	 * Stub the loopback request to answer with a given response.
+	 *
+	 * @param array<string, mixed>|\WP_Error $response The response or transport error to return.
+	 *
+	 * @return void
+	 */
+	private function stub_loopback( $response ): void {
+		$this->loopback = [];
+
+		Functions\when( 'rest_url' )->alias( static fn( $path = '' ) => 'https://example.test/wp-json/' . ltrim( (string) $path, '/' ) );
+		Functions\when( 'wp_create_nonce' )->justReturn( 'rest-nonce' );
+		Functions\when( 'wp_unslash' )->returnArg();
+		Functions\when( 'is_wp_error' )->alias( static fn( $thing ) => $thing instanceof \WP_Error );
+		Functions\when( 'wp_remote_retrieve_response_code' )->alias( static fn( $r ) => $r['response']['code'] ?? '' );
+		Functions\when( 'wp_remote_retrieve_body' )->alias( static fn( $r ) => $r['body'] ?? '' );
+		Functions\when( 'wp_remote_post' )->alias(
+			function ( $url, $args ) use ( $response ) {
+				$this->loopback = [
+					'url'  => $url,
+					'args' => $args,
+				];
+
+				return $response;
+			}
+		);
+	}
+
+	/**
+	 * Build a loopback response.
+	 *
+	 * @param int    $code The HTTP status code.
+	 * @param string $body The response body.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private static function response( int $code, string $body ): array {
+		return [
+			'response' => [ 'code' => $code ],
+			'body'     => $body,
+		];
+	}
+
+	/**
+	 * The check posts to the plugin's own namespace, signed in the way the
+	 * settings screen signs in, and passes when GTM Kit answers.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_rest_api
+	 */
+	public function test_rest_api_passes_when_gtm_kit_answers(): void {
+		$this->stub_loopback( self::response( 200, '{"reachable":true}' ) );
+
+		$result = $this->site_health()->test_rest_api();
+
+		$this->assertSame( 'good', $result['status'] );
+		$this->assertSame( SiteHealth::REST_API_TEST_ID, $result['test'] );
+		$this->assertSame( 'GTM Kit', $result['badge']['label'] );
+		$this->assertStringContainsString( 'from your server to itself', $result['description'] );
+
+		$this->assertSame( 'https://example.test/wp-json/gtmkit/v1/health', $this->loopback['url'] );
+		$this->assertSame( 'rest-nonce', $this->loopback['args']['headers']['X-WP-Nonce'] );
+		$this->assertSame( 10, $this->loopback['args']['timeout'] );
+	}
+
+	/**
+	 * A non-2xx answer is critical and names the status code, plus the
+	 * reason when WordPress gave one.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_rest_api
+	 */
+	public function test_rest_api_is_critical_on_an_error_status(): void {
+		$this->stub_loopback( self::response( 401, '{"code":"rest_forbidden","message":"No.","data":{"status":401}}' ) );
+
+		$result = $this->site_health()->test_rest_api();
+
+		$this->assertSame( 'critical', $result['status'] );
+		$this->assertStringContainsString( '<code>401</code>', $result['description'] );
+		$this->assertStringContainsString( '<code>rest_forbidden</code>', $result['description'] );
+		$this->assertStringContainsString( 'from your server to itself', $result['description'] );
+		$this->assertStringNotContainsString( 'general#/support', $result['actions'], 'The manual system-data route is Premium-only, so the check does not send everyone to it.' );
+	}
+
+	/**
+	 * A 2xx answer that did not come from GTM Kit, such as a firewall
+	 * challenge page, is not mistaken for a pass.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_rest_api
+	 */
+	public function test_rest_api_is_critical_when_the_answer_is_not_gtm_kits(): void {
+		$this->stub_loopback( self::response( 200, '<html><body>Checking your browser</body></html>' ) );
+
+		$result = $this->site_health()->test_rest_api();
+
+		$this->assertSame( 'critical', $result['status'] );
+		$this->assertSame( 'GTM Kit\'s settings API returned an unexpected response', $result['label'] );
+		$this->assertStringContainsString( 'from your server to itself', $result['description'] );
+	}
+
+	/**
+	 * No answer within the timeout is critical and reported as a timeout,
+	 * not as a status code.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_rest_api
+	 */
+	public function test_rest_api_reports_a_timeout_distinctly(): void {
+		$this->stub_loopback( new \WP_Error( 'http_request_failed', 'cURL error 28: Operation timed out after 10001 milliseconds with 0 bytes received' ) );
+
+		$result = $this->site_health()->test_rest_api();
+
+		$this->assertSame( 'critical', $result['status'] );
+		$this->assertSame( 'GTM Kit\'s settings API did not respond', $result['label'] );
+		$this->assertStringContainsString( 'no response within 10 seconds', $result['description'] );
+		$this->assertStringNotContainsString( 'HTTP status', $result['description'] );
+		$this->assertStringContainsString( 'from your server to itself', $result['description'] );
+	}
+
+	/**
+	 * Any other transport failure is critical and carries the error message.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_rest_api
+	 */
+	public function test_rest_api_reports_other_transport_errors_with_their_message(): void {
+		$this->stub_loopback( new \WP_Error( 'http_request_failed', 'cURL error 7: Failed to connect' ) );
+
+		$result = $this->site_health()->test_rest_api();
+
+		$this->assertSame( 'critical', $result['status'] );
+		$this->assertSame( 'GTM Kit\'s settings API could not be reached', $result['label'] );
+		$this->assertStringContainsString( 'cURL error 7: Failed to connect', $result['description'] );
 	}
 
 	/**

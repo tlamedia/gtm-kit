@@ -42,6 +42,7 @@ const Probe = () => {
 		isStoppingSupportSync,
 		isSystemDataSent,
 		systemDataMessage,
+		useIsSystemDataFailed,
 		stopSupportSync,
 		sendSystemData,
 	} = useContext( SupportContext );
@@ -55,6 +56,9 @@ const Probe = () => {
 			</span>
 			<span data-testid="sent">{ String( isSystemDataSent ) }</span>
 			<span data-testid="message">{ systemDataMessage }</span>
+			<span data-testid="failed">
+				{ String( useIsSystemDataFailed ) }
+			</span>
 			<button onClick={ stopSupportSync }>stop</button>
 			<button onClick={ sendSystemData }>send</button>
 		</div>
@@ -175,5 +179,65 @@ describe( 'SupportContext live support sync', () => {
 		expect( screen.getByTestId( 'ticket' ).textContent ).toBe(
 			'FS123-ABC45'
 		);
+		// A refused ticket is not the sending failing.
+		expect( screen.getByTestId( 'failed' ).textContent ).toBe( 'false' );
+	} );
+
+	it( 'marks sending as failed when the support server was unreachable', async () => {
+		mockSendSystemData.mockResolvedValue( {
+			success: false,
+			data: {
+				message:
+					'Your site could not reach the GTM Kit support server, so your system data was not sent.',
+				reason: 'unreachable',
+			},
+		} );
+
+		renderProbe();
+
+		await act( async () => {
+			fireEvent.click( screen.getByText( 'send' ) );
+		} );
+
+		expect( screen.getByTestId( 'failed' ).textContent ).toBe( 'true' );
+		expect( screen.getByTestId( 'message' ).textContent ).toBe(
+			'Your site could not reach the GTM Kit support server, so your system data was not sent.'
+		);
+	} );
+
+	it( 'marks sending as failed when the request itself fails', async () => {
+		mockSendSystemData.mockRejectedValue(
+			new Error( 'Only authenticated users can access endpoint.' )
+		);
+
+		renderProbe();
+
+		await act( async () => {
+			fireEvent.click( screen.getByText( 'send' ) );
+		} );
+
+		expect( screen.getByTestId( 'failed' ).textContent ).toBe( 'true' );
+		expect( screen.getByTestId( 'sent' ).textContent ).toBe( 'false' );
+	} );
+
+	it( 'clears the failed state once a send succeeds', async () => {
+		mockSendSystemData
+			.mockRejectedValueOnce( new Error( 'offline' ) )
+			.mockResolvedValueOnce( {
+				success: true,
+				data: { message: 'Thank you! We have received the data.' },
+			} );
+
+		renderProbe();
+
+		await act( async () => {
+			fireEvent.click( screen.getByText( 'send' ) );
+		} );
+		expect( screen.getByTestId( 'failed' ).textContent ).toBe( 'true' );
+
+		await act( async () => {
+			fireEvent.click( screen.getByText( 'send' ) );
+		} );
+		expect( screen.getByTestId( 'failed' ).textContent ).toBe( 'false' );
 	} );
 } );

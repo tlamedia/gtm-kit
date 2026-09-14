@@ -44,7 +44,9 @@ const INTEGER_FIELD = {
 function renderField( field, settings = {} ) {
 	const updateStateSettings = jest.fn();
 	render(
-		<SettingsDataContext.Provider value={ { settings, updateStateSettings } }>
+		<SettingsDataContext.Provider
+			value={ { settings, updateStateSettings } }
+		>
 			<Select field={ field } disabled={ false } />
 		</SettingsDataContext.Provider>
 	);

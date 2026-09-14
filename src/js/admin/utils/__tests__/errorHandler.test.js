@@ -53,6 +53,30 @@ describe( 'Error Handler Utilities', () => {
 			);
 		} );
 
+		it( 'should show the server message when a save did not stick', () => {
+			const error = new APIError(
+				'Flush the object cache, then save again.',
+				{
+					code: 'gtmkit_save_not_kept',
+					message: 'Flush the object cache, then save again.',
+					data: { status: 409 },
+				}
+			);
+			expect( getUserFriendlyMessage( error ) ).toBe(
+				'Flush the object cache, then save again.'
+			);
+		} );
+
+		it( 'should keep the generic message for other server errors', () => {
+			const error = new APIError( 'Internal detail', {
+				code: 'rest_forbidden',
+				message: 'Internal detail',
+			} );
+			expect( getUserFriendlyMessage( error ) ).toBe(
+				'Server error. Please try again later.'
+			);
+		} );
+
 		it( 'should return friendly message for API error', () => {
 			const error = new APIError( 'Server returned 500' );
 			const message = getUserFriendlyMessage( error );

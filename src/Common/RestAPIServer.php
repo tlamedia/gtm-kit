@@ -51,4 +51,15 @@ final class RestAPIServer {
 
 		\register_rest_route( $this->route_namespace, $route, $args );
 	}
+
+	/**
+	 * Get the full URL of a route in the plugin's namespace.
+	 *
+	 * @param string $route The route, with its leading slash.
+	 *
+	 * @return string
+	 */
+	public function get_route_url( string $route ): string {
+		return \rest_url( $this->route_namespace . $route );
+	}
 }

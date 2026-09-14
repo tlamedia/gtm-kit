@@ -10,6 +10,7 @@ import { BOX } from './controls';
 import { useFeatureFlags } from '../../../hooks/useFeatureFlags';
 import { isTierLocked } from '../../../registry/gating';
 import SettingsService from '../../../services/SettingsService';
+import { NO_AUTOFILL } from '../../../constants/autofill';
 import {
 	getWebhookPreviewStatus,
 	setWebhookPreviewToken,
@@ -360,8 +361,8 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 								) }
 								<input
 									type="password"
+									{ ...NO_AUTOFILL }
 									className={ `${ BOX } gtmkit-w-full` }
-									autoComplete="off"
 									placeholder={
 										status.armed
 											? __(
@@ -479,6 +480,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 									<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2 gtmkit-pl-6">
 										<input
 											type="number"
+											{ ...NO_AUTOFILL }
 											className={ `${ BOX } gtmkit-w-[180px]` }
 											placeholder={ __(
 												'Order ID',

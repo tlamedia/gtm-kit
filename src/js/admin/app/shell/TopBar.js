@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 /*Inbuilt Components*/
 import SaveBtn from '../atoms/save-btn';
 import FilterChips from './FilterChips';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 /**
  * Sticky top bar: settings search and the integration filter on the left, the
@@ -20,6 +21,7 @@ const TopBar = memo( ( { query, onSearch } ) => (
 		<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-5">
 			<input
 				type="search"
+				{ ...NO_AUTOFILL }
 				value={ query }
 				onChange={ ( e ) => onSearch( e.target.value ) }
 				placeholder={ __( 'Search all settings…', 'gtm-kit' ) }

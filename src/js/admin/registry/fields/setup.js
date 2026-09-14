@@ -98,6 +98,25 @@ export const SETUP_FIELDS = [
 		integration: null,
 	},
 
+	// Google tag gateway.
+	{
+		key: 'general.google_tag_gateway',
+		capability: 'setup',
+		section: 'google-tag-gateway',
+		order: 10,
+		control: 'toggle',
+		label: __( 'Serve the Google tag from this site', 'gtm-kit' ),
+		description: __(
+			'Loads the Google tag from your own domain instead of from Google, so ad blockers and browser tracking restrictions interfere with it less. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards. Not available while an sGTM container domain is set, because that already serves the tag from a domain you control.',
+			'gtm-kit'
+		),
+		tier: 'free',
+		integration: null,
+		enabledWhen: {
+			falsy: [ 'general.sgtm_domain' ],
+		},
+	},
+
 	// Server-side Tagging (sGTM).
 	{
 		key: 'general.sgtm_domain',
@@ -111,8 +130,15 @@ export const SETUP_FIELDS = [
 			'Enter your custom domain name if you are using a custom server side GTM container for tracking.',
 			'gtm-kit'
 		),
+		description: __(
+			'Not available while the Google tag gateway is switched on, because that already serves the tag from your own domain. Use one or the other.',
+			'gtm-kit'
+		),
 		tier: 'free',
 		integration: null,
+		enabledWhen: {
+			falsy: [ 'general.google_tag_gateway' ],
+		},
 	},
 	{
 		key: 'general.sgtm_container_identifier',
@@ -125,6 +151,9 @@ export const SETUP_FIELDS = [
 		help: __( 'Only use if you are using a custom loader.', 'gtm-kit' ),
 		tier: 'free',
 		integration: null,
+		enabledWhen: {
+			falsy: [ 'general.google_tag_gateway' ],
+		},
 	},
 	{
 		key: 'general.sgtm_cookie_keeper',
@@ -144,6 +173,7 @@ export const SETUP_FIELDS = [
 				'general.sgtm_domain',
 				'general.sgtm_container_identifier',
 			],
+			falsy: [ 'general.google_tag_gateway' ],
 		},
 	},
 
@@ -154,7 +184,7 @@ export const SETUP_FIELDS = [
 		section: 'page-speed',
 		order: 10,
 		control: 'toggle',
-		label: __( 'load_delayed_js event', 'gtm-kit' ),
+		label: __( "'load_delayed_js' event", 'gtm-kit' ),
 		description: __(
 			"Setting this to On will push the event 'load_delayed_js' on page load.",
 			'gtm-kit'

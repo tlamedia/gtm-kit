@@ -5,6 +5,7 @@ import { memo } from '@wordpress/element';
 /*Custom Hooks*/
 import { useSettingField } from '../../hooks/useSettingField';
 import { useNotification } from '../../hooks/useNotification';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 /**
  * Text setting component
@@ -36,6 +37,7 @@ const TextSetting = memo(
 
 		return (
 			<TextControl
+				{ ...NO_AUTOFILL }
 				label={ title }
 				placeholder={ placeholder }
 				help={ help }

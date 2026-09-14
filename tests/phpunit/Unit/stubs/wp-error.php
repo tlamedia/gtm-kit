@@ -20,12 +20,30 @@ class WP_Error {
 	private $code;
 
 	/**
+	 * The error message.
+	 *
+	 * @var string
+	 */
+	private $message;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $code The error code.
+	 * @param string $message The error message.
 	 */
-	public function __construct( string $code = '' ) {
-		$this->code = $code;
+	public function __construct( string $code = '', string $message = '' ) {
+		$this->code    = $code;
+		$this->message = $message;
+	}
+
+	/**
+	 * Get the error message, the way code under test reads it.
+	 *
+	 * @return string
+	 */
+	public function get_error_message(): string {
+		return $this->message;
 	}
 
 	/**

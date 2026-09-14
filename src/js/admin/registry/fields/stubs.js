@@ -59,7 +59,7 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		30,
 		'toggle',
-		__( 'Send the purchase event server-side', 'gtm-kit' )
+		__( "Send the 'purchase' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_purchase_webhook_trigger',
@@ -89,42 +89,42 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		50,
 		'toggle',
-		__( 'Send the order_paid event server-side', 'gtm-kit' )
+		__( "Send the 'order_paid' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_refund_webhook',
 		'woo-webhooks',
 		60,
 		'toggle',
-		__( 'Send the refund event server-side', 'gtm-kit' )
+		__( "Send the 'refund' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_order_processing_webhook',
 		'woo-webhooks',
 		62,
 		'toggle',
-		__( 'Send the order_processing event server-side', 'gtm-kit' )
+		__( "Send the 'order_processing' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_order_completed_webhook',
 		'woo-webhooks',
 		64,
 		'toggle',
-		__( 'Send the order_completed event server-side', 'gtm-kit' )
+		__( "Send the 'order_completed' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_order_refunded_webhook',
 		'woo-webhooks',
 		66,
 		'toggle',
-		__( 'Send the order_refunded event server-side', 'gtm-kit' )
+		__( "Send the 'order_refunded' event server-side", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_subscription_started_webhook',
 		'woo-webhooks',
 		70,
 		'toggle',
-		__( 'Send the subscription_started event server-side', 'gtm-kit' ),
+		__( "Send the 'subscription_started' event server-side", 'gtm-kit' ),
 		SUBSCRIPTION_STUB
 	),
 	stub(
@@ -132,7 +132,7 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		80,
 		'toggle',
-		__( 'Send the subscription_renewed event server-side', 'gtm-kit' ),
+		__( "Send the 'subscription_renewed' event server-side", 'gtm-kit' ),
 		SUBSCRIPTION_STUB
 	),
 	stub(
@@ -140,7 +140,7 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		90,
 		'toggle',
-		__( 'Send the subscription_cancelled event server-side', 'gtm-kit' ),
+		__( "Send the 'subscription_cancelled' event server-side", 'gtm-kit' ),
 		SUBSCRIPTION_STUB
 	),
 	stub(
@@ -148,7 +148,7 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		100,
 		'toggle',
-		__( 'Send the subscription_expired event server-side', 'gtm-kit' ),
+		__( "Send the 'subscription_expired' event server-side", 'gtm-kit' ),
 		SUBSCRIPTION_STUB
 	),
 	stub(
@@ -156,7 +156,10 @@ export const STUB_FIELDS = [
 		'woo-webhooks',
 		110,
 		'toggle',
-		__( 'Send the subscription_reactivated event server-side', 'gtm-kit' ),
+		__(
+			"Send the 'subscription_reactivated' event server-side",
+			'gtm-kit'
+		),
 		SUBSCRIPTION_STUB
 	),
 
@@ -229,14 +232,14 @@ export const STUB_FIELDS = [
 		'woo-events',
 		60,
 		'toggle',
-		__( 'Disable the frontend purchase event', 'gtm-kit' )
+		__( "Disable the frontend 'purchase' event", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_disable_frontend_subscription_started',
 		'woo-events',
 		70,
 		'toggle',
-		__( 'Disable the frontend subscription_started event', 'gtm-kit' ),
+		__( "Disable the frontend 'subscription_started' event", 'gtm-kit' ),
 		SUBSCRIPTION_STUB
 	),
 
@@ -246,21 +249,21 @@ export const STUB_FIELDS = [
 		'woo-css-selectors',
 		10,
 		'text',
-		__( 'Single Product (add_to_wishlist)', 'gtm-kit' )
+		__( "Single Product ('add_to_wishlist')", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_product_list_item_selector',
 		'woo-css-selectors',
 		20,
 		'text',
-		__( 'Product List (select_item)', 'gtm-kit' )
+		__( "Product List ('select_item')", 'gtm-kit' )
 	),
 	stub(
 		'woocommerce_product_list_add_to_wishlist',
 		'woo-css-selectors',
 		30,
 		'text',
-		__( 'Product List (add_to_wishlist)', 'gtm-kit' )
+		__( "Product List ('add_to_wishlist')", 'gtm-kit' )
 	),
 
 	// Setup: send a test webhook to the server container's sGTM Preview.

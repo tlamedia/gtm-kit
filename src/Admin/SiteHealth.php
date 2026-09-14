@@ -47,6 +47,32 @@ final class SiteHealth {
 	private const HEALTH_CHECK_URL = 'https://jump.gtmkit.com/link/18-8E808';
 
 	/**
+	 * The Site Health test id for the settings API check.
+	 *
+	 * @var string
+	 */
+	public const REST_API_TEST_ID = 'gtmkit_rest_api';
+
+	/**
+	 * The admin-ajax action suffix the Status screen calls for the settings API check.
+	 *
+	 * Core builds the action as `health-check-` plus this value with only its
+	 * first underscore turned into a hyphen, so the value carries none.
+	 *
+	 * @var string
+	 */
+	public const REST_API_TEST_ACTION = 'gtmkit-rest-api';
+
+	/**
+	 * Seconds the settings API check waits for an answer.
+	 *
+	 * The same allowance WordPress gives its own loopback check.
+	 *
+	 * @var int
+	 */
+	private const REST_API_TIMEOUT = 10;
+
+	/**
 	 * GTM Kit add-ons reported in the debug section.
 	 *
 	 * @var array<string, string>
@@ -115,6 +141,7 @@ final class SiteHealth {
 
 		add_filter( 'site_status_tests', [ $site_health, 'add_status_tests' ] );
 		add_filter( 'debug_information', [ $site_health, 'add_debug_information' ] );
+		add_action( 'wp_ajax_health-check-' . self::REST_API_TEST_ACTION, [ $site_health, 'ajax_test_rest_api' ] );
 	}
 
 	/**
@@ -172,7 +199,182 @@ final class SiteHealth {
 			$tests['direct'][ $test_id ] = $test;
 		}
 
+		// The Status screen requests this one over admin-ajax rather than
+		// the REST API, so it can still report when the REST API is the
+		// thing that is broken. There is no direct runner for the weekly
+		// cron check: without a logged-in user the request cannot pass the
+		// permission check it exists to exercise.
+		$tests['async'][ self::REST_API_TEST_ID ] = [
+			'label'     => __( 'GTM Kit settings API', 'gtm-kit' ),
+			'test'      => self::REST_API_TEST_ACTION,
+			'has_rest'  => false,
+			'skip_cron' => true,
+		];
+
 		return $tests;
+	}
+
+	/**
+	 * Run the settings API check for the Status screen's asynchronous queue.
+	 *
+	 * @return void
+	 */
+	public function ajax_test_rest_api(): void {
+		check_ajax_referer( 'health-check-site-status' );
+
+		if ( ! current_user_can( 'view_site_health_checks' ) ) {
+			wp_send_json_error();
+		}
+
+		wp_send_json_success( $this->test_rest_api() );
+	}
+
+	/**
+	 * Test that the plugin's own REST API answers.
+	 *
+	 * The settings screen saves, and the Support screen shares system data,
+	 * through the same namespace and permission check. The request here is
+	 * the same kind of POST, signed in as the current user the way the
+	 * settings screen signs in, but it travels from the server to itself.
+	 * A browser takes a different route, through whatever firewall or proxy
+	 * sits in front of the site, so every result says what was tested.
+	 *
+	 * @return array<string, mixed> The Site Health result.
+	 */
+	public function test_rest_api(): array {
+
+		$response = $this->request_rest_api();
+
+		$loopback_note = '<p>' . esc_html__( 'This check sends a request from your server to itself. Your browser reaches the site by a different route, through any firewall or proxy in front of it, and those can treat the two requests differently.', 'gtm-kit' ) . '</p>';
+
+		$failure_note = '<p>' . esc_html__( 'The settings screen saves through this API, so saving settings is likely to fail too.', 'gtm-kit' ) . '</p>'
+			. $loopback_note;
+
+		if ( is_wp_error( $response ) ) {
+			$message = $response->get_error_message();
+
+			if ( false !== stripos( $message, 'timed out' ) || false !== stripos( $message, 'cURL error 28' ) ) {
+				return $this->build_result(
+					self::REST_API_TEST_ID,
+					__( 'GTM Kit\'s settings API did not respond', 'gtm-kit' ),
+					'critical',
+					'<p>' . sprintf(
+						/* translators: %d is a number of seconds. */
+						esc_html__( 'A request to GTM Kit\'s settings API got no response within %d seconds. Something between your server and WordPress is holding the request without answering it.', 'gtm-kit' ),
+						self::REST_API_TIMEOUT
+					) . '</p>'
+					. $failure_note
+				);
+			}
+
+			return $this->build_result(
+				self::REST_API_TEST_ID,
+				__( 'GTM Kit\'s settings API could not be reached', 'gtm-kit' ),
+				'critical',
+				'<p>' . sprintf(
+					/* translators: %s is the error message reported for the failed request. */
+					esc_html__( 'A request to GTM Kit\'s settings API failed before any answer came back: %s', 'gtm-kit' ),
+					'<code>' . esc_html( $message ) . '</code>'
+				) . '</p>'
+				. $failure_note
+			);
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( $code < 200 || $code >= 300 ) {
+			$description = '<p>' . sprintf(
+				/* translators: %s is an HTTP status code, for example 403. */
+				esc_html__( 'A request to GTM Kit\'s settings API was answered with HTTP status %s instead of GTM Kit\'s response.', 'gtm-kit' ),
+				'<code>' . esc_html( (string) $code ) . '</code>'
+			) . '</p>';
+
+			if ( is_array( $body ) && isset( $body['code'] ) && is_string( $body['code'] ) ) {
+				$description .= '<p>' . sprintf(
+					/* translators: %s is the error code WordPress returned, for example rest_forbidden. */
+					esc_html__( 'WordPress gave the reason as %s.', 'gtm-kit' ),
+					'<code>' . esc_html( $body['code'] ) . '</code>'
+				) . '</p>';
+			}
+
+			return $this->build_result(
+				self::REST_API_TEST_ID,
+				__( 'GTM Kit\'s settings API returned an error', 'gtm-kit' ),
+				'critical',
+				$description . $failure_note
+			);
+		}
+
+		if ( ! is_array( $body ) || true !== ( $body['reachable'] ?? null ) ) {
+			return $this->build_result(
+				self::REST_API_TEST_ID,
+				__( 'GTM Kit\'s settings API returned an unexpected response', 'gtm-kit' ),
+				'critical',
+				'<p>' . sprintf(
+					/* translators: %s is an HTTP status code, for example 200. */
+					esc_html__( 'A request to GTM Kit\'s settings API was answered with HTTP status %s, but the answer did not come from GTM Kit. A firewall challenge page, a cached page or another plugin rewriting the response can cause this.', 'gtm-kit' ),
+					'<code>' . esc_html( (string) $code ) . '</code>'
+				) . '</p>'
+				. $failure_note
+			);
+		}
+
+		return $this->build_result(
+			self::REST_API_TEST_ID,
+			__( 'GTM Kit\'s settings API is reachable', 'gtm-kit' ),
+			'good',
+			'<p>' . esc_html__( 'GTM Kit\'s settings API answered a request signed in as you, the same way the settings screen saves.', 'gtm-kit' ) . '</p>'
+			. $loopback_note
+			. '<p>' . esc_html__( 'If the settings screen still does not save, the cause is on the route your browser takes, or after the request is answered.', 'gtm-kit' ) . '</p>'
+		);
+	}
+
+	/**
+	 * Send the check's request to the plugin's REST API.
+	 *
+	 * Built like WordPress's own loopback check: the current request's
+	 * cookies and any Basic auth credentials are passed on, and local SSL
+	 * verification follows the same filter. The REST nonce is what makes
+	 * WordPress accept the cookies as a signed-in user, exactly as it does
+	 * for the settings screen.
+	 *
+	 * @return array<string, mixed>|\WP_Error The response, or the transport error.
+	 */
+	private function request_rest_api() {
+
+		$url = $this->util->rest_api_server->get_route_url( '/health' );
+
+		$headers = [
+			'Cache-Control' => 'no-cache',
+			'Content-Type'  => 'application/json',
+			'X-WP-Nonce'    => wp_create_nonce( 'wp_rest' ),
+		];
+
+		if ( isset( $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Credentials are passed on unchanged to the same site that issued them, as WordPress's own loopback check does.
+			$headers['Authorization'] = 'Basic ' . base64_encode( wp_unslash( $_SERVER['PHP_AUTH_USER'] ) . ':' . wp_unslash( $_SERVER['PHP_AUTH_PW'] ) );
+		}
+
+		// A PHP session left open by another plugin locks the session file,
+		// so the loopback would wait on this request and report a timeout
+		// that has nothing to do with the REST API.
+		if ( session_status() === PHP_SESSION_ACTIVE ) {
+			session_write_close();
+		}
+
+		return wp_remote_post(
+			$url,
+			[
+				'body'      => '{}',
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Cookies are passed on unchanged to the same site that set them, which authenticates them itself.
+				'cookies'   => wp_unslash( $_COOKIE ),
+				'headers'   => $headers,
+				'timeout'   => self::REST_API_TIMEOUT,
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- A WordPress core filter, applied here the way core's loopback check applies it.
+				'sslverify' => apply_filters( 'https_local_ssl_verify', false, $url ),
+			]
+		);
 	}
 
 	/**

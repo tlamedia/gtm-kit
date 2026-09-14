@@ -11,6 +11,8 @@ use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
+use TLA_Media\GTM_Kit\Admin\GoogleTagGatewayNotice;
+use TLA_Media\GTM_Kit\Admin\GoogleTagGatewaySiteHealth;
 use TLA_Media\GTM_Kit\Admin\Introductions\UI\Introductions_Integration;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
@@ -23,6 +25,7 @@ use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
+use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\SnippetScan;
 use TLA_Media\GTM_Kit\Common\SupportSync;
@@ -77,6 +80,7 @@ function gtmkit_plugin_deactivation(): void {
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
 
 	SnippetScan::clear_scheduled_event();
+	GoogleTagGatewayHealth::clear_scheduled_event();
 
 	// End any live support sync session; sharing is scoped to an active
 	// plugin and must not survive deactivation.
@@ -177,6 +181,7 @@ function gtmkit_frontend_init(): void {
 	// itself refuses to attach on anything but an admin or cron request, so
 	// a visitor request registers nothing.
 	SnippetScan::register( $options );
+	GoogleTagGatewayHealth::register( $options );
 
 	$output_gate = Frontend::resolve_output_gate( $options );
 
@@ -265,7 +270,12 @@ function gtmkit_admin_init(): void {
 	GeneralOptionsPage::register( $options, $util );
 	SiteHealth::register( $options, $util );
 	SnippetScan::register( $options );
+	// The admin path schedules the gateway's daily check, and Action
+	// Scheduler runs its queue over admin-ajax, which comes through here too.
+	GoogleTagGatewayHealth::register( $options );
 	SnippetScanSiteHealth::register( $snippet_scan, $options );
+	GoogleTagGatewaySiteHealth::register( $options );
+	GoogleTagGatewayNotice::register( $options );
 	SupportSync::register( $options, $util );
 	if ( ( new PremiumConditional() )->is_met() ) {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );

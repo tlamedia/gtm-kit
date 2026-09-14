@@ -316,7 +316,8 @@ final class Options {
 				$options[ $group ][ $option_name ] = $this->processor_registry->process(
 					$option_key,
 					$option_value,
-					$old_value
+					$old_value,
+					$options
 				);
 			}
 		}
@@ -424,6 +425,43 @@ final class Options {
 		}
 
 		return $merged;
+	}
+
+	/**
+	 * Read the stored options the way the next request will find them.
+	 *
+	 * With a persistent object cache, this request's own copy can hold values
+	 * the cache server never received, so the read is forced from the cache
+	 * server. The options are autoloaded, so they live in its `alloptions`
+	 * entry. An option the cache does not hold at all is no sign of a stale
+	 * copy, since the next request will load it from the database. Without a
+	 * persistent cache the next request reads the database, and the copy
+	 * re-read after the last save already shows whether the database kept it.
+	 *
+	 * @return array<string, mixed> The stored options, unfiltered by constants or read filters.
+	 */
+	public function get_persisted(): array {
+
+		if ( ! wp_using_ext_object_cache() ) {
+			return $this->options;
+		}
+
+		$alloptions = wp_cache_get( 'alloptions', 'options', true );
+
+		if ( is_array( $alloptions ) && array_key_exists( self::OPTION_NAME, $alloptions ) ) {
+			$stored = maybe_unserialize( $alloptions[ self::OPTION_NAME ] );
+		} else {
+			$found  = false;
+			$stored = wp_cache_get( self::OPTION_NAME, 'options', true, $found );
+
+			if ( ! $found ) {
+				return $this->options;
+			}
+
+			$stored = maybe_unserialize( $stored );
+		}
+
+		return is_array( $stored ) ? $stored : [];
 	}
 
 	/**

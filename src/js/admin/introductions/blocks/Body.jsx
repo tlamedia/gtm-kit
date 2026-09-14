@@ -3,7 +3,7 @@
  * surrounding modal flows naturally.
  *
  * @param {{ paragraphs: string[] }} props
- * @return {JSX.Element|null}
+ * @return {JSX.Element|null} The paragraphs, or null when there are none.
  */
 const Body = ( { paragraphs } ) => {
 	if ( ! Array.isArray( paragraphs ) || paragraphs.length === 0 ) {

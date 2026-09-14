@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
+use TLA_Media\GTM_Kit\Common\GoogleTagGateway;
 use TLA_Media\GTM_Kit\Common\SiteEnvironment;
 use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionSchema;
@@ -66,6 +67,13 @@ final class Frontend {
 	protected bool $body_script_printed = false;
 
 	/**
+	 * Whether the Google tag gateway serves the container.
+	 *
+	 * @var GoogleTagGateway
+	 */
+	protected GoogleTagGateway $google_tag_gateway;
+
+	/**
 	 * Constructor.
 	 *
 	 * The registry and deferral gate default to fresh instances when
@@ -83,6 +91,7 @@ final class Frontend {
 		?EventDeferralGate $event_deferral_gate = null
 	) {
 		$this->options                = $options;
+		$this->google_tag_gateway     = new GoogleTagGateway( $options );
 		$this->datalayer_name         = ( $this->options->get( 'general', 'datalayer_name' ) ) ? $this->options->get( 'general', 'datalayer_name' ) : 'dataLayer';
 		$this->signal_source_registry = $signal_source_registry ?? new ConsentSignalSourceRegistry( $options );
 		$this->event_deferral_gate    = $event_deferral_gate ?? new EventDeferralGate( $this->signal_source_registry );
@@ -530,6 +539,12 @@ final class Frontend {
 	 * @param string $gtm_id The GTM container ID.
 	 */
 	public function get_gtm_script( string $gtm_id ): void {
+		if ( $this->google_tag_gateway->is_active() ) {
+			$this->get_gateway_script( $gtm_id );
+
+			return;
+		}
+
 		$domain = $this->options->get( 'general', 'sgtm_domain' ) ? $this->options->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 		$loader = ! empty( $this->options->get( 'general', 'sgtm_container_identifier' ) ) ? $this->options->get( 'general', 'sgtm_container_identifier' ) : 'gtm';
 
@@ -550,6 +565,38 @@ final class Frontend {
 			echo "})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_attr( $gtm_id ) . "');\n";
 			echo "/* End Google Tag Manager */\n";
 		}
+	}
+
+	/**
+	 * Emit the container loader served from this site's own origin.
+	 *
+	 * The published Google tag gateway snippet for a Tag Manager container is
+	 * the standard snippet with one change: the loader source points at a path
+	 * on this site instead of at Google. Everything else about it, including
+	 * how the data layer name and the environment parameters are appended, is
+	 * unchanged, so the container receives exactly what it does today and only
+	 * the origin serving it differs.
+	 *
+	 * The environment parameters are appended the same way as in the standard
+	 * snippet because the proxy forwards every query parameter it does not
+	 * reserve for itself, so a container bound to an environment still
+	 * resolves through the gateway.
+	 *
+	 * @param string $gtm_id The GTM container ID.
+	 */
+	private function get_gateway_script( string $gtm_id ): void {
+
+		$src = GoogleTagGateway::proxy_url() . '?id=';
+
+		echo "/* Google Tag Manager */\n";
+		echo "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n";
+		echo "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n";
+		echo "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n";
+		echo "'" . esc_js( $src ) . "'+i+dl";
+		echo ( ! empty( $this->options->get( 'general', 'gtm_auth' ) ) && ! empty( $this->options->get( 'general', 'gtm_preview' ) ) ) ? "+'&gtm_auth=" . esc_attr( $this->options->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( $this->options->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'" : '';
+		echo ";f.parentNode.insertBefore(j,f);\n";
+		echo "})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_attr( $gtm_id ) . "');\n";
+		echo "/* End Google Tag Manager */\n";
 	}
 
 	/**
@@ -728,6 +775,15 @@ final class Frontend {
 	 * @return array<int, string> URL to print
 	 */
 	public function dns_prefetch( array $hints, string $relation_type ): array {
+
+		// The hint exists to warm up the connection the loader will use. In
+		// gateway mode the loader is served from this origin, which the
+		// browser has already connected to, so there is nothing to warm up
+		// and naming Google here would only cost a lookup the page no longer
+		// makes for the container.
+		if ( $this->google_tag_gateway->is_active() ) {
+			return $hints;
+		}
 
 		$domain = $this->options->get( 'general', 'sgtm_domain' ) ? $this->options->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 

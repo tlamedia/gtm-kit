@@ -12,10 +12,10 @@ const ACTION =
 /**
  * A titled card containing a stack of divided rows.
  *
- * @param {Object}      props               Component props.
- * @param {string}      props.title         Card title.
+ * @param {Object}      props                Component props.
+ * @param {string}      props.title          Card title.
  * @param {JSX.Element} [props.headerAction] An optional right-aligned header action.
- * @param {JSX.Element} props.children      Card rows.
+ * @param {JSX.Element} props.children       Card rows.
  * @return {JSX.Element} The card.
  */
 export const InfoCard = ( { title, headerAction, children } ) => (

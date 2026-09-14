@@ -4,6 +4,7 @@
 /bin
 /bundled
 /node_modules
+/src/images
 /src/js
 /src/scss
 /tests
@@ -15,6 +16,7 @@
 .wp-env.json
 composer.json
 composer.lock
+jest.config.js
 package.json
 package-lock.json
 phpcs.xml.dist

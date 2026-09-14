@@ -23,6 +23,7 @@ final class OptionKeys {
 	public const GENERAL_LOAD_ON_NON_PRODUCTION  = 'general.load_on_non_production';
 	public const GENERAL_EXCLUDED_URL_PATTERNS   = 'general.excluded_url_patterns';
 	public const GENERAL_SGTM_DOMAIN             = 'general.sgtm_domain';
+	public const GENERAL_GOOGLE_TAG_GATEWAY      = 'general.google_tag_gateway';
 	public const GENERAL_CONSOLE_LOG             = 'general.console_log';
 	public const GENERAL_DEBUG_LOG               = 'general.debug_log';
 	public const GENERAL_GTM_AUTH                = 'general.gtm_auth';

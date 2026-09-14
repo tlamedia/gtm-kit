@@ -238,4 +238,60 @@ final class SnippetScanSiteHealthTest extends TestCase {
 		$this->assertSame( 'good', $result['status'] );
 		$this->assertStringContainsString( 'Cookiebot', $result['description'] );
 	}
+
+	/**
+	 * A Google tag beside the container stays a recommendation.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SnippetScanSiteHealth::run_test
+	 */
+	public function test_a_google_tag_beside_the_container_stays_recommended(): void {
+		$this->store_empty_page_scan( true );
+
+		$this->stored[ SnippetScan::OPTION ]['state']     = SnippetScan::STATE_FOUND;
+		$this->stored[ SnippetScan::OPTION ]['duplicate'] = [
+			'type'       => SnippetScan::DUPLICATE_GTAG,
+			'containers' => [ 'GTM-TEST123' ],
+			'culprit'    => 'Google for WooCommerce',
+		];
+
+		$result = $this->run_test(
+			[
+				'container_active' => true,
+				'gtm_id'           => 'GTM-TEST123',
+			]
+		);
+
+		$this->assertSame( 'recommended', $result['status'] );
+		$this->assertSame( 'A Google tag loads alongside your container', $result['label'] );
+		$this->assertStringContainsString( 'The Google tag appears to come from <strong>Google for WooCommerce</strong>', $result['description'] );
+		$this->assertStringNotContainsString( 'Remove the container', $result['description'] );
+	}
+
+	/**
+	 * A named source of a second container is still told to remove it.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SnippetScanSiteHealth::run_test
+	 */
+	public function test_a_named_source_of_a_container_is_told_to_remove_it(): void {
+		foreach ( [ SnippetScan::DUPLICATE_CONTAINERS, SnippetScan::DUPLICATE_REPEATED ] as $type ) {
+			$this->store_empty_page_scan( true );
+
+			$this->stored[ SnippetScan::OPTION ]['state']     = SnippetScan::STATE_FOUND;
+			$this->stored[ SnippetScan::OPTION ]['duplicate'] = [
+				'type'       => $type,
+				'containers' => [ 'GTM-TEST123' ],
+				'culprit'    => 'WPCode',
+			];
+
+			$result = $this->run_test(
+				[
+					'container_active' => true,
+					'gtm_id'           => 'GTM-TEST123',
+				]
+			);
+
+			$this->assertSame( 'critical', $result['status'], $type );
+			$this->assertStringContainsString( 'Remove the container from there', $result['description'], $type );
+		}
+	}
 }

@@ -9,6 +9,10 @@ parameters:
 		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
 	scanDirectories:
 		- vendor/easydigitaldownloads/easy-digital-downloads/includes/
+		# The vendored Google tag gateway proxy. Scanned, not analysed: its
+		# classes are real and referenced by the health check, but the file is
+		# kept byte-identical to upstream so it can be re-synced.
+		- gtg/
 	paths:
 		- inc/
 		- gtm-kit.php

@@ -433,6 +433,82 @@ final class SnippetScanStateTest extends TestCase {
 	}
 
 	/**
+	 * An active plugin whose own Google tag is in the page names the culprit.
+	 */
+	public function test_an_active_google_tag_source_names_the_culprit(): void {
+		$this->active_plugins = [ 'google-listings-and-ads/google-listings-and-ads.php' ];
+		$this->response       = $this->html_response( $this->fixture( 'gtmkit-plus-google-for-woocommerce' ) );
+
+		$result = $this->scan();
+
+		$this->assertSame( SnippetScan::DUPLICATE_GTAG, $result['duplicate']['type'] );
+		$this->assertSame( 'Google for WooCommerce', $result['duplicate']['culprit'] );
+	}
+
+	/**
+	 * With that plugin inactive, its marker alone names nothing.
+	 */
+	public function test_an_inactive_google_tag_source_is_not_named(): void {
+		$this->response = $this->html_response( $this->fixture( 'gtmkit-plus-google-for-woocommerce' ) );
+
+		$this->assertSame( '', $this->scan()['duplicate']['culprit'] );
+	}
+
+	/**
+	 * An active plugin that is not outputting its tag is not blamed for another one.
+	 *
+	 * The plugin can be active without adding any tag, for example before it
+	 * is connected to an account, so a Google tag without its marker came
+	 * from somewhere else.
+	 */
+	public function test_an_active_google_tag_source_without_its_tag_is_not_named(): void {
+		$this->active_plugins = [ 'google-listings-and-ads/google-listings-and-ads.php' ];
+		$this->response       = $this->html_response( $this->fixture( 'gtmkit-plus-stray-gtag' ) );
+
+		$result = $this->scan();
+
+		$this->assertSame( SnippetScan::DUPLICATE_GTAG, $result['duplicate']['type'] );
+		$this->assertSame( '', $result['duplicate']['culprit'] );
+	}
+
+	/**
+	 * A signature in the page still names its tool while that plugin is merely active.
+	 */
+	public function test_a_signature_is_not_overridden_by_an_idle_google_tag_source(): void {
+		$this->active_plugins = [ 'google-listings-and-ads/google-listings-and-ads.php' ];
+		$this->response       = $this->html_response(
+			str_replace(
+				'<p>Hello world.</p>',
+				'<!-- snippet added by WPCode --><p>Hello world.</p>',
+				$this->fixture( 'gtmkit-plus-stray-gtag' )
+			)
+		);
+
+		$result = $this->scan();
+
+		$this->assertSame( SnippetScan::DUPLICATE_GTAG, $result['duplicate']['type'] );
+		$this->assertSame( 'WPCode', $result['duplicate']['culprit'] );
+	}
+
+	/**
+	 * A plugin that only loads a Google tag cannot explain a second container.
+	 */
+	public function test_a_google_tag_source_is_not_blamed_for_a_second_container(): void {
+		$this->active_plugins = [ 'google-listings-and-ads/google-listings-and-ads.php' ];
+		$this->response       = $this->html_response(
+			'<html><head>'
+			. '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":1});})(window,document,"script","dataLayer","GTM-ABCD123");</script>'
+			. '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":1});})(window,document,"script","dataLayer","GTM-ZZZZ999");</script>'
+			. '</head><body><p>hi</p></body></html>'
+		);
+
+		$result = $this->scan();
+
+		$this->assertSame( SnippetScan::DUPLICATE_CONTAINERS, $result['duplicate']['type'] );
+		$this->assertSame( '', $result['duplicate']['culprit'] );
+	}
+
+	/**
 	 * With nothing to go on, the finding is reported without a name.
 	 */
 	public function test_an_unrecognised_culprit_is_left_unnamed(): void {

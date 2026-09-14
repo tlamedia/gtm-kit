@@ -13,7 +13,7 @@
  *   variant: 'primary' | 'secondary' | 'dismiss',
  *   onDismiss: () => void
  * }} props
- * @return {JSX.Element|null}
+ * @return {JSX.Element|null} The link or button, or null when it has no label or no url to go to.
  */
 const CTA = ( { label, url, variant, onDismiss } ) => {
 	if ( typeof label !== 'string' || label === '' ) {
@@ -36,7 +36,12 @@ const CTA = ( { label, url, variant, onDismiss } ) => {
 		variant === 'primary' ? 'button button-primary' : 'button';
 
 	return (
-		<a className={ className } href={ url } target="_blank" rel="noreferrer">
+		<a
+			className={ className }
+			href={ url }
+			target="_blank"
+			rel="noreferrer"
+		>
 			{ label }
 		</a>
 	);

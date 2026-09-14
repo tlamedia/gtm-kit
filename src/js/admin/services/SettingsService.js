@@ -64,6 +64,21 @@ class SettingsService {
 	}
 
 	/**
+	 * Get the system data the customer can copy or download for support
+	 *
+	 * Rendered into the page server-side, so it is available even when the
+	 * REST API is not. Shaped as `{ json: string, filename: string }`.
+	 *
+	 * @return {Object|null} The export, or null when none was provided.
+	 */
+	getSupportExport() {
+		const data = this.data.supportExport;
+		return data && typeof data.json === 'string' && data.json !== ''
+			? data
+			: null;
+	}
+
+	/**
 	 * Get notifications data
 	 *
 	 * @return {Object} Notifications object with metrics

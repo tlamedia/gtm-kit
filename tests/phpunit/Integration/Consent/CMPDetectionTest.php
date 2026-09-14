@@ -136,4 +136,95 @@ final class CMPDetectionTest extends WP_UnitTestCase {
 
 		$this->assertSame( 'cookiebot', CMPDetection::detect_active_cmp() );
 	}
+
+	/**
+	 * A site can declare a consent platform that plugin detection cannot see.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::detect_active_cmp
+	 */
+	public function test_filter_declares_an_undetected_cmp(): void {
+		add_filter( 'gtmkit_active_cmp', static fn() => 'tarteaucitron' );
+
+		$this->assertSame( 'tarteaucitron', CMPDetection::detect_active_cmp() );
+	}
+
+	/**
+	 * The filter receives the detected slug and can override it.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::detect_active_cmp
+	 */
+	public function test_filter_receives_and_overrides_the_detected_cmp(): void {
+		update_option( 'active_plugins', [ 'cookiebot/cookiebot.php' ] );
+
+		$received = 'not called';
+		add_filter(
+			'gtmkit_active_cmp',
+			static function ( $detected ) use ( &$received ) {
+				$received = $detected;
+
+				return null;
+			}
+		);
+
+		$this->assertNull( CMPDetection::detect_active_cmp() );
+		$this->assertSame( 'cookiebot', $received );
+	}
+
+	/**
+	 * An empty string from the filter means no consent platform, so no caller
+	 * can mistake it for a detected one with a blank name.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::detect_active_cmp
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::get_display_name
+	 */
+	public function test_filter_returning_an_empty_string_is_no_cmp(): void {
+		update_option( 'active_plugins', [ 'cookiebot/cookiebot.php' ] );
+		add_filter( 'gtmkit_active_cmp', '__return_empty_string' );
+
+		$detected = CMPDetection::detect_active_cmp();
+
+		$this->assertNull( $detected );
+		$this->assertSame( '', CMPDetection::get_display_name( $detected ) );
+	}
+
+	/**
+	 * The display-name filter names a declared platform instead of its slug.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::get_display_name
+	 */
+	public function test_display_name_filter_names_a_declared_cmp(): void {
+		$this->assertSame( 'tarteaucitron', CMPDetection::get_display_name( 'tarteaucitron' ) );
+
+		add_filter(
+			'gtmkit_cmp_display_name',
+			static fn( $name, $slug ) => ( 'tarteaucitron' === $slug ) ? 'tarteaucitron.js' : $name,
+			10,
+			2
+		);
+
+		$this->assertSame( 'tarteaucitron.js', CMPDetection::get_display_name( 'tarteaucitron' ) );
+		$this->assertSame( 'Cookiebot', CMPDetection::get_display_name( 'cookiebot' ) );
+	}
+
+	/**
+	 * An empty display name from the filter keeps the default name.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::get_display_name
+	 */
+	public function test_display_name_filter_cannot_blank_a_detected_cmp(): void {
+		add_filter( 'gtmkit_cmp_display_name', '__return_empty_string' );
+
+		$this->assertSame( 'Iubenda', CMPDetection::get_display_name( 'iubenda' ) );
+	}
+
+	/**
+	 * With no filters, the display names are unchanged.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\CMPDetection::get_display_name
+	 */
+	public function test_display_names_are_unchanged_without_filters(): void {
+		$this->assertSame( 'Cookiebot', CMPDetection::get_display_name( 'cookiebot' ) );
+		$this->assertSame( 'CookieYes', CMPDetection::get_display_name( 'cookieyes' ) );
+		$this->assertSame( '', CMPDetection::get_display_name( null ) );
+	}
 }

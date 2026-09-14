@@ -51,10 +51,12 @@ const closeButtonStyle = {
  *   restRoot: string,
  *   nonce: string
  * }} props
- * @return {JSX.Element|null}
+ * @return {JSX.Element|null} The modal for the current introduction, or null once none is left.
  */
 const IntroductionsModal = ( { intros, restRoot, nonce } ) => {
-	const [ current, setCurrent ] = useState( () => pickHighestPriority( intros ) );
+	const [ current, setCurrent ] = useState( () =>
+		pickHighestPriority( intros )
+	);
 
 	const handleDismiss = useCallback( () => {
 		if ( ! current ) {

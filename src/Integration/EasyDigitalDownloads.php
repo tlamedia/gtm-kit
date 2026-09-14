@@ -259,6 +259,13 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 				return $data_layer;
 			}
 
+			// Easy Digital Downloads hides the receipt itself from a visitor it
+			// cannot tie to the purchase. Returning before the tracking flag is
+			// written keeps the buyer's own visit trackable.
+			if ( ! $this->visitor_may_view_receipt( (string) $payment_key ) ) {
+				return $data_layer;
+			}
+
 			if ( ( 1 === (int) edd_get_order_meta( $order->id, 'gtmkit_order_tracked', true ) ) ) {
 				if ( ! ( $this->options->is_const_enabled() && $this->options->is_const_defined( 'integration', 'edd_debug_track_purchase' ) ) ) {
 					return $data_layer;
@@ -321,6 +328,31 @@ final class EasyDigitalDownloads extends AbstractEcommerce {
 		edd_add_order_meta( $order_id, 'gtmkit_order_tracked', 1 );
 
 		return apply_filters( 'gtmkit_datalayer_content_order_received', $data_layer );
+	}
+
+	/**
+	 * Whether Easy Digital Downloads would show this receipt to the visitor.
+	 *
+	 * Defers to the store's own rule, so a store that relaxes or tightens who
+	 * may see a receipt gets the matching tracking behaviour with nothing to
+	 * configure here.
+	 *
+	 * The payment key is what the rule is given, not the order object: every
+	 * Easy Digital Downloads 3.x release accepts the key, while the order
+	 * object is only understood from 3.1.1 on and is refused, silently, by
+	 * the releases before it.
+	 *
+	 * @param string $payment_key The payment key the visitor arrived with.
+	 *
+	 * @return bool
+	 */
+	private function visitor_may_view_receipt( string $payment_key ): bool {
+
+		if ( ! function_exists( 'edd_can_view_receipt' ) ) {
+			return true;
+		}
+
+		return (bool) edd_can_view_receipt( $payment_key );
 	}
 
 	/**

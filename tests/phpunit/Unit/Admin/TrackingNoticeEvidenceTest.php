@@ -368,4 +368,53 @@ final class TrackingNoticeEvidenceTest extends TestCase {
 
 		$this->assertStringContainsString( 'could not tell what adds the extra tracking code', $notice->to_array()['message'] );
 	}
+
+	/**
+	 * Build the duplicate notice for one kind of finding.
+	 *
+	 * @param string $type One of the SnippetScan DUPLICATE_* constants.
+	 *
+	 * @return Notification
+	 */
+	private function duplicate_notice( string $type ): Notification {
+		return $this->build(
+			'get_duplicate_tracking_notification',
+			[
+				'gtmkit-duplicate-tracking',
+				[
+					'type'       => $type,
+					'containers' => [ 'GTM-ABCD123' ],
+					'culprit'    => 'Google for WooCommerce',
+				],
+			]
+		);
+	}
+
+	/**
+	 * A Google tag beside the container is a notice that does not claim duplication.
+	 *
+	 * The scan cannot see whether the same tag also fires inside the
+	 * container, so a legitimate setup must not be told it double-counts.
+	 */
+	public function test_a_google_tag_beside_the_container_is_a_notice(): void {
+		$notice = $this->duplicate_notice( SnippetScan::DUPLICATE_GTAG );
+		$fields = $notice->to_array();
+
+		$this->assertSame( Notification::NOTICE, $notice->get_type() );
+		$this->assertStringNotContainsString( 'Duplicate', $fields['header'] );
+		$this->assertStringContainsString( 'Google for WooCommerce', $fields['message'] );
+		$this->assertStringContainsString( 'site-health.php', $fields['message'] );
+	}
+
+	/**
+	 * Established double counting stays a problem under its existing header.
+	 */
+	public function test_established_duplicates_stay_problems(): void {
+		foreach ( [ SnippetScan::DUPLICATE_CONTAINERS, SnippetScan::DUPLICATE_REPEATED ] as $type ) {
+			$notice = $this->duplicate_notice( $type );
+
+			$this->assertSame( Notification::PROBLEM, $notice->get_type(), $type );
+			$this->assertSame( 'Duplicate tracking:', $notice->to_array()['header'], $type );
+		}
+	}
 }

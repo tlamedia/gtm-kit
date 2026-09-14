@@ -5,6 +5,7 @@ import { memo, useMemo } from '@wordpress/element';
 
 /*Custom Hooks*/
 import { useSettingField } from '../../hooks/useSettingField';
+import { NO_AUTOFILL } from '../../constants/autofill';
 
 const PATTERN_MAX_LENGTH = 500;
 const PATTERN_LIST_MAX = 100;
@@ -144,6 +145,7 @@ const ExcludedUrlPatternsSetting = memo(
 							<li key={ index } className={ ROW_GRID }>
 								<div>
 									<TextControl
+										{ ...NO_AUTOFILL }
 										label={ __( 'Pattern', 'gtm-kit' ) }
 										hideLabelFromVision
 										value={ pattern }
