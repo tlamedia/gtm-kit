@@ -9,6 +9,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\CMPDetection;
 use TLA_Media\GTM_Kit\Common\SiteEnvironment;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionSchema;
@@ -378,6 +379,29 @@ final class SiteHealth {
 	}
 
 	/**
+	 * Describe the server container loader in use.
+	 *
+	 * @param array{source: string, region: string, fetchedAt: int} $state The loader state.
+	 *
+	 * @return string
+	 */
+	private static function describe_sgtm_loader( array $state ): string {
+		$date = gmdate( 'Y-m-d H:i', $state['fetchedAt'] ) . ' UTC';
+
+		if ( StapeLoader::SOURCE_API === $state['source'] ) {
+			/* translators: 1: the Stape region that issued the loader, "global" or "eu". 2: the date and time it was fetched. */
+			return sprintf( __( 'Issued by Stape (%1$s region), fetched %2$s', 'gtm-kit' ), $state['region'], $date );
+		}
+
+		if ( StapeLoader::SOURCE_PASTED === $state['source'] ) {
+			/* translators: %s: the date and time the loader was stored. */
+			return sprintf( __( 'Pasted, stored %s', 'gtm-kit' ), $date );
+		}
+
+		return __( 'Standard loader', 'gtm-kit' );
+	}
+
+	/**
 	 * Add the GTM Kit section to the Site Health info screen.
 	 *
 	 * @param array<string, array<string, mixed>> $info The debug information sections.
@@ -445,6 +469,11 @@ final class SiteHealth {
 			$fields['sgtm_domain'] = [
 				'label' => __( 'Server container domain', 'gtm-kit' ),
 				'value' => $sgtm_domain,
+			];
+
+			$fields['sgtm_loader'] = [
+				'label' => __( 'Server container loader', 'gtm-kit' ),
+				'value' => self::describe_sgtm_loader( ( new StapeLoader( $this->options ) )->get_client_state() ),
 			];
 		}
 

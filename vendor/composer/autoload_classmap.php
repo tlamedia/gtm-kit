@@ -51,6 +51,8 @@ return array(
     'TLA_Media\\GTM_Kit\\Common\\SiteEnvironment' => $baseDir . '/src/Common/SiteEnvironment.php',
     'TLA_Media\\GTM_Kit\\Common\\SnippetScan' => $baseDir . '/src/Common/SnippetScan.php',
     'TLA_Media\\GTM_Kit\\Common\\SnippetScanDetector' => $baseDir . '/src/Common/SnippetScanDetector.php',
+    'TLA_Media\\GTM_Kit\\Common\\StapeLoader' => $baseDir . '/src/Common/StapeLoader.php',
+    'TLA_Media\\GTM_Kit\\Common\\StapeLoaderClient' => $baseDir . '/src/Common/StapeLoaderClient.php',
     'TLA_Media\\GTM_Kit\\Common\\SupportSync' => $baseDir . '/src/Common/SupportSync.php',
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',

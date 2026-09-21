@@ -16,20 +16,21 @@ namespace TLA_Media\GTM_Kit\Options;
 final class OptionKeys {
 
 	// General Options.
-	public const GENERAL_GTM_ID                  = 'general.gtm_id';
-	public const GENERAL_SCRIPT_IMPLEMENTATION   = 'general.script_implementation';
-	public const GENERAL_NOSCRIPT_IMPLEMENTATION = 'general.noscript_implementation';
-	public const GENERAL_CONTAINER_ACTIVE        = 'general.container_active';
-	public const GENERAL_LOAD_ON_NON_PRODUCTION  = 'general.load_on_non_production';
-	public const GENERAL_EXCLUDED_URL_PATTERNS   = 'general.excluded_url_patterns';
-	public const GENERAL_SGTM_DOMAIN             = 'general.sgtm_domain';
-	public const GENERAL_GOOGLE_TAG_GATEWAY      = 'general.google_tag_gateway';
-	public const GENERAL_CONSOLE_LOG             = 'general.console_log';
-	public const GENERAL_DEBUG_LOG               = 'general.debug_log';
-	public const GENERAL_GTM_AUTH                = 'general.gtm_auth';
-	public const GENERAL_GTM_PREVIEW             = 'general.gtm_preview';
-	public const GENERAL_DATALAYER_PAGE_TYPE     = 'general.datalayer_page_type';
-	public const GENERAL_EXCLUDE_USER_ROLES      = 'general.exclude_user_roles';
+	public const GENERAL_GTM_ID                   = 'general.gtm_id';
+	public const GENERAL_SCRIPT_IMPLEMENTATION    = 'general.script_implementation';
+	public const GENERAL_NOSCRIPT_IMPLEMENTATION  = 'general.noscript_implementation';
+	public const GENERAL_CONTAINER_ACTIVE         = 'general.container_active';
+	public const GENERAL_LOAD_ON_NON_PRODUCTION   = 'general.load_on_non_production';
+	public const GENERAL_EXCLUDED_URL_PATTERNS    = 'general.excluded_url_patterns';
+	public const GENERAL_SGTM_DOMAIN              = 'general.sgtm_domain';
+	public const GENERAL_SGTM_STAPE_ISSUED_LOADER = 'general.sgtm_stape_issued_loader';
+	public const GENERAL_GOOGLE_TAG_GATEWAY       = 'general.google_tag_gateway';
+	public const GENERAL_CONSOLE_LOG              = 'general.console_log';
+	public const GENERAL_DEBUG_LOG                = 'general.debug_log';
+	public const GENERAL_GTM_AUTH                 = 'general.gtm_auth';
+	public const GENERAL_GTM_PREVIEW              = 'general.gtm_preview';
+	public const GENERAL_DATALAYER_PAGE_TYPE      = 'general.datalayer_page_type';
+	public const GENERAL_EXCLUDE_USER_ROLES       = 'general.exclude_user_roles';
 
 	// Google Consent Mode v2 options.
 	public const GENERAL_GCM_DEFAULT_SETTINGS        = 'general.gcm_default_settings';

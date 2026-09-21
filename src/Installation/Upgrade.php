@@ -41,6 +41,11 @@ final class Upgrade {
 		\wp_cache_delete( 'gtmkit', 'options' );
 
 		\update_option( 'gtmkit_version', GTMKIT_VERSION, false );
+
+		// When the object cache holds an older version than the database,
+		// update_option() changes no rows and leaves the cache untouched, so
+		// the next request would read the stale version and upgrade again.
+		\wp_cache_delete( 'gtmkit_version', 'options' );
 	}
 
 	/**
@@ -287,11 +292,19 @@ final class Upgrade {
 	 * 2.18.0 armed the daily scan as a one-shot Action Scheduler action, which
 	 * fires once and leaves no successor. The scheduler only arms a recurrence
 	 * when nothing is pending, so a site still carrying that one-shot would run
-	 * one more cycle of the old behaviour before the fix took hold. Cancelling
-	 * it here lets the recurrence arm on this same request, since this runs on
-	 * `plugins_loaded` and the scan schedules itself on `admin_init`.
+	 * one more cycle of the old behaviour before the fix took hold.
+	 *
+	 * Upgrades run on `plugins_loaded`, before Action Scheduler has set up its
+	 * data store, so the cancel waits for `init`. That still lands before the
+	 * scan schedules itself on `admin_init`, which lets the recurrence arm on
+	 * this same request.
 	 */
 	protected function v2181_upgrade(): void {
-		SnippetScan::clear_scheduled_event();
+		if ( \did_action( 'init' ) ) {
+			SnippetScan::clear_scheduled_event();
+			return;
+		}
+
+		\add_action( 'init', [ SnippetScan::class, 'clear_scheduled_event' ] );
 	}
 }

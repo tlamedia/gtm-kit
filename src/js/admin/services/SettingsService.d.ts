@@ -296,6 +296,11 @@ declare class SettingsService {
 	getSiteEnvironment(): SiteEnvironmentState;
 
 	/**
+	 * Get the loader Stape issued for this site, as the frontend uses it.
+	 */
+	getSgtmLoader(): { source: string; region: string; fetchedAt: number };
+
+	/**
 	 * Get raw data by key (discouraged - use specific methods instead)
 	 */
 	getRaw(key: string): unknown;

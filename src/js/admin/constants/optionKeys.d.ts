@@ -17,6 +17,7 @@ export declare const GENERAL_OPTIONS: {
 	readonly SGTM_DOMAIN: 'sgtm_domain';
 	readonly SGTM_CONTAINER_IDENTIFIER: 'sgtm_container_identifier';
 	readonly SGTM_COOKIE_KEEPER: 'sgtm_cookie_keeper';
+	readonly SGTM_STAPE_ISSUED_LOADER: 'sgtm_stape_issued_loader';
 	readonly DATALAYER_NAME: 'datalayer_name';
 	readonly ANALYTICS_ACTIVE: 'analytics_active';
 	readonly JUST_THE_CONTAINER: 'just_the_container';

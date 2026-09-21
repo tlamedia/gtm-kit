@@ -187,6 +187,10 @@ final class OptionSchema {
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_domain' ],
 			],
+			'sgtm_stape_issued_loader'               => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
 			'google_tag_gateway'                     => [
 				'default' => false,
 				'type'    => 'boolean',

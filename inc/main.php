@@ -248,10 +248,6 @@ function gtmkit_admin_init(): void {
 	$options = OptionsFactory::get_instance();
 
 	if ( version_compare( get_option( 'gtmkit_version' ), GTMKIT_VERSION, '<' ) ) {
-		if ( function_exists( 'opcache_reset' ) ) {
-			opcache_reset();
-		}
-
 		new Upgrade( $options );
 	}
 

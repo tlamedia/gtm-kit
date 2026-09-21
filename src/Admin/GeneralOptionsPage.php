@@ -10,6 +10,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\PremiumPluginConditional;
 use TLA_Media\GTM_Kit\Common\SiteEnvironment;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Installation\PluginDataImport;
@@ -162,6 +163,7 @@ final class GeneralOptionsPage extends AbstractOptionsPage {
 			'settings'           => $this->options->get_all_raw(),
 			'site_data'          => $this->util->get_site_data( $this->options->get_all_raw() ),
 			'siteEnvironment'    => $this->get_site_environment_state(),
+			'sgtmLoader'         => ( new StapeLoader( $this->options ) )->get_client_state(),
 			'supportSync'        => $support_sync->get_client_state(),
 			// Premium only: the export goes to the support team by email, and
 			// a free user's route to help is the public forum, where this

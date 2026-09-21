@@ -1,5 +1,11 @@
 *** GTM Kit ***
 
+2026-09-22 - version 2.20.0
+* Add: If your server-side container is hosted on Stape, GTM Kit can now use the loader Stape issues for it, which ad blockers find harder to recognise. Switch it on under Server-side Tagging. GTM Kit asks Stape for the loader only when you save or refresh it, and you can paste the code from Stape instead.
+* Fix: With Cookie Keeper enabled, Safari visitors now load your Stape custom loader when its identifier is longer than eight characters, as every identifier Stape issues today is. Safari previously asked Stape for a loader address it rejects, so those visitors were not tracked.
+* Fix: On sites with a persistent object cache such as Redis, GTM Kit no longer re-runs its update routine on every admin page load when the cache still holds the previous version number. The update routine also no longer logs a notice from Action Scheduler on its first run.
+* Changed: The description of serving the Google tag from your own domain now says what the setting does and does not do: it changes where the tag loads from, while the measurement it sends still goes to Google unless Google's tag gateway is provided by your CDN or host.
+
 2026-09-14 - version 2.19.0
 * Fix: A Google tag loading beside your container is no longer reported as duplicate tracking in the dashboard. It is now a notice, since the tag is only counted twice when it also fires inside your container. Two containers, or the same container loaded twice, are still reported as problems.
 * Fix: When settings will not save, the settings screen now tells you why instead of quietly showing your old values again. It names any rejected setting, and on a site with a persistent object cache it names the cache as the likely cause.
@@ -7,7 +13,7 @@
 * Add: Site Health now checks that GTM Kit's settings can be saved, and shows the error it got back when they cannot.
 * Add: When Google for WooCommerce adds a Google tag beside your container, GTM Kit now names it as the source instead of saying it could not tell.
 * Add: When sending your system data from the Support screen cannot get through, the screen now says so instead of claiming your ticket was not found. With GTM Kit Premium you can then copy the data or download it to email instead.
-* Add: You can now serve the Google tag from your own domain, so ad blockers and browser tracking restrictions interfere less with your measurement. If it stops working, GTM Kit falls back to the standard loader and tells you. It is off by default, and an alternative to your own sGTM container domain.
+* Add: You can now serve the Google tag from your own domain, so ad blockers and browser tracking restrictions interfere less with loading it. If it stops working, GTM Kit falls back to the standard loader and tells you. It is off by default, and an alternative to your own sGTM container domain. (Corrected after publication: this entry originally said restrictions would interfere less with your measurement. The setting changes where the tag loads from. The measurement the tag sends still goes to Google unless your CDN or host provides Google's tag gateway, which this setting cannot switch on.)
 * Fix: Event names such as purchase and add_to_cart can no longer be renamed by translations in the settings screens, where they disagreed with the events GTM Kit actually sends.
 * Dev: New `gtmkit_active_cmp` and `gtmkit_cmp_display_name` filters let a site declare a consent platform GTM Kit cannot detect, such as one loaded by the theme or a code snippet, so Site Health stops reporting consent as unconfigured.
 * Add: GTM Kit now points out setups that leave data unmeasured, such as a WooCommerce store with its ecommerce events switched off. At most one such notice appears at a time, and dismissing it keeps it away for 90 days.

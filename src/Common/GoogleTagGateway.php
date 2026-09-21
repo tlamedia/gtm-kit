@@ -13,10 +13,14 @@ use TLA_Media\GTM_Kit\Options\Options;
  * Resolves whether the Google tag gateway serves this request, and from where.
  *
  * The gateway serves the container from the site's own origin through a small
- * proxy file, so a request for the tag is same-origin and the measurement hits
- * it later makes are same-origin too. Everything that needs to know whether
- * that is happening asks this class, so the snippet, the resource hints, the
- * admin copy and the health checks cannot disagree about the answer.
+ * proxy file, so the request for the tag, and Google's second-stage script,
+ * are same-origin. The measurement hits the tag later makes are not: they
+ * still go to Google, because Google routes them through the site's domain
+ * only for domains behind a CDN or load balancer it integrates with, on a
+ * flag it sets in the config it serves. Nothing served from this proxy can
+ * set that flag. Everything that needs to know whether the gateway is
+ * serving asks this class, so the snippet, the resource hints, the admin
+ * copy and the health checks cannot disagree about the answer.
  *
  * Three states matter and they are deliberately distinct:
  *

@@ -403,6 +403,28 @@ class SettingsService {
 	}
 
 	/**
+	 * Get the loader Stape issued for this site, as the frontend uses it.
+	 *
+	 * `source` is `api` or `pasted` while a stored loader matches the current
+	 * settings, and `standard` otherwise.
+	 *
+	 * @return {{source: string, region: string, fetchedAt: number}} The loader state.
+	 */
+	getSgtmLoader() {
+		const state = this.data.sgtmLoader;
+
+		if ( ! state || typeof state !== 'object' ) {
+			return { source: 'standard', region: '', fetchedAt: 0 };
+		}
+
+		return {
+			source: state.source || 'standard',
+			region: state.region || '',
+			fetchedAt: Number( state.fetchedAt ) || 0,
+		};
+	}
+
+	/**
 	 * Get raw data by key (discouraged - use specific methods instead)
 	 *
 	 * This method provides raw access to window.gtmkitSettings for edge cases.

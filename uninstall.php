@@ -16,6 +16,7 @@ delete_option( 'gtmkit_initial_version' );
 delete_option( 'gtmkit_activation_prevent_redirect' );
 delete_option( 'gtmkit_support_sync' );
 delete_option( 'gtmkit_snippet_scan' );
+delete_option( 'gtmkit_sgtm_loader' );
 delete_option( 'gtmkit_upgrade_notice_dismissals' );
 
 // Remove the per-user introductions seen-state across all users.

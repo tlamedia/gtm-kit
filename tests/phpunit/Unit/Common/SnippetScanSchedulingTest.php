@@ -21,6 +21,7 @@
 
 namespace TLA_Media\GTM_Kit\Tests\Unit\Common;
 
+use Brain\Monkey\Actions;
 use Brain\Monkey\Functions;
 use TLA_Media\GTM_Kit\Common\SnippetScan;
 use TLA_Media\GTM_Kit\Installation\Upgrade;
@@ -166,6 +167,17 @@ final class SnippetScanSchedulingTest extends TestCase {
 	}
 
 	/**
+	 * Run the 2.18.1 upgrade routine the way `plugins_loaded` does.
+	 */
+	private function run_v2181_upgrade(): void {
+		$upgrade = new \ReflectionMethod( Upgrade::class, 'v2181_upgrade' );
+		if ( \PHP_VERSION_ID < 80100 ) {
+			$upgrade->setAccessible( true );
+		}
+		$upgrade->invoke( ( new \ReflectionClass( Upgrade::class ) )->newInstanceWithoutConstructor() );
+	}
+
+	/**
 	 * Upgrading from 2.18.0 clears the stale one-shot so the recurrence can arm.
 	 *
 	 * The scheduler only arms when nothing is pending, and a site coming from
@@ -173,15 +185,26 @@ final class SnippetScanSchedulingTest extends TestCase {
 	 * routine cancelling it, the guard sees it, skips arming, and the site runs
 	 * one more cycle of exactly the behaviour this release fixes.
 	 *
+	 * The cancel waits for `init`, which WordPress fires before `admin_init`,
+	 * so it still clears the way for the recurrence on the same request.
+	 *
 	 * @covers \TLA_Media\GTM_Kit\Installation\Upgrade::v2181_upgrade
 	 */
 	public function test_the_upgrade_routine_clears_a_stale_one_shot_before_arming(): void {
 		// A site on 2.18.0: a one-shot is pending, so the guard would block.
 		$this->existing_action = 4242;
 
-		$upgrade = new \ReflectionMethod( Upgrade::class, 'v2181_upgrade' );
-		$upgrade->setAccessible( true );
-		$upgrade->invoke( ( new \ReflectionClass( Upgrade::class ) )->newInstanceWithoutConstructor() );
+		$on_init = null;
+		Actions\expectAdded( 'init' )->once()->whenHappen(
+			function ( $callback ) use ( &$on_init ) {
+				$on_init = $callback;
+			}
+		);
+
+		$this->run_v2181_upgrade();
+
+		$this->assertIsCallable( $on_init, 'The cancel has to be queued for init.' );
+		$on_init();
 
 		$this->assertSame(
 			[ 'as_unschedule_all_actions' ],
@@ -195,6 +218,42 @@ final class SnippetScanSchedulingTest extends TestCase {
 		$this->scan()->schedule_daily_event();
 
 		$this->assertSame( [ 'as_schedule_recurring_action' ], array_column( $this->calls, 'fn' ) );
+	}
+
+	/**
+	 * The upgrade routine leaves Action Scheduler alone until `init`.
+	 *
+	 * Upgrades run on `plugins_loaded`, before Action Scheduler has set up its
+	 * data store, and calling its API that early logs a notice.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\Upgrade::v2181_upgrade
+	 */
+	public function test_the_upgrade_routine_makes_no_action_scheduler_call_before_init(): void {
+		$this->existing_action = 4242;
+
+		$this->run_v2181_upgrade();
+
+		$this->assertSame( [], $this->calls, 'Nothing may reach Action Scheduler before init.' );
+		$this->assertNotFalse(
+			has_action( 'init', [ SnippetScan::class, 'clear_scheduled_event' ] ),
+			'The cancel has to be queued for init.'
+		);
+	}
+
+	/**
+	 * Once `init` has fired, the upgrade routine cancels straight away.
+	 *
+	 * A callback added to `init` after it has fired would never run, so the
+	 * stale one-shot would survive.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\Upgrade::v2181_upgrade
+	 */
+	public function test_the_upgrade_routine_cancels_immediately_after_init(): void {
+		do_action( 'init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Stands in for WordPress core firing its own hook.
+
+		$this->run_v2181_upgrade();
+
+		$this->assertSame( [ 'as_unschedule_all_actions' ], array_column( $this->calls, 'fn' ) );
 	}
 
 	/**

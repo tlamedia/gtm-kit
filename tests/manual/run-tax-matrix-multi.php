@@ -99,7 +99,9 @@ $run_cell = static function ( int $cap_id, int $belt_id, array $cell ): array {
 
 	$ref = new ReflectionClass( $wc );
 	$gd  = $ref->getProperty( 'global_data' );
-	$gd->setAccessible( true );
+	if ( \PHP_VERSION_ID < 80100 ) {
+		$gd->setAccessible( true );
+	}
 	$gd->setValue( $wc, [ 'wc' => [ 'cart_items' => $wc->get_cart_items( 'begin_checkout' ) ] ] );
 
 	$view_cart      = $wc->get_datalayer_content_cart( [] );

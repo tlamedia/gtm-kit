@@ -107,7 +107,7 @@ export const SETUP_FIELDS = [
 		control: 'toggle',
 		label: __( 'Serve the Google tag from this site', 'gtm-kit' ),
 		description: __(
-			'Loads the Google tag from your own domain instead of from Google, so ad blockers and browser tracking restrictions interfere with it less. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards. Not available while an sGTM container domain is set, because that already serves the tag from a domain you control.',
+			'Loads the Google tag from your own domain instead of from Google, so ad blockers and browser restrictions that target Google’s domain interfere less with loading it. The measurement the tag sends still goes to Google; moving that to your domain as well needs Google’s tag gateway on a CDN or host that supports it, which this setting does not provide. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards. Not available while an sGTM container domain is set, because that already serves the tag from a domain you control.',
 			'gtm-kit'
 		),
 		tier: 'free',
@@ -164,6 +164,27 @@ export const SETUP_FIELDS = [
 		label: __( 'Cookie Keeper (for Stape users only)', 'gtm-kit' ),
 		description: __(
 			'Prolong cookie lifetime in Safari and other browsers with ITP. This only works if you use Stape sGTM hosting and have set up the Cookie Keeper power up.',
+			'gtm-kit'
+		),
+		tier: 'free',
+		integration: null,
+		enabledWhen: {
+			truthy: [
+				'general.sgtm_domain',
+				'general.sgtm_container_identifier',
+			],
+			falsy: [ 'general.google_tag_gateway' ],
+		},
+	},
+	{
+		key: 'general.sgtm_stape_issued_loader',
+		capability: 'setup',
+		section: 'sgtm',
+		order: 40,
+		control: 'toggle',
+		label: __( 'Get the loader from Stape', 'gtm-kit' ),
+		description: __(
+			'Uses the loader Stape issues for your container, which ad blockers find harder to recognise than the standard one. To get it, GTM Kit sends Stape your container identifier, container ID, sGTM container domain and data layer name, plus the Cookie Keeper cookie name when Cookie Keeper is on. This happens only when you save a change to those settings or refresh the loader, never in the background.',
 			'gtm-kit'
 		),
 		tier: 'free',

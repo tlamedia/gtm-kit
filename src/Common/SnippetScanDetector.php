@@ -7,6 +7,8 @@
 
 namespace TLA_Media\GTM_Kit\Common;
 
+use TLA_Media\GTM_Kit\Frontend\Stape;
+
 /**
  * Identifies tracking implementations in a page's HTML.
  *
@@ -230,9 +232,8 @@ final class SnippetScanDetector {
 		$path = (string) wp_parse_url( $src, PHP_URL_PATH );
 		$file = basename( $path );
 
-		// The Cookie Keeper variant serves the same loader under a `kp` prefix.
 		return strcasecmp( $file, $own['loader'] . '.js' ) === 0
-			|| strcasecmp( $file, 'kp' . $own['loader'] . '.js' ) === 0;
+			|| strcasecmp( $file, Stape::cookie_keeper_loader( $own['loader'] ) . '.js' ) === 0;
 	}
 
 	/**

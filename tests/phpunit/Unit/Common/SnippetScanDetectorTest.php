@@ -126,6 +126,38 @@ final class SnippetScanDetectorTest extends TestCase {
 	}
 
 	/**
+	 * GTM Kit configured with a loader issued by Stape.
+	 *
+	 * @var array<string, string>
+	 */
+	private const OWN_STAPE_ISSUED = [
+		'container' => 'GTM-ABCD123',
+		'domain'    => 'sgtm.example.com',
+		'loader'    => '38i0hixjpkyq',
+	];
+
+	/**
+	 * The issued loader carries neither `id=` nor `st=`, and still counts as one load of our own.
+	 */
+	public function test_stape_issued_loader_counts_as_one_load_of_our_own(): void {
+		$loads = $this->loads( SnippetScanDetector::detect( $this->fixture( 'gtmkit-stape-issued' ), self::OWN_STAPE_ISSUED ) );
+
+		$this->assertCount( 1, $loads );
+		$this->assertSame( 'sgtm.example.com', $loads[0]['host'] );
+		$this->assertSame( SnippetScanDetector::OWNER_GTMKIT, $loads[0]['owner'] );
+	}
+
+	/**
+	 * The Safari form of the issued loader is recognised by its file name.
+	 */
+	public function test_stape_issued_safari_loader_is_recognised(): void {
+		$loads = $this->loads( SnippetScanDetector::detect( $this->fixture( 'stape-issued-safari-rendered' ), self::OWN_STAPE_ISSUED ) );
+
+		$this->assertCount( 1, $loads );
+		$this->assertSame( 'sgtm.example.com', $loads[0]['host'] );
+	}
+
+	/**
 	 * A loader with no container ID anywhere is found through its bootstrap.
 	 */
 	public function test_loader_without_a_container_id_is_still_found(): void {

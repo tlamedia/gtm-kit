@@ -38,6 +38,26 @@ final class Stape {
 	}
 
 	/**
+	 * The loader file name Cookie Keeper requests on Safari 16.4 and later.
+	 *
+	 * Stape splices `kp` in front of the last eight characters of the loader
+	 * identifier, not in front of the whole identifier. The two forms only
+	 * agree for an identifier of eight characters or fewer, and Stape answers
+	 * the wrong form with HTTP 400.
+	 *
+	 * @param string $loader The custom loader identifier.
+	 *
+	 * @return string
+	 */
+	public static function cookie_keeper_loader( string $loader ): string {
+		if ( strlen( $loader ) > 8 ) {
+			return (string) preg_replace( '/([a-z]{8})$/D', 'kp$1', $loader );
+		}
+
+		return 'kp' . $loader;
+	}
+
+	/**
 	 * Register
 	 *
 	 * @param Options $options An instance of Options.

@@ -85,8 +85,39 @@ const handleApiFetch = async (
 	}
 };
 
-export const updateSettings = ( data ) =>
-	handleApiFetch( 'gtmkit/v1/set-options', 'POST', data );
+/**
+ * Save settings.
+ *
+ * Resolves with the whole response: `data` holds the settings as saved and
+ * `sgtm_loader` what became of the loader Stape issues.
+ *
+ * @param {Object} data The settings to save.
+ * @return {Promise<Object>} The response.
+ * @throws {APIError} The save did not succeed.
+ */
+export const updateSettings = async ( data ) => {
+	const response = await handleApiFetch(
+		'gtmkit/v1/set-options',
+		'POST',
+		data,
+		true
+	);
+
+	if ( response?.success !== true ) {
+		throw new APIError(
+			response?.message || 'API request failed',
+			response
+		);
+	}
+
+	return response;
+};
+
+export const refreshSgtmLoader = () =>
+	handleApiFetch( 'gtmkit/v1/sgtm-loader-refresh', 'POST', null, true );
+
+export const pasteSgtmLoader = ( code ) =>
+	handleApiFetch( 'gtmkit/v1/sgtm-loader-paste', 'POST', { code }, true );
 
 export const sendSystemData = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/send-support-data', 'POST', data, true );

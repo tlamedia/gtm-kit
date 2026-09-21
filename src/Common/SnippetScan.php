@@ -553,6 +553,12 @@ final class SnippetScan {
 
 		$domain = (string) $this->options->get( 'general', 'sgtm_domain' );
 		$loader = (string) $this->options->get( 'general', 'sgtm_container_identifier' );
+		$issued = ( new StapeLoader( $this->options ) )->get_active();
+
+		if ( null !== $issued ) {
+			// Stape names the issued loader file, so the identifier no longer matches it.
+			$loader = $issued['path'];
+		}
 
 		return [
 			'container' => (string) $this->options->get( 'general', 'gtm_id' ),

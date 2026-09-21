@@ -14,6 +14,18 @@ import type { Tier } from '../constants/tiers';
 /**
  * SettingsDataContext Types
  */
+/**
+ * What the server reports about the loader Stape issues. `status` and
+ * `reason` are present after a save, refresh or paste.
+ */
+export interface SgtmLoaderState {
+	source: 'api' | 'pasted' | 'standard';
+	region: string;
+	fetchedAt: number;
+	status?: string;
+	reason?: string;
+}
+
 export interface SettingsDataContextValue {
 	// State
 	settings: Settings;
@@ -22,12 +34,14 @@ export interface SettingsDataContextValue {
 	canSave: boolean;
 	notice: string;
 	hasError: boolean;
+	sgtmLoader: SgtmLoaderState | null;
 
 	// Methods
 	updateSettings: () => Promise<void>;
 	updateStateSettings: (group: string, key: string, val: unknown) => void;
 	importSettings: (pluginSettings: Partial<Settings>) => void;
 	fetchSettings: () => void;
+	setSgtmLoader: (state: SgtmLoaderState) => void;
 
 	// Backward compatibility
 	useSettings: Settings;

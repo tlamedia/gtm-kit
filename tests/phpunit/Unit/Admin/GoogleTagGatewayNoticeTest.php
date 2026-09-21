@@ -55,7 +55,9 @@ final class GoogleTagGatewayNoticeTest extends TestCase {
 		$notice = ( new \ReflectionClass( GoogleTagGatewayNotice::class ) )->newInstanceWithoutConstructor();
 
 		$build = new ReflectionMethod( GoogleTagGatewayNotice::class, 'build' );
-		$build->setAccessible( true );
+		if ( \PHP_VERSION_ID < 80100 ) {
+			$build->setAccessible( true );
+		}
 
 		return $build->invoke( $notice )->render()['message'];
 	}

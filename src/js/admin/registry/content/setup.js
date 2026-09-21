@@ -100,6 +100,13 @@ export const SETUP_CONTENT = {
 	},
 
 	'setup/sgtm': {
+		inline: [
+			{
+				type: 'component',
+				order: 45,
+				component: 'sgtm-loader-status',
+			},
+		],
 		aside: [
 			{
 				type: 'promo',

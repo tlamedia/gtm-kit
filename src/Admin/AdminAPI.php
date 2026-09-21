@@ -8,6 +8,8 @@
 namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
+use TLA_Media\GTM_Kit\Common\StapeLoaderClient;
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
@@ -108,6 +110,53 @@ final class AdminAPI {
 				'callback' => [ $this, 'health' ],
 			]
 		);
+
+		$this->util->rest_api_server->register_rest_route(
+			'/sgtm-loader-refresh',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'refresh_sgtm_loader' ],
+			]
+		);
+
+		$this->util->rest_api_server->register_rest_route(
+			'/sgtm-loader-paste',
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'paste_sgtm_loader' ],
+			]
+		);
+	}
+
+	/**
+	 * Ask Stape for the loader it issues, on the site owner's request.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function refresh_sgtm_loader(): \WP_REST_Response {
+		$sgtm_loader = new StapeLoader( $this->options );
+		$outcome     = $sgtm_loader->refresh( new StapeLoaderClient( $this->options ) );
+
+		return self::envelope( true, array_merge( $outcome, $sgtm_loader->get_client_state() ) );
+	}
+
+	/**
+	 * Store a loader from the code the site owner copied out of Stape.
+	 *
+	 * The code goes through the same parser as an API response and is never
+	 * stored or printed as it is.
+	 *
+	 * @param \WP_REST_Request $request The request.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function paste_sgtm_loader( \WP_REST_Request $request ): \WP_REST_Response {
+		$submitted   = json_decode( $request->get_body(), true );
+		$code        = ( is_array( $submitted ) && isset( $submitted['code'] ) && is_string( $submitted['code'] ) ) ? $submitted['code'] : '';
+		$sgtm_loader = new StapeLoader( $this->options );
+		$outcome     = $sgtm_loader->paste( $code );
+
+		return self::envelope( true, array_merge( $outcome, $sgtm_loader->get_client_state() ) );
 	}
 
 	/**
@@ -194,6 +243,11 @@ final class AdminAPI {
 	 * save that switches on a Google tag gateway that cannot serve is refused
 	 * the same way, for the same reason.
 	 *
+	 * A save that changes the settings a Stape-issued loader is issued for asks
+	 * Stape for a new one. That request never refuses the save, because a
+	 * failure leaves the standard loader working, so the save lands and the
+	 * response says what became of the loader.
+	 *
 	 * @param \WP_REST_Request $request The request.
 	 *
 	 * @return \WP_REST_Response|WP_Error
@@ -224,6 +278,9 @@ final class AdminAPI {
 			$rejected = is_array( $errors ) ? $errors : [];
 		};
 
+		$sgtm_loader   = new StapeLoader( $this->options );
+		$loader_before = $sgtm_loader->get_save_baseline();
+
 		add_action( 'gtmkit_options_validation_failed', $collect );
 		add_filter( 'pre_update_option_' . Options::OPTION_NAME, $capture, PHP_INT_MAX );
 		$this->options->set( $new_options );
@@ -249,7 +306,15 @@ final class AdminAPI {
 			}
 		}
 
-		return self::envelope( true, $this->options->get_all_raw() );
+		$outcome = $sgtm_loader->sync_after_save( new StapeLoaderClient( $this->options ), $loader_before );
+
+		return new \WP_REST_Response(
+			[
+				'success'     => true,
+				'data'        => $this->options->get_all_raw(),
+				'sgtm_loader' => array_merge( $outcome, $sgtm_loader->get_client_state() ),
+			]
+		);
 	}
 
 	/**

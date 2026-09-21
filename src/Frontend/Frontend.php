@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Frontend;
 
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Common\GoogleTagGateway;
 use TLA_Media\GTM_Kit\Common\SiteEnvironment;
 use TLA_Media\GTM_Kit\Options\Options;
@@ -545,13 +546,22 @@ final class Frontend {
 			return;
 		}
 
+		$issued = ( new StapeLoader( $this->options ) )->get_active();
+
+		if ( null !== $issued ) {
+			$this->get_stape_issued_script( $issued );
+
+			return;
+		}
+
 		$domain = $this->options->get( 'general', 'sgtm_domain' ) ? $this->options->get( 'general', 'sgtm_domain' ) : 'www.googletagmanager.com';
 		$loader = ! empty( $this->options->get( 'general', 'sgtm_container_identifier' ) ) ? $this->options->get( 'general', 'sgtm_container_identifier' ) : 'gtm';
 
 		if ( $domain !== 'www.googletagmanager.com' && $loader !== 'gtm' && $this->options->get( 'general', 'sgtm_cookie_keeper' ) ) {
 			$gtm_id = preg_replace( '/^GTM\-/i', '', $gtm_id );
 			echo "/* Google Tag Manager with Stape.io Cookie Keeper */\n";
-			echo '!function(){"use strict";function l(e){for(var t=e,r=0,n=document.cookie.split(";");r<n.length;r++){var o=n[r].split("=");if(o[0].trim()===t)return o[1]}}function s(e){return localStorage.getItem(e)}function u(e){return window[e]}function d(e,t){e=document.querySelector(e);return t?null==e?void 0:e.getAttribute(t):null==e?void 0:e.textContent}var e=window,t=document,r="script",n="' . esc_js( $this->datalayer_name ) . '",o="' . esc_js( $gtm_id ) . '",a="https://' . esc_attr( $domain ) . '",i="",c="' . esc_attr( $loader ) . '",E="cookie",I="_sbp",v="",g=!1;try{var g=!!E&&(m=navigator.userAgent,!!(m=new RegExp("Version/([0-9._]+)(.*Mobile)?.*Safari.*").exec(m)))&&16.4<=parseFloat(m[1]),A="stapeUserId"===E,f=g&&!A?function(e,t,r){void 0===t&&(t="");var n={cookie:l,localStorage:s,jsVariable:u,cssSelector:d},t=Array.isArray(t)?t:[t];if(e&&n[e])for(var o=n[e],a=0,i=t;a<i.length;a++){var c=i[a],c=r?o(c,r):o(c);if(c)return c}else console.warn("invalid uid source",e)}(E,I,v):void 0;g=g&&(!!f||A)}catch(e){console.error(e)}var m=e,E=(m[n]=m[n]||[],m[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"}),t.getElementsByTagName(r)[0]),I="dataLayer"===n?"":"&l="+n,v=f?"&bi="+encodeURIComponent(f):"",A=t.createElement(r),e=g?"kp"+c:c,n=!g&&i?i:a;A.async=!0,A.src=n+"/"+e+".js?st="+o+I+v' . ( ( ! empty( $this->options->get( 'general', 'gtm_auth' ) ) && ! empty( $this->options->get( 'general', 'gtm_preview' ) ) ) ? "+'&gtm_auth=" . esc_attr( $this->options->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( $this->options->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'" : '' ) . ',null!=(f=E.parentNode)&&f.insertBefore(A,E)}();';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Every dynamic part is escaped where the script is assembled.
+			echo $this->get_cookie_keeper_script( $domain, $loader, $gtm_id, '".js?st="+o+I+v' );
 			echo "\n/* End Google Tag Manager */\n";
 		} else {
 			$argument = ( $loader === 'gtm' ) ? 'id' : 'st';
@@ -560,11 +570,80 @@ final class Frontend {
 			echo "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n";
 			echo "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n";
 			echo "'https://" . esc_attr( $domain ) . '/' . esc_attr( $loader ) . '.js?' . esc_attr( $argument ) . "='+i+dl";
-			echo ( ! empty( $this->options->get( 'general', 'gtm_auth' ) ) && ! empty( $this->options->get( 'general', 'gtm_preview' ) ) ) ? "+'&gtm_auth=" . esc_attr( $this->options->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( $this->options->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'" : '';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped where the query is assembled.
+			echo $this->get_environment_query();
 			echo ";f.parentNode.insertBefore(j,f);\n";
 			echo "})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_attr( $gtm_id ) . "');\n";
 			echo "/* End Google Tag Manager */\n";
 		}
+	}
+
+	/**
+	 * Emit the loader Stape issued for this site's server-side container.
+	 *
+	 * The address is built from values that were checked when they were stored
+	 * and again when they were read, never from the code Stape returned. The
+	 * data layer name is not appended, because Stape encodes it into the query
+	 * value. The environment parameters are appended as in the standard
+	 * snippet, and Stape passes them on to Google.
+	 *
+	 * @param array{path: string, param: string, value: string} $loader The stored loader.
+	 */
+	private function get_stape_issued_script( array $loader ): void {
+		$domain = (string) $this->options->get( 'general', 'sgtm_domain' );
+		$query  = $loader['param'] . '=' . $loader['value'];
+
+		if ( $this->options->get( 'general', 'sgtm_cookie_keeper' ) ) {
+			echo "/* Google Tag Manager with Stape.io Cookie Keeper */\n";
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Every dynamic part is escaped where the script is assembled.
+			echo $this->get_cookie_keeper_script( $domain, $loader['path'], $query, '".js?"+o+v' );
+			echo "\n/* End Google Tag Manager */\n";
+
+			return;
+		}
+
+		echo "/* Google Tag Manager */\n";
+		echo "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n";
+		echo "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n";
+		echo "j=d.createElement(s);j.async=true;j.src=\n";
+		echo "'https://" . esc_attr( $domain ) . '/' . esc_attr( $loader['path'] ) . ".js?'+i";
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped where the query is assembled.
+		echo $this->get_environment_query();
+		echo ";f.parentNode.insertBefore(j,f);\n";
+		echo "})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_js( $query ) . "');\n";
+		echo "/* End Google Tag Manager */\n";
+	}
+
+	/**
+	 * Assemble the Cookie Keeper loader script.
+	 *
+	 * On Safari 16.4 and later the script asks for the `kp` form of the loader
+	 * file and appends the Cookie Keeper identifier as `bi`. The same script
+	 * serves the standard loader, which carries the container ID, and the
+	 * loader Stape issues, which carries its own query pair instead.
+	 *
+	 * @param string $domain          The server-side container domain.
+	 * @param string $loader          The loader file name, without `.js`.
+	 * @param string $container_value The value the script names `o`: the container ID, or the issued query pair.
+	 * @param string $query           The JavaScript expression that follows the file name in the address.
+	 *
+	 * @return string
+	 */
+	private function get_cookie_keeper_script( string $domain, string $loader, string $container_value, string $query ): string {
+		return '!function(){"use strict";function l(e){for(var t=e,r=0,n=document.cookie.split(";");r<n.length;r++){var o=n[r].split("=");if(o[0].trim()===t)return o[1]}}function s(e){return localStorage.getItem(e)}function u(e){return window[e]}function d(e,t){e=document.querySelector(e);return t?null==e?void 0:e.getAttribute(t):null==e?void 0:e.textContent}var e=window,t=document,r="script",n="' . esc_js( $this->datalayer_name ) . '",o="' . esc_js( $container_value ) . '",a="https://' . esc_attr( $domain ) . '",i="",c="' . esc_attr( $loader ) . '",E="cookie",I="_sbp",v="",g=!1;try{var g=!!E&&(m=navigator.userAgent,!!(m=new RegExp("Version/([0-9._]+)(.*Mobile)?.*Safari.*").exec(m)))&&16.4<=parseFloat(m[1]),A="stapeUserId"===E,f=g&&!A?function(e,t,r){void 0===t&&(t="");var n={cookie:l,localStorage:s,jsVariable:u,cssSelector:d},t=Array.isArray(t)?t:[t];if(e&&n[e])for(var o=n[e],a=0,i=t;a<i.length;a++){var c=i[a],c=r?o(c,r):o(c);if(c)return c}else console.warn("invalid uid source",e)}(E,I,v):void 0;g=g&&(!!f||A)}catch(e){console.error(e)}var m=e,E=(m[n]=m[n]||[],m[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"}),t.getElementsByTagName(r)[0]),I="dataLayer"===n?"":"&l="+n,v=f?"&bi="+encodeURIComponent(f):"",A=t.createElement(r),e=g?"' . esc_attr( Stape::cookie_keeper_loader( $loader ) ) . '":c,n=!g&&i?i:a;A.async=!0,A.src=n+"/"+e+' . $query . $this->get_environment_query() . ',null!=(f=E.parentNode)&&f.insertBefore(A,E)}();';
+	}
+
+	/**
+	 * The container environment parameters, as a JavaScript string concatenation.
+	 *
+	 * @return string An empty string when no environment is configured.
+	 */
+	private function get_environment_query(): string {
+		if ( empty( $this->options->get( 'general', 'gtm_auth' ) ) || empty( $this->options->get( 'general', 'gtm_preview' ) ) ) {
+			return '';
+		}
+
+		return "+'&gtm_auth=" . esc_attr( $this->options->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( $this->options->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'";
 	}
 
 	/**
@@ -593,7 +672,8 @@ final class Frontend {
 		echo "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n";
 		echo "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n";
 		echo "'" . esc_js( $src ) . "'+i+dl";
-		echo ( ! empty( $this->options->get( 'general', 'gtm_auth' ) ) && ! empty( $this->options->get( 'general', 'gtm_preview' ) ) ) ? "+'&gtm_auth=" . esc_attr( $this->options->get( 'general', 'gtm_auth' ) ) . '&gtm_preview=' . esc_attr( $this->options->get( 'general', 'gtm_preview' ) ) . "&gtm_cookies_win=x'" : '';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped where the query is assembled.
+		echo $this->get_environment_query();
 		echo ";f.parentNode.insertBefore(j,f);\n";
 		echo "})(window,document,'script','" . esc_js( $this->datalayer_name ) . "','" . esc_attr( $gtm_id ) . "');\n";
 		echo "/* End Google Tag Manager */\n";

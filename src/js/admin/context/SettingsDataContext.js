@@ -51,6 +51,7 @@ const initialState = {
 	canSave: false,
 	notice: '',
 	hasError: false,
+	sgtmLoader: null,
 };
 
 /**
@@ -107,9 +108,15 @@ const settingsReducer = ( state, action ) => {
 			newState.canSave = false;
 			newState.notice = __( 'Settings saved successfully.', 'gtm-kit' );
 			newState.hasError = false;
+			if ( action.payload.sgtmLoader !== undefined ) {
+				newState.sgtmLoader = action.payload.sgtmLoader;
+			}
 			break;
 
 		case ActionTypes.UPDATE_STATE:
+			if ( action.payload.sgtmLoader !== undefined ) {
+				newState.sgtmLoader = action.payload.sgtmLoader;
+			}
 			if ( action.payload.fetchedSettings !== undefined ) {
 				newState.fetchedSettings = action.payload.fetchedSettings;
 			}
@@ -176,15 +183,14 @@ export const SettingsDataProvider = ( { children } ) => {
 		} );
 
 		try {
-			const updatedSettings = await apiUpdateSettings(
-				state.stateSettings
-			);
+			const response = await apiUpdateSettings( state.stateSettings );
 
 			dispatch( {
 				type: ActionTypes.UPDATE_SETTINGS,
 				payload: {
-					fetchedSettings: updatedSettings,
-					stateSettings: updatedSettings,
+					fetchedSettings: response.data,
+					stateSettings: response.data,
+					sgtmLoader: response.sgtm_loader,
 				},
 			} );
 		} catch ( error ) {
@@ -205,6 +211,18 @@ export const SettingsDataProvider = ( { children } ) => {
 			// ask the user to do something before saving again.
 			saveErrorToast.current = toast?.error( errorMessage, 0 ) ?? null;
 		}
+	};
+
+	/**
+	 * Record what the server reports about the Stape-issued loader.
+	 *
+	 * @param {Object} sgtmLoader The loader state from a save, refresh or paste.
+	 */
+	const setSgtmLoader = ( sgtmLoader ) => {
+		dispatch( {
+			type: ActionTypes.UPDATE_STATE,
+			payload: { sgtmLoader },
+		} );
 	};
 
 	/**
@@ -281,12 +299,14 @@ export const SettingsDataProvider = ( { children } ) => {
 		canSave: state.canSave,
 		notice: state.notice,
 		hasError: state.hasError,
+		sgtmLoader: state.sgtmLoader,
 
 		// Methods
 		updateSettings,
 		updateStateSettings,
 		importSettings,
 		fetchSettings,
+		setSgtmLoader,
 
 		// Backward compatibility aliases (for gradual migration)
 		useSettings: state.stateSettings,

@@ -66,6 +66,8 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Common\\SiteEnvironment' => __DIR__ . '/../..' . '/src/Common/SiteEnvironment.php',
         'TLA_Media\\GTM_Kit\\Common\\SnippetScan' => __DIR__ . '/../..' . '/src/Common/SnippetScan.php',
         'TLA_Media\\GTM_Kit\\Common\\SnippetScanDetector' => __DIR__ . '/../..' . '/src/Common/SnippetScanDetector.php',
+        'TLA_Media\\GTM_Kit\\Common\\StapeLoader' => __DIR__ . '/../..' . '/src/Common/StapeLoader.php',
+        'TLA_Media\\GTM_Kit\\Common\\StapeLoaderClient' => __DIR__ . '/../..' . '/src/Common/StapeLoaderClient.php',
         'TLA_Media\\GTM_Kit\\Common\\SupportSync' => __DIR__ . '/../..' . '/src/Common/SupportSync.php',
         'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',
