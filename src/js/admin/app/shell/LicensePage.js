@@ -116,9 +116,16 @@ const Check = () => (
  * @param {string}   props.renews       The renewal line, or an empty string.
  * @param {Function} props.onDeactivate Deactivate handler.
  * @param {boolean}  props.deactivating Whether deactivation is in progress.
+ * @param {string}   props.message      Why the last deactivation failed.
  * @return {JSX.Element} The card.
  */
-const LicensedCard = ( { maskedKey, renews, onDeactivate, deactivating } ) => (
+const LicensedCard = ( {
+	maskedKey,
+	renews,
+	onDeactivate,
+	deactivating,
+	message,
+} ) => (
 	<div className={ CARD }>
 		<div className="gtmkit-m-5 gtmkit-rounded-md gtmkit-border gtmkit-border-tier-premium gtmkit-p-5">
 			<div className="gtmkit-mb-2 gtmkit-flex gtmkit-items-center gtmkit-gap-2">
@@ -168,6 +175,11 @@ const LicensedCard = ( { maskedKey, renews, onDeactivate, deactivating } ) => (
 				{ __( 'Deactivate license', 'gtm-kit' ) }
 				{ deactivating && <Spinner /> }
 			</button>
+			{ message && (
+				<span className="gtmkit-mt-2 gtmkit-block gtmkit-text-xs gtmkit-text-[#b32d2e]">
+					{ message }
+				</span>
+			) }
 		</div>
 	</div>
 );
@@ -295,6 +307,7 @@ const LicensePage = () => {
 		updateLicenseKey,
 		sendLicenseKey,
 		deactivateLicense,
+		deactivateLicenseMessage,
 		isSendingLicenseKey,
 		isLicenseKeySent,
 		licenseKeyMessage,
@@ -316,8 +329,11 @@ const LicensePage = () => {
 
 	const onDeactivate = async () => {
 		setDeactivating( true );
-		await deactivateLicense();
-		window.location.reload();
+		if ( await deactivateLicense() ) {
+			window.location.reload();
+			return;
+		}
+		setDeactivating( false );
 	};
 
 	return (
@@ -348,6 +364,7 @@ const LicensePage = () => {
 							) }
 							onDeactivate={ onDeactivate }
 							deactivating={ deactivating }
+							message={ deactivateLicenseMessage }
 						/>
 					) : (
 						<UnlicensedCard

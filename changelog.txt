@@ -1,5 +1,11 @@
 *** GTM Kit ***
 
+2026-09-22 - version 2.20.1
+* Fix: If refreshing or pasting your Stape loader fails, the settings screen now names the loader your pages keep using, instead of claiming they fell back to the standard loader. A request that fails before reaching Stape, for example because your login has expired, now says so instead of reporting that Stape could not be reached.
+* Fix: If saving your settings fails because the connection to your site dropped, the settings screen now says there is a network problem instead of reporting a server error.
+* Fix: If activating your licence fails because the request itself failed, for example because the connection dropped, the licence screen now says so instead of telling you to check your licence key. If deactivating fails, the button no longer keeps spinning: the screen shows what went wrong and lets you try again.
+* Fix: If a Stape loader is made for a different data layer name than GTM Kit uses, whether you paste it or GTM Kit gets it from Stape, the settings screen now refuses it and says why, instead of using a loader that listens to the wrong data layer.
+
 2026-09-22 - version 2.20.0
 * Add: If your server-side container is hosted on Stape, GTM Kit can now use the loader Stape issues for it, which ad blockers find harder to recognise. Switch it on under Server-side Tagging. GTM Kit asks Stape for the loader only when you save or refresh it, and you can paste the code from Stape instead.
 * Fix: With Cookie Keeper enabled, Safari visitors now load your Stape custom loader when its identifier is longer than eight characters, as every identifier Stape issues today is. Safari previously asked Stape for a loader address it rejects, so those visitors were not tracked.

@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.20.0\n"
+"Project-Id-Version: GTM Kit 2.20.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T13:29:39+00:00\n"
+"POT-Creation-Date: 2026-09-22T17:28:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gtm-kit\n"
@@ -1256,14 +1256,14 @@ msgid "Help improve GTM Kit"
 msgstr ""
 
 #: assets/admin/193.js:1
-#: assets/admin/settings.js:40
+#: assets/admin/settings.js:37
 #: src/js/admin/app/organisms/share-anonymous-data.js:16
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:33
 msgid "GTM Kit is used together with a wide variety of server configurations and plugins. It is very helpful for us to know what some of these configurations are so we can test the most common configurations."
 msgstr ""
 
 #: assets/admin/193.js:1
-#: assets/admin/settings.js:40
+#: assets/admin/settings.js:37
 #: src/js/admin/app/organisms/share-anonymous-data.js:22
 #: src/js/admin/app/pages-wizard/share-anonymous-data.js:39
 msgid "You can help by sharing anonymous data with us. Below is a detailed view of all data GTM Kit will collect if granted permission:"
@@ -1392,7 +1392,7 @@ msgid "See what Premium adds"
 msgstr ""
 
 #: assets/admin/570.js:1
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:248
 #: src/js/admin/app/pages-wizard/premium.js:106
 msgid "Continue"
@@ -1466,7 +1466,7 @@ msgid "Would you like to import your settings to GTM Kit?"
 msgstr ""
 
 #: assets/admin/707.js:1
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:235
 #: src/js/admin/app/organisms/import-settings.js:48
 msgid "Select the plugin you want to import settings from."
@@ -2222,7 +2222,7 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:61
 #: assets/admin/settings.js:62
-#: src/js/admin/app/shell/LicensePage.js:327
+#: src/js/admin/app/shell/LicensePage.js:343
 #: src/js/admin/app/shell/ShellApp.js:265
 #: src/js/admin/registry/capabilities.js:162
 msgid "License"
@@ -4053,106 +4053,104 @@ msgstr ""
 msgid "Install %s"
 msgstr ""
 
-#. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:83
-#, js-format
-msgid "WordPress reports this site as %s."
-msgstr ""
-
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:91
-msgid "GTM Kit loads your Google Tag Manager container here."
-msgstr ""
-
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:103
-msgid "GTM Kit loads your Google Tag Manager container here anyway, because the setting below is switched on, so traffic from this site is measured alongside your real traffic."
-msgstr ""
-
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:114
-msgid "GTM Kit does not load your Google Tag Manager container here, so traffic from this site stays out of your analytics and advertising audiences. The data layer is still built, so you can see what would be sent from a live site."
-msgstr ""
-
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:131
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:47
 msgid "GTM Kit could not reach Stape."
 msgstr ""
 
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:133
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:49
+msgid "Your browser could not reach this site. Check your connection."
+msgstr ""
+
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:54
+msgid "Your WordPress session has expired. Reload the page and log in if asked."
+msgstr ""
+
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:59
+msgid "The request failed inside WordPress, not at Stape. If reloading the page does not help, check the PHP error log."
+msgstr ""
+
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:64
 msgid "Stape does not know a container with this container identifier."
 msgstr ""
 
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:138
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:69
 msgid "Stape did not accept the container ID or the sGTM container domain."
 msgstr ""
 
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:144
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:75
 msgid "Stape answered without a loader."
 msgstr ""
 
-#: assets/admin/settings.js:37
-#: src/js/admin/registry/blocks/components.js:146
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:77
 msgid "The loader could not be read safely, so GTM Kit did not use it."
 msgstr ""
 
+#: assets/admin/settings.js:34
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:82
+msgid "This code was made for a different data layer name than the one GTM Kit uses. Change the data layer name in Stape to match, then copy and paste the new code."
+msgstr ""
+
 #. translators: %s is an HTTP status code, for example 500.
-#: assets/admin/settings.js:40
-#: src/js/admin/registry/blocks/components.js:156
+#: assets/admin/settings.js:37
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:92
 #, js-format
 msgid "Stape answered with an error (HTTP %s)."
 msgstr ""
 
-#: assets/admin/settings.js:40
-#: src/js/admin/registry/blocks/components.js:162
+#: assets/admin/settings.js:37
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:98
 msgid "GTM Kit could not get the loader from Stape."
 msgstr ""
 
-#: assets/admin/settings.js:40
+#: assets/admin/settings.js:37
 #: src/js/admin/app/organisms/import-plugin-settings.js:106
 msgid "No settings from another Google Tag Manager plugin were found on this site."
 msgstr ""
 
-#: assets/admin/settings.js:40
+#: assets/admin/settings.js:37
 #: src/js/admin/app/organisms/import-plugin-settings.js:139
 msgid "The settings could not be saved. Please try again."
 msgstr ""
 
 #. translators: %s: name of the plugin the settings were imported from.
-#: assets/admin/settings.js:41
+#: assets/admin/settings.js:38
 #: src/js/admin/app/organisms/import-plugin-settings.js:145
 #, js-format
 msgid "Settings imported from %s."
 msgstr ""
 
-#: assets/admin/settings.js:41
+#: assets/admin/settings.js:38
 #: src/js/admin/app/organisms/import-plugin-settings.js:153
 msgid "Import from another plugin"
 msgstr ""
 
 #. translators: %s: name of the plugin the settings are imported from.
-#: assets/admin/settings.js:42
+#: assets/admin/settings.js:39
 #: src/js/admin/app/organisms/import-plugin-settings.js:165
 #, js-format
 msgid "Importing from %s replaces your current GTM Kit settings with the ones below. This cannot be undone."
 msgstr ""
 
-#: assets/admin/settings.js:42
+#: assets/admin/settings.js:39
 #: src/js/admin/app/organisms/import-plugin-settings.js:176
 msgid "These settings will be replaced:"
 msgstr ""
 
-#: assets/admin/settings.js:42
+#: assets/admin/settings.js:39
 #: src/js/admin/app/organisms/import-plugin-settings.js:189
 msgid "Your current settings already match this plugin. Nothing will change."
 msgstr ""
 
 #. translators: %d: number of additional containers found.
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:200
 #, js-format
 msgid "%d additional container was found and will not be imported. GTM Kit uses one container."
@@ -4160,77 +4158,109 @@ msgid_plural "%d additional containers were found and will not be imported. GTM 
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:220
 msgid "Import and save"
 msgstr ""
 
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:224
 msgid "Cancel"
 msgstr ""
 
-#: assets/admin/settings.js:43
+#: assets/admin/settings.js:40
 #: src/js/admin/app/organisms/import-plugin-settings.js:234
 msgid "Import settings from"
 msgstr ""
 
+#. translators: %s is the kind of site WordPress reports, for example "staging", "development" or "local".
 #: assets/admin/settings.js:43
-#: src/js/admin/registry/blocks/components.js:215
+#: src/js/admin/registry/blocks/components.js:88
+#, js-format
+msgid "WordPress reports this site as %s."
+msgstr ""
+
+#: assets/admin/settings.js:43
+#: src/js/admin/registry/blocks/components.js:96
+msgid "GTM Kit loads your Google Tag Manager container here."
+msgstr ""
+
+#: assets/admin/settings.js:43
+#: src/js/admin/registry/blocks/components.js:108
+msgid "GTM Kit loads your Google Tag Manager container here anyway, because the setting below is switched on, so traffic from this site is measured alongside your real traffic."
+msgstr ""
+
+#: assets/admin/settings.js:43
+#: src/js/admin/registry/blocks/components.js:119
+msgid "GTM Kit does not load your Google Tag Manager container here, so traffic from this site stays out of your analytics and advertising audiences. The data layer is still built, so you can see what would be sent from a live site."
+msgstr ""
+
+#: assets/admin/settings.js:43
+#: src/js/admin/registry/blocks/components.js:176
 msgid "Your pages use the standard loader. Refresh the loader to get the one Stape issues."
 msgstr ""
 
 #. translators: %s is the date and time the loader was fetched.
 #: assets/admin/settings.js:46
-#: src/js/admin/registry/blocks/components.js:223
+#: src/js/admin/registry/blocks/components.js:184
 #, js-format
 msgid "Your pages use the loader Stape issued, fetched %s."
 msgstr ""
 
 #. translators: %s is the date and time the pasted loader was stored.
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:232
+#: src/js/admin/registry/blocks/components.js:193
 #, js-format
 msgid "Your pages use the loader you pasted on %s."
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:244
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:117
+msgid "Your pages keep the loader Stape issued earlier, which still works. Try again, or paste the code Stape shows for your container."
+msgstr ""
+
+#: assets/admin/settings.js:49
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:124
+msgid "Your pages keep the loader you pasted earlier, which still works. Try again, or paste the code Stape shows for your container."
+msgstr ""
+
+#: assets/admin/settings.js:49
+#: src/js/admin/registry/blocks/sgtmLoaderMessages.js:130
 msgid "Your pages keep the standard loader, which still works. Try again, or paste the code Stape shows for your container."
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:252
+#: src/js/admin/registry/blocks/components.js:210
 msgid "The loader was refreshed less than a minute ago. Try again shortly."
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:260
+#: src/js/admin/registry/blocks/components.js:218
 msgid "Fill in and save the container ID, the sGTM container domain and the container identifier first."
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:283
+#: src/js/admin/registry/blocks/components.js:241
 msgid "Refresh loader"
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:289
+#: src/js/admin/registry/blocks/components.js:247
 msgid "Paste the code instead"
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:296
+#: src/js/admin/registry/blocks/components.js:254
 msgid "Code from Stape"
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:297
+#: src/js/admin/registry/blocks/components.js:255
 msgid "Paste the Google Tag Manager code Stape shows for your container. GTM Kit reads the loader address from it and never adds the code itself to your pages."
 msgstr ""
 
 #: assets/admin/settings.js:49
-#: src/js/admin/registry/blocks/components.js:312
+#: src/js/admin/registry/blocks/components.js:270
 msgid "Use this code"
 msgstr ""
 
@@ -4532,63 +4562,63 @@ msgid "Renews %s"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:140
+#: src/js/admin/app/shell/LicensePage.js:147
 msgid "License active"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:144
+#: src/js/admin/app/shell/LicensePage.js:151
 msgid "Your GTM Kit Premium license is active and all premium features are enabled."
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:152
+#: src/js/admin/app/shell/LicensePage.js:159
 msgid "License key:"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:168
+#: src/js/admin/app/shell/LicensePage.js:175
 msgid "Deactivate license"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:201
+#: src/js/admin/app/shell/LicensePage.js:213
 msgid "Unlock GTM Kit Premium"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:206
+#: src/js/admin/app/shell/LicensePage.js:218
 msgid "Upgrade"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:211
+#: src/js/admin/app/shell/LicensePage.js:223
 msgid "Server-side tracking, the webhook queue, subscriptions and more."
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:235
+#: src/js/admin/app/shell/LicensePage.js:247
 msgid "Enter license key"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:236
+#: src/js/admin/app/shell/LicensePage.js:248
 msgid "License key"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:246
+#: src/js/admin/app/shell/LicensePage.js:258
 msgid "Activate license"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:258
-#: src/js/admin/app/shell/LicensePage.js:336
+#: src/js/admin/app/shell/LicensePage.js:270
+#: src/js/admin/app/shell/LicensePage.js:352
 msgid "Buy a license"
 msgstr ""
 
 #: assets/admin/settings.js:61
-#: src/js/admin/app/shell/LicensePage.js:267
+#: src/js/admin/app/shell/LicensePage.js:279
 msgid "Go to my account"
 msgstr ""
 

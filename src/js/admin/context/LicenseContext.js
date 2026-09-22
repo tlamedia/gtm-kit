@@ -28,7 +28,6 @@ import { TIERS } from '../constants/tiers';
 
 /*Utils*/
 import { getUserFriendlyMessage } from '../utils/errorHandler';
-import { LicenseError } from '../utils/errors';
 
 /**
  * @type {import('react').Context<LicenseContextValue>}
@@ -40,6 +39,7 @@ const initialState = {
 	isSendingLicenseKey: false,
 	isLicenseKeySent: false,
 	licenseKeyMessage: '',
+	deactivateLicenseMessage: '',
 	isPremium: false,
 	hasValidLicense: false,
 	activeTier: TIERS.FREE,
@@ -67,6 +67,10 @@ const licenseReducer = ( state, action ) => {
 			if ( action.payload.isSendingLicenseKey !== undefined ) {
 				newState.isSendingLicenseKey =
 					action.payload.isSendingLicenseKey;
+			}
+			if ( action.payload.deactivateLicenseMessage !== undefined ) {
+				newState.deactivateLicenseMessage =
+					action.payload.deactivateLicenseMessage;
 			}
 			break;
 
@@ -118,20 +122,13 @@ export const LicenseProvider = ( { children } ) => {
 				},
 			} );
 		} catch ( error ) {
-			// Convert to LicenseError if not already
-			const licenseError =
-				error instanceof LicenseError
-					? error
-					: new LicenseError( error.message );
-
-			// Get user-friendly error message
-			const errorMessage = getUserFriendlyMessage( licenseError );
-
+			// A rejected key arrives as a `success: false` response above, so
+			// anything thrown is a failed request, not a problem with the key.
 			dispatch( {
 				type: ActionTypes.SEND_LICENSE_KEY,
 				payload: {
 					isLicenseKeySent: false,
-					licenseKeyMessage: errorMessage,
+					licenseKeyMessage: getUserFriendlyMessage( error ),
 				},
 			} );
 		}
@@ -140,10 +137,28 @@ export const LicenseProvider = ( { children } ) => {
 	/**
 	 * Deactivate current license
 	 *
-	 * @return {Promise} API response
+	 * A failed request leaves its message in `deactivateLicenseMessage`.
+	 *
+	 * @return {Promise<boolean>} Whether the request completed.
 	 */
 	const deactivateLicense = async () => {
-		return await apiDeactivateLicense();
+		dispatch( {
+			type: ActionTypes.UPDATE_STATE,
+			payload: { deactivateLicenseMessage: '' },
+		} );
+
+		try {
+			await apiDeactivateLicense();
+			return true;
+		} catch ( error ) {
+			dispatch( {
+				type: ActionTypes.UPDATE_STATE,
+				payload: {
+					deactivateLicenseMessage: getUserFriendlyMessage( error ),
+				},
+			} );
+			return false;
+		}
 	};
 
 	const value = {
@@ -152,6 +167,7 @@ export const LicenseProvider = ( { children } ) => {
 		isSendingLicenseKey: state.isSendingLicenseKey,
 		isLicenseKeySent: state.isLicenseKeySent,
 		licenseKeyMessage: state.licenseKeyMessage,
+		deactivateLicenseMessage: state.deactivateLicenseMessage,
 		isPremium: state.isPremium,
 		hasValidLicense: state.hasValidLicense,
 		activeTier: state.activeTier,

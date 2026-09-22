@@ -73,6 +73,8 @@ export interface LicenseContextValue {
 	isSendingLicenseKey: boolean;
 	isLicenseKeySent: boolean;
 	licenseKeyMessage: string;
+	/** Why the last deactivation request failed, or empty */
+	deactivateLicenseMessage: string;
 	isPremium: boolean;
 	hasValidLicense: boolean;
 	activeTier: Tier;
@@ -80,7 +82,8 @@ export interface LicenseContextValue {
 	// Methods
 	updateLicenseKey: (val: string) => void;
 	sendLicenseKey: () => Promise<void>;
-	deactivateLicense: () => Promise<unknown>;
+	/** Resolves false when the request failed */
+	deactivateLicense: () => Promise<boolean>;
 }
 
 /**

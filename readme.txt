@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.20.0
+Stable tag: 2.20.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,18 @@ Stape terms of service: https://stape.io/terms-conditions
 Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
+
+= 2.20.1 =
+
+Release date: 2026-09-22
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-20/).
+
+#### Bugfixes:
+* If refreshing or pasting your Stape loader fails, the settings screen now names the loader your pages keep using, instead of claiming they fell back to the standard loader. A request that fails before reaching Stape, for example because your login has expired, now says so instead of reporting that Stape could not be reached.
+* If saving your settings fails because the connection to your site dropped, the settings screen now says there is a network problem instead of reporting a server error.
+* If activating your licence fails because the request itself failed, for example because the connection dropped, the licence screen now says so instead of telling you to check your licence key. If deactivating fails, the button no longer keeps spinning: the screen shows what went wrong and lets you try again.
+* If a Stape loader is made for a different data layer name than GTM Kit uses, whether you paste it or GTM Kit gets it from Stape, the settings screen now refuses it and says why, instead of using a loader that listens to the wrong data layer.
 
 = 2.20.0 =
 

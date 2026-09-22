@@ -5,7 +5,8 @@
  * The fixtures are responses Stape's API returned for a live container, with
  * Cookie Keeper off and on, and with the default and a custom data layer name.
  *
- * Target: {@see \TLA_Media\GTM_Kit\Common\StapeLoader::parse()}.
+ * Targets: {@see \TLA_Media\GTM_Kit\Common\StapeLoader::parse()} and
+ * {@see \TLA_Media\GTM_Kit\Common\StapeLoader::read_datalayer_name()}.
  *
  * @package TLA_Media\GTM_Kit
  */
@@ -149,6 +150,66 @@ final class StapeLoaderParseTest extends TestCase {
 	 */
 	public function test_untrustworthy_snippets_are_refused( string $code ): void {
 		$this->assertNull( StapeLoader::parse( $code, self::DOMAIN ) );
+	}
+
+	/**
+	 * Captured responses and the data layer name each was issued for.
+	 *
+	 * @return array<string, array{0: string, 1: string}>
+	 */
+	public function data_datalayer_names(): array {
+		return [
+			'Cookie Keeper off'                   => [ 'cookie-keeper-off', 'dataLayer' ],
+			'Cookie Keeper on'                    => [ 'cookie-keeper-on', 'dataLayer' ],
+			'custom data layer'                   => [ 'custom-datalayer', 'gtmkitLayer' ],
+			'custom data layer, Cookie Keeper on' => [ 'custom-datalayer-cookie-keeper', 'gtmkitLayer' ],
+		];
+	}
+
+	/**
+	 * Both shapes Stape writes name the data layer the loader was issued for.
+	 *
+	 * @dataProvider data_datalayer_names
+	 *
+	 * @param string $fixture The fixture name.
+	 * @param string $name    The data layer name it was issued for.
+	 *
+	 * @return void
+	 */
+	public function test_the_data_layer_name_is_read( string $fixture, string $name ): void {
+		$this->assertSame( $name, StapeLoader::read_datalayer_name( self::js_code( $fixture ) ) );
+	}
+
+	/**
+	 * Snippets that do not name exactly one data layer.
+	 *
+	 * @return array<string, array{0: string}>
+	 */
+	public function data_unnamed_data_layers(): array {
+		$off = self::js_code( 'cookie-keeper-off' );
+
+		return [
+			// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A pasted snippet under test, not a script this plugin outputs.
+			'address only'        => [ '<script async src="https://collect.gtmkit.com/38i0hixjpkyq.js?3bsw=' . self::VALUE . '"></script>' ],
+			'two different names' => [ $off . str_replace( "'dataLayer'", "'otherLayer'", $off ) ],
+			'not an identifier'   => [ str_replace( "'dataLayer'", "'data-layer'", $off ) ],
+			'starts with a digit' => [ str_replace( "'dataLayer'", "'1dataLayer'", $off ) ],
+			'oversized name'      => [ str_replace( "'dataLayer'", "'" . str_repeat( 'a', 129 ) . "'", $off ) ],
+			'empty'               => [ '' ],
+		];
+	}
+
+	/**
+	 * A snippet that does not name exactly one valid data layer yields nothing.
+	 *
+	 * @dataProvider data_unnamed_data_layers
+	 *
+	 * @param string $code The snippet.
+	 *
+	 * @return void
+	 */
+	public function test_an_unnamed_data_layer_reads_nothing( string $code ): void {
+		$this->assertNull( StapeLoader::read_datalayer_name( $code ) );
 	}
 
 	/**

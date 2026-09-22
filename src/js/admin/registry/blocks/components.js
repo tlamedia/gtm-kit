@@ -17,6 +17,11 @@ import { useSettingField } from '../../hooks';
 import { SettingsDataContext } from '../../context/SettingsDataContext';
 import { pasteSgtmLoader, refreshSgtmLoader } from '../../api/settings';
 import { NO_AUTOFILL } from '../../constants/autofill';
+import {
+	describeSgtmLoaderFailure,
+	describeSgtmLoaderFallback,
+	getSgtmLoaderErrorReason,
+} from './sgtmLoaderMessages';
 
 /**
  * Server-provided consent admin badges, rendered as dismissable-free notices
@@ -120,54 +125,6 @@ const SiteKindStatus = memo( () => {
 } );
 
 /**
- * Explain why GTM Kit could not get the loader from Stape.
- *
- * @param {string} reason The failure reason reported by the server.
- * @return {string} The explanation.
- */
-const describeSgtmLoaderFailure = ( reason ) => {
-	switch ( reason ) {
-		case 'network':
-			return __( 'GTM Kit could not reach Stape.', 'gtm-kit' );
-		case 'http_404':
-			return __(
-				'Stape does not know a container with this container identifier.',
-				'gtm-kit'
-			);
-		case 'http_400':
-			return __(
-				'Stape did not accept the container ID or the sGTM container domain.',
-				'gtm-kit'
-			);
-		case 'invalid_json':
-		case 'no_loader':
-			return __( 'Stape answered without a loader.', 'gtm-kit' );
-		case 'unparseable':
-			return __(
-				'The loader could not be read safely, so GTM Kit did not use it.',
-				'gtm-kit'
-			);
-		default: {
-			const status = /^http_(\d+)$/.exec( reason || '' );
-
-			return status
-				? sprintf(
-						// translators: %s is an HTTP status code, for example 500.
-						__(
-							'Stape answered with an error (HTTP %s).',
-							'gtm-kit'
-						),
-						status[ 1 ]
-				  )
-				: __(
-						'GTM Kit could not get the loader from Stape.',
-						'gtm-kit'
-				  );
-		}
-	}
-};
-
-/**
  * Show which loader the pages use while "Get the loader from Stape" is on,
  * with a way to refresh it or to paste the code Stape shows instead.
  *
@@ -206,7 +163,11 @@ const SgtmLoaderStatus = () => {
 				setCode( '' );
 			}
 		} catch ( error ) {
-			setSgtmLoader( { ...state, status: 'failed', reason: 'network' } );
+			setSgtmLoader( {
+				...state,
+				status: 'failed',
+				reason: getSgtmLoaderErrorReason( error ),
+			} );
 		} finally {
 			setIsBusy( false );
 		}
@@ -241,10 +202,7 @@ const SgtmLoaderStatus = () => {
 			{ failed && (
 				<Notice status="warning" isDismissible={ false }>
 					{ describeSgtmLoaderFailure( state.reason ) }{ ' ' }
-					{ __(
-						'Your pages keep the standard loader, which still works. Try again, or paste the code Stape shows for your container.',
-						'gtm-kit'
-					) }
+					{ describeSgtmLoaderFallback( state.source ) }
 				</Notice>
 			) }
 			{ state.status === 'throttled' && (

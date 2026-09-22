@@ -49,12 +49,17 @@ const handleApiFetch = async (
 		// Log error for debugging
 		logError( error, { path, method, data } );
 
-		// Network errors (fetch failed, no response)
+		// Network errors (fetch failed, no response). api-fetch reports them
+		// by code, with a translated message.
 		if (
+			[ 'fetch_error', 'offline_error' ].includes( error.code ) ||
 			error.message?.includes( 'NetworkError' ) ||
 			error.message?.includes( 'Failed to fetch' )
 		) {
-			throw new NetworkError( `Network error while calling ${ path }` );
+			throw new NetworkError(
+				( error.code && error.message ) ||
+					`Network error while calling ${ path }`
+			);
 		}
 
 		// Validation errors (400 status)

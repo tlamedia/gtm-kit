@@ -189,6 +189,35 @@ final class StapeLoader {
 	}
 
 	/**
+	 * Read the data layer name a snippet issued by Stape was made for.
+	 *
+	 * Stape writes the name as the string literal right after the `script`
+	 * literal: as the next argument without Cookie Keeper, and as the next
+	 * variable in the declaration list with it. Stape also encodes the name
+	 * into the loader's query value, so a loader only works with the name it
+	 * was issued for.
+	 *
+	 * @param string $code The snippet.
+	 *
+	 * @return string|null Null unless the snippet names exactly one valid data layer.
+	 */
+	public static function read_datalayer_name( string $code ): ?string {
+
+		if ( strlen( $code ) > self::MAX_CODE_LENGTH ) {
+			return null;
+		}
+
+		preg_match_all( '~(["\'])script\1\s*,\s*(?:[A-Za-z_$][\w$]*\s*=\s*)?(["\'])([^"\'\s]*)\2~', $code, $matches );
+		$names = array_values( array_unique( $matches[3] ) );
+
+		if ( count( $names ) !== 1 || preg_match( '~^[A-Za-z_$][A-Za-z0-9_$]{0,127}$~D', $names[0] ) !== 1 ) {
+			return null;
+		}
+
+		return $names[0];
+	}
+
+	/**
 	 * Whether the site owner has asked for the loader Stape issues.
 	 *
 	 * @return bool
@@ -423,8 +452,14 @@ final class StapeLoader {
 
 		$loader = self::parse( $code, $this->get_inputs()['domain'] );
 
-		if ( null === $loader ) {
+		$datalayer_name = self::read_datalayer_name( $code );
+
+		if ( null === $loader || null === $datalayer_name ) {
 			return self::outcome( 'failed', StapeLoaderClient::REASON_UNPARSEABLE );
+		}
+
+		if ( $datalayer_name !== $this->get_inputs()['datalayer_name'] ) {
+			return self::outcome( 'failed', StapeLoaderClient::REASON_DATALAYER_MISMATCH );
 		}
 
 		$this->store( $loader, self::SOURCE_PASTED, '' );

@@ -393,4 +393,209 @@ final class StapeLoaderSaveTest extends WP_UnitTestCase {
 		$this->assertSame( 'unparseable', $data['data']['reason'] );
 		$this->assertFalse( get_option( StapeLoader::OPTION ) );
 	}
+
+	/**
+	 * A failed refresh keeps the loader Stape issued, and the response says it is still in use.
+	 *
+	 * @return void
+	 */
+	public function test_a_failed_refresh_keeps_the_issued_loader(): void {
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		$stored          = get_option( StapeLoader::OPTION );
+		$this->responses = [ [ 500, '' ] ];
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-refresh' )->get_data();
+
+		$this->assertCount( 2, $this->requests );
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'http_500', $data['data']['reason'] );
+		$this->assertSame( 'api', $data['data']['source'] );
+		$this->assertIsArray( $stored );
+		$this->assertSame( $stored, get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * A failed refresh keeps a pasted loader, and the response says it is still in use.
+	 *
+	 * @return void
+	 */
+	public function test_a_failed_refresh_keeps_the_pasted_loader(): void {
+		$this->responses = [ [ 500, '' ] ];
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		$code = json_decode( self::captured( 'cookie-keeper-on' ), true )['body']['jsCode'];
+		$this->post( '/gtmkit/v1/sgtm-loader-paste', [ 'code' => $code ] );
+		$stored          = get_option( StapeLoader::OPTION );
+		$this->responses = [ [ 500, '' ] ];
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-refresh' )->get_data();
+
+		$this->assertCount( 2, $this->requests );
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'pasted', $data['data']['source'] );
+		$this->assertIsArray( $stored );
+		$this->assertSame( $stored, get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * Unreadable pasted code leaves a stored loader in place, and the response says it is still in use.
+	 *
+	 * @return void
+	 */
+	public function test_unreadable_pasted_code_keeps_the_issued_loader(): void {
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		$stored = get_option( StapeLoader::OPTION );
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-paste', [ 'code' => '<script>alert(1)</script>' ] )->get_data();
+
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'unparseable', $data['data']['reason'] );
+		$this->assertSame( 'api', $data['data']['source'] );
+		$this->assertIsArray( $stored );
+		$this->assertSame( $stored, get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * Paste a captured snippet, with the loader from Stape unavailable so nothing is stored first.
+	 *
+	 * @param string $datalayer_name The data layer name GTM Kit is configured with.
+	 * @param string $fixture        The captured response to paste the snippet from.
+	 *
+	 * @return array<string, mixed> The response data.
+	 */
+	private function paste_for_layer( string $datalayer_name, string $fixture ): array {
+		$this->responses = [ [ 500, '' ] ];
+		$this->save(
+			[
+				'datalayer_name'           => $datalayer_name,
+				'sgtm_stape_issued_loader' => true,
+			]
+		);
+		$code = json_decode( self::captured( $fixture ), true )['body']['jsCode'];
+
+		return $this->post( '/gtmkit/v1/sgtm-loader-paste', [ 'code' => $code ] )->get_data()['data'];
+	}
+
+	/**
+	 * Snippets pasted for a data layer name GTM Kit does not use.
+	 *
+	 * @return array<string, array{0: string, 1: string}>
+	 */
+	public function data_mismatched_pastes(): array {
+		return [
+			'custom layer pasted, default configured' => [ '', 'custom-datalayer' ],
+			'custom layer with Cookie Keeper pasted, default configured' => [ '', 'custom-datalayer-cookie-keeper' ],
+			'default layer pasted, custom configured' => [ 'gtmkitLayer', 'cookie-keeper-off' ],
+			'default layer with Cookie Keeper pasted, custom configured' => [ 'gtmkitLayer', 'cookie-keeper-on' ],
+			'custom layer pasted, another custom configured' => [ 'otherLayer', 'custom-datalayer' ],
+		];
+	}
+
+	/**
+	 * A snippet issued for another data layer name is refused and nothing is stored.
+	 *
+	 * @dataProvider data_mismatched_pastes
+	 *
+	 * @param string $datalayer_name The configured data layer name.
+	 * @param string $fixture        The captured response pasted.
+	 *
+	 * @return void
+	 */
+	public function test_a_snippet_for_another_data_layer_is_refused( string $datalayer_name, string $fixture ): void {
+		$data = $this->paste_for_layer( $datalayer_name, $fixture );
+
+		$this->assertSame( 'failed', $data['status'] );
+		$this->assertSame( 'datalayer_mismatch', $data['reason'] );
+		$this->assertSame( 'standard', $data['source'] );
+		$this->assertFalse( get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * Snippets pasted for the data layer name GTM Kit uses.
+	 *
+	 * @return array<string, array{0: string, 1: string}>
+	 */
+	public function data_matching_pastes(): array {
+		return [
+			'default layer'                   => [ '', 'cookie-keeper-off' ],
+			'default layer, Cookie Keeper on' => [ '', 'cookie-keeper-on' ],
+			'default layer named explicitly'  => [ 'dataLayer', 'cookie-keeper-off' ],
+			'custom layer'                    => [ 'gtmkitLayer', 'custom-datalayer' ],
+			'custom layer, Cookie Keeper on'  => [ 'gtmkitLayer', 'custom-datalayer-cookie-keeper' ],
+		];
+	}
+
+	/**
+	 * A snippet issued for the data layer name GTM Kit uses is stored.
+	 *
+	 * @dataProvider data_matching_pastes
+	 *
+	 * @param string $datalayer_name The configured data layer name.
+	 * @param string $fixture        The captured response pasted.
+	 *
+	 * @return void
+	 */
+	public function test_a_snippet_for_the_same_data_layer_is_stored( string $datalayer_name, string $fixture ): void {
+		$data = $this->paste_for_layer( $datalayer_name, $fixture );
+
+		$this->assertSame( 'stored', $data['status'] );
+		$this->assertSame( 'pasted', $data['source'] );
+	}
+
+	/**
+	 * A snippet for another data layer leaves the issued loader in place, and the response says it is still in use.
+	 *
+	 * @return void
+	 */
+	public function test_a_snippet_for_another_data_layer_keeps_the_issued_loader(): void {
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		$stored = get_option( StapeLoader::OPTION );
+		$code   = json_decode( self::captured( 'custom-datalayer' ), true )['body']['jsCode'];
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-paste', [ 'code' => $code ] )->get_data();
+
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'datalayer_mismatch', $data['data']['reason'] );
+		$this->assertSame( 'api', $data['data']['source'] );
+		$this->assertIsArray( $stored );
+		$this->assertSame( $stored, get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * A snippet that names no data layer is refused as unreadable.
+	 *
+	 * @return void
+	 */
+	public function test_a_snippet_naming_no_data_layer_is_refused(): void {
+		$this->responses = [ [ 500, '' ] ];
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A pasted snippet under test, not a script this plugin outputs.
+		$code = '<script async src="https://collect.gtmkit.com/38i0hixjpkyq.js?3bsw=GB1WNz41RDwmTC00Xj9eTgdEWV5bXg0GTB4fHQERHUYSFgY%3D"></script>';
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-paste', [ 'code' => $code ] )->get_data();
+
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'unparseable', $data['data']['reason'] );
+		$this->assertFalse( get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * A loader issued for another data layer name is refused on save, and nothing is stored.
+	 *
+	 * @return void
+	 */
+	public function test_a_fetched_loader_for_another_data_layer_is_refused(): void {
+		$this->responses = [ [ 200, self::captured( 'cookie-keeper-off' ) ] ];
+
+		$data = $this->save(
+			[
+				'datalayer_name'           => 'gtmkitLayer',
+				'sgtm_stape_issued_loader' => true,
+			]
+		)->get_data();
+
+		$this->assertCount( 1, $this->requests );
+		$this->assertSame( 'failed', $data['sgtm_loader']['status'] );
+		$this->assertSame( 'datalayer_mismatch', $data['sgtm_loader']['reason'] );
+		$this->assertFalse( get_option( StapeLoader::OPTION ) );
+	}
 }

@@ -73,6 +73,13 @@ final class StapeLoaderClient {
 	const REASON_UNPARSEABLE = 'unparseable';
 
 	/**
+	 * The loader was issued for a data layer name GTM Kit does not use.
+	 *
+	 * @var string
+	 */
+	const REASON_DATALAYER_MISMATCH = 'datalayer_mismatch';
+
+	/**
 	 * Plugin options.
 	 *
 	 * @var Options
@@ -159,6 +166,18 @@ final class StapeLoaderClient {
 
 		if ( null === $loader ) {
 			return $this->failure( self::REASON_UNPARSEABLE, $status, $region );
+		}
+
+		// Stape encodes the data layer name into the loader, so one issued for
+		// another name would listen to a data layer GTM Kit never pushes to.
+		$datalayer_name = StapeLoader::read_datalayer_name( $code );
+
+		if ( null === $datalayer_name ) {
+			return $this->failure( self::REASON_UNPARSEABLE, $status, $region );
+		}
+
+		if ( $datalayer_name !== $inputs['datalayer_name'] ) {
+			return $this->failure( self::REASON_DATALAYER_MISMATCH, $status, $region );
 		}
 
 		$this->log( $status, 'ok', $region );

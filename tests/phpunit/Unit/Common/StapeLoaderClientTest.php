@@ -182,6 +182,57 @@ final class StapeLoaderClientTest extends TestCase {
 	}
 
 	/**
+	 * A loader issued for another data layer name is refused, whichever way the names differ.
+	 *
+	 * @return void
+	 */
+	public function test_a_loader_for_another_data_layer_is_refused(): void {
+		$this->responses = [ self::response( 200, self::captured() ) ];
+
+		$result = $this->client()->fetch( self::inputs( [ 'datalayer_name' => 'gtmkitLayer' ] ) );
+
+		$this->assertNull( $result['loader'] );
+		$this->assertSame( StapeLoaderClient::REASON_DATALAYER_MISMATCH, $result['reason'] );
+	}
+
+	/**
+	 * A loader that names no data layer is refused as unreadable, not as a mismatch.
+	 *
+	 * @return void
+	 */
+	public function test_a_loader_naming_no_data_layer_is_refused_as_unreadable(): void {
+		$body            = (string) wp_json_encode(
+			[
+				// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A loader under test, not a script this plugin outputs.
+				'body'  => [ 'jsCode' => '<script async src="https://collect.gtmkit.com/38i0hixjpkyq.js?3bsw=GB1WNz41RDwmTC00Xj9eTgdEWV5bXg0GTB4fHQERHUYSFgY%3D"></script>' ],
+				'error' => [ 'code' => 200 ],
+			]
+		);
+		$this->responses = [ self::response( 200, $body ) ];
+
+		$result = $this->client()->fetch( self::inputs() );
+
+		$this->assertNull( $result['loader'] );
+		$this->assertSame( StapeLoaderClient::REASON_UNPARSEABLE, $result['reason'] );
+	}
+
+	/**
+	 * A loader issued for the data layer name that was asked for is used.
+	 *
+	 * @return void
+	 */
+	public function test_a_loader_for_the_same_data_layer_is_used(): void {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reading a local test fixture from disk.
+		$custom          = (string) file_get_contents( __DIR__ . '/fixtures/stape-loader/custom-datalayer.json' );
+		$this->responses = [ self::response( 200, $custom ) ];
+
+		$result = $this->client()->fetch( self::inputs( [ 'datalayer_name' => 'gtmkitLayer' ] ) );
+
+		$this->assertIsArray( $result['loader'] );
+		$this->assertSame( '', $result['reason'] );
+	}
+
+	/**
 	 * Each failure names its reason and yields no loader.
 	 *
 	 * @dataProvider data_failures
