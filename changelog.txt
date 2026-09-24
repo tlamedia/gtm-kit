@@ -1,5 +1,8 @@
 *** GTM Kit ***
 
+2026-09-24 - version 2.20.2
+* Fix: If you use the loader Stape issues, GTM Kit no longer uses a loader stored by an earlier version, because it cannot tell whether that loader was checked against your data layer name. Your pages use the standard loader until you click Refresh under Server-side Tagging, which gets a checked loader from Stape.
+
 2026-09-22 - version 2.20.1
 * Fix: If refreshing or pasting your Stape loader fails, the settings screen now names the loader your pages keep using, instead of claiming they fell back to the standard loader. A request that fails before reaching Stape, for example because your login has expired, now says so instead of reporting that Stape could not be reached.
 * Fix: If saving your settings fails because the connection to your site dropped, the settings screen now says there is a network problem instead of reporting a server error.

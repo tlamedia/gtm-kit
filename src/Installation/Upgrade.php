@@ -9,6 +9,7 @@ namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\SnippetScan;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Options\Options;
 
 /**
@@ -67,6 +68,7 @@ final class Upgrade {
 			'2.8.0'  => 'v280_upgrade',
 			'2.10'   => 'v210_upgrade',
 			'2.18.1' => 'v2181_upgrade',
+			'2.20.2' => 'v2202_upgrade',
 		];
 
 		$current_version = \get_option( 'gtmkit_version' );
@@ -306,5 +308,21 @@ final class Upgrade {
 		}
 
 		\add_action( 'init', [ SnippetScan::class, 'clear_scheduled_event' ] );
+	}
+
+	/**
+	 * Upgrade routine for v2.20.2
+	 *
+	 * A stored loader without the `datalayer_checked` flag may have been issued
+	 * for another data layer name, and would then listen to a data layer GTM Kit
+	 * never pushes to. Such a loader is already ignored when read. It is deleted
+	 * here so the option does not linger. A flagged loader is kept.
+	 */
+	protected function v2202_upgrade(): void {
+		$stored = \get_option( StapeLoader::OPTION );
+
+		if ( false !== $stored && ! StapeLoader::is_checked( $stored ) ) {
+			\delete_option( StapeLoader::OPTION );
+		}
 	}
 }

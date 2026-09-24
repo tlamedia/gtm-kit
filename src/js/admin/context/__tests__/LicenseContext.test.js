@@ -13,7 +13,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import { useContext } from '@wordpress/element';
+import { useContext, useState } from '@wordpress/element';
 
 import LicenseProvider, { LicenseContext } from '../LicenseContext';
 import LicensePage from '../../app/shell/LicensePage';
@@ -179,5 +179,80 @@ describe( 'LicensePage deactivation', () => {
 
 		expect( reloaded() ).toBe( true );
 		expect( screen.queryByText( NETWORK_MESSAGE ) ).toBeNull();
+	} );
+} );
+
+describe( 'LicenseContext deactivation result', () => {
+	// Exposes the deactivation result and message as inspectable DOM nodes.
+	const DeactivateProbe = () => {
+		const { deactivateLicense, deactivateLicenseMessage } =
+			useContext( LicenseContext );
+		const [ result, setResult ] = useState( 'pending' );
+
+		return (
+			<div>
+				<span data-testid="result">{ result }</span>
+				<span data-testid="message">{ deactivateLicenseMessage }</span>
+				<button
+					onClick={ async () =>
+						setResult( String( await deactivateLicense() ) )
+					}
+				>
+					deactivate
+				</button>
+			</div>
+		);
+	};
+
+	const deactivate = async () => {
+		render(
+			<LicenseProvider>
+				<DeactivateProbe />
+			</LicenseProvider>
+		);
+		await act( async () => {
+			fireEvent.click( screen.getByText( 'deactivate' ) );
+		} );
+	};
+
+	beforeEach( () => {
+		mockDeactivateLicense.mockReset();
+	} );
+
+	it( 'reports a refused deactivation with the server message', async () => {
+		mockDeactivateLicense.mockResolvedValue( {
+			success: false,
+			data: 'Deactivation failed.',
+		} );
+
+		await deactivate();
+
+		expect( screen.getByTestId( 'result' ).textContent ).toBe( 'false' );
+		expect( screen.getByTestId( 'message' ).textContent ).toBe(
+			'Deactivation failed.'
+		);
+	} );
+
+	it( 'reports a refused deactivation without a message as a server error', async () => {
+		mockDeactivateLicense.mockResolvedValue( { success: false } );
+
+		await deactivate();
+
+		expect( screen.getByTestId( 'result' ).textContent ).toBe( 'false' );
+		expect( screen.getByTestId( 'message' ).textContent ).toBe(
+			SERVER_MESSAGE
+		);
+	} );
+
+	it( 'reports a completed deactivation', async () => {
+		mockDeactivateLicense.mockResolvedValue( {
+			success: true,
+			data: 'Your license has been deactivated.',
+		} );
+
+		await deactivate();
+
+		expect( screen.getByTestId( 'result' ).textContent ).toBe( 'true' );
+		expect( screen.getByTestId( 'message' ).textContent ).toBe( '' );
 	} );
 } );

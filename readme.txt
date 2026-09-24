@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.20.1
+Stable tag: 2.20.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,15 @@ Stape terms of service: https://stape.io/terms-conditions
 Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
+
+= 2.20.2 =
+
+Release date: 2026-09-24
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-20/).
+
+#### Bugfixes:
+* If you use the loader Stape issues, GTM Kit no longer uses a loader stored by an earlier version, because it cannot tell whether that loader was checked against your data layer name. Your pages use the standard loader until you click Refresh under Server-side Tagging, which gets a checked loader from Stape.
 
 = 2.20.1 =
 

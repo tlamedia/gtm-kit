@@ -165,6 +165,63 @@ final class StapeLoaderSaveTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The loader service for the current settings.
+	 *
+	 * @return StapeLoader
+	 */
+	private function loader(): StapeLoader {
+		return new StapeLoader( OptionsFactory::get_instance() );
+	}
+
+	/**
+	 * Store a loader the way it was stored before loaders were checked against the data layer name.
+	 *
+	 * The entry carries the fingerprint of the current settings, so only the
+	 * missing check tells it apart from a loader that may be used.
+	 *
+	 * @param string $fixture The captured response the loader is read from.
+	 * @param string $source  One of the StapeLoader::SOURCE_* constants.
+	 *
+	 * @return void
+	 */
+	private function store_unchecked( string $fixture, string $source = StapeLoader::SOURCE_API ): void {
+		$code   = json_decode( self::captured( $fixture ), true )['body']['jsCode'];
+		$loader = StapeLoader::parse( $code, 'collect.gtmkit.com' );
+
+		$this->assertIsArray( $loader );
+
+		update_option(
+			StapeLoader::OPTION,
+			[
+				'path'       => $loader['path'],
+				'param'      => $loader['param'],
+				'value'      => $loader['value'],
+				'inputs'     => $this->loader()->fingerprint(),
+				'source'     => $source,
+				'region'     => 'global',
+				'fetched_at' => time(),
+			],
+			true
+		);
+	}
+
+	/**
+	 * Switch the loader on with nothing stored, then store an unchecked loader.
+	 *
+	 * @param string $fixture The captured response the loader is read from.
+	 * @param string $source  One of the StapeLoader::SOURCE_* constants.
+	 *
+	 * @return void
+	 */
+	private function switch_on_with_unchecked( string $fixture, string $source = StapeLoader::SOURCE_API ): void {
+		$this->responses = [ [ 500, '' ] ];
+		$this->save( [ 'sgtm_stape_issued_loader' => true ] );
+		$this->requests = [];
+
+		$this->store_unchecked( $fixture, $source );
+	}
+
+	/**
 	 * Switching on fetches once, stores the loader and says so.
 	 *
 	 * @return void
@@ -179,6 +236,8 @@ final class StapeLoaderSaveTest extends WP_UnitTestCase {
 		$this->assertSame( 'global', $data['sgtm_loader']['region'] );
 		$this->assertTrue( $data['data']['general']['sgtm_stape_issued_loader'] );
 		$this->assertSame( '38i0hixjpkyq', get_option( StapeLoader::OPTION )['path'] );
+		$this->assertTrue( get_option( StapeLoader::OPTION )['datalayer_checked'] );
+		$this->assertNotNull( $this->loader()->get_active() );
 	}
 
 	/**
@@ -376,6 +435,8 @@ final class StapeLoaderSaveTest extends WP_UnitTestCase {
 		$this->assertSame( 'stored', $data['data']['status'] );
 		$this->assertSame( 'pasted', $data['data']['source'] );
 		$this->assertSame( '3bsw', get_option( StapeLoader::OPTION )['param'] );
+		$this->assertTrue( get_option( StapeLoader::OPTION )['datalayer_checked'] );
+		$this->assertNotNull( $this->loader()->get_active() );
 	}
 
 	/**
@@ -597,5 +658,99 @@ final class StapeLoaderSaveTest extends WP_UnitTestCase {
 		$this->assertSame( 'failed', $data['sgtm_loader']['status'] );
 		$this->assertSame( 'datalayer_mismatch', $data['sgtm_loader']['reason'] );
 		$this->assertFalse( get_option( StapeLoader::OPTION ) );
+	}
+
+	/**
+	 * Loaders stored without the data layer check.
+	 *
+	 * @return array<string, array{0: string}>
+	 */
+	public function data_unchecked_sources(): array {
+		return [
+			'fetched' => [ StapeLoader::SOURCE_API ],
+			'pasted'  => [ StapeLoader::SOURCE_PASTED ],
+		];
+	}
+
+	/**
+	 * A loader stored without the data layer check is not used, even for the current settings.
+	 *
+	 * @dataProvider data_unchecked_sources
+	 *
+	 * @param string $source How the loader was stored.
+	 *
+	 * @return void
+	 */
+	public function test_an_unchecked_loader_is_not_used( string $source ): void {
+		$this->switch_on_with_unchecked( 'cookie-keeper-off', $source );
+
+		$this->assertNull( $this->loader()->get_stored() );
+		$this->assertNull( $this->loader()->get_active() );
+		$this->assertSame( 'standard', $this->loader()->get_client_state()['source'] );
+	}
+
+	/**
+	 * An unchecked loader issued for another data layer name is not used.
+	 *
+	 * @return void
+	 */
+	public function test_an_unchecked_loader_for_another_data_layer_is_not_used(): void {
+		$this->switch_on_with_unchecked( 'custom-datalayer', StapeLoader::SOURCE_PASTED );
+
+		$this->assertSame( 'dataLayer', $this->loader()->get_inputs()['datalayer_name'] );
+		$this->assertNull( $this->loader()->get_active() );
+		$this->assertSame( 'standard', $this->loader()->get_client_state()['source'] );
+	}
+
+	/**
+	 * A save that changes none of the loader's settings leaves an unchecked loader unused and does not ask Stape.
+	 *
+	 * @return void
+	 */
+	public function test_an_unrelated_save_with_an_unchecked_loader_does_not_fetch(): void {
+		$this->switch_on_with_unchecked( 'custom-datalayer' );
+
+		$data = $this->save( [ 'console_log' => true ] )->get_data();
+
+		$this->assertCount( 0, $this->requests );
+		$this->assertSame( 'unchanged', $data['sgtm_loader']['status'] );
+		$this->assertSame( 'standard', $data['sgtm_loader']['source'] );
+		$this->assertNull( $this->loader()->get_active() );
+	}
+
+	/**
+	 * Refresh replaces an unchecked loader with a checked one that is used.
+	 *
+	 * @return void
+	 */
+	public function test_refresh_replaces_an_unchecked_loader(): void {
+		$this->switch_on_with_unchecked( 'custom-datalayer' );
+		$this->responses = [ [ 200, self::captured( 'cookie-keeper-off' ) ] ];
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-refresh' )->get_data();
+
+		$this->assertCount( 1, $this->requests );
+		$this->assertSame( 'fetched', $data['data']['status'] );
+		$this->assertSame( 'api', $data['data']['source'] );
+		$this->assertTrue( get_option( StapeLoader::OPTION )['datalayer_checked'] );
+		$this->assertNotNull( $this->loader()->get_active() );
+	}
+
+	/**
+	 * A refresh refused for another data layer name leaves nothing in use.
+	 *
+	 * @return void
+	 */
+	public function test_a_mismatched_refresh_with_an_unchecked_loader_leaves_nothing_in_use(): void {
+		$this->switch_on_with_unchecked( 'custom-datalayer' );
+		$this->responses = [ [ 200, self::captured( 'custom-datalayer' ) ] ];
+
+		$data = $this->post( '/gtmkit/v1/sgtm-loader-refresh' )->get_data();
+
+		$this->assertCount( 1, $this->requests );
+		$this->assertSame( 'failed', $data['data']['status'] );
+		$this->assertSame( 'datalayer_mismatch', $data['data']['reason'] );
+		$this->assertSame( 'standard', $data['data']['source'] );
+		$this->assertNull( $this->loader()->get_active() );
 	}
 }

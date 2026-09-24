@@ -224,6 +224,32 @@ final class StapeIssuedLoaderTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A stored loader without the data layer check is never printed, even for the current settings.
+	 *
+	 * @return void
+	 */
+	public function test_an_unchecked_stored_loader_emits_legacy(): void {
+		$general = [
+			'sgtm_domain'               => 'collect.example.com',
+			'sgtm_container_identifier' => '38i0hixjpkyq',
+			'sgtm_stape_issued_loader'  => true,
+		];
+		$this->configure( $general );
+		$this->store( '38i0hixjpkyq' );
+
+		$stored = get_option( StapeLoader::OPTION );
+		unset( $stored['datalayer_checked'] );
+		update_option( StapeLoader::OPTION, $stored );
+
+		$loader = new StapeLoader( OptionsFactory::get_instance() );
+
+		$this->assertSame( $loader->fingerprint(), $stored['inputs'] );
+		$this->assertNull( $loader->get_active() );
+		$this->assertSame( 'standard', $loader->get_client_state()['source'] );
+		$this->assertSame( $this->legacy( 'sgtm-st' ), $this->render() );
+	}
+
+	/**
 	 * Without Cookie Keeper, the issued address replaces `st=` and the container ID.
 	 *
 	 * @return void

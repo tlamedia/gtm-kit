@@ -28,6 +28,7 @@ import { TIERS } from '../constants/tiers';
 
 /*Utils*/
 import { getUserFriendlyMessage } from '../utils/errorHandler';
+import { APIError } from '../utils/errors';
 
 /**
  * @type {import('react').Context<LicenseContextValue>}
@@ -137,9 +138,9 @@ export const LicenseProvider = ( { children } ) => {
 	/**
 	 * Deactivate current license
 	 *
-	 * A failed request leaves its message in `deactivateLicenseMessage`.
+	 * A failed or refused request leaves its message in `deactivateLicenseMessage`.
 	 *
-	 * @return {Promise<boolean>} Whether the request completed.
+	 * @return {Promise<boolean>} Whether the license was deactivated.
 	 */
 	const deactivateLicense = async () => {
 		dispatch( {
@@ -148,8 +149,29 @@ export const LicenseProvider = ( { children } ) => {
 		} );
 
 		try {
-			await apiDeactivateLicense();
-			return true;
+			const response = await apiDeactivateLicense();
+
+			if ( response?.success === true ) {
+				return true;
+			}
+
+			// A refused deactivation resolves rather than throws, so it is
+			// reported here with the server's reason when it gives one.
+			dispatch( {
+				type: ActionTypes.UPDATE_STATE,
+				payload: {
+					deactivateLicenseMessage:
+						typeof response?.data === 'string' && response.data
+							? response.data
+							: getUserFriendlyMessage(
+									new APIError(
+										'License deactivation refused',
+										response
+									)
+							  ),
+				},
+			} );
+			return false;
 		} catch ( error ) {
 			dispatch( {
 				type: ActionTypes.UPDATE_STATE,

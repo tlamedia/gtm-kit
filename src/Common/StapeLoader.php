@@ -271,14 +271,17 @@ final class StapeLoader {
 	 * The stored loader, if it is well formed.
 	 *
 	 * The values are checked again on the way out, so a loader written to the
-	 * database by anything other than this class is never printed.
+	 * database by anything other than this class is never printed. A loader
+	 * without the `datalayer_checked` flag was stored without being checked
+	 * against the data layer name, and may listen to a data layer GTM Kit never
+	 * pushes to, so it is treated as absent.
 	 *
 	 * @return array{path: string, param: string, value: string, inputs: string, source: string, region: string, fetched_at: int}|null
 	 */
 	public function get_stored(): ?array {
 		$stored = get_option( self::OPTION );
 
-		if ( ! is_array( $stored ) ) {
+		if ( ! self::is_checked( $stored ) ) {
 			return null;
 		}
 
@@ -308,6 +311,18 @@ final class StapeLoader {
 	}
 
 	/**
+	 * Whether a stored option value was checked against the data layer name before it was stored.
+	 *
+	 * @param mixed $stored The stored option value.
+	 *
+	 * @return bool
+	 * @phpstan-assert-if-true array<string, mixed> $stored
+	 */
+	public static function is_checked( $stored ): bool {
+		return is_array( $stored ) && isset( $stored['datalayer_checked'] ) && true === $stored['datalayer_checked'];
+	}
+
+	/**
 	 * The stored loader, when it belongs to the current settings.
 	 *
 	 * @return array{path: string, param: string, value: string, inputs: string, source: string, region: string, fetched_at: int}|null
@@ -329,6 +344,9 @@ final class StapeLoader {
 	/**
 	 * Store a loader for the current settings.
 	 *
+	 * Every caller has checked the loader against the data layer name first,
+	 * which the stored entry records.
+	 *
 	 * @param array{path: string, param: string, value: string} $loader The parsed loader.
 	 * @param string                                            $source One of the SOURCE_* constants.
 	 * @param string                                            $region The Stape region that issued it, or an empty string.
@@ -339,13 +357,14 @@ final class StapeLoader {
 		update_option(
 			self::OPTION,
 			[
-				'path'       => $loader['path'],
-				'param'      => $loader['param'],
-				'value'      => $loader['value'],
-				'inputs'     => $this->fingerprint(),
-				'source'     => $source,
-				'region'     => $region,
-				'fetched_at' => time(),
+				'path'              => $loader['path'],
+				'param'             => $loader['param'],
+				'value'             => $loader['value'],
+				'inputs'            => $this->fingerprint(),
+				'source'            => $source,
+				'region'            => $region,
+				'fetched_at'        => time(),
+				'datalayer_checked' => true,
 			],
 			true
 		);
