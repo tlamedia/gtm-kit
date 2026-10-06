@@ -816,6 +816,35 @@ final class SiteHealth {
 			);
 		}
 
+		$check = new ConsentDefaultsCheck( $this->options );
+
+		if ( $defaults && $check->is_only_source() && ! $check->grants_analytics() ) {
+			return $this->build_result(
+				'gtmkit_consent',
+				__( 'Consent Mode defaults have nothing to lift them', 'gtm-kit' ),
+				'recommended',
+				'<p>' . esc_html__( 'GTM Kit is telling Google\'s tags to store nothing until a consent platform says otherwise, and no consent platform was found on this site.', 'gtm-kit' ) . '</p>'
+				. '<p>' . esc_html__( 'Until something grants consent, every visitor is measured without cookies: no returning-visitor identity, no stored traffic source, and traffic that reports as unassigned in Google Analytics.', 'gtm-kit' ) . '</p>'
+				. '<p>' . esc_html__( 'Either add a consent platform that collects the visitor\'s choice, or set each category to what should apply when no one answers.', 'gtm-kit' ) . '</p>',
+				$settings_link
+				. $this->documentation_link(
+					'coexist-with-a-cmp',
+					'cmp-coexistence',
+					__( 'Read how GTM Kit works alongside a consent platform', 'gtm-kit' )
+				)
+			);
+		}
+
+		if ( $defaults && $check->is_only_source() ) {
+			return $this->build_result(
+				'gtmkit_consent',
+				__( 'Consent is configured', 'gtm-kit' ),
+				'good',
+				'<p>' . esc_html__( 'GTM Kit sets Consent Mode defaults before your container loads, so Google tags know what they may do until the visitor makes a choice.', 'gtm-kit' ) . '</p>'
+				. '<p>' . esc_html__( 'No consent platform was found on this site, and the defaults grant analytics storage, so Google\'s tags store their identifiers from the first page view. If consent is required before measurement where your visitors are, add a consent platform that collects the visitor\'s choice.', 'gtm-kit' ) . '</p>'
+			);
+		}
+
 		if ( $defaults ) {
 			return $this->build_result(
 				'gtmkit_consent',
@@ -844,12 +873,22 @@ final class SiteHealth {
 			);
 		}
 
+		if ( $check->has_integration_source() ) {
+			return $this->build_result(
+				'gtmkit_consent',
+				__( 'Consent is configured', 'gtm-kit' ),
+				'good',
+				'<p>' . esc_html__( 'A consent integration on this site sets and updates the visitor\'s consent, so GTM Kit leaves the Consent Mode defaults to it.', 'gtm-kit' ) . '</p>'
+			);
+		}
+
 		return $this->build_result(
 			'gtmkit_consent',
 			__( 'Consent is not configured', 'gtm-kit' ),
 			'recommended',
 			'<p>' . esc_html__( 'GTM Kit\'s Consent Mode defaults are switched off and no supported consent platform was found. Without defaults, Google tags start out with no instructions about what they may store, which is a problem wherever consent is required before measurement.', 'gtm-kit' ) . '</p>'
-			. '<p>' . esc_html__( 'Switch on the Consent Mode defaults and set each category to what should apply before the visitor answers, or run a consent platform that sets them for you.', 'gtm-kit' ) . '</p>',
+			. '<p>' . esc_html__( 'Switch on the Consent Mode defaults and set each category to what should apply before the visitor answers, or run a consent platform that sets them for you.', 'gtm-kit' ) . '</p>'
+			. '<p>' . esc_html__( 'Defaults are a starting point that a consent platform is expected to lift once the visitor answers, so switch them on alongside a platform that collects that answer.', 'gtm-kit' ) . '</p>',
 			$settings_link
 			. $this->documentation_link(
 				'turn-on-google-consent-mode-v2-defaults',

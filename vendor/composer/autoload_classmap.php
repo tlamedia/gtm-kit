@@ -7,10 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'TLA_Media\\GTM_Kit\\Abilities\\Abilities' => $baseDir . '/src/Abilities/Abilities.php',
     'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => $baseDir . '/src/Admin/AbstractOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\AdminAPI' => $baseDir . '/src/Admin/AdminAPI.php',
     'TLA_Media\\GTM_Kit\\Admin\\Analytics' => $baseDir . '/src/Admin/Analytics.php',
     'TLA_Media\\GTM_Kit\\Admin\\AssetsTrait' => $baseDir . '/src/Admin/AssetsTrait.php',
+    'TLA_Media\\GTM_Kit\\Admin\\ConsentDefaultsCheck' => $baseDir . '/src/Admin/ConsentDefaultsCheck.php',
     'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => $baseDir . '/src/Admin/GeneralOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewayNotice' => $baseDir . '/src/Admin/GoogleTagGatewayNotice.php',
     'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewaySiteHealth' => $baseDir . '/src/Admin/GoogleTagGatewaySiteHealth.php',
@@ -36,6 +38,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
     'TLA_Media\\GTM_Kit\\Admin\\SiteHealth' => $baseDir . '/src/Admin/SiteHealth.php',
     'TLA_Media\\GTM_Kit\\Admin\\SnippetScanSiteHealth' => $baseDir . '/src/Admin/SnippetScanSiteHealth.php',
+    'TLA_Media\\GTM_Kit\\Admin\\StapeLoaderNotice' => $baseDir . '/src/Admin/StapeLoaderNotice.php',
     'TLA_Media\\GTM_Kit\\Admin\\Suggestions' => $baseDir . '/src/Admin/Suggestions.php',
     'TLA_Media\\GTM_Kit\\Common\\CMPDetection' => $baseDir . '/src/Common/CMPDetection.php',
     'TLA_Media\\GTM_Kit\\Common\\Conditionals\\BricksConditional' => $baseDir . '/src/Common/Conditionals/BricksConditional.php',
@@ -56,6 +59,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Common\\SupportSync' => $baseDir . '/src/Common/SupportSync.php',
     'TLA_Media\\GTM_Kit\\Common\\Util' => $baseDir . '/src/Common/Util.php',
     'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => $baseDir . '/src/Frontend/BasicDatalayerData.php',
+    'TLA_Media\\GTM_Kit\\Frontend\\ConsentGatedData' => $baseDir . '/src/Frontend/ConsentGatedData.php',
     'TLA_Media\\GTM_Kit\\Frontend\\ConsentSignalSourceRegistry' => $baseDir . '/src/Frontend/ConsentSignalSourceRegistry.php',
     'TLA_Media\\GTM_Kit\\Frontend\\EngagementEvents' => $baseDir . '/src/Frontend/EngagementEvents.php',
     'TLA_Media\\GTM_Kit\\Frontend\\EventDeferralGate' => $baseDir . '/src/Frontend/EventDeferralGate.php',

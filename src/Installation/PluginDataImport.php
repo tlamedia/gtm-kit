@@ -96,6 +96,9 @@ class PluginDataImport {
 	 * commas or semicolons. Both shapes are reduced to the same row structure
 	 * so callers never have to care which release wrote the settings.
 	 *
+	 * The custom loader path is kept so the caller can tell when the domain
+	 * only works together with a path GTM Kit has no setting for.
+	 *
 	 * @param array<string, mixed> $options The stored GTM4WP options.
 	 *
 	 * @return array<int, array<string, string>>
@@ -114,6 +117,7 @@ class PluginDataImport {
 					'domain'      => \is_scalar( $row['domain'] ?? '' ) ? trim( (string) ( $row['domain'] ?? '' ) ) : '',
 					'gtm_auth'    => \is_scalar( $row['gtm_auth'] ?? '' ) ? trim( (string) ( $row['gtm_auth'] ?? '' ) ) : '',
 					'gtm_preview' => \is_scalar( $row['gtm_preview'] ?? '' ) ? trim( (string) ( $row['gtm_preview'] ?? '' ) ) : '',
+					'path'        => \is_scalar( $row['path'] ?? '' ) ? trim( (string) ( $row['path'] ?? '' ) ) : '',
 				];
 			}
 
@@ -141,6 +145,7 @@ class PluginDataImport {
 				'domain'      => trim( (string) ( $options['gtm-domain-name'] ?? '' ) ),
 				'gtm_auth'    => trim( (string) ( $options['gtm-env-gtm-auth'] ?? '' ) ),
 				'gtm_preview' => trim( (string) ( $options['gtm-env-gtm-preview'] ?? '' ) ),
+				'path'        => trim( (string) ( $options['gtm-custom-path'] ?? '' ) ),
 			];
 		}
 
@@ -168,6 +173,18 @@ class PluginDataImport {
 		// an empty one, so an import cannot blank a working container ID,
 		// server container domain or environment on the way through.
 		$general = [];
+
+		// GTM4WP serves a container from a custom path as `<domain>/<path>?...`.
+		// GTM Kit has no setting for that path, and the domain on its own builds
+		// a loader address that does not serve the container, so the domain is
+		// left out and the preview says why. Omitting the container ID only
+		// takes effect in GTM4WP together with a custom path, so the path alone
+		// decides.
+		$sgtm_domain_skipped = $container !== null && '' !== $container['domain'] && '' !== $container['path'];
+
+		if ( $sgtm_domain_skipped ) {
+			$container['domain'] = '';
+		}
 
 		if ( $container !== null ) {
 			$container_map = [
@@ -243,10 +260,11 @@ class PluginDataImport {
 		}
 
 		return [
-			'name'            => 'GTM4WP',
-			'container_count' => \count( $containers ),
-			'general'         => $general,
-			'integrations'    => array_merge( $integrations, $customer_data ),
+			'name'                => 'GTM4WP',
+			'container_count'     => \count( $containers ),
+			'sgtm_domain_skipped' => $sgtm_domain_skipped,
+			'general'             => $general,
+			'integrations'        => array_merge( $integrations, $customer_data ),
 		];
 	}
 

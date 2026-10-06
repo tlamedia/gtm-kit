@@ -78,6 +78,13 @@ final class WooCommerceBlocks {
 	private ?array $template_part_contents = null;
 
 	/**
+	 * Whether a supported block has rendered during this request.
+	 *
+	 * @var bool
+	 */
+	private bool $supported_block_rendered = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Options     $options An instance of Options.
@@ -116,6 +123,10 @@ final class WooCommerceBlocks {
 		// grids so the block bundle can emit list and view_item events. The
 		// markup is identical for every visitor (full-page-cache safe).
 		add_filter( 'render_block', [ self::$instance, 'inject_block_product_data' ], 10, 2 );
+
+		// Catch supported blocks the page scan cannot see, such as a Mini Cart
+		// in a classic theme's widget area, as they render.
+		add_filter( 'render_block', [ self::$instance, 'track_rendered_block' ], 10, 2 );
 	}
 
 	/**
@@ -161,9 +172,85 @@ final class WooCommerceBlocks {
 			return;
 		}
 
-		if ( ! $this->page_has_supported_blocks() ) {
+		if ( ! $this->supported_block_rendered && ! $this->page_has_supported_blocks() ) {
 			return;
 		}
+
+		$this->enqueue_bundle();
+
+		// On a block-built Cart or Checkout page the block bundle owns tracking,
+		// so the classic integration script is redundant and is removed.
+		if ( $this->has_cart_or_checkout_block() ) {
+			wp_dequeue_script( 'gtmkit-woocommerce' );
+		}
+	}
+
+	/**
+	 * Note a supported block as it renders, and load the bundle for it when
+	 * the page scan in {@see self::enqueue_block_assets()} has already run
+	 * without finding it.
+	 *
+	 * The scan reads post content and, on block themes, the WooCommerce routes
+	 * and header/footer template parts. A block placed anywhere else, such as
+	 * a classic theme's widget area or a template that renders blocks from
+	 * PHP, only shows up here. A script enqueued after the page head is
+	 * printed in the footer. Block themes render the template before the
+	 * head, so there the flag reaches the scan instead.
+	 *
+	 * Detection still depends only on what the page renders, never on the
+	 * visitor, so the markup stays full-page-cache safe.
+	 *
+	 * @hook render_block
+	 *
+	 * @param string               $block_content The rendered block HTML.
+	 * @param array<string, mixed> $block         The parsed block.
+	 *
+	 * @return string The block HTML, unchanged.
+	 */
+	public function track_rendered_block( string $block_content, array $block ): string {
+
+		if ( $this->supported_block_rendered || is_admin() ) {
+			return $block_content;
+		}
+
+		$block_name = (string) ( $block['blockName'] ?? '' );
+
+		if ( '' === $block_name || ! $this->is_supported_block_name( $block_name ) ) {
+			return $block_content;
+		}
+
+		$this->supported_block_rendered = true;
+
+		if (
+			did_action( 'wp_enqueue_scripts' )
+			&& ! did_action( 'wp_print_footer_scripts' )
+			&& ! wp_script_is( 'gtmkit-woocommerce-blocks' )
+			&& ! $this->options->get( 'integrations', 'woocommerce_dequeue_script' )
+		) {
+			$this->enqueue_bundle();
+		}
+
+		return $block_content;
+	}
+
+	/**
+	 * Whether a block name triggers the tracking bundle.
+	 *
+	 * @param string $block_name The block name.
+	 */
+	private function is_supported_block_name( string $block_name ): bool {
+
+		if ( strpos( $block_name, self::FILTER_BLOCK_PREFIX ) === 0 ) {
+			return true;
+		}
+
+		return in_array( $block_name, $this->get_supported_blocks(), true );
+	}
+
+	/**
+	 * Enqueue the block tracking bundle and its Store API settings.
+	 */
+	private function enqueue_bundle(): void {
 
 		$this->util()->enqueue_script( 'gtmkit-woocommerce-blocks', 'frontend/woocommerce-blocks.js', true );
 
@@ -175,12 +262,6 @@ final class WooCommerceBlocks {
 				'nonce' => wp_create_nonce( 'wp_rest' ),
 			]
 		);
-
-		// On a block-built Cart or Checkout page the block bundle owns tracking,
-		// so the classic integration script is redundant and is removed.
-		if ( $this->has_cart_or_checkout_block() ) {
-			wp_dequeue_script( 'gtmkit-woocommerce' );
-		}
 	}
 
 	/**
@@ -194,11 +275,16 @@ final class WooCommerceBlocks {
 	 *
 	 * 1. Post content: `has_block()` (also matches blocks nested in
 	 *    Group/Columns/Query wrappers) plus the product-filter family.
-	 * 2. WooCommerce route safety net: the canonical Cart/Checkout/shop/
-	 *    product/taxonomy routes, which is what reliably covers FSE
-	 *    storefronts including archives that have no post ID.
+	 * 2. WooCommerce route safety net (block themes only): the canonical
+	 *    Cart/Checkout/shop/product/taxonomy routes, which is what reliably
+	 *    covers FSE storefronts including archives that have no post ID. A
+	 *    classic theme renders those routes from PHP templates, so the route
+	 *    alone says nothing about blocks there.
 	 * 3. Site-wide header/footer template parts (block themes only), where
 	 *    the Mini Cart (and any supported block) is typically placed.
+	 *
+	 * Blocks outside all three, such as a Mini Cart in a classic theme's
+	 * widget area, are caught as they render by {@see self::track_rendered_block()}.
 	 */
 	public function page_has_supported_blocks(): bool {
 
@@ -288,6 +374,10 @@ final class WooCommerceBlocks {
 	 * booted (the unit tests run without it).
 	 */
 	private function is_woocommerce_route(): bool {
+
+		if ( ! function_exists( 'wp_is_block_theme' ) || ! wp_is_block_theme() ) {
+			return false;
+		}
 
 		$conditionals = [
 			'is_cart',

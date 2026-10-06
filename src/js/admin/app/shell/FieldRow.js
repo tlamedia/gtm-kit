@@ -8,7 +8,11 @@ import { getShellCompositeControl } from './fields/composite';
 import FieldTags from './fields/FieldTags';
 import UpsellSlot from './fields/UpsellSlot';
 import StaleAddonNotice from './fields/StaleAddonNotice';
-import { isVisible, isEnabled } from '../../registry/conditions';
+import {
+	isVisible,
+	isEnabled,
+	getDisabledReason,
+} from '../../registry/conditions';
 import { isTierLocked, isStaleStub } from '../../registry/gating';
 import { SettingsDataContext } from '../../context/SettingsDataContext';
 import { useFeatureFlags } from '../../hooks/useFeatureFlags';
@@ -59,6 +63,7 @@ const FieldRow = memo( ( { field } ) => {
 	// a simplified stub stand in for the real field.
 	const staleStub = isStaleStub( field, meetsRequiredTier );
 	const disabledByCondition = ! isEnabled( field, settings );
+	const disabledReason = getDisabledReason( field, settings );
 	const disabledByPlugin = field.requiresPlugin
 		? ! SettingsService.isPluginActive( field.requiresPlugin )
 		: false;
@@ -101,6 +106,11 @@ const FieldRow = memo( ( { field } ) => {
 				{ field.description && (
 					<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-text-text-secondary">
 						{ field.description }
+					</p>
+				) }
+				{ disabledReason && (
+					<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-text-text-secondary">
+						{ disabledReason }
 					</p>
 				) }
 				{ helpHref && field.helpLink.label && (

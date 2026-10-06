@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.20.2
+Stable tag: 2.21.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -142,6 +142,26 @@ Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
 
+= 2.21.0 =
+
+Release date: 2026-10-06
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-21/).
+
+#### New:
+* AI assistants connected to your site through the WordPress Abilities API can now read how GTM Kit is set up, which consent defaults apply, and whether tracking is healthy. Only administrators can use them, nothing can be changed through them, and they send nothing off your site.
+* If you use the loader Stape issues but GTM Kit has none stored for your site, the GTM Kit dashboard now tells you that your pages use the standard loader and how to get Stape's loader back with Refresh.
+
+#### Bugfixes:
+* If the Google tag gateway is switched on while a custom server-side tagging domain is set, the GTM Kit dashboard now says the two cannot be used together and how to choose between them, instead of reporting that the gateway is not working. The settings screen explains why one of the two is unavailable only while it is.
+* Site Health no longer reports that consent is configured when the Consent Mode defaults deny analytics and no consent platform was found to grant it, a setup where every visitor is measured without cookies. It now recommends adding a consent platform or changing the defaults, and the Consent settings page shows the same warning.
+* Site Health no longer says consent is not configured when the Consent Mode defaults are off because a consent integration, such as one using the WP Consent API, sets and updates the visitor's consent.
+* Importing settings from GTM4WP no longer sets a server-side tagging domain when GTM4WP loads the container from a custom path, which produced a loader address that did not serve your container. The import now says the domain was skipped.
+
+#### Other:
+* On stores with a classic theme, shop, product and category pages without WooCommerce blocks no longer load GTM Kit's block tracking script, so those pages load less JavaScript. Pages that show a WooCommerce block anywhere, including a Mini Cart in a widget area, still load it, and block themes are unchanged.
+* If you send customer details with the purchase event and use Consent Mode, GTM Kit now adds the email, phone, name and address, hashed or not, only once the visitor has granted both advertising storage and advertising user data consent. If consent is denied, or a denying default has not been lifted within three seconds, the purchase is still sent, without those details. GTM Kit reads consent from its own data layer, from `dataLayer` if that is a different one, and from the consent state Google Tag Manager holds, so consent a consent platform sets through its Google Tag Manager template counts too. A denial in any of them withholds the details. If GTM Kit finds no consent state at all within three seconds, it sends the details, as it did before, and a developer can make GTM Kit withhold them in that case with a filter.
+
 = 2.20.2 =
 
 Release date: 2026-09-24
@@ -203,37 +223,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 * New `gtmkit_active_cmp` and `gtmkit_cmp_display_name` filters let a site declare a consent platform GTM Kit cannot detect, such as one loaded by the theme or a code snippet, so Site Health stops reporting consent as unconfigured.
 * The customer details sent with a purchase now come from the order itself, so they describe the buyer rather than whoever opened the confirmation page.
 * `WooCommerce::include_customer_data()` now takes the order as its second argument, before the order value, and reads every customer field from it. Code that calls this method directly must pass the order.
-
-= 2.18.1 =
-
-Release date: 2026-08-24
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-18/).
-
-#### Bugfixes:
-* The daily check of your pages now keeps running on schedule on WooCommerce sites. It could previously stop after one run until an administrator next opened wp-admin.
-* On a site using a Google Tag Manager environment, the fallback for visitors without JavaScript pointed at your live container instead of the environment. It now matches the rest of your setup.
-
-= 2.18.0 =
-
-Release date: 2026-08-24
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-18/).
-
-#### New:
-* GTM Kit now checks one of your pages once a day and tells you when nothing on your site is loading your container, or when your pages load tracking twice.
-* GTM Kit now reports on itself in WordPress's Site Health, with checks for your container, your consent setup, and what the daily page check found.
-* GTM Kit no longer loads your container on sites WordPress reports as staging, development or local, so test traffic stays out of your analytics.
-* You can now import settings from another Google Tag Manager plugin at any time from the Tools page, not only during setup.
-
-#### Bugfixes:
-* The fallback for visitors who have JavaScript turned off is now added to your pages. It was missing on every placement setting, and you can switch it off under "Container code noscript implementation".
-* On a block theme, adding a product to the cart from the product page no longer reloads the page.
-* Importing settings during the setup wizard works again, reads the right customer data setting, and no longer produces an unusable container ID on sites with more than one container.
-
-#### Other:
-* The footer fallback now sits at the standard WordPress footer position. If you added a body_footer hook to your theme to make that option work, you no longer need it.
-* GTM Kit now requires WordPress 6.9 or later, and is tested with WordPress 7.1.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

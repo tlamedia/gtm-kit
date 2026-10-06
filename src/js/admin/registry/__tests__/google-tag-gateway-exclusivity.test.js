@@ -78,6 +78,17 @@ describe( 'the Google tag gateway and a custom sGTM domain exclude each other', 
 		expect( isEnabled( field( GATEWAY ), cleared ) ).toBe( true );
 	} );
 
+	it( 'leaves both editable when a site has both, so either can be removed', () => {
+		const both = store( {
+			google_tag_gateway: true,
+			sgtm_domain: 'gtm.example.com',
+			sgtm_container_identifier: '',
+		} );
+
+		expect( isEnabled( field( GATEWAY ), both ) ).toBe( true );
+		expect( isEnabled( field( SGTM_DOMAIN ), both ) ).toBe( true );
+	} );
+
 	it( 'treats a whitespace-only sGTM domain as unset', () => {
 		const blank = store( { ...NEITHER.general, sgtm_domain: '   ' } );
 
@@ -97,8 +108,8 @@ describe( 'the Google tag gateway and a custom sGTM domain exclude each other', 
 	} );
 
 	it( 'explains itself on both sides rather than greying out silently', () => {
-		expect( field( GATEWAY ).description ).toMatch( /sGTM/i );
-		expect( field( SGTM_DOMAIN ).description ).toMatch(
+		expect( field( GATEWAY ).disabledReason ).toMatch( /sGTM/i );
+		expect( field( SGTM_DOMAIN ).disabledReason ).toMatch(
 			/Google tag gateway/i
 		);
 	} );

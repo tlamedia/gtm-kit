@@ -97,6 +97,30 @@ final class GoogleTagGatewayHealth {
 	public const NOTICE_DISMISSED_OPTION = 'gtmkit_gtg_notice_dismissed';
 
 	/**
+	 * The option remembering that the notice about a custom sGTM domain was dismissed.
+	 *
+	 * Kept apart from the fallback dismissal, so dismissing one notice never
+	 * silences the other.
+	 *
+	 * @var string
+	 */
+	public const BLOCKED_NOTICE_DISMISSED_OPTION = 'gtmkit_gtg_blocked_notice_dismissed';
+
+	/**
+	 * The fallback notice, for the dismissal methods.
+	 *
+	 * @var string
+	 */
+	public const NOTICE_FALLBACK = 'fallback';
+
+	/**
+	 * The notice about a custom sGTM domain, for the dismissal methods.
+	 *
+	 * @var string
+	 */
+	public const NOTICE_BLOCKED = 'blocked';
+
+	/**
 	 * An instance of Options.
 	 *
 	 * @var Options
@@ -247,21 +271,47 @@ final class GoogleTagGatewayHealth {
 	}
 
 	/**
-	 * Remember that the fallback notice was dismissed.
+	 * Remember that a gateway notice was dismissed.
+	 *
+	 * @param string $notice One of the NOTICE_* constants.
 	 *
 	 * @return void
 	 */
-	public static function dismiss_notice(): void {
-		update_option( self::NOTICE_DISMISSED_OPTION, true, false );
+	public static function dismiss_notice( string $notice = self::NOTICE_FALLBACK ): void {
+		update_option( self::dismissal_option( $notice ), true, false );
 	}
 
 	/**
-	 * Whether the fallback notice has been dismissed for the current outage.
+	 * Whether a gateway notice has been dismissed while its state lasts.
+	 *
+	 * @param string $notice One of the NOTICE_* constants.
 	 *
 	 * @return bool
 	 */
-	public static function is_notice_dismissed(): bool {
-		return (bool) get_option( self::NOTICE_DISMISSED_OPTION, false );
+	public static function is_notice_dismissed( string $notice = self::NOTICE_FALLBACK ): bool {
+		return (bool) get_option( self::dismissal_option( $notice ), false );
+	}
+
+	/**
+	 * Forget that a gateway notice was dismissed, so it is shown the next time its state returns.
+	 *
+	 * @param string $notice One of the NOTICE_* constants.
+	 *
+	 * @return void
+	 */
+	public static function clear_notice_dismissal( string $notice ): void {
+		delete_option( self::dismissal_option( $notice ) );
+	}
+
+	/**
+	 * The option holding a notice's dismissal.
+	 *
+	 * @param string $notice One of the NOTICE_* constants.
+	 *
+	 * @return string
+	 */
+	private static function dismissal_option( string $notice ): string {
+		return ( self::NOTICE_BLOCKED === $notice ) ? self::BLOCKED_NOTICE_DISMISSED_OPTION : self::NOTICE_DISMISSED_OPTION;
 	}
 
 	/**

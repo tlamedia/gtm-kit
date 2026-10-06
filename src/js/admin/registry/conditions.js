@@ -15,11 +15,14 @@
  *     `{ falsy: [ 'general.gcm_default_settings' ] }`
  * - the `in` operator mapped to `{ optionKey: [ allowed, values ] }`:
  *     `{ in: { 'general.script_implementation': [ 0, 1 ] } }`
+ * - the `any` operator mapped to a list of conditions, at least one of which
+ *   must hold:
+ *     `{ any: [ { falsy: [ 'general.sgtm_domain' ] }, { truthy: [ 'general.google_tag_gateway' ] } ] }`
  *
  * Keep this operator set minimal; widen it only when the inventory forces it.
  */
 
-const OPERATORS = [ 'truthy', 'falsy', 'in' ];
+const OPERATORS = [ 'truthy', 'falsy', 'in', 'any' ];
 
 /**
  * Resolve a dotted option key against the settings store.
@@ -68,6 +71,13 @@ export const evaluateCondition = ( condition, settings ) => {
 			);
 		}
 
+		if ( key === 'any' ) {
+			const conditions = Array.isArray( expected ) ? expected : [];
+			return conditions.some( ( entry ) =>
+				evaluateCondition( entry, settings )
+			);
+		}
+
 		if ( key === 'in' ) {
 			return Object.entries( expected ).every(
 				( [ optionKey, allowed ] ) =>
@@ -100,5 +110,20 @@ export const isVisible = ( entry, settings ) =>
  */
 export const isEnabled = ( entry, settings ) =>
 	evaluateCondition( entry?.enabledWhen, settings );
+
+/**
+ * Why a field is disabled, while its `enabledWhen` is what disables it. A field
+ * may declare a `disabledReason` for this; it is shown only while the field is
+ * disabled by its condition, so an explanation that only matters in that state
+ * does not sit under the field the rest of the time.
+ *
+ * @param {Object} entry    A field with optional `enabledWhen` and `disabledReason`.
+ * @param {Object} settings The settings store.
+ * @return {string} The reason, or an empty string when there is none to show.
+ */
+export const getDisabledReason = ( entry, settings ) =>
+	entry?.disabledReason && ! isEnabled( entry, settings )
+		? entry.disabledReason
+		: '';
 
 export { OPERATORS };

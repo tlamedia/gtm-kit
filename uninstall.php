@@ -18,6 +18,9 @@ delete_option( 'gtmkit_support_sync' );
 delete_option( 'gtmkit_snippet_scan' );
 delete_option( 'gtmkit_sgtm_loader' );
 delete_option( 'gtmkit_upgrade_notice_dismissals' );
+delete_option( 'gtmkit_sgtm_loader_notice_dismissed' );
+delete_option( 'gtmkit_gtg_notice_dismissed' );
+delete_option( 'gtmkit_gtg_blocked_notice_dismissed' );
 
 // Remove the per-user introductions seen-state across all users.
 delete_metadata( 'user', 0, '_gtmkit_introductions', '', true );

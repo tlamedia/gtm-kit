@@ -581,7 +581,21 @@ final class AdminAPI {
 						// reason. Its dismissal is cleared once the gateway
 						// serves again, so it answers this outage only.
 						if ( $notification_action && $notification_id === GoogleTagGatewayNotice::NOTIFICATION_ID ) {
-							GoogleTagGatewayHealth::dismiss_notice();
+							GoogleTagGatewayHealth::dismiss_notice( GoogleTagGatewayHealth::NOTICE_FALLBACK );
+						}
+
+						// The notice about a custom sGTM domain keeps a record
+						// of its own, so dismissing one gateway notice never
+						// silences the other.
+						if ( $notification_action && $notification_id === GoogleTagGatewayNotice::BLOCKED_NOTIFICATION_ID ) {
+							GoogleTagGatewayHealth::dismiss_notice( GoogleTagGatewayHealth::NOTICE_BLOCKED );
+						}
+
+						// The Stape loader notice is conditional in the same
+						// way and keeps its own record until the site has a
+						// loader again.
+						if ( $notification_action && $notification_id === StapeLoaderNotice::NOTIFICATION_ID ) {
+							StapeLoaderNotice::dismiss();
 						}
 						break;
 					case 'restore':

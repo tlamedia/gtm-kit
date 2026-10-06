@@ -110,8 +110,6 @@ final class PluginDataImportGtm4wpTest extends TestCase {
 						'domain'      => 'rows.example.com',
 						'gtm_auth'    => 'ROWAUTH',
 						'gtm_preview' => 'env-9',
-						'path'        => 'custom.js',
-						'no_id'       => '1',
 					],
 				],
 				'gtm-code'        => 'GTM-STALE1',
@@ -376,5 +374,151 @@ final class PluginDataImportGtm4wpTest extends TestCase {
 		$this->assertSame( 0, $data['container_count'] );
 		$this->assertArrayNotHasKey( 'gtm_id', $data['general'] );
 		$this->assertSame( 'dataLayer', $data['general']['datalayer_name'] );
+	}
+
+	/**
+	 * A domain that GTM4WP pairs with a custom loader path is left out and
+	 * reported, while the container and its environment still import.
+	 *
+	 * GTM Kit has no setting for the path, so the domain alone would build a
+	 * loader address that does not serve the container.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_domain_with_a_custom_loader_path_is_skipped_and_reported(): void {
+		$data = $this->extract(
+			[
+				'gtm-containers'              => [
+					[
+						'id'          => 'GTM-ROW001',
+						'domain'      => 'sgtm.example.com',
+						'gtm_auth'    => 'ROWAUTH',
+						'gtm_preview' => 'env-9',
+						'path'        => 'metrics',
+						'no_id'       => '',
+					],
+				],
+				'gtm-datalayer-variable-name' => 'dataLayer',
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+		$this->assertSame( 'GTM-ROW001', $data['general']['gtm_id'] );
+		$this->assertSame( 'ROWAUTH', $data['general']['gtm_auth'] );
+		$this->assertSame( 'env-9', $data['general']['gtm_preview'] );
+		$this->assertSame( 'dataLayer', $data['general']['datalayer_name'] );
+	}
+
+	/**
+	 * Omitting the container ID together with a custom path skips the domain
+	 * just like the path alone.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_domain_with_a_custom_path_and_omitted_id_is_skipped_and_reported(): void {
+		$data = $this->extract(
+			[
+				'gtm-containers' => [
+					[
+						'id'     => 'GTM-ROW001',
+						'domain' => 'sgtm.example.com',
+						'path'   => 'metrics',
+						'no_id'  => '1',
+					],
+				],
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+		$this->assertSame( 'GTM-ROW001', $data['general']['gtm_id'] );
+	}
+
+	/**
+	 * Omitting the container ID without a custom path has no effect on the
+	 * source plugin's loader, so the domain still imports.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_an_omitted_id_without_a_custom_path_keeps_the_domain(): void {
+		$data = $this->extract(
+			[
+				'gtm-containers' => [
+					[
+						'id'     => 'GTM-ROW001',
+						'domain' => 'sgtm.example.com',
+						'path'   => '',
+						'no_id'  => '1',
+					],
+				],
+			]
+		);
+
+		$this->assertFalse( $data['sgtm_domain_skipped'] );
+		$this->assertSame( 'sgtm.example.com', $data['general']['sgtm_domain'] );
+	}
+
+	/**
+	 * Without a custom path the domain imports as before and nothing is
+	 * reported.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_domain_without_a_custom_path_is_imported(): void {
+		$data = $this->extract(
+			[
+				'gtm-containers' => [
+					[
+						'id'     => 'GTM-ROW001',
+						'domain' => 'sgtm.example.com',
+					],
+				],
+			]
+		);
+
+		$this->assertFalse( $data['sgtm_domain_skipped'] );
+		$this->assertSame( 'sgtm.example.com', $data['general']['sgtm_domain'] );
+	}
+
+	/**
+	 * The flat options of older releases follow the same rule through their
+	 * custom path key.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_flat_options_with_a_custom_path_skip_the_domain(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'            => 'GTM-FLAT01',
+				'gtm-domain-name'     => 'sgtm.example.com',
+				'gtm-custom-path'     => 'metrics',
+				'gtm-env-gtm-auth'    => 'AUTHVALUE',
+				'gtm-env-gtm-preview' => 'env-12',
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+		$this->assertSame( 'GTM-FLAT01', $data['general']['gtm_id'] );
+		$this->assertSame( 'AUTHVALUE', $data['general']['gtm_auth'] );
+	}
+
+	/**
+	 * A custom path without a domain has no domain to skip, so nothing is
+	 * reported.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_custom_path_without_a_domain_reports_nothing(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-custom-path' => 'metrics',
+			]
+		);
+
+		$this->assertFalse( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
 	}
 }

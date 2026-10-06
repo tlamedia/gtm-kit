@@ -22,10 +22,12 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'TLA_Media\\GTM_Kit\\Abilities\\Abilities' => __DIR__ . '/../..' . '/src/Abilities/Abilities.php',
         'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => __DIR__ . '/../..' . '/src/Admin/AbstractOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\AdminAPI' => __DIR__ . '/../..' . '/src/Admin/AdminAPI.php',
         'TLA_Media\\GTM_Kit\\Admin\\Analytics' => __DIR__ . '/../..' . '/src/Admin/Analytics.php',
         'TLA_Media\\GTM_Kit\\Admin\\AssetsTrait' => __DIR__ . '/../..' . '/src/Admin/AssetsTrait.php',
+        'TLA_Media\\GTM_Kit\\Admin\\ConsentDefaultsCheck' => __DIR__ . '/../..' . '/src/Admin/ConsentDefaultsCheck.php',
         'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => __DIR__ . '/../..' . '/src/Admin/GeneralOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewayNotice' => __DIR__ . '/../..' . '/src/Admin/GoogleTagGatewayNotice.php',
         'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewaySiteHealth' => __DIR__ . '/../..' . '/src/Admin/GoogleTagGatewaySiteHealth.php',
@@ -51,6 +53,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => __DIR__ . '/../..' . '/src/Admin/SetupWizard.php',
         'TLA_Media\\GTM_Kit\\Admin\\SiteHealth' => __DIR__ . '/../..' . '/src/Admin/SiteHealth.php',
         'TLA_Media\\GTM_Kit\\Admin\\SnippetScanSiteHealth' => __DIR__ . '/../..' . '/src/Admin/SnippetScanSiteHealth.php',
+        'TLA_Media\\GTM_Kit\\Admin\\StapeLoaderNotice' => __DIR__ . '/../..' . '/src/Admin/StapeLoaderNotice.php',
         'TLA_Media\\GTM_Kit\\Admin\\Suggestions' => __DIR__ . '/../..' . '/src/Admin/Suggestions.php',
         'TLA_Media\\GTM_Kit\\Common\\CMPDetection' => __DIR__ . '/../..' . '/src/Common/CMPDetection.php',
         'TLA_Media\\GTM_Kit\\Common\\Conditionals\\BricksConditional' => __DIR__ . '/../..' . '/src/Common/Conditionals/BricksConditional.php',
@@ -71,6 +74,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Common\\SupportSync' => __DIR__ . '/../..' . '/src/Common/SupportSync.php',
         'TLA_Media\\GTM_Kit\\Common\\Util' => __DIR__ . '/../..' . '/src/Common/Util.php',
         'TLA_Media\\GTM_Kit\\Frontend\\BasicDatalayerData' => __DIR__ . '/../..' . '/src/Frontend/BasicDatalayerData.php',
+        'TLA_Media\\GTM_Kit\\Frontend\\ConsentGatedData' => __DIR__ . '/../..' . '/src/Frontend/ConsentGatedData.php',
         'TLA_Media\\GTM_Kit\\Frontend\\ConsentSignalSourceRegistry' => __DIR__ . '/../..' . '/src/Frontend/ConsentSignalSourceRegistry.php',
         'TLA_Media\\GTM_Kit\\Frontend\\EngagementEvents' => __DIR__ . '/../..' . '/src/Frontend/EngagementEvents.php',
         'TLA_Media\\GTM_Kit\\Frontend\\EventDeferralGate' => __DIR__ . '/../..' . '/src/Frontend/EventDeferralGate.php',

@@ -8,8 +8,10 @@
 namespace TLA_Media\GTM_Kit;
 
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use TLA_Media\GTM_Kit\Abilities\Abilities;
 use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
+use TLA_Media\GTM_Kit\Admin\ConsentDefaultsCheck;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\GoogleTagGatewayNotice;
 use TLA_Media\GTM_Kit\Admin\GoogleTagGatewaySiteHealth;
@@ -20,6 +22,7 @@ use TLA_Media\GTM_Kit\Admin\PluginAvailability;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Admin\SiteHealth;
 use TLA_Media\GTM_Kit\Admin\SnippetScanSiteHealth;
+use TLA_Media\GTM_Kit\Admin\StapeLoaderNotice;
 use TLA_Media\GTM_Kit\Admin\Suggestions;
 use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
 use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
@@ -163,6 +166,17 @@ function gtmkit_engagement_events_init(): void {
 }
 
 /**
+ * Register GTM Kit's abilities with the WordPress Abilities API.
+ *
+ * Runs on every kind of request: the Abilities API is reached over REST,
+ * from the admin and through AI assistant connectors alike, and only builds
+ * its registry when something asks for it.
+ */
+function gtmkit_abilities_init(): void {
+	Abilities::register( OptionsFactory::get_instance() );
+}
+
+/**
  * Load frontend.
  */
 function gtmkit_frontend_init(): void {
@@ -264,6 +278,7 @@ function gtmkit_admin_init(): void {
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
+	ConsentDefaultsCheck::register( $options );
 	SiteHealth::register( $options, $util );
 	SnippetScan::register( $options );
 	// The admin path schedules the gateway's daily check, and Action
@@ -272,6 +287,7 @@ function gtmkit_admin_init(): void {
 	SnippetScanSiteHealth::register( $snippet_scan, $options );
 	GoogleTagGatewaySiteHealth::register( $options );
 	GoogleTagGatewayNotice::register( $options );
+	StapeLoaderNotice::register( $options );
 	SupportSync::register( $options, $util );
 	if ( ( new PremiumConditional() )->is_met() ) {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
@@ -301,6 +317,8 @@ if ( ! wp_installing() ) {
 
 	// Priority 0 so the textdomain is loaded before any other init callback that might call __() against it (WP 6.7+ warns when JIT loading triggers before init).
 	add_action( 'init', 'TLA_Media\GTM_Kit\gtmkit_load_text_domain', 0 );
+
+	add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_abilities_init' );
 
 	// Engagement-event hooks (`wp_login`, `user_register`,
 	// `woocommerce_created_customer`) fire on AJAX and REST requests

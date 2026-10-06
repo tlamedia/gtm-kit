@@ -261,15 +261,35 @@ final class SiteHealthTest extends TestCase {
 	}
 
 	/**
-	 * Consent Mode defaults on their own are enough to pass.
+	 * Defaults that deny analytics with nothing to lift them are a recommendation that names the consequence and both ways out.
 	 *
 	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_consent
 	 */
-	public function test_consent_passes_on_defaults_alone(): void {
+	public function test_consent_recommends_when_denying_defaults_have_nothing_to_lift_them(): void {
 		$result = $this->site_health( [ 'gcm_default_settings' => true ] )->test_consent();
 
-		$this->assertSame( 'good', $result['status'] );
+		$this->assertSame( 'recommended', $result['status'] );
 		$this->assertSame( 'gtmkit_consent', $result['test'] );
+		$this->assertStringContainsString( 'measured without cookies', $result['description'] );
+		$this->assertStringContainsString( 'add a consent platform', $result['description'] );
+		$this->assertStringContainsString( 'set each category', $result['description'] );
+	}
+
+	/**
+	 * Defaults that grant analytics are deliberate, so they pass with a note instead of a warning.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Admin\SiteHealth::test_consent
+	 */
+	public function test_consent_passes_with_a_note_when_the_defaults_grant_analytics(): void {
+		$result = $this->site_health(
+			[
+				'gcm_default_settings'  => true,
+				'gcm_analytics_storage' => true,
+			]
+		)->test_consent();
+
+		$this->assertSame( 'good', $result['status'] );
+		$this->assertStringContainsString( 'No consent platform was found', $result['description'] );
 	}
 
 	/**
@@ -310,6 +330,7 @@ final class SiteHealthTest extends TestCase {
 		$result = $this->site_health( [ 'gcm_default_settings' => false ] )->test_consent();
 
 		$this->assertSame( 'recommended', $result['status'] );
+		$this->assertStringContainsString( 'alongside a platform that collects that answer', $result['description'] );
 		$this->assertStringContainsString( 'page=gtmkit_general#/consent', $result['actions'] );
 		$this->assertStringContainsString( 'turn-on-google-consent-mode-v2-defaults', $result['actions'] );
 		$this->assertStringContainsString( 'consent-default-must-run-before-the-container', $result['actions'] );

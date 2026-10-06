@@ -107,13 +107,22 @@ export const SETUP_FIELDS = [
 		control: 'toggle',
 		label: __( 'Serve the Google tag from this site', 'gtm-kit' ),
 		description: __(
-			'Loads the Google tag from your own domain instead of from Google, so ad blockers and browser restrictions that target Google’s domain interfere less with loading it. The measurement the tag sends still goes to Google; moving that to your domain as well needs Google’s tag gateway on a CDN or host that supports it, which this setting does not provide. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards. Not available while an sGTM container domain is set, because that already serves the tag from a domain you control.',
+			'Loads the Google tag from your own domain instead of from Google, so ad blockers and browser restrictions that target Google’s domain interfere less with loading it. The measurement the tag sends still goes to Google; moving that to your domain as well needs Google’s tag gateway on a CDN or host that supports it, which this setting does not provide. Your server must be able to reach Google, and the address GTM Kit serves the tag from must be reachable; both are checked before this can be switched on, and once a day afterwards.',
+			'gtm-kit'
+		),
+		disabledReason: __(
+			'Not available while an sGTM container domain is set, because that already serves the tag from a domain you control.',
 			'gtm-kit'
 		),
 		tier: 'free',
 		integration: null,
+		// Stays editable while switched on, so a site that has both can still
+		// switch it off.
 		enabledWhen: {
-			falsy: [ 'general.sgtm_domain' ],
+			any: [
+				{ falsy: [ 'general.sgtm_domain' ] },
+				{ truthy: [ 'general.google_tag_gateway' ] },
+			],
 		},
 	},
 
@@ -130,14 +139,18 @@ export const SETUP_FIELDS = [
 			'Enter your custom domain name if you are using a custom server side GTM container for tracking.',
 			'gtm-kit'
 		),
-		description: __(
+		disabledReason: __(
 			'Not available while the Google tag gateway is switched on, because that already serves the tag from your own domain. Use one or the other.',
 			'gtm-kit'
 		),
 		tier: 'free',
 		integration: null,
+		// Stays editable while set, so a site that has both can still clear it.
 		enabledWhen: {
-			falsy: [ 'general.google_tag_gateway' ],
+			any: [
+				{ falsy: [ 'general.google_tag_gateway' ] },
+				{ truthy: [ 'general.sgtm_domain' ] },
+			],
 		},
 	},
 	{

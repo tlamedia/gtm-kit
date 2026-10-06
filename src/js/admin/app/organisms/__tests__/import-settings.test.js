@@ -1,7 +1,8 @@
 /**
  * Covers the wizard import offer: the source list rendered from the install
  * payload, and the Yes action handing the selected source's settings object to
- * the settings context so the imported values land in the settings state.
+ * the settings context so the imported values land in the settings state, and
+ * the note explaining a server-side tagging domain that was not imported.
  */
 
 /*
@@ -57,10 +58,10 @@ const SettingsProbe = () => {
 	return <span data-testid="settings">{ JSON.stringify( settings ) }</span>;
 };
 
-const renderImportSettings = () =>
+const renderImportSettings = ( data = installData ) =>
 	render(
 		<SettingsDataProvider>
-			<SiteDataContext.Provider value={ { useInstallData: installData } }>
+			<SiteDataContext.Provider value={ { useInstallData: data } }>
 				<ImportSettings />
 				<SettingsProbe />
 			</SiteDataContext.Provider>
@@ -120,5 +121,50 @@ describe( 'ImportSettings', () => {
 		expect(
 			screen.getByTestId( 'register-container' )
 		).toBeInTheDocument();
+	} );
+
+	describe( 'skipped server-side tagging domain', () => {
+		const message =
+			'The server-side tagging domain was not imported, because GTM4WP loads your container from a custom path that GTM Kit cannot reproduce. Set up server-side tagging in GTM Kit by hand after importing.';
+
+		const withSkippedDomain = {
+			...installData,
+			import_data: {
+				...installData.import_data,
+				gtm4wp: {
+					...installData.import_data.gtm4wp,
+					sgtm_domain_skipped: true,
+				},
+			},
+		};
+
+		// The notice also announces its text through a screen-reader live
+		// region that outlives each render, so only rendered notices count.
+		const noticeCount = () =>
+			[ ...document.querySelectorAll( '.components-notice' ) ].filter(
+				( notice ) => notice.textContent.includes( message )
+			).length;
+
+		it( 'explains the skipped domain before the user imports', () => {
+			renderImportSettings( withSkippedDomain );
+
+			expect( noticeCount() ).toBe( 1 );
+		} );
+
+		it( 'says nothing when the source handed its domain over', () => {
+			renderImportSettings();
+
+			expect( noticeCount() ).toBe( 0 );
+		} );
+
+		it( 'follows the selected source', () => {
+			renderImportSettings( withSkippedDomain );
+
+			fireEvent.click( screen.getByLabelText( 'Google Tag Manager' ) );
+			expect( noticeCount() ).toBe( 0 );
+
+			fireEvent.click( screen.getByLabelText( 'GTM4WP' ) );
+			expect( noticeCount() ).toBe( 1 );
+		} );
 	} );
 } );

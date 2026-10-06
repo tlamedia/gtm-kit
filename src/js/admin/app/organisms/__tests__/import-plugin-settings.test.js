@@ -1,7 +1,8 @@
 /**
  * Covers the Tools page importer: the source list, the empty state, the
  * confirmation step listing only the settings that actually change, the
- * skipped-container note, and the import-then-save sequence.
+ * skipped-container and skipped-domain notes, and the import-then-save
+ * sequence.
  */
 
 /*
@@ -146,6 +147,42 @@ describe( 'ImportPluginSettings', () => {
 		expect( screen.queryAllByText( /additional container/ ) ).toHaveLength(
 			0
 		);
+	} );
+
+	it( 'explains a server-side tagging domain the source could not hand over', () => {
+		renderImporter( {
+			installData: {
+				importAvailable: true,
+				import_data: {
+					gtm4wp: {
+						name: 'GTM4WP',
+						container_count: 1,
+						sgtm_domain_skipped: true,
+						general: { gtm_id: 'GTM-ABC123' },
+					},
+				},
+			},
+		} );
+
+		fireEvent.click( screen.getByText( 'Continue' ) );
+
+		expect(
+			screen.getAllByText(
+				'The server-side tagging domain was not imported, because GTM4WP loads your container from a custom path that GTM Kit cannot reproduce. Set up server-side tagging in GTM Kit by hand after importing.'
+			).length
+		).toBeGreaterThan( 0 );
+	} );
+
+	it( 'says nothing about the domain when it was imported', () => {
+		renderImporter();
+
+		fireEvent.click( screen.getByText( 'Continue' ) );
+
+		expect(
+			screen.queryAllByText(
+				/server-side tagging domain was not imported/
+			)
+		).toHaveLength( 0 );
 	} );
 
 	it( 'hands the selected source to the import and then saves', () => {

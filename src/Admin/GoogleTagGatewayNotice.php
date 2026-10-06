@@ -26,6 +26,12 @@ use TLA_Media\GTM_Kit\Options\Options;
  * dismissal is not one of them. The dismissal is cleared as soon as the gateway
  * recovers, so a later outage is reported again instead of being silently
  * covered by a dismissal from the previous one.
+ *
+ * A gateway switched on alongside a custom sGTM domain is reported by a second
+ * notice. Nothing is failing in that case, so the fallback copy about checks
+ * and hosts would send the owner looking for a fault that does not exist; the
+ * second notice names the conflict and the two ways out instead, and keeps a
+ * dismissal of its own.
  */
 final class GoogleTagGatewayNotice {
 
@@ -35,6 +41,13 @@ final class GoogleTagGatewayNotice {
 	 * @var string
 	 */
 	public const NOTIFICATION_ID = 'gtmkit-google-tag-gateway-fallback';
+
+	/**
+	 * The notification id for a gateway ruled out by a custom sGTM domain.
+	 *
+	 * @var string
+	 */
+	public const BLOCKED_NOTIFICATION_ID = 'gtmkit-google-tag-gateway-blocked';
 
 	/**
 	 * An instance of GoogleTagGateway.
@@ -82,11 +95,21 @@ final class GoogleTagGatewayNotice {
 	}
 
 	/**
-	 * Add or withdraw the notice to match the current state.
+	 * Add or withdraw the notices to match the current state.
 	 *
 	 * @return void
 	 */
 	public function evaluate(): void {
+		$this->evaluate_fallback();
+		$this->evaluate_blocked();
+	}
+
+	/**
+	 * Add or withdraw the notice for a gateway whose checks are not passing.
+	 *
+	 * @return void
+	 */
+	private function evaluate_fallback(): void {
 
 		if ( ! $this->gateway->is_falling_back() ) {
 			$this->notifications_handler->remove_notification_by_id( self::NOTIFICATION_ID );
@@ -94,13 +117,39 @@ final class GoogleTagGatewayNotice {
 			return;
 		}
 
-		if ( GoogleTagGatewayHealth::is_notice_dismissed() ) {
+		if ( GoogleTagGatewayHealth::is_notice_dismissed( GoogleTagGatewayHealth::NOTICE_FALLBACK ) ) {
 			$this->notifications_handler->remove_notification_by_id( self::NOTIFICATION_ID );
 
 			return;
 		}
 
 		$this->notifications_handler->add_notification( $this->build() );
+	}
+
+	/**
+	 * Add or withdraw the notice for a gateway ruled out by a custom sGTM domain.
+	 *
+	 * @return void
+	 */
+	private function evaluate_blocked(): void {
+
+		if ( ! $this->gateway->is_blocked_by_configuration() ) {
+			$this->notifications_handler->remove_notification_by_id( self::BLOCKED_NOTIFICATION_ID );
+
+			// The conflict is resolved, so a dismissal given while it lasted
+			// no longer applies. If it returns, the owner is told again.
+			GoogleTagGatewayHealth::clear_notice_dismissal( GoogleTagGatewayHealth::NOTICE_BLOCKED );
+
+			return;
+		}
+
+		if ( GoogleTagGatewayHealth::is_notice_dismissed( GoogleTagGatewayHealth::NOTICE_BLOCKED ) ) {
+			$this->notifications_handler->remove_notification_by_id( self::BLOCKED_NOTIFICATION_ID );
+
+			return;
+		}
+
+		$this->notifications_handler->add_notification( $this->build_blocked() );
 	}
 
 	/**
@@ -125,6 +174,29 @@ final class GoogleTagGatewayNotice {
 			esc_html__( 'The Google tag is not being served from your domain', 'gtm-kit' ),
 			[
 				'id'   => self::NOTIFICATION_ID,
+				'type' => Notification::PROBLEM,
+			]
+		);
+	}
+
+	/**
+	 * Build the notice for a gateway ruled out by a custom sGTM domain.
+	 *
+	 * @return Notification
+	 */
+	private function build_blocked(): Notification {
+
+		// Written for the dashboard's parsing, like the fallback notice: the
+		// link goes last and the sentences are joined with a space.
+		$message = esc_html__( 'The Google tag gateway is switched on, but your site also has a custom server-side tagging domain, and the two cannot be used together. Your container loads from the custom domain.', 'gtm-kit' )
+			. ' ' . esc_html__( 'To use the gateway, remove the custom domain under Server-side Tagging; to keep the custom domain, switch the gateway off.', 'gtm-kit' )
+			. ' <a href="' . esc_url( admin_url( 'admin.php?page=gtmkit_general#/setup?focus=google-tag-gateway' ) ) . '">' . esc_html__( 'Open the settings', 'gtm-kit' ) . '</a>';
+
+		return new Notification(
+			$message,
+			esc_html__( 'The Google tag gateway and your custom domain cannot be used together', 'gtm-kit' ),
+			[
+				'id'   => self::BLOCKED_NOTIFICATION_ID,
 				'type' => Notification::PROBLEM,
 			]
 		);

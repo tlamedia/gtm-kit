@@ -308,8 +308,162 @@ final class WooCommerceBlocksTest extends TestCase {
 		Functions\when( 'is_cart' )->justReturn( false );
 		Functions\when( 'is_checkout' )->justReturn( false );
 		Functions\when( 'is_shop' )->justReturn( true );
+		Functions\when( 'wp_is_block_theme' )->justReturn( true );
 
 		$this->assertTrue( $blocks->page_has_supported_blocks() );
+	}
+
+	/**
+	 * On a classic theme a WooCommerce route alone does not load the block
+	 * bundle: the theme renders the route from PHP templates, so without a
+	 * block in the content there is nothing for the bundle to track.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::page_has_supported_blocks
+	 */
+	public function test_page_has_supported_blocks_skips_the_wc_route_on_a_classic_theme(): void {
+		$blocks = $this->make_blocks();
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+		Functions\when( 'get_the_ID' )->justReturn( false );
+		Functions\when( 'has_block' )->justReturn( false );
+		Functions\when( 'is_cart' )->justReturn( true );
+		Functions\when( 'is_checkout' )->justReturn( true );
+		Functions\when( 'is_shop' )->justReturn( true );
+		Functions\when( 'is_product' )->justReturn( true );
+		Functions\when( 'is_product_category' )->justReturn( true );
+		Functions\when( 'is_product_tag' )->justReturn( true );
+		Functions\when( 'is_product_taxonomy' )->justReturn( true );
+		Functions\when( 'wp_is_block_theme' )->justReturn( false );
+
+		$this->assertFalse( $blocks->page_has_supported_blocks() );
+	}
+
+	/**
+	 * Stub the WordPress script functions the bundle enqueue reaches, and
+	 * record each handle passed to `wp_enqueue_script()`.
+	 *
+	 * @param bool $after_enqueue_scripts Whether `wp_enqueue_scripts` has already run.
+	 *
+	 * @return \ArrayObject<int, string> The enqueued handles, filled as the test runs.
+	 */
+	private function stub_script_enqueue( bool $after_enqueue_scripts ): \ArrayObject {
+		$enqueued = new \ArrayObject();
+
+		Functions\when( 'is_admin' )->justReturn( false );
+		Functions\when( 'is_plugin_active' )->justReturn( false );
+		Functions\when( 'did_action' )->alias(
+			static fn( string $hook ): int => ( 'wp_enqueue_scripts' === $hook && $after_enqueue_scripts ) ? 1 : 0
+		);
+		Functions\when( 'wp_script_is' )->justReturn( false );
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'local' );
+		Functions\when( 'rest_url' )->justReturn( 'https://example.test/wp-json/' );
+		Functions\when( 'esc_url_raw' )->returnArg();
+		Functions\when( 'wp_create_nonce' )->justReturn( 'nonce' );
+		Functions\when( 'wp_localize_script' )->justReturn( true );
+		Functions\when( 'wp_enqueue_script' )->alias(
+			static function ( string $handle ) use ( $enqueued ): void {
+				$enqueued[] = $handle;
+			}
+		);
+
+		return $enqueued;
+	}
+
+	/**
+	 * A supported block rendering after the page scan has run, such as a Mini
+	 * Cart in a classic theme's widget area, loads the bundle, and only once.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_a_supported_block_rendered_after_the_scan_loads_the_bundle_once(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$html = '<div class="wp-block-woocommerce-mini-cart"></div>';
+
+		$this->assertSame( $html, $blocks->track_rendered_block( $html, [ 'blockName' => 'woocommerce/mini-cart' ] ) );
+		$blocks->track_rendered_block( $html, [ 'blockName' => 'woocommerce/mini-cart' ] );
+
+		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * Product-filter blocks are matched by prefix as they render.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_a_rendered_filter_block_loads_the_bundle(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		$blocks->track_rendered_block( '', [ 'blockName' => 'woocommerce/product-filter-price' ] );
+
+		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * Blocks the bundle does not track never load it.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_an_unsupported_rendered_block_does_not_load_the_bundle(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$blocks->track_rendered_block( '<p></p>', [ 'blockName' => 'core/paragraph' ] );
+		$blocks->track_rendered_block( '', [ 'blockName' => null ] );
+
+		$this->assertSame( [], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * A block rendered before the scripts are enqueued, as a block theme
+	 * renders its template before the page head, loads the bundle through the
+	 * page scan even when the scan itself finds no block.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::enqueue_block_assets
+	 */
+	public function test_a_block_rendered_before_the_scan_loads_the_bundle_through_it(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( false );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+		Functions\when( 'has_block' )->justReturn( false );
+		Functions\when( 'get_the_ID' )->justReturn( false );
+		Functions\when( 'wp_dequeue_script' )->justReturn( null );
+		$this->stub_no_wc_route();
+
+		$blocks->track_rendered_block( '', [ 'blockName' => 'woocommerce/mini-cart' ] );
+		$this->assertSame( [], $enqueued->getArrayCopy() );
+
+		$blocks->enqueue_block_assets();
+		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * A site that switched the WooCommerce scripts off does not get the
+	 * bundle from a rendered block either.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_a_rendered_block_respects_the_switched_off_scripts(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_option_value' )->andReturnUsing(
+			static fn( $value, string $group, string $key ) => ( 'woocommerce_dequeue_script' === $key ) ? true : $value
+		);
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$blocks->track_rendered_block( '', [ 'blockName' => 'woocommerce/mini-cart' ] );
+
+		$this->assertSame( [], $enqueued->getArrayCopy() );
 	}
 
 	/**

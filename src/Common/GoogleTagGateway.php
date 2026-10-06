@@ -124,15 +124,29 @@ final class GoogleTagGateway {
 	}
 
 	/**
-	 * Whether the gateway is switched on but cannot currently be used.
+	 * Whether the gateway is switched on and could be used, but its checks are not passing.
 	 *
 	 * The state the fallback notice reports: the site owner asked for the
-	 * gateway and is not getting it, which is the one combination they need
-	 * to be told about.
+	 * gateway and is not getting it because it is not working on this site.
+	 * A gateway ruled out by a custom sGTM domain is a different answer with
+	 * a different way out, reported by is_blocked_by_configuration().
 	 *
 	 * @return bool
 	 */
 	public function is_falling_back(): bool {
-		return $this->is_enabled() && ! $this->is_active();
+		return $this->is_enabled() && $this->is_available() && ! $this->is_active();
+	}
+
+	/**
+	 * Whether the gateway is switched on, but a custom sGTM domain rules it out.
+	 *
+	 * Nothing is failing here: the two settings cannot be used together, and
+	 * the container loads from the custom domain. The site owner has to choose
+	 * one of them.
+	 *
+	 * @return bool
+	 */
+	public function is_blocked_by_configuration(): bool {
+		return $this->is_enabled() && ! $this->is_available();
 	}
 }

@@ -402,11 +402,21 @@ final class Frontend {
 			$datalayer_data = [];
 		}
 
+		// Contact details on a purchase wait in the browser for advertising
+		// consent, for the same reason deferral happens there: the page is
+		// built before the visitor's answer is known and may be cached.
+		list( $datalayer_data, $held ) = ConsentGatedData::split( $datalayer_data );
+		$gate                          = empty( $held ) ? '' : $this->get_consent_gate_script();
+
 		// Route through the client push helper so deferral happens in the
 		// browser. Server-side suppression would freeze the decision into
 		// the cached HTML and drop the event for every visitor.
 		// Passing the payload inline avoids a top-level `const`, which would create a global lexical binding that throws a SyntaxError if an optimizer duplicates or concatenates this inline block.
-		$script = 'window.gtmkit.events.push( ' . wp_json_encode( $datalayer_data ) . ', ' . wp_json_encode( $this->datalayer_name ) . ' );' . "\n";
+		if ( '' !== $gate ) {
+			$script = $gate . "\n" . 'window.gtmkit.events.pushWhenConsented( ' . wp_json_encode( $datalayer_data ) . ', ' . wp_json_encode( $this->datalayer_name ) . ', ' . wp_json_encode( $held ) . ', ' . wp_json_encode( [ 'unknownConsent' => self::get_unknown_consent() ] ) . ' );' . "\n";
+		} else {
+			$script = 'window.gtmkit.events.push( ' . wp_json_encode( $datalayer_data ) . ', ' . wp_json_encode( $this->datalayer_name ) . ' );' . "\n";
+		}
 
 		// Ask the script registry whether `gtmkit-container` was actually registered earlier in this request rather than re-evaluating the gate predicate, which can disagree with the earlier evaluation if a `gtmkit_container_active` filter callback was added between `register()` and `wp_enqueue_scripts`.
 		$dependency = wp_script_is( 'gtmkit-container', 'registered' ) ? [ 'gtmkit-container' ] : [ 'gtmkit' ];
@@ -414,6 +424,56 @@ final class Frontend {
 		wp_register_script( 'gtmkit-datalayer', '', $dependency, GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit-datalayer' );
 		wp_add_inline_script( 'gtmkit-datalayer', apply_filters( 'gtmkit_datalayer_script', $script ), 'before' );
+	}
+
+	/**
+	 * How the purchase's contact details are treated when consent is unknown.
+	 *
+	 * Consent is unknown when the page holds no Consent Mode state for
+	 * advertising storage or advertising user data at all, which is the case
+	 * on a site that does not use Consent Mode. Where a consent state exists,
+	 * this setting has no effect: the details follow the visitor's answer.
+	 *
+	 * @return string `allow` to send the details, or `deny` to withhold them.
+	 */
+	public static function get_unknown_consent(): string {
+
+		/**
+		 * How the purchase's contact details are treated when consent is unknown.
+		 *
+		 * Return `deny` to withhold the details on a site that sets no Consent
+		 * Mode state for advertising storage or advertising user data. This is
+		 * how a consent integration makes unknown consent withhold rather than
+		 * send. The value applies site-wide and is the same for every visitor.
+		 *
+		 * @param string $unknown_consent `allow` (default) or `deny`.
+		 */
+		$unknown_consent = apply_filters( 'gtmkit_consent_unknown', 'allow' );
+
+		return ( 'deny' === $unknown_consent ) ? 'deny' : 'allow';
+	}
+
+	/**
+	 * The script that holds an event until advertising consent is known.
+	 *
+	 * Printed inline rather than enqueued as a file, so script-delaying
+	 * optimizers that leave GTM Kit's inline scripts alone cannot hold it back
+	 * while the call that needs it runs. When the built file is missing the
+	 * details are simply not sent.
+	 *
+	 * @return string The script, or an empty string when it is unavailable.
+	 */
+	private function get_consent_gate_script(): string {
+		$file = GTMKIT_PATH . 'assets/frontend/consent-gated-push.js';
+
+		if ( ! is_readable( $file ) ) {
+			return '';
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reading a script shipped with the plugin from the local disk, not a remote URL.
+		$script = file_get_contents( $file );
+
+		return is_string( $script ) ? trim( $script ) : '';
 	}
 
 		/**

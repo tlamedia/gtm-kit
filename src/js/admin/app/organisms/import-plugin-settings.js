@@ -208,6 +208,19 @@ const ImportPluginSettings = () => {
 					</Notice>
 				) }
 
+				{ source.sgtm_domain_skipped && (
+					<Notice status="info" isDismissible={ false }>
+						{ sprintf(
+							/* translators: %s: name of the plugin the settings are imported from. */
+							__(
+								'The server-side tagging domain was not imported, because %s loads your container from a custom path that GTM Kit cannot reproduce. Set up server-side tagging in GTM Kit by hand after importing.',
+								'gtm-kit'
+							),
+							sourceName
+						) }
+					</Notice>
+				) }
+
 				<div className="gtmkit-flex gtmkit-gap-4 gtmkit-mt-6">
 					<Button
 						variant="primary"
