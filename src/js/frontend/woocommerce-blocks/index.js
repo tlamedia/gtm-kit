@@ -12,6 +12,7 @@
 import { select, subscribe } from '@wordpress/data';
 
 import { CHECKOUT_STORE } from './constants';
+import { installCartSnapshot } from './cart-snapshot';
 import { createCartSubscriber } from './stores/cart-subscriber';
 import { createCheckoutSubscriber } from './stores/checkout-subscriber';
 import { createMiniCartSubscriber } from './blocks/mini-cart';
@@ -45,11 +46,15 @@ export const boot = () => {
 	try {
 		const deps = { select, subscribe };
 
+		// Expose the shared "last reported cart" so other scripts that
+		// report Store API cart changes diff against the same baseline.
+		const snapshot = installCartSnapshot();
+
 		// The cart subscriber uses a global subscription and guards on the
 		// store internally, so it can mount before the Cart/Checkout block
 		// registers wc/store/cart (which it does lazily). Mounting it
 		// unconditionally is harmless: it no-ops until the store appears.
-		createCartSubscriber( deps );
+		createCartSubscriber( { ...deps, snapshot } );
 
 		// The Mini Cart block (WC 10.x) is an Interactivity API block and
 		// does not register wc/store/cart, so mount on DOM presence and read

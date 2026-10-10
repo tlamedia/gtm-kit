@@ -1,5 +1,12 @@
 *** GTM Kit ***
 
+2026-10-13 - version 2.22.0
+* Add: Consent set by a consent platform that runs inside Google Tag Manager can now reach GTM Kit's purchase consent check through GTM Kit's consent bridge template, which you can add to your container from the Template Assistant. The template reports the visitor's consent state to GTM Kit through Google Tag Manager's documented template interfaces.
+* Add: System data you share with GTM Kit support now includes the installed versions of GTM Kit Premium and the GTM Kit Woo Add-On, so support can see which build a site runs. The anonymised site data is unchanged.
+* Fix: Product variations loaded over admin-ajax, which some themes use instead of the WooCommerce variation form, now carry the tax-resolved price GTM Kit adds to every variation, so the variation events those themes send report the same price as the rest of the data layer.
+* Dev: Add-ons can now add data stored on a cart line or an order line to the items of the cart, checkout and purchase events through two new filters that receive the WooCommerce line next to the item.
+* Dev: The cart tracking for WooCommerce blocks now keeps the last reported cart in one shared place (window.gtmkit.wc.cartSnapshot), so a cart change another script has already recorded there is not reported again by the block tracking.
+
 2026-10-06 - version 2.21.0
 * Add: AI assistants connected to your site through the WordPress Abilities API can now read how GTM Kit is set up, which consent defaults apply, and whether tracking is healthy. Only administrators can use them, nothing can be changed through them, and they send nothing off your site.
 * Add: If you use the loader Stape issues but GTM Kit has none stored for your site, the GTM Kit dashboard now tells you that your pages use the standard loader and how to get Stape's loader back with Refresh.
