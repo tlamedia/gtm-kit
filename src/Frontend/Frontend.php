@@ -385,6 +385,42 @@ final class Frontend {
 			}
 		};
 		<?php
+		// The consent bridge receiver. GTM Kit's consent bridge template, a
+		// Google Tag Manager template, reports Google's consent state into it
+		// through the documented template APIs, so consent a consent platform
+		// sets inside the container becomes visible to GTM Kit's scripts. It
+		// only records what it is told: it never calls gtag, never changes
+		// window.gtmkit.consent.state and never dispatches
+		// gtmkit:consent:updated, which means GTM Kit's own state changed. It
+		// is emitted whether or not GTM Kit emits Consent Mode, and is static,
+		// so a cached page is right for every visitor. A report of the initial
+		// state never replaces a change already reported for the same type.
+		// State is recorded at once, but gtmkit:consent:bridged is dispatched
+		// on a fresh task: listeners may push to the data layer, and a push
+		// made while Google Tag Manager is running a tag is stored wrapped in
+		// the data layer array.
+		?>
+		window.gtmkit.consentBridge = window.gtmkit.consentBridge || {
+			state: {},
+			basis: {},
+			report: function (type, granted, basis) {
+				var bridge = window.gtmkit.consentBridge;
+				var types = ['ad_storage', 'analytics_storage', 'ad_user_data', 'ad_personalization', 'functionality_storage', 'personalization_storage', 'security_storage'];
+				if (types.indexOf(type) === -1 || typeof granted !== 'boolean' || (basis !== 'initial' && basis !== 'change')) {
+					return;
+				}
+				if (basis === 'initial' && bridge.basis[type] === 'change') {
+					return;
+				}
+				var value = granted ? "granted" : "denied";
+				bridge.state[type] = value;
+				bridge.basis[type] = basis;
+				window.setTimeout(function () {
+					window.dispatchEvent(new CustomEvent('gtmkit:consent:bridged', { detail: { type: type, value: value, basis: basis } }));
+				}, 0);
+			}
+		};
+		<?php
 		$script = ob_get_clean();
 
 		wp_register_script( 'gtmkit', '', [], GTMKIT_VERSION, [ 'in_footer' => false ] );

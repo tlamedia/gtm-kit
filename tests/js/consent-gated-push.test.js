@@ -14,6 +14,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import { loadReceiver } from './consent-bridge-receiver';
 
 const SOURCE = fs.readFileSync(
 	path.resolve( __dirname, '../../src/js/consent-gated-push.js' ),
@@ -670,6 +671,315 @@ describe( 'the hold other scripts can read', () => {
 	} );
 } );
 
+describe.each( [ 'dataLayer', 'shopLayer' ] )(
+	'consent reported through the bridge, event layer %s',
+	( layerName ) => {
+		/**
+		 * The purchase events in the layer the event goes to.
+		 *
+		 * @return {Array<Object>} The purchase events.
+		 */
+		const sent = () =>
+			( window[ layerName ] || [] ).filter(
+				( entry ) => entry && entry.event === 'purchase'
+			);
+
+		/**
+		 * Report both required categories to the bridge.
+		 *
+		 * @param {boolean} granted Whether they are granted.
+		 * @param {string}  basis   `initial` or `change`.
+		 */
+		const reportBoth = ( granted, basis ) => {
+			window.gtmkit.consentBridge.report( 'ad_storage', granted, basis );
+			window.gtmkit.consentBridge.report( 'ad_user_data', granted, basis );
+		};
+
+		beforeEach( () => {
+			vi.useFakeTimers();
+			delete window.gtmkit;
+			delete window.google_tag_data;
+			delete window.shopLayer;
+			window.dataLayer = [];
+			load();
+			loadReceiver();
+		} );
+
+		afterEach( () => {
+			// Release any event still waiting, so its listeners do not reach
+			// the next test.
+			window.dispatchEvent( new Event( 'pagehide' ) );
+			vi.useRealTimers();
+		} );
+
+		it( 'pushes with the details at once on an answer granting both', () => {
+			reportBoth( true, 'change' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+			expect( sent()[ 0 ].ecommerce.customer.billing_email ).toBe(
+				'buyer@example.test'
+			);
+			expect( window.gtmkit.events.consentHold ).toBeUndefined();
+		} );
+
+		it.each( [ 'ad_storage', 'ad_user_data' ] )(
+			'pushes without the details at once on an answer denying %s',
+			( denied ) => {
+				reportBoth( true, 'change' );
+				window.gtmkit.consentBridge.report( denied, false, 'change' );
+
+				window.gtmkit.events.pushWhenConsented(
+					purchase(),
+					layerName,
+					held
+				);
+
+				expect( sent() ).toHaveLength( 1 );
+				expect( sent()[ 0 ].user_data ).toBeUndefined();
+				expect( sent()[ 0 ].ecommerce.customer ).toEqual( {
+					id: 1,
+					order_count: 2,
+					total_spent: 50,
+				} );
+			}
+		);
+
+		it( 'waits on a denying initial state and adds the details when the answer grants', () => {
+			reportBoth( false, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			// The report alone releases the event, before the next check.
+			reportBoth( true, 'change' );
+			vi.advanceTimersByTime( 0 );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+		} );
+
+		it( 'pushes without the details at the end of the wait when a denying initial state is never answered', () => {
+			reportBoth( false, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 100 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'withholds the details when a grant is revoked before the push', () => {
+			reportBoth( true, 'change' );
+			window.gtmkit.consentBridge.report( 'ad_storage', false, 'change' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'waits on a granting initial state when Google Tag Manager holds no consent state, then adds the details at the end of the wait', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+			expect( window.gtmkit.events.consentHold.pending ).toBe( true );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 100 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+			expect( sent()[ 0 ].ecommerce.customer.billing_email ).toBe(
+				'buyer@example.test'
+			);
+		} );
+
+		it( 'adds the details when the page is left before the end of the wait on a granting initial state alone', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 500 );
+			window.dispatchEvent( new Event( 'pagehide' ) );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+		} );
+
+		it( 'withholds the details at the end of the wait on a granting initial state alone when the site withholds them on unknown consent', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held, {
+				unknownConsent: 'deny',
+			} );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 100 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+			expect( sent()[ 0 ].ecommerce.customer.billing_email ).toBeUndefined();
+
+			vi.advanceTimersByTime( 3000 );
+			expect( sent() ).toHaveLength( 1 );
+		} );
+
+		it( 'withholds the details when the page is left on a granting initial state alone and the site withholds them on unknown consent', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held, {
+				unknownConsent: 'deny',
+			} );
+
+			vi.advanceTimersByTime( 500 );
+			window.dispatchEvent( new Event( 'pagehide' ) );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'lets a denying default beat a granting initial state at the end of the wait', () => {
+			consent( 'default', both( 'denied' ) );
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 100 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'pushes with the details at once on a granting initial state that Google Tag Manager confirms', () => {
+			window.google_tag_data = {
+				ics: {
+					entries: {
+						ad_storage: { default: true },
+						ad_user_data: { default: true },
+					},
+				},
+			};
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+			expect( window.gtmkit.events.consentHold ).toBeUndefined();
+		} );
+
+		it( 'waits for the end of the wait when Google Tag Manager holds only defaults it set on its own', () => {
+			window.google_tag_data = {
+				ics: {
+					entries: {
+						ad_storage: { default: true, implicit: true },
+						ad_user_data: { default: true, implicit: true },
+					},
+				},
+			};
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 2900 );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 100 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+		} );
+
+		it( 'pushes without the details at once when a late default denies after a granting initial state', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			reportBoth( false, 'change' );
+			vi.advanceTimersByTime( 0 );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+			expect( sent()[ 0 ].ecommerce.customer ).toEqual( {
+				id: 1,
+				order_count: 2,
+				total_spent: 50,
+			} );
+		} );
+
+		it( 'pushes with the details at once when the answer grants after a granting initial state', () => {
+			reportBoth( true, 'initial' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			reportBoth( true, 'change' );
+			vi.advanceTimersByTime( 0 );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+		} );
+
+		it( 'lets a denial from the bridge beat a grant in the data layer', () => {
+			consent( 'update', both( 'granted' ) );
+			window.gtmkit.consentBridge.report( 'ad_user_data', false, 'change' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'does not take a report for one category as consent for both', () => {
+			window.gtmkit.consentBridge.report( 'ad_storage', true, 'change' );
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 0 );
+
+			vi.advanceTimersByTime( 3000 );
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+
+		it( 'treats a bridge with unexpected contents as no consent state', () => {
+			window.gtmkit.consentBridge = { state: 'unexpected', basis: null };
+
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			vi.advanceTimersByTime( 3000 );
+
+			expect( sent()[ 0 ].user_data ).toEqual( held.user_data );
+		} );
+
+		it( 'stops listening to the bridge once the event is pushed', () => {
+			reportBoth( false, 'change' );
+			window.gtmkit.events.pushWhenConsented( purchase(), layerName, held );
+			expect( sent() ).toHaveLength( 1 );
+
+			reportBoth( true, 'change' );
+			vi.advanceTimersByTime( 5000 );
+
+			expect( sent() ).toHaveLength( 1 );
+			expect( sent()[ 0 ].user_data ).toBeUndefined();
+		} );
+	}
+);
+
 describe( 'the built script printed on the page', () => {
 	const BUILT = fs.readFileSync(
 		path.resolve(
@@ -747,5 +1057,24 @@ describe( 'the built script printed on the page', () => {
 
 		vi.advanceTimersByTime( 3000 );
 		expect( window.gtmkit.events.consentHold.pending ).toBe( false );
+	} );
+
+	it( 'reads consent reported through the bridge', () => {
+		loadReceiver();
+		window.gtmkit.consentBridge.report( 'ad_storage', false, 'initial' );
+		window.gtmkit.consentBridge.report( 'ad_user_data', false, 'initial' );
+
+		window.gtmkit.events.pushWhenConsented( purchase(), 'shopLayer', held );
+		expect( window.shopLayer.filter( ( e ) => e && e.event ) ).toHaveLength(
+			0
+		);
+
+		window.gtmkit.consentBridge.report( 'ad_storage', true, 'change' );
+		window.gtmkit.consentBridge.report( 'ad_user_data', true, 'change' );
+		vi.advanceTimersByTime( 0 );
+
+		const sent = window.shopLayer.filter( ( e ) => e && e.event );
+		expect( sent ).toHaveLength( 1 );
+		expect( sent[ 0 ].user_data ).toEqual( held.user_data );
 	} );
 } );

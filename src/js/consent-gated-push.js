@@ -14,9 +14,23 @@
  * - the Consent Mode commands in the data layer the event goes to, and in
  *   `dataLayer` when that is a different layer, which is where `gtag()`
  *   commands land when a consent platform defined `gtag` first;
- * - the consent state Google Tag Manager holds once it has loaded, which is
- *   the only place consent set through a GTM template is visible. This is not
- *   a published interface, so it is read defensively and anything unexpected
+ * - GTM Kit's consent bridge, `window.gtmkit.consentBridge`, which GTM Kit's
+ *   consent bridge template reports Google's consent state into through the
+ *   documented template APIs. It is the documented way consent set through a
+ *   GTM template reaches the page: a value reported as a change is the
+ *   visitor's answer, and one reported as initial is the default Google Tag
+ *   Manager resolved for this visitor, region included. A grant reported as
+ *   initial before any consent state exists cannot be told apart from a site
+ *   with no consent platform at all, because the template reads "no state"
+ *   as granted, so such a grant only shortens the wait when Google Tag
+ *   Manager's own state confirms the site set consent for that category;
+ *   otherwise it counts as no consent state, and at the end of the wait it
+ *   counts as a grant only where the site treats unknown consent as allowed
+ *   and no denying default that applies to every region opposes it;
+ * - the consent state Google Tag Manager holds once it has loaded, the
+ *   fallback for a container without the bridge template, where it is the
+ *   only place consent set through a GTM template is visible. This is not a
+ *   published interface, so it is read defensively and anything unexpected
  *   counts as no consent state;
  * - `window.gtmkit.consent`: answers announced with the
  *   `gtmkit:consent:updated` event, and a denial in its state. A grant there
@@ -206,6 +220,101 @@
 	}
 
 	/**
+	 * Whether Google Tag Manager holds a consent state the site set for a
+	 * category: an answer, or a default it does not mark as its own.
+	 *
+	 * Read as defensively as `readTagManager()`: this is not a published
+	 * interface, and anything unexpected counts as no state.
+	 *
+	 * @param {string} category The category.
+	 * @return {boolean} Whether a consent state the site set exists.
+	 */
+	function tagManagerHasState( category ) {
+		var entry;
+
+		try {
+			entry =
+				window.google_tag_data &&
+				window.google_tag_data.ics &&
+				window.google_tag_data.ics.entries &&
+				window.google_tag_data.ics.entries[ category ];
+		} catch ( e ) {
+			return false;
+		}
+
+		if ( ! entry || typeof entry !== 'object' ) {
+			return false;
+		}
+
+		return (
+			typeof entry.update === 'boolean' ||
+			( typeof entry.default === 'boolean' && entry.implicit !== true )
+		);
+	}
+
+	/**
+	 * Collect the consent state reported through GTM Kit's consent bridge.
+	 *
+	 * The bridge holds, per category, `granted` or `denied` and whether it was
+	 * reported as the visitor's answer (`change`) or as the default Google Tag
+	 * Manager resolved for this visitor (`initial`), which already accounts
+	 * for the region. Anything not shaped like that counts as no consent
+	 * state.
+	 *
+	 * A grant reported as initial is a resolved default only when Google Tag
+	 * Manager holds a consent state the site set for that category. The
+	 * template reads "no state" as granted, so without that confirmation the
+	 * grant may be nothing more than a consent platform that has not set its
+	 * default yet, or a site with no consent state at all. It then goes to the
+	 * pending grants, which are not a consent state of their own and count
+	 * only once the wait is over.
+	 *
+	 * @param {Object} found Defaults, regional flags and updates found so far.
+	 */
+	function readBridge( found ) {
+		var bridge;
+		var j;
+
+		try {
+			bridge = window.gtmkit && window.gtmkit.consentBridge;
+		} catch ( e ) {
+			return;
+		}
+
+		if (
+			! bridge ||
+			typeof bridge !== 'object' ||
+			! bridge.state ||
+			typeof bridge.state !== 'object' ||
+			! bridge.basis ||
+			typeof bridge.basis !== 'object'
+		) {
+			return;
+		}
+
+		for ( j = 0; j < REQUIRED.length; j++ ) {
+			var category = REQUIRED[ j ];
+			var value = bridge.state[ category ];
+			var basis = bridge.basis[ category ];
+
+			if ( value !== 'granted' && value !== 'denied' ) {
+				continue;
+			}
+			if ( basis === 'change' ) {
+				found.signal = true;
+				note( found.updates, category, value );
+			} else if ( basis === 'initial' ) {
+				if ( value === 'granted' && ! tagManagerHasState( category ) ) {
+					note( found.pendingGrants, category, value );
+				} else {
+					found.signal = true;
+					note( found.resolved, category, value );
+				}
+			}
+		}
+	}
+
+	/**
 	 * Collect a denial in GTM Kit's own consent state.
 	 *
 	 * Only a denial counts: the state starts from GTM Kit's defaults without
@@ -233,23 +342,32 @@
 	/**
 	 * The consent the page holds for the required categories.
 	 *
-	 * For each category an answer decides; without one, GTM's own default;
-	 * without that, a default in a data layer, unless one is scoped to regions,
-	 * which cannot be read here because the visitor's region is not known in
-	 * the page. A denial in any place beats a grant.
+	 * For each category an answer decides; without one, the default Google Tag
+	 * Manager resolved for the visitor, as the bridge reports it or GTM holds
+	 * it; without that, a default in a data layer, unless one is scoped to
+	 * regions, which cannot be read here because the visitor's region is not
+	 * known in the page. A denial in any place beats a grant.
 	 *
-	 * @param {string} layerName The data layer the event goes to.
-	 * @param {Object} announced Answers announced with the GTM Kit consent event.
+	 * A grant the bridge reported as initial while Google Tag Manager held no
+	 * consent state is left out, unless `includePending` asks for it, which
+	 * only the decision at the end of the wait does. Such a grant is never a
+	 * consent state on its own, and a denying default not scoped to regions
+	 * beats it.
+	 *
+	 * @param {string}  layerName      The data layer the event goes to.
+	 * @param {Object}  announced      Answers announced with the GTM Kit consent event.
+	 * @param {boolean} includePending Whether pending bridge grants fill in categories nothing resolved.
 	 * @return {{granted: boolean, denied: boolean, signal: boolean}} Whether
 	 *     both are granted, whether the visitor has answered with at least one
 	 *     denied, and whether any consent state exists for either category.
 	 */
-	function readConsent( layerName, announced ) {
+	function readConsent( layerName, announced, includePending ) {
 		var found = {
 			defaults: {},
 			resolved: {},
 			regional: {},
 			updates: {},
+			pendingGrants: {},
 			signal: false,
 		};
 		var j;
@@ -258,6 +376,7 @@
 		if ( layerName !== 'dataLayer' ) {
 			readLayer( window.dataLayer, found );
 		}
+		readBridge( found );
 		readTagManager( found );
 		readGtmKitState( found );
 
@@ -282,6 +401,17 @@
 			}
 			if ( ! answered && ! values && ! found.regional[ name ] ) {
 				values = found.defaults[ name ];
+			}
+			// A pending grant fills in only where nothing resolved the
+			// category, and a denying default not scoped to regions still
+			// beats it.
+			if (
+				! answered &&
+				includePending &&
+				! found.resolved[ name ] &&
+				found.pendingGrants[ name ]
+			) {
+				values = ( values || [] ).concat( found.pendingGrants[ name ] );
 			}
 
 			// Assigned on every pass: `var` is not reset per iteration, so a
@@ -365,6 +495,7 @@
 			window.clearInterval( timer );
 			window.removeEventListener( 'pagehide', giveUp );
 			window.removeEventListener( 'gtmkit:consent:updated', onAnnounced );
+			window.removeEventListener( 'gtmkit:consent:bridged', check );
 			window.document.removeEventListener(
 				'visibilitychange',
 				onVisibilityChange
@@ -395,9 +526,13 @@
 			}
 		}
 
-		// When the wait ends without an answer, the details go only where no
-		// consent state exists and the site treats unknown consent as allowed.
-		// An answer that arrived since the last check still counts.
+		// When the wait ends without an answer, the details go where no
+		// consent state exists and the site treats unknown consent as
+		// allowed, and there a grant the bridge reported before any consent
+		// state existed also counts where it stands unopposed. Such a grant
+		// cannot be told apart from no consent state, so a site that withholds
+		// the details on unknown consent ignores it. An answer that arrived
+		// since the last check still counts.
 		function giveUp() {
 			check();
 
@@ -405,9 +540,9 @@
 				return;
 			}
 
-			var consent = readConsent( layerName, announced );
+			var consent = readConsent( layerName, announced, unknownAllows );
 
-			finish( ! consent.signal && unknownAllows );
+			finish( consent.granted || ( ! consent.signal && unknownAllows ) );
 		}
 
 		// The event can carry the answer itself, from a consent platform that
@@ -443,6 +578,7 @@
 
 		window.addEventListener( 'pagehide', giveUp );
 		window.addEventListener( 'gtmkit:consent:updated', onAnnounced );
+		window.addEventListener( 'gtmkit:consent:bridged', check );
 		window.document.addEventListener(
 			'visibilitychange',
 			onVisibilityChange

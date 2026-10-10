@@ -10,11 +10,22 @@
  *
  * The first resolved snapshot establishes a baseline and emits nothing,
  * so items already in the cart on page load are not reported as adds.
+ *
+ * The "last reported cart" lives in the shared snapshot (see
+ * cart-snapshot.js) rather than in this module, so a change another path
+ * has already reported against that snapshot shows no delta here.
+ *
+ * The store can lag behind that snapshot: a theme that edits the cart
+ * through the Store API directly hands the response to the other path and
+ * leaves the store as it was. The store's cart is therefore compared with
+ * the snapshot only when the store's own cart has changed since it was
+ * last read, so a lagging store never reports the difference as a change.
  */
 
 import { CART_STORE } from '../constants';
 import { diffCartItems } from '../diff/cart-items-diff';
 import { claimClickAdd } from '../click-add-registry';
+import { installCartSnapshot } from '../cart-snapshot';
 import {
 	pushEvent,
 	getCurrency,
@@ -65,13 +76,18 @@ const emit = ( entries, event ) => {
 /**
  * Create and mount the cart subscriber.
  *
- * @param {Object}   deps           Injected wp.data accessors (for testability).
- * @param {Function} deps.select    `wp.data.select`.
- * @param {Function} deps.subscribe `wp.data.subscribe`.
+ * @param {Object}   deps            Injected wp.data accessors (for testability).
+ * @param {Function} deps.select     `wp.data.select`.
+ * @param {Function} deps.subscribe  `wp.data.subscribe`.
+ * @param {Object}   [deps.snapshot] Shared snapshot handle (defaults to the installed one).
  * @return {Function|undefined} The unsubscribe handle, or undefined when the store is absent.
  */
-export const createCartSubscriber = ( { select, subscribe } ) => {
-	let previousItems = null;
+export const createCartSubscriber = ( {
+	select,
+	subscribe,
+	snapshot = installCartSnapshot(),
+} ) => {
+	let lastStoreItems = null;
 
 	const readItems = () => {
 		const store = select( CART_STORE );
@@ -103,8 +119,17 @@ export const createCartSubscriber = ( { select, subscribe } ) => {
 				return;
 			}
 
+			if ( lastStoreItems !== null ) {
+				const own = diffCartItems( lastStoreItems, nextItems );
+				if ( ! own.added.length && ! own.removed.length ) {
+					return;
+				}
+			}
+			lastStoreItems = nextItems;
+
+			const previousItems = snapshot.get();
 			if ( previousItems === null ) {
-				previousItems = nextItems;
+				snapshot.set( nextItems );
 				return;
 			}
 
@@ -112,7 +137,7 @@ export const createCartSubscriber = ( { select, subscribe } ) => {
 				previousItems,
 				nextItems
 			);
-			previousItems = nextItems;
+			snapshot.set( nextItems );
 
 			emit( added, 'add_to_cart' );
 			emit( removed, 'remove_from_cart' );
