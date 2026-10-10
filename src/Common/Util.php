@@ -118,6 +118,9 @@ final class Util {
 		if ( $anonymize ) {
 			$data = $this->add_shared_data( $data, $wp_version );
 		} else {
+			$data = $this->add_active_plugin_and_version( 'gtm-kit-premium/gtm-kit-premium.php', 'gtmkit_premium_version', $data, false );
+			$data = $this->add_active_plugin_and_version( 'gtm-kit-woo/gtm-kit-woo.php', 'gtmkit_woo_version', $data, false );
+
 			$purchase_event_recorded = false;
 
 			// Check if WooCommerce logs contain GTM Kit purchase events.

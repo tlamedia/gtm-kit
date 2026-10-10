@@ -55,6 +55,13 @@ final class SupportSyncTest extends TestCase {
 	private bool $ext_object_cache = false;
 
 	/**
+	 * The active plugins and their header versions, keyed by plugin file.
+	 *
+	 * @var array<string, string>
+	 */
+	private array $active_plugins = [ 'gtm-kit/gtm-kit.php' => '2.16.4' ];
+
+	/**
 	 * System under test.
 	 *
 	 * @var SupportSync
@@ -223,12 +230,10 @@ final class SupportSyncTest extends TestCase {
 				],
 			]
 		);
-		Functions\when( 'is_plugin_active' )->alias(
-			static function ( $plugin ) {
-				return $plugin === 'gtm-kit/gtm-kit.php';
-			}
+		Functions\when( 'is_plugin_active' )->alias( fn( $plugin ) => isset( $this->active_plugins[ $plugin ] ) );
+		Functions\when( 'get_plugin_data' )->alias(
+			fn( $file ) => [ 'Version' => $this->active_plugins[ substr( $file, strlen( WP_PLUGIN_DIR ) + 1 ) ] ?? '' ]
 		);
-		Functions\when( 'get_plugin_data' )->justReturn( [ 'Version' => '2.16.4' ] );
 		Functions\when( 'get_locale' )->justReturn( 'en_US' );
 		Functions\when( 'is_multisite' )->justReturn( false );
 		Functions\when( 'site_url' )->justReturn( 'https://example.test' );
@@ -719,6 +724,53 @@ final class SupportSyncTest extends TestCase {
 		$this->ext_object_cache = true;
 
 		$this->assertTrue( $read_object_cache()['persistent'] );
+	}
+
+	/**
+	 * The support payload names the installed add-on versions in full, and
+	 * leaves out an add-on that is not active.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\Util::get_site_data
+	 */
+	public function test_support_payload_reports_active_add_on_versions(): void {
+		$this->stub_site_data_functions();
+
+		$read_system_data = function (): array {
+			$body = $this->support_sync->build_request_body( SupportSync::SOURCE_MANUAL );
+
+			return json_decode( $body['system_data'], true );
+		};
+
+		$system_data = $read_system_data();
+		$this->assertArrayNotHasKey( 'gtmkit_premium_version', $system_data );
+		$this->assertArrayNotHasKey( 'gtmkit_woo_version', $system_data );
+
+		$this->active_plugins['gtm-kit-premium/gtm-kit-premium.php'] = '1.4.2-beta.1';
+		$this->active_plugins['gtm-kit-woo/gtm-kit-woo.php']         = '2.2.0';
+
+		$system_data = $read_system_data();
+		$this->assertSame( '1.4.2-beta.1', $system_data['gtmkit_premium_version'], 'The version is not shortened.' );
+		$this->assertSame( '2.2.0', $system_data['gtmkit_woo_version'] );
+	}
+
+	/**
+	 * The anonymised site data never carries the add-on versions, even
+	 * when both add-ons are active.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Common\Util::get_site_data
+	 */
+	public function test_anonymised_site_data_omits_add_on_versions(): void {
+		$this->stub_site_data_functions();
+		Functions\stubTranslationFunctions();
+
+		$this->active_plugins['gtm-kit-premium/gtm-kit-premium.php'] = '1.4.2';
+		$this->active_plugins['gtm-kit-woo/gtm-kit-woo.php']         = '2.2.0';
+
+		$site_data = $this->util->get_site_data( $this->options->get_all_raw() );
+
+		$this->assertArrayNotHasKey( 'gtmkit_premium_version', $site_data );
+		$this->assertArrayNotHasKey( 'gtmkit_woo_version', $site_data );
+		$this->assertSame( '2.16', $site_data['gtmkit_version'] );
 	}
 
 	/**
