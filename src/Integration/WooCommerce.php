@@ -70,6 +70,28 @@ final class WooCommerce extends AbstractEcommerce {
 	}
 
 	/**
+	 * Register the filters an AJAX request needs.
+	 *
+	 * Variation data returned to the browser over AJAX carries the
+	 * tax-resolved price the frontend events report. Nothing is enqueued and
+	 * no data layer hook is attached: this runs on admin-ajax requests, which
+	 * the frontend bootstrap skips.
+	 *
+	 * @param Options $options An instance of Options.
+	 * @param Util    $util An instance of Util.
+	 */
+	public static function register_ajax( Options $options, Util $util ): void {
+
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $options, $util );
+		}
+
+		if ( ! has_filter( 'woocommerce_available_variation', [ self::$instance, 'add_variation_tax_resolved_price' ] ) ) {
+			add_filter( 'woocommerce_available_variation', [ self::$instance, 'add_variation_tax_resolved_price' ], 10, 3 );
+		}
+	}
+
+	/**
 	 * Register frontend
 	 *
 	 * @param Options $options An instance of Options.
@@ -736,8 +758,23 @@ final class WooCommerce extends AbstractEcommerce {
 				$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
 			}
 
-			$product      = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-			$cart_items[] = $this->get_item_data( $product, $additional_item_attributes, $event_context );
+			$product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+			$item    = $this->get_item_data( $product, $additional_item_attributes, $event_context );
+
+			/**
+			 * The data layer item built from a cart line.
+			 *
+			 * Runs after `gtmkit_datalayer_item_data`, which only sees the
+			 * product. This filter adds the cart line itself, so data stored
+			 * on the line rather than on the product can be carried into the
+			 * item of every event built from the cart.
+			 *
+			 * @param array<string, mixed> $item          The item as built by `get_item_data()`.
+			 * @param array<string, mixed> $cart_item     The WooCommerce cart line.
+			 * @param string               $cart_item_key The cart line key.
+			 * @param string               $event_context The event the items are built for, e.g. `view_cart` or `begin_checkout`.
+			 */
+			$cart_items[] = apply_filters( 'gtmkit_datalayer_cart_item_data', $item, $cart_item, $cart_item_key, $event_context );
 		}
 
 		return $cart_items;
@@ -1253,11 +1290,25 @@ final class WooCommerce extends AbstractEcommerce {
 						$additional_item_attributes['discount'] = round( (float) $coupon_discount['discount'], 2 );
 					}
 
-					$order_items[] = $this->get_item_data(
+					$order_item = $this->get_item_data(
 						$product,
 						$additional_item_attributes,
 						'purchase'
 					);
+
+					/**
+					 * The data layer item built from an order line.
+					 *
+					 * Runs after `gtmkit_datalayer_item_data`, which only sees the
+					 * product. This filter adds the order line and the order, so
+					 * data stored on the line rather than on the product can be
+					 * carried into the purchase items.
+					 *
+					 * @param array<string, mixed>  $order_item The item as built by `get_item_data()`.
+					 * @param WC_Order_Item_Product $item       The WooCommerce order line.
+					 * @param WC_Order              $order      The order.
+					 */
+					$order_items[] = apply_filters( 'gtmkit_datalayer_order_item_data', $order_item, $item, $order );
 				}
 			}
 		}

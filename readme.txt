@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.21.0
+Stable tag: 2.22.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,23 @@ Stape terms of service: https://stape.io/terms-conditions
 Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
+
+= 2.22.0 =
+
+Release date: 2026-10-13
+
+Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-22/).
+
+#### New:
+* Consent set by a consent platform that runs inside Google Tag Manager can now reach GTM Kit's purchase consent check through GTM Kit's consent bridge template, which you can add to your container from the Template Assistant. The template reports the visitor's consent state to GTM Kit through Google Tag Manager's documented template interfaces.
+* System data you share with GTM Kit support now includes the installed versions of GTM Kit Premium and the GTM Kit Woo Add-On, so support can see which build a site runs. The anonymised site data is unchanged.
+
+#### Bugfixes:
+* Product variations loaded over admin-ajax, which some themes use instead of the WooCommerce variation form, now carry the tax-resolved price GTM Kit adds to every variation, so the variation events those themes send report the same price as the rest of the data layer.
+
+#### Other:
+* Add-ons can now add data stored on a cart line or an order line to the items of the cart, checkout and purchase events through two new filters that receive the WooCommerce line next to the item.
+* The cart tracking for WooCommerce blocks now keeps the last reported cart in one shared place (window.gtmkit.wc.cartSnapshot), so a cart change another script has already recorded there is not reported again by the block tracking.
 
 = 2.21.0 =
 

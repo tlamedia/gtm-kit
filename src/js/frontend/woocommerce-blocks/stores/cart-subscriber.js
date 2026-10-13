@@ -10,11 +10,24 @@
  *
  * The first resolved snapshot establishes a baseline and emits nothing,
  * so items already in the cart on page load are not reported as adds.
+ *
+ * The "last reported cart" lives in the shared snapshot (see
+ * cart-snapshot.js) rather than in this module, so a change another path
+ * has already reported against that snapshot shows no delta here.
+ *
+ * The store can lag behind that snapshot: a theme that edits the cart
+ * through the Store API directly hands the response to the other path and
+ * leaves the store as it was. The store's cart is therefore compared with
+ * the snapshot only when the store's own cart has changed since it was
+ * last read, so a lagging store never reports the difference as a change.
+ * A read that changes no quantity still carries its item data, such as a
+ * new price, into the snapshot.
  */
 
 import { CART_STORE } from '../constants';
 import { diffCartItems } from '../diff/cart-items-diff';
 import { claimClickAdd } from '../click-add-registry';
+import { installCartSnapshot } from '../cart-snapshot';
 import {
 	pushEvent,
 	getCurrency,
@@ -63,15 +76,122 @@ const emit = ( entries, event ) => {
 };
 
 /**
+ * The fields of a cart line's item that differ between two store reads.
+ *
+ * @param {Object} lastItem The item from the previous store read.
+ * @param {Object} nextItem The item from the current store read.
+ * @return {Object<string, *>} Changed fields with their new values; a field
+ *     the store dropped maps to undefined.
+ */
+const changedFields = ( lastItem, nextItem ) => {
+	const fields = {};
+	const names = new Set( [
+		...Object.keys( lastItem ),
+		...Object.keys( nextItem ),
+	] );
+
+	for ( const name of names ) {
+		if (
+			JSON.stringify( lastItem[ name ] ) !==
+			JSON.stringify( nextItem[ name ] )
+		) {
+			fields[ name ] = nextItem[ name ];
+		}
+	}
+
+	return fields;
+};
+
+/**
+ * Carry the item data the store changed since its last read into the shared
+ * snapshot, field by field, keeping everything else the snapshot holds.
+ *
+ * A full removal is reported with the item data the snapshot holds, so a
+ * price change must reach it even when no quantity changed. Only the fields
+ * the store itself changed between two reads are written: another path may
+ * have recorded a newer cart the store has not received yet, with a newer
+ * quantity or price, and a lagging store must not overwrite what it did not
+ * change.
+ *
+ * @param {Object}        snapshot  Shared snapshot handle.
+ * @param {Array<Object>} lastItems Normalized cart items from the previous store read.
+ * @param {Array<Object>} nextItems Normalized cart items from the store.
+ */
+const refreshItemData = ( snapshot, lastItems, nextItems ) => {
+	const previousItems = snapshot.get();
+	if ( previousItems === null ) {
+		return;
+	}
+
+	const lastByKey = {};
+	for ( const entry of lastItems ) {
+		lastByKey[ entry.key ] = entry;
+	}
+
+	const changes = {};
+	for ( const entry of nextItems ) {
+		const last = lastByKey[ entry.key ];
+		if ( ! last ) {
+			continue;
+		}
+
+		const fields = changedFields( last.item, entry.item );
+		const priceChanged = last.unitPrice !== entry.unitPrice;
+		if ( priceChanged || Object.keys( fields ).length > 0 ) {
+			changes[ entry.key ] = {
+				fields,
+				priceChanged,
+				unitPrice: entry.unitPrice,
+			};
+		}
+	}
+
+	if ( ! previousItems.some( ( entry ) => changes[ entry.key ] ) ) {
+		return;
+	}
+
+	snapshot.set(
+		previousItems.map( ( entry ) => {
+			const change = changes[ entry.key ];
+			if ( ! change ) {
+				return entry;
+			}
+
+			const item = { ...entry.item };
+			for ( const [ name, value ] of Object.entries( change.fields ) ) {
+				if ( value === undefined ) {
+					delete item[ name ];
+				} else {
+					item[ name ] = value;
+				}
+			}
+
+			return {
+				...entry,
+				unitPrice: change.priceChanged
+					? change.unitPrice
+					: entry.unitPrice,
+				item,
+			};
+		} )
+	);
+};
+
+/**
  * Create and mount the cart subscriber.
  *
- * @param {Object}   deps           Injected wp.data accessors (for testability).
- * @param {Function} deps.select    `wp.data.select`.
- * @param {Function} deps.subscribe `wp.data.subscribe`.
+ * @param {Object}   deps            Injected wp.data accessors (for testability).
+ * @param {Function} deps.select     `wp.data.select`.
+ * @param {Function} deps.subscribe  `wp.data.subscribe`.
+ * @param {Object}   [deps.snapshot] Shared snapshot handle (defaults to the installed one).
  * @return {Function|undefined} The unsubscribe handle, or undefined when the store is absent.
  */
-export const createCartSubscriber = ( { select, subscribe } ) => {
-	let previousItems = null;
+export const createCartSubscriber = ( {
+	select,
+	subscribe,
+	snapshot = installCartSnapshot(),
+} ) => {
+	let lastStoreItems = null;
 
 	const readItems = () => {
 		const store = select( CART_STORE );
@@ -103,8 +223,19 @@ export const createCartSubscriber = ( { select, subscribe } ) => {
 				return;
 			}
 
+			if ( lastStoreItems !== null ) {
+				const own = diffCartItems( lastStoreItems, nextItems );
+				if ( ! own.added.length && ! own.removed.length ) {
+					refreshItemData( snapshot, lastStoreItems, nextItems );
+					lastStoreItems = nextItems;
+					return;
+				}
+			}
+			lastStoreItems = nextItems;
+
+			const previousItems = snapshot.get();
 			if ( previousItems === null ) {
-				previousItems = nextItems;
+				snapshot.set( nextItems );
 				return;
 			}
 
@@ -112,7 +243,7 @@ export const createCartSubscriber = ( { select, subscribe } ) => {
 				previousItems,
 				nextItems
 			);
-			previousItems = nextItems;
+			snapshot.set( nextItems );
 
 			emit( added, 'add_to_cart' );
 			emit( removed, 'remove_from_cart' );

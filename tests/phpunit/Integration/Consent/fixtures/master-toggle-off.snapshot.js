@@ -25,4 +25,24 @@
 				window.gtmkit.events.deferralSink = fn;
 			}
 		};
+				window.gtmkit.consentBridge = window.gtmkit.consentBridge || {
+			state: {},
+			basis: {},
+			report: function (type, granted, basis) {
+				var bridge = window.gtmkit.consentBridge;
+				var types = ['ad_storage', 'analytics_storage', 'ad_user_data', 'ad_personalization', 'functionality_storage', 'personalization_storage', 'security_storage'];
+				if (types.indexOf(type) === -1 || typeof granted !== 'boolean' || (basis !== 'initial' && basis !== 'change')) {
+					return;
+				}
+				if (basis === 'initial' && bridge.basis[type] === 'change') {
+					return;
+				}
+				var value = granted ? "granted" : "denied";
+				bridge.state[type] = value;
+				bridge.basis[type] = basis;
+				window.setTimeout(function () {
+					window.dispatchEvent(new CustomEvent('gtmkit:consent:bridged', { detail: { type: type, value: value, basis: basis } }));
+				}, 0);
+			}
+		};
 		

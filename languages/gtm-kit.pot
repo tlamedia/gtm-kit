@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.21.0\n"
+"Project-Id-Version: GTM Kit 2.22.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-04T09:20:10+00:00\n"
+"POT-Creation-Date: 2026-10-10T14:49:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gtm-kit\n"
@@ -651,7 +651,7 @@ msgstr ""
 
 #: src/Admin/SiteHealth.php:561
 #: src/Admin/SiteHealth.php:590
-#: src/Common/Util.php:201
+#: src/Common/Util.php:204
 #: assets/admin/193.js:1
 #: assets/admin/707.js:2
 #: src/js/admin/app/organisms/import-settings.js:87
@@ -661,7 +661,7 @@ msgstr ""
 
 #: src/Admin/SiteHealth.php:561
 #: src/Admin/SiteHealth.php:575
-#: src/Common/Util.php:201
+#: src/Common/Util.php:204
 #: assets/admin/193.js:1
 #: assets/admin/707.js:2
 #: src/js/admin/app/organisms/import-settings.js:100
@@ -1365,107 +1365,107 @@ msgstr ""
 msgid "Only authenticated users can access endpoint."
 msgstr ""
 
-#: src/Common/Util.php:185
+#: src/Common/Util.php:188
 msgid "Server type:"
 msgstr ""
 
-#: src/Common/Util.php:190
+#: src/Common/Util.php:193
 msgid "PHP version number:"
 msgstr ""
 
-#: src/Common/Util.php:195
+#: src/Common/Util.php:198
 msgid "WordPress version number:"
 msgstr ""
 
-#: src/Common/Util.php:200
+#: src/Common/Util.php:203
 msgid "WordPress multisite:"
 msgstr ""
 
-#: src/Common/Util.php:205
+#: src/Common/Util.php:208
 msgid "Current theme:"
 msgstr ""
 
-#: src/Common/Util.php:212
+#: src/Common/Util.php:215
 msgid "Current site language:"
 msgstr ""
 
-#: src/Common/Util.php:217
+#: src/Common/Util.php:220
 msgid "Active plugins:"
 msgstr ""
 
-#: src/Common/Util.php:218
+#: src/Common/Util.php:221
 msgid "Plugin name and version of all active plugins"
 msgstr ""
 
-#: src/Common/Util.php:222
+#: src/Common/Util.php:225
 msgid "Anonymized GTM Kit settings:"
 msgstr ""
 
-#: src/Common/Util.php:223
+#: src/Common/Util.php:226
 msgid "Which GTM Kit settings are active"
 msgstr ""
 
 #: src/Integration/EasyDigitalDownloads.php:104
-#: src/Integration/WooCommerce.php:243
+#: src/Integration/WooCommerce.php:265
 msgid "Payment method not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:234
+#: src/Integration/WooCommerce.php:256
 msgid "Handpicked Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:235
+#: src/Integration/WooCommerce.php:257
 msgid "Best Sellers"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:236
-#: src/Integration/WooCommerce.php:1088
-#: src/Integration/WooCommerceBlocks.php:681
+#: src/Integration/WooCommerce.php:258
+#: src/Integration/WooCommerce.php:1125
+#: src/Integration/WooCommerceBlocks.php:765
 msgid "Product Category"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:237
+#: src/Integration/WooCommerce.php:259
 msgid "New Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:238
+#: src/Integration/WooCommerce.php:260
 msgid "Products On Sale"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:239
+#: src/Integration/WooCommerce.php:261
 msgid "Products By Attribute"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:240
-#: src/Integration/WooCommerce.php:1090
-#: src/Integration/WooCommerceBlocks.php:684
+#: src/Integration/WooCommerce.php:262
+#: src/Integration/WooCommerce.php:1127
+#: src/Integration/WooCommerceBlocks.php:768
 msgid "Product Tag"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:241
+#: src/Integration/WooCommerce.php:263
 msgid "Top Rated Products"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:242
+#: src/Integration/WooCommerce.php:264
 msgid "Shipping tier not found"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:943
+#: src/Integration/WooCommerce.php:980
 msgid "Grouped Product"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:977
+#: src/Integration/WooCommerce.php:1014
 msgid "Search Results"
 msgstr ""
 
-#: src/Integration/WooCommerce.php:977
-#: src/Integration/WooCommerce.php:1022
-#: src/Integration/WooCommerce.php:1055
-#: src/Integration/WooCommerceBlocks.php:687
+#: src/Integration/WooCommerce.php:1014
+#: src/Integration/WooCommerce.php:1059
+#: src/Integration/WooCommerce.php:1092
+#: src/Integration/WooCommerceBlocks.php:771
 msgid "General Product List"
 msgstr ""
 
-#: src/Integration/WooCommerceBlocks.php:565
+#: src/Integration/WooCommerceBlocks.php:649
 msgid "GTM Kit data."
 msgstr ""
 

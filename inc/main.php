@@ -255,6 +255,25 @@ function gtmkit_frontend_init(): void {
 }
 
 /**
+ * Attach the WooCommerce filters an AJAX request still needs.
+ *
+ * `woocommerce_available_variation` runs inside AJAX handlers that return
+ * variation data to the browser, and the price GTM Kit adds there is what the
+ * variation `view_item` and `add_to_cart` events report.
+ */
+function gtmkit_ajax_init(): void {
+	$options = OptionsFactory::get_instance();
+
+	if ( $options->get( 'general', 'just_the_container' ) ) {
+		return;
+	}
+
+	if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
+		WooCommerce::register_ajax( $options, new Util( $options, new RestAPIServer() ) );
+	}
+}
+
+/**
  * Load backend.
  */
 function gtmkit_admin_init(): void {
@@ -334,5 +353,13 @@ if ( ! wp_installing() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_admin_init' );
 	} elseif ( ! wp_doing_ajax() ) {
 		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_frontend_init' );
+	}
+
+	// admin-ajax.php runs as an admin request, so the frontend init above never
+	// attaches there, yet themes load product variations over it and read the
+	// tax-resolved price GTM Kit adds to each variation. Attach only that
+	// filter: no enqueues and no data layer on an AJAX request.
+	if ( wp_doing_ajax() ) {
+		add_action( 'plugins_loaded', 'TLA_Media\GTM_Kit\gtmkit_ajax_init' );
 	}
 }
