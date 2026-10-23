@@ -98,8 +98,8 @@ final class BackwardCompatTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( "'security_storage': 'denied'", $inline );
 		// 7 categories rendered twice — once in the gtag default block,
 		// once in the window.gtmkit.consent.state surface.
-		$this->assertSame( 14, substr_count( $inline, "'denied'" ) );
-		$this->assertSame( 0, substr_count( $inline, "'granted'" ) );
+		$this->assertSame( 14, substr_count( $this->extract_consent_default_blocks( $inline ), "'denied'" ) );
+		$this->assertSame( 0, substr_count( $this->extract_consent_default_blocks( $inline ), "'granted'" ) );
 
 		// Negative regression: no leakage of registry/gate internals into the rendered output.
 		$this->assertStringNotContainsString( 'signal_source', $inline );
@@ -200,6 +200,24 @@ final class BackwardCompatTest extends WP_UnitTestCase {
 				$fixture_filename
 			)
 		);
+	}
+
+	/**
+	 * Return only the consent-default literals of the head script: the object
+	 * passed to `gtag('consent', 'default', ...)` and the
+	 * `window.gtmkit.consent.state` object. Counting inside these keeps the
+	 * assertions blind to unrelated `'denied'` / `'granted'` literals elsewhere
+	 * in the script.
+	 *
+	 * @param string $inline The full inline head script.
+	 *
+	 * @return string
+	 */
+	private function extract_consent_default_blocks( string $inline ): string {
+		preg_match_all( "/gtag\\('consent', 'default', (\\{[^}]*\\})/", $inline, $gtag_blocks );
+		preg_match_all( '/window\\.gtmkit\\.consent = \\{\\s*state: (\\{[^}]*\\})/', $inline, $state_blocks );
+
+		return implode( "\n", array_merge( $gtag_blocks[1], $state_blocks[1] ) );
 	}
 
 	/**

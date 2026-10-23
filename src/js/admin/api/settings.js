@@ -155,3 +155,23 @@ export const clearWebhookPreviewToken = () =>
 
 export const sendWebhookPreviewTest = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/webhook/preview-test', 'POST', data, true );
+
+/**
+ * Ask the site's settings API whether this browser can reach it.
+ *
+ * Goes through api-fetch, so it carries the same nonce, root URL and
+ * permission check as a save, but skips the shared error handling: the
+ * caller needs the raw response or failure to tell a block, a timeout and an
+ * error answer apart. Nothing is logged or stored.
+ *
+ * @param {AbortSignal} signal Aborts the request.
+ * @return {Promise<Response>} The unparsed response. A non-2xx response is thrown as is.
+ */
+export const probeHealth = ( signal ) =>
+	apiFetch( {
+		path: 'gtmkit/v1/health',
+		method: 'POST',
+		data: {},
+		parse: false,
+		signal,
+	} );
