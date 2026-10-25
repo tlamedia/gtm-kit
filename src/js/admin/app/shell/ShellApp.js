@@ -24,6 +24,7 @@ import IntegrationsHub from './IntegrationsHub';
 import IntegrationConfig from './IntegrationConfig';
 import LicensePage from './LicensePage';
 import SupportPage from './SupportPage';
+import ReachabilityBanner from './ReachabilityBanner';
 import SectionErrorBoundary from '../../components/SectionErrorBoundary';
 import { SkeletonPage } from '../../components/Skeleton';
 import { ToastContainer } from '../../components/Toast';
@@ -108,6 +109,7 @@ const ShellApp = () => {
 						<TopBar query={ query } onSearch={ setQuery } />
 						<main className="gtmkit-flex-1 gtmkit-px-8 gtmkit-py-8 gtmkit-text-base">
 							<div className="gtmkit-mx-auto gtmkit-max-w-screen-lg min-[1440px]:gtmkit-max-w-[1440px]">
+								<ReachabilityBanner />
 								{ searching && (
 									<SearchResults
 										query={ query }

@@ -268,8 +268,23 @@ describe( 'event-deferral composite control', () => {
 		} );
 
 		expect(
-			screen.getByText( /needs a consent source to release events/ )
+			screen.getByText( /cannot see a consent state on this site/ )
 		).toBeInTheDocument();
+	} );
+
+	it( 'names the consent bridge and the WP Consent API as the fixes, not Consent Mode', () => {
+		renderControl( {
+			premium: { event_deferral_queue: { enabled: true } },
+			general: { gcm_default_settings: false },
+		} );
+
+		const warning = screen.getByText(
+			/cannot see a consent state on this site/
+		).textContent;
+
+		expect( warning ).toMatch( /consent bridge tag/ );
+		expect( warning ).toMatch( /WP Consent API/ );
+		expect( warning ).not.toMatch( /Consent Mode|GCM/ );
 	} );
 
 	it( 'hides the warning when the WP Consent API supplies the consent source', () => {
@@ -280,7 +295,7 @@ describe( 'event-deferral composite control', () => {
 		} );
 
 		expect(
-			screen.queryByText( /needs a consent source to release events/ )
+			screen.queryByText( /cannot see a consent state on this site/ )
 		).not.toBeInTheDocument();
 	} );
 
@@ -298,7 +313,7 @@ describe( 'event-deferral composite control', () => {
 		} );
 
 		expect(
-			screen.getByText( /needs a consent source to release events/ )
+			screen.getByText( /cannot see a consent state on this site/ )
 		).toBeInTheDocument();
 	} );
 
@@ -309,7 +324,7 @@ describe( 'event-deferral composite control', () => {
 		} );
 
 		expect(
-			screen.queryByText( /needs a consent source to release events/ )
+			screen.queryByText( /cannot see a consent state on this site/ )
 		).not.toBeInTheDocument();
 	} );
 
@@ -320,7 +335,7 @@ describe( 'event-deferral composite control', () => {
 		} );
 
 		expect(
-			screen.queryByText( /needs a consent source to release events/ )
+			screen.queryByText( /cannot see a consent state on this site/ )
 		).not.toBeInTheDocument();
 	} );
 

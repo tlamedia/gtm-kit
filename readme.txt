@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.22.0
+Stable tag: 2.23.0-rc2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -142,11 +142,23 @@ Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
 
+= 2.23.0 =
+
+Release date: 2026-10-27
+
+Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-23/).
+
+#### New:
+* The GTM Kit settings screen now checks that your browser can reach your site's settings API when it opens, and shows a notice if it cannot, if your site answers with an error, or if it is slow to answer. The notice explains the usual causes, such as a browser extension, ad blocker, VPN or firewall, and lets you copy the details for support. The check talks only to your own site and sends nothing anywhere else.
+
+#### Other:
+* The event deferral warning in the settings, shown when GTM Kit cannot see a consent state, now names the two fixes that work with a consent banner running inside Google Tag Manager: the GTM Kit consent bridge tag in the container, or a consent plugin that supports the WP Consent API. It no longer suggests turning on Consent Mode.
+
 = 2.22.0 =
 
 Release date: 2026-10-13
 
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-22/).
+Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-22/).
 
 #### New:
 * Consent set by a consent platform that runs inside Google Tag Manager can now reach GTM Kit's purchase consent check through GTM Kit's consent bridge template, which you can add to your container from the Template Assistant. The template reports the visitor's consent state to GTM Kit through Google Tag Manager's documented template interfaces.
@@ -163,7 +175,7 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 
 Release date: 2026-10-06
 
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-21/).
+Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-21/).
 
 #### New:
 * AI assistants connected to your site through the WordPress Abilities API can now read how GTM Kit is set up, which consent defaults apply, and whether tracking is healthy. Only administrators can use them, nothing can be changed through them, and they send nothing off your site.
@@ -178,68 +190,6 @@ Find out about what's new in our [our release post](https://gtmkit.com/changelog
 #### Other:
 * On stores with a classic theme, shop, product and category pages without WooCommerce blocks no longer load GTM Kit's block tracking script, so those pages load less JavaScript. Pages that show a WooCommerce block anywhere, including a Mini Cart in a widget area, still load it, and block themes are unchanged.
 * If you send customer details with the purchase event and use Consent Mode, GTM Kit now adds the email, phone, name and address, hashed or not, only once the visitor has granted both advertising storage and advertising user data consent. If consent is denied, or a denying default has not been lifted within three seconds, the purchase is still sent, without those details. GTM Kit reads consent from its own data layer, from `dataLayer` if that is a different one, and from the consent state Google Tag Manager holds, so consent a consent platform sets through its Google Tag Manager template counts too. A denial in any of them withholds the details. If GTM Kit finds no consent state at all within three seconds, it sends the details, as it did before, and a developer can make GTM Kit withhold them in that case with a filter.
-
-= 2.20.2 =
-
-Release date: 2026-09-24
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-20/).
-
-#### Bugfixes:
-* If you use the loader Stape issues, GTM Kit no longer uses a loader stored by an earlier version, because it cannot tell whether that loader was checked against your data layer name. Your pages use the standard loader until you click Refresh under Server-side Tagging, which gets a checked loader from Stape.
-
-= 2.20.1 =
-
-Release date: 2026-09-22
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-20/).
-
-#### Bugfixes:
-* If refreshing or pasting your Stape loader fails, the settings screen now names the loader your pages keep using, instead of claiming they fell back to the standard loader. A request that fails before reaching Stape, for example because your login has expired, now says so instead of reporting that Stape could not be reached.
-* If saving your settings fails because the connection to your site dropped, the settings screen now says there is a network problem instead of reporting a server error.
-* If activating your licence fails because the request itself failed, for example because the connection dropped, the licence screen now says so instead of telling you to check your licence key. If deactivating fails, the button no longer keeps spinning: the screen shows what went wrong and lets you try again.
-* If a Stape loader is made for a different data layer name than GTM Kit uses, whether you paste it or GTM Kit gets it from Stape, the settings screen now refuses it and says why, instead of using a loader that listens to the wrong data layer.
-
-= 2.20.0 =
-
-Release date: 2026-09-22
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-20/).
-
-#### New:
-* If your server-side container is hosted on Stape, GTM Kit can now use the loader Stape issues for it, which ad blockers find harder to recognise. Switch it on under Server-side Tagging. GTM Kit asks Stape for the loader only when you save or refresh it, and you can paste the code from Stape instead.
-
-#### Bugfixes:
-* With Cookie Keeper enabled, Safari visitors now load your Stape custom loader when its identifier is longer than eight characters, as every identifier Stape issues today is. Safari previously asked Stape for a loader address it rejects, so those visitors were not tracked.
-* On sites with a persistent object cache such as Redis, GTM Kit no longer re-runs its update routine on every admin page load when the cache still holds the previous version number. The update routine also no longer logs a notice from Action Scheduler on its first run.
-
-#### Other:
-* The description of serving the Google tag from your own domain now says what the setting does and does not do: it changes where the tag loads from, while the measurement it sends still goes to Google unless Google's tag gateway is provided by your CDN or host.
-
-= 2.19.0 =
-
-Release date: 2026-09-14
-
-Find out about what's new in our [our release post](https://gtmkit.com/changelog/gtm-kit-2-19/).
-
-#### New:
-* When Google for WooCommerce adds a Google tag beside your container, GTM Kit now names it as the source instead of saying it could not tell.
-* Site Health now checks that GTM Kit's settings can be saved, and shows the error it got back when they cannot.
-* When sending your system data from the Support screen cannot get through, the screen now says so instead of claiming your ticket was not found. With GTM Kit Premium you can then copy the data or download it to email instead.
-* You can now serve the Google tag from your own domain, so ad blockers and browser tracking restrictions interfere less with loading it. If it stops working, GTM Kit falls back to the standard loader and tells you. It is off by default, and an alternative to your own sGTM container domain. (Corrected after publication: this entry originally said restrictions would interfere less with your measurement. The setting changes where the tag loads from. The measurement the tag sends still goes to Google unless your CDN or host provides Google's tag gateway, which this setting cannot switch on.)
-* GTM Kit now points out setups that leave data unmeasured, such as a WooCommerce store with its ecommerce events switched off. At most one such notice appears at a time, and dismissing it keeps it away for 90 days.
-
-#### Bugfixes:
-* A Google tag loading beside your container is no longer reported as duplicate tracking in the dashboard. It is now a notice, since the tag is only counted twice when it also fires inside your container. Two containers, or the same container loaded twice, are still reported as problems.
-* When settings will not save, the settings screen now tells you why instead of quietly showing your old values again. It names any rejected setting, and on a site with a persistent object cache it names the cache as the likely cause.
-* Password managers no longer fill in GTM Kit's settings fields. A filled-in value could previously be saved without you typing it, and came back after you removed it.
-* Event names such as purchase and add_to_cart can no longer be renamed by translations in the settings screens, where they disagreed with the events GTM Kit actually sends.
-* The order confirmation page now sends purchase data only to visitors WooCommerce or Easy Digital Downloads would show the order to. Anyone opening a shared or guessed link previously received the order contents, its value and the shopper's details. The buyer's own visit still reports the purchase.
-
-#### Other:
-* New `gtmkit_active_cmp` and `gtmkit_cmp_display_name` filters let a site declare a consent platform GTM Kit cannot detect, such as one loaded by the theme or a code snippet, so Site Health stops reporting consent as unconfigured.
-* The customer details sent with a purchase now come from the order itself, so they describe the buyer rather than whoever opened the confirmation page.
-* `WooCommerce::include_customer_data()` now takes the order as its second argument, before the order value, and reads every customer field from it. Code that calls this method directly must pass the order.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

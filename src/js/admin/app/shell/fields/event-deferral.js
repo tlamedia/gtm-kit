@@ -172,7 +172,7 @@ const ShellEventDeferral = ( { field, disabled } ) => {
 						<div className="gtmkit-rounded-md gtmkit-bg-brand-surface-subtle gtmkit-px-3.5 gtmkit-py-3">
 							<p className="gtmkit-m-0 gtmkit-text-xs gtmkit-leading-[1.45] gtmkit-text-color-warning">
 								{ __(
-									'Event Deferral needs a consent source to release events. Either turn on Consent Mode (the Activate GCM settings toggle under Consent) so GTM Kit provides one, or use a consent platform that supports the WP Consent API. With neither available, deferred events only release on the timeout fallback; they never wait for a real consent grant.',
+									'GTM Kit cannot see a consent state on this site. Unless your Google Tag Manager container runs the GTM Kit consent bridge tag, the selected events wait the full timeout on every page, whatever the visitor chose. To fix this, add the GTM Kit consent bridge tag to your container, or use a consent plugin that supports the WP Consent API. If the container already runs the consent bridge tag, you can ignore this.',
 									'gtm-kit'
 								) }
 							</p>

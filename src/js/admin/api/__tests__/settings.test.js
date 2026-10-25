@@ -9,7 +9,7 @@
 
 import apiFetch from '@wordpress/api-fetch';
 
-import { refreshSgtmLoader, updateSettings } from '../settings';
+import { probeHealth, refreshSgtmLoader, updateSettings } from '../settings';
 import { APIError, NetworkError, ValidationError } from '../../utils/errors';
 
 jest.mock( '@wordpress/api-fetch', () => {
@@ -111,5 +111,118 @@ describe( 'handleApiFetch error classification', () => {
 		expect( error ).not.toBeInstanceOf( NetworkError );
 		expect( error.response.code ).toBe( 'rest_cookie_invalid_nonce' );
 		expect( error.response.data.status ).toBe( 403 );
+	} );
+} );
+
+describe( 'probeHealth nonce recovery', () => {
+	const NONCE_ENDPOINT =
+		'http://localhost/wp-admin/admin-ajax.php?action=rest-nonce';
+
+	// An unparsed api-fetch failure: the raw response, readable more than once.
+	const rawResponse = ( status, body ) => {
+		const response = {
+			ok: status >= 200 && status < 300,
+			status,
+			json: async () => body,
+			text: async () => JSON.stringify( body ),
+		};
+		response.clone = () => response;
+		return response;
+	};
+
+	const expiredNonce = () =>
+		rawResponse( 403, {
+			code: 'rest_cookie_invalid_nonce',
+			message: 'Cookie check failed',
+			data: { status: 403 },
+		} );
+
+	let originalFetch;
+
+	beforeEach( () => {
+		apiFetch.mockReset();
+		apiFetch.nonceEndpoint = NONCE_ENDPOINT;
+		apiFetch.nonceMiddleware = { nonce: 'stale-nonce' };
+		originalFetch = window.fetch;
+		window.fetch = jest.fn();
+	} );
+
+	afterEach( () => {
+		window.fetch = originalFetch;
+		delete apiFetch.nonceEndpoint;
+		delete apiFetch.nonceMiddleware;
+	} );
+
+	it( 'refreshes an expired nonce once and retries the probe', async () => {
+		const healthy = rawResponse( 200, { reachable: true } );
+		apiFetch
+			.mockRejectedValueOnce( expiredNonce() )
+			.mockResolvedValueOnce( healthy );
+		window.fetch.mockResolvedValue( {
+			ok: true,
+			text: async () => 'fresh-nonce',
+		} );
+
+		await expect( probeHealth() ).resolves.toBe( healthy );
+		expect( window.fetch ).toHaveBeenCalledWith(
+			NONCE_ENDPOINT,
+			expect.any( Object )
+		);
+		expect( apiFetch.nonceMiddleware.nonce ).toBe( 'fresh-nonce' );
+		expect( apiFetch ).toHaveBeenCalledTimes( 2 );
+	} );
+
+	it( 'reports the rejected nonce when no fresh one can be fetched', async () => {
+		const rejected = expiredNonce();
+		apiFetch.mockRejectedValueOnce( rejected );
+		window.fetch.mockResolvedValue( { ok: false, text: async () => '0' } );
+
+		await expect( probeHealth() ).rejects.toBe( rejected );
+		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
+		expect( apiFetch.nonceMiddleware.nonce ).toBe( 'stale-nonce' );
+	} );
+
+	it( 'reports the rejected nonce when the refresh request itself fails', async () => {
+		const rejected = expiredNonce();
+		apiFetch.mockRejectedValueOnce( rejected );
+		window.fetch.mockRejectedValue( new TypeError( 'Failed to fetch' ) );
+
+		await expect( probeHealth() ).rejects.toBe( rejected );
+		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
+	} );
+
+	it( 'lets an abort during the refresh through as an abort', async () => {
+		apiFetch.mockRejectedValueOnce( expiredNonce() );
+		const aborted = new Error( 'The operation was aborted.' );
+		aborted.name = 'AbortError';
+		window.fetch.mockRejectedValue( aborted );
+
+		await expect( probeHealth() ).rejects.toBe( aborted );
+		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
+	} );
+
+	it( 'retries only once when the fresh nonce is rejected too', async () => {
+		const second = expiredNonce();
+		apiFetch
+			.mockRejectedValueOnce( expiredNonce() )
+			.mockRejectedValueOnce( second );
+		window.fetch.mockResolvedValue( {
+			ok: true,
+			text: async () => 'fresh-nonce',
+		} );
+
+		await expect( probeHealth() ).rejects.toBe( second );
+		expect( apiFetch ).toHaveBeenCalledTimes( 2 );
+	} );
+
+	it.each( [
+		[ 'a 403 with another code', 403, { code: 'rest_forbidden' } ],
+		[ 'a 401', 401, { code: 'rest_cookie_invalid_nonce' } ],
+	] )( 'does not refresh the nonce for %s', async ( label, status, body ) => {
+		const failure = rawResponse( status, body );
+		apiFetch.mockRejectedValueOnce( failure );
+
+		await expect( probeHealth() ).rejects.toBe( failure );
+		expect( window.fetch ).not.toHaveBeenCalled();
 	} );
 } );

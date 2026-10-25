@@ -1,5 +1,9 @@
 *** GTM Kit ***
 
+2026-10-27 - version 2.23.0
+* Add: The GTM Kit settings screen now checks that your browser can reach your site's settings API when it opens, and shows a notice if it cannot, if your site answers with an error, or if it is slow to answer. The notice explains the usual causes, such as a browser extension, ad blocker, VPN or firewall, and lets you copy the details for support. The check talks only to your own site and sends nothing anywhere else.
+* Changed: The event deferral warning in the settings, shown when GTM Kit cannot see a consent state, now names the two fixes that work with a consent banner running inside Google Tag Manager: the GTM Kit consent bridge tag in the container, or a consent plugin that supports the WP Consent API. It no longer suggests turning on Consent Mode.
+
 2026-10-13 - version 2.22.0
 * Add: Consent set by a consent platform that runs inside Google Tag Manager can now reach GTM Kit's purchase consent check through GTM Kit's consent bridge template, which you can add to your container from the Template Assistant. The template reports the visitor's consent state to GTM Kit through Google Tag Manager's documented template interfaces.
 * Add: System data you share with GTM Kit support now includes the installed versions of GTM Kit Premium and the GTM Kit Woo Add-On, so support can see which build a site runs. The anonymised site data is unchanged.

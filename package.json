@@ -1,6 +1,6 @@
 {
   "name": "gtm-kit",
-  "version": "2.22.0",
+  "version": "2.23.0-rc2",
   "description": "Development files for the GTM Kit",
   "author": "GTM Kit",
   "keywords": [
@@ -59,7 +59,7 @@
     "build:introductions": "wp-scripts build src/js/admin/introductions/introductions.js --output-path=assets/admin",
     "build:settings": "npm run build:tailwind && wp-scripts build src/js/admin/settings.js src/js/admin/wizard.js --output-path=assets/admin",
     "build:tailwind": "npx tailwindcss -i ./src/scss/tailwind.scss -o ./src/scss/_tailwind-compiled.scss",
-    "build:assets": "npm run clean:assets && npm run build:js && npm run build:introductions && npm run build:settings && npm run copy:images && npm run check:consent-gating-size && npm run check:engagement-events-size",
+    "build:assets": "npm run clean:assets && npm run build && npm run build:js && npm run build:introductions && npm run build:settings && npm run copy:images && npm run check:consent-gating-size && npm run check:engagement-events-size",
     "build:js": "npm run uglify:woocommerce && npm run uglify:woocommerce-checkout && npm run uglify:edd && npm run uglify:edd-checkout && npm run uglify:cf7 && npm run uglify:consent-gating && npm run uglify:engagement-events && npm run uglify:consent-gated-push",
     "check:consent-gating-size": "node ./bin/check-consent-gating-size.js",
     "check:engagement-events-size": "node ./bin/check-engagement-events-size.js",
