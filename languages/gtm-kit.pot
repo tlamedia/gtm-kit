@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: GTM Kit 2.22.0\n"
+"Project-Id-Version: GTM Kit 2.23.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gtm-kit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T14:49:02+00:00\n"
+"POT-Creation-Date: 2026-10-24T16:30:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gtm-kit\n"
@@ -1913,13 +1913,13 @@ msgstr ""
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:54
 #: assets/admin/settings.js:58
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: src/js/admin/app/pages/templates.js:620
 #: src/js/admin/app/shell/DashboardPage.js:37
 #: src/js/admin/app/shell/fields/FieldTags.js:68
 #: src/js/admin/app/shell/InfoList.js:126
 #: src/js/admin/app/shell/IntegrationsHub.js:55
-#: src/js/admin/app/shell/ShellApp.js:246
+#: src/js/admin/app/shell/ShellApp.js:248
 #: src/js/admin/app/shell/Sidebar.js:89
 #: src/js/admin/registry/capabilities.js:155
 msgid "Premium"
@@ -2314,16 +2314,16 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:58
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: src/js/admin/app/shell/DashboardPage.js:343
-#: src/js/admin/app/shell/ShellApp.js:131
+#: src/js/admin/app/shell/ShellApp.js:133
 #: src/js/admin/registry/capabilities.js:30
 msgid "Dashboard"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:145
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:147
 #: src/js/admin/registry/capabilities.js:37
 msgid "Setup"
 msgstr ""
@@ -2344,15 +2344,15 @@ msgid "Read the setup guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:156
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:158
 #: src/js/admin/registry/capabilities.js:56
 msgid "GTM Templates"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:172
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:174
 #: src/js/admin/registry/capabilities.js:63
 msgid "Events & data layer"
 msgstr ""
@@ -2373,8 +2373,8 @@ msgid "Read the events guide"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:184
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:186
 #: src/js/admin/registry/capabilities.js:85
 msgid "Commerce"
 msgstr ""
@@ -2395,8 +2395,8 @@ msgid "Read the commerce docs"
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:196
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:198
 #: src/js/admin/registry/capabilities.js:107
 msgid "Consent & privacy"
 msgstr ""
@@ -2422,8 +2422,8 @@ msgid "GTM Kit wires up these signals but is not responsible for your privacy co
 msgstr ""
 
 #: assets/admin/settings.js:1
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:208
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:210
 #: src/js/admin/registry/capabilities.js:130
 msgid "Tools"
 msgstr ""
@@ -2445,26 +2445,27 @@ msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:58
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: src/js/admin/app/shell/IntegrationConfig.js:31
 #: src/js/admin/app/shell/IntegrationsHub.js:95
-#: src/js/admin/app/shell/ShellApp.js:219
+#: src/js/admin/app/shell/ShellApp.js:221
 #: src/js/admin/registry/capabilities.js:149
 msgid "Integrations"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:62
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: src/js/admin/app/shell/LicensePage.js:343
-#: src/js/admin/app/shell/ShellApp.js:265
+#: src/js/admin/app/shell/ShellApp.js:267
 #: src/js/admin/registry/capabilities.js:162
 msgid "License"
 msgstr ""
 
 #: assets/admin/settings.js:1
 #: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:278
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:280
 #: src/js/admin/app/shell/SupportPage.js:294
 #: src/js/admin/registry/capabilities.js:168
 msgid "Support"
@@ -4039,7 +4040,7 @@ msgstr ""
 
 #: assets/admin/settings.js:15
 #: src/js/admin/app/shell/fields/event-deferral.js:174
-msgid "Event Deferral needs a consent source to release events. Either turn on Consent Mode (the Activate GCM settings toggle under Consent) so GTM Kit provides one, or use a consent platform that supports the WP Consent API. With neither available, deferred events only release on the timeout fallback; they never wait for a real consent grant."
+msgid "GTM Kit cannot see a consent state on this site. Unless your Google Tag Manager container runs the GTM Kit consent bridge tag, the selected events wait the full timeout on every page, whatever the visitor chose. To fix this, add the GTM Kit consent bridge tag to your container, or use a consent plugin that supports the WP Consent API. If the container already runs the consent bridge tag, you can ignore this."
 msgstr ""
 
 #: assets/admin/settings.js:15
@@ -4877,6 +4878,8 @@ msgid "System data"
 msgstr ""
 
 #: assets/admin/settings.js:62
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:166
 #: src/js/admin/app/shell/SupportPage.js:148
 msgid "Copied"
 msgstr ""
@@ -5000,56 +5003,98 @@ msgid "View all documentation"
 msgstr ""
 
 #: assets/admin/settings.js:63
+#: src/js/admin/app/shell/ReachabilityBanner.js:49
+msgid "Your site has not answered yet. GTM Kit checks that your browser can reach your site's settings API. If this message stays, saving settings may not work."
+msgstr ""
+
+#: assets/admin/settings.js:63
+#: src/js/admin/app/shell/ReachabilityBanner.js:56
+msgid "Your browser could not reach your site's settings API, so saving settings and activating your licence will not work from this browser. This is usually caused by a browser extension or ad blocker, a VPN, or a firewall or security service in front of your site. Try a private window with extensions turned off, or another network."
+msgstr ""
+
+#: assets/admin/settings.js:63
+#: src/js/admin/app/shell/ReachabilityBanner.js:66
+msgid "WordPress did not accept your login for the settings API check, so changes made here will not be saved. Reload the page, and log in again if WordPress asks you to. If this message comes back after you have logged in, a cache or proxy in front of your site may be removing cookies from requests to the WordPress REST API."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:89
+#, js-format
+msgid "Your site answered the settings API check with an error (HTTP %d), so saving settings may not work from this browser."
+msgstr ""
+
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:95
+msgid "Security plugins and firewalls often answer blocked requests with HTTP 403."
+msgstr ""
+
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:80
+msgid "WordPress refused the settings API check for your user account, so changes made here will not be saved. Your account does not have permission to change GTM Kit settings on this site. On a multisite network, ask a network administrator. If you are an administrator of this site, a proxy in front of it may be removing the request headers WordPress uses to recognise your login."
+msgstr ""
+
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:157
+msgid "Check again"
+msgstr ""
+
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ReachabilityBanner.js:167
+msgid "Copy details for support"
+msgstr ""
+
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:70
 msgid "Something went wrong"
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:75
 msgid "An unexpected error occurred. Please try refreshing the page."
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:103
 msgid "Try Again"
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/ErrorBoundary.js:110
 msgid "Reload Page"
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:20
 #: src/js/admin/components/SectionErrorBoundary.js:21
 msgid "Section Error"
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "The"
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:24
 msgid "section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:63
+#: assets/admin/settings.js:64
 #: assets/admin/wizard.js:1
 #: src/js/admin/components/SectionErrorBoundary.js:28
 msgid "This section encountered an error. Other sections may still work normally."
 msgstr ""
 
-#: assets/admin/settings.js:63
-#: src/js/admin/app/shell/ShellApp.js:232
+#: assets/admin/settings.js:64
+#: src/js/admin/app/shell/ShellApp.js:234
 msgid "Integration"
 msgstr ""
 

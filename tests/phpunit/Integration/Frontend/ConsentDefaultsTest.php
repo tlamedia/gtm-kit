@@ -92,8 +92,8 @@ final class ConsentDefaultsTest extends WP_UnitTestCase {
 		// Each category is rendered twice — once inside `gtag('consent', 'default', ...)`
 		// and once inside the `window.gtmkit.consent.state` surface — so the
 		// expected count is 7 categories × 2 emissions = 14.
-		$this->assertSame( 14, substr_count( $inline, "'denied'" ), 'All seven consent categories must default to denied (twice, in the gtag block and the state surface).' );
-		$this->assertSame( 0, substr_count( $inline, "'granted'" ), 'No category may default to granted in the denied-by-default baseline.' );
+		$this->assertSame( 14, substr_count( $this->extract_consent_default_blocks( $inline ), "'denied'" ), 'All seven consent categories must default to denied (twice, in the gtag block and the state surface).' );
+		$this->assertSame( 0, substr_count( $this->extract_consent_default_blocks( $inline ), "'granted'" ), 'No category may default to granted in the denied-by-default baseline.' );
 	}
 
 	/**
@@ -115,8 +115,48 @@ final class ConsentDefaultsTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( "gtag('consent', 'default'", $inline, 'Consent-default gtag() call is missing.' );
 		// Each category is rendered twice — once inside the gtag default
 		// block and once inside the window.gtmkit.consent.state surface.
-		$this->assertSame( 14, substr_count( $inline, "'granted'" ), 'All seven consent categories must be granted when every flag is on (twice, in the gtag block and the state surface).' );
-		$this->assertSame( 0, substr_count( $inline, "'denied'" ), 'No category may emit denied when every flag is on.' );
+		$this->assertSame( 14, substr_count( $this->extract_consent_default_blocks( $inline ), "'granted'" ), 'All seven consent categories must be granted when every flag is on (twice, in the gtag block and the state surface).' );
+		$this->assertSame( 0, substr_count( $this->extract_consent_default_blocks( $inline ), "'denied'" ), 'No category may emit denied when every flag is on.' );
+	}
+
+	/**
+	 * A `'denied'` literal elsewhere in the head script does not leak into the
+	 * consent-default count.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\Frontend::enqueue_settings_and_data_script
+	 */
+	public function test_unrelated_denied_literal_does_not_affect_consent_count(): void {
+		$options = OptionsFactory::get_instance();
+		$options->set_option( 'general', 'gcm_default_settings', 1 );
+		foreach ( self::CONSENT_OPTION_KEYS as $key ) {
+			$options->set_option( 'general', $key, 1 );
+		}
+
+		( new Frontend( $options ) )->enqueue_settings_and_data_script();
+		wp_add_inline_script( 'gtmkit', "var unrelatedStatus = 'denied';", 'before' );
+
+		$inline = $this->extract_inline_script();
+		$this->assertSame( 1, substr_count( $inline, "'denied'" ), 'The unrelated literal must be present in the head script.' );
+		$this->assertSame( 0, substr_count( $this->extract_consent_default_blocks( $inline ), "'denied'" ), 'Only the consent-default blocks may be counted.' );
+		$this->assertSame( 14, substr_count( $this->extract_consent_default_blocks( $inline ), "'granted'" ) );
+	}
+
+	/**
+	 * Return only the consent-default literals of the head script: the object
+	 * passed to `gtag('consent', 'default', ...)` and the
+	 * `window.gtmkit.consent.state` object. Counting inside these keeps the
+	 * assertions blind to unrelated `'denied'` / `'granted'` literals elsewhere
+	 * in the script.
+	 *
+	 * @param string $inline The full inline head script.
+	 *
+	 * @return string
+	 */
+	private function extract_consent_default_blocks( string $inline ): string {
+		preg_match_all( "/gtag\\('consent', 'default', (\\{[^}]*\\})/", $inline, $gtag_blocks );
+		preg_match_all( '/window\\.gtmkit\\.consent = \\{\\s*state: (\\{[^}]*\\})/', $inline, $state_blocks );
+
+		return implode( "\n", array_merge( $gtag_blocks[1], $state_blocks[1] ) );
 	}
 
 	/**

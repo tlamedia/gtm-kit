@@ -117,6 +117,21 @@ if ! MIRROR_URL="$(git remote get-url mirror 2>/dev/null)"; then
 	exit 1
 fi
 
+# Guard (release candidate mode): the candidate must not already be on the
+# mirror. A re-run after a partial failure would otherwise build a second
+# candidate commit and fail on the tag push, or leave the mirror half-published.
+if [ "$MODE" = "rc" ]; then
+	if ! MIRROR_TAG="$(git ls-remote --tags "$MIRROR_URL" "refs/tags/$VERSION")"; then
+		echo "Error: could not query the mirror for tag $VERSION." >&2
+		exit 1
+	fi
+	if [ -n "$MIRROR_TAG" ]; then
+		echo "Error: tag $VERSION already exists on the mirror; this release candidate is already published." >&2
+		echo "Bump to the next rcN, or delete the mirror tag deliberately before re-running." >&2
+		exit 1
+	fi
+fi
+
 # Guard (versioned and release candidate modes): the plugin header must
 # already carry the version.
 if [ "$MODE" != "init" ]; then
@@ -203,7 +218,11 @@ elif [ "$MODE" = "rc" ]; then
 
 	# Push the tag only. The mirror commit sits on top of mirror main but
 	# main itself is never moved, so it keeps one commit per real release.
-	git -C "$CLONE_DIR" tag -a "$VERSION" -m "GTM Kit $VERSION (release candidate)"
+	if git -C "$CLONE_DIR" rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then
+		echo "Tag $VERSION already exists in the mirror clone."
+	else
+		git -C "$CLONE_DIR" tag -a "$VERSION" -m "GTM Kit $VERSION (release candidate)"
+	fi
 	git -C "$CLONE_DIR" push --quiet origin "refs/tags/$VERSION"
 else
 	git -C "$CLONE_DIR" push --quiet origin main
