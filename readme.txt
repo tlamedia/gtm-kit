@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.23.0
+Stable tag: 2.23.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,15 @@ Stape terms of service: https://stape.io/terms-conditions
 Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
+
+= 2.23.1 =
+
+Release date: 2026-11-02
+
+Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-23/).
+
+#### Bugfixes:
+* With "Just the container" turned on, GTM Kit outputs the Google Tag Manager container again. It was left out of the page, so no tags fired.
 
 = 2.23.0 =
 

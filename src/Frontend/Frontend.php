@@ -552,7 +552,10 @@ final class Frontend {
 
 		$script = ob_get_clean();
 
-		wp_register_script( 'gtmkit-container', '', [ 'gtmkit' ], GTMKIT_VERSION, [ 'in_footer' => false ] );
+		// With "Just the container" on, the settings script is never registered, and WordPress drops a script whose dependency is missing.
+		$dependency = wp_script_is( 'gtmkit', 'registered' ) ? [ 'gtmkit' ] : [];
+
+		wp_register_script( 'gtmkit-container', '', $dependency, GTMKIT_VERSION, [ 'in_footer' => false ] );
 		wp_enqueue_script( 'gtmkit-container' );
 		wp_add_inline_script( 'gtmkit-container', $script );
 
