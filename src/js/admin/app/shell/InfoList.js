@@ -12,11 +12,11 @@ const ACTION =
 /**
  * A titled card containing a stack of divided rows.
  *
- * @param {Object}      props                Component props.
- * @param {string}      props.title          Card title.
- * @param {JSX.Element} [props.headerAction] An optional right-aligned header action.
- * @param {JSX.Element} props.children       Card rows.
- * @return {JSX.Element} The card.
+ * @param {Object}  props                Component props.
+ * @param {string}  props.title          Card title.
+ * @param {Element} [props.headerAction] An optional right-aligned header action.
+ * @param {Element} props.children       Card rows.
+ * @return {Element} The card.
  */
 export const InfoCard = ( { title, headerAction, children } ) => (
 	<div className={ CARD }>
@@ -33,9 +33,9 @@ export const InfoCard = ( { title, headerAction, children } ) => (
 /**
  * A full-width prose row inside a card (e.g. a description).
  *
- * @param {Object}      props          Component props.
- * @param {JSX.Element} props.children The text.
- * @return {JSX.Element} The note row.
+ * @param {Object}  props          Component props.
+ * @param {Element} props.children The text.
+ * @return {Element} The note row.
  */
 export const InfoNote = ( { children } ) => (
 	<div className="gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
@@ -49,12 +49,12 @@ export const InfoNote = ( { children } ) => (
  * A list row: a title (with optional badge) and subtitle on the left, and an
  * action or value on the right.
  *
- * @param {Object}      props            Component props.
- * @param {string}      props.title      Row title.
- * @param {string}      [props.subtitle] Row subtitle.
- * @param {JSX.Element} [props.badge]    A badge beside the title.
- * @param {JSX.Element} [props.right]    The right-hand action or value.
- * @return {JSX.Element} The row.
+ * @param {Object}  props            Component props.
+ * @param {string}  props.title      Row title.
+ * @param {string}  [props.subtitle] Row subtitle.
+ * @param {Element} [props.badge]    A badge beside the title.
+ * @param {Element} [props.right]    The right-hand action or value.
+ * @return {Element} The row.
  */
 export const InfoRow = ( { title, subtitle, badge, right } ) => (
 	<div className={ ROW }>
@@ -81,7 +81,7 @@ export const InfoRow = ( { title, subtitle, badge, right } ) => (
  * @param {Object} props       Component props.
  * @param {string} props.href  Target URL.
  * @param {string} props.label Link label.
- * @return {JSX.Element} The link.
+ * @return {Element} The link.
  */
 export const ExternalAction = ( { href, label } ) => (
 	<a href={ href } target="_blank" rel="noreferrer" className={ ACTION }>
@@ -95,7 +95,7 @@ export const ExternalAction = ( { href, label } ) => (
  * @param {Object} props       Component props.
  * @param {string} props.to    Target route.
  * @param {string} props.label Link label.
- * @return {JSX.Element} The link.
+ * @return {Element} The link.
  */
 export const RouteAction = ( { to, label } ) => (
 	<Link to={ to } className={ ACTION }>
@@ -108,7 +108,7 @@ export const RouteAction = ( { to, label } ) => (
  *
  * @param {Object} props          Component props.
  * @param {string} props.children The value.
- * @return {JSX.Element} The value.
+ * @return {Element} The value.
  */
 export const InfoValue = ( { children } ) => (
 	<span className="gtmkit-shrink-0 gtmkit-text-sm gtmkit-text-text-secondary">
@@ -119,7 +119,7 @@ export const InfoValue = ( { children } ) => (
 /**
  * The green Premium tier badge.
  *
- * @return {JSX.Element} The badge.
+ * @return {Element} The badge.
  */
 export const PremiumBadge = () => (
 	<span className="gtmkit-inline-flex gtmkit-items-center gtmkit-rounded-sm gtmkit-bg-tier-premium-bg gtmkit-px-2 gtmkit-py-0.5 gtmkit-text-[11px] gtmkit-font-medium gtmkit-text-tier-premium">
@@ -133,7 +133,7 @@ export const PremiumBadge = () => (
  * @param {Object} props          Component props.
  * @param {string} props.title    Page title.
  * @param {string} props.subtitle Page subtitle.
- * @return {JSX.Element} The header.
+ * @return {Element} The header.
  */
 export const PageHeader = ( { title, subtitle } ) => (
 	<div className="gtmkit-mb-8">

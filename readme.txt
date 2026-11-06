@@ -4,7 +4,7 @@ Donate link: https://github.com/tlamedia/gtm-kit
 Tags: google tag manager, gtm, woocommerce, analytics, ga4
 Requires at least: 6.9
 Tested up to: 7.1
-Stable tag: 2.23.1
+Stable tag: 2.24.0-rc1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -142,6 +142,32 @@ Stape privacy policy: https://stape.io/privacy-notice
 
 == Changelog ==
 
+= 2.24.0 =
+
+Release date: 2026-11-10
+
+Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-24/).
+
+#### New:
+* AI assistants connected through the WordPress Abilities API can now change a short list of GTM Kit settings, such as the container ID, consent defaults and integrations. Every change is previewed first and only applied with the one-time code from that preview. This is off until you turn it on with the gtmkit_write_abilities_enabled filter.
+* Product variations in the data layer now also carry their parent product's ID, in a field named item_group_id and in the same format as the item ID, so a variation can be tied back to its product in reports and in Merchant Center feeds.
+* Open any GTM Kit settings section, the setup wizard or Google Tag Manager from the WordPress command palette (Ctrl+K or Cmd+K).
+
+#### Bugfixes:
+* GTM Kit's abilities now reach AI assistants on sites where another plugin loads an older copy of the MCP Adapter.
+* The consent status that AI assistants and Site Health report is now the default a new visitor gets, not the consent of the administrator viewing it.
+* Saving the settings no longer fails when a switch was stored as the text "true" or "false", which can happen when a setting is changed outside the settings screen. The save now stores it as a proper on or off value, and a Google tag gateway stored as "false" is saved as off.
+* A search from the Product Search block is now counted once. Block themes counted it twice, and classic themes lost it when engagement search tracking was off.
+* A product search with a single match, which WooCommerce sends straight to the product page, is now counted as a search when engagement search tracking is on.
+* Searches from the Product Search block that WooCommerce now adds as a version of the WordPress Search block are counted when engagement search tracking is off.
+* The data layer name is now checked when you save it. A name that is not a valid JavaScript name, such as one with a space, is refused instead of breaking the container on every page.
+* Importing from GTM4WP now brings over a server-side domain that uses GTM4WP's default script path, and a re-import clears a domain an earlier import saved but could not use.
+* The Stape loader notice now also appears when a saved loader no longer matches your settings, and the Google tag gateway's custom-domain message says the Stape loader is off too.
+
+#### Other:
+* When an AI assistant previews a change to the data layer name, the preview now warns that other scripts using the old name will need updating.
+* Clearer consent advice in Site Health.
+
 = 2.23.1 =
 
 Release date: 2026-11-02
@@ -179,26 +205,6 @@ Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm
 #### Other:
 * Add-ons can now add data stored on a cart line or an order line to the items of the cart, checkout and purchase events through two new filters that receive the WooCommerce line next to the item.
 * The cart tracking for WooCommerce blocks now keeps the last reported cart in one shared place (window.gtmkit.wc.cartSnapshot), so a cart change another script has already recorded there is not reported again by the block tracking.
-
-= 2.21.0 =
-
-Release date: 2026-10-06
-
-Find out about what's new in [our release post](https://gtmkit.com/changelog/gtm-kit-2-21/).
-
-#### New:
-* AI assistants connected to your site through the WordPress Abilities API can now read how GTM Kit is set up, which consent defaults apply, and whether tracking is healthy. Only administrators can use them, nothing can be changed through them, and they send nothing off your site.
-* If you use the loader Stape issues but GTM Kit has none stored for your site, the GTM Kit dashboard now tells you that your pages use the standard loader and how to get Stape's loader back with Refresh.
-
-#### Bugfixes:
-* If the Google tag gateway is switched on while a custom server-side tagging domain is set, the GTM Kit dashboard now says the two cannot be used together and how to choose between them, instead of reporting that the gateway is not working. The settings screen explains why one of the two is unavailable only while it is.
-* Site Health no longer reports that consent is configured when the Consent Mode defaults deny analytics and no consent platform was found to grant it, a setup where every visitor is measured without cookies. It now recommends adding a consent platform or changing the defaults, and the Consent settings page shows the same warning.
-* Site Health no longer says consent is not configured when the Consent Mode defaults are off because a consent integration, such as one using the WP Consent API, sets and updates the visitor's consent.
-* Importing settings from GTM4WP no longer sets a server-side tagging domain when GTM4WP loads the container from a custom path, which produced a loader address that did not serve your container. The import now says the domain was skipped.
-
-#### Other:
-* On stores with a classic theme, shop, product and category pages without WooCommerce blocks no longer load GTM Kit's block tracking script, so those pages load less JavaScript. Pages that show a WooCommerce block anywhere, including a Mini Cart in a widget area, still load it, and block themes are unchanged.
-* If you send customer details with the purchase event and use Consent Mode, GTM Kit now adds the email, phone, name and address, hashed or not, only once the visitor has granted both advertising storage and advertising user data consent. If consent is denied, or a denying default has not been lifted within three seconds, the purchase is still sent, without those details. GTM Kit reads consent from its own data layer, from `dataLayer` if that is a different one, and from the consent state Google Tag Manager holds, so consent a consent platform sets through its Google Tag Manager template counts too. A denial in any of them withholds the details. If GTM Kit finds no consent state at all within three seconds, it sends the details, as it did before, and a developer can make GTM Kit withhold them in that case with a filter.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on gtmkit.com](https://gtmkit.com/changelog/).

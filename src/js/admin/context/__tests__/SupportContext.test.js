@@ -5,26 +5,21 @@
  * the structured `{ message, supportSync }` body and a plain string body.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { useContext } from '@wordpress/element';
 
 import SupportProvider, { SupportContext } from '../SupportContext';
 
-const mockSendSystemData = jest.fn();
-const mockStopSupportSync = jest.fn();
-jest.mock( '../../api/settings', () => ( {
+const mockSendSystemData = vi.fn();
+const mockStopSupportSync = vi.fn();
+vi.mock( '../../api/settings', () => ( {
 	sendSystemData: ( ...args ) => mockSendSystemData( ...args ),
 	stopSupportSync: ( ...args ) => mockStopSupportSync( ...args ),
 } ) );
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSupportSync: () => ( {

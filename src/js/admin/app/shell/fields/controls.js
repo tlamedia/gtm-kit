@@ -19,7 +19,7 @@ export const BOX =
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The toggle.
+ * @return {Element} The toggle.
  */
 const ShellToggle = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -48,7 +48,7 @@ const ShellToggle = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The input.
+ * @return {Element} The input.
  */
 const ShellText = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -88,7 +88,7 @@ const ShellText = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The input.
+ * @return {Element} The input.
  */
 const ShellNumber = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -116,7 +116,7 @@ const ShellNumber = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The select.
+ * @return {Element} The select.
  */
 const ShellSelect = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -125,7 +125,7 @@ const ShellSelect = ( { field, disabled } ) => {
 	const isInteger = field.valueType === 'integer';
 	const effective =
 		value === undefined || value === null || value === ''
-			? field.defaultValue ?? ''
+			? ( field.defaultValue ?? '' )
 			: value;
 
 	return (
@@ -158,7 +158,7 @@ const ShellSelect = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The input.
+ * @return {Element} The input.
  */
 const ShellRegionCodes = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -200,7 +200,7 @@ const ShellRegionCodes = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const ShellRadio = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -209,7 +209,7 @@ const ShellRadio = ( { field, disabled } ) => {
 	const isInteger = field.valueType === 'integer';
 	const effective =
 		value === undefined || value === null || value === ''
-			? field.defaultValue ?? ''
+			? ( field.defaultValue ?? '' )
 			: value;
 
 	return (

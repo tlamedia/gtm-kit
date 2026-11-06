@@ -21,7 +21,7 @@ const CHIP_INACTIVE =
  * @param {boolean}  props.active   Whether this chip is the active filter.
  * @param {Function} props.onSelect Select handler.
  * @param {string}   props.label    Chip label.
- * @return {JSX.Element} The chip.
+ * @return {Element} The chip.
  */
 const Chip = ( { active, onSelect, label } ) => (
 	<button
@@ -39,7 +39,7 @@ const Chip = ( { active, onSelect, label } ) => (
  * integrations; with fewer than two integrations to choose between there is
  * nothing to filter, so the control hides itself.
  *
- * @return {JSX.Element|null} The chips, or null.
+ * @return {Element|null} The chips, or null.
  */
 const FilterChips = () => {
 	const { activeFilter, setActiveFilter } = useContext( FilterContext );

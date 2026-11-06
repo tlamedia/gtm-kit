@@ -5,7 +5,7 @@
  * without any request.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
@@ -17,7 +17,7 @@ const EXPORT_JSON =
 
 let mockSupportExport = null;
 
-jest.mock( '../../../services/SettingsService', () => ( {
+vi.mock( '../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSupportSync: () => ( { active: false } ),
@@ -34,9 +34,9 @@ const baseContext = {
 	isSendingSystemData: false,
 	supportSync: { active: false },
 	isStoppingSupportSync: false,
-	updateSupportTicket: jest.fn(),
-	sendSystemData: jest.fn(),
-	stopSupportSync: jest.fn(),
+	updateSupportTicket: vi.fn(),
+	sendSystemData: vi.fn(),
+	stopSupportSync: vi.fn(),
 	useSupportTicket: '',
 	useIsSystemDataSent: false,
 	useIsSystemDataFailed: false,
@@ -70,15 +70,15 @@ describe( 'SupportPage manual system data', () => {
 			json: EXPORT_JSON,
 			filename: 'gtmkit-system-data-shop.example.test-2026-09-11.json',
 		};
-		fetchSpy = jest.fn();
+		fetchSpy = vi.fn();
 		global.fetch = fetchSpy;
 	} );
 
 	afterEach( () => {
 		delete global.fetch;
 		delete window.navigator.clipboard;
-		jest.restoreAllMocks();
-		jest.useRealTimers();
+		vi.restoreAllMocks();
+		vi.useRealTimers();
 	} );
 
 	it( 'stays hidden while sending works', () => {
@@ -117,26 +117,26 @@ describe( 'SupportPage manual system data', () => {
 	} );
 
 	it( 'is offered once a send has been running for too long', () => {
-		jest.useFakeTimers();
+		vi.useFakeTimers();
 		render( page( { isSendingSystemData: true } ) );
 
 		act( () => {
-			jest.advanceTimersByTime( 14000 );
+			vi.advanceTimersByTime( 14000 );
 		} );
 		expect( screen.queryByText( 'Send system data manually' ) ).toBeNull();
 
 		act( () => {
-			jest.advanceTimersByTime( 1000 );
+			vi.advanceTimersByTime( 1000 );
 		} );
 		expect( screen.getByText( 'Send system data manually' ) ).toBeTruthy();
 	} );
 
 	it( 'is hidden again when a slow send finally succeeds', () => {
-		jest.useFakeTimers();
+		vi.useFakeTimers();
 		const { rerender } = render( page( { isSendingSystemData: true } ) );
 
 		act( () => {
-			jest.advanceTimersByTime( 15000 );
+			vi.advanceTimersByTime( 15000 );
 		} );
 		expect( screen.getByText( 'Send system data manually' ) ).toBeTruthy();
 
@@ -161,7 +161,7 @@ describe( 'SupportPage manual system data', () => {
 	} );
 
 	it( 'copies the exact payload without making a request', async () => {
-		const writeText = jest.fn().mockResolvedValue( undefined );
+		const writeText = vi.fn().mockResolvedValue( undefined );
 		Object.defineProperty( window.navigator, 'clipboard', {
 			value: { writeText },
 			configurable: true,
@@ -177,7 +177,7 @@ describe( 'SupportPage manual system data', () => {
 	} );
 
 	it( 'falls back to copying the selected text without the Clipboard API', async () => {
-		document.execCommand = jest.fn( () => true );
+		document.execCommand = vi.fn( () => true );
 
 		render( page( FAILED ) );
 		fireEvent.click( screen.getByText( 'Copy system data' ) );
@@ -190,12 +190,12 @@ describe( 'SupportPage manual system data', () => {
 	it( 'downloads the exact payload as a named JSON file without making a request', async () => {
 		let blob;
 		let clicked;
-		window.URL.createObjectURL = jest.fn( ( value ) => {
+		window.URL.createObjectURL = vi.fn( ( value ) => {
 			blob = value;
 			return 'blob:system-data';
 		} );
-		window.URL.revokeObjectURL = jest.fn();
-		jest.spyOn(
+		window.URL.revokeObjectURL = vi.fn();
+		vi.spyOn(
 			window.HTMLAnchorElement.prototype,
 			'click'
 		).mockImplementation( function () {

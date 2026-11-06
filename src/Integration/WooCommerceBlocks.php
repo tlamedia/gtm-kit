@@ -38,6 +38,7 @@ final class WooCommerceBlocks {
 		'woocommerce/product-collection',
 		'woocommerce/single-product',
 		'woocommerce/related-products',
+		'woocommerce/product-search',
 	];
 
 	/**
@@ -215,7 +216,7 @@ final class WooCommerceBlocks {
 
 		$block_name = (string) ( $block['blockName'] ?? '' );
 
-		if ( '' === $block_name || ! $this->is_supported_block_name( $block_name ) ) {
+		if ( '' === $block_name || ! ( $this->is_supported_block_name( $block_name ) || $this->is_supported_product_search_variation( $block ) ) ) {
 			return $block_content;
 		}
 
@@ -231,6 +232,40 @@ final class WooCommerceBlocks {
 		}
 
 		return $block_content;
+	}
+
+	/**
+	 * Whether a block is the Product Search that WooCommerce inserts as a
+	 * variation of the WordPress Search block.
+	 *
+	 * The variation is a Search block scoped to products, which WordPress
+	 * renders as a hidden `post_type=product` field. A Search block without
+	 * that scope searches the whole site and is left to engagement search.
+	 * Read from the block's attributes, so it never depends on the visitor.
+	 *
+	 * @param array<string, mixed> $block The parsed block.
+	 */
+	public static function is_product_search_variation( array $block ): bool {
+
+		if ( 'core/search' !== ( $block['blockName'] ?? '' ) ) {
+			return false;
+		}
+
+		$query = $block['attrs']['query'] ?? null;
+
+		return is_array( $query ) && 'product' === ( $query['post_type'] ?? null );
+	}
+
+	/**
+	 * Whether a block is the Product Search variation, and Product Search is
+	 * still among the supported blocks, so removing it through the filter
+	 * switches off both forms of the block.
+	 *
+	 * @param array<string, mixed> $block The parsed block.
+	 */
+	private function is_supported_product_search_variation( array $block ): bool {
+		return self::is_product_search_variation( $block )
+			&& in_array( 'woocommerce/product-search', $this->get_supported_blocks(), true );
 	}
 
 	/**
@@ -258,8 +293,12 @@ final class WooCommerceBlocks {
 			'gtmkit-woocommerce-blocks',
 			'gtmkitWooCommerceBlocksBuild',
 			[
-				'root'  => esc_url_raw( rest_url() ),
-				'nonce' => wp_create_nonce( 'wp_rest' ),
+				'root'                => esc_url_raw( rest_url() ),
+				'nonce'               => wp_create_nonce( 'wp_rest' ),
+				// The engagement search event on the results page owns the
+				// `search` event while it is on, so the Product Search block
+				// listener stands down and a search is counted once.
+				'searchOnResultsPage' => (bool) $this->options->get( 'general', 'engagement_event_search_enabled' ),
 			]
 		);
 	}

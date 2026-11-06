@@ -94,11 +94,11 @@ export const describeSgtmLoaderFailure = ( reason ) => {
 							'gtm-kit'
 						),
 						status[ 1 ]
-				  )
+					)
 				: __(
 						'GTM Kit could not get the loader from Stape.',
 						'gtm-kit'
-				  );
+					);
 		}
 	}
 };

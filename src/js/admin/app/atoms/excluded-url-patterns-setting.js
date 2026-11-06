@@ -22,7 +22,6 @@ const ROW_GRID =
  */
 const probeRegexPattern = ( pattern ) => {
 	try {
-		// eslint-disable-next-line no-new
 		new RegExp( pattern, 'i' );
 		return null;
 	} catch ( err ) {
@@ -50,7 +49,7 @@ const extractPathFromUrlPattern = ( pattern ) => {
 			pattern.startsWith( '//' ) ? `https:${ pattern }` : pattern
 		);
 		return parsed.pathname || '/';
-	} catch ( _ ) {
+	} catch {
 		return pattern;
 	}
 };

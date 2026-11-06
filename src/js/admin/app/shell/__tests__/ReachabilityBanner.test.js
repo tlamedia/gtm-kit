@@ -4,6 +4,8 @@
  * "Check again", and the support details block.
  */
 
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { render, screen, act, fireEvent } from '@testing-library/react';
 
 import ReachabilityBanner from '../ReachabilityBanner';
@@ -12,7 +14,7 @@ import {
 	PROBE_ABORT_MS,
 } from '../../../hooks/useReachabilityProbe';
 
-jest.mock( '../../../services/SettingsService', () => ( {
+vi.mock( '../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getNonce: () => 'secret-nonce-value',
@@ -43,7 +45,7 @@ const abortError = () => {
 // way fetch does.
 const deferredRequest = () => {
 	const calls = [];
-	const request = jest.fn(
+	const request = vi.fn(
 		( signal ) =>
 			new Promise( ( resolve, reject ) => {
 				calls.push( { resolve, reject } );
@@ -59,18 +61,18 @@ const flush = () => act( async () => {} );
 
 const advance = ( ms ) =>
 	act( async () => {
-		jest.advanceTimersByTime( ms );
+		vi.advanceTimersByTime( ms );
 	} );
 
 const renderBanner = ( request ) =>
 	render( <ReachabilityBanner probeOptions={ { request } } /> );
 
 beforeEach( () => {
-	jest.useFakeTimers();
+	vi.useFakeTimers();
 } );
 
 afterEach( () => {
-	jest.useRealTimers();
+	vi.useRealTimers();
 } );
 
 describe( 'ReachabilityBanner', () => {
@@ -136,7 +138,7 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'reports an outright network failure as unreachable at once', async () => {
-		const request = jest.fn().mockRejectedValue( {
+		const request = vi.fn().mockRejectedValue( {
 			code: 'fetch_error',
 			message: 'Could not get a valid response from the server.',
 		} );
@@ -150,7 +152,7 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'reports an error answer with its HTTP status', async () => {
-		const request = jest
+		const request = vi
 			.fn()
 			.mockRejectedValue(
 				fakeResponse(
@@ -172,7 +174,7 @@ describe( 'ReachabilityBanner', () => {
 	it.each( [ 401, 403 ] )(
 		'reports a capability refusal (HTTP %d) as a permission problem, not a blocked browser',
 		async ( status ) => {
-			const request = jest.fn().mockRejectedValue(
+			const request = vi.fn().mockRejectedValue(
 				fakeResponse( status, {
 					code: 'rest_forbidden',
 					message: 'Only authenticated users can access endpoint.',
@@ -192,7 +194,7 @@ describe( 'ReachabilityBanner', () => {
 	);
 
 	it( 'keeps the firewall wording for a 403 with another error code', async () => {
-		const request = jest.fn().mockRejectedValue(
+		const request = vi.fn().mockRejectedValue(
 			fakeResponse( 403, {
 				code: 'waf_request_blocked',
 				message: 'Request blocked',
@@ -210,7 +212,7 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'reports a nonce that is still rejected as a login problem, not a blocked browser', async () => {
-		const request = jest.fn().mockRejectedValue(
+		const request = vi.fn().mockRejectedValue(
 			fakeResponse( 403, {
 				code: 'rest_cookie_invalid_nonce',
 				message: 'Cookie check failed',
@@ -231,7 +233,7 @@ describe( 'ReachabilityBanner', () => {
 	it( 'reports a body that stops arriving after the headers as a timeout', async () => {
 		// The headers arrive at once; the body only settles when the probe
 		// gives up and aborts, the way fetch rejects a stalled body read.
-		const request = jest.fn( ( signal ) => {
+		const request = vi.fn( ( signal ) => {
 			const stalled = () =>
 				new Promise( ( resolve, reject ) => {
 					signal.addEventListener( 'abort', () =>
@@ -256,7 +258,7 @@ describe( 'ReachabilityBanner', () => {
 		expect( banner ).toHaveAttribute( 'data-probe-state', 'unreachable' );
 		expect( banner ).not.toHaveTextContent( 'HTTP 200' );
 
-		const writeText = jest.fn().mockResolvedValue();
+		const writeText = vi.fn().mockResolvedValue();
 		Object.defineProperty( window.navigator, 'clipboard', {
 			value: { writeText },
 			configurable: true,
@@ -269,7 +271,7 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'treats a 2xx answer without the expected body as an error', async () => {
-		const request = jest
+		const request = vi
 			.fn()
 			.mockResolvedValue(
 				fakeResponse( 200, '<html>cached page</html>' )
@@ -284,7 +286,7 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'runs the probe again on Check again and follows the new result', async () => {
-		const request = jest
+		const request = vi
 			.fn()
 			.mockRejectedValueOnce( { code: 'fetch_error', message: 'failed' } )
 			.mockResolvedValueOnce( fakeResponse( 200, { reachable: true } ) );
@@ -300,14 +302,14 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'copies a support block with the listed fields and no secrets', async () => {
-		const writeText = jest.fn().mockResolvedValue();
+		const writeText = vi.fn().mockResolvedValue();
 		Object.defineProperty( window.navigator, 'clipboard', {
 			value: { writeText },
 			configurable: true,
 		} );
 		document.cookie = 'wordpress_logged_in_test=cookie-secret-value';
 
-		const request = jest.fn().mockRejectedValue(
+		const request = vi.fn().mockRejectedValue(
 			fakeResponse( 403, {
 				code: 'rest_forbidden',
 				message: 'Sorry, you are not allowed to do that.',
@@ -341,12 +343,12 @@ describe( 'ReachabilityBanner', () => {
 	} );
 
 	it( 'keeps only the first 200 characters of a server message', async () => {
-		const writeText = jest.fn().mockResolvedValue();
+		const writeText = vi.fn().mockResolvedValue();
 		Object.defineProperty( window.navigator, 'clipboard', {
 			value: { writeText },
 			configurable: true,
 		} );
-		const request = jest
+		const request = vi
 			.fn()
 			.mockRejectedValue( fakeResponse( 500, 'y'.repeat( 300 ) ) );
 		renderBanner( request );

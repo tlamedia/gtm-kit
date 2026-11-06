@@ -4,7 +4,7 @@
  * stays until dismissed.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { useContext } from '@wordpress/element';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -17,7 +17,7 @@ import { ToastContext } from '../ToastContext';
 import { APIError } from '../../utils/errors';
 import { updateSettings as apiUpdateSettings } from '../../api/settings';
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSettings: () => ( { general: { gtm_id: 'GTM-OLD1234' } } ),
@@ -26,8 +26,8 @@ jest.mock( '../../services/SettingsService', () => ( {
 	},
 } ) );
 
-jest.mock( '../../api/settings', () => ( {
-	updateSettings: jest.fn(),
+vi.mock( '../../api/settings', () => ( {
+	updateSettings: vi.fn(),
 } ) );
 
 const NOT_KEPT =
@@ -65,7 +65,7 @@ describe( 'SettingsDataProvider failed save', () => {
 				data: { status: 409 },
 			} )
 		);
-		const toast = { error: jest.fn() };
+		const toast = { error: vi.fn() };
 
 		renderProvider( toast );
 		fireEvent.click( screen.getByText( 'save' ) );
@@ -82,7 +82,7 @@ describe( 'SettingsDataProvider failed save', () => {
 		apiUpdateSettings.mockRejectedValueOnce(
 			new APIError( 'Internal detail', { code: 'rest_forbidden' } )
 		);
-		const toast = { error: jest.fn() };
+		const toast = { error: vi.fn() };
 
 		renderProvider( toast );
 		fireEvent.click( screen.getByText( 'save' ) );

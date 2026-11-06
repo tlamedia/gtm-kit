@@ -2,7 +2,7 @@
  * GTM Kit brand mark, exported from the approved design system. Blue badge with
  * the reversed-out "GTM", dark "Kit" wordmark. Rendered at its natural 84×24.
  *
- * @return {JSX.Element} The brand logo.
+ * @return {Element} The brand logo.
  */
 const BrandLogo = () => (
 	<svg

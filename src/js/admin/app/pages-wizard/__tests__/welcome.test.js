@@ -4,24 +4,19 @@
  * container step is shown when there is nothing to import.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the stub factories below, flagging a phantom `@types/react`.
- * Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen } from '@testing-library/react';
 
 import Welcome from '../welcome';
 import { SiteDataContext } from '../../../context/SiteDataContext';
 
-jest.mock( '../../organisms/import-settings', () => ( {
+vi.mock( '../../organisms/import-settings', () => ( {
 	__esModule: true,
 	default: () => <div data-testid="import-settings" />,
 } ) );
 
-jest.mock( '../../organisms/register-container', () => ( {
+vi.mock( '../../organisms/register-container', () => ( {
 	__esModule: true,
 	default: () => <div data-testid="register-container" />,
 } ) );

@@ -76,7 +76,7 @@ export const useFeatureFlags = () => {
 	const hasSGTM = useCallback( () => {
 		return Boolean(
 			settings?.general?.sgtm_domain &&
-				settings.general.sgtm_domain.trim()
+			settings.general.sgtm_domain.trim()
 		);
 	}, [ settings?.general?.sgtm_domain ] );
 

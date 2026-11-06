@@ -8,7 +8,7 @@ const CHIP =
  * A small padlock glyph shown in the tier badge when the field is locked by the
  * current license.
  *
- * @return {JSX.Element} The icon.
+ * @return {Element} The icon.
  */
 const LockIcon = () => (
 	<svg
@@ -40,7 +40,7 @@ const LockIcon = () => (
  * @param {Object}  props        Component props.
  * @param {Object}  props.field  The field definition.
  * @param {boolean} props.locked Whether the field is locked by license tier.
- * @return {JSX.Element|null} The badge, or null when the field is free.
+ * @return {Element|null} The badge, or null when the field is free.
  */
 const FieldTags = ( { field, locked = false } ) => {
 	const isPremium = field.tier === 'premium' || field.tier === 'woo';

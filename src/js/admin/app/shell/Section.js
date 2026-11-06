@@ -26,7 +26,7 @@ const BADGE_CLASS =
  *
  * @param {Object} props      Component props.
  * @param {Object} props.item The composed section item.
- * @return {JSX.Element} The rendered item.
+ * @return {Element} The rendered item.
  */
 const SectionItem = ( { item } ) =>
 	item.isBlock ? (
@@ -71,7 +71,7 @@ const asideBadge = ( aside ) => {
  *
  * @param {Object} props       Component props.
  * @param {Array}  props.aside The aside blocks.
- * @return {JSX.Element} The Help card.
+ * @return {Element} The Help card.
  */
 const HelpCard = ( { aside } ) => {
 	const badge = asideBadge( aside );
@@ -105,7 +105,7 @@ const HelpCard = ( { aside } ) => {
  *
  * @param {Object} props         Component props.
  * @param {Object} props.section The section definition.
- * @return {JSX.Element} The rendered card.
+ * @return {Element} The rendered card.
  */
 const Section = memo( ( { section, filter = null } ) => {
 	const { settings } = useContext( SettingsDataContext );

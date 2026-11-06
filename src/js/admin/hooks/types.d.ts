@@ -11,7 +11,7 @@ import type { Tier } from '../constants/tiers';
  */
 export type UseSettingFieldReturn = [
 	value: unknown,
-	setValue: (newValue: unknown) => void
+	setValue: ( newValue: unknown ) => void,
 ];
 
 /**
@@ -22,10 +22,10 @@ export interface UseFeatureFlagsReturn {
 	hasValidLicense: boolean;
 	requiresPremium: () => boolean;
 	activeTier: Tier;
-	meetsRequiredTier: (requiredTier?: Tier) => boolean;
-	isPluginActive: (pluginSlug: string) => boolean;
+	meetsRequiredTier: ( requiredTier?: Tier ) => boolean;
+	isPluginActive: ( pluginSlug: string ) => boolean;
 	hasSGTM: () => boolean;
-	canUseFeature: (feature: string) => boolean;
+	canUseFeature: ( feature: string ) => boolean;
 }
 
 /**
@@ -37,10 +37,10 @@ export interface UseNotificationReturn {
 			total: number;
 			problem?: number;
 		};
-		[key: string]: unknown;
+		[ key: string ]: unknown;
 	};
-	dismissNotification: (id: string) => Promise<void>;
-	removeNotification: (id: string) => Promise<void>;
+	dismissNotification: ( id: string ) => Promise< void >;
+	removeNotification: ( id: string ) => Promise< void >;
 	isUpdatingNotifications: boolean;
 	totalNotifications: number;
 	problemNotifications: number;
@@ -50,7 +50,13 @@ export interface UseNotificationReturn {
 
 /**
  * Hook function signatures
+ *
+ * @param group The option group.
+ * @param key   The option key within the group.
  */
-export function useSettingField(group: string, key: string): UseSettingFieldReturn;
+export function useSettingField(
+	group: string,
+	key: string
+): UseSettingFieldReturn;
 export function useFeatureFlags(): UseFeatureFlagsReturn;
 export function useNotification(): UseNotificationReturn;

@@ -114,10 +114,13 @@ final class ConsentDefaultsCheck {
 	/**
 	 * Whether the defaults grant analytics storage before the visitor answers.
 	 *
+	 * Read as a new visitor gets it, never from the request, so an
+	 * administrator's own consent cookies do not change the answer.
+	 *
 	 * @return bool
 	 */
 	public function grants_analytics(): bool {
-		$state = $this->registry->read_state();
+		$state = $this->registry->read_default_state();
 
 		if ( null !== $state ) {
 			return 'granted' === $state['analytics_storage'];

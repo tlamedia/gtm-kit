@@ -20,7 +20,7 @@ import classNames from 'classnames';
  * @param {string}  props.width     Width (CSS value)
  * @param {string}  props.height    Height (CSS value)
  * @param {boolean} props.circle    Render as circle
- * @return {JSX.Element} Skeleton element
+ * @return {Element} Skeleton element
  */
 export const Skeleton = memo(
 	( { className = '', width, height, circle = false } ) => {
@@ -50,7 +50,7 @@ export const Skeleton = memo(
  *
  * @param {Object} props       Component props
  * @param {number} props.lines Number of lines to show
- * @return {JSX.Element} Text skeleton
+ * @return {Element} Text skeleton
  */
 export const SkeletonText = memo( ( { lines = 3 } ) => {
 	return (
@@ -71,7 +71,7 @@ export const SkeletonText = memo( ( { lines = 3 } ) => {
  *
  * Mimics a SectionBox with header and content.
  *
- * @return {JSX.Element} Section skeleton
+ * @return {Element} Section skeleton
  */
 export const SkeletonSection = memo( () => {
 	return (
@@ -92,7 +92,7 @@ export const SkeletonSection = memo( () => {
  *
  * Mimics a settings field with label and input.
  *
- * @return {JSX.Element} Field skeleton
+ * @return {Element} Field skeleton
  */
 export const SkeletonField = memo( () => {
 	return (
@@ -108,7 +108,7 @@ export const SkeletonField = memo( () => {
  *
  * Mimics a dashboard box with header, content, and button.
  *
- * @return {JSX.Element} Dashboard box skeleton
+ * @return {Element} Dashboard box skeleton
  */
 export const SkeletonDashboardBox = memo( () => {
 	return (
@@ -134,7 +134,7 @@ export const SkeletonDashboardBox = memo( () => {
  * @param {Object}  props           Component props
  * @param {number}  props.sections  Number of sections to show
  * @param {boolean} props.showTitle Whether to show title skeleton (default: true)
- * @return {JSX.Element} Page skeleton
+ * @return {Element} Page skeleton
  */
 export const SkeletonPage = memo( ( { sections = 3, showTitle = true } ) => {
 	return (
@@ -160,7 +160,7 @@ export const SkeletonPage = memo( ( { sections = 3, showTitle = true } ) => {
  *
  * @param {Object} props       Component props
  * @param {number} props.count Number of items to show
- * @return {JSX.Element} Notification skeleton
+ * @return {Element} Notification skeleton
  */
 export const SkeletonNotifications = memo( ( { count = 3 } ) => {
 	return (

@@ -5,6 +5,8 @@
  * plugins mocked on the settings service so the plugin-active gating can be
  * exercised both ways.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import {
 	fieldMatchesFilter,
 	isIntegrationPluginActive,

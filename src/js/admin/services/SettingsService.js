@@ -425,6 +425,24 @@ class SettingsService {
 	}
 
 	/**
+	 * Get the review request, when the site has earned it.
+	 *
+	 * The server decides: it is present only after two weeks in a row of the
+	 * container being found, and until the owner has answered it.
+	 *
+	 * @return {{url: string}|null} The review link, or null when not to ask.
+	 */
+	getReviewAsk() {
+		const ask = this.data.reviewAsk;
+
+		if ( ! ask || typeof ask !== 'object' || typeof ask.url !== 'string' ) {
+			return null;
+		}
+
+		return { url: ask.url };
+	}
+
+	/**
 	 * Get raw data by key (discouraged - use specific methods instead)
 	 *
 	 * This method provides raw access to window.gtmkitSettings for edge cases.

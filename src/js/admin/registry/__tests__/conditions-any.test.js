@@ -2,6 +2,8 @@
  * The `any` operator holds when at least one of its conditions does, and
  * combines with the other entries of the same condition by AND.
  */
+import { describe, expect, it } from 'vitest';
+
 import { evaluateCondition } from '../conditions';
 
 const settings = {

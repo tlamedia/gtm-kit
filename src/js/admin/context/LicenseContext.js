@@ -168,7 +168,7 @@ export const LicenseProvider = ( { children } ) => {
 										'License deactivation refused',
 										response
 									)
-							  ),
+								),
 				},
 			} );
 			return false;

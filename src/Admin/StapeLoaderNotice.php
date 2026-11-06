@@ -89,12 +89,15 @@ final class StapeLoaderNotice {
 	}
 
 	/**
-	 * Whether the loader is switched on and set up, but none is stored.
+	 * Whether the loader is switched on and set up, but none is in use.
+	 *
+	 * A stored loader issued for different settings is not used either, so
+	 * the page falls back to the standard script just as with none stored.
 	 *
 	 * @return bool
 	 */
 	public function is_due(): bool {
-		return $this->loader->is_enabled() && null === $this->loader->get_stored();
+		return $this->loader->is_enabled() && null === $this->loader->get_active();
 	}
 
 	/**
@@ -108,8 +111,13 @@ final class StapeLoaderNotice {
 			$this->notifications_handler->remove_notification_by_id( self::NOTIFICATION_ID );
 
 			// The state has ended, so a dismissal given while it lasted no
-			// longer applies. If it returns, the owner is told again.
-			delete_option( self::DISMISSED_OPTION );
+			// longer applies. If it returns, the owner is told again. Read
+			// first, because this runs on every admin request: with a
+			// persistent object cache the read of an absent option costs no
+			// query, where a delete always queries.
+			if ( false !== get_option( self::DISMISSED_OPTION, false ) ) {
+				delete_option( self::DISMISSED_OPTION );
+			}
 
 			return;
 		}

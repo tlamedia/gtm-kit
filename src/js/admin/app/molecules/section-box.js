@@ -6,7 +6,7 @@ import { forwardRef, memo } from '@wordpress/element';
  * @param {string} props.title     The title.
  * @param {Object} props.children  The children.
  * @param {string} props.className The className.
- * @return {JSX.Element} The card header.
+ * @return {Element} The card header.
  */
 const Header = memo(
 	( {
@@ -34,7 +34,7 @@ const Header = memo(
  * @param {string} props.as        The element to render as.
  * @param {Object} props.children  The children.
  * @param {string} props.className The className.
- * @return {JSX.Element} The card content.
+ * @return {Element} The card content.
  */
 const Content = memo(
 	( { as: Component = 'div', children, className = '', ...props } ) => (
@@ -52,7 +52,7 @@ const Content = memo(
  * @param {Object}  props.children  The children.
  * @param {string}  props.className The className.
  * @param {boolean} props.disabled  Is the box disabled.
- * @return {JSX.Element} The card component.
+ * @return {Element} The card component.
  */
 const SectionBox = forwardRef(
 	( { children, className = '', disabled = false, ...props }, ref ) => (

@@ -8,6 +8,8 @@
 namespace TLA_Media\GTM_Kit\Installation;
 
 use TLA_Media\GTM_Kit\Common\Util;
+use TLA_Media\GTM_Kit\Options\Options;
+use TLA_Media\GTM_Kit\Options\Processor\DomainProcessor;
 
 /**
  * Class for preparing import data from other GTM plugins.
@@ -179,10 +181,24 @@ class PluginDataImport {
 		// a loader address that does not serve the container, so the domain is
 		// left out and the preview says why. Omitting the container ID only
 		// takes effect in GTM4WP together with a custom path, so the path alone
-		// decides.
-		$sgtm_domain_skipped = $container !== null && '' !== $container['domain'] && '' !== $container['path'];
+		// decides. GTM4WP's own `gtm.js` is the standard loader path, which
+		// GTM Kit builds as well, so it does not count as custom.
+		$sgtm_domain_skipped = $container !== null && '' !== $container['domain'] && ! $this->is_default_gtm4wp_path( $container['path'] );
+		$sgtm_domain_cleared = false;
 
 		if ( $sgtm_domain_skipped ) {
+			// An earlier import stored this domain without its path, which left
+			// a loader address that does not serve the container. Clear it, but
+			// only when the stored domain is exactly what that import wrote, so
+			// a domain the site owner entered is never touched. With the loader
+			// Stape issues switched on, the same domain serves the container
+			// through that loader, so it is in use and stays.
+			$stored              = $this->get_stored_general();
+			$stored_domain       = is_string( $stored['sgtm_domain'] ?? null ) ? $stored['sgtm_domain'] : '';
+			$sgtm_domain_cleared = '' !== $stored_domain
+				&& empty( $stored['sgtm_stape_issued_loader'] )
+				&& ( new DomainProcessor() )->process( $container['domain'], null ) === $stored_domain;
+
 			$container['domain'] = '';
 		}
 
@@ -239,6 +255,10 @@ class PluginDataImport {
 
 		$general = array_merge( $general, $this->pick( $options, $general_map ) );
 
+		if ( $sgtm_domain_cleared ) {
+			$general['sgtm_domain'] = '';
+		}
+
 		if ( \array_key_exists( 'gtm-no-gtm-for-logged-in', $options ) ) {
 			$general['exclude_user_roles'] = $this->split_role_list( $options['gtm-no-gtm-for-logged-in'] );
 		}
@@ -263,9 +283,35 @@ class PluginDataImport {
 			'name'                => 'GTM4WP',
 			'container_count'     => \count( $containers ),
 			'sgtm_domain_skipped' => $sgtm_domain_skipped,
+			'sgtm_domain_cleared' => $sgtm_domain_cleared,
 			'general'             => $general,
 			'integrations'        => array_merge( $integrations, $customer_data ),
 		];
+	}
+
+	/**
+	 * Whether a GTM4WP loader path is the standard one.
+	 *
+	 * Empty means GTM4WP's default, and `gtm.js` is the placeholder GTM4WP
+	 * shows for it, with or without a leading slash.
+	 *
+	 * @param string $path The stored loader path.
+	 *
+	 * @return bool
+	 */
+	private function is_default_gtm4wp_path( string $path ): bool {
+		return in_array( ltrim( $path, '/' ), [ '', 'gtm.js' ], true );
+	}
+
+	/**
+	 * The general settings GTM Kit has stored.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_stored_general(): array {
+		$stored = \get_option( Options::OPTION_NAME, [] );
+
+		return ( \is_array( $stored ) && isset( $stored['general'] ) && \is_array( $stored['general'] ) ) ? $stored['general'] : [];
 	}
 
 	/**

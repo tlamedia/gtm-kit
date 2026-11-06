@@ -39,7 +39,7 @@ const stripIntegrationPrefix = ( label, titles ) => {
  * mirroring the version the legacy Misc page displayed. Renders nothing when
  * the version is unavailable.
  *
- * @return {JSX.Element|null} The version line, or null.
+ * @return {Element|null} The version line, or null.
  */
 const VersionFooter = () => {
 	const version = SettingsService.getVersion();
@@ -65,7 +65,7 @@ const VersionFooter = () => {
  *
  * @param {Object} props              Component props.
  * @param {string} props.capabilityId The capability id to render.
- * @return {JSX.Element|null} The rendered page.
+ * @return {Element|null} The rendered page.
  */
 const CapabilityPage = ( { capabilityId } ) => {
 	const location = useLocation();

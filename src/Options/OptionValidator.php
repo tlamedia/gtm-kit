@@ -92,8 +92,8 @@ final class OptionValidator {
 			}
 		}
 
-		// Handle boolean coercion (accept 1/0 as boolean).
-		if ( $expected_type === 'boolean' && ( $value === 1 || $value === 0 || $value === '1' || $value === '0' || is_bool( $value ) ) ) {
+		// Handle boolean coercion (accept 1/0 and 'true'/'false', which the save coerces to booleans).
+		if ( $expected_type === 'boolean' && ( is_bool( $value ) || in_array( $value, [ 1, 0, '1', '0', 'true', 'false' ], true ) ) ) {
 			return ValidationResult::valid();
 		}
 

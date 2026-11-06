@@ -188,7 +188,7 @@ export const NotificationProvider = ( { children } ) => {
 					notifications: response.data,
 				},
 			} );
-		} catch ( error ) {
+		} catch {
 			// Rollback optimistic update on error
 			dispatch( {
 				type: ActionTypes.NOTIFICATION_UPDATE_ROLLBACK,

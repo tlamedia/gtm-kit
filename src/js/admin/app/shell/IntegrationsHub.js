@@ -36,7 +36,7 @@ const STATUS_BADGE = {
  *
  * @param {Object} props             Component props.
  * @param {Object} props.integration The integration descriptor.
- * @return {JSX.Element} The row.
+ * @return {Element} The row.
  */
 const IntegrationRow = ( { integration } ) => {
 	const status = STATUS_BADGE[ integration.status ];
@@ -82,7 +82,7 @@ const IntegrationRow = ( { integration } ) => {
  * happens here; the settings themselves live on the capability pages and on
  * each integration's config page.
  *
- * @return {JSX.Element} The hub.
+ * @return {Element} The hub.
  */
 const IntegrationsHub = () => {
 	const { settings } = useContext( SettingsDataContext );

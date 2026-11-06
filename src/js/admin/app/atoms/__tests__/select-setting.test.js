@@ -7,7 +7,7 @@
  * it never writes the default back to the store.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
@@ -42,7 +42,7 @@ const INTEGER_FIELD = {
 };
 
 function renderField( field, settings = {} ) {
-	const updateStateSettings = jest.fn();
+	const updateStateSettings = vi.fn();
 	render(
 		<SettingsDataContext.Provider
 			value={ { settings, updateStateSettings } }
@@ -59,7 +59,7 @@ describe( 'select control default-value display fallback', () => {
 
 		expect( screen.getByRole( 'combobox' ) ).toHaveValue( 'always_load' );
 		// SelectControl emits its legacy-size/margin deprecation notices on the
-		// first render in this file; acknowledge them so jest-console passes.
+		// first render in this file; acknowledge them so the console guard passes.
 		expect( console ).toHaveWarned();
 	} );
 

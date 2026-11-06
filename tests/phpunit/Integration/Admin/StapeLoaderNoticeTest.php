@@ -213,4 +213,47 @@ final class StapeLoaderNoticeTest extends WP_UnitTestCase {
 
 		$this->assertTrue( $this->is_shown() );
 	}
+
+	/**
+	 * A stored loader issued for other settings is not used, so the page falls
+	 * back to the standard script and the notice is raised.
+	 *
+	 * @return void
+	 */
+	public function test_raised_when_the_stored_loader_no_longer_matches_the_settings(): void {
+		$this->store_loader();
+		$this->evaluate();
+		$this->assertFalse( $this->is_shown() );
+
+		// Change a setting the loader was issued for without fetching a new one.
+		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_cookie_keeper', true );
+		$this->evaluate();
+
+		$this->assertTrue( $this->is_shown() );
+	}
+
+	/**
+	 * With no dismissal stored, withdrawing the notice deletes nothing.
+	 *
+	 * @return void
+	 */
+	public function test_no_delete_runs_when_there_is_no_dismissal(): void {
+		$this->set_general( [ 'sgtm_stape_issued_loader' => false ] );
+
+		// With the option already known to be absent, as a persistent object
+		// cache keeps it between requests, withdrawing the notice sends no
+		// query for it.
+		get_option( StapeLoaderNotice::DISMISSED_OPTION, false );
+
+		$queries = [];
+		$record  = static function ( string $query ) use ( &$queries ): string {
+			$queries[] = $query;
+			return $query;
+		};
+		add_filter( 'query', $record );
+		$this->evaluate();
+		remove_filter( 'query', $record );
+
+		$this->assertSame( [], preg_grep( '/' . preg_quote( StapeLoaderNotice::DISMISSED_OPTION, '/' ) . '/', $queries ) );
+	}
 }

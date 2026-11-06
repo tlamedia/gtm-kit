@@ -15,7 +15,7 @@ import { SettingsDataContext } from '../../context/SettingsDataContext';
  * @param {Object}  props.block    The block definition.
  * @param {boolean} [props.padded] Wrap in the field-row vertical padding (for
  *                                 inline section content, not the help aside).
- * @return {JSX.Element|null} The rendered block, or null.
+ * @return {Element|null} The rendered block, or null.
  */
 const ContentBlock = memo( ( { block, padded = false } ) => {
 	const { settings } = useContext( SettingsDataContext );

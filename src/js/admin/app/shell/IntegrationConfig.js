@@ -20,7 +20,7 @@ import {
  *
  * @param {Object} props       Component props.
  * @param {string} props.title The current integration title.
- * @return {JSX.Element} The breadcrumb.
+ * @return {Element} The breadcrumb.
  */
 const Breadcrumb = ( { title } ) => (
 	<div className="gtmkit-mb-2 gtmkit-flex gtmkit-items-center gtmkit-gap-1.5 gtmkit-text-[13px]">
@@ -61,7 +61,7 @@ const sectionLabel = ( label, integrationTitle ) => {
  * A single integration's config page: the integration's settings, narrowed from
  * the capability pages, reached from the Integrations hub.
  *
- * @return {JSX.Element} The page.
+ * @return {Element} The page.
  */
 const IntegrationConfig = () => {
 	const { slug } = useParams();

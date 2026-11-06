@@ -18,7 +18,7 @@ let nextToastId = 1;
  *
  * @param {Object} props          Component props
  * @param {*}      props.children Child components
- * @return {JSX.Element} Provider component
+ * @return {Element} Provider component
  */
 export const ToastProvider = ( { children } ) => {
 	const [ toasts, setToasts ] = useState( [] );

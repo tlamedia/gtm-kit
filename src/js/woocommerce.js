@@ -373,6 +373,10 @@ function gtmkitLoad() {
 
 		if (!productVariationData) return;
 
+		// The product page carries the parent's item, so its id is the
+		// parent's, in the same SKU-or-ID format and prefix as item_id.
+		productVariationData.item_group_id = productVariationData.item_id;
+
 		productVariationData.id = productVariationData.item_id =
 			window.gtmkit_settings.wc.pid_prefix +
 			productVariation.variation_id;

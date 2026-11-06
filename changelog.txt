@@ -1,5 +1,21 @@
 *** GTM Kit ***
 
+2026-11-10 - version 2.24.0
+* Add: AI assistants connected through the WordPress Abilities API can now change a short list of GTM Kit settings, such as the container ID, consent defaults and integrations. Every change is previewed first and only applied with the one-time code from that preview. This is off until you turn it on with the gtmkit_write_abilities_enabled filter.
+* Add: Product variations in the data layer now also carry their parent product's ID, in a field named item_group_id and in the same format as the item ID, so a variation can be tied back to its product in reports and in Merchant Center feeds.
+* Add: Open any GTM Kit settings section, the setup wizard or Google Tag Manager from the WordPress command palette (Ctrl+K or Cmd+K).
+* Fix: GTM Kit's abilities now reach AI assistants on sites where another plugin loads an older copy of the MCP Adapter.
+* Fix: The consent status that AI assistants and Site Health report is now the default a new visitor gets, not the consent of the administrator viewing it.
+* Fix: Saving the settings no longer fails when a switch was stored as the text "true" or "false", which can happen when a setting is changed outside the settings screen. The save now stores it as a proper on or off value, and a Google tag gateway stored as "false" is saved as off.
+* Fix: A search from the Product Search block is now counted once. Block themes counted it twice, and classic themes lost it when engagement search tracking was off.
+* Fix: A product search with a single match, which WooCommerce sends straight to the product page, is now counted as a search when engagement search tracking is on.
+* Fix: Searches from the Product Search block that WooCommerce now adds as a version of the WordPress Search block are counted when engagement search tracking is off.
+* Fix: The data layer name is now checked when you save it. A name that is not a valid JavaScript name, such as one with a space, is refused instead of breaking the container on every page.
+* Fix: Importing from GTM4WP now brings over a server-side domain that uses GTM4WP's default script path, and a re-import clears a domain an earlier import saved but could not use.
+* Fix: The Stape loader notice now also appears when a saved loader no longer matches your settings, and the Google tag gateway's custom-domain message says the Stape loader is off too.
+* Changed: When an AI assistant previews a change to the data layer name, the preview now warns that other scripts using the old name will need updating.
+* Changed: Clearer consent advice in Site Health.
+
 2026-11-02 - version 2.23.1
 * Fix: With "Just the container" turned on, GTM Kit outputs the Google Tag Manager container again. It was left out of the page, so no tags fired.
 

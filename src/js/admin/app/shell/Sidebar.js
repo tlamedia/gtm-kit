@@ -28,7 +28,7 @@ const ITEM_ACTIVE =
  * @param {Object}   props.capability The capability definition.
  * @param {number}   props.count      Matching-field count under the active filter.
  * @param {Function} props.onNavigate Called on click (clears the search).
- * @return {JSX.Element} The nav item.
+ * @return {Element} The nav item.
  */
 const NavItem = ( { capability, count, onNavigate } ) => (
 	<NavLink
@@ -65,7 +65,7 @@ const NavItem = ( { capability, count, onNavigate } ) => (
  * @param {Object}  props                 Component props.
  * @param {boolean} props.isPremiumPlugin Whether the Premium plugin is active.
  * @param {boolean} props.hasValidLicense Whether the license is currently valid.
- * @return {JSX.Element} The brand lockup.
+ * @return {Element} The brand lockup.
  */
 const BrandLockup = ( { isPremiumPlugin, hasValidLicense } ) => (
 	<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-4 gtmkit-pb-[14px] gtmkit-px-5">
@@ -98,7 +98,7 @@ const BrandLockup = ( { isPremiumPlugin, hasValidLicense } ) => (
  * Two-zone left navigation rendered from the capability registry: tracking
  * capabilities above the divider, plugin/meta pages below a "Plugin" label.
  *
- * @return {JSX.Element} The sidebar.
+ * @return {Element} The sidebar.
  */
 const Sidebar = memo( ( { onNavigate } ) => {
 	const capabilities = getCapabilitiesByZone( ZONES.CAPABILITY );

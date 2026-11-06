@@ -147,8 +147,7 @@ final class GoogleTagGatewaySaveTest extends WP_UnitTestCase {
 	 *
 	 * With a custom domain set, a save mistaken for a switch-on is refused by
 	 * the gateway check, after up to two blocking network requests, with an
-	 * explanation about the gateway. The value is instead left to the
-	 * validator, which does not accept the string and names the setting.
+	 * explanation about the gateway. The string is instead saved as off.
 	 *
 	 * @return void
 	 */
@@ -162,7 +161,46 @@ final class GoogleTagGatewaySaveTest extends WP_UnitTestCase {
 			]
 		);
 
-		$this->assertSame( 400, $response->get_status() );
-		$this->assertSame( 'gtmkit_settings_rejected', $response->as_error()->get_error_code() );
+		$this->assertSame( 200, $response->get_status() );
+		$this->assertFalse( get_option( Options::OPTION_NAME )['general']['google_tag_gateway'] );
+	}
+
+	/**
+	 * A string "true" is a switch-on, and goes through the gateway check.
+	 *
+	 * @return void
+	 */
+	public function test_a_string_true_is_checked_as_a_switch_on(): void {
+		$response = $this->save(
+			[
+				'gtm_id'             => 'GTM-OLD1234',
+				'console_log'        => false,
+				'sgtm_domain'        => 'gtm.example.com',
+				'google_tag_gateway' => 'true',
+			]
+		);
+
+		$this->assertSame( 'gtmkit_gateway_refused', $response->as_error()->get_error_code() );
+		$this->assertFalse( get_option( Options::OPTION_NAME )['general']['google_tag_gateway'] );
+	}
+
+	/**
+	 * A gateway stored as the string "false" is off, so switching it on is checked.
+	 *
+	 * @return void
+	 */
+	public function test_a_stored_string_false_is_not_taken_for_on(): void {
+		OptionsFactory::get_instance()->set_option( 'general', 'google_tag_gateway', 'false' );
+
+		$response = $this->save(
+			[
+				'gtm_id'             => 'GTM-OLD1234',
+				'console_log'        => false,
+				'sgtm_domain'        => 'gtm.example.com',
+				'google_tag_gateway' => true,
+			]
+		);
+
+		$this->assertSame( 'gtmkit_gateway_refused', $response->as_error()->get_error_code() );
 	}
 }

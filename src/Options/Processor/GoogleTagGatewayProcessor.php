@@ -8,6 +8,7 @@
 namespace TLA_Media\GTM_Kit\Options\Processor;
 
 use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
+use TLA_Media\GTM_Kit\Options\Options;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
 
 /**
@@ -75,10 +76,10 @@ final class GoogleTagGatewayProcessor implements OptionsAwareProcessorInterface 
 	 */
 	public function process_with_options( $value, $old_value, array $options ): bool {
 
-		$value = (bool) $value;
+		$value = Options::to_boolean( $value );
 
 		// Switching off, or staying as it was, needs no check.
-		if ( ! $value || (bool) $old_value ) {
+		if ( ! $value || Options::to_boolean( $old_value ) ) {
 			return $value;
 		}
 
@@ -166,7 +167,7 @@ final class GoogleTagGatewayProcessor implements OptionsAwareProcessorInterface 
 	 */
 	public function after_save( $value, $old_value ): void {
 
-		if ( (bool) $value === (bool) $old_value ) {
+		if ( Options::to_boolean( $value ) === Options::to_boolean( $old_value ) ) {
 			return;
 		}
 

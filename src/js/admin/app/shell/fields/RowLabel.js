@@ -4,7 +4,7 @@
  * @param {Object} props               Component props.
  * @param {string} props.label         Row label.
  * @param {*}      [props.description] Optional description node.
- * @return {JSX.Element} The label column.
+ * @return {Element} The label column.
  */
 const RowLabel = ( { label, description } ) => (
 	<div className="gtmkit-flex gtmkit-min-w-0 gtmkit-flex-col gtmkit-gap-0.5">

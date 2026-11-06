@@ -45,7 +45,7 @@ export async function dismissIntroduction( introId, options ) {
 			},
 		} );
 		return response.ok === true;
-	} catch ( err ) {
+	} catch {
 		return false;
 	}
 }

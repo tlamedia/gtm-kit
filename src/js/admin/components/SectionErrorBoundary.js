@@ -24,11 +24,11 @@ const SectionErrorBoundary = ( { children, sectionName } ) => {
 		? `${ __( 'The', 'gtm-kit' ) } "${ sectionName }" ${ __(
 				'section encountered an error. Other sections may still work normally.',
 				'gtm-kit'
-		  ) }`
+			) }`
 		: __(
 				'This section encountered an error. Other sections may still work normally.',
 				'gtm-kit'
-		  );
+			);
 
 	return (
 		<ErrorBoundary title={ title } message={ message }>

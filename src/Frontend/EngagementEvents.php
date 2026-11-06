@@ -19,7 +19,8 @@ use WP_User;
  * (`login`, `sign_up`) hand off via a short-lived cookie so the
  * decision stays out of cached HTML; the search event is detected in
  * PHP but emitted from JS so the cache key (which already varies on
- * the query string) is the only per-request state involved. The
+ * the query string) is the only per-request state involved, except for
+ * a search redirected to its single result, which takes the cookie. The
  * `generate_lead` event ships from the existing CF7 integration's
  * client-side hook.
  */
@@ -98,6 +99,9 @@ class EngagementEvents {
 			// Priority 1 so the marker lands before any integration that
 			// adds content via `wp_body_open` and reads `document.body`.
 			add_action( 'wp_body_open', [ $instance, 'echo_search_term_marker' ], 1 );
+			// Priority 9, ahead of WooCommerce's redirect of a product search
+			// with a single match, which skips the results page.
+			add_action( 'template_redirect', [ $instance, 'watch_single_result_redirect' ], 9 );
 		}
 
 		return $instance;
@@ -224,6 +228,61 @@ class EngagementEvents {
 		$classes[] = 'gtmkit-search-results';
 
 		return $classes;
+	}
+
+	/**
+	 * On a search request, watch for a redirect to the single result.
+	 *
+	 * WooCommerce sends a product search with exactly one match straight
+	 * to the product page, so the results page that carries the search
+	 * marker never renders. The search is then handed to the next page
+	 * through the engagement cookie, the same cache-safe route the
+	 * `login` and `sign_up` events take.
+	 */
+	public function watch_single_result_redirect(): void {
+		if ( ! $this->is_search_results_page() || '' === $this->current_search_term() ) {
+			return;
+		}
+
+		// First in line, so the location is compared before a language or
+		// tracking plugin rewrites it.
+		add_filter( 'wp_redirect', [ $this, 'on_search_redirect' ], PHP_INT_MIN, 1 );
+	}
+
+	/**
+	 * Queue the `search` event when a search redirects to its single result.
+	 *
+	 * Only a redirect to the permalink of the one post the search found
+	 * counts, so a redirect that lands on another results page, which
+	 * reports the search itself, is never counted twice.
+	 *
+	 * @param mixed $location The redirect target.
+	 * @return mixed The redirect target, unchanged.
+	 */
+	public function on_search_redirect( $location ) {
+		global $wp_query;
+
+		remove_filter( 'wp_redirect', [ $this, 'on_search_redirect' ], PHP_INT_MIN );
+
+		if (
+			! is_string( $location )
+			|| ! $wp_query instanceof WP_Query
+			|| 1 !== (int) $wp_query->found_posts
+			|| empty( $wp_query->post )
+			|| get_permalink( $wp_query->post ) !== $location
+		) {
+			return $location;
+		}
+
+		$this->maybe_write_event(
+			'search',
+			[
+				'event'       => 'search',
+				'search_term' => $this->current_search_term(),
+			]
+		);
+
+		return $location;
 	}
 
 	/**

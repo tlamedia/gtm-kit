@@ -14,9 +14,9 @@ export interface SettingsServiceData {
 	isPremiumPlugin?: boolean;
 	hasValidLicense?: boolean;
 	user_roles?: UserRole[];
-	plugins?: Record<string, boolean>;
+	plugins?: Record< string, boolean >;
 	taxonomyOptions?: TaxonomyOption[];
-	templates?: Record<string, unknown>;
+	templates?: Record< string, unknown >;
 	root?: string;
 	nonce?: string;
 	rootId?: string;
@@ -54,7 +54,7 @@ export interface Settings {
 	general?: GeneralSettings;
 	integrations?: IntegrationSettings;
 	premium?: PremiumSettings;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface GeneralSettings {
@@ -72,7 +72,7 @@ export interface GeneralSettings {
 	exclude_user_roles?: string[];
 	script_implementation?: number;
 	noscript_implementation?: number;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface IntegrationSettings {
@@ -83,7 +83,7 @@ export interface IntegrationSettings {
 	woocommerce_exclude_shipping?: boolean;
 	cf7_integration?: boolean;
 	edd_integration?: boolean;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface PremiumSettings {
@@ -91,18 +91,18 @@ export interface PremiumSettings {
 	woocommerce_purchase_webhook?: boolean;
 	woocommerce_order_paid_webhook?: boolean;
 	woocommerce_refund_webhook?: boolean;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface SiteData {
 	ecommerce?: boolean;
 	site_url?: string;
 	admin_url?: string;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface InstallData {
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface Notifications {
@@ -110,7 +110,7 @@ export interface Notifications {
 		total: number;
 		problem?: number;
 	};
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface UserRole {
@@ -128,7 +128,7 @@ export interface Opportunity {
 	title: string;
 	description: string;
 	link?: string;
-	[key: string]: unknown;
+	[ key: string ]: unknown;
 }
 
 export interface PageOption {
@@ -218,12 +218,12 @@ declare class SettingsService {
 	/**
 	 * Get all plugin status data
 	 */
-	getPlugins(): Record<string, boolean>;
+	getPlugins(): Record< string, boolean >;
 
 	/**
 	 * Check if a specific plugin is active
 	 */
-	isPluginActive(pluginSlug: string): boolean;
+	isPluginActive( pluginSlug: string ): boolean;
 
 	/**
 	 * Get taxonomy options (WooCommerce)
@@ -233,7 +233,7 @@ declare class SettingsService {
 	/**
 	 * Get templates data
 	 */
-	getTemplates(): Record<string, unknown>;
+	getTemplates(): Record< string, unknown >;
 
 	/**
 	 * Get REST API root URL
@@ -301,9 +301,14 @@ declare class SettingsService {
 	getSgtmLoader(): { source: string; region: string; fetchedAt: number };
 
 	/**
+	 * Get the review request, when the site has earned it.
+	 */
+	getReviewAsk(): { url: string } | null;
+
+	/**
 	 * Get raw data by key (discouraged - use specific methods instead)
 	 */
-	getRaw(key: string): unknown;
+	getRaw( key: string ): unknown;
 }
 
 declare const settingsService: SettingsService;

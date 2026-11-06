@@ -5,6 +5,8 @@
  * field still served as a stub because the providing add-on is too old to
  * register), which the free dev environment cannot exercise directly.
  */
+import { describe, expect, it } from 'vitest';
+
 import { isTierLocked, isStaleStub } from '../gating';
 
 // Active tier = woo: meets free and woo, not premium.

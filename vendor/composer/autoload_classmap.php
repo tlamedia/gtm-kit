@@ -8,10 +8,12 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'TLA_Media\\GTM_Kit\\Abilities\\Abilities' => $baseDir . '/src/Abilities/Abilities.php',
+    'TLA_Media\\GTM_Kit\\Abilities\\SettingsChange' => $baseDir . '/src/Abilities/SettingsChange.php',
     'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => $baseDir . '/src/Admin/AbstractOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\AdminAPI' => $baseDir . '/src/Admin/AdminAPI.php',
     'TLA_Media\\GTM_Kit\\Admin\\Analytics' => $baseDir . '/src/Admin/Analytics.php',
     'TLA_Media\\GTM_Kit\\Admin\\AssetsTrait' => $baseDir . '/src/Admin/AssetsTrait.php',
+    'TLA_Media\\GTM_Kit\\Admin\\CommandPalette' => $baseDir . '/src/Admin/CommandPalette.php',
     'TLA_Media\\GTM_Kit\\Admin\\ConsentDefaultsCheck' => $baseDir . '/src/Admin/ConsentDefaultsCheck.php',
     'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => $baseDir . '/src/Admin/GeneralOptionsPage.php',
     'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewayNotice' => $baseDir . '/src/Admin/GoogleTagGatewayNotice.php',
@@ -35,6 +37,7 @@ return array(
     'TLA_Media\\GTM_Kit\\Admin\\NotificationsHandler' => $baseDir . '/src/Admin/NotificationsHandler.php',
     'TLA_Media\\GTM_Kit\\Admin\\PluginAvailability' => $baseDir . '/src/Admin/PluginAvailability.php',
     'TLA_Media\\GTM_Kit\\Admin\\PremiumTriggerCooldown' => $baseDir . '/src/Admin/PremiumTriggerCooldown.php',
+    'TLA_Media\\GTM_Kit\\Admin\\ReviewAsk' => $baseDir . '/src/Admin/ReviewAsk.php',
     'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => $baseDir . '/src/Admin/SetupWizard.php',
     'TLA_Media\\GTM_Kit\\Admin\\SiteHealth' => $baseDir . '/src/Admin/SiteHealth.php',
     'TLA_Media\\GTM_Kit\\Admin\\SnippetScanSiteHealth' => $baseDir . '/src/Admin/SnippetScanSiteHealth.php',
@@ -92,5 +95,6 @@ return array(
     'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorRegistry' => $baseDir . '/src/Options/Processor/OptionProcessorRegistry.php',
     'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionsAwareProcessorInterface' => $baseDir . '/src/Options/Processor/OptionsAwareProcessorInterface.php',
     'TLA_Media\\GTM_Kit\\Options\\Processor\\RegionCodesProcessor' => $baseDir . '/src/Options/Processor/RegionCodesProcessor.php',
+    'TLA_Media\\GTM_Kit\\Options\\SettingsWriter' => $baseDir . '/src/Options/SettingsWriter.php',
     'TLA_Media\\GTM_Kit\\Options\\ValidationResult' => $baseDir . '/src/Options/ValidationResult.php',
 );

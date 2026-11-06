@@ -17,7 +17,7 @@ const ADDON_NAMES = {
  *
  * @param {Object} props      Component props.
  * @param {string} props.tier The field tier whose add-on is outdated.
- * @return {JSX.Element|null} The notice, or null.
+ * @return {Element|null} The notice, or null.
  */
 const StaleAddonNotice = ( { tier } ) => {
 	const name = ADDON_NAMES[ tier ];

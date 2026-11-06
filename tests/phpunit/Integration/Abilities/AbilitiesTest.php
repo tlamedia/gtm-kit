@@ -12,6 +12,7 @@ namespace TLA_Media\GTM_Kit\Tests\Integration\Abilities;
 use TLA_Media\GTM_Kit\Abilities\Abilities;
 use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
 use TLA_Media\GTM_Kit\Common\SnippetScan;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use WP_Abilities_Registry;
 use WP_Ability_Categories_Registry;
@@ -293,6 +294,7 @@ final class AbilitiesTest extends WP_UnitTestCase {
 			$this->assertSame( Abilities::CATEGORY, $ability->get_category() );
 			$this->assertTrue( $ability->get_meta_item( 'show_in_rest' ) );
 			$this->assertTrue( $ability->get_meta_item( 'public' ) );
+			$this->assertSame( [ 'public' => true ], $ability->get_meta_item( 'mcp' ), $name . ' is exposed to every MCP Adapter version.' );
 
 			$annotations = $ability->get_meta_item( 'annotations' );
 			$this->assertTrue( $annotations['readonly'] );
@@ -401,6 +403,41 @@ final class AbilitiesTest extends WP_UnitTestCase {
 		$this->assertSame( 'standard', $result['loader']['in_use'] );
 		$this->assertSame( 'off', $result['google_tag_gateway'] );
 		$this->assertSame( GTMKIT_VERSION, $result['version'] );
+	}
+
+	/**
+	 * The configuration tells a stored Stape loader that is in use from one
+	 * that no longer matches the settings, so the pages fall back.
+	 */
+	public function test_configuration_reports_whether_the_stored_loader_is_active(): void {
+		$this->assertFalse( $this->run_as_admin( Abilities::GET_CONFIGURATION )['loader']['stape_loader_active'] );
+
+		$options = OptionsFactory::get_instance();
+		$options->set_option( 'general', 'sgtm_domain', 'collect.gtmkit.com' );
+		$options->set_option( 'general', 'sgtm_container_identifier', '38i0hixjpkyq' );
+		$options->set_option( 'general', 'sgtm_stape_issued_loader', true );
+
+		( new StapeLoader( $options ) )->store(
+			[
+				'path'  => 'abcdef',
+				'param' => 'id',
+				'value' => 'aW9uLXRlc3Q',
+			],
+			StapeLoader::SOURCE_API,
+			'eu'
+		);
+
+		$loader = $this->run_as_admin( Abilities::GET_CONFIGURATION )['loader'];
+		$this->assertTrue( $loader['stape_loader_stored'] );
+		$this->assertTrue( $loader['stape_loader_active'] );
+
+		$options->set_option( 'general', 'sgtm_container_identifier', 'otheridentifier' );
+
+		$loader = $this->run_as_admin( Abilities::GET_CONFIGURATION )['loader'];
+		$this->assertTrue( $loader['stape_loader_stored'] );
+		$this->assertFalse( $loader['stape_loader_active'] );
+
+		delete_option( StapeLoader::OPTION );
 	}
 
 	/**

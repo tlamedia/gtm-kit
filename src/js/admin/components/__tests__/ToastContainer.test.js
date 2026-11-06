@@ -3,7 +3,7 @@
  * alert with a close control when the container can dismiss it.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
@@ -11,7 +11,7 @@ import { ToastContainer } from '../Toast';
 
 describe( 'ToastContainer', () => {
 	it( 'announces an error toast as an alert and dismisses it by id', () => {
-		const onDismiss = jest.fn();
+		const onDismiss = vi.fn();
 
 		render(
 			<ToastContainer

@@ -26,7 +26,7 @@ const UPGRADE_URL = 'https://jump.gtmkit.com/link/7-1CE79';
  * rather than at each call site means every locked row is covered, including
  * ones added later.
  *
- * @return {JSX.Element|null} The notice, or null for a paying customer.
+ * @return {Element|null} The notice, or null for a paying customer.
  */
 const UpsellSlot = () => {
 	if ( ! isPremiumSurfaceVisible() ) {

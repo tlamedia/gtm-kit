@@ -23,7 +23,7 @@
   "require-dev": {
     "brain/monkey": "^2.6",
     "easydigitaldownloads/easy-digital-downloads": "^3.6",
-    "php-stubs/woocommerce-stubs": "^10.7",
+    "php-stubs/woocommerce-stubs": "^11.2",
     "phpcompatibility/phpcompatibility-wp": "*",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^2.1",
