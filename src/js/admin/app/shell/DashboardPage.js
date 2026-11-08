@@ -52,7 +52,7 @@ const isOn = ( value ) => value === true || value === 1 || value === '1';
  *
  * @param {Object} props        Component props.
  * @param {Object} props.metric Metric descriptor.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const MetricCard = ( { metric } ) => {
 	const badge = metric.badge ? METRIC_BADGE[ metric.badge ] : null;
@@ -85,7 +85,7 @@ const MetricCard = ( { metric } ) => {
  *
  * @param {Object}  props        Component props.
  * @param {boolean} props.active Whether anonymous data sharing is on.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const TelemetryCard = ( { active } ) => (
 	<div className="gtmkit-flex gtmkit-flex-col gtmkit-gap-2 gtmkit-rounded-md gtmkit-border gtmkit-border-border-default gtmkit-bg-white gtmkit-px-[18px] gtmkit-py-4">
@@ -124,7 +124,7 @@ const TelemetryCard = ( { active } ) => (
  * @param {Object}   props              Component props.
  * @param {Object}   props.notification Parsed notification row.
  * @param {Function} props.onDismiss    Called with the notification to dismiss it.
- * @return {JSX.Element} The row.
+ * @return {Element} The row.
  */
 const HealthRow = ( { notification, onDismiss } ) => (
 	<div className="gtmkit-flex gtmkit-items-center gtmkit-justify-between gtmkit-gap-4 gtmkit-border-t gtmkit-border-border-default gtmkit-px-5 gtmkit-py-3.5">
@@ -172,7 +172,7 @@ const HealthRow = ( { notification, onDismiss } ) => (
  * @param {Object}   props              Component props.
  * @param {Object}   props.notification Parsed notification row.
  * @param {Function} props.onRestore    Called with the notification id to restore it.
- * @return {JSX.Element} The row.
+ * @return {Element} The row.
  */
 const DismissedRow = ( { notification, onRestore } ) => (
 	<div className="gtmkit-flex gtmkit-items-center gtmkit-gap-3 gtmkit-border-t gtmkit-border-border-default gtmkit-bg-[#fafafa] gtmkit-px-5 gtmkit-py-3">
@@ -200,7 +200,7 @@ const DismissedRow = ( { notification, onRestore } ) => (
  * @param {Array}    props.dismissed Dismissed notification rows.
  * @param {Function} props.onDismiss Dismiss handler.
  * @param {Function} props.onRestore Restore handler.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const NeedsAttention = ( { active, dismissed, onDismiss, onRestore } ) => {
 	const [ showDismissed, setShowDismissed ] = useState( false );
@@ -295,7 +295,7 @@ const NeedsAttention = ( { active, dismissed, onDismiss, onRestore } ) => {
 											'gtm-kit'
 										),
 										dismissedList.length
-								  )
+									)
 								: sprintf(
 										/* translators: %d: number of dismissed notifications. */
 										__(
@@ -303,7 +303,7 @@ const NeedsAttention = ( { active, dismissed, onDismiss, onRestore } ) => {
 											'gtm-kit'
 										),
 										dismissedList.length
-								  ) }
+									) }
 						</button>
 					</div>
 					{ showDismissed &&
@@ -325,7 +325,7 @@ const NeedsAttention = ( { active, dismissed, onDismiss, onRestore } ) => {
  * metrics, a primary next-step, the derived "Needs attention" list and learning
  * resources, all driven from the live settings.
  *
- * @return {JSX.Element} The dashboard.
+ * @return {Element} The dashboard.
  */
 const DashboardPage = () => {
 	const { settings } = useContext( SettingsDataContext );

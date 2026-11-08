@@ -23,7 +23,7 @@ const LINK_CLASS =
  * Render a trailing "Learn more"-style link after a paragraph.
  *
  * @param {Object} link `{ label, href }`.
- * @return {JSX.Element|null} The anchor, or null.
+ * @return {Element|null} The anchor, or null.
  */
 const renderLink = ( link ) =>
 	link ? (
@@ -45,7 +45,7 @@ const renderLink = ( link ) =>
  *
  * @param {Object} props       Component props.
  * @param {Array}  props.nodes Rich nodes: `{ heading?, paragraphs?, code? }`.
- * @return {JSX.Element} The rendered nodes.
+ * @return {Element} The rendered nodes.
  */
 const NodeList = ( { nodes = [] } ) => (
 	<div className="gtmkit-space-y-2.5">
@@ -117,7 +117,7 @@ const DocLinks = memo( ( { block } ) => (
  *
  * @param {Object} props       Component props.
  * @param {Object} props.block The block definition.
- * @return {JSX.Element} The banner.
+ * @return {Element} The banner.
  */
 const InfoCallout = ( { block } ) => (
 	<div className="gtmkit-rounded-md gtmkit-bg-brand-surface-subtle gtmkit-px-3.5 gtmkit-py-3 gtmkit-space-y-1.5">
@@ -139,7 +139,7 @@ const InfoCallout = ( { block } ) => (
  *
  * @param {Object} props       Component props.
  * @param {Object} props.block The block definition.
- * @return {JSX.Element} The callout.
+ * @return {Element} The callout.
  */
 const NoticeCallout = ( { block } ) => (
 	<div className="gtmkit-space-y-1.5">

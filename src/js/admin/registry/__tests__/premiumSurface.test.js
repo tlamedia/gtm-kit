@@ -4,6 +4,8 @@
  * The visibility rule decides whether a paying customer is shown marketing for
  * something they already own, so it is covered across every tier combination.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import {
 	PREMIUM_CARDS,
 	isPremiumSurfaceVisible,

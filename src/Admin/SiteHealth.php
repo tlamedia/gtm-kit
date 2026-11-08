@@ -887,8 +887,7 @@ final class SiteHealth {
 			__( 'Consent is not configured', 'gtm-kit' ),
 			'recommended',
 			'<p>' . esc_html__( 'GTM Kit\'s Consent Mode defaults are switched off and no supported consent platform was found. Without defaults, Google tags start out with no instructions about what they may store, which is a problem wherever consent is required before measurement.', 'gtm-kit' ) . '</p>'
-			. '<p>' . esc_html__( 'Switch on the Consent Mode defaults and set each category to what should apply before the visitor answers, or run a consent platform that sets them for you.', 'gtm-kit' ) . '</p>'
-			. '<p>' . esc_html__( 'Defaults are a starting point that a consent platform is expected to lift once the visitor answers, so switch them on alongside a platform that collects that answer.', 'gtm-kit' ) . '</p>',
+			. '<p>' . esc_html__( 'Switch on the Consent Mode defaults and set each category to what should apply before the visitor answers. Where consent is required before measurement, deny those categories and add a consent platform that collects the visitor\'s choice, because nothing else will grant them.', 'gtm-kit' ) . '</p>',
 			$settings_link
 			. $this->documentation_link(
 				'turn-on-google-consent-mode-v2-defaults',

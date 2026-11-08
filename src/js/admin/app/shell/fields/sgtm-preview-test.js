@@ -33,7 +33,7 @@ const PREFS_KEY = 'gtmkit-sgtm-preview-prefs';
 const readPrefs = () => {
 	try {
 		return JSON.parse( window.localStorage.getItem( PREFS_KEY ) ) || {};
-	} catch ( e ) {
+	} catch {
 		return {};
 	}
 };
@@ -41,7 +41,7 @@ const readPrefs = () => {
 const writePrefs = ( prefs ) => {
 	try {
 		window.localStorage.setItem( PREFS_KEY, JSON.stringify( prefs ) );
-	} catch ( e ) {
+	} catch {
 		// Storage unavailable (private mode / quota); preferences are optional.
 	}
 };
@@ -91,7 +91,7 @@ const EMPTY_STATUS = {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const SgtmPreviewTest = ( { field, disabled } ) => {
 	const { meetsRequiredTier } = useFeatureFlags();
@@ -232,7 +232,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 			}
 			setToken( '' );
 			setResult( null );
-		} catch ( e ) {
+		} catch {
 			// Leave state as-is; the token simply was not cleared.
 		} finally {
 			setBusy( false );
@@ -368,11 +368,11 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 											? __(
 													'Paste a fresh token to replace the stored one',
 													'gtm-kit'
-											  )
+												)
 											: __(
 													'Paste your Preview token',
 													'gtm-kit'
-											  )
+												)
 									}
 									value={ token }
 									disabled={ controlsDisabled }
@@ -467,11 +467,11 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 												? __(
 														'This event type cannot be replayed from an order. Use the synthetic sample.',
 														'gtm-kit'
-												  )
+													)
 												: __(
 														'Order replay needs WooCommerce active.',
 														'gtm-kit'
-												  ) }
+													) }
 										</p>
 									) }
 								</div>
@@ -545,7 +545,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 										: __(
 												'Send test webhook to sGTM Preview',
 												'gtm-kit'
-										  ) }
+											) }
 								</button>
 								{ ! hasToken && (
 									<span className="gtmkit-text-xs gtmkit-text-text-muted">
@@ -582,7 +582,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 													),
 													result.statusCode,
 													result.message
-											  )
+												)
 											: result.message }
 									</p>
 									{ result.responseBody && (
@@ -663,7 +663,7 @@ const SgtmPreviewTest = ( { field, disabled } ) => {
 										: __(
 												'Copy as filter snippet',
 												'gtm-kit'
-										  ) }
+											) }
 								</button>
 								{ showSnippet && (
 									<pre className="gtmkit-max-h-60 gtmkit-overflow-auto gtmkit-whitespace-pre-wrap gtmkit-rounded gtmkit-bg-brand-surface-subtle gtmkit-p-3 gtmkit-text-[11px] gtmkit-text-text-secondary">

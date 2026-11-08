@@ -1,6 +1,8 @@
 /**
  * Integration registry for the filter chips.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import {
 	integrationLabel,
 	getCapabilityIntegrations,

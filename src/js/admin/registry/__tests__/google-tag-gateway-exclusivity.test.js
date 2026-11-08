@@ -7,6 +7,8 @@
  * read the shipped field definitions rather than a copy of their conditions:
  * a condition dropped or inverted in the registry fails here.
  */
+import { describe, expect, it } from 'vitest';
+
 import { isEnabled } from '../conditions';
 import { SETUP_FIELDS } from '../fields/setup';
 

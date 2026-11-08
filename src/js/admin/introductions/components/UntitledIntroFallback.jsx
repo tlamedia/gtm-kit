@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
  * The modal still renders so the dismissal flow stays usable instead of
  * leaving the user with a blank screen.
  *
- * @return {JSX.Element} The placeholder.
+ * @return {Element} The placeholder.
  */
 const UntitledIntroFallback = () => (
 	<div>

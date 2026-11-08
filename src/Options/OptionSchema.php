@@ -7,6 +7,7 @@
 
 namespace TLA_Media\GTM_Kit\Options;
 
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Common\Util;
 
 /**
@@ -60,6 +61,86 @@ final class OptionSchema {
 	 * @var string
 	 */
 	public const CMP_CUSTOM_NAME_PATTERN = '/[^a-zA-Z0-9_-]/';
+
+	/**
+	 * Names a data layer cannot take: JavaScript reserved words, global
+	 * values that cannot be reassigned, browser globals that are not an
+	 * array to push to, and globals GTM Kit, Google Tag Manager and common
+	 * libraries already use.
+	 *
+	 * @var array<int, string>
+	 */
+	public const RESERVED_DATALAYER_NAMES = [
+		'await',
+		'break',
+		'case',
+		'catch',
+		'class',
+		'const',
+		'continue',
+		'debugger',
+		'default',
+		'delete',
+		'do',
+		'else',
+		'enum',
+		'export',
+		'extends',
+		'false',
+		'finally',
+		'for',
+		'function',
+		'if',
+		'implements',
+		'import',
+		'in',
+		'instanceof',
+		'interface',
+		'let',
+		'new',
+		'null',
+		'package',
+		'private',
+		'protected',
+		'public',
+		'return',
+		'static',
+		'super',
+		'switch',
+		'this',
+		'throw',
+		'true',
+		'try',
+		'typeof',
+		'var',
+		'void',
+		'while',
+		'with',
+		'yield',
+		'arguments',
+		'eval',
+		'undefined',
+		'NaN',
+		'Infinity',
+		'window',
+		'self',
+		'top',
+		'parent',
+		'frames',
+		'opener',
+		'closed',
+		'length',
+		'name',
+		'status',
+		'location',
+		'document',
+		'history',
+		'navigator',
+		'gtmkit',
+		'google_tag_manager',
+		'$',
+		'_',
+	];
 
 	/**
 	 * URL-exclusion pattern mode: shell-style wildcards. `*` matches any
@@ -186,6 +267,21 @@ final class OptionSchema {
 				'default'  => '',
 				'type'     => 'string',
 				'validate' => [ self::class, 'validate_domain' ],
+			],
+			// No declared type: the validator checks it, after letting the
+			// stored value through, so a stored value of another type never
+			// blocks a save or gets coerced on the way back.
+			'sgtm_container_identifier'              => [
+				'default'  => '',
+				'validate' => [ self::class, 'validate_sgtm_container_identifier' ],
+			],
+			'sgtm_cookie_keeper'                     => [
+				'default' => false,
+				'type'    => 'boolean',
+			],
+			'datalayer_name'                         => [
+				'default'  => 'dataLayer',
+				'validate' => [ self::class, 'validate_datalayer_name' ],
 			],
 			'sgtm_stape_issued_loader'               => [
 				'default' => false,
@@ -428,6 +524,83 @@ final class OptionSchema {
 	 */
 	public static function validate_gtm_id( $value ): bool {
 		return empty( $value ) || preg_match( '/^GTM-[A-Z0-9]{4,}$/', $value ) === 1;
+	}
+
+	/**
+	 * Validate the data layer name.
+	 *
+	 * The name is printed into the container snippet as a bare JavaScript
+	 * name, so it must be a valid identifier of at most 128 characters, the
+	 * length a pasted Stape loader is read with, and not a reserved name. Empty
+	 * means the default name, `dataLayer`. A value already stored is
+	 * accepted unchanged, so a name saved before this rule existed never
+	 * blocks saving another setting; only a new name has to pass.
+	 *
+	 * @param mixed $value Value to validate.
+	 * @return bool
+	 */
+	public static function validate_datalayer_name( $value ): bool {
+		if ( self::is_stored_value( 'general', 'datalayer_name', $value ) ) {
+			return true;
+		}
+
+		if ( ! is_string( $value ) ) {
+			return false;
+		}
+
+		if ( '' === $value ) {
+			return true;
+		}
+
+		return preg_match( '/^[A-Za-z_$][A-Za-z0-9_$]{0,127}$/D', $value ) === 1
+			&& ! in_array( $value, self::RESERVED_DATALAYER_NAMES, true );
+	}
+
+	/**
+	 * Validate the server-side container identifier.
+	 *
+	 * The identifier names the custom loader file on the tagging server, so
+	 * it takes the same shape as the loader file names Stape issues. Empty
+	 * means the standard loader. A value already stored is accepted
+	 * unchanged, for the same reason as the data layer name.
+	 *
+	 * @param mixed $value Value to validate.
+	 * @return bool
+	 */
+	public static function validate_sgtm_container_identifier( $value ): bool {
+		if ( self::is_stored_value( 'general', 'sgtm_container_identifier', $value ) ) {
+			return true;
+		}
+
+		if ( ! is_string( $value ) ) {
+			return false;
+		}
+
+		return '' === $value || preg_match( '~^' . StapeLoader::PATH_PATTERN . '$~D', $value ) === 1;
+	}
+
+	/**
+	 * Whether a value is the one already stored for a setting.
+	 *
+	 * Validation checks the whole set of settings a save carries, and the
+	 * settings screen sends every stored value back with each save, so a
+	 * rule that refuses a value saved before the rule existed would refuse
+	 * every save. Rules for settings that existed without one let the stored
+	 * value through and apply to new values only.
+	 *
+	 * @param string $group Option group.
+	 * @param string $key Option key.
+	 * @param mixed  $value Value to compare.
+	 * @return bool
+	 */
+	private static function is_stored_value( string $group, string $key, $value ): bool {
+		$stored = get_option( Options::OPTION_NAME, [] );
+
+		return is_array( $stored )
+			&& isset( $stored[ $group ] )
+			&& is_array( $stored[ $group ] )
+			&& array_key_exists( $key, $stored[ $group ] )
+			&& $stored[ $group ][ $key ] === $value;
 	}
 
 	/**

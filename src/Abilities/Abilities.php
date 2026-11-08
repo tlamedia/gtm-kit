@@ -32,11 +32,15 @@ use TLA_Media\GTM_Kit\Options\Options;
  * already ask, so an assistant and the site owner can never be told
  * different things about the same site.
  *
- * Every ability is read-only and limited to users who can manage options.
+ * These abilities are read-only and limited to users who can manage options.
  * None of them makes an HTTP request: health checks that depend on one are
  * reported from the result the scheduled check stored, and a check that
  * stores nothing is left out. Container environment values and licence data
  * never appear in an answer.
+ *
+ * A site can also let an assistant change a short list of settings, through
+ * a preview and a confirmed apply. Those abilities are off unless the site
+ * turns them on; see {@see SettingsChange}.
  */
 final class Abilities {
 
@@ -67,6 +71,31 @@ final class Abilities {
 	 * @var string
 	 */
 	public const GET_TRACKING_HEALTH = 'gtm-kit/get-tracking-health';
+
+	/**
+	 * The ability previewing a settings change.
+	 *
+	 * @var string
+	 */
+	public const PREVIEW_SETTINGS_CHANGE = 'gtm-kit/preview-settings-change';
+
+	/**
+	 * The ability applying a previewed settings change.
+	 *
+	 * @var string
+	 */
+	public const APPLY_SETTINGS_CHANGE = 'gtm-kit/apply-settings-change';
+
+	/**
+	 * The annotations of an ability that only reads.
+	 *
+	 * @var array<string, bool>
+	 */
+	private const READ_ONLY = [
+		'readonly'    => true,
+		'destructive' => false,
+		'idempotent'  => true,
+	];
 
 	/**
 	 * The Google tag gateway states.
@@ -190,6 +219,79 @@ final class Abilities {
 				[ $this, 'get_tracking_health' ]
 			)
 		);
+
+		if ( SettingsChange::is_enabled() ) {
+			$this->register_write_abilities();
+		}
+	}
+
+	/**
+	 * Register the abilities that change settings.
+	 *
+	 * @return void
+	 */
+	private function register_write_abilities(): void {
+		$settings_change = new SettingsChange( $this->options );
+
+		wp_register_ability(
+			self::PREVIEW_SETTINGS_CHANGE,
+			$this->write_ability_args(
+				__( 'Preview a GTM Kit settings change', 'gtm-kit' ),
+				sprintf(
+					/* translators: 1: the name of the ability that applies a change, 2: a list of setting names. */
+					__( 'Works out what changing GTM Kit settings would store, without storing anything or sending any request, and returns a single-use confirmation code. Only %1$s with that code applies the change, within five minutes. Show the user the proposed values and ask before applying. Settings that can be changed: %2$s.', 'gtm-kit' ),
+					self::APPLY_SETTINGS_CHANGE,
+					implode( ', ', SettingsChange::get_writable() )
+				),
+				self::preview_schema(),
+				[ $settings_change, 'preview' ],
+				[
+					'type'                 => 'object',
+					'additionalProperties' => false,
+					'required'             => [ 'changes' ],
+					'properties'           => [
+						'changes' => SettingsChange::changes_schema(),
+					],
+				],
+				[
+					'readonly'    => true,
+					'destructive' => false,
+					// Every preview issues a new code.
+					'idempotent'  => false,
+				]
+			)
+		);
+
+		wp_register_ability(
+			self::APPLY_SETTINGS_CHANGE,
+			$this->write_ability_args(
+				__( 'Apply a previewed GTM Kit settings change', 'gtm-kit' ),
+				sprintf(
+					/* translators: %s: the name of the ability that previews a change. */
+					__( 'Applies the change a preview from %s was made for, given only its confirmation code, and saves it the way the GTM Kit settings screen does. Returns the settings written, any refusal, and the configuration and consent status after the change. A code works once, for the user it was issued to, and not after the settings changed.', 'gtm-kit' ),
+					self::PREVIEW_SETTINGS_CHANGE
+				),
+				self::apply_schema(),
+				[ $settings_change, 'apply' ],
+				[
+					'type'                 => 'object',
+					'additionalProperties' => false,
+					'required'             => [ 'confirmation_token' ],
+					'properties'           => [
+						'confirmation_token' => [
+							'type'        => 'string',
+							'minLength'   => 1,
+							'description' => __( 'The confirmation code the preview returned.', 'gtm-kit' ),
+						],
+					],
+				],
+				[
+					'readonly'    => false,
+					'destructive' => true,
+					'idempotent'  => false,
+				]
+			)
+		);
 	}
 
 	/**
@@ -199,6 +301,15 @@ final class Abilities {
 	 */
 	public function can_read(): bool {
 		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Whether the current user may change settings, which the settings screen also requires.
+	 *
+	 * @return bool
+	 */
+	public function can_write(): bool {
+		return current_user_can( apply_filters( 'gtmkit_admin_capability', is_multisite() ? 'manage_network_options' : 'manage_options' ) );
 	}
 
 	/**
@@ -219,6 +330,7 @@ final class Abilities {
 				'in_use'              => ( 'standard' === $loader_state['source'] ) ? 'standard' : 'stape',
 				'stape_loader_wanted' => $stape_loader->is_switched_on(),
 				'stape_loader_stored' => null !== $stape_loader->get_stored(),
+				'stape_loader_active' => null !== $stape_loader->get_active(),
 			],
 			'google_tag_gateway'                => $this->get_gateway_state(),
 			'environment_parameters_configured' => '' !== (string) $this->options->get( 'general', 'gtm_auth' )
@@ -239,9 +351,12 @@ final class Abilities {
 		$source   = $registry->resolve();
 		$platform = CMPDetection::get_display_name( CMPDetection::detect_active_cmp() );
 
+		// What a new visitor gets, never the state the caller's own consent
+		// cookies would give.
 		return [
 			'consent_mode_defaults_enabled' => $check->are_defaults_on(),
-			'consent_state'                 => $registry->read_state(),
+			'consent_state'                 => $registry->read_default_state(),
+			'consent_state_basis'           => $registry->is_default_state_available() ? 'new_visitor_default' : 'unavailable',
 			'consent_platform'              => ( '' !== $platform ) ? $platform : null,
 			'consent_source'                => ( null !== $source ) ? (string) $source['id'] : null,
 			'integration_owns_consent'      => $check->has_integration_source(),
@@ -298,23 +413,45 @@ final class Abilities {
 	}
 
 	/**
-	 * Build the arguments shared by every ability.
+	 * Build the arguments for an ability that changes settings.
 	 *
-	 * @param string               $label The ability label.
-	 * @param string               $description The ability description.
-	 * @param array<string, mixed> $output_schema The output schema.
-	 * @param callable             $execute_callback The callback building the answer.
+	 * @param string                    $label The ability label.
+	 * @param string                    $description The ability description.
+	 * @param array<string, mixed>      $output_schema The output schema.
+	 * @param callable                  $execute_callback The callback building the answer.
+	 * @param array<string, mixed>|null $input_schema The input schema, or null for an ability that takes none.
+	 * @param array<string, bool>       $annotations The behaviour hints.
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function ability_args( string $label, string $description, array $output_schema, callable $execute_callback ): array {
+	private function write_ability_args( string $label, string $description, array $output_schema, callable $execute_callback, ?array $input_schema, array $annotations ): array {
+		$args = $this->ability_args( $label, $description, $output_schema, $execute_callback, $input_schema, $annotations );
+
+		$args['permission_callback'] = [ $this, 'can_write' ];
+
+		return $args;
+	}
+
+	/**
+	 * Build the arguments shared by every ability.
+	 *
+	 * @param string                    $label The ability label.
+	 * @param string                    $description The ability description.
+	 * @param array<string, mixed>      $output_schema The output schema.
+	 * @param callable                  $execute_callback The callback building the answer.
+	 * @param array<string, mixed>|null $input_schema The input schema, or null for an ability that takes none.
+	 * @param array<string, bool>       $annotations The behaviour hints.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function ability_args( string $label, string $description, array $output_schema, callable $execute_callback, ?array $input_schema = null, array $annotations = self::READ_ONLY ): array {
 		return [
 			'label'               => $label,
 			'description'         => $description,
 			'category'            => self::CATEGORY,
 			// No `properties` key: an empty PHP array would reach clients as
 			// a JSON list, which is not a valid JSON Schema `properties`.
-			'input_schema'        => [
+			'input_schema'        => $input_schema ?? [
 				'type'                 => 'object',
 				'additionalProperties' => false,
 				'default'              => [],
@@ -323,15 +460,15 @@ final class Abilities {
 			'execute_callback'    => $execute_callback,
 			'permission_callback' => [ $this, 'can_read' ],
 			'meta'                => [
-				'annotations'  => [
-					'readonly'    => true,
-					'destructive' => false,
-					'idempotent'  => true,
-				],
+				'annotations'  => $annotations,
 				// WordPress 7.1 derives the REST flag from `public`; 6.9 and
 				// 7.0 read only `show_in_rest`, so both are set.
 				'public'       => true,
 				'show_in_rest' => true,
+				// MCP Adapter copies before 0.6.0 expose an ability only
+				// when `mcp.public` is true. Plugins bundle such copies, and
+				// whichever loads first serves the site.
+				'mcp'          => [ 'public' => true ],
 			],
 		];
 	}
@@ -481,6 +618,10 @@ final class Abilities {
 							'type'        => 'boolean',
 							'description' => __( 'Whether a loader issued by Stape is stored.', 'gtm-kit' ),
 						],
+						'stape_loader_active' => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether a loader issued by Stape is the one in use now. False when none is stored, when the stored one no longer matches the settings so the pages fall back, or when the Stape loader is off or ruled out by the Google tag gateway.', 'gtm-kit' ),
+						],
 					],
 				],
 				'google_tag_gateway'                => [
@@ -532,7 +673,12 @@ final class Abilities {
 					'type'                 => [ 'object', 'null' ],
 					'additionalProperties' => false,
 					'properties'           => $categories,
-					'description'          => __( 'The Consent Mode state, per category, that the consent source in charge sets before the visitor answers, or null when no source sets one.', 'gtm-kit' ),
+					'description'          => __( 'The Consent Mode state, per category, that a new visitor gets from the consent source in charge before answering, or null when no source sets one or the source cannot say. Never the consent of the user asking.', 'gtm-kit' ),
+				],
+				'consent_state_basis'           => [
+					'type'        => 'string',
+					'enum'        => [ 'new_visitor_default', 'unavailable' ],
+					'description' => __( 'What consent_state describes: the state a new visitor gets, or unavailable when the consent source in charge cannot say what a new visitor gets without reading the visitor\'s own consent, in which case consent_state is null.', 'gtm-kit' ),
 				],
 				'consent_platform'              => [
 					'type'        => [ 'string', 'null' ],
@@ -652,6 +798,121 @@ final class Abilities {
 						],
 					],
 				],
+			],
+		];
+	}
+	/**
+	 * The schema of a setting value, which may be of any type a setting holds.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private static function setting_value_schema(): array {
+		return [ 'type' => [ 'string', 'boolean', 'integer', 'number', 'array', 'object', 'null' ] ];
+	}
+
+	/**
+	 * The output schema of the preview ability.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private static function preview_schema(): array {
+		return [
+			'type'                 => 'object',
+			'additionalProperties' => false,
+			'properties'           => [
+				'settings'                 => [
+					'type'        => 'array',
+					'description' => __( 'Each setting the change would save.', 'gtm-kit' ),
+					'items'       => [
+						'type'                 => 'object',
+						'additionalProperties' => false,
+						'properties'           => [
+							'setting'  => [
+								'type'        => 'string',
+								'description' => __( 'The setting, as group.key.', 'gtm-kit' ),
+							],
+							'current'  => self::setting_value_schema(),
+							'proposed' => self::setting_value_schema() + [
+								'description' => __( 'The value the save would store, after GTM Kit normalises it.', 'gtm-kit' ),
+							],
+							'kept'     => [
+								'type'        => 'boolean',
+								'description' => __( 'Whether the value would be stored as given. False when GTM Kit would store a normalised or corrected value instead, shown in proposed.', 'gtm-kit' ),
+							],
+							'changes'  => [
+								'type'        => 'boolean',
+								'description' => __( 'Whether the stored value would change.', 'gtm-kit' ),
+							],
+						],
+					],
+				],
+				'refused'                  => [
+					'type'        => 'array',
+					'description' => __( 'Settings that would not be saved, each with the reason.', 'gtm-kit' ),
+					'items'       => [
+						'type'                 => 'object',
+						'additionalProperties' => false,
+						'properties'           => [
+							'setting' => [ 'type' => 'string' ],
+							'reason'  => [ 'type' => 'string' ],
+						],
+					],
+				],
+				'warnings'                 => [
+					'type'        => 'array',
+					'description' => __( 'Side effects of the change to tell the site owner about before applying it. A warning does not stop the change.', 'gtm-kit' ),
+					'items'       => [ 'type' => 'string' ],
+				],
+				'gateway_refusal'          => [
+					'type'        => [ 'string', 'null' ],
+					'description' => __( 'Why the Google tag gateway could not be switched on, or null.', 'gtm-kit' ),
+				],
+				'gateway_checked_on_apply' => [
+					'type'        => 'boolean',
+					'description' => __( 'Whether the change switches the Google tag gateway on, which is checked over the network only when the change is applied and may be refused then.', 'gtm-kit' ),
+				],
+				'confirmation_token'       => [
+					'type'        => [ 'string', 'null' ],
+					'description' => __( 'The single-use code that applies this change, or null when nothing would change or the change would be refused.', 'gtm-kit' ),
+				],
+				'expires_at'               => [
+					'type'        => [ 'integer', 'null' ],
+					'description' => __( 'When the code expires, as a Unix timestamp, or null.', 'gtm-kit' ),
+				],
+			],
+		];
+	}
+
+	/**
+	 * The output schema of the apply ability.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private static function apply_schema(): array {
+		return [
+			'type'                 => 'object',
+			'additionalProperties' => false,
+			'properties'           => [
+				'applied'        => [
+					'type'        => 'boolean',
+					'description' => __( 'Whether the change was saved in full.', 'gtm-kit' ),
+				],
+				'written'        => [
+					'type'        => 'array',
+					'items'       => [ 'type' => 'string' ],
+					'description' => __( 'The settings written, as group.key.', 'gtm-kit' ),
+				],
+				'not_kept'       => [
+					'type'        => 'array',
+					'items'       => [ 'type' => 'string' ],
+					'description' => __( 'The settings written that read back with their old value.', 'gtm-kit' ),
+				],
+				'refusal'        => [
+					'type'        => [ 'string', 'null' ],
+					'description' => __( 'Why the save was refused or did not stick, as the settings screen would say it, or null.', 'gtm-kit' ),
+				],
+				'configuration'  => self::configuration_schema(),
+				'consent_status' => self::consent_schema(),
 			],
 		];
 	}

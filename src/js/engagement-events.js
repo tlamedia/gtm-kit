@@ -107,7 +107,7 @@
 			decoded = JSON.parse(
 				decodeURIComponent( raw.replace( /\+/g, '%20' ) )
 			);
-		} catch ( e ) {
+		} catch {
 			return;
 		}
 

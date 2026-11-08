@@ -47,7 +47,7 @@ const matches = ( field, q ) =>
  * @param {Object}   props            Component props.
  * @param {string}   props.query      The search query.
  * @param {Function} props.onNavigate Called when a result is chosen.
- * @return {JSX.Element} The results view.
+ * @return {Element} The results view.
  */
 const SearchResults = ( { query, onNavigate } ) => {
 	const navigate = useNavigate();

@@ -100,7 +100,7 @@ const clampSeconds = ( raw ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const ShellEventDeferral = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );

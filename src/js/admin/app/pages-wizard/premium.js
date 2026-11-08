@@ -21,7 +21,7 @@ import { getAdminLink } from '../utils/get-admin-link';
  * the user looks at Premium, and the Premium call to action is a secondary
  * link that opens in a new tab. Declining is a single click.
  *
- * @return {JSX.Element} The step.
+ * @return {Element} The step.
  */
 const PremiumUpsell = () => {
 	const navigate = useNavigate();

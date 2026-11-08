@@ -6,7 +6,7 @@
  * @param {boolean}  props.disabled Whether the toggle is disabled.
  * @param {Function} props.onClick  Click handler.
  * @param {string}   props.label    Accessible label.
- * @return {JSX.Element} The pill.
+ * @return {Element} The pill.
  */
 const Pill = ( { on, disabled, onClick, label } ) => (
 	<button

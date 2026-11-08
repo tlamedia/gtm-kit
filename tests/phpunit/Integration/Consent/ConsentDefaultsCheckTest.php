@@ -171,7 +171,8 @@ final class ConsentDefaultsCheckTest extends WP_UnitTestCase {
 		$result = $this->site_health();
 
 		$this->assertSame( 'recommended', $result['status'] );
-		$this->assertStringContainsString( 'alongside a platform that collects that answer', $result['description'] );
+		$this->assertStringContainsString( 'deny those categories and add a consent platform', $result['description'] );
+		$this->assertStringNotContainsString( 'or run a consent platform', $result['description'] );
 		$this->assertSame( [], $this->badges() );
 	}
 

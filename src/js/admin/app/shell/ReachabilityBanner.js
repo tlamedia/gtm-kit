@@ -105,7 +105,7 @@ const bodyText = ( state, details ) => {
  *
  * @param {Object} props                Component props.
  * @param {Object} [props.probeOptions] Options passed to the probe (tests).
- * @return {JSX.Element|null} The banner, or nothing while all is well.
+ * @return {Element|null} The banner, or nothing while all is well.
  */
 const ReachabilityBanner = ( { probeOptions } ) => {
 	const { state, details, retry } = useReachabilityProbe( probeOptions );

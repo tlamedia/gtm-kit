@@ -4,6 +4,8 @@
  * the Webhooks section instead of the fields silently disappearing.
  */
 
+import { describe, expect, it } from 'vitest';
+
 import STUB_FIELDS from '../fields/stubs';
 
 const CONSENT_GATE_KEYS = [

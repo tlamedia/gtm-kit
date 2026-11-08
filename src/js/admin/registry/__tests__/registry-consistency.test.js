@@ -5,6 +5,8 @@
  * control id, a field pointing at a missing section, or a duplicate storage key
  * would silently drop or misplace a setting in the UI. Catch it here instead.
  */
+import { describe, expect, it } from 'vitest';
+
 import { CAPABILITIES, SECTIONS, getSections } from '../capabilities';
 import { getAllFields, getSectionItems } from '../assemble';
 import { getControl } from '../controls';

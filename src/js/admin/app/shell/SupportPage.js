@@ -55,7 +55,7 @@ const CHANNEL_CARD =
  * @param {string}  props.description Channel description.
  * @param {Object}  props.action      The action link ({ label, href }).
  * @param {boolean} [props.premium]   Whether to show the Premium badge.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const ChannelCard = ( { title, description, action, premium } ) => (
 	<div className={ CHANNEL_CARD }>
@@ -87,7 +87,7 @@ const ChannelCard = ( { title, description, action, premium } ) => (
  * @param {Object} props          Component props.
  * @param {string} props.json     The system data, exactly as it would be sent.
  * @param {string} props.filename The download's file name.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const ManualExportCard = ( { json, filename } ) => {
 	const textareaRef = useRef( null );
@@ -164,7 +164,7 @@ const ManualExportCard = ( { json, filename } ) => {
  * Support page: support channels, the system-data sharing flow and the
  * documentation library.
  *
- * @return {JSX.Element} The page.
+ * @return {Element} The page.
  */
 const SupportPage = () => {
 	const {
@@ -307,14 +307,14 @@ const SupportPage = () => {
 							? {
 									label: __( 'Contact support', 'gtm-kit' ),
 									href: PREMIUM_SUPPORT_URL,
-							  }
+								}
 							: {
 									label: __(
 										'Get GTM Kit Premium',
 										'gtm-kit'
 									),
 									href: purchaseUrl(),
-							  }
+								}
 					}
 					premium
 				/>

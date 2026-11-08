@@ -4,6 +4,8 @@
  * section instead of the fields silently disappearing.
  */
 
+import { describe, expect, it } from 'vitest';
+
 import STUB_FIELDS from '../fields/stubs';
 
 const ORDER_STATUS_KEYS = [

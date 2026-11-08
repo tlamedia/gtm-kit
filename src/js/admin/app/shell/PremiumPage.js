@@ -19,7 +19,7 @@ const CTA =
  *
  * @param {Object} props      Component props.
  * @param {Object} props.card The card definition.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const FeatureCard = ( { card } ) => (
 	<div className={ CARD }>
@@ -66,7 +66,7 @@ const FeatureCard = ( { card } ) => (
  * Rendered only on free-only installs. The route guard and the sidebar both
  * consult the same visibility rule, so a paying customer never reaches it.
  *
- * @return {JSX.Element} The page.
+ * @return {Element} The page.
  */
 const PremiumPage = () => {
 	const cards = getPremiumCards();

@@ -13,12 +13,7 @@
  * control added later without the attributes fails this suite.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import fs from 'fs';
 import path from 'path';
@@ -30,15 +25,15 @@ import { NO_AUTOFILL } from '../autofill';
 import { getShellControl } from '../../app/shell/fields/controls';
 import TopBar from '../../app/shell/TopBar';
 
-jest.mock( '../../hooks/useSettingField', () => ( {
+vi.mock( '../../hooks/useSettingField', () => ( {
 	useSettingField: () => [ '', () => {} ],
 } ) );
 
-jest.mock( '../../hooks/useNotification', () => ( {
+vi.mock( '../../hooks/useNotification', () => ( {
 	useNotification: () => ( { removeNotification: () => {} } ),
 } ) );
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getNonce: () => 'test-nonce',
@@ -51,12 +46,12 @@ jest.mock( '../../services/SettingsService', () => ( {
 	},
 } ) );
 
-jest.mock( '../../app/atoms/save-btn', () => ( {
+vi.mock( '../../app/atoms/save-btn', () => ( {
 	__esModule: true,
 	default: () => null,
 } ) );
 
-jest.mock( '../../app/shell/FilterChips', () => ( {
+vi.mock( '../../app/shell/FilterChips', () => ( {
 	__esModule: true,
 	default: () => null,
 } ) );

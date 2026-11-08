@@ -85,7 +85,7 @@ const purchaseUrl = () => {
 /**
  * A green check glyph for the feature list.
  *
- * @return {JSX.Element} The icon.
+ * @return {Element} The icon.
  */
 const Check = () => (
 	<svg
@@ -117,7 +117,7 @@ const Check = () => (
  * @param {Function} props.onDeactivate Deactivate handler.
  * @param {boolean}  props.deactivating Whether deactivation is in progress.
  * @param {string}   props.message      Why the last deactivation failed.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const LicensedCard = ( {
 	maskedKey,
@@ -196,7 +196,7 @@ const LicensedCard = ( {
  * @param {string}   props.message       The activation error/result message.
  * @param {boolean}  props.success       Whether the last activation succeeded.
  * @param {boolean}  props.premiumActive Whether the Premium plugin is active.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const UnlicensedCard = ( {
 	licenseKey,
@@ -298,7 +298,7 @@ const UnlicensedCard = ( {
  * customer sees their license and a deactivate action; a prospect sees the
  * Premium upsell with an activation row.
  *
- * @return {JSX.Element} The page.
+ * @return {Element} The page.
  */
 const LicensePage = () => {
 	const {

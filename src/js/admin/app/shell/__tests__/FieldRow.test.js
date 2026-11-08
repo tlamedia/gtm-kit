@@ -3,6 +3,8 @@
  * plugin or integration is not active. A `requiresIntegration` field is only
  * interactive when the plugin is active AND the integration option is enabled.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import { isIntegrationActive } from '../FieldRow';
 import SettingsService from '../../../services/SettingsService';
 

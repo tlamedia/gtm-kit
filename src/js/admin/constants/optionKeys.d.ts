@@ -46,8 +46,13 @@ export declare const PREMIUM_OPTIONS: {
 	readonly WOOCOMMERCE_REFUND_WEBHOOK: 'woocommerce_refund_webhook';
 };
 
-export type OptionGroup = typeof OPTION_GROUPS[keyof typeof OPTION_GROUPS];
-export type GeneralOptionKey = typeof GENERAL_OPTIONS[keyof typeof GENERAL_OPTIONS];
-export type IntegrationOptionKey = typeof INTEGRATION_OPTIONS[keyof typeof INTEGRATION_OPTIONS];
-export type PremiumOptionKey = typeof PREMIUM_OPTIONS[keyof typeof PREMIUM_OPTIONS];
-export type OptionKey = GeneralOptionKey | IntegrationOptionKey | PremiumOptionKey;
+export type OptionGroup =
+	( typeof OPTION_GROUPS )[ keyof typeof OPTION_GROUPS ];
+export type GeneralOptionKey =
+	( typeof GENERAL_OPTIONS )[ keyof typeof GENERAL_OPTIONS ];
+export type IntegrationOptionKey =
+	( typeof INTEGRATION_OPTIONS )[ keyof typeof INTEGRATION_OPTIONS ];
+export type PremiumOptionKey =
+	( typeof PREMIUM_OPTIONS )[ keyof typeof PREMIUM_OPTIONS ];
+export type OptionKey =
+	GeneralOptionKey | IntegrationOptionKey | PremiumOptionKey;

@@ -364,14 +364,7 @@ final class Options {
 			case 'integer':
 				return (int) $value;
 			case 'boolean':
-				// Handle string booleans from frontend.
-				if ( $value === 'true' || $value === '1' || $value === 1 ) {
-					return true;
-				}
-				if ( $value === 'false' || $value === '0' || $value === 0 ) {
-					return false;
-				}
-				return (bool) $value;
+				return self::to_boolean( $value );
 			case 'string':
 				return (string) $value;
 			case 'array':
@@ -379,6 +372,27 @@ final class Options {
 			default:
 				return $value;
 		}
+	}
+
+	/**
+	 * Read a boolean setting the way a save stores it.
+	 *
+	 * A setting can be stored as the string "true" or "false", for example
+	 * when it was written outside the settings screen, and a plain (bool)
+	 * cast would take "false" for on.
+	 *
+	 * @param mixed $value The stored or submitted value.
+	 *
+	 * @return bool
+	 */
+	public static function to_boolean( $value ): bool {
+		if ( $value === 'true' || $value === '1' || $value === 1 ) {
+			return true;
+		}
+		if ( $value === 'false' || $value === '0' || $value === 0 ) {
+			return false;
+		}
+		return (bool) $value;
 	}
 
 	/**

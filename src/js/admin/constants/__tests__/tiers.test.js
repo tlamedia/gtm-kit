@@ -2,6 +2,8 @@
  * Access-tier constants and gate-comparison unit tests.
  */
 
+import { describe, expect, it } from 'vitest';
+
 import { TIERS, tierRank, meetsRequiredTier } from '../tiers';
 
 describe( 'tiers', () => {

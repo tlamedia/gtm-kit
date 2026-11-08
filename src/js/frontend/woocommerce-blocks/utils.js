@@ -100,7 +100,7 @@ export const parseItem = ( raw ) => {
 	if ( typeof raw === 'string' ) {
 		try {
 			return JSON.parse( raw );
-		} catch ( e ) {
+		} catch {
 			return {};
 		}
 	}

@@ -63,14 +63,23 @@ const ImportSettings = () => {
 						isDismissible={ false }
 						className="gtmkit-mt-4"
 					>
-						{ sprintf(
-							/* translators: %s: name of the plugin the settings are imported from. */
-							__(
-								'The server-side tagging domain was not imported, because %s loads your container from a custom path that GTM Kit cannot reproduce. Set up server-side tagging in GTM Kit by hand after importing.',
-								'gtm-kit'
-							),
-							sourceName
-						) }
+						{ source.sgtm_domain_cleared
+							? sprintf(
+									/* translators: %s: name of the plugin the settings are imported from. */
+									__(
+										'The server-side tagging domain was not imported, because %s loads your container from a custom path that GTM Kit cannot reproduce. The domain an earlier import saved without that path is cleared as well. Set up server-side tagging in GTM Kit by hand after importing.',
+										'gtm-kit'
+									),
+									sourceName
+								)
+							: sprintf(
+									/* translators: %s: name of the plugin the settings are imported from. */
+									__(
+										'The server-side tagging domain was not imported, because %s loads your container from a custom path that GTM Kit cannot reproduce. Set up server-side tagging in GTM Kit by hand after importing.',
+										'gtm-kit'
+									),
+									sourceName
+								) }
 					</Notice>
 				) }
 

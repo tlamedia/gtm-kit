@@ -298,4 +298,113 @@ final class EngagementEventsTest extends TestCase {
 
 		$this->assertSame( 'WIDGET', $this->events->current_search_term() );
 	}
+
+	/**
+	 * Point the global query at a search with the given number of results.
+	 *
+	 * @param int $found_posts The number of posts found.
+	 */
+	private function search_found( int $found_posts ): void {
+		$query              = new \WP_Query();
+		$query->found_posts = $found_posts;
+		$query->post        = (object) [ 'ID' => 42 ];
+
+		$GLOBALS['wp_query'] = $query; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Sets up the query the SUT reads.
+
+		Functions\when( 'is_search' )->justReturn( true );
+		Functions\when( 'get_search_query' )->justReturn( 'hoodie' );
+		Functions\when( 'get_permalink' )->justReturn( 'https://example.test/product/hoodie/' );
+		Functions\when( 'remove_filter' )->justReturn( true );
+	}
+
+	/**
+	 * Clear the global query.
+	 */
+	public function tear_down(): void {
+		unset( $GLOBALS['wp_query'] );
+		parent::tear_down();
+	}
+
+	/**
+	 * A search that redirects to its single result hands the search to
+	 * the next page through the engagement cookie, with the term.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\EngagementEvents::on_search_redirect
+	 */
+	public function test_a_redirect_to_the_single_result_queues_the_search(): void {
+		$this->search_found( 1 );
+
+		$removed = [];
+		Functions\when( 'remove_filter' )->alias(
+			static function ( string $hook, $callback, int $priority ) use ( &$removed ): bool {
+				$removed[] = [ $hook, $priority ];
+				return true;
+			}
+		);
+
+		$location = $this->events->on_search_redirect( 'https://example.test/product/hoodie/' );
+
+		$this->assertSame( [ [ 'wp_redirect', PHP_INT_MIN ] ], $removed, 'The filter removes itself after one redirect.' );
+		$this->assertSame( 'https://example.test/product/hoodie/', $location );
+		$this->assertCount( 1, $this->cookies );
+		$this->assertSame(
+			[
+				'event'       => 'search',
+				'search_term' => 'hoodie',
+			],
+			$this->last_payload()
+		);
+	}
+
+	/**
+	 * A redirect anywhere else, such as to another results page that
+	 * reports the search itself, queues nothing.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\EngagementEvents::on_search_redirect
+	 */
+	public function test_a_redirect_elsewhere_queues_nothing(): void {
+		$this->search_found( 1 );
+
+		$this->events->on_search_redirect( 'https://example.test/search/hoodie/' );
+
+		$this->assertSame( [], $this->cookies );
+	}
+
+	/**
+	 * A search with several results is not a single-result redirect.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\EngagementEvents::on_search_redirect
+	 */
+	public function test_several_results_queue_nothing(): void {
+		$this->search_found( 3 );
+
+		$this->events->on_search_redirect( 'https://example.test/product/hoodie/' );
+
+		$this->assertSame( [], $this->cookies );
+	}
+
+	/**
+	 * The redirect is only watched on a search with a term.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Frontend\EngagementEvents::watch_single_result_redirect
+	 */
+	public function test_only_a_search_with_a_term_is_watched(): void {
+		$watched = [];
+		Functions\when( 'add_filter' )->alias(
+			static function ( string $hook, $callback, int $priority ) use ( &$watched ): bool {
+				$watched[] = [ $hook, $priority ];
+				return true;
+			}
+		);
+		$this->events->watch_single_result_redirect();
+		$this->assertSame( [], $watched, 'Not a search page.' );
+
+		Functions\when( 'is_search' )->justReturn( true );
+		$this->events->watch_single_result_redirect();
+		$this->assertSame( [], $watched, 'A search without a term.' );
+
+		Functions\when( 'get_search_query' )->justReturn( 'hoodie' );
+		$this->events->watch_single_result_redirect();
+		$this->assertSame( [ [ 'wp_redirect', PHP_INT_MIN ] ], $watched, 'Watched ahead of every other redirect filter.' );
+	}
 }

@@ -77,7 +77,7 @@ function buildAttributePreview( cmp ) {
  * @param {string}  props.optionGroup Storage group.
  * @param {string}  props.optionName  Storage key.
  * @param {boolean} props.disabled    Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const CmpAttributesSetting = memo(
 	( {

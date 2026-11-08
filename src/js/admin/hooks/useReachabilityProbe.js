@@ -185,7 +185,7 @@ export const useReachabilityProbe = ( {
 								state: PROBE_STATE.UNREACHABLE,
 								code: 'timeout',
 								message: '',
-						  }
+							}
 						: null;
 				}
 

@@ -14,9 +14,9 @@ export const FilterContext = createContext( {
 /**
  * Provider for the integration filter state.
  *
- * @param {Object}      props          Component props.
- * @param {JSX.Element} props.children Wrapped tree.
- * @return {JSX.Element} The provider.
+ * @param {Object}  props          Component props.
+ * @param {Element} props.children Wrapped tree.
+ * @return {Element} The provider.
  */
 export const FilterProvider = ( { children } ) => {
 	const [ activeFilter, setActiveFilter ] = useState( null );

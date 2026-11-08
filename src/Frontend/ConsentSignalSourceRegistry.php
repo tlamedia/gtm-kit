@@ -34,8 +34,16 @@ use TLA_Media\GTM_Kit\Options\Options;
  *             'priority'  => 10,
  *             'is_active' => callable(): bool,
  *             'read'      => callable(): array<string, 'granted'|'denied'>,
+ *             'read_default' => callable(): array<string, 'granted'|'denied'>,
  *         ],
  *     ]
+ *
+ * `read` answers for the visitor on the current request, which may mean
+ * reading their consent cookies. The optional `read_default` answers for a
+ * visitor who has not answered yet, and must not read the request at all.
+ * It is what an administrator is shown when they ask what the site's
+ * visitors get, because the administrator's own cookies say nothing about
+ * that. A source without it leaves that question unanswered.
  */
 final class ConsentSignalSourceRegistry {
 
@@ -104,6 +112,7 @@ final class ConsentSignalSourceRegistry {
 	 *
 	 *  - `is_active` returns the result of `gtmkit_consent_default_settings_enabled`.
 	 *  - `read`      returns the result of `gtmkit_consent_default_state`.
+	 *  - `read_default` returns the same, since the defaults never read the request.
 	 *
 	 * @param mixed $sources Registry passed through the filter chain.
 	 *
@@ -116,36 +125,41 @@ final class ConsentSignalSourceRegistry {
 
 		$options = $this->options;
 
+		// The defaults come from the settings alone, never from the request,
+		// so they are also what a visitor who has not answered gets.
+		$read = static function () use ( $options ): array {
+			/**
+			 * Per-category Consent Mode v2 default state.
+			 *
+			 * @param array<string, 'granted'|'denied'> $consent_defaults The seven-category state.
+			 */
+			$consent_defaults = apply_filters(
+				'gtmkit_consent_default_state',
+				[
+					'ad_personalization'      => $options->get( 'general', 'gcm_ad_personalization' ) ? 'granted' : 'denied',
+					'ad_storage'              => $options->get( 'general', 'gcm_ad_storage' ) ? 'granted' : 'denied',
+					'ad_user_data'            => $options->get( 'general', 'gcm_ad_user_data' ) ? 'granted' : 'denied',
+					'analytics_storage'       => $options->get( 'general', 'gcm_analytics_storage' ) ? 'granted' : 'denied',
+					'personalization_storage' => $options->get( 'general', 'gcm_personalization_storage' ) ? 'granted' : 'denied',
+					'functionality_storage'   => $options->get( 'general', 'gcm_functionality_storage' ) ? 'granted' : 'denied',
+					'security_storage'        => $options->get( 'general', 'gcm_security_storage' ) ? 'granted' : 'denied',
+				]
+			);
+
+			return self::normalize_state( is_array( $consent_defaults ) ? $consent_defaults : [] );
+		};
+
 		$sources[ self::DEFAULT_SOURCE_ID ] = [
-			'id'        => self::DEFAULT_SOURCE_ID,
-			'priority'  => self::DEFAULT_SOURCE_PRIORITY,
-			'is_active' => static function () use ( $options ): bool {
+			'id'           => self::DEFAULT_SOURCE_ID,
+			'priority'     => self::DEFAULT_SOURCE_PRIORITY,
+			'is_active'    => static function () use ( $options ): bool {
 				return (bool) apply_filters(
 					'gtmkit_consent_default_settings_enabled',
 					(bool) $options->get( 'general', 'gcm_default_settings' )
 				);
 			},
-			'read'      => static function () use ( $options ): array {
-				/**
-				 * Per-category Consent Mode v2 default state.
-				 *
-				 * @param array<string, 'granted'|'denied'> $consent_defaults The seven-category state.
-				 */
-				$consent_defaults = apply_filters(
-					'gtmkit_consent_default_state',
-					[
-						'ad_personalization'      => $options->get( 'general', 'gcm_ad_personalization' ) ? 'granted' : 'denied',
-						'ad_storage'              => $options->get( 'general', 'gcm_ad_storage' ) ? 'granted' : 'denied',
-						'ad_user_data'            => $options->get( 'general', 'gcm_ad_user_data' ) ? 'granted' : 'denied',
-						'analytics_storage'       => $options->get( 'general', 'gcm_analytics_storage' ) ? 'granted' : 'denied',
-						'personalization_storage' => $options->get( 'general', 'gcm_personalization_storage' ) ? 'granted' : 'denied',
-						'functionality_storage'   => $options->get( 'general', 'gcm_functionality_storage' ) ? 'granted' : 'denied',
-						'security_storage'        => $options->get( 'general', 'gcm_security_storage' ) ? 'granted' : 'denied',
-					]
-				);
-
-				return self::normalize_state( is_array( $consent_defaults ) ? $consent_defaults : [] );
-			},
+			'read'         => $read,
+			'read_default' => $read,
 		];
 
 		return $sources;
@@ -208,6 +222,52 @@ final class ConsentSignalSourceRegistry {
 		$state = call_user_func( $source['read'] );
 
 		return self::normalize_state( is_array( $state ) ? $state : [] );
+	}
+
+	/**
+	 * Read the state a visitor who has not answered gets from the active source.
+	 *
+	 * Never reads the request, so the answer is the same whoever asks. Null
+	 * when no source is active, and when the active source cannot say what a
+	 * new visitor gets: reading the current visitor instead would answer a
+	 * different question.
+	 *
+	 * @return array<string, string>|null
+	 */
+	public function read_default_state(): ?array {
+		$source = $this->resolve();
+		if ( null === $source || ! self::has_default_reader( $source ) ) {
+			return null;
+		}
+
+		$state = call_user_func( $source['read_default'] );
+
+		return self::normalize_state( is_array( $state ) ? $state : [] );
+	}
+
+	/**
+	 * Whether the active source can say what a visitor who has not answered gets.
+	 *
+	 * True when no source is active, since there is then no state to report
+	 * and nothing is missing.
+	 *
+	 * @return bool
+	 */
+	public function is_default_state_available(): bool {
+		$source = $this->resolve();
+
+		return null === $source || self::has_default_reader( $source );
+	}
+
+	/**
+	 * Whether a source descriptor carries a reader for the new-visitor state.
+	 *
+	 * @param array<string, mixed> $descriptor A valid source descriptor.
+	 *
+	 * @return bool
+	 */
+	private static function has_default_reader( array $descriptor ): bool {
+		return isset( $descriptor['read_default'] ) && is_callable( $descriptor['read_default'] );
 	}
 
 	/**

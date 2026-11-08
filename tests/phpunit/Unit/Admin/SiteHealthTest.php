@@ -330,7 +330,8 @@ final class SiteHealthTest extends TestCase {
 		$result = $this->site_health( [ 'gcm_default_settings' => false ] )->test_consent();
 
 		$this->assertSame( 'recommended', $result['status'] );
-		$this->assertStringContainsString( 'alongside a platform that collects that answer', $result['description'] );
+		$this->assertStringContainsString( 'deny those categories and add a consent platform', $result['description'] );
+		$this->assertStringNotContainsString( 'or run a consent platform', $result['description'] );
 		$this->assertStringContainsString( 'page=gtmkit_general#/consent', $result['actions'] );
 		$this->assertStringContainsString( 'turn-on-google-consent-mode-v2-defaults', $result['actions'] );
 		$this->assertStringContainsString( 'consent-default-must-run-before-the-container', $result['actions'] );

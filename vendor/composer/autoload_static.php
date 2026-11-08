@@ -23,10 +23,12 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'TLA_Media\\GTM_Kit\\Abilities\\Abilities' => __DIR__ . '/../..' . '/src/Abilities/Abilities.php',
+        'TLA_Media\\GTM_Kit\\Abilities\\SettingsChange' => __DIR__ . '/../..' . '/src/Abilities/SettingsChange.php',
         'TLA_Media\\GTM_Kit\\Admin\\AbstractOptionsPage' => __DIR__ . '/../..' . '/src/Admin/AbstractOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\AdminAPI' => __DIR__ . '/../..' . '/src/Admin/AdminAPI.php',
         'TLA_Media\\GTM_Kit\\Admin\\Analytics' => __DIR__ . '/../..' . '/src/Admin/Analytics.php',
         'TLA_Media\\GTM_Kit\\Admin\\AssetsTrait' => __DIR__ . '/../..' . '/src/Admin/AssetsTrait.php',
+        'TLA_Media\\GTM_Kit\\Admin\\CommandPalette' => __DIR__ . '/../..' . '/src/Admin/CommandPalette.php',
         'TLA_Media\\GTM_Kit\\Admin\\ConsentDefaultsCheck' => __DIR__ . '/../..' . '/src/Admin/ConsentDefaultsCheck.php',
         'TLA_Media\\GTM_Kit\\Admin\\GeneralOptionsPage' => __DIR__ . '/../..' . '/src/Admin/GeneralOptionsPage.php',
         'TLA_Media\\GTM_Kit\\Admin\\GoogleTagGatewayNotice' => __DIR__ . '/../..' . '/src/Admin/GoogleTagGatewayNotice.php',
@@ -50,6 +52,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Admin\\NotificationsHandler' => __DIR__ . '/../..' . '/src/Admin/NotificationsHandler.php',
         'TLA_Media\\GTM_Kit\\Admin\\PluginAvailability' => __DIR__ . '/../..' . '/src/Admin/PluginAvailability.php',
         'TLA_Media\\GTM_Kit\\Admin\\PremiumTriggerCooldown' => __DIR__ . '/../..' . '/src/Admin/PremiumTriggerCooldown.php',
+        'TLA_Media\\GTM_Kit\\Admin\\ReviewAsk' => __DIR__ . '/../..' . '/src/Admin/ReviewAsk.php',
         'TLA_Media\\GTM_Kit\\Admin\\SetupWizard' => __DIR__ . '/../..' . '/src/Admin/SetupWizard.php',
         'TLA_Media\\GTM_Kit\\Admin\\SiteHealth' => __DIR__ . '/../..' . '/src/Admin/SiteHealth.php',
         'TLA_Media\\GTM_Kit\\Admin\\SnippetScanSiteHealth' => __DIR__ . '/../..' . '/src/Admin/SnippetScanSiteHealth.php',
@@ -107,6 +110,7 @@ class ComposerStaticInit12fa396dcd6fc263a33fd78c6d8551b8
         'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionProcessorRegistry' => __DIR__ . '/../..' . '/src/Options/Processor/OptionProcessorRegistry.php',
         'TLA_Media\\GTM_Kit\\Options\\Processor\\OptionsAwareProcessorInterface' => __DIR__ . '/../..' . '/src/Options/Processor/OptionsAwareProcessorInterface.php',
         'TLA_Media\\GTM_Kit\\Options\\Processor\\RegionCodesProcessor' => __DIR__ . '/../..' . '/src/Options/Processor/RegionCodesProcessor.php',
+        'TLA_Media\\GTM_Kit\\Options\\SettingsWriter' => __DIR__ . '/../..' . '/src/Options/SettingsWriter.php',
         'TLA_Media\\GTM_Kit\\Options\\ValidationResult' => __DIR__ . '/../..' . '/src/Options/ValidationResult.php',
     );
 

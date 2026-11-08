@@ -32,15 +32,15 @@ import { ToastContainer } from '../components/Toast';
 
 /*Page Components - Lazy loaded*/
 const Welcome = lazy( () => import( './pages-wizard/welcome' ) );
-const EssentialSettings = lazy( () =>
-	import( './pages-wizard/essential-settings' )
+const EssentialSettings = lazy(
+	() => import( './pages-wizard/essential-settings' )
 );
-const ShareAnonymousData = lazy( () =>
-	import( './pages-wizard/share-anonymous-data' )
+const ShareAnonymousData = lazy(
+	() => import( './pages-wizard/share-anonymous-data' )
 );
 const GettingStarted = lazy( () => import( './pages-wizard/getting-started' ) );
-const AutomaticUpdates = lazy( () =>
-	import( './pages-wizard/automatic-updates' )
+const AutomaticUpdates = lazy(
+	() => import( './pages-wizard/automatic-updates' )
 );
 const PremiumUpsell = lazy( () => import( './pages-wizard/premium' ) );
 

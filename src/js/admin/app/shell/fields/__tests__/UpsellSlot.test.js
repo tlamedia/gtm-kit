@@ -7,11 +7,7 @@
  * row it sits under does not.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX below, flagging a phantom `@types/react`.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { render, screen } from '@testing-library/react';
 

@@ -194,7 +194,7 @@
 				window.google_tag_data &&
 				window.google_tag_data.ics &&
 				window.google_tag_data.ics.entries;
-		} catch ( e ) {
+		} catch ( e ) { // eslint-disable-line no-unused-vars -- This script stays ES5, which has no optional catch binding.
 			return;
 		}
 
@@ -243,7 +243,7 @@
 				window.google_tag_data.ics &&
 				window.google_tag_data.ics.entries &&
 				window.google_tag_data.ics.entries[ category ];
-		} catch ( e ) {
+		} catch ( e ) { // eslint-disable-line no-unused-vars -- This script stays ES5, which has no optional catch binding.
 			return false;
 		}
 
@@ -282,7 +282,7 @@
 
 		try {
 			bridge = window.gtmkit && window.gtmkit.consentBridge;
-		} catch ( e ) {
+		} catch ( e ) { // eslint-disable-line no-unused-vars -- This script stays ES5, which has no optional catch binding.
 			return;
 		}
 

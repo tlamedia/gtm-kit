@@ -70,7 +70,7 @@ const buildAttributePreview = ( cmp ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const ShellCmpAttributes = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -172,7 +172,6 @@ const PATTERN_LIST_MAX = 100;
  */
 const probeRegexPattern = ( pattern ) => {
 	try {
-		// eslint-disable-next-line no-new
 		new RegExp( pattern, 'i' );
 		return null;
 	} catch ( err ) {
@@ -198,7 +197,7 @@ const extractPathFromUrlPattern = ( pattern ) => {
 			pattern.startsWith( '//' ) ? `https:${ pattern }` : pattern
 		);
 		return parsed.pathname || '/';
-	} catch ( _ ) {
+	} catch {
 		return pattern;
 	}
 };
@@ -209,7 +208,7 @@ const extractPathFromUrlPattern = ( pattern ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const ShellExcludedUrlPatterns = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );
@@ -361,7 +360,7 @@ const ShellExcludedUrlPatterns = ( { field, disabled } ) => {
  * @param {Object}  props          Component props.
  * @param {Object}  props.field    Field definition.
  * @param {boolean} props.disabled Whether the control is disabled.
- * @return {JSX.Element} The control.
+ * @return {Element} The control.
  */
 const ShellCheckboxGroup = ( { field, disabled } ) => {
 	const { group, name } = parseKey( field.key );

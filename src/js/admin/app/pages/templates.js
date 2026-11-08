@@ -64,7 +64,7 @@ const readErrorDetail = async ( response ) => {
 
 	try {
 		body = await response.text();
-	} catch ( error ) {
+	} catch {
 		body = '';
 	}
 
@@ -90,7 +90,7 @@ const readErrorDetail = async ( response ) => {
 			if ( parts.length ) {
 				return parts.join( ' ' );
 			}
-		} catch ( error ) {
+		} catch {
 			// Not JSON; fall through to the status-based detail.
 		}
 	}
@@ -922,11 +922,11 @@ const Templates = memo( ( { templateData } ) => {
 											? __(
 													'Client-Side + Server-Side GTM',
 													'gtm-kit'
-											  )
+												)
 											: __(
 													'Standard Client-Side GTM',
 													'gtm-kit'
-											  ) }
+												) }
 									</p>
 
 									<h4 className="gtmkit-font-semibold gtmkit-mb-2">

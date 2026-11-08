@@ -39,7 +39,6 @@ const getEnvelope = () => {
 	if ( registry.schemaVersion !== SCHEMA_VERSION ) {
 		if ( ! warned && typeof window !== 'undefined' && window.console ) {
 			warned = true;
-			// eslint-disable-next-line no-console
 			window.console.warn(
 				`GTM Kit: ignoring a settings registration built for schema version ${ registry.schemaVersion } (this shell understands ${ SCHEMA_VERSION }).`
 			);

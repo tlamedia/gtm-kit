@@ -20,7 +20,7 @@ import classNames from 'classnames';
  * @param {string}   props.type     Type of toast ('info', 'success', 'error', 'loading')
  * @param {Function} props.onClose  Optional close handler
  * @param {number}   props.duration Auto-close duration in ms (0 = no auto-close)
- * @return {JSX.Element} Toast component
+ * @return {Element} Toast component
  */
 export const Toast = memo(
 	( { message, type = 'info', onClose = null, duration = 0 } ) => {
@@ -87,7 +87,7 @@ Toast.displayName = 'Toast';
  * @param {Object}   props             Component props
  * @param {Array}    props.toasts      Array of toast objects
  * @param {Function} [props.onDismiss] Dismiss a toast by id; without it, toasts carry no close control
- * @return {JSX.Element} Toast container
+ * @return {Element} Toast container
  */
 export const ToastContainer = memo( ( { toasts = [], onDismiss = null } ) => {
 	if ( ! toasts.length ) {

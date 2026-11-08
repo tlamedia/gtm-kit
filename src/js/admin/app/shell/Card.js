@@ -9,7 +9,7 @@ import { memo } from '@wordpress/element';
  * @param {string}  props.title      Card title.
  * @param {boolean} [props.disabled] Whether the card is dimmed.
  * @param {Object}  props.children   Body content.
- * @return {JSX.Element} The card.
+ * @return {Element} The card.
  */
 const Card = memo( ( { title, disabled = false, children } ) => (
 	<div

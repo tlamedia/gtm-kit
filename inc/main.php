@@ -11,6 +11,7 @@ use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use TLA_Media\GTM_Kit\Abilities\Abilities;
 use TLA_Media\GTM_Kit\Admin\AdminAPI;
 use TLA_Media\GTM_Kit\Admin\Analytics;
+use TLA_Media\GTM_Kit\Admin\CommandPalette;
 use TLA_Media\GTM_Kit\Admin\ConsentDefaultsCheck;
 use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\GoogleTagGatewayNotice;
@@ -19,6 +20,7 @@ use TLA_Media\GTM_Kit\Admin\Introductions\UI\Introductions_Integration;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Admin\PluginAvailability;
+use TLA_Media\GTM_Kit\Admin\ReviewAsk;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
 use TLA_Media\GTM_Kit\Admin\SiteHealth;
 use TLA_Media\GTM_Kit\Admin\SnippetScanSiteHealth;
@@ -197,6 +199,10 @@ function gtmkit_frontend_init(): void {
 	SnippetScan::register( $options );
 	GoogleTagGatewayHealth::register( $options );
 
+	// The review ask's clock moves with each stored scan, which cron writes,
+	// and its answers arrive over REST; both come through this init path.
+	ReviewAsk::register( new SnippetScan( $options ), $options, $util );
+
 	$output_gate = Frontend::resolve_output_gate( $options );
 
 	if ( ! $options->get( 'general', 'just_the_container' ) ) {
@@ -297,6 +303,7 @@ function gtmkit_admin_init(): void {
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
+	CommandPalette::register();
 	ConsentDefaultsCheck::register( $options );
 	SiteHealth::register( $options, $util );
 	SnippetScan::register( $options );
@@ -304,6 +311,7 @@ function gtmkit_admin_init(): void {
 	// Scheduler runs its queue over admin-ajax, which comes through here too.
 	GoogleTagGatewayHealth::register( $options );
 	SnippetScanSiteHealth::register( $snippet_scan, $options );
+	ReviewAsk::register( $snippet_scan, $options, $util );
 	GoogleTagGatewaySiteHealth::register( $options );
 	GoogleTagGatewayNotice::register( $options );
 	StapeLoaderNotice::register( $options );

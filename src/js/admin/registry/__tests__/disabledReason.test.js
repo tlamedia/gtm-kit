@@ -1,6 +1,8 @@
 /**
  * A field's `disabledReason` is shown only while its `enabledWhen` disables it.
  */
+import { describe, expect, it } from 'vitest';
+
 import { getDisabledReason } from '../conditions';
 import { getAllFields } from '../assemble';
 

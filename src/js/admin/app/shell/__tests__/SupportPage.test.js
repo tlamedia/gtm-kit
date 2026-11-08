@@ -4,19 +4,14 @@
  * share form staying available while no sync session is active.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import SupportPage from '../SupportPage';
 import { SupportContext } from '../../../context/SupportContext';
 
-jest.mock( '../../../services/SettingsService', () => ( {
+vi.mock( '../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSupportSync: () => ( { active: false } ),
@@ -37,9 +32,9 @@ const baseContext = {
 	systemDataMessage: '',
 	supportSync: { active: false },
 	isStoppingSupportSync: false,
-	updateSupportTicket: jest.fn(),
-	sendSystemData: jest.fn(),
-	stopSupportSync: jest.fn(),
+	updateSupportTicket: vi.fn(),
+	sendSystemData: vi.fn(),
+	stopSupportSync: vi.fn(),
 	useSupportTicket: '',
 	useIsSendingSystemData: false,
 	useIsSystemDataSent: false,
@@ -55,7 +50,7 @@ const renderPage = ( overrides = {} ) =>
 
 describe( 'SupportPage live support sync', () => {
 	it( 'shows the sync indicator and Stop sharing while a session is active', () => {
-		const stopSupportSync = jest.fn();
+		const stopSupportSync = vi.fn();
 		renderPage( {
 			supportSync: {
 				active: true,

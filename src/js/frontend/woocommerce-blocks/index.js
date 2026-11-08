@@ -22,7 +22,10 @@ import { createProductCollectionSubscriber } from './blocks/product-collection';
 import { createRelatedProductsSubscriber } from './blocks/related-products';
 import { initSingleProductBlock } from './blocks/single-product-block';
 import { createAddToCartWithOptionsSubscriber } from './blocks/add-to-cart-with-options';
-import { createProductSearchSubscriber } from './blocks/product-search';
+import {
+	createProductSearchSubscriber,
+	hasProductSearch,
+} from './blocks/product-search';
 import { logError } from './utils';
 
 /**
@@ -34,7 +37,7 @@ import { logError } from './utils';
 const hasStore = ( storeName ) => {
 	try {
 		return Boolean( select( storeName ) );
-	} catch ( e ) {
+	} catch {
 		return false;
 	}
 };
@@ -106,7 +109,7 @@ export const boot = () => {
 			createAddToCartWithOptionsSubscriber();
 		}
 
-		if ( document.querySelector( '.wc-block-product-search' ) ) {
+		if ( hasProductSearch() ) {
 			createProductSearchSubscriber();
 		}
 	} catch ( e ) {

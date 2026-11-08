@@ -37,11 +37,11 @@ export interface SettingsDataContextValue {
 	sgtmLoader: SgtmLoaderState | null;
 
 	// Methods
-	updateSettings: () => Promise<void>;
-	updateStateSettings: (group: string, key: string, val: unknown) => void;
-	importSettings: (pluginSettings: Partial<Settings>) => void;
+	updateSettings: () => Promise< void >;
+	updateStateSettings: ( group: string, key: string, val: unknown ) => void;
+	importSettings: ( pluginSettings: Partial< Settings > ) => void;
 	fetchSettings: () => void;
-	setSgtmLoader: (state: SgtmLoaderState) => void;
+	setSgtmLoader: ( state: SgtmLoaderState ) => void;
 
 	// Backward compatibility
 	useSettings: Settings;
@@ -58,7 +58,7 @@ export interface NotificationContextValue {
 	hasError: boolean;
 
 	// Methods
-	setNotificationStatus: (id: string, action: string) => Promise<void>;
+	setNotificationStatus: ( id: string, action: string ) => Promise< void >;
 
 	// Backward compatibility
 	useNotifications: Notifications;
@@ -80,10 +80,10 @@ export interface LicenseContextValue {
 	activeTier: Tier;
 
 	// Methods
-	updateLicenseKey: (val: string) => void;
-	sendLicenseKey: () => Promise<void>;
+	updateLicenseKey: ( val: string ) => void;
+	sendLicenseKey: () => Promise< void >;
 	/** Resolves false when the request failed */
-	deactivateLicense: () => Promise<boolean>;
+	deactivateLicense: () => Promise< boolean >;
 }
 
 /**
@@ -101,9 +101,9 @@ export interface SupportContextValue {
 	isStoppingSupportSync: boolean;
 
 	// Methods
-	updateSupportTicket: (val: string) => void;
-	sendSystemData: () => Promise<void>;
-	stopSupportSync: () => Promise<void>;
+	updateSupportTicket: ( val: string ) => void;
+	sendSystemData: () => Promise< void >;
+	stopSupportSync: () => Promise< void >;
 
 	// Backward compatibility
 	useSupportTicket: string;
@@ -118,7 +118,7 @@ export interface SupportContextValue {
  */
 export interface SiteDataContextValue {
 	siteData: SiteData;
-	installData: Record<string, unknown>;
+	installData: Record< string, unknown >;
 	userRoles: UserRole[];
 
 	// Backward compatibility

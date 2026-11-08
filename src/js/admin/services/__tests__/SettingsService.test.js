@@ -4,6 +4,8 @@
  * @since Phase 2 Enhancement (2026-01-27)
  */
 
+import { beforeEach, describe, expect, it } from 'vitest';
+
 import SettingsService from '../SettingsService';
 import { TIERS } from '../../constants/tiers';
 

@@ -5,12 +5,7 @@
  * the note explaining a server-side tagging domain that was not imported.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the stub components below, flagging a phantom `@types/react`.
- * Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useContext } from '@wordpress/element';
@@ -23,7 +18,7 @@ import {
 import { SiteDataContext } from '../../../context/SiteDataContext';
 
 // The post-import screen pulls in routing and GTM ID helpers we don't exercise.
-jest.mock( '../register-container', () => ( {
+vi.mock( '../register-container', () => ( {
 	__esModule: true,
 	default: () => <div data-testid="register-container" />,
 } ) );
@@ -149,6 +144,29 @@ describe( 'ImportSettings', () => {
 			renderImportSettings( withSkippedDomain );
 
 			expect( noticeCount() ).toBe( 1 );
+		} );
+
+		it( 'says the earlier domain is cleared when the import clears it', () => {
+			const cleared =
+				'The server-side tagging domain was not imported, because GTM4WP loads your container from a custom path that GTM Kit cannot reproduce. The domain an earlier import saved without that path is cleared as well. Set up server-side tagging in GTM Kit by hand after importing.';
+
+			renderImportSettings( {
+				...withSkippedDomain,
+				import_data: {
+					...withSkippedDomain.import_data,
+					gtm4wp: {
+						...withSkippedDomain.import_data.gtm4wp,
+						sgtm_domain_cleared: true,
+					},
+				},
+			} );
+
+			expect(
+				[ ...document.querySelectorAll( '.components-notice' ) ].filter(
+					( notice ) => notice.textContent.includes( cleared )
+				)
+			).toHaveLength( 1 );
+			expect( noticeCount() ).toBe( 0 );
 		} );
 
 		it( 'says nothing when the source handed its domain over', () => {

@@ -5,6 +5,8 @@
  * schema-version gate (an incompatible payload is ignored) and real-over-stub
  * resolution (a registered field supersedes the core stub of the same key).
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import { SCHEMA_VERSION, getRegisteredFields } from '../bridge';
 import { getAllFields } from '../assemble';
 
@@ -32,7 +34,6 @@ describe( 'bridge: schema version gate', () => {
 			fields: [ { key: 'premium.x' } ],
 		} );
 		expect( getRegisteredFields() ).toEqual( [] );
-		// eslint-disable-next-line no-console
 		expect( console ).toHaveWarned();
 	} );
 

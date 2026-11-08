@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
  * not rendered.
  *
  * @param {{ provider: string, id: string }} props
- * @return {JSX.Element|null} The embedded video, or null for an unsupported provider or a missing id.
+ * @return {Element|null} The embedded video, or null for an unsupported provider or a missing id.
  */
 const Video = ( { provider, id } ) => {
 	if ( provider !== 'youtube' || typeof id !== 'string' || id === '' ) {

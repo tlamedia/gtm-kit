@@ -6,6 +6,8 @@
  * has to be explained by its real cause rather than always as Stape being
  * unreachable.
  */
+import { describe, expect, it } from 'vitest';
+
 import {
 	describeSgtmLoaderFailure,
 	describeSgtmLoaderFallback,

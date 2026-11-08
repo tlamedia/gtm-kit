@@ -48,7 +48,7 @@ const PageSelectSetting = memo(
 				? [
 						{ label: __( '(not set)', 'gtm-kit' ), value: '' },
 						...limited,
-				  ]
+					]
 				: limited;
 
 			// If current value is set and not in filtered results, add it to the list

@@ -5,20 +5,15 @@
  * sequence.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the stub factories below, flagging a phantom `@types/react`.
- * Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import ImportPluginSettings from '../import-plugin-settings';
 import { SettingsDataContext } from '../../../context/SettingsDataContext';
 
-const mockGetInstallData = jest.fn();
-jest.mock( '../../../services/SettingsService', () => ( {
+const mockGetInstallData = vi.fn();
+vi.mock( '../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getInstallData: () => mockGetInstallData(),
@@ -28,7 +23,7 @@ jest.mock( '../../../services/SettingsService', () => ( {
 	},
 } ) );
 
-jest.mock( '../../../registry/assemble', () => ( {
+vi.mock( '../../../registry/assemble', () => ( {
 	getAllFields: () => [
 		{ key: 'general.gtm_id', label: 'GTM Container ID' },
 		{ key: 'general.sgtm_domain', label: 'sGTM Container Domain:' },
@@ -67,8 +62,8 @@ const renderImporter = ( {
 
 	const value = {
 		settings: CURRENT_SETTINGS,
-		importSettings: jest.fn(),
-		updateSettings: jest.fn(),
+		importSettings: vi.fn(),
+		updateSettings: vi.fn(),
 		isPending: false,
 		hasError: false,
 		...context,
@@ -85,7 +80,7 @@ const renderImporter = ( {
 
 describe( 'ImportPluginSettings', () => {
 	afterEach( () => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	} );
 
 	it( 'lists every available source by name', () => {
@@ -173,6 +168,31 @@ describe( 'ImportPluginSettings', () => {
 		).toBeGreaterThan( 0 );
 	} );
 
+	it( 'says the earlier domain is cleared when the import clears it', () => {
+		renderImporter( {
+			installData: {
+				importAvailable: true,
+				import_data: {
+					gtm4wp: {
+						name: 'GTM4WP',
+						container_count: 1,
+						sgtm_domain_skipped: true,
+						sgtm_domain_cleared: true,
+						general: { gtm_id: 'GTM-ABC123', sgtm_domain: '' },
+					},
+				},
+			},
+		} );
+
+		fireEvent.click( screen.getByText( 'Continue' ) );
+
+		expect(
+			screen.getAllByText(
+				'The server-side tagging domain was not imported, because GTM4WP loads your container from a custom path that GTM Kit cannot reproduce. The domain an earlier import saved without that path is cleared as well. Set up server-side tagging in GTM Kit by hand after importing.'
+			).length
+		).toBeGreaterThan( 0 );
+	} );
+
 	it( 'says nothing about the domain when it was imported', () => {
 		renderImporter();
 
@@ -214,8 +234,8 @@ describe( 'ImportPluginSettings', () => {
 			<SettingsDataContext.Provider
 				value={ {
 					settings: CURRENT_SETTINGS,
-					importSettings: jest.fn(),
-					updateSettings: jest.fn(),
+					importSettings: vi.fn(),
+					updateSettings: vi.fn(),
 					isPending: false,
 					hasError: false,
 				} }

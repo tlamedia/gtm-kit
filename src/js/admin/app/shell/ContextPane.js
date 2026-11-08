@@ -11,7 +11,7 @@ const CARD =
  *
  * @param {Object} props         Component props.
  * @param {Object} props.context The capability's `context` ({ about, dataLayer }).
- * @return {JSX.Element} The pane.
+ * @return {Element} The pane.
  */
 const ContextPane = ( { context } ) => (
 	<div className="gtmkit-space-y-4">
