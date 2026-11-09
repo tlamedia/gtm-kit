@@ -5,22 +5,22 @@
  * translated message, so a lost connection has to be recognised by its code.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import apiFetch from '@wordpress/api-fetch';
 
 import { probeHealth, refreshSgtmLoader, updateSettings } from '../settings';
 import { APIError, NetworkError, ValidationError } from '../../utils/errors';
 
-jest.mock( '@wordpress/api-fetch', () => {
-	const mock = jest.fn();
-	mock.use = jest.fn();
-	mock.createNonceMiddleware = jest.fn();
-	mock.createRootURLMiddleware = jest.fn();
+vi.mock( '@wordpress/api-fetch', () => {
+	const mock = vi.fn();
+	mock.use = vi.fn();
+	mock.createNonceMiddleware = vi.fn();
+	mock.createRootURLMiddleware = vi.fn();
 	return { __esModule: true, default: mock };
 } );
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getNonce: () => 'test-nonce',
@@ -28,8 +28,8 @@ jest.mock( '../../services/SettingsService', () => ( {
 	},
 } ) );
 
-jest.mock( '../../utils/errorHandler', () => ( {
-	logError: jest.fn(),
+vi.mock( '../../utils/errorHandler', () => ( {
+	logError: vi.fn(),
 } ) );
 
 describe( 'handleApiFetch error classification', () => {
@@ -144,7 +144,7 @@ describe( 'probeHealth nonce recovery', () => {
 		apiFetch.nonceEndpoint = NONCE_ENDPOINT;
 		apiFetch.nonceMiddleware = { nonce: 'stale-nonce' };
 		originalFetch = window.fetch;
-		window.fetch = jest.fn();
+		window.fetch = vi.fn();
 	} );
 
 	afterEach( () => {

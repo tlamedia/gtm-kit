@@ -43,7 +43,7 @@ export const getDashboardMetrics = ( settings ) => {
 						/* translators: %s: the kind of site WordPress reports, for example "staging". */
 						__( 'Not loaded while this site is %s', 'gtm-kit' ),
 						siteKind.type
-				  )
+					)
 				: __( 'Injected on all pages', 'gtm-kit' ),
 		},
 		{
@@ -55,7 +55,7 @@ export const getDashboardMetrics = ( settings ) => {
 						/* translators: %s: comma-separated region codes. */
 						__( 'Region: %s', 'gtm-kit' ),
 						region.join( ', ' )
-				  )
+					)
 				: __( 'All regions', 'gtm-kit' ),
 		},
 		{

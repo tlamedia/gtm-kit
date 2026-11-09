@@ -20,6 +20,7 @@ use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
+use WC_Product_Variation;
 
 /**
  * WooCommerce integration
@@ -660,16 +661,15 @@ final class WooCommerce extends AbstractEcommerce {
 			$order_value -= $shipping_total;
 		}
 
-		$data_layer['event']     = 'purchase';
-		$data_layer['ecommerce'] = [
+		$data_layer['event']        = 'purchase';
+		$data_layer['ecommerce']    = [
 			'transaction_id' => (string) $order->get_order_number(),
 			'value'          => round( $order_value, 2 ),
 			'tax'            => round( $order->get_total_tax(), 2 ),
 			'shipping'       => round( $shipping_total, 2 ),
 			'currency'       => $order->get_currency(),
 		];
-		/** @phpstan-ignore-next-line level5 */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
-		$data_layer['new_customer'] = ! DataStore::is_returning_customer( $order ); // Param $order is declared as array but object is expected.
+		$data_layer['new_customer'] = ! DataStore::is_returning_customer( $order );
 
 		$coupons = $order->get_coupon_codes();
 
@@ -797,15 +797,11 @@ final class WooCommerce extends AbstractEcommerce {
 
 		$product_id_to_query = ( $product->get_type() === 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
-		if ( $this->options->get( 'integrations', 'woocommerce_use_sku' ) ) {
-			$item_id = $product->get_sku() ? $product->get_sku() : $product->get_id();
-		} else {
-			$item_id = $product->get_id();
-		}
+		$item_id = $this->get_item_id( $product );
 
 		$item_data = [
-			'id'        => $this->prefix_item_id( $item_id ),
-			'item_id'   => $this->prefix_item_id( $item_id ),
+			'id'        => $item_id,
+			'item_id'   => $item_id,
 			'item_name' => $product->get_title(),
 			'currency'  => $this->store_currency,
 			'price'     => $this->tax_resolver->resolve_product_price( $product, $this->tax_resolver->resolve_tax_mode() ),
@@ -835,9 +831,35 @@ final class WooCommerce extends AbstractEcommerce {
 			$item_data['item_variant'] = implode( ',', array_filter( $product->get_attributes() ) );
 		}
 
+		// Checked by class so subscription variations, which report their own type, are covered too.
+		if ( $product instanceof WC_Product_Variation ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			if ( $parent instanceof WC_Product ) {
+				$item_data['item_group_id'] = $this->get_item_id( $parent );
+			}
+		}
+
 		$item_data = array_merge( $item_data, $additional_item_attributes );
 
 		return apply_filters( 'gtmkit_datalayer_item_data', $item_data, $product, $event_context );
+	}
+
+	/**
+	 * The prefixed identifier a product is reported under.
+	 *
+	 * The SKU when "Use SKU instead of ID" is on and the product has one,
+	 * otherwise the product ID.
+	 *
+	 * @param WC_Product $product The product.
+	 *
+	 * @return string The prefixed item ID.
+	 */
+	private function get_item_id( WC_Product $product ): string {
+		if ( $this->options->get( 'integrations', 'woocommerce_use_sku' ) && $product->get_sku() ) {
+			return $this->prefix_item_id( $product->get_sku() );
+		}
+
+		return $this->prefix_item_id( (string) $product->get_id() );
 	}
 
 	/**

@@ -4,7 +4,7 @@
  * is shown as-is in a toast that stays until dismissed.
  */
 
-/* eslint-disable import/no-extraneous-dependencies */
+import { describe, expect, it, vi } from 'vitest';
 
 import { useContext } from '@wordpress/element';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -16,15 +16,15 @@ import {
 } from '../SettingsDataContext';
 import { ToastContext } from '../ToastContext';
 
-jest.mock( '@wordpress/api-fetch', () => {
-	const mock = jest.fn();
-	mock.use = jest.fn();
-	mock.createNonceMiddleware = jest.fn();
-	mock.createRootURLMiddleware = jest.fn();
+vi.mock( '@wordpress/api-fetch', () => {
+	const mock = vi.fn();
+	mock.use = vi.fn();
+	mock.createNonceMiddleware = vi.fn();
+	mock.createRootURLMiddleware = vi.fn();
 	return { __esModule: true, default: mock };
 } );
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getSettings: () => ( { general: { gtm_id: 'GTM-OLD1234' } } ),
@@ -61,7 +61,7 @@ describe( 'SettingsDataProvider rejected save', () => {
 				params: { 'general.gtm_id': 'Invalid value for gtm_id' },
 			},
 		} );
-		const toast = { error: jest.fn() };
+		const toast = { error: vi.fn() };
 
 		render(
 			<ToastContext.Provider value={ toast }>
@@ -107,7 +107,7 @@ describe( 'SettingsDataProvider rejected save', () => {
 			success: true,
 			data: { general: { gtm_id: 'GTM-NEW1234' } },
 		} );
-		const toast = { error: jest.fn( () => 7 ), removeToast: jest.fn() };
+		const toast = { error: vi.fn( () => 7 ), removeToast: vi.fn() };
 
 		renderWithToast( toast );
 
@@ -129,8 +129,8 @@ describe( 'SettingsDataProvider rejected save', () => {
 		apiFetch.mockRejectedValueOnce( rejection );
 		apiFetch.mockRejectedValueOnce( rejection );
 		const toast = {
-			error: jest.fn().mockReturnValueOnce( 7 ).mockReturnValueOnce( 8 ),
-			removeToast: jest.fn(),
+			error: vi.fn().mockReturnValueOnce( 7 ).mockReturnValueOnce( 8 ),
+			removeToast: vi.fn(),
 		};
 
 		renderWithToast( toast );

@@ -17,7 +17,7 @@ import Video from './blocks/Video.jsx';
  *   blocks: Array<Record<string, unknown>>,
  *   onDismiss: () => void
  * }} props
- * @return {JSX.Element} The rendered blocks, with any calls to action in one row at the end.
+ * @return {Element} The rendered blocks, with any calls to action in one row at the end.
  */
 const GenericBlocksRenderer = ( { blocks, onDismiss } ) => {
 	if ( ! Array.isArray( blocks ) ) {

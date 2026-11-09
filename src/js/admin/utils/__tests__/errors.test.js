@@ -4,6 +4,8 @@
  * @since Phase 2 Enhancement (2026-01-27)
  */
 
+import { describe, expect, it } from 'vitest';
+
 import {
 	GTMKitError,
 	APIError,

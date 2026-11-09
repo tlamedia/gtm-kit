@@ -9,22 +9,17 @@
  * verbatim as "[object Object]".
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
 import SgtmPreviewTest from '../sgtm-preview-test';
 
-jest.mock( '../../../../hooks/useFeatureFlags', () => ( {
+vi.mock( '../../../../hooks/useFeatureFlags', () => ( {
 	useFeatureFlags: () => ( { meetsRequiredTier: () => true } ),
 } ) );
 
-jest.mock( '../../../../services/SettingsService', () => ( {
+vi.mock( '../../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		isPluginActive: () => false,
@@ -44,8 +39,8 @@ const ARMED_STATUS = {
 
 let mockStatus = { ...ARMED_STATUS };
 
-const mockSetWebhookPreviewToken = jest.fn();
-jest.mock( '../../../../api/settings', () => ( {
+const mockSetWebhookPreviewToken = vi.fn();
+vi.mock( '../../../../api/settings', () => ( {
 	getWebhookPreviewStatus: () =>
 		Promise.resolve( {
 			success: true,

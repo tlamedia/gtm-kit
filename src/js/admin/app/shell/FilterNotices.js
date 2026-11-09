@@ -13,7 +13,7 @@ import { integrationLabel } from '../../registry/integrations';
  * @param {string} props.filter          The active integration slug.
  * @param {string} props.capabilityLabel The capability label.
  * @param {number} props.matchingCount   Matching-field count in the capability.
- * @return {JSX.Element} The notice.
+ * @return {Element} The notice.
  */
 export const FilterNotice = ( { filter, capabilityLabel, matchingCount } ) => {
 	const label = integrationLabel( filter );
@@ -29,7 +29,7 @@ export const FilterNotice = ( { filter, capabilityLabel, matchingCount } ) => {
 					label,
 					matchingCount,
 					capabilityLabel
-			  )
+				)
 			: sprintf(
 					/* translators: 1: integration name, 2: capability name. */
 					__(
@@ -38,7 +38,7 @@ export const FilterNotice = ( { filter, capabilityLabel, matchingCount } ) => {
 					),
 					label,
 					capabilityLabel
-			  );
+				);
 
 	return (
 		<p className="gtmkit-m-0 gtmkit-text-sm gtmkit-text-text-muted">
@@ -54,7 +54,7 @@ export const FilterNotice = ( { filter, capabilityLabel, matchingCount } ) => {
  * @param {Object} props             Component props.
  * @param {string} props.integration The hidden integration slug.
  * @param {string} props.filter      The active integration slug.
- * @return {JSX.Element} The placeholder.
+ * @return {Element} The placeholder.
  */
 export const HiddenIntegrationNotice = ( { integration, filter } ) => (
 	<div className="gtmkit-mb-6 gtmkit-rounded-md gtmkit-border gtmkit-border-border-default gtmkit-bg-surface gtmkit-px-6 gtmkit-py-4 gtmkit-text-sm gtmkit-text-text-muted">

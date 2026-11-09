@@ -14,6 +14,7 @@ use TLA_Media\GTM_Kit\Admin\GoogleTagGatewayNotice;
 use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
 use TLA_Media\GTM_Kit\Common\GoogleTagGateway;
 use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Options\OptionsFactory;
 use WP_UnitTestCase;
 
@@ -218,5 +219,68 @@ final class GoogleTagGatewayNoticeStatesTest extends WP_UnitTestCase {
 		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_domain', 'data.example.com' );
 		$this->evaluate();
 		$this->assertTrue( $this->is_shown( GoogleTagGatewayNotice::BLOCKED_NOTIFICATION_ID ) );
+	}
+
+	/**
+	 * The conflict notice says the Stape loader is off too, but only to a
+	 * site that has it switched on and set up.
+	 *
+	 * @return void
+	 */
+	public function test_the_conflict_notice_mentions_the_stape_loader_only_when_it_is_switched_on(): void {
+		$this->store_health( true );
+		$this->switch_on( 'data.example.com' );
+
+		$evaluate = function (): string {
+			$options = OptionsFactory::get_instance();
+			( new GoogleTagGatewayNotice( new GoogleTagGateway( $options ), $this->handler, new StapeLoader( $options ) ) )->evaluate();
+
+			return (string) $this->handler->get_notification_by_id( GoogleTagGatewayNotice::BLOCKED_NOTIFICATION_ID )->to_array()['message'];
+		};
+
+		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_stape_issued_loader', false );
+		$this->assertStringNotContainsString( 'The loader Stape issues', $evaluate() );
+
+		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_stape_issued_loader', true );
+		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_container_identifier', '' );
+		$this->assertStringNotContainsString( 'The loader Stape issues', $evaluate(), 'Without an identifier the loader was never in use.' );
+
+		OptionsFactory::get_instance()->set_option( 'general', 'sgtm_container_identifier', '38i0hixjpkyq' );
+		$this->assertStringContainsString( 'The loader Stape issues is not used either while the gateway is switched on', $evaluate() );
+	}
+
+	/**
+	 * With no conflict and no dismissal stored, nothing is deleted.
+	 *
+	 * @return void
+	 */
+	public function test_no_delete_runs_when_there_is_no_dismissal(): void {
+		// With the option already known to be absent, as a persistent object
+		// cache keeps it between requests, withdrawing the notice sends no
+		// query for it.
+		get_option( GoogleTagGatewayHealth::BLOCKED_NOTICE_DISMISSED_OPTION, false );
+
+		$queries = [];
+		$record  = static function ( string $query ) use ( &$queries ): string {
+			$queries[] = $query;
+			return $query;
+		};
+		add_filter( 'query', $record );
+		$this->evaluate();
+		remove_filter( 'query', $record );
+
+		$this->assertSame( [], preg_grep( '/' . preg_quote( GoogleTagGatewayHealth::BLOCKED_NOTICE_DISMISSED_OPTION, '/' ) . '/', $queries ) );
+	}
+
+	/**
+	 * A stored dismissal is still cleared once the conflict is gone.
+	 *
+	 * @return void
+	 */
+	public function test_a_stored_dismissal_is_cleared_once_the_conflict_is_gone(): void {
+		GoogleTagGatewayHealth::dismiss_notice( GoogleTagGatewayHealth::NOTICE_BLOCKED );
+		$this->evaluate();
+
+		$this->assertFalse( GoogleTagGatewayHealth::is_notice_dismissed( GoogleTagGatewayHealth::NOTICE_BLOCKED ) );
 	}
 }

@@ -5,6 +5,16 @@
  */
 
 import {
+	afterAll,
+	beforeAll,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest';
+
+import {
 	getUserFriendlyMessage,
 	logError,
 	withRetry,
@@ -22,7 +32,7 @@ import {
 const originalConsoleError = console.error;
 beforeAll( () => {
 	// eslint-disable-next-line no-console
-	console.error = jest.fn();
+	console.error = vi.fn();
 } );
 afterAll( () => {
 	// eslint-disable-next-line no-console
@@ -156,7 +166,7 @@ describe( 'Error Handler Utilities', () => {
 
 	describe( 'withRetry', () => {
 		it( 'should return result on first attempt if successful', async () => {
-			const apiCall = jest.fn().mockResolvedValue( { success: true } );
+			const apiCall = vi.fn().mockResolvedValue( { success: true } );
 			const result = await withRetry( apiCall, 3 );
 
 			expect( result ).toEqual( { success: true } );
@@ -164,7 +174,7 @@ describe( 'Error Handler Utilities', () => {
 		} );
 
 		it( 'should retry on failure and eventually succeed', async () => {
-			const apiCall = jest
+			const apiCall = vi
 				.fn()
 				.mockRejectedValueOnce( new NetworkError( 'Failed' ) )
 				.mockRejectedValueOnce( new NetworkError( 'Failed again' ) )
@@ -177,7 +187,7 @@ describe( 'Error Handler Utilities', () => {
 		} );
 
 		it( 'should throw after max retries exhausted', async () => {
-			const apiCall = jest
+			const apiCall = vi
 				.fn()
 				.mockRejectedValue( new NetworkError( 'Failed' ) );
 
@@ -189,7 +199,7 @@ describe( 'Error Handler Utilities', () => {
 
 		it( 'should not retry validation errors', async () => {
 			const error = new ValidationError( 'Invalid input' );
-			const apiCall = jest.fn().mockRejectedValue( error );
+			const apiCall = vi.fn().mockRejectedValue( error );
 
 			await expect( withRetry( apiCall, 3 ) ).rejects.toThrow(
 				ValidationError
@@ -199,7 +209,7 @@ describe( 'Error Handler Utilities', () => {
 
 		it( 'should use exponential backoff', async () => {
 			const startTime = Date.now();
-			const apiCall = jest
+			const apiCall = vi
 				.fn()
 				.mockRejectedValueOnce( new NetworkError( 'Failed' ) )
 				.mockRejectedValueOnce( new NetworkError( 'Failed' ) )
@@ -216,7 +226,7 @@ describe( 'Error Handler Utilities', () => {
 
 	describe( 'safeAsync', () => {
 		it( 'should return result when function succeeds', async () => {
-			const fn = jest.fn().mockResolvedValue( { data: 'test' } );
+			const fn = vi.fn().mockResolvedValue( { data: 'test' } );
 			const safeFn = safeAsync( fn, { action: 'test' } );
 
 			const result = await safeFn( 'arg1', 'arg2' );
@@ -230,7 +240,7 @@ describe( 'Error Handler Utilities', () => {
 			process.env.NODE_ENV = 'development';
 
 			const error = new APIError( 'Failed' );
-			const fn = jest.fn().mockRejectedValue( error );
+			const fn = vi.fn().mockRejectedValue( error );
 			const safeFn = safeAsync( fn, { action: 'updateSettings' } );
 
 			await expect( safeFn() ).rejects.toThrow( APIError );
@@ -248,7 +258,7 @@ describe( 'Error Handler Utilities', () => {
 		} );
 
 		it( 'should pass through all arguments to wrapped function', async () => {
-			const fn = jest.fn().mockResolvedValue( 'success' );
+			const fn = vi.fn().mockResolvedValue( 'success' );
 			const safeFn = safeAsync( fn );
 
 			await safeFn( 'a', 'b', 'c', { key: 'value' } );

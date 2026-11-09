@@ -232,6 +232,21 @@ describe( 'single-product item payload readers', () => {
 			expect( event.ecommerce.items[ 0 ].item_variant ).toBe( 'Blue' );
 		} );
 
+		it( 'carries the parent product id as item_group_id', () => {
+			loadScript();
+			const form = renderProductForm(
+				'span',
+				'<input name="variation_id" value="44" />'
+			);
+
+			fireFoundVariation( form );
+			fireFoundVariation( form );
+
+			const item = lastEvent().ecommerce.items[ 0 ];
+			expect( item.item_id ).toBe( '44' );
+			expect( item.item_group_id ).toBe( ITEM.item_id );
+		} );
+
 		it( 'falls back to the hidden input on cached pages', () => {
 			loadScript();
 			const form = renderProductForm(

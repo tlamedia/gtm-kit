@@ -5,12 +5,7 @@
  * page in place with the button usable again.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { useContext, useState } from '@wordpress/element';
@@ -19,14 +14,14 @@ import LicenseProvider, { LicenseContext } from '../LicenseContext';
 import LicensePage from '../../app/shell/LicensePage';
 import { APIError, NetworkError } from '../../utils/errors';
 
-const mockSendLicenseKey = jest.fn();
-const mockDeactivateLicense = jest.fn();
-jest.mock( '../../api/settings', () => ( {
+const mockSendLicenseKey = vi.fn();
+const mockDeactivateLicense = vi.fn();
+vi.mock( '../../api/settings', () => ( {
 	sendLicenseKey: ( ...args ) => mockSendLicenseKey( ...args ),
 	deactivateLicense: ( ...args ) => mockDeactivateLicense( ...args ),
 } ) );
 
-jest.mock( '../../services/SettingsService', () => ( {
+vi.mock( '../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		isPremium: () => true,
@@ -38,7 +33,7 @@ jest.mock( '../../services/SettingsService', () => ( {
 	},
 } ) );
 
-jest.mock( '../../app/shell/ContextPane', () => () => null );
+vi.mock( '../../app/shell/ContextPane', () => ( { default: () => null } ) );
 
 const NETWORK_MESSAGE =
 	'Network error. Please check your connection and try again.';
@@ -134,7 +129,7 @@ describe( 'LicensePage deactivation', () => {
 
 	beforeEach( () => {
 		mockDeactivateLicense.mockReset();
-		consoleError = jest
+		consoleError = vi
 			.spyOn( console, 'error' )
 			.mockImplementation( () => {} );
 	} );

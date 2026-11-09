@@ -9,12 +9,17 @@
 # Usage:
 #   bin/publish-mirror.sh X.Y.Z [--dry-run]
 #   bin/publish-mirror.sh X.Y.Z-rcN --rc [--dry-run]
+#   bin/publish-mirror.sh X.Y.Z --hotfix [--dry-run]
 #   bin/publish-mirror.sh --init "<commit message>" [--dry-run]
 #
 # Versioned mode tags both repositories with X.Y.Z and pushes the mirror
 # commit and tag. --rc publishes a release candidate from the branch
 # rc/X.Y.Z-rcN: it tags both repositories and pushes the tags only, never
 # mirror main, so the candidate commit is reachable only through its tag.
+# --hotfix publishes a patch release from the branch hotfix/X.Y, for when
+# main is already ahead of the last release: it tags and pushes exactly
+# like versioned mode, but only on top of a mirror main that carries an
+# earlier X.Y release, so a patch never lands on top of a newer minor.
 # --init publishes an unversioned sync (no tags) with a custom commit
 # message. --dry-run stops before any push and prints the diffstat of the
 # would-be mirror commit.
@@ -24,6 +29,7 @@ set -euo pipefail
 usage() {
 	echo "Usage: $0 X.Y.Z [--dry-run]" >&2
 	echo "       $0 X.Y.Z-rcN --rc [--dry-run]" >&2
+	echo "       $0 X.Y.Z --hotfix [--dry-run]" >&2
 	echo "       $0 --init \"<commit message>\" [--dry-run]" >&2
 	exit 1
 }
@@ -33,6 +39,7 @@ VERSION=""
 INIT_MESSAGE=""
 DRY_RUN=0
 RC=0
+HOTFIX=0
 
 while [ $# -gt 0 ]; do
 	case "$1" in
@@ -48,6 +55,10 @@ while [ $# -gt 0 ]; do
 			;;
 		--rc)
 			RC=1
+			shift
+			;;
+		--hotfix)
+			HOTFIX=1
 			shift
 			;;
 		-*)
@@ -73,6 +84,17 @@ if [ "$RC" -eq 1 ]; then
 	fi
 fi
 
+if [ "$HOTFIX" -eq 1 ]; then
+	[ "$MODE" = "version" ] && [ "$RC" -eq 0 ] || usage
+	MODE="hotfix"
+	if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[1-9][0-9]*$'; then
+		echo "Error: '$VERSION' does not look like a patch version (X.Y.Z with Z of 1 or higher)." >&2
+		exit 1
+	fi
+	MINOR="${VERSION%.*}"
+	PATCH="${VERSION##*.}"
+fi
+
 if [ "$MODE" = "version" ] && ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+(\.[0-9]+)+$'; then
 	echo "Error: '$VERSION' does not look like a version number." >&2
 	exit 1
@@ -89,9 +111,12 @@ if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
 	exit 1
 fi
 
-# Guard: must be on main, or on rc/X.Y.Z-rcN for a release candidate.
+# Guard: must be on main, on rc/X.Y.Z-rcN for a release candidate, or on
+# hotfix/X.Y for a patch release.
 if [ "$MODE" = "rc" ]; then
 	EXPECTED_BRANCH="rc/$VERSION"
+elif [ "$MODE" = "hotfix" ]; then
+	EXPECTED_BRANCH="hotfix/$MINOR"
 else
 	EXPECTED_BRANCH="main"
 fi
@@ -163,6 +188,22 @@ fi
 echo "Cloning mirror main..."
 git clone --quiet --depth 1 --branch main "$MIRROR_URL" "$CLONE_DIR"
 
+# Guard (hotfix mode): mirror main must carry an earlier release of the
+# same minor. Anything else means a newer minor already shipped, and the
+# patch would roll the public tree back.
+if [ "$MODE" = "hotfix" ]; then
+	MIRROR_SUBJECT="$(git -C "$CLONE_DIR" log -1 --format=%s)"
+	MIRROR_VERSION="${MIRROR_SUBJECT#GTM Kit }"
+	if [ "$MIRROR_VERSION" = "$MIRROR_SUBJECT" ] || [ "${MIRROR_VERSION%.*}" != "$MINOR" ] || ! echo "$MIRROR_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+		echo "Error: mirror main is '$MIRROR_SUBJECT', expected a GTM Kit $MINOR.x release below $VERSION." >&2
+		exit 1
+	fi
+	if [ "${MIRROR_VERSION##*.}" -ge "$PATCH" ] && [ "$MIRROR_VERSION" != "$VERSION" ]; then
+		echo "Error: mirror main is already at $MIRROR_VERSION, newer than $VERSION." >&2
+		exit 1
+	fi
+fi
+
 # Replace the mirror tree with the export.
 git -C "$CLONE_DIR" rm -rq .
 cp -R "$EXPORT_DIR"/. "$CLONE_DIR"/
@@ -177,7 +218,7 @@ if git -C "$CLONE_DIR" diff --cached --quiet; then
 	exit 1
 fi
 
-if [ "$MODE" = "version" ]; then
+if [ "$MODE" = "version" ] || [ "$MODE" = "hotfix" ]; then
 	COMMIT_MESSAGE="GTM Kit $VERSION"
 elif [ "$MODE" = "rc" ]; then
 	COMMIT_MESSAGE="GTM Kit $VERSION (release candidate)"
@@ -196,7 +237,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
 	exit 0
 fi
 
-if [ "$MODE" = "version" ]; then
+if [ "$MODE" = "version" ] || [ "$MODE" = "hotfix" ]; then
 	# Tag the private repo at HEAD so release diffs against the previous
 	# tag keep working in the development history.
 	if git rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then

@@ -8,7 +8,7 @@ export declare const TIERS: {
 	readonly PREMIUM: 'premium';
 };
 
-export type Tier = typeof TIERS[keyof typeof TIERS];
+export type Tier = ( typeof TIERS )[ keyof typeof TIERS ];
 
 export declare const tierRank: ( tier: Tier ) => number;
 

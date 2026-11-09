@@ -1,6 +1,8 @@
 /**
  * Dashboard data helpers: metrics and derived health checks.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import {
 	getDashboardMetrics,
 	getDashboardNotifications,

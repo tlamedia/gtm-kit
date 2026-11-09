@@ -31,6 +31,7 @@ final class PluginDataImportGtm4wpTest extends TestCase {
 		Functions\stubs(
 			[
 				'sanitize_key' => static fn( $key ) => strtolower( (string) $key ),
+				'wp_parse_url' => static fn( $url ) => parse_url( $url ), // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- Stands in for the WordPress wrapper in a unit test.
 			]
 		);
 	}
@@ -38,13 +39,20 @@ final class PluginDataImportGtm4wpTest extends TestCase {
 	/**
 	 * Extract the GTM4WP settings from a stubbed option row.
 	 *
-	 * @param mixed $stored The value `gtm4wp-options` resolves to.
+	 * @param mixed                $stored The value `gtm4wp-options` resolves to.
+	 * @param array<string, mixed> $gtmkit The GTM Kit settings already stored.
 	 *
 	 * @return array<string, mixed>
 	 */
-	private function extract( $stored ): array {
+	private function extract( $stored, array $gtmkit = [] ): array {
 		Functions\when( 'get_option' )->alias(
-			static fn( $name, $default_value = false ) => ( 'gtm4wp-options' === $name ) ? $stored : $default_value
+			static function ( $name, $default_value = false ) use ( $stored, $gtmkit ) {
+				if ( 'gtm4wp-options' === $name ) {
+					return $stored;
+				}
+
+				return ( 'gtmkit' === $name && [] !== $gtmkit ) ? $gtmkit : $default_value;
+			}
 		);
 
 		return ( new PluginDataImport() )->get( 'gtm4wp' );
@@ -519,6 +527,175 @@ final class PluginDataImportGtm4wpTest extends TestCase {
 		);
 
 		$this->assertFalse( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+	}
+
+	/**
+	 * GTM4WP's own `gtm.js` path, with or without a leading slash, is the
+	 * standard loader path, so the domain imports.
+	 *
+	 * @dataProvider default_path_provider
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 *
+	 * @param string $path The stored loader path.
+	 */
+	public function test_the_default_gtm_js_path_imports_the_domain( string $path ): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => 'sgtm.example.com',
+				'gtm-custom-path' => $path,
+			]
+		);
+
+		$this->assertFalse( $data['sgtm_domain_skipped'] );
+		$this->assertFalse( $data['sgtm_domain_cleared'] );
+		$this->assertSame( 'sgtm.example.com', $data['general']['sgtm_domain'] );
+	}
+
+	/**
+	 * Paths GTM4WP treats as its standard loader.
+	 *
+	 * @return array<string, array{0: string}>
+	 */
+	public static function default_path_provider(): array {
+		return [
+			'gtm.js'         => [ 'gtm.js' ],
+			'/gtm.js'        => [ '/gtm.js' ],
+			'padded /gtm.js' => [ ' /gtm.js ' ],
+		];
+	}
+
+	/**
+	 * A path that only resembles the default still counts as custom.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_real_custom_path_still_skips_the_domain(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => 'sgtm.example.com',
+				'gtm-custom-path' => 'metrics/gtm.js',
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+	}
+
+	/**
+	 * A re-import clears the domain an earlier import stored without its
+	 * custom path, and says so.
+	 *
+	 * @dataProvider earlier_import_provider
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 *
+	 * @param string $source_domain The domain GTM4WP stores.
+	 * @param string $stored_domain The domain the earlier import left in GTM Kit.
+	 */
+	public function test_a_reimport_clears_the_domain_an_earlier_import_stored( string $source_domain, string $stored_domain ): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => $source_domain,
+				'gtm-custom-path' => 'metrics',
+			],
+			[ 'general' => [ 'sgtm_domain' => $stored_domain ] ]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertTrue( $data['sgtm_domain_cleared'] );
+		$this->assertSame( '', $data['general']['sgtm_domain'] );
+	}
+
+	/**
+	 * GTM4WP domains and what an earlier import stored from them, after the
+	 * save normalised them.
+	 *
+	 * @return array<string, array{0: string, 1: string}>
+	 */
+	public static function earlier_import_provider(): array {
+		return [
+			'a bare domain' => [ 'sgtm.example.com', 'sgtm.example.com' ],
+			'a full URL'    => [ 'https://sgtm.example.com/', 'sgtm.example.com' ],
+		];
+	}
+
+	/**
+	 * A domain the site owner entered is never cleared by a re-import.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_reimport_leaves_an_owner_entered_domain_alone(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => 'sgtm.example.com',
+				'gtm-custom-path' => 'metrics',
+			],
+			[ 'general' => [ 'sgtm_domain' => 'tagging.example.com' ] ]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertFalse( $data['sgtm_domain_cleared'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+	}
+
+	/**
+	 * A domain the Stape-issued loader serves from is in use, so a re-import
+	 * leaves it alone even when it matches what an earlier import wrote.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_reimport_leaves_a_domain_the_stape_loader_uses_alone(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => 'sgtm.example.com',
+				'gtm-custom-path' => 'metrics',
+			],
+			[
+				'general' => [
+					'sgtm_domain'              => 'sgtm.example.com',
+					'sgtm_stape_issued_loader' => true,
+				],
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertFalse( $data['sgtm_domain_cleared'] );
+		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
+	}
+
+	/**
+	 * A domain a custom loader serves from is in use, so a re-import leaves it
+	 * alone even when it matches what an earlier import wrote. An import never
+	 * stores a loader identifier, so one being set means the site owner
+	 * configured the loader.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Installation\PluginDataImport::get
+	 */
+	public function test_a_reimport_leaves_a_domain_a_custom_loader_uses_alone(): void {
+		$data = $this->extract(
+			[
+				'gtm-code'        => 'GTM-FLAT01',
+				'gtm-domain-name' => 'collect.example.com',
+				'gtm-custom-path' => 'abc123.js',
+			],
+			[
+				'general' => [
+					'sgtm_domain'               => 'collect.example.com',
+					'sgtm_container_identifier' => 'abc123',
+					'sgtm_stape_issued_loader'  => false,
+				],
+			]
+		);
+
+		$this->assertTrue( $data['sgtm_domain_skipped'] );
+		$this->assertFalse( $data['sgtm_domain_cleared'] );
 		$this->assertArrayNotHasKey( 'sgtm_domain', $data['general'] );
 	}
 }

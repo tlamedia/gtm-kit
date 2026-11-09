@@ -31,9 +31,11 @@ final class WooCommerceBlocksTest extends TestCase {
 	/**
 	 * Build a WooCommerceBlocks bound to a real (dependency-light) WooCommerce.
 	 *
+	 * @param array<string, mixed> $stored The stored plugin options.
+	 *
 	 * @return WooCommerceBlocks
 	 */
-	private function make_blocks(): WooCommerceBlocks {
+	private function make_blocks( array $stored = [] ): WooCommerceBlocks {
 		if ( ! defined( 'GTMKIT_PATH' ) ) {
 			define( 'GTMKIT_PATH', '/fake/plugin/path/' );
 		}
@@ -43,7 +45,7 @@ final class WooCommerceBlocksTest extends TestCase {
 
 		Functions\stubs(
 			[
-				'get_option'               => [],
+				'get_option'               => $stored,
 				'add_filter'               => null,
 				'add_action'               => null,
 				'get_woocommerce_currency' => 'USD',
@@ -141,7 +143,7 @@ final class WooCommerceBlocksTest extends TestCase {
 	}
 
 	/**
-	 * The supported-blocks list is the seven canonical names by default.
+	 * The supported-blocks list is the eight canonical names by default.
 	 *
 	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::get_supported_blocks
 	 */
@@ -161,7 +163,8 @@ final class WooCommerceBlocksTest extends TestCase {
 		$this->assertContains( 'woocommerce/product-collection', $supported );
 		$this->assertContains( 'woocommerce/single-product', $supported );
 		$this->assertContains( 'woocommerce/related-products', $supported );
-		$this->assertCount( 7, $supported );
+		$this->assertContains( 'woocommerce/product-search', $supported );
+		$this->assertCount( 8, $supported );
 	}
 
 	/**
@@ -387,6 +390,160 @@ final class WooCommerceBlocksTest extends TestCase {
 		$blocks->track_rendered_block( $html, [ 'blockName' => 'woocommerce/mini-cart' ] );
 
 		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * A Product Search block on a classic theme loads the bundle, so its
+	 * listener can report searches while the results page does not.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_a_product_search_block_on_a_classic_theme_loads_the_bundle(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+		Functions\when( 'wp_is_block_theme' )->justReturn( false );
+
+		$blocks->track_rendered_block( '<div class="wc-block-product-search"></div>', [ 'blockName' => 'woocommerce/product-search' ] );
+
+		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * The Product Search WooCommerce inserts as a Search block variation
+	 * loads the bundle like the legacy block.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::is_product_search_variation
+	 */
+	public function test_the_product_search_variation_loads_the_bundle(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$blocks->track_rendered_block(
+			'<form class="wp-block-search"></form>',
+			[
+				'blockName' => 'core/search',
+				'attrs'     => [
+					'query'     => [ 'post_type' => 'product' ],
+					'namespace' => 'woocommerce/product-search',
+				],
+			]
+		);
+
+		$this->assertSame( [ 'gtmkit-woocommerce-blocks' ], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * A Search block that searches the whole site, or another post type, is
+	 * not claimed and loads nothing.
+	 *
+	 * @dataProvider site_search_provider
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::is_product_search_variation
+	 *
+	 * @param array<string, mixed> $attrs The block attributes.
+	 */
+	public function test_a_site_search_block_is_not_claimed( array $attrs ): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$blocks->track_rendered_block(
+			'<form class="wp-block-search"></form>',
+			[
+				'blockName' => 'core/search',
+				'attrs'     => $attrs,
+			]
+		);
+
+		$this->assertSame( [], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * Removing Product Search from the supported blocks switches off the
+	 * variation too.
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 */
+	public function test_the_filter_opt_out_covers_the_variation(): void {
+		$blocks   = $this->make_blocks();
+		$enqueued = $this->stub_script_enqueue( true );
+
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnUsing(
+			static function ( array $supported ): array {
+				return array_values( array_diff( $supported, [ 'woocommerce/product-search' ] ) );
+			}
+		);
+
+		$blocks->track_rendered_block(
+			'<form class="wp-block-search"></form>',
+			[
+				'blockName' => 'core/search',
+				'attrs'     => [ 'query' => [ 'post_type' => 'product' ] ],
+			]
+		);
+
+		$this->assertSame( [], $enqueued->getArrayCopy() );
+	}
+
+	/**
+	 * Search blocks that are not the Product Search variation.
+	 *
+	 * @return array<string, array{0: array<string, mixed>}>
+	 */
+	public static function site_search_provider(): array {
+		return [
+			'no attributes'   => [ [] ],
+			'empty query'     => [ [ 'query' => [] ] ],
+			'posts only'      => [ [ 'query' => [ 'post_type' => 'post' ] ] ],
+			'malformed query' => [ [ 'query' => 'product' ] ],
+		];
+	}
+
+	/**
+	 * The bundle is told whether the results page reports searches, read
+	 * from the engagement search setting.
+	 *
+	 * @dataProvider search_setting_provider
+	 *
+	 * @covers \TLA_Media\GTM_Kit\Integration\WooCommerceBlocks::track_rendered_block
+	 *
+	 * @param bool $enabled Whether the engagement search event is on.
+	 */
+	public function test_the_bundle_learns_who_owns_the_search_event( bool $enabled ): void {
+		$blocks = $this->make_blocks( [ 'general' => [ 'engagement_event_search_enabled' => $enabled ] ] );
+		$this->stub_script_enqueue( true );
+
+		$localized = [];
+		Functions\when( 'wp_localize_script' )->alias(
+			static function ( string $handle, string $name, array $data ) use ( &$localized ): bool {
+				$localized[ $name ] = $data;
+				return true;
+			}
+		);
+		Filters\expectApplied( 'gtmkit_blocks_supported' )->andReturnFirstArg();
+
+		$blocks->track_rendered_block( '', [ 'blockName' => 'woocommerce/product-search' ] );
+
+		$this->assertSame( $enabled, $localized['gtmkitWooCommerceBlocksBuild']['searchOnResultsPage'] );
+	}
+
+	/**
+	 * Engagement search on and off.
+	 *
+	 * @return array<string, array{0: bool}>
+	 */
+	public static function search_setting_provider(): array {
+		return [
+			'engagement search on'  => [ true ],
+			'engagement search off' => [ false ],
+		];
 	}
 
 	/**

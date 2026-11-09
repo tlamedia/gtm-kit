@@ -3,7 +3,7 @@
  * panel and forwards width/height to avoid layout jank while loading.
  *
  * @param {{ url: string, alt: string, width?: number|null, height?: number|null }} props
- * @return {JSX.Element|null} The image, or null when the block has no usable url or alt.
+ * @return {Element|null} The image, or null when the block has no usable url or alt.
  */
 const Image = ( { url, alt, width, height } ) => {
 	if ( typeof url !== 'string' || url === '' ) {

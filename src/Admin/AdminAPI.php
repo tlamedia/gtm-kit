@@ -13,8 +13,7 @@ use TLA_Media\GTM_Kit\Common\StapeLoaderClient;
 use TLA_Media\GTM_Kit\Common\SupportSync;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Options\Options;
-use TLA_Media\GTM_Kit\Options\Processor\GoogleTagGatewayProcessor;
-use TLA_Media\GTM_Kit\Options\ValidationResult;
+use TLA_Media\GTM_Kit\Options\SettingsWriter;
 use WP_Error;
 
 /**
@@ -173,47 +172,6 @@ final class AdminAPI {
 	}
 
 	/**
-	 * Refuse a save that switches the Google tag gateway on when it cannot serve.
-	 *
-	 * The checks run afresh here rather than from a stored result, because
-	 * the site owner may have just fixed what failed last time. A refusal
-	 * rejects the whole save and says why, rather than letting the rest land
-	 * while the toggle quietly flips back off.
-	 *
-	 * @param mixed $submitted The decoded request body.
-	 *
-	 * @return WP_Error|null
-	 */
-	private function refuse_gateway_switch_on( $submitted ): ?WP_Error {
-		if ( ! is_array( $submitted ) || ! isset( $submitted['general'] ) || ! is_array( $submitted['general'] ) || (bool) $this->options->get( 'general', 'google_tag_gateway' ) ) {
-			return null;
-		}
-
-		// Only the values the validator accepts as "on" count as a switch-on.
-		// Anything else is either off or rejected by validation, which then
-		// names the setting, so a string such as "false" never triggers the
-		// network checks or a refusal that blames the gateway.
-		if ( ! in_array( $submitted['general']['google_tag_gateway'] ?? false, [ true, 1, '1' ], true ) ) {
-			return null;
-		}
-
-		$reason = GoogleTagGatewayProcessor::refusal( $submitted, true );
-
-		if ( null === $reason ) {
-			return null;
-		}
-
-		return new WP_Error(
-			'gtmkit_gateway_refused',
-			self::get_gateway_refusal_message( $reason ),
-			[
-				'status' => 400,
-				'params' => [ 'general.google_tag_gateway' => $reason ],
-			]
-		);
-	}
-
-	/**
 	 * Explain why the Google tag gateway could not be switched on.
 	 *
 	 * @param string $reason One of the gateway processor's refusal reasons.
@@ -221,16 +179,7 @@ final class AdminAPI {
 	 * @return string
 	 */
 	public static function get_gateway_refusal_message( string $reason ): string {
-		switch ( $reason ) {
-			case GoogleTagGatewayProcessor::REFUSED_SGTM_DOMAIN:
-				return __( 'Your changes were not saved, because the Google tag gateway cannot be switched on while a custom server-side tagging domain is set. Clear the domain or leave the gateway off, then save again.', 'gtm-kit' );
-
-			case GoogleTagGatewayProcessor::REFUSED_SERVICE:
-				return __( 'Your changes were not saved, because the Google tag gateway cannot be switched on: your server could not connect to the gateway service. Some hosts block outgoing connections. Ask your host to allow outgoing HTTPS connections, or leave the gateway off, then save again.', 'gtm-kit' );
-
-			default:
-				return __( 'Your changes were not saved, because the Google tag gateway cannot be switched on: the address that serves the Google tag from your own domain did not serve your container. Check that the container is published in Google Tag Manager, and that your host, firewall or security plugin does not block this address, or leave the gateway off, then save again.', 'gtm-kit' );
-		}
+		return SettingsWriter::get_gateway_refusal_message( $reason );
 	}
 
 	/**
@@ -243,138 +192,31 @@ final class AdminAPI {
 	 * save that switches on a Google tag gateway that cannot serve is refused
 	 * the same way, for the same reason.
 	 *
-	 * A save that changes the settings a Stape-issued loader is issued for asks
-	 * Stape for a new one. That request never refuses the save, because a
-	 * failure leaves the standard loader working, so the save lands and the
-	 * response says what became of the loader.
+	 * The save itself is {@see SettingsWriter::apply()}, which every other
+	 * route that changes settings shares.
 	 *
 	 * @param \WP_REST_Request $request The request.
 	 *
 	 * @return \WP_REST_Response|WP_Error
 	 */
 	public function set_options( \WP_REST_Request $request ) {
-		$new_options = json_decode( $request->get_body(), true );
+		$saved = ( new SettingsWriter( $this->options ) )->apply( json_decode( $request->get_body(), true ) );
 
-		$gateway_refused = $this->refuse_gateway_switch_on( $new_options );
-
-		if ( null !== $gateway_refused ) {
-			return $gateway_refused;
+		if ( $saved instanceof WP_Error ) {
+			return $saved;
 		}
-
-		// Record the value WordPress is about to store, after validation, type
-		// coercion and every processor, so the comparison below never flags a
-		// value that was normalised on purpose. The last write wins if saving
-		// triggers another update of the same option.
-		$written = null;
-		$capture = static function ( $value ) use ( &$written ) {
-			$written = $value;
-			return $value;
-		};
-
-		// Validation rejects the whole save without writing anything, and
-		// reports why only through this action.
-		$rejected = [];
-		$collect  = static function ( $errors ) use ( &$rejected ) {
-			$rejected = is_array( $errors ) ? $errors : [];
-		};
-
-		$sgtm_loader   = new StapeLoader( $this->options );
-		$loader_before = $sgtm_loader->get_save_baseline();
-
-		add_action( 'gtmkit_options_validation_failed', $collect );
-		add_filter( 'pre_update_option_' . Options::OPTION_NAME, $capture, PHP_INT_MAX );
-		$this->options->set( $new_options );
-		remove_filter( 'pre_update_option_' . Options::OPTION_NAME, $capture, PHP_INT_MAX );
-		remove_action( 'gtmkit_options_validation_failed', $collect );
-
-		if ( [] !== $rejected ) {
-			return self::reject_invalid_options( $rejected );
-		}
-
-		if ( is_array( $new_options ) && is_array( $written ) ) {
-			$not_kept = self::find_options_not_kept( $new_options, $written, $this->options->get_persisted() );
-
-			if ( [] !== $not_kept ) {
-				return new WP_Error(
-					'gtmkit_save_not_kept',
-					$this->get_not_kept_message( count( $not_kept ) ),
-					[
-						'status'   => 409,
-						'settings' => $not_kept,
-					]
-				);
-			}
-		}
-
-		$outcome = $sgtm_loader->sync_after_save( new StapeLoaderClient( $this->options ), $loader_before );
 
 		return new \WP_REST_Response(
 			[
 				'success'     => true,
-				'data'        => $this->options->get_all_raw(),
-				'sgtm_loader' => array_merge( $outcome, $sgtm_loader->get_client_state() ),
-			]
-		);
-	}
-
-	/**
-	 * Explain a save that validation rejected, naming each setting and why.
-	 *
-	 * The message is for the user. `params` follows WordPress's convention
-	 * for invalid REST parameters and carries the validator's own detail per
-	 * setting, for support and debugging.
-	 *
-	 * @param array<mixed> $errors Validation results keyed by `group.key`.
-	 *
-	 * @return WP_Error
-	 */
-	private static function reject_invalid_options( array $errors ): WP_Error {
-		$named  = [];
-		$params = [];
-
-		foreach ( $errors as $option_key => $result ) {
-			if ( ! $result instanceof ValidationResult ) {
-				continue;
-			}
-
-			$parts  = explode( '.', (string) $option_key, 2 );
-			$reason = ( 'type_mismatch' === $result->get_error_code() )
-				? __( 'wrong type of value', 'gtm-kit' )
-				: __( 'value not accepted', 'gtm-kit' );
-
-			/* translators: 1: the name of a setting, 2: why its value was rejected. */
-			$named[]                        = sprintf( __( '%1$s (%2$s)', 'gtm-kit' ), $parts[1] ?? $parts[0], $reason );
-			$params[ (string) $option_key ] = $result->get_error_message();
-		}
-
-		$count = count( $named );
-
-		return new WP_Error(
-			'gtmkit_settings_rejected',
-			sprintf(
-				/* translators: 1: a number of settings, 2: the settings, each with the reason its value was rejected. */
-				_n(
-					'Your changes were not saved, because %1$d setting has a value GTM Kit cannot accept: %2$s. Correct it and save again.',
-					'Your changes were not saved, because %1$d settings have values GTM Kit cannot accept: %2$s. Correct them and save again.',
-					$count,
-					'gtm-kit'
-				),
-				$count,
-				wp_sprintf( '%l', $named )
-			),
-			[
-				'status' => 400,
-				'params' => $params,
+				'data'        => $saved['data'],
+				'sgtm_loader' => $saved['sgtm_loader'],
 			]
 		);
 	}
 
 	/**
 	 * Find the submitted options whose written value did not survive the read-back.
-	 *
-	 * Only keys the request carried and the save actually wrote are compared,
-	 * and strictly: both sides went through the same serialisation, so any
-	 * difference is a real one.
 	 *
 	 * @param array<string, mixed> $submitted The options the request carried.
 	 * @param array<string, mixed> $written The options WordPress stored.
@@ -383,60 +225,7 @@ final class AdminAPI {
 	 * @return array<int, string> The `group.key` of each option not kept.
 	 */
 	public static function find_options_not_kept( array $submitted, array $written, array $persisted ): array {
-		$not_kept = [];
-
-		foreach ( $submitted as $group => $keys ) {
-			if ( ! is_array( $keys ) || ! isset( $written[ $group ] ) || ! is_array( $written[ $group ] ) ) {
-				continue;
-			}
-
-			$kept = ( isset( $persisted[ $group ] ) && is_array( $persisted[ $group ] ) ) ? $persisted[ $group ] : [];
-
-			foreach ( array_keys( $keys ) as $key ) {
-				if ( ! array_key_exists( $key, $written[ $group ] ) ) {
-					continue;
-				}
-
-				if ( ! array_key_exists( $key, $kept ) || $kept[ $key ] !== $written[ $group ][ $key ] ) {
-					$not_kept[] = $group . '.' . $key;
-				}
-			}
-		}
-
-		return $not_kept;
-	}
-
-	/**
-	 * Explain a save that did not stick, naming the likely cause.
-	 *
-	 * @param int $count The number of settings not kept.
-	 *
-	 * @return string
-	 */
-	private function get_not_kept_message( int $count ): string {
-		if ( wp_using_ext_object_cache() ) {
-			return sprintf(
-				/* translators: %d is a number of settings. */
-				_n(
-					'Your changes were sent, but %d setting still reads back with its old value. Your site uses a persistent object cache, which is most likely serving an outdated copy of the settings. Flush the object cache, from your caching plugin or your host\'s control panel, then save again.',
-					'Your changes were sent, but %d settings still read back with their old values. Your site uses a persistent object cache, which is most likely serving an outdated copy of the settings. Flush the object cache, from your caching plugin or your host\'s control panel, then save again.',
-					$count,
-					'gtm-kit'
-				),
-				$count
-			);
-		}
-
-		return sprintf(
-			/* translators: %d is a number of settings. */
-			_n(
-				'Your changes were sent, but %d setting still reads back with its old value, so the database most likely did not keep the change. Ask your host to check the database error log, then save again.',
-				'Your changes were sent, but %d settings still read back with their old values, so the database most likely did not keep the change. Ask your host to check the database error log, then save again.',
-				$count,
-				'gtm-kit'
-			),
-			$count
-		);
+		return SettingsWriter::find_options_not_kept( $submitted, $written, $persisted );
 	}
 
 	/**

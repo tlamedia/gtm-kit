@@ -10,12 +10,12 @@
  * Wraps components with React Profiler to measure render performance.
  * Logs warnings in development when renders exceed 16ms (1 frame at 60fps).
  */
-export const PerformanceMonitor: React.FC<{
+export const PerformanceMonitor: React.FC< {
 	/** Unique identifier for this profiler */
 	id: string;
 	/** Child components to monitor */
 	children: React.ReactNode;
-}>;
+} >;
 
 /**
  * Measure function execution time
@@ -24,15 +24,15 @@ export const PerformanceMonitor: React.FC<{
  * Warns if execution takes longer than 10ms.
  *
  * @param label - Label for the measurement
- * @param fn - Function to measure
- * @returns Wrapped function that logs execution time
+ * @param fn    - Function to measure
+ * @return Wrapped function that logs execution time
  *
  * @example
  * const heavyComputation = measurePerformance('filterNotifications', () => {
  *     return notifications.filter(n => n.type === 'problem');
  * });
  */
-export function measurePerformance<T extends (...args: any[]) => any>(
+export function measurePerformance< T extends ( ...args: any[] ) => any >(
 	label: string,
 	fn: T
 ): T;
@@ -50,7 +50,7 @@ export function measurePerformance<T extends (...args: any[]) => any>(
  *     // ... component code
  * };
  */
-export function useRenderCount(componentName: string): void;
+export function useRenderCount( componentName: string ): void;
 
 export default PerformanceMonitor;
 

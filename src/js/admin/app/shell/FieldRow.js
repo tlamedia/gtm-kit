@@ -47,7 +47,7 @@ export const isIntegrationActive = ( settings, plugin, option ) => {
  *
  * @param {Object} props       Component props.
  * @param {Object} props.field The field definition.
- * @return {JSX.Element|null} The rendered control, or null.
+ * @return {Element|null} The rendered control, or null.
  */
 const FieldRow = memo( ( { field } ) => {
 	const { settings } = useContext( SettingsDataContext );
@@ -72,7 +72,7 @@ const FieldRow = memo( ( { field } ) => {
 				settings,
 				field.requiresIntegration.plugin,
 				field.requiresIntegration.option
-		  )
+			)
 		: false;
 	const disabled =
 		lockedByTier ||

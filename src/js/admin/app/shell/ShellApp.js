@@ -25,6 +25,7 @@ import IntegrationConfig from './IntegrationConfig';
 import LicensePage from './LicensePage';
 import SupportPage from './SupportPage';
 import ReachabilityBanner from './ReachabilityBanner';
+import ReviewAsk from './ReviewAsk';
 import SectionErrorBoundary from '../../components/SectionErrorBoundary';
 import { SkeletonPage } from '../../components/Skeleton';
 import { ToastContainer } from '../../components/Toast';
@@ -44,7 +45,7 @@ const PremiumPage = lazy( () => import( './PremiumPage' ) );
  * @param {Object} props              Component props.
  * @param {string} props.capabilityId Capability id.
  * @param {string} props.label        Boundary label.
- * @return {JSX.Element} The boundaried capability page.
+ * @return {Element} The boundaried capability page.
  */
 const Capability = ( { capabilityId, label } ) => (
 	<SectionErrorBoundary sectionName={ label }>
@@ -58,7 +59,7 @@ const Capability = ( { capabilityId, label } ) => (
  *
  * @param {Object} props    Component props.
  * @param {string} props.to The target route id.
- * @return {JSX.Element} A redirect.
+ * @return {Element} A redirect.
  */
 const LegacyRedirect = ( { to } ) => {
 	const { search } = useLocation();
@@ -69,7 +70,7 @@ const LegacyRedirect = ( { to } ) => {
  * The registry-driven settings shell: a two-zone sidebar beside a routed main
  * column. Mounted in place of the legacy page router when the shell flag is on.
  *
- * @return {JSX.Element} The shell.
+ * @return {Element} The shell.
  */
 const ShellApp = () => {
 	const { useSettings } = useContext( SettingsDataContext );
@@ -110,6 +111,7 @@ const ShellApp = () => {
 						<main className="gtmkit-flex-1 gtmkit-px-8 gtmkit-py-8 gtmkit-text-base">
 							<div className="gtmkit-mx-auto gtmkit-max-w-screen-lg min-[1440px]:gtmkit-max-w-[1440px]">
 								<ReachabilityBanner />
+								<ReviewAsk />
 								{ searching && (
 									<SearchResults
 										query={ query }

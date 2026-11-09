@@ -14,7 +14,7 @@ import { NO_AUTOFILL } from '../../constants/autofill';
  * @param {Object}   props          Component props.
  * @param {string}   props.query    Current search query.
  * @param {Function} props.onSearch Search query change handler.
- * @return {JSX.Element} The top bar.
+ * @return {Element} The top bar.
  */
 const TopBar = memo( ( { query, onSearch } ) => (
 	<header className="gtmkit-sticky gtmkit-top-8 gtmkit-z-10 gtmkit-flex gtmkit-h-16 gtmkit-items-center gtmkit-justify-between gtmkit-border-b gtmkit-border-border-default gtmkit-bg-surface gtmkit-px-8">

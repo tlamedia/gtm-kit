@@ -166,7 +166,7 @@ export const SupportProvider = ( { children } ) => {
 						: state.supportSync,
 				},
 			} );
-		} catch ( error ) {
+		} catch {
 			// The session may still be active server-side, so keep the
 			// indicator visible; the customer can retry.
 			dispatch( {

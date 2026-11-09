@@ -9,6 +9,7 @@ namespace TLA_Media\GTM_Kit\Admin;
 
 use TLA_Media\GTM_Kit\Common\GoogleTagGateway;
 use TLA_Media\GTM_Kit\Common\GoogleTagGatewayHealth;
+use TLA_Media\GTM_Kit\Common\StapeLoader;
 use TLA_Media\GTM_Kit\Options\Options;
 
 /**
@@ -64,14 +65,23 @@ final class GoogleTagGatewayNotice {
 	private NotificationsHandler $notifications_handler;
 
 	/**
+	 * The Stape loader, which the gateway switches off.
+	 *
+	 * @var StapeLoader|null
+	 */
+	private ?StapeLoader $loader;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param GoogleTagGateway     $gateway An instance of GoogleTagGateway.
 	 * @param NotificationsHandler $notifications_handler An instance of NotificationsHandler.
+	 * @param StapeLoader|null     $loader The Stape loader, to say when the gateway switches it off.
 	 */
-	public function __construct( GoogleTagGateway $gateway, NotificationsHandler $notifications_handler ) {
+	public function __construct( GoogleTagGateway $gateway, NotificationsHandler $notifications_handler, ?StapeLoader $loader = null ) {
 		$this->gateway               = $gateway;
 		$this->notifications_handler = $notifications_handler;
+		$this->loader                = $loader;
 	}
 
 	/**
@@ -87,7 +97,7 @@ final class GoogleTagGatewayNotice {
 			return;
 		}
 
-		$instance = new self( new GoogleTagGateway( $options ), NotificationsHandler::get() );
+		$instance = new self( new GoogleTagGateway( $options ), NotificationsHandler::get(), new StapeLoader( $options ) );
 
 		// Priority 20 so the daily check's scheduling and any freshly stored
 		// result on this request are already in place when the state is read.
@@ -188,8 +198,13 @@ final class GoogleTagGatewayNotice {
 
 		// Written for the dashboard's parsing, like the fallback notice: the
 		// link goes last and the sentences are joined with a space.
-		$message = esc_html__( 'The Google tag gateway is switched on, but your site also has a custom server-side tagging domain, and the two cannot be used together. Your container loads from the custom domain.', 'gtm-kit' )
-			. ' ' . esc_html__( 'To use the gateway, remove the custom domain under Server-side Tagging; to keep the custom domain, switch the gateway off.', 'gtm-kit' )
+		$message = esc_html__( 'The Google tag gateway is switched on, but your site also has a custom server-side tagging domain, and the two cannot be used together. Your container loads from the custom domain.', 'gtm-kit' );
+
+		if ( null !== $this->loader && $this->loader->is_switched_on() && '' !== $this->loader->get_inputs()['identifier'] ) {
+			$message .= ' ' . esc_html__( 'The loader Stape issues is not used either while the gateway is switched on.', 'gtm-kit' );
+		}
+
+		$message .= ' ' . esc_html__( 'To use the gateway, remove the custom domain under Server-side Tagging; to keep the custom domain, switch the gateway off.', 'gtm-kit' )
 			. ' <a href="' . esc_url( admin_url( 'admin.php?page=gtmkit_general#/setup?focus=google-tag-gateway' ) ) . '">' . esc_html__( 'Open the settings', 'gtm-kit' ) . '</a>';
 
 		return new Notification(

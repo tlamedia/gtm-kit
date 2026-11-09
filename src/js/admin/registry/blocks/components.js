@@ -27,7 +27,7 @@ import {
  * Server-provided consent admin badges, rendered as dismissable-free notices
  * above the consent sections.
  *
- * @return {JSX.Element|null} The badges, or null when none.
+ * @return {Element|null} The badges, or null when none.
  */
 const ConsentBadges = memo( () => {
 	const badges = SettingsService.getConsentAdminBadges();
@@ -56,7 +56,7 @@ const ConsentBadges = memo( () => {
  * @param {Object} props            Component props.
  * @param {Object} props.pluginName Display name.
  * @param {Object} props.pluginSlug Plugin slug to check.
- * @return {JSX.Element|null} The notice, or null when the plugin is active.
+ * @return {Element|null} The notice, or null when the plugin is active.
  */
 const PluginInactiveNotice = ( { pluginName, pluginSlug } ) => {
 	if ( SettingsService.isPluginActive( pluginSlug ) ) {
@@ -74,7 +74,7 @@ const PluginInactiveNotice = ( { pluginName, pluginSlug } ) => {
  * value of the override so the sentence keeps up with the toggle before the
  * page is saved.
  *
- * @return {JSX.Element} The readout.
+ * @return {Element} The readout.
  */
 const SiteKindStatus = memo( () => {
 	const { type, isProduction } = SettingsService.getSiteEnvironment();
@@ -131,7 +131,7 @@ const SiteKindStatus = memo( () => {
  * Reads the saved toggle rather than the live one, because the loader is
  * fetched only when the settings are saved.
  *
- * @return {JSX.Element|null} The readout, or null when the toggle is off.
+ * @return {Element|null} The readout, or null when the toggle is off.
  */
 const SgtmLoaderStatus = () => {
 	const { fetchedSettings, sgtmLoader, setSgtmLoader } =

@@ -136,6 +136,9 @@ export const sendLicenseKey = ( data ) =>
 export const deactivateLicense = () =>
 	handleApiFetch( 'gtmkit/v1/deactivate-license', 'POST', null, true );
 
+export const sendReviewAskAction = ( action ) =>
+	handleApiFetch( 'gtmkit/v1/review-ask', 'POST', { action }, true );
+
 export const sendNotificationStatus = ( data ) =>
 	handleApiFetch( 'gtmkit/v1/set-notification-status', 'POST', data, true );
 

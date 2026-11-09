@@ -4,6 +4,8 @@
  * The skip condition keeps paying customers out of the step, and the flow
  * helpers make sure removing the step cannot strand the step before it.
  */
+import { afterEach, describe, expect, it } from 'vitest';
+
 import {
 	WIZARD_VARIANTS,
 	countryFromLocale,

@@ -300,7 +300,14 @@ final class GoogleTagGatewayHealth {
 	 * @return void
 	 */
 	public static function clear_notice_dismissal( string $notice ): void {
-		delete_option( self::dismissal_option( $notice ) );
+		$option = self::dismissal_option( $notice );
+
+		// Called on every admin request while the state is clear. With a
+		// persistent object cache the read of an absent option costs no
+		// query, where a delete always queries.
+		if ( false !== get_option( $option, false ) ) {
+			delete_option( $option );
+		}
 	}
 
 	/**

@@ -30,7 +30,7 @@ export const safeHref = ( url ) => {
 	let parsed;
 	try {
 		parsed = new URL( trimmed, window.location.origin );
-	} catch ( error ) {
+	} catch {
 		return '';
 	}
 

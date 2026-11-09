@@ -6,12 +6,7 @@
  * disabled/tier-locked states hold the control inert.
  */
 
-/*
- * `react` is a real dependency; `import/no-extraneous-dependencies` misfires on
- * the JSX inside the `jest.mock` stub factories below, flagging a phantom
- * `@types/react`. Disable the rule for this test file only.
- */
-/* eslint-disable import/no-extraneous-dependencies */
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
@@ -20,17 +15,17 @@ import { getShellCompositeControl } from '../composite';
 import ShellEventDeferral from '../event-deferral';
 
 let mockMeetsTier = true;
-jest.mock( '../../../../hooks/useFeatureFlags', () => ( {
+vi.mock( '../../../../hooks/useFeatureFlags', () => ( {
 	useFeatureFlags: () => ( { meetsRequiredTier: () => mockMeetsTier } ),
 } ) );
 
-jest.mock( '../../../../context/SettingsDataContext', () => {
-	const React = require( 'react' );
-	return { SettingsDataContext: React.createContext( {} ) };
+vi.mock( '../../../../context/SettingsDataContext', async () => {
+	const { createContext } = await import( '@wordpress/element' );
+	return { SettingsDataContext: createContext( {} ) };
 } );
 
 let mockConsentBadges = [];
-jest.mock( '../../../../services/SettingsService', () => ( {
+vi.mock( '../../../../services/SettingsService', () => ( {
 	__esModule: true,
 	default: {
 		getNonce: () => 'test-nonce',
@@ -74,7 +69,7 @@ function renderControl( {
 	general = {},
 	disabled = false,
 } = {} ) {
-	const updateStateSettings = jest.fn();
+	const updateStateSettings = vi.fn();
 	const settings = { general, integrations: {}, premium };
 	render(
 		<SettingsDataContext.Provider
